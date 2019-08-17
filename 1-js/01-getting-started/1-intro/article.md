@@ -1,120 +1,121 @@
-# An Introduction to JavaScript
+# مقدمة للجافا سكريبت (JavaScript)
 
-Let's see what's so special about JavaScript, what we can achieve with it, and which other technologies play well with it.
+دعونا نرى ما هو مميز حول الـ JavaScript وما الذي يمكننا تحقيقه بها والتقنيات الأخرى التي تلعبها بشكل جيد.
 
-## What is JavaScript?
+## ما هي الـ JavaScript؟
 
-*JavaScript* was initially created to *"make web pages alive"*.
+تم إنشاء JavaScript * في البداية لـ * "جعل صفحات الويب حيوية" *.
 
-The programs in this language are called *scripts*. They can be written right in a web page's HTML and run automatically as the page loads.
+تسمى البرامج في هذه اللغة * البرامج النصية أو الـ Scripts*. يمكن كتابتها مباشرة في HTML لصفحة ويب وتشغيلها تلقائيًا عند تحميل الصفحة.
 
-Scripts are provided and executed as plain text. They don't need special preparation or compilation to run.
+يتم توفير البرامج النصية وتنفيذها كنص عادي. لا تحتاج إلى إعداد خاص أو تجميع لتشغيلهن.
 
-In this aspect, JavaScript is very different from another language called [Java](https://en.wikipedia.org/wiki/Java_(programming_language)).
+في هذا الجانب، تختلف الـ JavaScript كثيرًا عن لغة أخرى تسمى [Java] (https://ar.wikipedia.org/wiki/جافا_(لغة_برمجة))
 
 ```smart header="Why <u>Java</u>Script?"
-When JavaScript was created, it initially had another name: "LiveScript". But Java was very popular at that time, so it was decided that positioning a new language as a "younger brother" of Java would help.
+عندما تم إنشاء الـ JavaScript، كان لها في البداية اسم آخر: "LiveScript". ولكن Java كانت شائعةً للغاية في ذلك الوقت، لذلك تقرر أن وضع لغة جديدة كـ "أخ أصغر" في Java من شأنه أن يساعد.
 
-But as it evolved, JavaScript became a fully independent language with its own specification called [ECMAScript](http://en.wikipedia.org/wiki/ECMAScript), and now it has no relation to Java at all.
-```
+لكن مع تطورها، أصبحت الـ JavaScript لغة مستقلة تمامًا بمواصفاتها الخاصة التي تسمى [ECMAScript] (http://en.wikipedia.org/wiki/ECMAScript)، والآن ليس لها علاقة بجافا على الإطلاق.
+`` `
 
-Today, JavaScript can execute not only in the browser, but also on the server, or actually on any device that has a special program called [the JavaScript engine](https://en.wikipedia.org/wiki/JavaScript_engine).
+اليوم، يمكن لـ JavaScript تنفيذ ليس فقط في المستعرض، ولكن أيضًا على الخادم (Server)، أو فعليًا على أي جهاز يحتوي على برنامج خاص يسمى [محرك JavaScript] (https://ar.wikipedia.org/wiki/محرك_جافا_سكريبت).
 
-The browser has an embedded engine sometimes called a "JavaScript virtual machine".
+يحتوي المتصفح على محرك مضمن يسمى أحيانًا "جهاز جافا سكريبت الظاهري".
 
-Different engines have different "codenames". For example:
+المحركات المختلفة لها أسماء مختلفة. فمثلا:
 
-- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome and Opera.
-- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
-- ...There are other codenames like "Trident" and "Chakra" for different versions of IE, "ChakraCore" for Microsoft Edge, "Nitro" and "SquirrelFish" for Safari, etc.
+- [V8] (https://en.wikipedia.org/wiki/V8_ (JavaScript_engine)) - في Chrome وOpera.
+- [SpiderMonkey] (https://en.wikipedia.org/wiki/SpiderMonkey) - في Firefox.
+- ... هناك أسماء أخرى مثل "Trident" و "Chakra" لإصدارات مختلفة من IE و "ChakraCore" لـ Microsoft Edge و "Nitro" و "SquirrelFish" لسفاري، إلخ.
 
-The terms above are good to remember because they are used in developer articles on the internet. We'll use them too. For instance, if "a feature X is supported by V8", then it probably works in Chrome and Opera.
+من الجيد تذكر الشروط الواردة أعلاه لأنها تُستخدم في مقالات مطوّري البرامج على الإنترنت. سوف نستخدمها أيضًا. على سبيل المثال، إذا كانت "الميزة X مدعومة بواسطة V8”، فمن المحتمل أنها تعمل في Chrome وOpera.
 
-```smart header="How do engines work?"
+رأس ذكي (Smart Header) = "كيف تعمل المحركات؟"
 
-Engines are complicated. But the basics are easy.
+المحركات معقدة. لكن الأساسيات سهلة.
 
-1. The engine (embedded if it's a browser) reads ("parses") the script.
-2. Then it converts ("compiles") the script to the machine language.
-3. And then the machine code runs, pretty fast.
+1. يقوم المحرك (مضمن إذا كان متصفحًا) بقراءة ("تحليل") النص.
+2. ثم يقوم بتحويل ("التحويل البرمجي") البرنامج النصي إلى لغة الآلة.
+3. ثم تعمل برنامج الآلة (Code Machine)، بسرعة كبيرة.
 
-The engine applies optimizations at each step of the process. It even watches the compiled script as it runs, analyzes the data that flows through it, and applies optimizations to the machine code based on that knowledge. When it's done, scripts run quite fast.
-```
+يطبق المحرك تحسينات في كل خطوة من العملية. حتى أنه يراقب النص البرمجي المترجم أثناء تشغيله، ويحلل البيانات التي تتدفق عبره، ويطبق التحسينات على كود الآلة بناءً على تلك المعرفة. عند الانتهاء من ذلك، تعمل البرامج النصية بسرعة كبيرة.
+`` `
 
-## What can in-browser JavaScript do?
+## ماذا يمكن أن تفعل الـ JavaScript في المتصفح؟
 
-Modern JavaScript is a "safe" programming language. It does not provide low-level access to memory or CPU, because it was initially created for browsers which do not require it.
+جافا سكريبت الحديثة هي لغة برمجة "آمنة". لا توفر وصولًا منخفض المستوى إلى الذاكرة أو وحدة المعالجة المركزية، لأنه تم إنشاؤه في البداية للمتصفحات التي لا تتطلب ذلك.
 
-JavaScript's capabilities greatly depend on the environment it's running in. For instance, [Node.js](https://wikipedia.org/wiki/Node.js) supports functions that allow JavaScript to read/write arbitrary files, perform network requests, etc.
+تعتمد قدرات الـ JavaScript بشكل كبير على البيئة التي تعمل فيها. على سبيل المثال، [Node.js] (https://ar.wikipedia.org/wiki/نود.جي_إس) يدعم الوظائف التي تسمح لجافا سكريبت بقراءة / كتابة الملفات الاعتيادية، وتنفيذ طلبات الشبكة، إلخ
 
-In-browser JavaScript can do everything related to webpage manipulation, interaction with the user, and the webserver.
+يمكن لـ JavaScript في المتصفح القيام بكل ما يتعلق بمعالجة صفحات الويب والتفاعل مع المستخدم وخادم الويب.
 
-For instance, in-browser JavaScript is able to:
+على سبيل المثال، JavaScript في المتصفح قادرة على:
 
-- Add new HTML to the page, change the existing content, modify styles.
-- React to user actions, run on mouse clicks, pointer movements, key presses.
-- Send requests over the network to remote servers, download and upload files (so-called [AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)) and [COMET](https://en.wikipedia.org/wiki/Comet_(programming)) technologies).
-- Get and set cookies, ask questions to the visitor, show messages.
-- Remember the data on the client-side ("local storage").
+- إضافة HTML جديد إلى الصفحة، وتغيير المحتوى الحالي، وتعديل الهيئة أو التصميم في الصفحة.
+- الرد على إجراءات المستخدم، تنفيذ المهام على نقرات الماوس، حركات المؤشر، والضغطات على لوحة المفاتيح.
+- أرسال الطلبات عبر الشبكة إلى خوادم بعيدة، والقيام بتنزيل الملفات وتحميلها (ما يسمى [أجاكس] (https://ar.wikipedia.org/wiki/أجاكس) و [COMET] (https: // en. wikipedia.org/wiki/Comet_(programming)) التقنيات).
+- الحصول على ملفات تعريف الارتباط (Cookies)وتعيينها، وطرح الأسئلة على الزائر، وإظهار الرسائل.
+- تذكر البيانات الموجودة على جانب العميل ("التخزين المحلي").
 
-## What CAN'T in-browser JavaScript do?
+## ما الذي لا تستطيع الـ JavaScript عمله في المتصفح؟
 
-JavaScript's abilities in the browser are limited for the sake of the user's safety. The aim is to prevent an evil webpage from accessing private information or harming the user's data.
+قدرات JavaScript في المتصفح محدودة من أجل سلامة المستخدم. الهدف هو منع صفحة الويب الضارة من الوصول إلى المعلومات الخاصة أو الإضرار ببيانات المستخدم.
 
-Examples of such restrictions include:
+من أمثلة هذه القيود:
 
-- JavaScript on a webpage may not read/write arbitrary files on the hard disk, copy them or execute programs. It has no direct access to OS system functions.
+- قد لا تقوم الـ JavaScript على إحدى صفحات الويب بقراءة / كتابة ملفات عشوائية على القرص الثابت أو نسخها أو تنفيذ البرامج. لا يوجد لديه الوصول المباشر إلى وظائف نظام التشغيل.
 
-    Modern browsers allow it to work with files, but the access is limited and only provided if the user does certain actions, like "dropping" a file into a browser window or selecting it via an `<input>` tag.
+    تسمح المتصفحات الحديثة لها بالعمل مع الملفات، ولكن الوصول محدود ويتم اتاحته فقط إذا قام المستخدم بإجراءات معينة، مثل "إفلات" ملف في نافذة متصفح أو تحديده خلال وسم <input> بواسطة لغة ترميز الـ HTML.
 
-    There are ways to interact with camera/microphone and other devices, but they require a user's explicit permission. So a JavaScript-enabled page may not sneakily enable a web-camera, observe the surroundings and send the information to the [NSA](https://en.wikipedia.org/wiki/National_Security_Agency).
-- Different tabs/windows generally do not know about each other. Sometimes they do, for example when one window uses JavaScript to open the other one. But even in this case, JavaScript from one page may not access the other if they come from different sites (from a different domain, protocol or port).
+    هناك طرق للتفاعل مع الكاميرا / الميكروفون والأجهزة الأخرى، ولكنها تتطلب إذنًا صريحًا من المستخدم. لذلك، قد لا تقوم الصفحة التي تدعم جافا سكريبت بتمكين كاميرا ويب، ومراقبة البيئة المحيطة وإرسال المعلومات إلى [NSA] https://ar.wikipedia.org/wiki/وكالة_الأمن_القومي_الأمريكية.
+- علامات التبويب / النوافذ المختلفة عموما لا تعرف معلومات عن بعضها البعض. في بعض الأحيان يفعلون ذلك، على سبيل المثال عندما تستخدم نافذة واحدة جافا سكريبت لفتح النافذة الأخرى. ولكن حتى في هذه الحالة، قد لا تتمكن الـ JavaScript من الوصول إلى الصفحة الأخرى إذا كانت تأتي من مواقع مختلفة (من مجال أو بروتوكول أو منفذ مختلف).
 
-    This is called the "Same Origin Policy". To work around that, *both pages* must agree for data exchange and contain a special JavaScript code that handles it. We'll cover that in the tutorial.
+    وهذا ما يسمى "سياسة المنشأ نفسه". للتغلب على ذلك، يجب أن توافق * كلتا الصفحتين * على تبادل البيانات وتحتوي على كود برمجي للـ JavaScript خاص يعالجها. سنقوم بتغطية ذلك في البرنامج التعليمي.
 
-    This limitation is, again, for the user's safety. A page from `http://anysite.com` which a user has opened must not be able to access another browser tab with the URL `http://gmail.com` and steal information from there.
-- JavaScript can easily communicate over the net to the server where the current page came from. But its ability to receive data from other sites/domains is crippled. Though possible, it requires explicit agreement (expressed in HTTP headers) from the remote side. Once again, that's a safety limitation.
+    هذا القيد هو، مرة أخرى، لسلامة المستخدم. يجب ألا تكون الصفحة من "http: // anysite.com" التي فتحها المستخدم قادرة على الوصول إلى علامة تبويب متصفح أخرى بعنوان URL "http: // gmail.com" وسرقة المعلومات من هناك.
+- يمكن للجافا سكريبت التواصل بسهولة عبر الشبكة إلى الخادم الذي جاءت منه الصفحة الحالية. لكن قدرتها على تلقي البيانات من المواقع / المجالات الأخرى غير ممكنه. على الرغم من إمكانية ذلك، فإنه يتطلب موافقة صريحة (معبرًا عنها في رؤوس HTTP) من الجانب البعيد. مرة أخرى، هذا هو الحد من السلامة.
 
-![](limitations.svg)
+! [] (limitations.svg)
 
-Such limits do not exist if JavaScript is used outside of the browser, for example on a server. Modern browsers also allow plugin/extensions which may ask for extended permissions.
+لا توجد مثل هذه الحدود إذا تم استخدام الـ JavaScript خارج المستعرض، على سبيل المثال على الخادم. تسمح المتصفحات الحديثة أيضًا بالبرنامج المساعد / الملحقات التي قد تطلب أذونات ممتدة.
 
-## What makes JavaScript unique?
+## ما الذي يجعل الـ JavaScript فريدة من نوعها؟
 
-There are at least *three* great things about JavaScript:
+هناك ثلاثة أشياء رائعة على الأقل حول الـ JavaScript:
 
-```compare
-+ Full integration with HTML/CSS.
-+ Simple things are done simply.
-+ Support by all major browsers and enabled by default.
-```
-JavaScript is the only browser technology that combines these three things.
+`` `مقارنة
++ التكامل التام مع HTML / CSS.
++ الأشياء البسيطة تتم ببساطة.
++ الدعم من قبل جميع المتصفحات الرئيسية وتمكينها بشكل افتراضي.
+`` `
+JavaScript هي تقنية المتصفح الوحيدة التي تجمع بين هذه الأشياء الثلاثة.
 
-That's what makes JavaScript unique. That's why it's the most widespread tool for creating browser interfaces.
+هذا ما يجعل جافا سكريبت فريدة من نوعها. هذا هو السبب في أنها الأداة الأكثر انتشارًا لإنشاء واجهات المتصفح.
 
-That said, JavaScript also allows to create servers, mobile applications, etc.
+ومع ذلك، قادرة الـ JavaScript أيضًا على إنشاء الخوادم وتطبيقات الأجهزة المحمولة وما إلى ذلك.
 
-## Languages "over" JavaScript
+## لغات البرمجة الأخرى وعلاقتها مع الـ JavaScript:
 
-The syntax of JavaScript does not suit everyone's needs. Different people want different features.
+بناء جملة JavaScript لا يلبي احتياجات الجميع. مختلف الناس يريدون ميزات مختلفة.
 
-That's to be expected, because projects and requirements are different for everyone.
+هذا أمر متوقع، لأن المشاريع والمتطلبات مختلفة للجميع.
 
-So recently a plethora of new languages appeared, which are *transpiled* (converted) to JavaScript before they run in the browser.
+حتى وقت قريب، ظهر عدد كبير من اللغات الجديدة، والتي يتم نقلها * (تحويلها) إلى JavaScript قبل تشغيلها في المستعرض.
 
-Modern tools make the transpilation very fast and transparent, actually allowing developers to code in another language and auto-converting it "under the hood".
+تجعل الأدوات الحديثة عملية نقل البيانات سريعة وشفافة، مما يسمح للمطورين فعليًا بترميز لغة أخرى وتحويلها تلقائيًا "تحت غطاء الـ JavaScript".
 
-Examples of such languages:
+أمثلة على هذه اللغات:
 
-- [CoffeeScript](http://coffeescript.org/) is a "syntactic sugar" for JavaScript. It introduces shorter syntax, allowing us to write clearer and more precise code. Usually, Ruby devs like it.
-- [TypeScript](http://www.typescriptlang.org/) is concentrated on adding "strict data typing" to simplify the development and support of complex systems. It is developed by Microsoft.
-- [Flow](http://flow.org/) also adds data typing, but in a different way. Developed by Facebook.
-- [Dart](https://www.dartlang.org/) is a standalone language that has its own engine that runs in non-browser environments (like mobile apps), but also can be transpiled to JavaScript. Developed by Google.
+- [CoffeeScript] (http://coffeescript.org/) عبارة عن "صيغة تجميلية" للجافا سكريبت. تقدم بناء جملة أقصر، مما يسمح لنا بكتابة كود أكثر وضوحًا ودقة. عادة، مطورين لغة روبي (Ruby) يفضلونها.
+- [TypeScript] (http://www.typescriptlang.org/) تركز على إضافة "تمثيل كتابة صارمة للبيانات" لتبسيط تطوير ودعم النظم المعقدة. تم تطويرها من قبل مايكروسوفت.
+- [Flow] (http://flow.org/) تضيف أيضًا كتابة للبيانات، ولكن بطريقة مختلفة. تم التطوير بواسطة Facebook.
+- [Dart] (https://www.dartlang.org/) هي لغة مستقلة لها محركها الخاص الذي يعمل في بيئات غير المستعرض (مثل تطبيقات الأجهزة المحمولة)، ولكن يمكن نقله أيضًا إلى الـ JavaScript. التي وضعتها جوجل.
 
-There are more. Of course, even if we use one of transpiled languages, we should also know JavaScript to really understand what we're doing.
+هناك أكثر. بالطبع، حتى لو استخدمنا إحدى اللغات المنقولة، فيجب أن نعرف الـ JavaScript أيضًا لفهم ما نقوم به بالفعل.
 
-## Summary
+## ملخص
 
-- JavaScript was initially created as a browser-only language, but is now used in many other environments as well.
-- Today, JavaScript has a unique position as the most widely-adopted browser language with full integration with HTML/CSS.
-- There are many languages that get "transpiled" to JavaScript and provide certain features. It is recommended to take a look at them, at least briefly, after mastering JavaScript.
+- تم إنشاء الـ JavaScript في البداية كلغة خاصة بالمتصفح فقط، ولكن يتم استخدامها الآن في العديد من البيئات الأخرى أيضًا.
+- تتمتع الـ JavaScript اليوم بمكانة فريدة من نوعها باعتبارها لغة المتصفح الأكثر اعتمادًا على نطاق واسع مع التكامل الكامل مع HTML / CSS.
+- هناك العديد من اللغات التي يتم "نقلها" إلى JavaScript وتوفر ميزات معينة. يوصى بإلقاء نظرة عليها، على الأقل لفترة وجيزة، بعد إتقان جافا سكريبت.
+

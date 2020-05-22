@@ -1,14 +1,14 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# if (a string with zero)
+# if (نص يحتوي على صفر)
 
-Will `alert` be shown?
+هل سيتم عرض `alert` ؟
 
 ```js
 if ("0") {
-  alert( 'Hello' );
+  alert( 'مرحبًا' );
 }
 ```
 

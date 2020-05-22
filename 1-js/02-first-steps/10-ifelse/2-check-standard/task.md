@@ -1,12 +1,12 @@
-importance: 2
+الأهمية: 2
 
 ---
 
-# The name of JavaScript
+# اسم الجافاسكربت
 
-Using the `if..else` construct, write the code which asks: 'What is the "official" name of JavaScript?'
+باستخدام `if..else`, اكتب كود يسأل: 'ما هو الاسم الرسمي للجافاسكربت'
 
-If the visitor enters "ECMAScript", then output "Right!", otherwise -- output: "Didn't know? ECMAScript!"
+إذا كتب المستخدم "ECMAScript", قم بعرض رسالة "صحيح!", غير ذلك قم بعرض رسالة: "ألا تعرف؟ ECMAScript!"
 
 ![](ifelse_task2.svg)
 

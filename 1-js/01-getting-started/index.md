@@ -1,3 +1,3 @@
-# An introduction
+# مقدمة
 
-About the JavaScript language and the environment to develop with it.
+عن لغة جافا سكريبت و البيئة التي تُطَوّرْ بها.

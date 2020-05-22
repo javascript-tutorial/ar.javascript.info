@@ -1,32 +1,35 @@
-# An Introduction to JavaScript
-
+# مدخل إلى JavaScript 
+دعونا نتعرف معاً ماهي JavaScript وماذا يمكننا أن نعمل بها، وما التقنيات التي تعمل معها.
 Let's see what's so special about JavaScript, what we can achieve with it, and which other technologies play well with it.
 
-## What is JavaScript?
+## ماهي JavaScript?
 
-*JavaScript* was initially created to "make web pages alive".
+*JavaScript* تم إنشاء الجافاسكريبت في البداية من أجل أن "تجعل صفحات ا الويب حية ".
 
-The programs in this language are called *scripts*. They can be written right in a web page's HTML and run automatically as the page loads.
+البرامج بهذه اللغة يطلق عليها * scripts*. (البرامج النصية).
+ويمكن كتابتها بشكل مباشر في صفحات الويب داخل ال HTML ويتم تشغيلها تلقائياً أثناء تشغيل الصفحة.
 
-Scripts are provided and executed as plain text. They don't need special preparation or compilation to run.
+ويتم توفير البرامج النصية وتشغيلها كنص عادي. إذ أنها لاتحتاج إلى إعداد خاص بها، أو حتى عمل إعادة تجميع من أجل تشغيلها.
 
-In this aspect, JavaScript is very different from another language called [Java](https://en.wikipedia.org/wiki/Java_(programming_language)).
 
-```smart header="Why is it called <u>Java</u>Script?"
-When JavaScript was created, it initially had another name: "LiveScript". But Java was very popular at that time, so it was decided that positioning a new language as a "younger brother" of Java would help.
 
-But as it evolved, JavaScript became a fully independent language with its own specification called [ECMAScript](http://en.wikipedia.org/wiki/ECMAScript), and now it has no relation to Java at all.
+
+وفي هذا الجانب, JavaScript  تختلف اختلافاً كبيراً عن لغة أخرى تسمى [Java](https://en.wikipedia.org/wiki/Java_(programming_language)).
+
+```smart header="لماذا تسمى  <u>Java</u>Script?"
+عندما تم إنشاء الجافاسكريبت، ظهرت باسم آخر وهو "LiveScript".لكن في هذا الوقت كانت الجافا مشهورة, لذلك فقط قرروا أن يتم تسمية اللغة الجديدة باسم ليكون الأخ الأصغر من لغة الجافا لكي يساعده في بداية الظهور.
+
+لكن ومع تطوير اللغة الجديدة، أصبحت الجافاسكريبت مستقلة بذاتها وتم تسميتها [ECMAScript](http://en.wikipedia.org/wiki/ECMAScript), والآن ليس لها أي علاقة بالجافا على الإطلاق.
 ```
 
-Today, JavaScript can execute not only in the browser, but also on the server, or actually on any device that has a special program called [the JavaScript engine](https://en.wikipedia.org/wiki/JavaScript_engine).
+واليوم أصبحت الجافاسكريبت لايتم تشغيلها فقط على المتصفح، بل إنها تعمل على الخادم، في الحقيقة أنها تعمل على أي جهاز يمتلك  , برامج خاصة تسمى [the JavaScript engine](https://en.wikipedia.org/wiki/JavaScript_engine).
 
-The browser has an embedded engine sometimes called a "JavaScript virtual machine".
+يحتوي المتصفح على محرك مضمن يسمى "JavaScript virtual machine".
 
-Different engines have different "codenames". For example:
-
-- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome and Opera.
-- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
-- ...There are other codenames like "Trident" and "Chakra" for different versions of IE, "ChakraCore" for Microsoft Edge, "Nitro" and "SquirrelFish" for Safari, etc.
+المحركات مختلفة لها أسماء رمزية مختلفة مثال: 
+- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- في متصفح جوجل كروم وأوبرا.
+- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- في متصفح فايرفوكس.
+- ...وهناك أسماء رمزية أخرى مثل"Trident" و "Chakra" لإصدارات مختلفة من متصفح انترنت اكسبلولر, "ChakraCore" لمتصفح ميكروسوفت إيدج, "Nitro" و "SquirrelFish" لمتصفح سفاري, وخلافة.
 
 The terms above are good to remember because they are used in developer articles on the internet. We'll use them too. For instance, if "a feature X is supported by V8", then it probably works in Chrome and Opera.
 
@@ -113,8 +116,8 @@ Examples of such languages:
 
 There are more. Of course, even if we use one of transpiled languages, we should also know JavaScript to really understand what we're doing.
 
-## Summary
+## ملخص
 
-- JavaScript was initially created as a browser-only language, but is now used in many other environments as well.
-- Today, JavaScript has a unique position as the most widely-adopted browser language with full integration with HTML/CSS.
-- There are many languages that get "transpiled" to JavaScript and provide certain features. It is recommended to take a look at them, at least briefly, after mastering JavaScript.
+- JavaScript تم إنشاؤها في البداية من أجل أن تكون لغة تستخدم في المتصفح فقط، إلا أنها تستخدم الآن في العديد من البيئات الأخرى. 
+- اليوم,  استطاعت لغة الجافاسكريبت أن تحصل على مكانة فريدة، حيث أنها تعد اللغة الأكثر استخداماً في المتصفحات، بالتكامل مع HTML/CSS.
+- هناك العديد من اللغات التي يتم تحويلها إلى الجافا سكريبت وتوفر ميزات معينة. ونوصي بأن تٌلقي نظرة عليهم على الأقل لفترة وجيزة، لكن بعد أن تنتهي من دراسة الجافا سكريبت وإتقانها.

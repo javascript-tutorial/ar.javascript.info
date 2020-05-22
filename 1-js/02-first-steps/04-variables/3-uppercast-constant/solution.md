@@ -1,5 +1,5 @@
-We generally use upper case for constants that are "hard-coded". Or, in other words, when the value is known prior to execution and directly written into the code.
+نستخدم بشكل عام الأحرف الكبيرة للثوابت "ذات الترميز الصلب". أو بمعنى آخر ، عندما تكون القيمة معروفة قبل التنفيذ ومكتوبة مباشرة في الشفرة.
 
-In this code, `birthday` is exactly like that. So we could use the upper case for it.
+في هذا الكود, `birthday` هو بالضبط مثل ذلك. حتى نتمكن من استخدام الحروف الكبيرة لذلك.
 
-In contrast, `age` is evaluated in run-time. Today we have one age, a year after we'll have another one. It is constant in a sense that it does not change through the code execution. But it is a bit "less of a constant" than `birthday`: it is calculated, so we should keep the lower case for it.
+في المقابل, `age` يتم حسابة في وقت التشغيل. اليوم نحن نمتلك عمر, بعد عام من حصولنا على واحدة أخرى. إنه ثابت بمعنى أنه لا يتغير من خلال تنفيذ التعليمات البرمجية. لكنها أقل قليلا من الثابت `birthday`: انه محسوب, لذلك يجب علينا العمل بالحروف الصغيرة.

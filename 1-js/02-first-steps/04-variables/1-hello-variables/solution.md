@@ -1,7 +1,7 @@
-In the code below, each line corresponds to the item in the task list.
+في الكود أدناه ، يتوافق كل سطر مع العنصر في قائمة المهام.
 
 ```js run
-let admin, name; // can declare two variables at once
+let admin, name; // نستطيع تعريف متغيريين في خطوة واحده
 
 name = "John";
 

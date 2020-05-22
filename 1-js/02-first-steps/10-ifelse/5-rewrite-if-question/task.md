@@ -1,17 +1,17 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Rewrite 'if' into '?'
+# قم بتحويل 'if' إلى '?'
 
-Rewrite this `if` using the conditional operator `'?'`:
+قم بإعادة كتابة `if` باستخدام معامل الشرط `'?'`:
 
 ```js
 let result;
 
 if (a + b < 4) {
-  result = 'Below';
+  result = 'تحت';
 } else {
-  result = 'Over';
+  result = 'فوق';
 }
 ```

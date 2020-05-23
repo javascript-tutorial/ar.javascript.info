@@ -1,42 +1,40 @@
+# المراجع و المواصفات
 
-# Manuals and specifications
+هذا الكتاب هو _دورة تعليميه_. يهدف الى تعليمك اللغه تدريجيا. و لكن إذا كنت علي علم بالأساسيات فسوف تحتاج الى مصدر آخر.
 
-This book is a *tutorial*. It aims to help you gradually learn the language. But once you're familiar with the basics, you'll need other sources.
+## الوصف
 
-## Specification
+[وصف The ECMA-262](https://www.ecma-international.org/publications/standards/Ecma-262.htm) يحتوي على المعلومات الإكثر عمقاً و تفصيلاً و رسميةً عن جافاسكريبت.و هي تقوم بتعريف اللغه.
 
-[The ECMA-262 specification](https://www.ecma-international.org/publications/standards/Ecma-262.htm) contains the most in-depth, detailed and formalized information about JavaScript. It defines the language.
+و لكن كونها بهذه الرسمية, تجعل فهمها من اول مره صعب. لذلك إذا كنت تريد مصدر المعلومه الأكثر وثوقاً عن تفاصيل اللغه, الوصف هو المكان الصحيح. لكنها ليست للإستعمال اليومي.
 
-But being that formalized, it's difficult to understand at first. So if you need the most trustworthy source of information about the language details, the specification is the right place. But it's not for everyday use.
+نسخة وصف جديدة تُصدر كل عام. فيما بين هذه الإصدارات, آخر مسودة وصف توجد في <https://tc39.es/ecma262/>.
 
-A new specification version is released every year. In-between these releases, the latest specification draft is at <https://tc39.es/ecma262/>.
+لكى تقرأ عن خصائص التطور الحاد الجديد, بما فى ذلك "المعايير التقريبيه" (ما يسمي "المرحلة 3"), انظر للمقترحات في <https://github.com/tc39/proposals>.
 
-To read about new bleeding-edge features, including those that are "almost standard" (so-called "stage 3"), see proposals at <https://github.com/tc39/proposals>.
+أيضاً, إذا كنت تطور من أجل المتصفح, إذاهناك مواصفات اخري مشمولة في [الجزء الثاني](info:browser-environment) من الدورة التعليميه.
 
-Also, if you're in developing for the browser, then there are other specs covered in the [second part](info:browser-environment) of the tutorial.
+## المراجع
 
-## Manuals
+- **MDN (Mozilla) JavaScript Reference** هذا دليل بأمثلة ومعلومات أخرى. مصدر جيد للحصول على معلومات تفصيلية حول ميزات اللغة ، وطرق الكائنات المضمنة ، وما إلى ذلك.
 
-- **MDN (Mozilla) JavaScript Reference** is a manual with examples and other information. It's great to get in-depth information about individual language functions, methods etc.
+  يمكن ان تجدها في <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference>.
 
-    One can find it at <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference>.
+  ايضاً, غالباً ما يكون من الأفضل استخدام بحث عبر الإنترنت بدلاً من ذلك. فقط إستخدم "[مصطلح] MDN" للإستعلام, مثال. <https://google.com/search?q=MDN+parseInt> لتبحث عن دالة `parseInt`.
 
-    Although, it's often best to use an internet search instead. Just use "MDN [term]" in the query, e.g. <https://google.com/search?q=MDN+parseInt> to search for `parseInt` function.
+* **MSDN** – مراجع ميكروسوفت يوجد بها معلومات كثيرة, متضمنه جافاسكريبت (غالباً يشار إليها JScript). إذا كنت تريد شيئا أكثر تخصصا عن انترنت اكسبلورر, من الأفضل الذهاب إلى: <http://msdn.microsoft.com/>.
 
+  أيضاً, يمكن غن نستخدم بحث الإنترنت بعبارات مثل "RegExp MSDN" or "RegExp MSDN jscript".
 
-- **MSDN** – Microsoft manual with a lot of information, including JavaScript (often referred to as JScript). If one needs something specific to Internet Explorer, better go there: <http://msdn.microsoft.com/>.
+## جدول التوافق
 
-    Also, we can use an internet search with phrases such as "RegExp MSDN" or "RegExp MSDN jscript".
+جافاسكريبت لغه فى سياق متطور, خصائص جديدة تضاف إليها بإنتظام.
 
-## Compatibility tables
+لتري دعمهم ما بين المتصفحات و المحركات الأخري, أنظر:
 
-JavaScript is a developing language, new features get added regularly.
+- <http://caniuse.com> - جدول الدعم لكل خاصيه, مثال. لترى اى من المحركات يدعم دوال التشفير الحديث: <http://caniuse.com/#feat=cryptography>.
+- <https://kangax.github.io/compat-table> - جدول بمواصفات و محركات اللغه و قابلية دعم كل محرك لكل خاصية.
 
-To see their support among browser-based and other engines, see:
+كل هذه المصادر مفيدة في تطوير الحياة الواقعيه, لأنها تحتوي علي معلومات قيّمة عن تفاصيل و دعم اللغة .
 
-- <http://caniuse.com> - per-feature tables of support, e.g. to see which engines support modern cryptography functions: <http://caniuse.com/#feat=cryptography>.
-- <https://kangax.github.io/compat-table> - a table with language features and engines that support those or don't support.
-
-All these resources are useful in real-life development, as they contain valuable information about language details, their support etc.
-
-Please remember them (or this page) for the cases when you need in-depth information about a particular feature.
+من فضلك تذكر هذه المصادر (او هذه الصفحه) فى حالات إذا كنت تريد معلومات اعمق عن خاصية معينة.

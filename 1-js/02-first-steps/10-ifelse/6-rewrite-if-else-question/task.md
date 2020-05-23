@@ -1,22 +1,22 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Rewrite 'if..else' into '?'
+# قم بتحويل 'if..else' إلى '?'
 
-Rewrite `if..else` using multiple ternary operators `'?'`.
+قم بإعادة كتابة `if..else` باستخدام العديد من معامل الشرط `'?'`.
 
-For readability, it's recommended to split the code into multiple lines.
+ينصح بتقسيم الكود إلى أكثر من سطر ليكون مقروء.
 
 ```js
 let message;
 
 if (login == 'Employee') {
-  message = 'Hello';
+  message = 'مرحبًا';
 } else if (login == 'Director') {
-  message = 'Greetings';
+  message = 'تحياتي';
 } else if (login == '') {
-  message = 'No login';
+  message = 'لا دخول';
 } else {
   message = '';
 }

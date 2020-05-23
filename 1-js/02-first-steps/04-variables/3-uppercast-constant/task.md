@@ -1,10 +1,10 @@
-importance: 4
+مهم: 4
 
 ---
 
-# Uppercase const?
+# الثابت ذات الحرف الكبيره؟
 
-Examine the following code:
+أفحص الكود التالي:
 
 ```js
 const birthday = '18.04.1982';
@@ -12,13 +12,13 @@ const birthday = '18.04.1982';
 const age = someCode(birthday);
 ```
 
-Here we have a constant `birthday` date and the `age` is calculated from `birthday` with the help of some code (it is not provided for shortness, and because details don't matter here).
+هنا نحن نمتلك ثابت يحزن قيمة التاريخ `birthday` و ثابت أخر يسمي `age` يحسب قيمة العمر من الثابت `birthday` مع مساعدة الداله بعض الكود (لم يتم توفيرها لتصغيرها ، ولأن التفاصيل لا تهم هنا)
 
-Would it be right to use upper case for `birthday`? For `age`? Or even for both?
+هل من الصحيح أستخدام الحروف الكبيره للثابت `birthday` ؟ او للثابت `age`؟ او حتي لكليهما؟
 
 ```js
-const BIRTHDAY = '18.04.1982'; // make uppercase?
+const BIRTHDAY = '18.04.1982'; // هل نجعل الاسم ذات حروف كبيره؟
 
-const AGE = someCode(BIRTHDAY); // make uppercase?
+const AGE = someCode(BIRTHDAY); // هل نجعل الاسم ذات حروف كبيره؟
 ```
 

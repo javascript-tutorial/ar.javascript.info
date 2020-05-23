@@ -1,21 +1,21 @@
-## The variable for our planet
+## المتغير لكوكبنا
 
-That's simple:
+ذلك بسيط:
 
 ```js
 let ourPlanetName = "Earth";
 ```
 
-Note, we could use a shorter name `planet`, but it might be not obvious what planet it refers to. It's nice to be more verbose. At least until the variable isNotTooLong.
+ملاحظة, نحن نستطيع كتابة أسم قصير مثل `planet`, ولكن قد لا يكون واضحًا ما يشير إليه الكوكب. من الجيد أن تكون أكثر تطولًا. علي الاقل يكون اسم المتغير ليس طويل للغاية.
 
-## The name of the current visitor
+## أسم الزائر الحالي
 
 ```js
 let currentUserName = "John";
 ```
 
-Again, we could shorten that to `userName` if we know for sure that the user is current.
+للمرة الثانية, نحن نستطيع كتابة `userName` أذا كنا نعلم من يكون المستخدم الحالي.
 
-Modern editors and autocomplete make long variable names easy to write. Don't save on them. A name with 3 words in it is fine.
+المحررات الحديثة والاكمال الذاتي تنشئ اسماء متغيرات طويلة وسهلة للكتابة. لا تحفظها. الاسم الذي يتكون من ثلاث كلمات يكون جيد.
 
-And if your editor does not have proper autocompletion, get [a new one](/code-editors).
+وأذا كان المحرر الخاص بك لا يحتوي علي خاصية الاكمال الذاتي, يمكنك الحصول عليه [واحدة جديده](/code-editors).

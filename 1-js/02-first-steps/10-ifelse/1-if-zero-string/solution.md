@@ -1,12 +1,12 @@
-**Yes, it will.**
+**نعم.**
 
-Any string except an empty one (and `"0"` is not empty) becomes `true` in the logical context.
+أي نص غير فارغ  `"0"` ليس نص فارغ) يصبح `true` عند تحويله لقيمة منطقية.
 
-We can run and check:
+يمكننا تنفيذ الكود ورؤية النتيجة:
 
 ```js run
 if ("0") {
-  alert( 'Hello' );
+  alert( 'مرحبًا' );
 }
 ```
 

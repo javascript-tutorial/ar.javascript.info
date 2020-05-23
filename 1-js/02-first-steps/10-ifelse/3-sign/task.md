@@ -1,15 +1,15 @@
-importance: 2
+الأهمية: 2
 
 ---
 
-# Show the sign
+# اظهر العلامة
 
-Using `if..else`, write the code which gets a number via `prompt` and then shows in `alert`:
+استخدم `if..else` يحصل على رقم باستخدام `prompt` ثم يعرض `alert`:
 
-- `1`, if the value is greater than zero,
-- `-1`, if less than zero,
-- `0`, if equals zero.
+- `1`, إذا كانت القيمة أكبر من صفر,
+- `-1`, إذا كانت القيمة أقل من صفر,
+- `0`, إذا كانت القيمة تساوي صفر.
 
-In this task we assume that the input is always a number.
+هنا نفترض أن الدخل دائما رقم.
 
 [demo src="if_sign"]

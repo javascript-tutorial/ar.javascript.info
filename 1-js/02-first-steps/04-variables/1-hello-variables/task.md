@@ -1,10 +1,10 @@
-importance: 2
+مهم: 2
 
 ---
 
-# Working with variables
+# العمل مع المتغيرات
 
-1. Declare two variables: `admin` and `name`.
-2. Assign the value `"John"` to `name`.
-3. Copy the value from `name` to `admin`.
-4. Show the value of `admin` using `alert` (must output "John").
+1. قم بتعريف متغيريين: `admin` و `name`.
+2. ضع القيمة `"John"` الى `name`.
+3. أنسخ القيمة من `name` الي `admin`.
+4. أعرض قيمة `admin` بأستخدام `alert` (يجب أن تكون "John").

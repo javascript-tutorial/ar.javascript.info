@@ -1,9 +1,9 @@
-importance: 3
+الأهمية: 3
 
 ---
 
-# Check the range outside
+# فحص المدى بالخارج
 
-Write an `if` condition to check that `age` is NOT between 14 and 90 inclusively.
+اكتب تعبير `if` يفحص أن العمر `age` ليس بين.
 
-Create two variants: the first one using NOT `!`, the second one -- without it.
+قم بالحل بطريقتين مختلفتين: الأولى باستخدام NOT `!` والثانية بدونها.

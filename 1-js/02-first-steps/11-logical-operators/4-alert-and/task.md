@@ -2,9 +2,10 @@ importance: 3
 
 ---
 
-# What is the result of AND'ed alerts?
+# نتيجة التنبيهات التي بينها AND?
 
-What will this code show?
+ما خرج الكود التالي ؟
+
 
 ```js
 alert( alert(1) && alert(2) );

@@ -1,12 +1,12 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# A question about "if"
+# سؤال عن "if"
 
-Which of these `alert`s are going to execute?
+أي من هذه التنبيهات `alert` سيتم تنفيذه ؟
 
-What will the results of the expressions be inside `if(...)`?
+ماذا ستكون نتيجة التعبيرات داخل `if(...)`?
 
 ```js
 if (-1 || 0) alert( 'first' );

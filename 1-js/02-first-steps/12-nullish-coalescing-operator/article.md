@@ -1,24 +1,24 @@
-# Nullish coalescing operator '??'
+# Nullish Coalescing Operator '??'
 
 [recent browser="new"]
 
-The nullish coalescing operator `??` provides a short syntax for selecting a first "defined" variable from the list.
+ Nullish Coalescing Operator `??` يقدم طريقة مختصرة لإختيار أول قيمة معرفة من قائمة متغيرات.
 
-The result of `a ?? b` is:
-- `a` if it's not `null` or `undefined`,
-- `b`, otherwise.
+نتيجة `a ?? b` تكون:
+- `a` إذا لم تكن `null` أو `undefined`,
+- `b`, غير ذلك.
 
-So, `x = a ?? b` is a short equivalent to:
+لذلك فإن `x = a ?? b` طريقة مختصرة للتالي:
 
 ```js
 x = (a !== null && a !== undefined) ? a : b;
 ```
 
-Here's a longer example.
+هذا مثال أطول.
 
-Let's say, we have a `firstName`, `lastName` or `nickName`, all of them optional.
+لنفترض أن لدينا `firstName`, `lastName` أو `nickName` وجميعهم اختياريين.
 
-Let's choose the defined one and show it (or "Anonymous" if nothing is set):
+لنختار القيمة المعرفة ونعرضها (أو نعرض "Anonymous" إذا لم يحدد أي شئ):
 
 ```js run
 let firstName = null;
@@ -29,25 +29,25 @@ let nickName = "Supercoder";
 alert(firstName ?? lastName ?? nickName ?? "Anonymous"); // Supercoder
 ```
 
-## Comparison with ||
+## المقارنة مع ||
 
-That's very similar to OR `||` operator. Actually, we can replace `??` with `||` in the code above and get the same result.
+هذا مشابه جدًا للمعامل `||`. في الحقيقة يمكننا استبدال `??` ب `||` في المثال السابق وسنحصل على نفس النتيجة.
 
-The important difference is that:
-- `||` returns the first *truthy* value.
-- `??` returns the first *defined* value.
+الفرق الجوهري بينهما أن:
+- `||` يرجع أول قيمة *truthy*.
+- `??` يرجع أول قيمة *defined*.
 
-This matters a lot when we'd like to treat `null/undefined` differently from `0`.
+هذا مهم جدًا عندما نريد معاملة `null/undefined` بطريقة مختلفة عن `0`.
 
-For example:
+مثلًا:
 
 ```js
 height = height ?? 100;
 ```
 
-This sets `height` to `100` if it's not defined. But if `height` is `0`, then it remains "as is".
+هذا يجعل `height` يساوي `100` إذا لم يعرف. ولكن إذا كان `height` يساوي `0` سيبقى كما هو.
 
-Let's compare it with `||`:
+لنقارنه مع `||`:
 
 ```js run
 let height = 0;
@@ -56,62 +56,62 @@ alert(height || 100); // 100
 alert(height ?? 100); // 0
 ```
 
-Here, `height || 100` treats zero height as unset, same as `null`, `undefined` or any other falsy value, depeding on use cases that may be incorrect.
+هنا `height || 100` تعامل الصفر مثل `null`, `undefined` أو أي قيمة falsy أخرىوهذا قد لا يكون صحيح أحيانًا.
 
-The `height ?? 100` returns `100` only if `height` is exactly `null` or `undefined`.
+ولكن `height ?? 100` ترجع `100` إذا كان فقط `height` يساوي تمامًا `null` أو `undefined`.
 
-## Precedence
+## الأولوية
 
-The precedence of the `??` operator is rather low: `7` in the [MDN table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table).
+أولوية المعامل `??` هي قليلة: `7` وتساوي [MDN جدول](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table).
 
-That's lower than most operators and a bit higher than `=` and `?`.
+هذا أقل من معظم المعاملات وأكبر بقليل من `=` و `?`.
 
-So if we need to use `??` in a complex expression, then consider adding parentheses:
+لذلك إذا أردنا استخدام `??` في تعبيرات معقدة نقوم بإضافة أقواس:
 
 ```js run
 let height = null;
 let width = null;
 
-// important: use parentheses
+// مهم: استخدم الأقواس
 let area = (height ?? 100) * (width ?? 50);
 
 alert(area); // 5000
 ```
 
-Otherwise, if we omit parentheses, then `*` has the higher precedence and would run first. That would be the same as:
+إذا لم نستخدم الأقواس فإن `*` له أولوية أعلى وسينفذ أولًا كأننا كتبنا:
 
 ```js
-// not correct
+// غير صحيح
 let area = height ?? (100 * width) ?? 50;
 ```
 
-There's also a related language-level limitation. Due to safety reasons, it's forbidden to use `??` together with `&&` and `||` operators.
+هناك أيضًا قيود لغوية. لأسباب أمنية لا يمكن استخدام `??` مع `&&` أو `||`.
 
-The code below triggers a syntax error:
+هذا سينتج خطأ لغوي:
 
 ```js run
 let x = 1 && 2 ?? 3; // Syntax error
 ```
 
-The limitation is surely debatable, but for some reason it was added to the language specification.
+هذا القيد قد لا يبدو منطقيًا ولكن لبعض الأسباب تم إضافته للغة.
 
-Use explicit parentheses to fix it:
+استخدم الأقواس لتجنب الخطأ:
 
 ```js run
-let x = (1 && 2) ?? 3; // Works
+let x = (1 && 2) ?? 3; // تعمل دون مشاكل
 alert(x); // 2
 ```
 
-## Summary
+## ملخص
 
-- The nullish coalescing operator `??` provides a short way to choose a "defined" value from the list.
+- معامل حذف null `??` يقدم طريقة مختصرة لإختيار أول قيمة معرفة من قائمة قيم.
 
-    It's used to assign default values to variables:
+    يستخدم لوضع قيم افتراضية للمتغيرات:
 
     ```js
-    // set height=100, if height is null or undefined
+    // اجعل height=100 إذا كان null أو undefined
     height = height ?? 100;
     ```
 
-- The operator `??` has a very low precedence, a bit higher than `?` and `=`.
-- It's forbidden to use it with `||` or `&&` without explicit parentheses.
+- المعامل `??` لديه أولوية قليلة جدًا لكن أعلة قليلًا من `?` و `=`.
+- يمنع استخدامه مع `||` أو `&&` بدون أقواس.

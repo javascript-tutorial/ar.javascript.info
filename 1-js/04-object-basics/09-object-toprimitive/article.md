@@ -1,24 +1,26 @@
+# تحويل الكائنات إلى قيم مفرده
 
-# Object to primitive conversion
+ماذا يحدث فى حالة جمع كائنين `obj1 + obj2`، أو طرحهما `obj1 - obj2` أو طباعتهما باستخدام دالة التنبيه `alert(obj)` ؟
 
-What happens when objects are added `obj1 + obj2`, subtracted `obj1 - obj2` or printed using `alert(obj)`?
+فى هذه الحالة، تتحول الكائنات إلى قيم فردية تلقائيًا، ثم يتم تنفيذ هذه العملية الحسابية.
 
-In that case, objects are auto-converted to primitives, and then the operation is carried out.
+فى قسم (تحويل الأنواع) رأينا كيف يمكن تحويل النصوص (strings) والأرقام والقيَم المنطقيه (booleans) إلى قيم فردية. ولكننا تركنا مساحة فارغة من أجل الكائنات. والآن بعد أن عرفنا الكثير عن الدوال (methods) والرموز (symbols)، أصبح الآن ممكنًا أن نملأ هذه المساحه.
 
-In the chapter <info:type-conversions> we've seen the rules for numeric, string and boolean conversions of primitives. But we left a gap for objects. Now, as we know about methods and symbols it becomes possible to fill it.
+1. كل الكائنات عند تحويلها إلى قيمه منطقيه (boolean) فإن قيمتها تساوى `true`. وبالتالى فإن التحويلات المتاحة هي التحويل إلى نص أو رقم.
 
-1. All objects are `true` in a boolean context. There are only numeric and string conversions.
-2. The numeric conversion happens when we subtract objects or apply mathematical functions. For instance, `Date` objects (to be covered in the chapter <info:date>) can be subtracted, and the result of `date1 - date2` is the time difference between two dates.
-3. As for the string conversion -- it usually happens when we output an object like `alert(obj)` and in similar contexts.
+2. يحدث التحويل إلى رقم عند طرح كائنين أو استخدام دالة حسابية. على سبيل المثال، الكائنات من نوع `Date` (سيتم شرحها فى قسم التاريخ) يمكن طرحها، ونتيجة طرح `date1 - date2` هي الفرق بين التاريخين.
+
+3. وبالنسبه إلى التحويل إلى نص -- فإنه يحدث عادة عند طباعة الكائن باستخدام دالة التنبيه `alert(obj)` والدوال المشابهة.
 
 ## ToPrimitive
 
-We can fine-tune string and numeric conversion, using special object methods.
+يمكننا التحكم فى التحويل إلى نص أو رقم، باستخدام بعض دوال الكائنات.
 
-There are three variants of type conversion, so-called "hints", described in the [specification](https://tc39.github.io/ecma262/#sec-toprimitive):
+هناك ثلاث ملاحظات مختلفه على تحويل الأنواع ويطلق عليها "hints" وتم ذكرها فى [المصدر](https://tc39.github.io/ecma262/#sec-toprimitive):
 
-`"string"`
-: For an object-to-string conversion, when we're doing an operation on an object that expects a string, like `alert`:
+`"النص"`
+
+: يحدث التحويل إلى نص عندما نقوم بعملية معينه على كائن تتوقع نصًا لا كائنًا مثل دالة التنبيه `alert`:
 
     ```js
     // output
@@ -28,8 +30,9 @@ There are three variants of type conversion, so-called "hints", described in the
     anotherObj[obj] = 123;
     ```
 
-`"number"`
-: For an object-to-number conversion, like when we're doing maths:
+`"الرقم"`
+
+: يحدث التحويل إلى رقم عندما نقوم يعملية حسابيه على سبيل المثال:
 
     ```js
     // explicit conversion
@@ -43,51 +46,53 @@ There are three variants of type conversion, so-called "hints", described in the
     let greater = user1 > user2;
     ```
 
-`"default"`
-: Occurs in rare cases when the operator is "not sure" what type to expect.
+`"التصرف الإفتراضي"`
 
-    For instance, binary plus `+` can work both with strings (concatenates them) and numbers (adds them), so both strings and numbers would do. So if the a binary plus gets an object as an argument, it uses the `"default"` hint to convert it.
+: يحدث فى حالات نادرة عندما تكون العمليه الحسابيه غير متأكَّد من النوع المناسب معها.
 
-    Also, if an object is compared using `==` with a string, number or a symbol, it's also unclear which conversion should be done, so the `"default"` hint is used.
+على سبيل المثال، العلامه `+` يمكن أن تعمل مع النصوص (حيث تقوم بالإضافه) أو الأرقام (حيث تقوم بالجمع)، ولذلك فإنه يمكن التحويل إلى نصوص أو أرقام. ولذلك إذا استقبلت علامة ال `+` كائنا فإنها تستخدم `"التصرف الإفتراضي"`.
 
-    ```js
-    // binary plus uses the "default" hint
-    let total = obj1 + obj2;
+وأيضًا فى حالة مقارنة كائن مع نص أو رقم أو رمز باستخدام `==` فإنه ليس واضح لأى نوع يمكن التحويل، ولذلك يتم استخدام `"التصرف الإفتراضي"`.
 
-    // obj == number uses the "default" hint
-    if (user == 1) { ... };
-    ```
+```js
+// binary plus uses the "default" hint
+let total = obj1 + obj2;
 
-    The greater and less comparison operators, such as `<` `>`, can work with both strings and numbers too. Still, they use the `"number"` hint, not `"default"`. That's for historical reasons.
-
-    In practice though, we don't need to remember these peculiar details, because all built-in objects except for one case (`Date` object, we'll learn it later) implement `"default"` conversion the same way as `"number"`. And we can do the same.
-
-```smart header="No `\"boolean\"` hint"
-Please note -- there are only three hints. It's that simple.
-
-There is no "boolean" hint (all objects are `true` in boolean context) or anything else. And if we treat `"default"` and `"number"` the same, like most built-ins do, then there are only two conversions.
+// obj == number uses the "default" hint
+if (user == 1) { ... };
 ```
 
-**To do the conversion, JavaScript tries to find and call three object methods:**
+المقارنه باستخدام علامات الأكبر من أو الأصغر من مثل `<` `>`، يمكنها التعامل مع الأرقام والنصوص أيضا ولكنها مع ذلك تستخدم التحويل إلى رقم وليس الطريقه الافتراضيه، وهذا لأسباب متأصله historical reasons.
 
-1. Call `obj[Symbol.toPrimitive](hint)` - the method with the symbolic key `Symbol.toPrimitive` (system symbol), if such method exists,
-2. Otherwise if hint is `"string"`
-    - try `obj.toString()` and `obj.valueOf()`, whatever exists.
-3. Otherwise if hint is `"number"` or `"default"`
-    - try `obj.valueOf()` and `obj.toString()`, whatever exists.
+لا نحتاج إلى تذكر كل هذه التفاصيل الغريبه لأن كل الكائنات الموجوده عدا (`Date` والذي سيتم شرحه قريبا) يتم تحويلها باستخدام `"الطريقه الإفتراضيه"` مثل طريقة التحويل إلى رقم.
+
+```smart header="لا يوجد التحويل إلى `\"القيم المنطقيه\"`"
+لاحظ أن هناك ثلاث طرق (أو ملاحظات) فقط بكل بساطه.
+
+لا توجد طريقة التحويل إلى "قيمه منطقيه" (لأن كل الكائنات قيمتها `true` عن تحويلها إلى قيمه منطقيه). وإذا تعاملنا مع `"الطريقه الإفتراضيه"` و `"الرقم"` بطريقة مشابهة مثل كل الطرق الموجوده فسيكون هناك طريقتين فقط.
+
+````
+
+**عند القيام بالتحويل، تقوم الجافاسكريبت باستدعاء ثلاث دوال:**
+
+1. استدعاء `obj[Symbol.toPrimitive](hint)` - وهو رمز موجود بالفعل (built-in)، وهذا فى حالة وجود هذه الدالة.
+2. فى حالة عدم وجودها وطانت الطريقه هى التحويل إلى نص
+   - استخدام `obj.toString()` و `obj.valueOf()`، أيهم موجود.
+3. غير ذلك، إذا كانت الطريقه هي `"الطريقه الإفتراضيه"` أو `"الرقم"`
+   - استخدام `obj.valueOf()` و `obj.toString()`، أيهم موجود.
 
 ## Symbol.toPrimitive
 
-Let's start from the first method. There's a built-in symbol named `Symbol.toPrimitive` that should be used to name the conversion method, like this:
+لنبدأ بأول طريقه. يوجد رمز (symbol) موجود بالفعل يسمى `Symbol.toPrimitive` والذي يجب استخدامه لتسمية طريقة التحويل كالآتى:
 
 ```js
 obj[Symbol.toPrimitive] = function(hint) {
   // must return a primitive value
   // hint = one of "string", "number", "default"
 };
-```
+````
 
-For instance, here `user` object implements it:
+على سبيل المثال, يطبق هذه الطريقه الكائن `user`:
 
 ```js run
 let user = {
@@ -97,7 +102,7 @@ let user = {
   [Symbol.toPrimitive](hint) {
     alert(`hint: ${hint}`);
     return hint == "string" ? `{name: "${this.name}"}` : this.money;
-  }
+  },
 };
 
 // conversions demo:
@@ -106,41 +111,40 @@ alert(+user); // hint: number -> 1000
 alert(user + 500); // hint: default -> 1500
 ```
 
-As we can see from the code, `user` becomes a self-descriptive string or a money amount depending on the conversion. The single method `user[Symbol.toPrimitive]` handles all conversion cases.
-
+كما نرى من المثال، فإن الكائن `user` يتحول إلى نص معبر أو إلى كم النقود بناءًا على طريقة التحويل نفسها. فإن الطريقه `user[Symbol.toPrimitive]` تتعامل مع كل طرق التحويل.
 
 ## toString/valueOf
 
-Methods `toString` and `valueOf` come from ancient times. They are not symbols (symbols did not exist that long ago), but rather "regular" string-named methods. They provide an alternative "old-style" way to implement the conversion.
+الدوال `toString` و `valueOf`موجوده من قديم الأزل. إنهم ليسو رموزًا ولكنهم دوال تستعمل مع النصوص. ويقومون بتوفير طريقة قديمه للقيام بالتحويل.
 
-If there's no `Symbol.toPrimitive` then JavaScript tries to find them and try in the order:
+إذا لم يكن هناك `Symbol.toPrimitive` فإن الجافاسكريبت تقوم بالبحث عنهمو استخدامهم بالترتيب الآتى:
 
-- `toString -> valueOf` for "string" hint.
-- `valueOf -> toString` otherwise.
+- `toString -> valueOf` فى الطريقه النصيه.
+- `valueOf -> toString` غير ذلك.
 
-These methods must return a primitive value. If `toString` or `valueOf` returns an object, then it's ignored (same as if there were no method).
+هذه الدوال لابد أن تقوم بإرجاع قيمه فردية. فإذا قامت هاتان الدالتان بإرجاع كائن فسيتم تجاهله.
 
-By default, a plain object has following `toString` and `valueOf` methods:
+أى كائن يمتلك افتراضيا الدالتين `toString` و `valueOf`:
 
-- The `toString` method returns a string `"[object Object]"`.
-- The `valueOf` method returns the object itself.
+- الداله `toString` تقوم بإرجاع النص `"[object Object]"`.
+- الداله `valueOf` تقوم بإرجاع الكائن نفسه.
 
-Here's the demo:
+كما فى المثال:
 
 ```js run
-let user = {name: "John"};
+let user = { name: "John" };
 
 alert(user); // [object Object]
 alert(user.valueOf() === user); // true
 ```
 
-So if we try to use an object as a string, like in an `alert` or so, then by default we see `[object Object]`.
+لذلك إذا حاولنا أن نستخدم الكائن كنص، كما فى حالة استخدام الداله النصيه `alert` سنرى بشكل افتراضي `[object object]`.
 
-And the default `valueOf` is mentioned here only for the sake of completeness, to avoid any confusion. As you can see, it returns the object itself, and so is ignored. Don't ask me why, that's for historical reasons. So we can assume it doesn't exist.
+الداله `valueOf` تم ذكرها هنا فقط لإكمال المعلومات ولتجنب أى التباس. فكما ترى فإن هذه الداله تقوم بإرجاع الكائن نفسه وبالتالى يتم تجاهله. لا تسأل لماذا فهذا لأسباب متأصله historical reasons. ولذلك يمكننا اعتبار أنها غير موجوده.
 
-Let's implement these methods.
+هيا نقوم باستخدام هذه الدوال.
 
-For instance, here `user` does the same as above using a combination of `toString` and `valueOf` instead of `Symbol.toPrimitive`:
+على سبيل المثال، فإن الكائن `user` هنا يقوم بنفس التصرف أعلاه عند استخدام خليط من `toString` و `valueOf` بدلًا من `Symbol.toPrimitive`:
 
 ```js run
 let user = {
@@ -155,8 +159,7 @@ let user = {
   // for hint="number" or "default"
   valueOf() {
     return this.money;
-  }
-
+  },
 };
 
 alert(user); // toString -> {name: "John"}
@@ -164,9 +167,9 @@ alert(+user); // valueOf -> 1000
 alert(user + 500); // valueOf -> 1500
 ```
 
-As we can see, the behavior is the same as the previous example with `Symbol.toPrimitive`.
+كما نرى هنا فإن التصرف هو نفسه الموجود فى المثال السابق عند استخدام `Symbol.toPrimitive`.
 
-Often we want a single "catch-all" place to handle all primitive conversions. In this case, we can implement `toString` only, like this:
+ونحن عالبا مانحتاج إلى طريقه للتعامل مع كل حالات التحويل إلى قيم فرديه (primitive values). ففى هذه الحاله يمكننا استخدام `toString` فقط كالآتى:
 
 ```js run
 let user = {
@@ -174,82 +177,88 @@ let user = {
 
   toString() {
     return this.name;
-  }
+  },
 };
 
 alert(user); // toString -> John
 alert(user + 500); // toString -> John500
 ```
 
-In the absence of `Symbol.toPrimitive` and `valueOf`, `toString` will handle all primitive conversions.
+فى حالة غياب `Symbol.toPrimitive` و `valueOf` فإن `toString` ستقوم بالتعامل مع كل حالات التحويل إلى قيم فرديه.
 
-## Return types
+## أنواع القيم المسترجعه
 
-The important thing to know about all primitive-conversion methods is that they do not necessarily return the "hinted" primitive.
+هناك شئ مهم يجب أن تعرفه وهو أن كل طرق التحويل إلى قيم مفرده لا يجب بالضروره أن تقوم بإرجاع نفس نوع القيمه المفرده المحوَّله إليه.
 
-There is no control whether `toString` returns exactly a string, or whether `Symbol.toPrimitive` method returns a number for a hint `"number"`.
+فلا يوجد ضمانه إذا كانت `toString` ستقوم بإرجاع نص بالتحديد أو حتى `Symbol.toPrimitive` ستقوم بإرجاع رقم فى طريقة `"الرقم"`.
 
-The only mandatory thing: these methods must return a primitive, not an object.
+الأمر الوحيد الذى يمكن ضمانه والإلزامى هو أن هذه الدوال يجب أن تقوم بإرجاع يمة مفردة لا كائنًا.
 
-```smart header="Historical notes"
-For historical reasons, if `toString` or `valueOf` returns an object, there's no error, but such value is ignored (like if the method didn't exist). That's because in ancient times there was no good "error" concept in JavaScript.
+```smart header="ملاحظات متأصله"
+لأسباب قديمه historical reasons فإنه فى حالة أن الدوال
+`toString` or `valueOf`
+قامت بإرجاع كائن، فلا يوجد خطأ يظهر، بل يتم تجاه النتيجه فقط كأن شيئًا لم يكن. وذلك لأنه فى الماضي لم يكن هناك مفهوم جيد للخطأ فى الجافاسكريبت.
 
-In contrast, `Symbol.toPrimitive` *must* return a primitive, otherwise there will be an error.
+على النقيض، فإن `Symbol.toPrimitive` *يجب* أن تقوم بإرجاع قيمة مفرده، وإلا سيكون هناك خطأ.
 ```
 
-## Further conversions
+## التحويلات الإضافيه
 
-As we know already, many operators and functions perform type conversions, e.g. multiplication `*` converts operands to numbers.
+كما نعرف بالفعل أن الكثير من العلامات والدوال تقوم بتحويل الأنواع, مثال على ذلك علامة `*` تقوم بتحويل العاملين إلى أرقام.
 
-If we pass an object as an argument, then there are two stages:
-1. The object is converted to a primitive (using the rules described above).
-2. If the resulting primitive isn't of the right type, it's converted.
+إذا استخدمنا كائنين كعملين رياضيين فسيكون هناك مرحلتين:
 
-For instance:
+1. تحويل إلى الكائن إلى قيمه مفردة.
+2. إذا كانت نتيجة التحويل ليست من النوع الصحيح فسيتم تحويلها.
+
+على سبيل المثال:
 
 ```js run
 let obj = {
   // toString handles all conversions in the absence of other methods
   toString() {
     return "2";
-  }
+  },
 };
 
 alert(obj * 2); // 4, object converted to primitive "2", then multiplication made it a number
 ```
 
-1. The multiplication `obj * 2` first converts the object to primitive (that's a string `"2"`).
-2. Then `"2" * 2` becomes `2 * 2` (the string is converted to number).
+1. عملية الضرب `obj * 2` تقوم أولا بتحويل الكائن إلى قيمة مفرده (والذي هو النص `"2"`).
+2. ثم بعد ذلك فإن الجمله `"2" * 2` تتحول إلى `2 * 2` (يتحول النص إلى رقم).
 
-Binary plus will concatenate strings in the same situation, as it gladly accepts a string:
+علامة الجمع `+` ستقوم بإضافة النصوص فى نفس هذا الموقف لأنها تعمل مع النصوص:
 
 ```js run
 let obj = {
   toString() {
     return "2";
-  }
+  },
 };
 
 alert(obj + 2); // 22 ("2" + 2), conversion to primitive returned a string => concatenation
 ```
 
-## Summary
+## الملخص
 
-The object-to-primitive conversion is called automatically by many built-in functions and operators that expect a primitive as a value.
+التحويل من كائن إلى قيمة مفردة يحدث تلقائيا عن طريق الكثير من الدوال الموجوده بالفعل والعمليات التى تُجرى والتى تعمل فقط على قيم مفردة وليس كائنات.
 
-There are 3 types (hints) of it:
-- `"string"` (for `alert` and other operations that need a string)
-- `"number"` (for maths)
-- `"default"` (few operators)
+هناك 3 أنواع من طرق التحويل:
 
-The specification describes explicitly which operator uses which hint. There are very few operators that "don't know what to expect" and use the `"default"` hint. Usually for built-in objects `"default"` hint is handled the same way as `"number"`, so in practice the last two are often merged together.
+- `"النص"` (ويحدث ذلك عند استخدام دالة التنبيه `alert` والتى تتوقع نصًا).
+- `"الرقم"` (فى العمليات الحسابيه).
+- `"الطريقة الإفتراضيه"` (فى بعض العمليات).
 
-The conversion algorithm is:
+يوضح المصدر أى عملية تستخدم أى طريقه. وهناك القليل من العمليات التي 
+"لا تعلم ما نوع العامل الذي ستستقبله" 
+وتستخدم `"الطريقه الإفتراضيه"`. وعادةً ما يتم استخدام `"الطريقة الإفتراضيه"` مع الكائنات الموجوده بالفعل كما يتم التعامل مع `"الأرقام"`, ولذلك عمليا فإن الطريقتين الأخيرتين يمكن ضمهما معًا.
 
-1. Call `obj[Symbol.toPrimitive](hint)` if the method exists,
-2. Otherwise if hint is `"string"`
-    - try `obj.toString()` and `obj.valueOf()`, whatever exists.
-3. Otherwise if hint is `"number"` or `"default"`
-    - try `obj.valueOf()` and `obj.toString()`, whatever exists.
+تتم طريقة التحويل كالآتى:
 
-In practice, it's often enough to implement only `obj.toString()` as a "catch-all" method for all conversions that return a "human-readable" representation of an object, for logging or debugging purposes.  
+1. استدعاء الداله `obj[Symbol.toPrimitive](hint)` فى حالة وجودها,
+2. غير ذلك إذا كانت الظريقه `"نصًا"`
+   - استخدام `obj.toString()` و `obj.valueOf()` فى حالة وجود أي منهم.
+3. غير ذلك إذا كانت الطريقة `"رقمًا"` أو `"الطريقة الإفتراضيه"`
+   - استخدام `obj.valueOf()` أو `obj.toString()` فى حالة وجود أى منهم.
+
+ويكفى عمليًا استخدام `obj.toString()` لكل التحويلات والتى تقوم بإرجاع قيمة يمكن قرائتها من أجل الطباعة أو البحث عن الأخطاء.

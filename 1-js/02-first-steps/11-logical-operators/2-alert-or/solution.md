@@ -1,13 +1,13 @@
-The answer: first `1`, then `2`.
+الإجابة: أولًا `1` ثم `2`.
 
 ```js run
 alert( alert(1) || 2 || alert(3) );
 ```
 
-The call to `alert` does not return a value. Or, in other words, it returns `undefined`.
+استدعائ `alert` لا يرجع أي قيمة أو بمعنى آخر يرجع `undefined`.
 
-1. The first OR `||` evaluates its left operand `alert(1)`. That shows the first message with `1`.
-2. The `alert` returns `undefined`, so OR goes on to the second operand searching for a truthy value.
-3. The second operand `2` is truthy, so the execution is halted, `2` is returned and then shown by the outer alert.
+1. أول OR `||` تنفذ العملية على يسارها `alert(1)`. وهذا يعرض أول رسالة `1`.
+2. إن `alert` ترجع `undefined` لذلك تنتقل OR للعملية الثانية بحثًا عن قيمة truthy.
+3. القيمة الثانية `2` هي truthy لذلك يتوقف التنفيذ وترجع `2` ويتم عرضها.
 
-There will be no `3`, because the evaluation does not reach `alert(3)`.
+لن يتم عرض `3` لأن التنفيذ لم يصل إلى `alert(3)`.

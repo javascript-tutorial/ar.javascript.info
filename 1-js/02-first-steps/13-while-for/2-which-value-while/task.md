@@ -1,20 +1,20 @@
-importance: 4
+الأهمية: 4
 
 ---
 
-# Which values does the while loop show?
+# ما القيم التي ستعرضها الحلقة ؟
 
-For every loop iteration, write down which value it outputs and then compare it with the solution.
+في كل تكرار قم بكتابة القيمة التي سيتم عرضها وقارن إجابتك مع الحل.
 
-Both loops `alert` the same values, or not?
+هل تقوم كلتا الحلقتين بعرض نفس القيم أم لا ؟
 
-1. The prefix form `++i`:
+1. صيغة prefix `++i`:
 
     ```js
     let i = 0;
     while (++i < 5) alert( i );
     ```
-2. The postfix form `i++`
+2. صيغة postfix `i++`
 
     ```js
     let i = 0;

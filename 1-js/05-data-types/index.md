@@ -1,3 +1,3 @@
-# Data types
+# أنواع البيانات
 
-More data structures and more in-depth study of the types.
+تعرف على أنواع البيانات وأشكالها.

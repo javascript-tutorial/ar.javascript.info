@@ -1,10 +1,10 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# The postfix and prefix forms
+# نماذج postfix والبادئة
 
-What are the final values of all variables `a`, `b`, `c` and `d` after the code below?
+ما هي القيم النهائية لجميع المتغيرات `a` و` b` و` c` و` d` بعد الكود أدناه؟
 
 ```js
 let a = 1, b = 1;

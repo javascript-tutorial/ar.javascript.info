@@ -1,10 +1,10 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# What's the result of OR?
+# ما نتيجة OR?
 
-What is the code below going to output?
+ما خرج الأمر التالي ؟
 
 ```js
 alert( null || 2 || undefined );

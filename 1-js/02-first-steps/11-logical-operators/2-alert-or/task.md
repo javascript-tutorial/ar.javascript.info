@@ -1,10 +1,10 @@
-importance: 3
+الأهمية: 3
 
 ---
 
-# What's the result of OR'ed alerts?
+# نتيجة التنبيهات التي بينها OR?
 
-What will the code below output?
+ما خرج الكود التالي ؟
 
 ```js
 alert( alert(1) || 2 || alert(3) );

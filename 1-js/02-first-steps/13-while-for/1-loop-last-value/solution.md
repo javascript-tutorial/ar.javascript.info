@@ -1,4 +1,4 @@
-The answer: `1`.
+الإجابة: `1`.
 
 ```js run
 let i = 3;
@@ -8,18 +8,18 @@ while (i) {
 }
 ```
 
-Every loop iteration decreases `i` by `1`. The check `while(i)` stops the loop when `i = 0`.
+كل تكرار يقوم بتقليل قيمة `i` بمقدار `1`. وتقوم `while(i)` بإيقاف الحلقة عندما `i = 0`.
 
-Hence, the steps of the loop form the following sequence ("loop unrolled"):
+وهكذا تكون الخطوات كالتالي:
 
 ```js
 let i = 3;
 
-alert(i--); // shows 3, decreases i to 2
+alert(i--); // عرض 3, تقليل i إلى 2
 
-alert(i--) // shows 2, decreases i to 1
+alert(i--) // عرض 2, تقليل i إلى 1
 
-alert(i--) // shows 1, decreases i to 0
+alert(i--) // عرض 1, تقليل i إلى 0
 
-// done, while(i) check stops the loop
+// تم, while(i) تتوقف الحلقة
 ```

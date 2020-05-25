@@ -1,6 +1,6 @@
-There are many algorithms for this task.
+يوجد العديد من الخوارزميات لهذا السؤال.
 
-Let's use a nested loop:
+دعنا نستخدم حلقات متداخلة:
 
 ```js
 For each i in the interval {
@@ -10,7 +10,7 @@ For each i in the interval {
 }
 ```
 
-The code using a label:
+الكود باستخدام عناوين:
 
 ```js run
 let n = 10;
@@ -26,4 +26,4 @@ for (let i = 2; i <= n; i++) { // for each i...
 }
 ```
 
-There's a lot of space to optimize it. For instance, we could look for the divisors from `2` to square root of `i`. But anyway, if we want to be really efficient for large intervals, we need to change the approach and rely on advanced maths and complex algorithms like [Quadratic sieve](https://en.wikipedia.org/wiki/Quadratic_sieve), [General number field sieve](https://en.wikipedia.org/wiki/General_number_field_sieve) etc.
+يوجد العديد من الطرق لجلعه أفضل. مثلا يمكننا البحث عن القيم التي تقبل القسمة من `2` حتى الجذر التربيعي ل `i`. ولكن إذا أردنا أن نكون أفضل مع الأرقام الكبيرة يجب استخدام بعض الرياضيات المعقدة وخوارزميات مثل [Quadratic sieve](https://en.wikipedia.org/wiki/Quadratic_sieve), [General number field sieve](https://en.wikipedia.org/wiki/General_number_field_sieve) etc.

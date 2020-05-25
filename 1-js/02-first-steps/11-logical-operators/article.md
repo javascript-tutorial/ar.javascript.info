@@ -1,24 +1,24 @@
-# Logical operators
+# المعاملات المنطقية
 
-There are three logical operators in JavaScript: `||` (OR), `&&` (AND), `!` (NOT).
+يوجد ثلاثة معاملات منطقية في الجافاسكربت: `||` (OR), `&&` (AND), `!` (NOT).
 
-Although they are called "logical", they can be applied to values of any type, not only boolean. Their result can also be of any type.
+بالرغم من أن اسمهم معاملات منطقية إلا أنه يمكنك تطبيقهم على أي نوع من البيانات وليس فقط البيانات المنطقية. كما أنه يمكنهم إنتاج أي قيمة.
 
-Let's see the details.
+لنرى ذلك بالتفصيل.
 
 ## || (OR)
 
-The "OR" operator is represented with two vertical line symbols:
+معامل "OR" رمزه هو خطين أفقيين:
 
 ```js
 result = a || b;
 ```
 
-In classical programming, the logical OR is meant to manipulate boolean values only. If any of its arguments are `true`, it returns `true`, otherwise it returns `false`.
+إذا كان أي من القيم الممررة له `true`يكون الناتج `true` وغير ذلك يرجع `false`.
 
-In JavaScript, the operator is a little bit trickier and more powerful. But first, let's see what happens with boolean values.
+في الجافاسكربت فهو مخادع أكثر وأقوى. ولكن دعنا أولًا نرى ماذا يحدث مع القيم المنطقية.
 
-There are four possible logical combinations:
+هناك أربع إحتمالات:
 
 ```js run
 alert( true || true );   // true
@@ -27,21 +27,21 @@ alert( true || false );  // true
 alert( false || false ); // false
 ```
 
-As we can see, the result is always `true` except for the case when both operands are `false`.
+يمكننا أن نرى أن النتيجة دائما `true` ما عدا في حالة عندما تكون كلتا القيمتين `false`.
 
-If an operand is not a boolean, it's converted to a boolean for the evaluation.
+إذا كانت القيم غير منطقية يتم تحويلها إلى قيم منطقية.
 
-For instance, the number `1` is treated as `true`, the number `0` as `false`:
+مثلًا الرقم `1` يعامل مثل `true`, الرقم `0` مثل `false`:
 
 ```js run
-if (1 || 0) { // works just like if( true || false )
+if (1 || 0) { // تعمل مثل ( true || false )
   alert( 'truthy!' );
 }
 ```
 
-Most of the time, OR `||` is used in an `if` statement to test if *any* of the given conditions is `true`.
+في معظم الأوقات يتم استخدام OR `||` مع `if` لإختبار إذا كان *أي* من الشروط المكتوبة تحقق `true`.
 
-For example:
+على سبيل المثال:
 
 ```js run
 let hour = 9;
@@ -49,61 +49,61 @@ let hour = 9;
 *!*
 if (hour < 10 || hour > 18) {
 */!*
-  alert( 'The office is closed.' );
+  alert( 'المكتب مغلق.' );
 }
 ```
 
-We can pass more conditions:
+يمكن تمرير شروط أكثر:
 
 ```js run
 let hour = 12;
 let isWeekend = true;
 
 if (hour < 10 || hour > 18 || isWeekend) {
-  alert( 'The office is closed.' ); // it is the weekend
+  alert( 'المكتب مغلق.' ); // إنها عطلة
 }
 ```
 
-## OR "||" finds the first truthy value
+## OR "||" إيجاد أول قيمة truthy
 
-The logic described above is somewhat classical. Now, let's bring in the "extra" features of JavaScript.
+ما تم وصفه بالأعلى هو الأمر التقليدي. الآن دعنا نرى ما أضافته الجافاسكربت.
 
-The extended algorithm works as follows.
+الخوارزمية المضافة تعمل كالتالي.
 
-Given multiple OR'ed values:
+يعطى العديد من القيم بينهم OR:
 
 ```js
 result = value1 || value2 || value3;
 ```
 
-The OR `||` operator does the following:
+المعامل OR `||` يفعل الآتي:
 
-- Evaluates operands from left to right.
-- For each operand, converts it to boolean. If the result is `true`, stops and returns the original value of that operand.
-- If all operands have been evaluated (i.e. all were `false`), returns the last operand.
+- تنفيذ العمليات من اليسار لليمين.
+- تحويل كل عملية إلى قيمة منطقية وإذا كان الناتج `true` يتوقف وينتج القيمة الأصلية لهذه العملية.
+- إذا تم تنفيذ كل العمليات (مثلًا كلهم `false`) يرجع آخر عملية.
 
-A value is returned in its original form, without the conversion.
+يتم إرجاع القيمة بصيغتها الأصلية دون تحويل.
 
-In other words, a chain of OR `"||"` returns the first truthy value or the last one if no truthy value is found.
+بصيغة أخرى فإن مجموعة OR `"||"` ترجع أول قيمة truthy value أو آخر قيمة إذا لم تجد أي قيمة truthy.
 
-For instance:
+مثلًا:
 
 ```js run
 alert( 1 || 0 ); // 1 (1 is truthy)
 
-alert( null || 1 ); // 1 (1 is the first truthy value)
-alert( null || 0 || 1 ); // 1 (the first truthy value)
+alert( null || 1 ); // 1 (1 هو أول قيمة truthy)
+alert( null || 0 || 1 ); // 1 (أول قيمة truthy)
 
-alert( undefined || null || 0 ); // 0 (all falsy, returns the last value)
+alert( undefined || null || 0 ); // 0 (الكل falsy, ترجع آخر قيمة)
 ```
 
-This leads to some interesting usage compared to a "pure, classical, boolean-only OR".
+هذا يوصل إلى بعض الاستخدامات الشيقة مقارنةً بالاستخدام التقليدي.
 
-1. **Getting the first truthy value from a list of variables or expressions.**
+1. **الحصول على أول قيمة truthy من مبين مجموعة متغيرات أو تعبيرات.**
 
-    For instance, we have `firstName`, `lastName` and `nickName` variables, all optional.
+    مثلًا لدينا `firstName`, `lastName` و `nickName` متغيرات كلها اختيارية.
 
-    Let's use OR `||` to choose the one that has the data and show it (or `anonymous` if nothing set):
+    هيا نستخدم OR `||` لاختيار الذي لديه قيمة ونعرضه (أو نعرض `anonymous` إذا لم يحدد أي أحد):
 
     ```js run
     let firstName = "";
@@ -115,36 +115,36 @@ This leads to some interesting usage compared to a "pure, classical, boolean-onl
     */!*
     ```
 
-    If all variables were falsy, `Anonymous` would show up.
+    إذا كانت كل المتغيرات falsy, `Anonymous` سيتم عرض.
 
 2. **Short-circuit evaluation.**
 
-    Another feature of OR `||` operator is the so-called "short-circuit" evaluation.
+    ميزة أخرى للمعامل OR `||` تسمى "short-circuit" evaluation.
 
-    It means that `||` processes its arguments until the first truthy value is reached, and then the value is returned immediately, without even touching the other argument.
+    ويعني أن `||` ينفذ العمليات الممررة له حتى أول قيمة truthy وبعد ذلك يتم إرجاع القيمة مباشرة بدون لمس باقي العمليات.
 
-    That importance of this feature becomes obvious if an operand isn't just a value, but an expression with a side effect, such as a variable assignment or a function call.
+    أهمية هذه الميزة تصبح ملحوظة إذا كانت القيمة الممررة عبارة عن عملية لها آثار جانبية مثل تخصيص قيمة متغير أو استدعاء دالة
 
-    In the example below, the first message is printed, while the second is not:
+    في هذا المثال سيتم طباعة الرسالة الأولى ولن يتم طباعة الثانية:
 
     ```js run no-beautify
-    *!*true*/!* || alert("printed");
-    *!*false*/!* || alert("not printed");
+    *!*false*/!* || alert("printed");
+    *!*true*/!* || alert("not printed");
     ```
 
-    In the first line, the OR `||` operator stops the evaluation immediately upon seeing `true`, so the `alert` isn't run.
+    في السطر الثاني يتوقف المعامل OR `||` مباشرة عند الوصول إلى `true` لذلك فإن `alert` لا ينفذ.
 
-    Sometimes, people use this feature to execute commands only if the condition on the left part is truthy.
+    أحيانًا يستخدم الناس هذه الخاصية لتنفيذ أوامر فقط إذا كان الجزء الأيسر truthy.
 
 ## && (AND)
 
-The AND operator is represented with two ampersands `&&`:
+المعامل AND يكتب بعلامتين عطف `&&`:
 
 ```js
 result = a && b;
 ```
 
-In classical programming, AND returns `true` if both operands are truthy and `false` otherwise:
+في البرمجة التقليدية فإن المعامل AND ينتج `true` إذا كان كلتا القيمتان truthy وغير ذلك يرجع `false`:
 
 ```js run
 alert( true && true );   // true
@@ -153,7 +153,7 @@ alert( true && false );  // false
 alert( false && false ); // false
 ```
 
-An example with `if`:
+مثال باستخدام `if`:
 
 ```js run
 let hour = 12;
@@ -164,69 +164,69 @@ if (hour == 12 && minute == 30) {
 }
 ```
 
-Just as with OR, any value is allowed as an operand of AND:
+يمكن استخدام أي قيمة مع AND:
 
 ```js run
-if (1 && 0) { // evaluated as true && false
-  alert( "won't work, because the result is falsy" );
+if (1 && 0) { // تنفذ مثل true && false
+  alert( "لن يعمل لأن النتيجة falsy" );
 }
 ```
 
 
-## AND "&&" finds the first falsy value
+## AND "&&" إيجاد أول قيمة falsy
 
-Given multiple AND'ed values:
+يعطى العديد من القيم بينهم AND:
 
 ```js
 result = value1 && value2 && value3;
 ```
 
-The AND `&&` operator does the following:
+المعامل AND `&&` يفعل الآتي:
 
-- Evaluates operands from left to right.
-- For each operand, converts it to a boolean. If the result is `false`, stops and returns the original value of that operand.
-- If all operands have been evaluated (i.e. all were truthy), returns the last operand.
+- تنفيذ العمليات من اليسار إلى اليمين.
+- كل عملية تحول إلى قيمة منطقية. إذا كانت النتيجة `false` يتوقف ويرجع القيمة الأصلية لهذه العملية.
+- إذا تم تنفيذ كل العمليات (يعنى أن كلهم were truthy) يرجع آخر قيمة
 
-In other words, AND returns the first falsy value or the last value if none were found.
+بكلمات أخرى فإن AND ترجع أول قيمة falsy أو آخر قيمة.
 
-The rules above are similar to OR. The difference is that AND returns the first *falsy* value while OR returns the first *truthy* one.
+هذا مشابه ل OR. الاختلاف هو أن AND ترجع أول قيمة *falsy* بينما OR ترجع أول قيمة *truthy*.
 
 Examples:
 
 ```js run
-// if the first operand is truthy,
-// AND returns the second operand:
+// إذا كانت أول قيمة truthy,
+// AND ترجع ثاني قيمة:
 alert( 1 && 0 ); // 0
 alert( 1 && 5 ); // 5
 
-// if the first operand is falsy,
-// AND returns it. The second operand is ignored
+// إذا كانت أول قيمة falsy,
+// AND ترجعها وتتجاهل القيمة الثانية
 alert( null && 5 ); // null
 alert( 0 && "no matter what" ); // 0
 ```
 
-We can also pass several values in a row. See how the first falsy one is returned:
+يمكننا أيضًا تمرير العديد من القيم وسيتم إرجاع أول قيمة falsy:
 
 ```js run
 alert( 1 && 2 && null && 3 ); // null
 ```
 
-When all values are truthy, the last value is returned:
+إذا كانت كل القيم truthy يتم إرجاع آخر قيمة:
 
 ```js run
-alert( 1 && 2 && 3 ); // 3, the last one
+alert( 1 && 2 && 3 ); // 3, آخر قيمة
 ```
 
-````smart header="Precedence of AND `&&` is higher than OR `||`"
-The precedence of AND `&&` operator is higher than OR `||`.
+````smart header="أولوية المعامل AND `&&` أعلى من OR `||`"
+أولوية المعامل AND `&&` أعلى من OR `||`.
 
-So the code `a && b || c && d` is essentially the same as if the `&&` expressions were in parentheses: `(a && b) || (c && d)`.
+لذلك فإن `a && b || c && d` كأنك وضعت `&&` بين أقواس: `(a && b) || (c && d)`.
 ````
 
-````warn header="Don't replace `if` with || or &&"
-Sometimes, people use the AND `&&` operator as a "shorter to write `if`".
+````warn header="لا تستبدل `if` ب || أو &&"
+بعض الناس يستخدمون AND `&&` كإختصار ل `if`.
 
-For instance:
+مثلًا:
 
 ```js run
 let x = 1;
@@ -234,9 +234,9 @@ let x = 1;
 (x > 0) && alert( 'Greater than zero!' );
 ```
 
-The action in the right part of `&&` would execute only if the evaluation reaches it. That is, only if `(x > 0)` is true.
+سيتم تنفيذ الجزء الأيمن من `&&` إذا كان `(x > 0)` يساوي true.
 
-So we basically have an analogue for:
+لذلك فهو يطابق:
 
 ```js run
 let x = 1;
@@ -244,46 +244,46 @@ let x = 1;
 if (x > 0) alert( 'Greater than zero!' );
 ```
 
-Although, the variant with `&&` appears shorter, `if` is more obvious and tends to be a little bit more readable. So we recommend using every construct for its purpose: use `if` if we want if and use `&&` if we want AND.
+بالرغم من أن `&&` يبدو مختصرًا إلا أن `if` أفذل ومقروءة أكثر. لذلك ننصح باستخدام كل تعبير في مكانه: نستخدم `if` إذا أردنا if ونستخدم `&&` إذا أردنا AND.
 ````
 
 
 ## ! (NOT)
 
-The boolean NOT operator is represented with an exclamation sign `!`.
+المعامل NOT يتم تمثيله بعلامة تعجب `!`.
 
-The syntax is pretty simple:
+طريقة الكتابة بسيطة:
 
 ```js
 result = !value;
 ```
 
-The operator accepts a single argument and does the following:
+يقبل قيمة واحدة ويفعل الآتي:
 
-1. Converts the operand to boolean type: `true/false`.
-2. Returns the inverse value.
+1. تحويل القيمة إلى قيمة منطقية: `true/false`.
+2. يرجع القيمة العكسية.
 
-For instance:
+مثلًا:
 
 ```js run
 alert( !true ); // false
 alert( !0 ); // true
 ```
 
-A double NOT `!!` is sometimes used for converting a value to boolean type:
+أحيانًا يتم استخدام علامتين NOT `!!` للتحويل إلى قيمة منطقية:
 
 ```js run
 alert( !!"non-empty string" ); // true
 alert( !!null ); // false
 ```
 
-That is, the first NOT converts the value to boolean and returns the inverse, and the second NOT inverses it again. In the end, we have a plain value-to-boolean conversion.
+أول NOT تحول إلى قيمة منطقية وترجع القيمة العكسية والثانية تعكسها مجددًا وفي النهاية نحصل على تحويل القيمة إلى قيمة منطقية.
 
-There's a little more verbose way to do the same thing -- a built-in `Boolean` function:
+وهناك طرق أخرى لعمل نفس الشئ -- مثل دالة `Boolean` المدمجة في اللغة:
 
 ```js run
 alert( Boolean("non-empty string") ); // true
 alert( Boolean(null) ); // false
 ```
 
-The precedence of NOT `!` is the highest of all logical operators, so it always executes first, before `&&` or `||`.
+أولوية NOT `!` هي الأعلى في كل المعاملات المنطقية لذلك تنفذ أولًا دائمًا قبل `&&` أو `||`.

@@ -1,9 +1,9 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Output even numbers in the loop
+# قم بعرض الأرقام الزوجية داخل حلقة تكرارية
 
-Use the `for` loop to output even numbers from `2` to `10`.
+استخدم حلقة `for` لعرض الأرقام الزوجية من `2` إلى `10`.
 
 [demo]

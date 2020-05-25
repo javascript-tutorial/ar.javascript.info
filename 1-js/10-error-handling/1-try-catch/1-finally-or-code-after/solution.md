@@ -1,32 +1,32 @@
-The difference becomes obvious when we look at the code inside a function.
+يصبح الفرق واضحًا عندما ننظر إلى الكود داخل دالة.
 
-The behavior is different if there's a "jump out" of `try..catch`.
+يختلف السلوك إذا كان هناك "خروج" من `try..catch`.
 
-For instance, when there's a `return` inside `try..catch`. The `finally` clause works in case of *any* exit from `try..catch`, even via the `return` statement: right after `try..catch` is done, but before the calling code gets the control.
+على سبيل المثال ، عندما يكون هناك `return` داخل `try..catch`. يعمل `finally` في حالة *أي* خروج من `try..catch`, حتى عبر عبارة `return`: مباشرة بعد الانتهاء من `try..catch`,  ولكن قبل أن يحصل الكود الذي قمنا بالاتصال به على التحكم.
 
 ```js run
 function f() {
   try {
-    alert('start');
+    alert('إبدء');
 *!*
-    return "result";
+    return "النتيجة";
 */!*
   } catch (e) {
     /// ...
   } finally {
-    alert('cleanup!');
+    alert('نظف!');
   }
 }
 
-f(); // cleanup!
+f(); // نظف!
 ```
 
-...Or when there's a `throw`, like here:
+...أو عندما يكون هناك `throw`, مثلما هو الحال هنا:
 
 ```js run
 function f() {
   try {
-    alert('start');
+    alert('إبدء');
     throw new Error("an error");
   } catch (e) {
     // ...
@@ -37,11 +37,11 @@ function f() {
     }
 
   } finally {
-    alert('cleanup!')
+    alert('نظف!')
   }
 }
 
-f(); // cleanup!
+f(); // نظف!
 ```
 
-It's `finally` that guarantees the cleanup here. If we just put the code at the end of `f`, it wouldn't run in these situations.
+يضمن `finally` التنظيف. إذا وضعنا الكود في نهاية `f`, فلن يتم تشغيلها في هذه المواقف.

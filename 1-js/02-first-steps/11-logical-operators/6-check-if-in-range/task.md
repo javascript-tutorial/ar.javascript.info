@@ -1,9 +1,9 @@
-importance: 3
+الأهمية: 3
 
 ---
 
-# Check the range between
+# فحص المدى بين
 
-Write an "if" condition to check that `age` is between `14` and `90` inclusively.
+اكتب تعبير "if" يفحص أن العمر `age` بين `14` و `90`.
 
-"Inclusively" means that `age` can reach the edges `14` or `90`.
+يمكن للعمر `age` أن يكون `14` أو `90`.

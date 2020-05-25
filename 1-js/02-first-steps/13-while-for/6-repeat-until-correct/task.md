@@ -1,13 +1,13 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Repeat until the input is correct
+# تكرار حتى الإدخال الصحيح
 
-Write a loop which prompts for a number greater than `100`. If the visitor enters another number -- ask them to input again.
+أكتب حلقة تطلب رقم أكبر من `100`. إذا قام المستخدم بإدخال رقم آخر اسأله مرة أخرى.
 
-The loop must ask for a number until either the visitor enters a number greater than `100` or cancels the input/enters an empty line.
+يجب أن تظل تسأل المستخدم حتى يدخل رقم أكبر من `100` أو يوقف الإدخال أو يدخل نص فارغ.
 
-Here we can assume that the visitor only inputs numbers. There's no need to implement a special handling for a non-numeric input in this task.
+هنا نفترض أن المستخدم يدخل فقط أرقام فلا داعي للتأكد من القيم الغير رقمية.
 
 [demo]

@@ -1,14 +1,14 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Fix the addition
+# إصلاح الإضافة
 
-Here's a code that asks the user for two numbers and shows their sum.
+إليك رمز يطلب من المستخدم رقمين ويظهر مجموعهم.
 
-It works incorrectly. The output in the example below is `12` (for default prompt values).
+يعمل بشكل غير صحيح. الإخراج في المثال أدناه هو `12` (لقيم المطالبة الافتراضية).
 
-Why? Fix it. The result should be `3`.
+لماذا ا؟ اصلحه. يجب أن تكون النتيجة `3`.
 
 ```js run
 let a = prompt("First number?", 1);

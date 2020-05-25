@@ -1,10 +1,10 @@
-importance: 5
+درحة الأهمية: 5
 
 ---
 
-# Comparisons
+# المقارنات
 
-What will be the result for these expressions?
+ماذ ستكون نتيجة هذه التعبيرات؟
 
 ```js no-beautify
 5 > 4

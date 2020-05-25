@@ -1,24 +1,24 @@
-# Comparisons
+#المقارنات 
 
-We know many comparison operators from maths.
+نحن نعرف الكثير من معاملات المقارنة من الرياضيات 
 
-In JavaScript they are written like this:
+: وفي لغة الجافسكريبت تكتب كما يلي 
 
-- Greater/less than: <code>a &gt; b</code>, <code>a &lt; b</code>.
-- Greater/less than or equals: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
-- Equals: `a == b`, please note the double equality sign `=` means the equality test, while a single one `a = b` means an assignment.
-- Not equals. In maths the notation is <code>&ne;</code>, but in JavaScript the it's written as <code>a != b</code>.
+- أكبر من وأصغر من: <code>a &gt; b</code>, <code>a &lt; b</code>.
+- أكبر : <code>a &gt;= b</code>, <code>a &lt;= b</code>.
+- يساوي: `a == b` ، يرجى ملاحظة أن علامة المساواة المزدوجة` = `تعني اختبار المساواة ، في حين أن كلمة واحدة` a = b` تعني  تعيين أو مساواة .
+- لا تساوي. في الرياضيات ، يكون الترميز في JavaScript مكتوب مثل a !=b 
 
-In this article we'll learn more about different types of comparisons, how JavaScript makes them, including important peculiarities.
+في هذه المقالة سنتعلم المزيد عن الأنواع المختلفة من المقارنات ، وكيف تجعلها JavaScript ، بما في ذلك الخصائص المهمة.
 
-## Boolean is the result
+## Boolean هي النتيجة
 
-All comparison operators return a boolean value:
+تُرجع جميع عوامل المقارنة قيمة منطقية:
 
-- `true` -- means "yes", "correct" or "the truth".
-- `false` -- means "no", "wrong" or "not the truth".
+- "صحيح" - يعني "نعم" أو "صحيح" أو "الحقيقة".
+- "false" - تعني "لا" أو "خطأ" أو "ليست الحقيقة".
 
-For example:
+فمثلا:
 
 ```js run
 alert( 2 > 1 );  // true (correct)
@@ -26,20 +26,20 @@ alert( 2 == 1 ); // false (wrong)
 alert( 2 != 1 ); // true (correct)
 ```
 
-A comparison result can be assigned to a variable, just like any value:
+يمكن تعيين نتيجة مقارنة لمتغير ، تمامًا مثل أي قيمة:
 
 ```js run
 let result = 5 > 4; // assign the result of the comparison
 alert( result ); // true
 ```
 
-## String comparison
+## مقارنة الكلمات 
 
-To see whether a string is greater than another, JavaScript uses the so-called "dictionary" or "lexicographical" order.
+لمعرفة ما إذا كانت السلسلة أكبر من غيرها ، تستخدم جافا سكريبت ما يسمى بترتيب "القاموس" أو "المعجم".
 
-In other words, strings are compared letter-by-letter.
+بمعنى آخر ، تتم مقارنة السلاسل حرفًا بحرف.
 
-For example:
+فمثلا:
 
 ```js run
 alert( 'Z' > 'A' ); // true
@@ -47,54 +47,53 @@ alert( 'Glow' > 'Glee' ); // true
 alert( 'Bee' > 'Be' ); // true
 ```
 
-The algorithm to compare two strings is simple:
+خوارزمية مقارنة سلسلتين بسيطة:
 
-1. Compare the first character of both strings.
-2. If the first character from the first string is greater (or less) than the other string's, then the first string is greater (or less) than the second. We're done.
-3. Otherwise, if both strings' first characters are the same, compare the second characters the same way.
-4. Repeat until the end of either string.
-5. If both strings end at the same length, then they are equal. Otherwise, the longer string is greater.
+1. قارن الحرف الأول من كلا السلاسل.
+2. إذا كان الحرف الأول من السلسلة الأولى أكبر (أو أقل) من السلسلة الأخرى ، فإن السلسلة الأولى أكبر (أو أقل) من السلسلة الثانية. لقد انتهينا.
+3. وبخلاف ذلك ، إذا كانت الأحرف الأولى لكلتا السلاسل متشابهة ، قارن الأحرف الثانية بنفس الطريقة.
+4. كرر حتى نهاية أي سلسلة.
+5. إذا انتهى كلا السلاسل بنفس الطول ، فإنهما متساويان. خلاف ذلك ، فإن السلسلة الأطول أكبر.
 
-In the examples above, the comparison `'Z' > 'A'` gets to a result at the first step while the strings `"Glow"` and `"Glee"` are compared character-by-character:
+في الأمثلة أعلاه ، تصل المقارنة "Z"> "A" إلى نتيجة في الخطوة الأولى بينما تتم مقارنة السلاسل "" Glow "و" Glee "حرفًا بحرف:
 
-1. `G` is the same as `G`.
-2. `l` is the same as `l`.
-3. `o` is greater than `e`. Stop here. The first string is greater.
+1. "G" هو نفسه "G".
+2- "l` هي نفس" l`.
+3. `o` أكبر من` e`. توقف هنا. السلسلة الأولى أكبر.
 
-```smart header="Not a real dictionary, but Unicode order"
-The comparison algorithm given above is roughly equivalent to the one used in dictionaries or phone books, but it's not exactly the same.
+"` `عنوان ذكي ومختصر =" ليس قاموسًا حقيقيًا ، ولكن ترتيب Unicode "
+خوارزمية المقارنة الواردة أعلاه تكافئ تقريبًا تلك المستخدمة في القواميس أو دفاتر الهاتف ، ولكنها ليست هي نفسها تمامًا.
 
-For instance, case matters. A capital letter `"A"` is not equal to the lowercase `"a"`. Which one is greater? The lowercase `"a"`. Why? Because the lowercase character has a greater index in the internal encoding table JavaScript uses (Unicode). We'll get back to specific details and consequences of this in the chapter <info:string>.
-```
+على سبيل المثال ، القضية مهمة. الحرف الكبير "A" لا يساوي الأحرف الصغيرة "a". أيهما أكبر؟ الأحرف الصغيرة "" أ "". لماذا ا؟ لأن الحرف الصغير يحتوي على فهرس أكبر في جدول الترميز الداخلي تستخدم JavaScript (Unicode). سنعود إلى تفاصيل محددة وعواقب ذلك في الفصل <info: string>.
+``
 
-## Comparison of different types
+## مقارنة الأنواع المختلفة
 
-When comparing values of different types, JavaScript converts the values to numbers.
+عند مقارنة قيم الأنواع المختلفة ، تحوّل JavaScript القيم إلى أرقام.
 
-For example:
+فمثلا:
 
 ```js run
 alert( '2' > 1 ); // true, string '2' becomes a number 2
 alert( '01' == 1 ); // true, string '01' becomes a number 1
 ```
 
-For boolean values, `true` becomes `1` and `false` becomes `0`.
+بالنسبة إلى القيم المنطقية ، يصبح "true" "1" ويصبح "false" "0".
 
-For example:
+فمثلا: 
 
 ```js run
 alert( true == 1 ); // true
 alert( false == 0 ); // true
 ```
 
-````smart header="A funny consequence"
-It is possible that at the same time:
+"" عنوان ذكي ومختصر = "نتيجة مضحكة"
+من الممكن أنه في نفس الوقت:
 
-- Two values are equal.
-- One of them is `true` as a boolean and the other one is `false` as a boolean.
+- قيمتان متساويتان.
+- واحد منهم "صحيح" باعتباره منطقيًا والآخر "خطأ" باعتباره منطقيًا.
 
-For example:
-
+فمثلا:
 ```js run
 let a = 0;
 alert( Boolean(a) ); // false
@@ -105,67 +104,69 @@ alert( Boolean(b) ); // true
 alert(a == b); // true!
 ```
 
-From JavaScript's standpoint, this result is quite normal. An equality check converts values using the numeric conversion (hence `"0"` becomes `0`), while the explicit `Boolean` conversion uses another set of rules.
-````
 
-## Strict equality
+هذه النتيجة طبيعية من وجهة نظر JavaScript. يؤدي التحقق من المساواة إلى تحويل القيم باستخدام التحويل الرقمي (وبالتالي يصبح "0" `يُصبح` 0`) ، بينما يستخدم التحويل الصريح `Boolean` مجموعة أخرى من القواعد.
+`` ``
 
-A regular equality check `==` has a problem. It cannot differentiate `0` from `false`:
+## المساواة الصارمة
+
+هناك مشكلة في التحقق المنتظم من المساواة `= =`. لا يمكن التمييز بين "0" و "false":
+
 
 ```js run
 alert( 0 == false ); // true
 ```
 
-The same thing happens with an empty string:
+يحدث الشيء نفسه بسلسلة فارغة:
 
 ```js run
 alert( '' == false ); // true
 ```
+يحدث هذا لأن المعاملات من أنواع مختلفة يتم تحويلها إلى أرقام من قبل عامل المساواة `==`. السلسلة الفارغة ، تمامًا مثل `false` ، تصبح صفرًا.
 
-This happens because operands of different types are converted to numbers by the equality operator `==`. An empty string, just like `false`, becomes a zero.
+ماذا أفعل إذا أردنا التمييز بين "0" و "false"؟
 
-What to do if we'd like to differentiate `0` from `false`?
+** عامل المساواة الصارم `= =` يتحقق من المساواة بدون تحويل النوع. **
 
-**A strict equality operator `===` checks the equality without type conversion.**
+بمعنى آخر ، إذا كان "a" و "b" من أنواع مختلفة ، فإن "a === b" يُرجع على الفور "خطأ" دون محاولة تحويلها.
 
-In other words, if `a` and `b` are of different types, then `a === b` immediately returns `false` without an attempt to convert them.
-
-Let's try it:
+فلنجربها:
 
 ```js run
 alert( 0 === false ); // false, because the types are different
 ```
 
-There is also a "strict non-equality" operator `!==` analogous to `!=`.
+هناك أيضًا عامل "صارم لعدم المساواة" `! ==` مشابه لـ '! = `.
 
-The strict equality operator is a bit longer to write, but makes it obvious what's going on and leaves less room for errors.
+عامل المساواة الصارم أطول قليلاً في الكتابة ، لكنه يوضح ما يحدث ويترك مساحة أقل للأخطاء.
 
-## Comparison with null and undefined
+## مقارنة مع لا شيء وغير محدد
 
-There's a non-intuitive behavior when `null` or `undefined` are compared to other values.
+هناك سلوك غير بديهي عند مقارنة "null" أو "undefined" بقيم أخرى.
 
-For a strict equality check `===`
-: These values are different, because each of them is a different type.
+للتحقق من المساواة الصارمة `= =`
+: هذه القيم مختلفة ، لأن كل منها نوع مختلف.
 
     ```js run
     alert( null === undefined ); // false
     ```
 
-For a non-strict check `==`
-: There's a special rule. These two are a "sweet couple": they equal each other (in the sense of `==`), but not any other value.
+للتحقق غير الصارم `= =`
+: هناك قاعدة خاصة. هذان الزوجان "زوجان لطيفان": إنهما يساويان بعضهما البعض (بمعنى `= =`) ، ولكن ليس أي قيمة أخرى.
 
     ```js run
     alert( null == undefined ); // true
     ```
 
-For maths and other comparisons `< > <= >=`
-: `null/undefined` are converted to numbers: `null` becomes `0`, while `undefined` becomes `NaN`.
 
-Now let's see some funny things that happen when we apply these rules. And, what's more important, how to not fall into a trap with them.
+بالنسبة للرياضيات والمقارنات الأخرى `<> <=> =`
+: "null / undefined" يتم تحويلها إلى أرقام: "null" تصبح "0" ، بينما "undefined" تصبح "NaN".
 
-### Strange result: null vs 0
+الآن دعونا نرى بعض الأشياء المضحكة التي تحدث عندما نطبق هذه القواعد. والأهم من ذلك ، كيف لا تقع في فخ معهم.
 
-Let's compare `null` with a zero:
+### نتيجة غريبة: صفر مقابل 0
+
+دعنا نقارن `null` بصفر:
 
 ```js run
 alert( null > 0 );  // (1) false
@@ -173,15 +174,15 @@ alert( null == 0 ); // (2) false
 alert( null >= 0 ); // (3) *!*true*/!*
 ```
 
-Mathematically, that's strange. The last result states that "`null` is greater than or equal to zero", so in one of the comparisons above it must be `true`, but they are both false.
+رياضيا ، هذا غريب. تشير النتيجة الأخيرة إلى أن "القيمة" فارغة "أكبر من الصفر أو تساويه" ، لذا في إحدى المقارنات أعلاه ، يجب أن تكون "true" ، لكن كلاهما خطأ.
 
-The reason is that an equality check `==` and comparisons `> < >= <=` work differently. Comparisons convert `null` to a number, treating it as `0`. That's why (3) `null >= 0` is true and (1) `null > 0` is false.
+والسبب هو أن التحقق من المساواة `= =` والمقارنات `>> <> = <=` يعمل بشكل مختلف. تقوم المقارنات بتحويل `null` إلى رقم ، وتعاملها على أنها` 0`. لهذا السبب (3) `null> = 0` صحيحة و (1)` null> 0` خاطئة.
 
-On the other hand, the equality check `==` for `undefined` and `null` is defined such that, without any conversions, they equal each other and don't equal anything else. That's why (2) `null == 0` is false.
+من ناحية أخرى ، يتم تحديد علامة المساواة `= =` لـ `undefined` و` null` بحيث لا يساوي أحدهما الآخر دون تحويلات ولا يساوي أي شيء آخر. لهذا السبب (2) `null == 0` خطأ.
 
-### An incomparable undefined
+### غير المحدد غير المقارن 
 
-The value `undefined` shouldn't be compared to other values:
+لا يجب مقارنة القيمة `undefined` بالقيم الأخرى:
 
 ```js run
 alert( undefined > 0 ); // false (1)
@@ -189,25 +190,25 @@ alert( undefined < 0 ); // false (2)
 alert( undefined == 0 ); // false (3)
 ```
 
-Why does it dislike zero so much? Always false!
+لماذا يكره الصفر كثيرا؟ دائما خطأ!
 
-We get these results because:
+نحصل على هذه النتائج للأسباب التالية:
 
-- Comparisons `(1)` and `(2)` return `false` because `undefined` gets converted to `NaN` and `NaN` is a special numeric value which returns `false` for all comparisons.
-- The equality check `(3)` returns `false` because `undefined` only equals `null`, `undefined`, and no other value.
+- المقارنات `(1)` و `(2)` إرجاع `false` لأنه يتم تحويل` undefined` إلى `NaN` و` NaN` هي قيمة رقمية خاصة تُرجع `false` لجميع المقارنات.
+- تحقق المساواة `((3)` تُرجع `false` لأن` undefined` تساوي فقط `null` و` undefined` ولا قيمة أخرى.
 
-### Evade problems
+### تجنب المشاكل
 
-Why did we go over these examples? Should we remember these peculiarities all the time? Well, not really. Actually, these tricky things will gradually become familiar over time, but there's a solid way to evade problems with them:
+لماذا راجعنا هذه الأمثلة؟ هل يجب أن نتذكر هذه الخصائص المميزة طوال الوقت؟ حسنًا ، ليس حقًا. في الواقع ، ستصبح هذه الأشياء الصعبة مألوفة تدريجيًا بمرور الوقت ، ولكن هناك طريقة صلبة للتهرب من المشاكل معها:
 
-Just treat any comparison with `undefined/null` except the strict equality `===` with exceptional care.
+فقط تعامل مع أي مقارنة بـ "undefined / null" باستثناء المساواة الصارمة `===` مع رعاية استثنائية.
 
-Don't use comparisons `>= > < <=` with a variable which may be `null/undefined`, unless you're really sure of what you're doing. If a variable can have these values, check for them separately.
+لا تستخدم المقارنات `> => <<=` مع متغير قد يكون `فارغًا / غير محدد` ، ما لم تكن متأكدًا حقًا مما تفعله. إذا كان المتغير يمكن أن يكون له هذه القيم ، تحقق منها بشكل منفصل.
 
-## Summary
+## ملخص
 
-- Comparison operators return a boolean value.
-- Strings are compared letter-by-letter in the "dictionary" order.
-- When values of different types are compared, they get converted to numbers (with the exclusion of a strict equality check).
-- The values `null` and `undefined` equal `==` each other and do not equal any other value.
-- Be careful when using comparisons like `>` or `<` with variables that can occasionally be `null/undefined`. Checking for `null/undefined` separately is a good idea.
+- ترجع عوامل المقارنة قيمة منطقية.
+- تتم مقارنة السلاسل حرفًا بحرف في ترتيب "القاموس".
+- عند مقارنة القيم من أنواع مختلفة ، يتم تحويلها إلى أرقام (باستثناء التحقق من المساواة الصارم).
+- القيمتان "null" و "undefined" تساوي `==` بعضها البعض ولا تساوي أي قيمة أخرى.
+- كن حذرًا عند استخدام مقارنات مثل `>` أو `<` مع المتغيرات التي يمكن أن تكون أحيانًا `خالية / غير محددة '. يُعد التحقق من "null / undefined" بشكل منفصل فكرة جيدة.

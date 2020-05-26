@@ -1,10 +1,10 @@
-importance: 5
+درجة الأهمية: 5
 
 ---
 
-# Get the attribute
+# الخصول على الخاصية
 
-Write the code to select the element with `data-widget-name` attribute from the document and to read its value.
+اكتب الرمز لتحديد العنصر الذي يحتوي على السمة `data-widget-name` من المستند وقراءة قيمته.
 
 ```html run
 <!DOCTYPE html>
@@ -19,3 +19,4 @@ Write the code to select the element with `data-widget-name` attribute from the 
 </body>
 </html>
 ```
+

@@ -1,10 +1,10 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# The result of OR AND OR
+# نتيجة OR AND OR
 
-What will the result be?
+ما ناتج تنفيذ الأمر التالي ؟
 
 ```js
 alert( null || 2 && 3 || 4 );

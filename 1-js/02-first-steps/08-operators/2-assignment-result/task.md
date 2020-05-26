@@ -1,10 +1,10 @@
-importance: 3
+الأهمية: 3
 
 ---
 
-# Assignment result
+# نتيجة التعيين
 
-What are the values of `a` and `x` after the code below?
+ما هي قيم `a` و` x` بعد الكود أدناه؟
 
 ```js
 let a = 2;

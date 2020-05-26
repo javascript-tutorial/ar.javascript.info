@@ -1,25 +1,25 @@
-importance: 3
+الأهمية: 3
 
 ---
 
-# Check the login
+# فحص تسجيل الدخول
 
-Write the code which asks for a login with `prompt`.
+أكتب كود يكلب تسجيل الدخول باستخدام `prompt`.
 
-If the visitor enters `"Admin"`, then `prompt` for a password, if the input is an empty line or `key:Esc` -- show "Canceled", if it's another string -- then show "I don't know you".
+إذا كتب المستخدم كلمة `"Admin"` اطلب منه `prompt` كلمة المرور فإذا كتب سطر فارغ أو استخدم `key:Esc` -- أظهر رسالة "Canceled" وإذا كان نص آخر أظهر له "I don't know you".
 
-The password is checked as follows:
+يتم فحص كلمة المرور كالتالي:
 
-- If it equals "TheMaster", then show "Welcome!",
-- Another string -- show "Wrong password",
-- For an empty string or cancelled input, show "Canceled"
+- إذا كانت تساوي "TheMaster" يتم عرض "Welcome!",
+- نص آخر يتم عرض "Wrong password",
+- نص فارغ أو إلغاء العملية يتم عرض "Canceled"
 
-The schema:
+الصيغة العامة:
 
 ![](ifelse_task.svg)
 
-Please use nested `if` blocks. Mind the overall readability of the code.
+استخدم تعبيرات `if` متداخلة. انتبه أن يكون الكود مقروء.
 
-Hint:  passing an empty input to a prompt returns an empty string `''`. Pressing `key:ESC` during a prompt returns `null`.
+ملحوظة:  تمرير نص فارغ إلى prompt يرجع نص فارغ `''`. تمرير `key:ESC` يرجع `null`.
 
 [demo]

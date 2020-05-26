@@ -2,37 +2,37 @@ importance: 5
 
 ---
 
-# Finally or just the code?
+# Finally  أم الكود فقط؟
 
-Compare the two code fragments.
+قارن بين جزئي الكود.
 
-1. The first one uses `finally` to execute the code after `try..catch`:
+1. يستخدم الأول `finally` لتشغيل الكود بعد `try..catch`:
 
     ```js
     try {
-      work work
+      إعمل إعمل
     } catch (e) {
-      handle errors
+      معالجة الأخطاء
     } finally {
     *!*
-      cleanup the working space
+      تنظيف مكان العمل
     */!*
     }
     ```
-2. The second fragment puts the cleaning right after `try..catch`:
+2. الجزء الثاني يضع التنظيف مباشرة بعد `try..catch`:
 
     ```js
     try {
-      work work
+      إعمل إعمل
     } catch (e) {
-      handle errors
+      معالجة الأخطاء
     }
 
     *!*
-    cleanup the working space
+    تنظيف مكان العمل
     */!*
     ```
 
-We definitely need the cleanup after the work, doesn't matter if there was an error or not.
+نحن بالتأكيد بحاجة إلى التنظيف بعد العمل ، لا يهم إذا كان هناك خطأ أم لا.
 
-Is there an advantage here in using `finally` or both code fragments are equal? If there is such an advantage, then give an example when it matters.
+هل هناك ميزة في استخدام `finally` أم أن جزئي الكود متساويان؟ إذا كان هناك مثل هذه الميزة ، فقم بإعطاء مثال عندما يكزن مهم.

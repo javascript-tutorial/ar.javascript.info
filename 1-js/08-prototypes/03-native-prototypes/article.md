@@ -1,33 +1,33 @@
-# Native prototypes
+# النماذج البدائية Native prototypes
 
-The `"prototype"` property is widely used by the core of JavaScript itself. All built-in constructor functions use it.
+إن الخاصية `"prototype"` مستخدمة بشكل واسع من الجافاسكريبت نفسها، حيث أن كل الدوال البانية (constructor functions) تستخدمها.
 
-First we'll see at the details, and then how to use it for adding new capabilities to built-in objects.
+أولًا سنرى التفاصيل، ثم نتعلم كيف نستخدمها لإضافة إمكانيات جديدة للكائنات الموجودة بالفعل (built-in objects).
 
 ## Object.prototype
 
-Let's say we output an empty object:
+دعنا نقول أننا سنطبع كائنًا فارغًا:
 
 ```js run
 let obj = {};
 alert(obj); // "[object Object]" ?
 ```
 
-Where's the code that generates the string `"[object Object]"`? That's a built-in `toString` method, but where is it? The `obj` is empty!
+أين الكود المسؤول عن التحويل إلى النص `"[object Object]"`؟ إنها الدالة `toString` الموجودة بالفعل ، ولكن أين هى؟ الكائن `obj` فارغ !
 
-...But the short notation `obj = {}` is the same as `obj = new Object()`, where `Object` is a built-in object constructor function, with its own `prototype` referencing a huge object with `toString` and other methods.
+...ولكن الصيغة `obj = {}` هي نفسها هذه الصيغة `obj = new Object()`، حيث أن `Object` هو دالة بانية للكائنات موجودة بالفعل والتى تحتوى على الخاصية `prototype` التى تحتوى على مرجع لكائن ضخم يحتوى على الدالة `toString` ودوال أخري.
 
-Here's what's going on:
+هاهنا ما يحدث:
 
 ![](object-prototype.svg)
 
-When `new Object()` is called (or a literal object `{...}` is created), the `[[Prototype]]` of it is set to `Object.prototype` according to the rule that we discussed in the previous chapter:
+عندما يتم استدعاء `new Object()` (أو إنشاء الكائن العادى `{...}`)، ستكون قيمة `[[Prototype]]` للكائن الناتج تشير إلى `Object.prototype` طبقًا للقاعدة التى ناقشناها فى الفصل السابق:
 
 ![](object-prototype-1.svg)
 
-So then when `obj.toString()` is called the method is taken from `Object.prototype`.
+لذلك عندما يتم استدعاء `obj.toString()` فإن الدالة مأخوذة من `Object.prototype`.
 
-We can check it like this:
+يمكننا أن نختبر ذلك هكذا:
 
 ```js run
 let obj = {};
@@ -36,79 +36,79 @@ alert(obj.__proto__ === Object.prototype); // true
 // obj.toString === obj.__proto__.toString == Object.prototype.toString
 ```
 
-Please note that there is no more `[[Prototype]]` in the chain above `Object.prototype`:
+لاحظ أنه لا يوجد المزيد من `[[Prototype]]` فى السلسة فوق `Object.prototype`:
 
 ```js run
 alert(Object.prototype.__proto__); // null
 ```
 
-## Other built-in prototypes
+## نماذج أخرى موجودة بالفعل (built-in prototypes)
 
-Other built-in objects such as `Array`, `Date`, `Function` and others also keep methods in prototypes.
+إن الكائنات الأخرى الموجوده بالفعل مثل `Array`, `Date`, `Function` وغيرهم يحتفظون بدوال فى النماذج (prototypes).
 
-For instance, when we create an array `[1, 2, 3]`, the default `new Array()` constructor is used internally. So `Array.prototype` becomes its prototype and provides methods. That's very memory-efficient.
+علي سبيل المثال، عندما نقوم بإنشاء قائمة `[1, 2, 3]`، فإن الدالة البانية الموجودة بالفعل `new Array()` يتم استخدامها داخليًا. ولذلك تصبح `Array.prototype` النموذج الخاص بها وتمنحها دوال خاصة وهذا شيئ جيد جدًّا للذاكرة.
 
-By specification, all of the built-in prototypes have `Object.prototype` on the top. That's why some people say that "everything inherits from objects".
+كما ذُكر فى المصدر، فإن كل النماذج (prototypes) الموجودة بالفعل لديها `Object.prototype` على القمة فى الأعلى. وهذا مايدفع بعض الأشخاص للقول بأن "كل شيئ يرث من الكائنات".
 
-Here's the overall picture (for 3 built-ins to fit):
+هنا الصورة الكاملة:
 
 ![](native-prototypes-classes.svg)
 
-Let's check the prototypes manually:
+هيا نختبر الخاصية يدويًا:
 
 ```js run
 let arr = [1, 2, 3];
 
-// it inherits from Array.prototype?
+// هل ترث من Array.prototype?
 alert(arr.__proto__ === Array.prototype); // true
 
-// then from Object.prototype?
+// ثم من Object.prototype?
 alert(arr.__proto__.__proto__ === Object.prototype); // true
 
-// and null on the top.
+// والقيمة null فى الأعلى.
 alert(arr.__proto__.__proto__.__proto__); // null
 ```
 
-Some methods in prototypes may overlap, for instance, `Array.prototype` has its own `toString` that lists comma-delimited elements:
+بعض الدوال فى النماذج يمكن أن تتداخل، فعلى سبيل المثال، تملك `Array.prototype` الدالة `toString` الخاصة بها والتى تقوم بإرجاع نص يحوى عناصر القائمة وبينها الفاصلة:
 
 ```js run
 let arr = [1, 2, 3];
-alert(arr); // 1,2,3 <-- the result of Array.prototype.toString
+alert(arr); // 1,2,3 <-- نتيجة Array.prototype.toString
 ```
 
-As we've seen before, `Object.prototype` has `toString` as well, but `Array.prototype` is closer in the chain, so the array variant is used.
+كما رأينا سابقًا، تملك `Object.prototype` أيضًا الدالة `toString` ولكن `Array.prototype` هي الأقرب فى السلسلة ولذلك يتم استخدام الدالة الخاصة بالقائمة.
 
 ![](native-prototypes-array-tostring.svg)
 
-In-browser tools like Chrome developer console also show inheritance (`console.dir` may need to be used for built-in objects):
+تعرض الأدوات الموجودة فى المتصفح أيضًا الوراثة (يمكن أن يتم استخدام `console.dir` مع بعض الكائنات الموجودة بالفعل ):
 
 ![](console_dir_array.png)
 
-Other built-in objects also work the same way. Even functions -- they are objects of a built-in `Function` constructor, and their methods (`call`/`apply` and others) are taken from `Function.prototype`. Functions have their own `toString` too.
+تعمل الكائنات الموجودة بالفعل الأخرى بنفس الطريقة. حتى الدوال -- هي عبارة عن كائنات مبنية عن طريق الدالة البانية `Function` والدوال الخاصه بها (مثل `call`/`apply` وغيرها) مأخوذة من `Function.prototype`. وتحتوى الدوال على الدالة `toString`الخاصة بها أيضًا.
 
 ```js run
 function f() {}
 
 alert(f.__proto__ == Function.prototype); // true
-alert(f.__proto__.__proto__ == Object.prototype); // true, inherit from objects
+alert(f.__proto__.__proto__ == Object.prototype); // true, ترث من الكائنات
 ```
 
-## Primitives
+## القيم المفردة Primitives
 
-The most intricate thing happens with strings, numbers and booleans.
+أكثر الأشياء المعقدة تحدث مع النصوص والأرقام والقيم المطلقة.
 
-As we remember, they are not objects. But if we try to access their properties, temporary wrapper objects are created using built-in constructors `String`, `Number` and `Boolean`. They provide the methods and disappear.
+كما نتذكر فإنهم ليسو عبارة عن كائنات، ولكن إذا حاولنا أن نصل إلى خصائصهم فسيتم إحاطتها بكائن باستخدام الدوال البانية `String` و `Number` و `Boolean`، حيث يمنحونهم الدوال ثم يختفون.
 
-These objects are created invisibly to us and most engines optimize them out, but the specification describes it exactly this way. Methods of these objects also reside in prototypes, available as `String.prototype`, `Number.prototype` and `Boolean.prototype`.
+هذه الكائنات تم إنشاؤها لنا خفيةً وأغلب المحركات تقوم بتحسين ذلك، ولكن يصفها المصدر بهذه الطريقة بالضبط. ودوال هذه الكائنات توجد أيضًا فى النماذج وتكون متاحة كـ `String.prototype` و `Number.prototype` و `Boolean.prototype`.
 
-```warn header="Values `null` and `undefined` have no object wrappers"
-Special values `null` and `undefined` stand apart. They have no object wrappers, so methods and properties are not available for them. And there are no corresponding prototypes either.
+```warn header="القيم `null` و `undefined` ليس لها كائنات حاوية"
+القيم الخاصة `null` و `undefined` تقف بعيدًا عن هذا. حيث أنهم ليس لديهم كائنات حاوية (object wrappers)، ولذلك فإن الدوال والخصائص غير متاحة لهم وليس هناك نماذج لهم.
 
 ````
 
-## Changing native prototypes [#native-prototype-change]
+## التعديل على النماذج البدائية (native prototypes) [#native-prototype-change]
 
-Native prototypes can be modified. For instance, if we add a method to `String.prototype`,  it becomes available to all strings:
+يمكن تعديل النماذج البدائية. فعلى سبيل المثال، إذا أضفنا دالة إلى `String.prototype` ستصبح متاحة إلى كل النصوص:
 
 ```js run
 String.prototype.show = function() {
@@ -118,33 +118,33 @@ String.prototype.show = function() {
 "BOOM!".show(); // BOOM!
 ````
 
-During the process of development, we may have ideas for new built-in methods we'd like to have, and we may be tempted to add them to native prototypes. But that is generally a bad idea.
+وخلال التطبيق العملى يمكن أن تخطر لنا أفكار لدوال أخرى نريد أن ننشئها ويمكننا إضافتها للنماذج، ولكن هذا يُعد فكرة سيئة بشكل عام.
 
 ```warn
-Prototypes are global, so it's easy to get a conflict. If two libraries add a method `String.prototype.show`, then one of them will be overwriting the method of the other.
+إن النماذج متاحة بشكل عام، ولذلك فإنه من السهل أن يحدث تعارض. فإذا كان هناك مكتبتان أضافتا نفس الدالة `String.prototype.show`، إذن فإن واحدة منهن ستستبدل عمل الأخرى.
 
-So, generally, modifying a native prototype is considered a bad idea.
+ولذلك، بشكل عام، فإن تعديل النماذج البدائية يُعد فكرة سيئة.
 ```
 
-**In modern programming, there is only one case where modifying native prototypes is approved. That's polyfilling.**
+**فى لغات البرمجة الحديثة، توجد حالة واحدة لتعديل النماذج البدائية. وهي تعدد الأشكال polyfilling**
 
-Polyfilling is a term for making a substitute for a method that exists in the JavaScript specification, but is not yet supported by a particular JavaScript engine.
+تعدد الأشكال هو مصطلح يعني إنشاء نسخه من دالة موجودة فى مصدر الجافاسكريبت ولكنها غير مدعومة بعد من محرك جافاسكريبت معين.
 
-We may then implement it manually and populate the built-in prototype with it.
+يمكننا إذن كتابتها يدويّاً وإضافتها للنموذج.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 if (!String.prototype.repeat) {
-  // if there's no such method
-  // add it to the prototype
+  // إذا لم توجد هذه الدالة
+  // أضفها للنموذج
 
   String.prototype.repeat = function (n) {
-    // repeat the string n times
+    // كرر النص n من المرات
 
-    // actually, the code should be a little bit more complex than that
+    // فى الحقيقة، يجب أن يكون الكود أكثر تعقيدًا بقليل من هذا
     // (the full algorithm is in the specification)
-    // but even an imperfect polyfill is often considered good enough
+    // ولكن حتي تعدد الأشكال الغير كامل غالبًا ما يكون كافيًا
     return new Array(n + 1).join(this);
   };
 }
@@ -152,17 +152,17 @@ if (!String.prototype.repeat) {
 alert("La".repeat(3)); // LaLaLa
 ```
 
-## Borrowing from prototypes
+## الإستعارة من النماذج
 
-In the chapter <info:call-apply-decorators#method-borrowing> we talked about method borrowing.
+فى فصل <info:call-apply-decorators#method-borrowing> تحدثنا عن استعارة الدوال.
 
-That's when we take a method from one object and copy it into another.
+وهذا يكون عندما نأخذ دالةً ما من كائن وننسخها لكائن آخر.
 
-Some methods of native prototypes are often borrowed.
+بعض الدوال غالبًا ما يتم استعارتها من النماذج البدائية.
 
-For instance, if we're making an array-like object, we may want to copy some `Array` methods to it.
+على سبيل المثال، إذا كنا ننشئ كائنًا شبيهًا بالقائمة، فإننا يمكن أن نريد أن ننسخ بعذ دوال الكائن `Array` إليه.
 
-E.g.
+مثال:
 
 ```js run
 let obj = {
@@ -178,18 +178,18 @@ obj.join = Array.prototype.join;
 alert( obj.join(',') ); // Hello,world!
 ```
 
-It works because the internal algorithm of the built-in `join` method only cares about the correct indexes and the `length` property. It doesn't check if the object is indeed an array. Many built-in methods are like that.
+هذا يعمل لأن الدالة الموجودة بالفعل `join` تهتم فقط بالأرقام الصحيحه و الخاصية `length`، ولا تفحص إذا كان الكائن هو قائمة بالفعل. والكثير من الدوال تعمل بنفس الطريقة.
 
-Another possibility is to inherit by setting `obj.__proto__` to `Array.prototype`, so all `Array` methods are automatically available in `obj`.
+وهناك إمكانية أخرى وهي الوراثة وذلك عن طريق أن نجعل `obj.__proto__` تشير إلى `Array.prototype` ولذلك فإن كل دوال الكائن `Array` ستكون متاحة تلقائيًا للكائن `obj`.
 
-But that's impossible if `obj` already inherits from another object. Remember, we only can inherit from one object at a time.
+ولكن هذا مستحيل إذا كان الكائن `obj` يرث بالفعل من كائن آخر، تذكر أننا يمكننا أن نرث من كائن واحد فقط فى المرة الواحدة.
 
-Borrowing methods is flexible, it allows to mix functionalities from different objects if needed.
+إن استعارة الدوال مرن ويسمح بمزج الوظائف من كائنات مختلفة إذا أردنا ذلك.
 
-## Summary
+## الملخص
 
-- All built-in objects follow the same pattern:
-  - The methods are stored in the prototype (`Array.prototype`, `Object.prototype`, `Date.prototype`, etc.)
-  - The object itself stores only the data (array items, object properties, the date)
-- Primitives also store methods in prototypes of wrapper objects: `Number.prototype`, `String.prototype` and `Boolean.prototype`. Only `undefined` and `null` do not have wrapper objects
-- Built-in prototypes can be modified or populated with new methods. But it's not recommended to change them. The only allowable case is probably when we add-in a new standard, but it's not yet supported by the JavaScript engine
+- تتبع كل الكائنات الموجودة بالفعل نفس النمط:
+  - يتم الإحتفاظ بالدوال فى النموذج (prototype) (`Array.prototype`, `Object.prototype`, `Date.prototype`, إلخ.)
+  - يتم تخزين البيانات فقط فى الكائن (عناصر قائمة أو خصائص كائن أو تاريخ)
+- القيم المفردة (Primitives) تخزن الدوال فى نموذج خاص بالكائن الحاوي (wrapper object): `Number.prototype` و `String.prototype` و `Boolean.prototype`. ولا يوجد كائن حاوى للقيمتين `undefined` و `null`.
+- النماذج الموجودة بالفعل (Built-in prototypes) يمكن تعديلها أو إضافة دوال جديدة لها، ولكن هذا غير موصيً به، وإن الحالة الوحيدة المسموح فيها بذلك هي عندما نريد أن نذيف وظيفة جديدة موجودة فى المصدر ولكنها مازالت غير مدعومة من محرك جافاسكريبت معين.

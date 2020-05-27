@@ -1,10 +1,10 @@
-importance: 5
+درجة الأهمية: 5
 
 ---
 
-# Turn the object into JSON and back
+# تحويل الكائن لجيسون وإرجاعه مرة أخرى
 
-Turn the `user` into JSON and then read it back into another variable.
+قم بتحويل الكائن `user` إلى JSON ثم قم بإضافته ككائن إلى متغير آخر.
 
 ```js
 let user = {

@@ -1,40 +1,40 @@
 
-# Property flags and descriptors
+# رايات الخصائص و واصفاتها
 
-As we know, objects can store properties.
+كما نعلم, الكائنات يمكن ان تُخزن الخصائص.
 
-Until now, a property was a simple "key-value" pair to us. But an object property is actually a more flexible and powerful thing.
+حتى الآن, الخاصيه كانت لنا زوجاً بسيطاً من "المفاتيح-القيم". و لكن خاصية الكائن هى حقاً اكثر مرونة و قوة.
 
-In this chapter we'll study additional configuration options, and in the next we'll see how to invisibly turn them into getter/setter functions.
+فى هذا القسم سوف ندرس خصائص ضبط إضافية, وفي الفصل الّذي يليه سنرى كيف نحوّلها إلى دوال جلب/ضبط (Setters/Getters) أيضًا.
 
-## Property flags
+## رايات الخصائص
 
-Object properties, besides a **`value`**, have three special attributes (so-called "flags"):
+خصائص الكائنات, بالإضافة الى **`قيمتها`**, لديها ثلاث سمات مميزة اخرى (لذلك تسمى "flags" او رايات) :
 
-- **`writable`** -- if `true`, the value can be changed, otherwise it's read-only.
-- **`enumerable`** -- if `true`, then listed in loops, otherwise not listed.
-- **`configurable`** -- if `true`, the property can be deleted and these attributes can be modified, otherwise not.
+- **`writable` : قابلة التعديل** -- إذا كانت `true`, يمكن تغيير القيمة, غير ذلك فالقيمة للقراءة فقط.
+- **`enumerable` : قابلة الإحصاء** -- إذا كانت `true`, سوف يظهر مفتاح الخاصية ضمن مفاتيح الكائن عند إستخدام **`for..in`**, غير ذلك فلن يظهر.
+- **`configurable` : قابلة إعادة الضبط** -- إذا كانت `true`, فيمكن حذف الخاصية وتعديل هذه السمات, غير ذلك فلا.
 
-We didn't see them yet, because generally they do not show up. When we create a property "the usual way", all of them are `true`. But we also can change them anytime.
+لم نري تلك الرايات ختي الآن, لأنهم بشكل عام لا يظهرون. عندما نقوم بعمل خاصية "بالطريقة العادية", فكل هذه السمات تكون بقيمة `true`. و لكن يمكننا طبعاً تغييرها متى أردنا.
 
-First, let's see how to get those flags.
+اولاً, دعنا نري كيف يمكننا الحصول علي تلك الرايات.
 
-The method [Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor) allows to query the *full* information about a property.
+الطريقة [Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor) تسمح بالإستعلام *الكامل* عن المعلومات الخاصة بأيّ خاصية.
 
-The syntax is:
+و صياغتها تكون كالآتي:
 ```js
 let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
 ```
 
 `obj`
-: The object to get information from.
+: الكائن الّذي سنجلب معلوماته.
 
 `propertyName`
-: The name of the property.
+: اسم الخاصية الّتي نريدها.
 
-The returned value is a so-called "property descriptor" object: it contains the value and all the flags.
+القيمة العائدة تسمي بكائن "واصف الخصائص" : و هي تحتوي علي القيمه و جميع الرايات.
 
-For instance:
+اليك مثالاً:
 
 ```js run
 let user = {
@@ -44,7 +44,7 @@ let user = {
 let descriptor = Object.getOwnPropertyDescriptor(user, 'name');
 
 alert( JSON.stringify(descriptor, null, 2 ) );
-/* property descriptor:
+/* واصف الخاصية:
 {
   "value": "John",
   "writable": true,
@@ -54,23 +54,23 @@ alert( JSON.stringify(descriptor, null, 2 ) );
 */
 ```
 
-To change the flags, we can use [Object.defineProperty](mdn:js/Object/defineProperty).
+لتغيير الرايات, يمكننا إستخدام [Object.defineProperty](mdn:js/Object/defineProperty).
 
-The syntax is:
+و صياغتها تكون كالآتي:
 
 ```js
 Object.defineProperty(obj, propertyName, descriptor)
 ```
 
 `obj`, `propertyName`
-: The object and its property to apply the descriptor.
+: الكائن الّذي سنطبّق عليه الواصِف، واسم الخاصية.
 
 `descriptor`
-: Property descriptor object to apply.
+: واصِف الخصائص الّذي سنطبّقه على الكائن.
 
-If the property exists, `defineProperty` updates its flags. Otherwise, it creates the property with the given value and flags; in that case, if a flag is not supplied, it is assumed `false`.
+لو كانت الخاصية موجوده, `defineProperty` سوف تقوم بتحديث راياتها. غير ذلك, وإلّا فسيُنشئ الخاصية بهذه القيمة الممرّرة والرايات كذلك; في هذه الحالة, إذا كانت الراية غير موجوده, سوف يُفترض قيمتها بـ `false`.
 
-For instance, here a property `name` is created with all falsy flags:
+إليك مثالاً, هنا الخاصية `name` سوف يتم إنشائها حيث تكون كل راياتها تساوى **`false`**:
 
 ```js run
 let user = {};
@@ -96,13 +96,13 @@ alert( JSON.stringify(descriptor, null, 2 ) );
  */
 ```
 
-Compare it with "normally created" `user.name` above: now all flags are falsy. If that's not what we want then we'd better set them to `true` in `descriptor`.
+قارن ذلك مع `user.name` "التي انشأناها بشكل طبيعي" بالإعلي: الآن كل الرايات لديها القيمة `false`. إذا لم يكن هذا ما نريدة إذا سوف يكون من الأفضل ضبط قيمتهم بـ `true` في `descriptor`.
 
-Now let's see effects of the flags by example.
+نرى الآن تأثيرات هذه الرايات في هذا المثال.
 
-## Non-writable
+## منع قابلية التعديل
 
-Let's make `user.name` non-writable (can't be reassigned) by changing `writable` flag:
+لنجعل `user.name` غير قابلة للتعديل (لا يمكن إسناد قيمة لها) عن طريق تغيير قيمة الراية `writable` :
 
 ```js run
 let user = {
@@ -116,17 +116,17 @@ Object.defineProperty(user, "name", {
 });
 
 *!*
-user.name = "Pete"; // Error: Cannot assign to read only property 'name'
+user.name = "Pete"; // خطأ: لا يمكن إسناد القيم إلى الخاصية ‫ `name` إذ هي للقراءة فقط
 */!*
 ```
 
-Now no one can change the name of our user, unless they apply their own `defineProperty` to override ours.
+الآن يستحيل على أيّ شخص تعديل اسم هذا المستخدم, إلا عند تطبيق `defineProperty` لتعديل ما فعلناه نحن.
 
-```smart header="Errors appear only in strict mode"
-In the non-strict mode, no errors occur when writing to non-writable properties and such. But the operation still won't succeed. Flag-violating actions are just silently ignored in non-strict.
+```smart header="لا تظهر الأخطاء إلّا في الوضع الصارم `strict mode`"
+في الوضع الغير صارم `non-strict mode`, لا يحدث أخطاء عند التعديل علي خاصية غير قابلة للتعديل. و لكن العمليه لن تتم بنجاح أيضاً. أخطاء خرق الرايه يتم تجاهلها بصمت في الوضع الغير صارم `non-strict`.
 ```
 
-Here's the same example, but the property is created from scratch:
+إليك نفس المثال, و لكن سوف يتم إنشاء الخاصية من الصفر:
 
 ```js run
 let user = { };
@@ -134,7 +134,7 @@ let user = { };
 Object.defineProperty(user, "name", {
 *!*
   value: "John",
-  // for new properties we need to explicitly list what's true
+  // لو كانت الخصائص جديدة فعلينا إسناد قيمها إسنادًا صريحًا
   enumerable: true,
   configurable: true
 */!*
@@ -144,11 +144,11 @@ alert(user.name); // John
 user.name = "Pete"; // Error
 ```
 
-## Non-enumerable
+## منع قابلية الإحصاء
 
-Now let's add a custom `toString` to `user`.
+الآن دعنا نضيف الطريقة `toString` الى الكائن `user`.
 
-Normally, a built-in `toString` for objects is non-enumerable, it does not show up in `for..in`. But if we add a `toString` of our own, then by default it shows up in `for..in`, like this:
+عادةً, لا يمكننا إستخدام `toString` مع الكائنات و ذلك لإنها غير قابلة للإحصاء, و هي لا تظهر عند إستخدام `for..in`. و لكن إذا قمنا بإضافة `toString` الخاصة بنا, إذا بشكل افتراضي سوف تظهر عند إستخدام `for..in`, كما فى المثال التالي:
 
 ```js run
 let user = {
@@ -158,11 +158,11 @@ let user = {
   }
 };
 
-// By default, both our properties are listed:
+// بشكل إفتراضي, كلا الخاصيتين سوف يتم عرضهم:
 for (let key in user) alert(key); // name, toString
 ```
 
-If we don't like it, then we can set `enumerable:false`. Then it won't appear in a `for..in` loop, just like the built-in one:
+لو لم نرد ذلك, يمكننا وضع `enumerable:false`. و سوف لن تظهر عند إستخدام `for..in`, كما فى الوضع العادى:
 
 ```js run
 let user = {
@@ -179,24 +179,24 @@ Object.defineProperty(user, "toString", {
 });
 
 *!*
-// Now our toString disappears:
+// الآن toString اختفت:
 */!*
 for (let key in user) alert(key); // name
 ```
 
-Non-enumerable properties are also excluded from `Object.keys`:
+الخصائص الغير قابلة للإحصاء يتم استثناءها من `Object.keys`:
 
 ```js
 alert(Object.keys(user)); // name
 ```
 
-## Non-configurable
+## منع قابلية إعادة الضبط
 
-The non-configurable flag (`configurable:false`) is sometimes preset for built-in objects and properties.
+راية عدم الضبط (`configurable:false`) احياناً يتم إعدادها مسبقاً في بعض الكائنات والخصائص المضمّنة في اللغة.
 
-A non-configurable property can not be deleted.
+الخاصية الغير قابلة للإحصاء لا يمكن حذفها.
 
-For instance, `Math.PI` is non-writable, non-enumerable and non-configurable:
+فمثلاً, `Math.PI` غير قابلة للتعديل, غير قابلة للإحصاء و غير قابلة لإعادة الضبط:
 
 ```js run
 let descriptor = Object.getOwnPropertyDescriptor(Math, 'PI');
@@ -211,23 +211,23 @@ alert( JSON.stringify(descriptor, null, 2 ) );
 }
 */
 ```
-So, a programmer is unable to change the value of `Math.PI` or overwrite it.
+لذا, لن يستطيع المبرمج تغيير قيمة `Math.PI` أو التعديل عليها.
 
 ```js run
-Math.PI = 3; // Error
+Math.PI = 3; // خطأ
 
-// delete Math.PI won't work either
+// delete Math.PI لن تعمل أيضًا
 ```
 
-Making a property non-configurable is a one-way road. We cannot change it back with `defineProperty`.
+إن تفعيل خاصيّة منع قابلية إعادة الضبط هو قرار لا عودة فيه. فلا يمكننا تغيير الراية (إتاحة قابلية إعادة الضبط) باستعمال `defineProperty`.
 
-To be precise, non-configurability imposes several restrictions on `defineProperty`:
-1. Can't change `configurable` flag.
-2. Can't change `enumerable` flag.
-3. Can't change `writable: false` to `true` (the other way round works).
-4. Can't change `get/set` for an accessor property (but can assign them if absent).
+وللدقّة فهذا المنع يضع تقييدات أخرى على `defineProperty`:
+1. منع تغيير راية قابلية إعادة الضبط `configurable`.
+2. منع تغيير راية قابلية الإحصاء `enumerable`.
+3. منع تغيير راية قابلية التعديل `writable: false` الي `true` (و لكن العكس ممكن).
+4. منع تغيير ضابط وجالب واصف الوصول `get/set` (ولكن يمكن إسناد قيم إليه).
 
-Here we are making `user.name` a "forever sealed" constant:
+هنا سوف نحدد الخاصية `user.name` ثابتة للأبد:
 
 ```js run
 let user = { };
@@ -239,26 +239,26 @@ Object.defineProperty(user, "name", {
 });
 
 *!*
-// won't be able to change user.name or its flags
-// all this won't work:
+// لن يمكن تغيير user.name او الرايات الخاصه بها
+// كل ذلك لن يعمل:
 //   user.name = "Pete"
 //   delete user.name
 //   defineProperty(user, "name", { value: "Pete" })
-Object.defineProperty(user, "name", {writable: true}); // Error
+Object.defineProperty(user, "name", {writable: true}); // خطأ
 */!*
 ```
 
-```smart header="\"Non-configurable\" doesn't mean \"non-writable\""
-Notable exception: a value of non-configurable, but writable property can be changed.
+```smart header="\"منع قابلية إعادة الضبط\" لا يعني \"منع قابلية التعديل\""
+إستثناء ملحوظ: قيمة الخاصية التى لديها منع إعادة الضبط, و لكن لديها قابلية التعديل , تلك القيمة يمكن تغييرها.
 
-The idea of `configurable: false` is to prevent changes to property flags and its deletion, not changes to its value.
+الفكره وراء `configurable: false` لمنع تغيير رايات الخاصية او حذفها, ليس لتغيير قيمتها.
 ```
 
 ## Object.defineProperties
 
-There's a method [Object.defineProperties(obj, descriptors)](mdn:js/Object/defineProperties) that allows to define many properties at once.
+يوجد طريقة [Object.defineProperties(obj, descriptors)](mdn:js/Object/defineProperties) و التي تسمح بتعريف كثير من الخصائص مره واحده.
 
-The syntax is:
+و صياغتها تكون كالآتي:
 
 ```js
 Object.defineProperties(obj, {
@@ -268,7 +268,7 @@ Object.defineProperties(obj, {
 });
 ```
 
-For instance:
+مثال علي ذلك:
 
 ```js
 Object.defineProperties(user, {
@@ -278,19 +278,19 @@ Object.defineProperties(user, {
 });
 ```
 
-So, we can set many properties at once.
+أي أنّنا نقدر على ضبط أكثر من خاصية معًا.
 
 ## Object.getOwnPropertyDescriptors
 
-To get all property descriptors at once, we can use the method [Object.getOwnPropertyDescriptors(obj)](mdn:js/Object/getOwnPropertyDescriptors).
+لجلب كلّ واصفات الخصائص معًا, يمكننا إستعمال الطريقة [Object.getOwnPropertyDescriptors(obj)](mdn:js/Object/getOwnPropertyDescriptors).
 
-Together with `Object.defineProperties` it can be used as a "flags-aware" way of cloning an object:
+بدمجه مع `Object.defineProperties` يمكن إستخدامها لنسخ الكائنات "ونحن على علمٍ براياتها":
 
 ```js
 let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
 ```
 
-Normally when we clone an object, we use an assignment to copy properties, like this:
+فعادةً حين ننسخ كائنًا, نستعمل الإسناد لنسخ الخصائص، هكذا:
 
 ```js
 for (let key in user) {
@@ -298,34 +298,34 @@ for (let key in user) {
 }
 ```
 
-...But that does not copy flags. So if we want a "better" clone then `Object.defineProperties` is preferred.
+...و لكن هذا لا ينسخ الرايات. لذا إذا كنا نريد نسخ "أفضل" سيكون إستخدام `Object.defineProperties` أفضل.
 
-Another difference is that `for..in` ignores symbolic properties, but `Object.getOwnPropertyDescriptors` returns *all* property descriptors including symbolic ones.
+إختلاف آخر و ذلك أن `for..in` تتجاهل الخصائص الرمزية (Symbolic Properties), و لكن `Object.getOwnPropertyDescriptors` تُعيد *كل* واصِفات الخصائص بما فيها الرمزية.
 
-## Sealing an object globally
+## إغلاق الكائنات على المستوى العام
 
-Property descriptors work at the level of individual properties.
+تعمل واصِفات الخصائص على مستوى الخصائص منفردةً. هناك أيضًا توابِع تقصر الوصول إلى الكائن كلّه.
 
-There are also methods that limit access to the *whole* object:
+يوجد ايضاً تحدد الدخول الى الكائن *كله* :
 
 [Object.preventExtensions(obj)](mdn:js/Object/preventExtensions)
-: Forbids the addition of new properties to the object.
+: يمنع إضافة خصائص جديدة إلى الكائن.
 
 [Object.seal(obj)](mdn:js/Object/seal)
-: Forbids adding/removing of properties. Sets `configurable: false` for all existing properties.
+: يمنع إضافة الخصائص وإزالتها. يقوم بوضع `configurable: false` لكل الخصائص الموجودة.
 
 [Object.freeze(obj)](mdn:js/Object/freeze)
-: Forbids adding/removing/changing of properties. Sets `configurable: false, writable: false` for all existing properties.
+: يمنع إضافة الخصائص أو إزالتها أو تغييرها. يقوم بوضع `configurable: false, writable: false` لكل الخصائص الموجودة.
 
-And also there are tests for them:
+كما أنّ هناك توابِع أخرى تفحص تلك المزايا:
 
 [Object.isExtensible(obj)](mdn:js/Object/isExtensible)
-: Returns `false` if adding properties is forbidden, otherwise `true`.
+: يُعيد `false` لو كان ممنوعًا إضافة الخصائص, غير ذلك `true`.
 
 [Object.isSealed(obj)](mdn:js/Object/isSealed)
-: Returns `true` if adding/removing properties is forbidden, and all existing properties have `configurable: false`.
+: يُعيد `true` لو كان ممنوعًا إضافة الخصائص أو إزالتها، وكانت كلّ خصائص الكائن الموجودة ممنوعة من قابلية إعادة الضبط `configurable: false`.
 
 [Object.isFrozen(obj)](mdn:js/Object/isFrozen)
-: Returns `true` if adding/removing/changing properties is forbidden, and all current properties are `configurable: false, writable: false`.
+: يُعيد `true` إذا كان إضافة/حذف/تعديل الخصائص ممنوعاً, و كل الخصائص الحالية `configurable: false, writable: false`.
 
-These methods are rarely used in practice.
+أمّا على أرض الواقع، فنادرًا ما نستعمل تلك الطرق.

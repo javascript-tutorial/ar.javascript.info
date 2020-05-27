@@ -1,11 +1,11 @@
-importance: 4
+الأهمية: 4
 
 ---
 
-# Where's the "document" in the hierarchy?
+# أين "الوثيقة" في التسلسل الهرمي؟
 
-Which class does the `document` belong to?
+إلى أي فئة ينتمي "المستند"؟
 
-What's its place in the DOM hierarchy?
+ما مكانها في التسلسل الهرمي لـ DOM؟
 
-Does it inherit from `Node` or `Element`, or maybe `HTMLElement`?
+هل ترث من "العقدة" أو "العنصر" ، أو ربما "HTMLElement"؟

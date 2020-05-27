@@ -1,5 +1,4 @@
-
-# Prototype methods, objects without __proto__
+# Prototype methods, objects without **proto**
 
 In the first chapter of this section, we mentioned that there are modern methods to setup a prototype.
 
@@ -40,13 +39,13 @@ Object.setPrototypeOf(rabbit, {}); // change the prototype of rabbit to {}
 
 ```js run
 let animal = {
-  eats: true
+  eats: true,
 };
 
 let rabbit = Object.create(animal, {
   jumps: {
-    value: true
-  }
+    value: true,
+  },
 });
 
 alert(rabbit.jumps); // true
@@ -58,7 +57,10 @@ We can use `Object.create` to perform an object cloning more powerful than copyi
 
 ```js
 // fully identical shallow clone of obj
-let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+let clone = Object.create(
+  Object.getPrototypeOf(obj),
+  Object.getOwnPropertyDescriptors(obj)
+);
 ```
 
 This call makes a truly exact copy of `obj`, including all properties: enumerable and non-enumerable, data properties and setters/getters -- everything, and with the right `[[Prototype]]`.
@@ -83,7 +85,8 @@ Why was `__proto__` replaced by the functions `getPrototypeOf/setPrototypeOf`? T
 Technically, we can get/set `[[Prototype]]` at any time. But usually we only set it once at the object creation time and don't modify it anymore: `rabbit` inherits from `animal`, and that is not going to change.
 
 And JavaScript engines are highly optimized for this. Changing a prototype "on-the-fly" with `Object.setPrototypeOf` or `obj.__proto__=` is a very slow operation as it breaks internal optimizations for object property access operations. So avoid it unless you know what you're doing, or JavaScript speed totally doesn't matter for you.
-```
+
+````
 
 ## "Very plain" objects [#very-plain]
 
@@ -100,13 +103,13 @@ let key = prompt("What's the key?", "__proto__");
 obj[key] = "some value";
 
 alert(obj[key]); // [object Object], not "some value"!
-```
+````
 
 Here, if the user types in `__proto__`, the assignment is ignored!
 
 That shouldn't surprise us. The `__proto__` property is special: it must be either an object or `null`. A string can not become a prototype.
 
-But we didn't *intend* to implement such behavior, right? We want to store key/value pairs, and the key named `"__proto__"` was not properly saved. So that's a bug!
+But we didn't _intend_ to implement such behavior, right? We want to store key/value pairs, and the key named `"__proto__"` was not properly saved. So that's a bug!
 
 Here the consequences are not terrible. But in other cases we may be assigning object values, and then the prototype may indeed be changed. As a result, the execution will go wrong in totally unexpected ways.
 
@@ -163,7 +166,6 @@ alert(obj); // Error (no toString)
 
 Note that most object-related methods are `Object.something(...)`, like `Object.keys(obj)` -- they are not in the prototype, so they will keep working on such objects:
 
-
 ```js run
 let chineseDictionary = Object.create(null);
 chineseDictionary.hello = "你好";
@@ -187,7 +189,10 @@ So we can either use `Object.create(null)` to create a "very plain" object witho
 Also, `Object.create` provides an easy way to shallow-copy an object with all descriptors:
 
 ```js
-let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+let clone = Object.create(
+  Object.getPrototypeOf(obj),
+  Object.getOwnPropertyDescriptors(obj)
+);
 ```
 
 We also made it clear that `__proto__` is a getter/setter for `[[Prototype]]` and resides in `Object.prototype`, just like other methods.

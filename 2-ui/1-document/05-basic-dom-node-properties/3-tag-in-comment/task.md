@@ -1,10 +1,10 @@
-importance: 3
+درجة الأهمية: 3
 
 ---
 
-# Tag in comment
+# تاج في تعليق
 
-What does this code show?
+ماذا يبين هذا الكود؟ 
 
 ```html
 <script>

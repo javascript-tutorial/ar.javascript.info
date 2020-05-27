@@ -1,4 +1,4 @@
-Let's make a loop over `<li>`:
+لنقم بعمل iteration علي  `<li>`:
 
 ```js
 for (let li of document.querySelectorAll('li')) {
@@ -6,10 +6,9 @@ for (let li of document.querySelectorAll('li')) {
 }
 ```
 
-In the loop we need to get the text inside every `li`.
+في الحلقة ، نحتاج إلى إدخال النص داخل كل "li".
 
-We can read the text from the first child node of `li`, that is the text node:
-
+يمكننا قراءة النص من العقدة الفرعية الأولى لـ `li` ، وهي العقدة النصية:
 ```js
 for (let li of document.querySelectorAll('li')) {
   let title = li.firstChild.data;
@@ -18,4 +17,5 @@ for (let li of document.querySelectorAll('li')) {
 }
 ```
 
-Then we can get the number of descendants as `li.getElementsByTagName('li').length`.
+ثم يمكننا الحصول على عدد الchildren items
+ `li.getElementsByTagName('li').length`.

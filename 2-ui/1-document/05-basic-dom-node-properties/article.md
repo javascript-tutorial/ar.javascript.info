@@ -1,46 +1,46 @@
-# Node properties: type, tag and contents
+# خصائص العقدة: النوع والعلامة والمحتويات
 
-Let's get a more in-depth look at DOM nodes.
+دعنا نلقي نظرة أكثر تعمقًا على عقد DOM.
 
-In this chapter we'll see more into what they are and learn their most used properties.
+في هذا الفصل ، سنرى المزيد عن ماهيتها ونتعلم خصائصها الأكثر استخدامًا.
 
-## DOM node classes
+## فئات عقدة DOM
 
-Different DOM nodes may have different properties. For instance, an element node corresponding to tag `<a>` has link-related properties, and the one corresponding to `<input>` has input-related properties and so on. Text nodes are not the same as element nodes. But there are also common properties and methods between all of them, because all classes of DOM nodes form a single hierarchy.
+قد تحتوي عقد DOM المختلفة على خصائص مختلفة. على سبيل المثال ، عقدة عنصر مقابلة للعلامة `<a>` لها خصائص مرتبطة بالارتباط ، والعقدة المقابلة لـ `<input>` لها خصائص تتعلق بالإدخال وما إلى ذلك. العقد النصية ليست مثل عقد العنصر. ولكن هناك أيضًا خصائص وطرق مشتركة بينها ، لأن جميع فئات عقد DOM تشكل تسلسلًا هرميًا واحدًا.
 
-Each DOM node belongs to the corresponding built-in class.
+تنتمي كل عقدة DOM إلى الفئة المضمنة المقابلة.
 
-The root of the hierarchy is [EventTarget](https://dom.spec.whatwg.org/#eventtarget), that is inherited by  [Node](http://dom.spec.whatwg.org/#interface-node), and other DOM nodes inherit from it.
+جذر التسلسل الهرمي هو [EventTarget] (https://dom.spec.whatwg.org/#eventtarget) ، الموروث بواسطة [Node] (http://dom.spec.whatwg.org/#interface-node ) ، وترث العقد الأخرى منه.
 
-Here's the picture, explanations to follow:
+هذه هي الصورة والتفسيرات التي يجب اتباعها:
 
 ![](dom-class-hierarchy.svg)
 
-The classes are:
+الclasses هي:
 
-- [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- is the root "abstract" class. Objects of that class are never created. It serves as a base, so that all DOM nodes support so-called "events", we'll study them later.
-- [Node](http://dom.spec.whatwg.org/#interface-node) -- is also an "abstract" class, serving as a base  for DOM nodes. It provides the core tree functionality: `parentNode`, `nextSibling`, `childNodes` and so on (they are getters). Objects of `Node` class are never created. But there are concrete node classes that inherit from it, namely: `Text` for text nodes, `Element` for element nodes and more exotic ones like `Comment` for comment nodes.
-- [Element](http://dom.spec.whatwg.org/#interface-element) -- is a base class for DOM elements. It provides element-level navigation like `nextElementSibling`, `children` and searching methods like `getElementsByTagName`, `querySelector`. A browser supports not only HTML, but also XML and SVG. The `Element` class serves as a base for more specific classes: `SVGElement`, `XMLElement` and `HTMLElement`.
-- [HTMLElement](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) -- is finally the basic class for all HTML elements. It is inherited by concrete HTML elements:
-    - [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) -- the class for `<input>` elements,
-    - [HTMLBodyElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) -- the class for `<body>` elements,
-    - [HTMLAnchorElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) -- the class for `<a>` elements,
-    - ...and so on, each tag has its own class that may provide specific properties and methods.
+- [EventTarget] (https://dom.spec.whatwg.org/#eventtarget) - هي فئة الجذر "المجردة". لا يتم إنشاء كائنات هذه الفئة أبدًا. إنه بمثابة قاعدة ، بحيث تدعم جميع عقد DOM ما يسمى "الأحداث" ، وسندرسها لاحقًا.
+- [Node] (http://dom.spec.whatwg.org/#interface-node) - هي أيضًا فئة "مجردة" ، تعمل كقاعدة لعقد DOM. يوفر وظائف الشجرة الأساسية: `motherNode` و` nextSibling` و` childNodes` وما إلى ذلك (فهي عبارة عن حروف). لا يتم إنشاء كائنات فئة "العقدة" مطلقًا. ولكن هناك فئات عقدة محددة ترث منه ، وهي: `Text` للعقد النصية و` Element` لعقد العناصر والمزيد من الأنواع الغريبة مثل `Comment` لعقد التعليق.
+- [Element] (http://dom.spec.whatwg.org/#interface-element) - هي فئة أساسية لعناصر DOM. يوفر التنقل على مستوى العنصر مثل `nextElementSibling` و` children` وطرق البحث مثل `getElementsByTagName` و` querySelector`. لا يدعم المتصفح HTML فحسب ، بل يدعم أيضًا XML و SVG. تعمل فئة `Element` كقاعدة لفئات أكثر تحديدًا:` SVGElement` و `XMLElement` و` HTMLElement`.
+- [HTMLElement] (https://html.spec.whatwg.org/multipage/dom.html#htmlelement) - أخيرًا هو الفصل الأساسي لجميع عناصر HTML. يتم توريثه بواسطة عناصر HTML محددة:
+    - [HTMLInputElement] (https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) - فئة عناصر `<input>` ،
+    - [HTMLBodyElement] (https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) - فئة عناصر `<body>` ،
+    - [HTMLAnchorElement] (https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) - فئة عناصر "<a>` ،
+    - ... وهكذا ، كل علامة لها فئة خاصة بها قد توفر خصائص وأساليب معينة.
 
-So, the full set of properties and methods of a given node comes as the result of the inheritance.
+لذلك ، فإن المجموعة الكاملة من الخصائص والأساليب لعقدة معينة تأتي نتيجة الميراث.
 
-For example, let's consider the DOM object for an `<input>` element. It belongs to [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) class.
+على سبيل المثال ، لنفكر في كائن DOM لعنصر `<input>`. وهي تنتمي إلى فئة [HTMLInputElement] (https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement).
 
-It gets properties and methods as a superposition of (listed in inheritance order):
+يحصل على خصائص وأساليب تراكب (مدرج في ترتيب الميراث):
 
-- `HTMLInputElement` -- this class provides input-specific properties,
-- `HTMLElement` -- it provides common HTML element methods (and getters/setters),
-- `Element` -- provides generic element methods,
-- `Node` -- provides common DOM node properties,
-- `EventTarget` -- gives the support for events (to be covered),
-- ...and finally it inherits from `Object`, so "plain object" methods like `hasOwnProperty` are also available.
+- "HTMLInputElement" - توفر هذه الفئة خصائص خاصة بالإدخال ،
+- `HTMLElement` - يوفر طرق عنصر HTML الشائعة (والرسائل / المحددات) ،
+- "العنصر" - يوفر طرق العناصر العامة ،
+- `العقدة` - توفر خصائص عقدة DOM الشائعة ،
+- `EventTarget` - يقدم الدعم للأحداث (التي سيتم تغطيتها) ،
+- ... وأخيرًا يرث من `Object` ، لذلك تتوفر أيضًا طرق" الكائن العادي "مثل` hasOwnProperty`.
 
-To see the DOM node class name, we can recall that an object usually has the `constructor` property. It references the class constructor, and `constructor.name` is its name:
+لرؤية اسم فئة عقدة DOM ، يمكننا أن نتذكر أن الكائن عادة ما يكون له خاصية `المنشئ`. وهي تشير إلى مُنشئ الصنف ، و `buildor.name` هو اسمه:
 
 ```js run
 alert( document.body.constructor.name ); // HTMLBodyElement
@@ -62,51 +62,51 @@ alert( document.body instanceof Node ); // true
 alert( document.body instanceof EventTarget ); // true
 ```
 
-As we can see, DOM nodes are regular JavaScript objects. They use prototype-based classes for inheritance.
+كما نرى ، فإن عقد DOM هي كائنات JavaScript عادية. يستخدمون الفصول القائمة على النموذج الأولي للميراث.
 
-That's also easy to see by outputting an element with `console.dir(elem)` in a browser. There in the console you can see `HTMLElement.prototype`, `Element.prototype` and so on.
+من السهل أيضًا رؤية ذلك عن طريق إخراج عنصر باستخدام "console.dir (elem)" في المستعرض. هناك في وحدة التحكم يمكنك مشاهدة `HTMLElement.prototype` و` Element.prototype` وما إلى ذلك.
 
-```smart header="`console.dir(elem)` versus `console.log(elem)`"
-Most browsers support two commands in their developer tools: `console.log` and `console.dir`. They output their arguments to the console. For JavaScript objects these commands usually do the same.
+"` `smart header =" `` console.dir (elem) `مقابل` console.log (elem) ""
+تدعم معظم المتصفحات أمرين في أدوات المطورين الخاصة بهم: `console.log` و` console.dir`. يخرجون حججهم إلى وحدة التحكم. بالنسبة لكائنات JavaScript ، تقوم هذه الأوامر بنفس الشيء.
 
-But for DOM elements they are different:
+ولكن بالنسبة لعناصر DOM فهي مختلفة:
 
-- `console.log(elem)` shows the element DOM tree.
-- `console.dir(elem)` shows the element as a DOM object, good to explore its properties.
+- يُظهر `console.log (elem)` عنصر شجرة DOM.
+- يُظهر `console.dir (elem)` العنصر كعنصر DOM ، جيد لاستكشاف خصائصه.
 
-Try it on `document.body`.
+جربه على `document.body`.
 ```
 
 ````smart header="IDL in the spec"
-In the specification, DOM classes aren't described by using JavaScript, but a special [Interface description language](https://en.wikipedia.org/wiki/Interface_description_language) (IDL), that is usually easy to understand.
+في المواصفات ، لا يتم وصف فئات DOM باستخدام JavaScript ، ولكن [لغة وصف واجهة خاصة] (https://en.wikipedia.org/wiki/Interface_description_language) (IDL) ، يسهل فهمها عادةً.
 
-In IDL all properties are prepended with their types. For instance, `DOMString`, `boolean` and so on.
+في IDL ، يتم إلحاق جميع الخصائص بأنواعها. على سبيل المثال ، "DOMString" و "boolean" وما إلى ذلك.
 
-Here's an excerpt from it, with comments:
+إليك مقتطف منه ، مع التعليقات:
 
 ```js
-// Define HTMLInputElement
-*!*
-// The colon ":" means that HTMLInputElement inherits from HTMLElement
-*/!*
-interface HTMLInputElement: HTMLElement {
-  // here go properties and methods of <input> elements
+// تعريف HTMLInputElement
+*! *
+// النقطتين ":" تعني أن HTMLInputElement يرث من HTMLElement
+* /! *
+واجهة HTMLInputElement: HTMLElement {
+   // here انتقل إلى خصائص وأساليب عناصر <input>
 
-*!*
-  // "DOMString" means that the value of a property is a string
-*/!*
-  attribute DOMString accept;
-  attribute DOMString alt;
-  attribute DOMString autocomplete;
-  attribute DOMString value;
+*! *
+   // "DOMString" يعني أن قيمة الخاصية هي سلسلة
+* /! *
+   السمة DOMString تقبل ؛
+   سمة DOMString alt ؛
+   سمة الإكمال التلقائي لـ DOMString ؛
+   قيمة DOMString ؛
 
-*!*
-  // boolean value property (true/false)
-  attribute boolean autofocus;
-*/!*
-  ...
-*!*
-  // now the method: "void" means that the method returns no value
+*! *
+   // خاصية القيمة المنطقية (صواب / خطأ)
+   خاصية التركيز التلقائي المنطقي ؛
+* /! *
+   ...
+*! *
+   // now the method: يعني "void" أن الطريقة لا تُرجع أي قيمة
 */!*
   void select();
   ...
@@ -114,17 +114,17 @@ interface HTMLInputElement: HTMLElement {
 ```
 ````
 
-## The "nodeType" property
+## خاصية "nodeType"
 
-The `nodeType` property provides one more, "old-fashioned" way to get the "type" of a DOM node.
+توفر خاصية `nodeType` طريقة أخرى" قديمة الطراز "للحصول على" نوع "عقدة DOM.
 
-It has a numeric value:
-- `elem.nodeType == 1` for element nodes,
-- `elem.nodeType == 3` for text nodes,
-- `elem.nodeType == 9` for the document object,
-- there are few other values in [the specification](https://dom.spec.whatwg.org/#node).
+لها قيمة رقمية:
+- `elem.nodeType == 1` لعقد العناصر ،
+- `elem.nodeType == 3` للعقد النصية ،
+- `elem.nodeType == 9` لكائن المستند ،
+- هناك عدد قليل من القيم الأخرى في [المواصفات] (https://dom.spec.whatwg.org/#node).
 
-For instance:
+على سبيل المثال:
 
 ```html run
 <body>
@@ -143,32 +143,31 @@ For instance:
 </body>
 ```
 
-In modern scripts, we can use `instanceof` and other class-based tests to see the node type, but sometimes `nodeType` may be simpler. We can only read `nodeType`, not change it.
+في النصوص الحديثة ، يمكننا استخدام "مثيل" والاختبارات الأخرى القائمة على الفصل لرؤية نوع العقدة ، ولكن في بعض الأحيان قد يكون "نوع العقدة" أبسط. يمكننا فقط قراءة `nodeType` ، وليس تغييره.
 
-## Tag: nodeName and tagName
+## العلامة: nodeName و tagName
 
-Given a DOM node, we can read its tag name from `nodeName` or `tagName` properties:
+بالنظر إلى عقدة DOM ، يمكننا قراءة اسم علامتها من خصائص `nodeName` أو` tagName`:
 
-For instance:
+على سبيل المثال:
 
-```js run
-alert( document.body.nodeName ); // BODY
-alert( document.body.tagName ); // BODY
-```
+تشغيل شبيبة
+تنبيه (document.body.nodeName) ؛ // الجسم
+تنبيه (document.body.tagName) ؛ // الجسم
+``
 
-Is there any difference between `tagName` and `nodeName`?
+هل هناك فرق بين `tagName` و` nodeName`؟
 
-Sure, the difference is reflected in their names, but is indeed a bit subtle.
+بالتأكيد ، ينعكس الفرق في أسمائهم ، لكنه في الواقع خفي قليلاً.
 
-- The `tagName` property exists only for `Element` nodes.
-- The `nodeName` is defined for any `Node`:
-    - for elements it means the same as `tagName`.
-    - for other node types (text, comment, etc.) it has a string with the node type.
+- خاصية `tagName` موجودة فقط لعقد` العنصر`.
+- يُعرّف "nodeName" لأي "عقدة":
+    - للعناصر يعني نفس "tagName".
+    - لأنواع العقد الأخرى (نص ، تعليق ، إلخ.) تحتوي على سلسلة بنوع العقدة.
 
-In other words, `tagName` is only supported by element nodes (as it originates from `Element` class), while `nodeName` can say something about other node types.
+بمعنى آخر ، لا يتم دعم `tagName` إلا بعقد العناصر (لأنها تنشأ من فئة` Element`) ، بينما يمكن لـ `nodeName` أن يقول شيئًا عن أنواع العقد الأخرى.
 
-For instance, let's compare `tagName` and `nodeName` for the `document` and a comment node:
-
+على سبيل المثال ، دعنا نقارن `tagName` و` nodeName` لـ `المستند` وعقدة التعليق:
 
 ```html run
 <body><!-- comment -->
@@ -185,24 +184,24 @@ For instance, let's compare `tagName` and `nodeName` for the `document` and a co
 </body>
 ```
 
-If we only deal with elements, then we can use both `tagName` and `nodeName` - there's no difference.
+إذا تعاملنا فقط مع العناصر ، فيمكننا استخدام كل من "tagName" و "nodeName" - فلا فرق.
 
-```smart header="The tag name is always uppercase except in XML mode"
-The browser has two modes of processing documents: HTML and XML. Usually the HTML-mode is used for webpages. XML-mode is enabled when the browser receives an XML-document with the header: `Content-Type: application/xml+xhtml`.
+"` `عنوان مختصر وذكي=" اسم العلامة دائمًا ما يكون بحروف كبيرة إلا في وضع XML "
+يحتوي المتصفح على وضعين لمعالجة المستندات: HTML و XML. عادة ما يتم استخدام وضع HTML لصفحات الويب. يتم تمكين وضع XML عندما يتلقى المتصفح مستند XML مع الرأس: `Content-Type: application / xml + xhtml`.
 
-In HTML mode `tagName/nodeName` is always uppercased: it's `BODY` either for `<body>` or `<BoDy>`.
+في وضع HTML ، يتم دائمًا تمييز "tagName / nodeName" بأحرف كبيرة: إنه `BODY` إما لـ` <body> `أو` <BoDy> `.
 
-In XML mode the case is kept "as is". Nowadays XML mode is rarely used.
-```
+في وضع XML يتم الاحتفاظ بالحالة "كما هي". في الوقت الحاضر نادرا ما يستخدم وضع XML.
+``
 
 
-## innerHTML: the contents
+## innerHTML: المحتويات
 
-The [innerHTML](https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML) property allows to get the HTML inside the element as a string.
+تتيح خاصية [innerHTML] (https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML) الحصول على HTML داخل العنصر كسلسلة.
 
-We can also modify it. So it's one of the most powerful ways to change the page.
+يمكننا أيضًا تعديله. لذا فهي واحدة من أقوى الطرق لتغيير الصفحة.
 
-The example shows the contents of `document.body` and then replaces it completely:
+يوضح المثال محتويات `document.body` ثم يستبدلها بالكامل:
 
 ```html run
 <body>
@@ -217,7 +216,7 @@ The example shows the contents of `document.body` and then replaces it completel
 </body>
 ```
 
-We can try to insert invalid HTML, the browser will fix our errors:
+يمكننا محاولة إدراج HTML غير صالح ، سيقوم المتصفح بإصلاح أخطاءنا:
 
 ```html run
 <body>
@@ -230,24 +229,24 @@ We can try to insert invalid HTML, the browser will fix our errors:
 </body>
 ```
 
-```smart header="Scripts don't execute"
-If `innerHTML` inserts a `<script>` tag into the document -- it becomes a part of HTML, but doesn't execute.
+```عنوان مختصر= "البرامج النصية لا تنفذ"
+إذا أدرج `innerHTML` علامة` <script> `في المستند - يصبح جزءًا من HTML ، ولكن لا يتم تنفيذه.
 ```
 
-### Beware: "innerHTML+=" does a full overwrite
+### احذر: "innerHTML + =" يقوم باستبدال كامل
 
-We can append HTML to an element by using `elem.innerHTML+="more html"`.
+يمكننا إلحاق HTML بعنصر باستخدام `elem.innerHTML + =" more html "`.
 
-Like this:
+مثله:
 
 ```js
 chatDiv.innerHTML += "<div>Hello<img src='smile.gif'/> !</div>";
 chatDiv.innerHTML += "How goes?";
 ```
 
-But we should be very careful about doing it, because what's going on is *not* an addition, but a full overwrite.
+ولكن يجب أن نكون حذرين للغاية بشأن القيام بذلك ، لأن ما يحدث هو * ليس * إضافة ، ولكن استبدال كامل.
 
-Technically, these two lines do the same:
+من الناحية الفنية ، يفعل هذان الخطان نفس الشيء:
 
 ```js
 elem.innerHTML += "...";
@@ -257,24 +256,24 @@ elem.innerHTML = elem.innerHTML + "..."
 */!*
 ```
 
-In other words, `innerHTML+=` does this:
+بمعنى آخر ، يقوم `innerHTML + =` بذلك:
 
-1. The old contents is removed.
-2. The new `innerHTML` is written instead (a concatenation of the old and the new one).
+1. تتم إزالة المحتويات القديمة.
+2. بدلاً من ذلك ، يتم كتابة "innerHTML" الجديد (سلسلة من القديم والجديد).
 
-**As the content is "zeroed-out" and rewritten from the scratch, all images and other resources will be reloaded**.
+** نظرًا لأن المحتوى "خالي من أي شيء" وأعيد كتابته من البداية ، فسيتم إعادة تحميل جميع الصور والموارد الأخرى **.
 
-In the `chatDiv` example above the line `chatDiv.innerHTML+="How goes?"` re-creates the HTML content and reloads `smile.gif` (hope it's cached). If `chatDiv` has a lot of other text and images, then the reload becomes clearly visible.
+في مثال `chatDiv` أعلى السطر` chatDiv.innerHTML + = "كيف الحال؟" `` يعيد إنشاء محتوى HTML ويعيد تحميل `smile.gif` (آمل أن يتم تخزينه مؤقتًا). إذا كان `chatDiv` يحتوي على الكثير من النصوص والصور الأخرى ، فإن إعادة التحميل تصبح مرئية بوضوح.
 
-There are other side-effects as well. For instance, if the existing text was selected with the mouse, then most browsers will remove the selection upon rewriting `innerHTML`. And if there was an `<input>` with a text entered by the visitor, then the text will be removed. And so on.
+هناك آثار جانبية أخرى أيضًا. على سبيل المثال ، إذا تم تحديد النص الحالي بالماوس ، فإن معظم المتصفحات ستزيل التحديد عند إعادة كتابة `innerHTML`. وإذا كان هناك "<input>" مع نص أدخله الزائر ، فسيتم إزالة النص. وما إلى ذلك وهلم جرا.
 
-Luckily, there are other ways to add HTML besides `innerHTML`, and we'll study them soon.
+لحسن الحظ ، هناك طرق أخرى لإضافة HTML إلى جانب "innerHTML" ، وسندرسها قريبًا.
 
-## outerHTML: full HTML of the element
+## outerHTML: HTML الكامل للعنصر
 
-The `outerHTML` property contains the full HTML of the element. That's like `innerHTML` plus the element itself.
+تحتوي الخاصية `outerHTML` على HTML الكامل للعنصر. هذا مثل `innerHTML` بالإضافة إلى العنصر نفسه.
 
-Here's an example:
+إليك مثال:
 
 ```html run
 <div id="elem">Hello <b>World</b></div>
@@ -284,11 +283,11 @@ Here's an example:
 </script>
 ```
 
-**Beware: unlike `innerHTML`, writing to `outerHTML` does not change the element. Instead, it replaces it in the DOM.**
+** احذر: على عكس "innerHTML" ، لا تؤدي الكتابة إلى "outerHTML" إلى تغيير العنصر. بدلاً من ذلك ، يتم استبداله في DOM. **
 
-Yeah, sounds strange, and strange it is, that's why we make a separate note about it here. Take a look.
+نعم ، يبدو غريبًا ، وغريبًا ، لهذا السبب نقوم بعمل ملاحظة منفصلة عنه هنا. إلق نظرة.
 
-Consider the example:
+تأمل في المثال:
 
 ```html run
 <div>Hello, world!</div>
@@ -308,28 +307,28 @@ Consider the example:
 </script>
 ```
 
-Looks really odd, right?
+تبدو غريبة حقا ، أليس كذلك؟
 
-In the line `(*)` we replaced `div` with `<p>A new element</p>`. In the outer document (the DOM) we can see the new content instead of the `<div>`. But, as we can see in line `(**)`, the value of the old `div` variable hasn't changed!
+في السطر `(*)` استبدلنا `div` بـ` <p> عنصر جديد </ p> `. في المستند الخارجي (DOM) ، يمكننا رؤية المحتوى الجديد بدلاً من `<div>`. ولكن ، كما نرى في السطر `(**)` ، لم تتغير قيمة متغير `div` القديم!
 
-The `outerHTML` assignment does not modify the DOM element (the object referenced by, in this case, the variable 'div'), but removes it from the DOM and inserts the new HTML in its place.
+لا يقوم تعديل "outerHTML" بتعديل عنصر DOM (الكائن المشار إليه ، في هذه الحالة ، المتغير 'div') ، ولكنه يزيله من DOM ويدرج HTML الجديد في مكانه.
 
-So what happened in `div.outerHTML=...` is:
-- `div` was removed from the document.
-- Another piece of HTML `<p>A new element</p>` was inserted in its place.
-- `div` still has its old value. The new HTML wasn't saved to any variable.
+ما حدث في `div.outerHTML = ...` هو:
+- تمت إزالة `div` من المستند.
+- تم إدراج جزء آخر من HTML "<p> عنصر جديد </ p>" في مكانه.
+- `div` لا تزال لها قيمتها القديمة. لم يتم حفظ HTML الجديد في أي متغير.
 
-It's so easy to make an error here: modify `div.outerHTML` and then continue to work with `div` as if it had the new content in it. But it doesn't. Such thing is correct for `innerHTML`, but not for `outerHTML`.
+من السهل جدًا ارتكاب خطأ هنا: قم بتعديل `div.outerHTML` ثم تابع العمل مع` div` كما لو كان به محتوى جديد فيه. لكنها لا تفعل ذلك. هذا الشيء صحيح بالنسبة لـ "innerHTML" ، ولكن ليس لـ "outerHTML".
 
-We can write to `elem.outerHTML`, but should keep in mind that it doesn't change the element we're writing to ('elem'). It puts the new HTML in its place instead. We can get references to the new elements by querying the DOM.
+يمكننا الكتابة إلى "elem.outerHTML" ، ولكن يجب أن نضع في اعتبارنا أنه لا يغير العنصر الذي نكتب إليه ("elem"). بدلاً من ذلك ، تضع HTML الجديد في مكانه. يمكننا الحصول على مراجع للعناصر الجديدة عن طريق الاستعلام عن DOM.
 
-## nodeValue/data: text node content
+## nodeValue / data: محتوى عقدة النص
 
-The `innerHTML` property is only valid for element nodes.
+خاصية `innerHTML` صالحة لعقد العناصر فقط.
 
-Other node types, such as text nodes, have their counterpart: `nodeValue` and `data` properties. These two are almost the same for practical use, there are only minor specification differences. So we'll use `data`, because it's shorter.
+أنواع العقد الأخرى ، مثل العقد النصية ، لها نظيرها: خصائص `nodeValue` و` data`. هذان النوعان متشابهان تقريبًا للاستخدام العملي ، ولا توجد سوى اختلافات طفيفة في المواصفات. لذا سنستخدم "البيانات" لأنها أقصر.
 
-An example of reading the content of a text node and a comment:
+مثال على قراءة محتوى العقدة النصية والتعليق:
 
 ```html run height="50"
 <body>
@@ -349,9 +348,9 @@ An example of reading the content of a text node and a comment:
 </body>
 ```
 
-For text nodes we can imagine a reason to read or modify them, but why comments?
+بالنسبة للعقد النصية ، يمكننا تخيل سبب لقراءتها أو تعديلها ، ولكن لماذا التعليقات؟
 
-Sometimes developers embed information or template instructions into HTML in them, like this:
+في بعض الأحيان يقوم المطورون بتضمين معلومات أو تعليمات قالب في HTML ، مثل هذا:
 
 ```html
 <!-- if isAdmin -->
@@ -359,13 +358,13 @@ Sometimes developers embed information or template instructions into HTML in the
 <!-- /if -->
 ```
 
-...Then JavaScript can read it from `data` property and process embedded instructions.
+... ثم يمكن لجافا سكريبت قراءته من خاصية `البيانات` ومعالجة التعليمات المضمنة.
 
-## textContent: pure text
+## textContent: نص خالص
 
-The `textContent` provides access to the *text* inside the element: only text, minus all `<tags>`.
+يوفر `textContent` الوصول إلى * text * داخل العنصر: النص فقط ، ناقص جميع` <tags> `.
 
-For instance:
+على سبيل المثال:
 
 ```html run
 <div id="news">
@@ -379,18 +378,18 @@ For instance:
 </script>
 ```
 
-As we can see, only text is returned, as if all `<tags>` were cut out, but the text in them remained.
+كما نرى ، يتم إرجاع النص فقط ، كما لو تم قطع جميع `<tags>` ، لكن النص فيها بقي.
 
-In practice, reading such text is rarely needed.
+من الناحية العملية ، نادرًا ما تكون هناك حاجة لقراءة مثل هذا النص.
 
-**Writing to `textContent` is much more useful, because it allows to write text the "safe way".**
+** تعد الكتابة إلى "textContent" أكثر فائدة لأنها تتيح لك كتابة النص "بطريقة آمنة". **
 
-Let's say we have an arbitrary string, for instance entered by a user, and want to show it.
+لنفترض أن لدينا سلسلة عشوائية ، على سبيل المثال تم إدخالها من قبل مستخدم ، ونريد إظهارها.
 
-- With `innerHTML` we'll have it inserted "as HTML", with all HTML tags.
-- With `textContent` we'll have it inserted "as text", all symbols are treated literally.
+- باستخدام "innerHTML" ، سنقوم بإدراج "كـ HTML" ، مع كافة علامات HTML.
+- مع "textContent" سنقوم بإدراج "كنص" ، يتم التعامل مع جميع الرموز حرفياً.
 
-Compare the two:
+قارن بين الاثنين:
 
 ```html run
 <div id="elem1"></div>
@@ -404,16 +403,16 @@ Compare the two:
 </script>
 ```
 
-1. The first `<div>` gets the name "as HTML": all tags become tags, so we see the bold name.
-2. The second `<div>` gets the name "as text", so we literally see `<b>Winnie-the-pooh!</b>`.
+1. يحصل الاسم الأول "<div>" على الاسم "بتنسيق HTML": تصبح جميع العلامات علامات ، لذلك نرى الاسم الغامق.
+2. الثانية `<div>` تحصل على الاسم "كنص" ، لذلك نرى حرفياً "<b> Winnie-the-pooh! </b>`.
 
-In most cases, we expect the text from a user, and want to treat it as text. We don't want unexpected HTML in our site. An assignment to `textContent` does exactly that.
+في معظم الحالات ، نتوقع النص من مستخدم ونريد معاملته كنص. لا نريد HTML غير متوقع في موقعنا. يؤدي التعيين إلى `textContent` ذلك بالضبط.
 
-## The "hidden" property
+## خاصية "مخفية"
 
-The "hidden" attribute and the DOM property specifies whether the element is visible or not.
+تحدد السمة "مخفي" وخاصية DOM ما إذا كان العنصر مرئيًا أم لا.
 
-We can use it in HTML or assign using JavaScript, like this:
+يمكننا استخدامه في HTML أو تخصيصه باستخدام JavaScript ، مثل هذا:
 
 ```html run height="80"
 <div>Both divs below are hidden</div>
@@ -427,10 +426,9 @@ We can use it in HTML or assign using JavaScript, like this:
 </script>
 ```
 
-Technically, `hidden` works the same as `style="display:none"`. But it's shorter to write.
+من الناحية الفنية ، يعمل `المخفي` تمامًا مثل` style = "display: none" `. لكنها أقصر في الكتابة.
 
-Here's a blinking element:
-
+إليك عنصر وامض:
 
 ```html run height=50
 <div id="elem">A blinking element</div>
@@ -440,16 +438,16 @@ Here's a blinking element:
 </script>
 ```
 
-## More properties
+## المزيد من الخصائص
 
-DOM elements also have additional properties, in particular those that depend on the class:
+تحتوي عناصر DOM أيضًا على خصائص إضافية ، لا سيما تلك التي تعتمد على الفئة:
 
-- `value` -- the value for `<input>`, `<select>` and `<textarea>` (`HTMLInputElement`, `HTMLSelectElement`...).
-- `href` -- the "href" for `<a href="...">` (`HTMLAnchorElement`).
-- `id` -- the value of "id" attribute, for all elements (`HTMLElement`).
-- ...and much more...
+- `القيمة` - قيمة` <input> `و` <select> `و` <textarea>` (`HTMLInputElement`،` HTMLSelectElement` ...).
+- `href` -" href "لـ` <a href="..."> `(` HTMLAnchorElement`).
+- `id` - قيمة السمة" id "، لجميع العناصر (` HTMLElement`).
+- ...وأكثر بكثير...
 
-For instance:
+على سبيل المثال:
 
 ```html run height="80"
 <input type="text" id="elem" value="value">
@@ -461,39 +459,39 @@ For instance:
 </script>
 ```
 
-Most standard HTML attributes have the corresponding DOM property, and we can access it like that.
+معظم سمات HTML القياسية لها خاصية DOM المقابلة ، ويمكننا الوصول إليها بهذه الطريقة.
 
-If we want to know the full list of supported properties for a given class, we can find them in the specification. For instance, `HTMLInputElement` is documented at <https://html.spec.whatwg.org/#htmlinputelement>.
+إذا أردنا معرفة القائمة الكاملة للخصائص المدعومة لفئة معينة ، فيمكننا العثور عليها في المواصفات. على سبيل المثال ، يتم توثيق `HTMLInputElement` على <https://html.spec.whatwg.org/#htmlinputelement>.
 
-Or if we'd like to get them fast or are interested in a concrete browser specification -- we can always output the element using `console.dir(elem)` and read the properties. Or explore "DOM properties" in the Elements tab of the browser developer tools.
+أو إذا كنا نرغب في الحصول عليهم بسرعة أو مهتمون بمواصفات متصفح محددة - يمكننا دائمًا إخراج العنصر باستخدام `console.dir (elem)` وقراءة الخصائص. أو استكشف "خصائص DOM" في علامة التبويب "العناصر" في أدوات مطور المتصفح.
 
-## Summary
+## ملخص
 
-Each DOM node belongs to a certain class. The classes form a hierarchy. The full set of properties and methods come as the result of inheritance.
+تنتمي كل عقدة DOM إلى فئة معينة. تشكل الفصول هرمية. مجموعة كاملة من الخصائص والأساليب تأتي نتيجة الميراث.
 
-Main DOM node properties are:
+خصائص عقدة DOM الرئيسية هي:
 
 `nodeType`
-: We can use it to see if a node is a text or an element node. It has a numeric value: `1` for elements,`3` for text nodes, and a few others for other node types. Read-only.
+: يمكننا استخدامه لمعرفة ما إذا كانت العقدة عبارة عن نص أو عقدة عنصر. يحتوي على قيمة رقمية: `1` للعناصر ،` 3` للعقد النصية ، وبعض العناصر الأخرى لأنواع العقد الأخرى. يقرأ فقط.
 
-`nodeName/tagName`
-: For elements, tag name (uppercased unless XML-mode). For non-element nodes `nodeName` describes what it is. Read-only.
+`nodeName / tagName`
+: للعناصر ، اسم العلامة (أحرف كبيرة ما لم يكن وضع XML). بالنسبة إلى العقد غير العنصر ، يصف `nodeName` ما هو. يقرأ فقط.
 
 `innerHTML`
-: The HTML content of the element. Can be modified.
+: محتوى HTML للعنصر. يمكن تعديله.
 
 `outerHTML`
-: The full HTML of the element. A write operation into `elem.outerHTML` does not touch `elem` itself. Instead it gets replaced with the new HTML in the outer context.
+: HTML الكامل للعنصر. لا تلمس عملية الكتابة في `elem.outerHTML`` elem` نفسها. بدلاً من ذلك ، يتم استبداله بـ HTML الجديد في السياق الخارجي.
 
-`nodeValue/data`
-: The content of a non-element node (text, comment). These two are almost the same, usually we use `data`. Can be modified.
+`nodeValue / data`
+: محتوى عقدة غير عنصر (نص ، تعليق). هذان النوعان متشابهان تقريبًا ، وعادة ما نستخدم `البيانات '. يمكن تعديله.
 
 `textContent`
-: The text inside the element: HTML minus all `<tags>`. Writing into it puts the text inside the element, with all special characters and tags treated exactly as text. Can safely insert user-generated text and protect from unwanted HTML insertions.
+: النص الموجود داخل العنصر: HTML ناقص جميع `<tags>`. تؤدي الكتابة فيه إلى وضع النص داخل العنصر ، مع معاملة جميع الأحرف والعلامات الخاصة كنص. يمكن إدراج النص الذي ينشئه المستخدم بأمان والحماية من إدخالات HTML غير المرغوب فيها.
 
-`hidden`
-: When set to `true`, does the same as CSS `display:none`.
+"مخفي"
+: عند التعيين على "true" ، يتم عرض CSS `display: none`.
 
-DOM nodes also have other properties depending on their class. For instance, `<input>` elements (`HTMLInputElement`) support `value`, `type`, while `<a>` elements (`HTMLAnchorElement`) support `href` etc. Most standard HTML attributes have a corresponding DOM property.
+تحتوي عقد DOM أيضًا على خصائص أخرى بناءً على فئتها. على سبيل المثال ، عناصر `<input>` (`HTMLInputElement`) تدعم` القيمة` ، `النوع` ، في حين أن` <a> العناصر (`HTMLAnchorElement`) تدعم` href` إلخ. معظم سمات HTML القياسية لها خاصية DOM مقابلة .
 
-However, HTML attributes and DOM properties are not always the same, as we'll see in the next chapter.
+ومع ذلك ، فإن خصائص HTML وخصائص DOM ليست هي نفسها دائمًا ، كما سنرى في الفصل التالي.

@@ -1,7 +1,7 @@
 
-The first call has `this == rabbit`, the other ones have `this` equal to `Rabbit.prototype`, because it's actually the object before the dot.
+الإستدعاء الأول تكون `this == rabbit` والآخرين تكون قيمة `this` مساوية لـ `Rabbit.prototype` وذلك لأنه الكائن قبل النقطة.
 
-So only the first call shows `Rabbit`, other ones show `undefined`:
+وبالتالى فإن أول استدعاء فقط يعرض `Rabbit` والباقى يعرضون `undefined`:
 
 ```js run
 function Rabbit(name) {

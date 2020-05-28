@@ -1,10 +1,10 @@
-importance: 5
+درجة الأهمية: 5
 
 ---
 
-# The difference between calls
+# الفرق بين الإستدعاءات
 
-Let's create a new `rabbit` object:
+هيا نقوم بإنشاء كائن جديد يسمي `rabbit`:
 
 ```js
 function Rabbit(name) {
@@ -17,7 +17,7 @@ Rabbit.prototype.sayHi = function() {
 let rabbit = new Rabbit("Rabbit");
 ```
 
-These calls do the same thing or not?
+هل هذه الإستدعاءات تقوم بنفس الوظيفة أم لا؟
 
 ```js
 rabbit.sayHi();

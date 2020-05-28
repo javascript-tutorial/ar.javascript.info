@@ -1,13 +1,12 @@
+يمكن للدالة أن تأخذ كل الخصائص المعدودة (enumerable) باستخدام `Object.keys` وطباعة قائمة بهم.
 
-The method can take all enumerable keys using `Object.keys` and output their list.
-
-To make `toString` non-enumerable, let's define it using a property descriptor. The syntax of `Object.create` allows us to provide an object with property descriptors as the second argument.
+لجعل الدالة `toString` غير معدودة (non-enumerable)، سنقوم بتعريفها باستخدام واصف (descriptor). ويسمح لنا شكل `Object.create` أن نضع واصفًا لخاصية كمتغير ثانٍ.
 
 ```js run
 *!*
 let dictionary = Object.create(null, {
-  toString: { // define toString property
-    value() { // the value is a function
+  toString: {
+    value() { // قيمتها عبارة عن دالة
       return Object.keys(this).join();
     }
   }
@@ -17,15 +16,16 @@ let dictionary = Object.create(null, {
 dictionary.apple = "Apple";
 dictionary.__proto__ = "test";
 
-// apple and __proto__ is in the loop
+// apple و __proto__ فى التكرار
 for(let key in dictionary) {
-  alert(key); // "apple", then "__proto__"
-}  
+  alert(key); // "apple", ثم "__proto__"
+}
 
 // comma-separated list of properties by toString
+// قائمة من االخصائص مفصول بينها بالفاصلة
 alert(dictionary); // "apple,__proto__"
 ```
 
-When we create a property using a descriptor, its flags are `false` by default. So in the code above, `dictionary.toString` is non-enumerable.
+عند إنشاء خاصية بواصف فإن مُعرِّفاتها تكون قيمها `false`. ولذلك فى الكود أعلاه فإن `dictionary.toString` هي غير معدودة (non-enumerable).
 
-See the the chapter [](info:property-descriptors) for review.
+أنظر فصل [](info:property-descriptors) للمراجعة.

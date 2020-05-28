@@ -1,17 +1,18 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Position the note inside (absolute)
+# ضع الملاحظة في الداخل (مطلق)
 
-Extend the previous task <info:task/position-at-absolute>: teach the function  `positionAt(anchor, position, elem)` to insert `elem` inside the `anchor`.
+تمديد المهمة السابقة
+ <info:task/position-at-absolute>: علم الوظيفة `الموضع (المرساة ، الموضع ، العنصر)` لإدراج `عنصر` داخل` المرساة`.
 
-New values for `position`:
+القيم الجديدة لـ "الموضع":
 
-- `top-out`, `right-out`, `bottom-out` -- work the same as before, they insert the `elem` over/right/under `anchor`.
-- `top-in`, `right-in`, `bottom-in` -- insert `elem` inside the `anchor`: stick it to the upper/right/bottom edge.
+- `top-out` و` right-out` و` bottom-out` - تعمل كما كانت من قبل ، حيث تقوم بإدخال` elem` over / right / under `anchor`.
+- "أعلى" ، "يمين" ، "أسفل" - أدخل "عنصر" داخل "المرساة": ألصقه بالحافة العلوية / اليمنى / السفلية.
 
-For instance:
+على سبيل المثال:
 
 ```js
 // shows the note above blockquote
@@ -21,8 +22,8 @@ positionAt(blockquote, "top-out", note);
 positionAt(blockquote, "top-in", note);
 ```
 
-The result:
+النتائج:
 
-[iframe src="solution" height="310" border="1" link]
+[iframe src = "solution" height = "310" border = "1" link]
 
-As the source code, take the solution of the task <info:task/position-at-absolute>.
+كرمز المصدر ، خذ حل المهمة <info:task/position-at-absolute>.

@@ -1,4 +1,4 @@
-In this task we only need to accurately calculate the coordinates. See the code for details.
+في هذه المهمة نحتاج فقط لحساب الإحداثيات بدقة. انظر الرمز للحصول على التفاصيل.
 
-Please note: the elements must be in the document to read `offsetHeight` and other properties.
-A hidden (`display:none`) or out of the document element has no size.
+يرجى ملاحظة: يجب أن تكون العناصر في المستند لقراءة `offsetHeight` وخصائص أخرى.
+العنصر المخفي (`display: none`) أو خارج عنصر المستند ليس له حجم.

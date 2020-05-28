@@ -1,11 +1,12 @@
 importance: 5
+الأهمية: 5
 
 ---
 
-# Show a note near the element (absolute)
+# إظهار ملاحظة بالقرب من العنصر (مطلق)
 
-Modify the solution of the [previous task](info:task/position-at) so that the note uses `position:absolute` instead of `position:fixed`.
+قم بتعديل حل [المهمة السابقة] (info: task / position-at) بحيث تستخدم الملاحظة "الموضع: مطلق" بدلاً من "الموضع: ثابت".
 
-That will prevent its "runaway" from the element when the page scrolls.
+وذلك سيمنع "هربه" من العنصر عند تمرير الصفحة.
 
-Take the solution of that task as a starting point. To test the scroll, add the style `<body style="height: 2000px">`.
+خذ حل هذه المهمة كنقطة انطلاق. لاختبار التمرير ، أضف النمط `<body style =" height: 2000px ">`.

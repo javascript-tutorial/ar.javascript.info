@@ -1,40 +1,40 @@
-# Coordinates
+# الإحداثيات
 
-To move elements around we should be familiar with coordinates.
+لتحريك العناصر ، يجب أن نكون على دراية بالإحداثيات.
 
-Most JavaScript methods deal with one of two coordinate systems:
+تتعامل معظم طرق JavaScript مع أحد نظامي الإحداثيات:
 
-1. **Relative to the window** - similar to `position:fixed`, calculated from the window top/left edge.
-    - we'll denote these coordinates as `clientX/clientY`, the reasoning for such name will become clear later, when we study event properties.
-2. **Relative to the document** - similar to `position:absolute` in the document root, calculated from the document top/left edge.
-    - we'll denote them `pageX/pageY`.
+1. ** نسبة إلى النافذة ** - تشبه "الموضع: ثابت" ، محسوبة من أعلى النافذة / الحافة اليسرى.
+    - سنشير إلى هذه الإحداثيات كـ "clientX / clientY" ، وسيصبح سبب هذا الاسم واضحًا لاحقًا ، عندما ندرس خصائص الحدث.
+2. ** بالنسبة إلى المستند ** - يشبه "الموضع: مطلق" في جذر المستند ، محسوبًا من أعلى المستند / الحافة اليسرى.
+    - سنشير لهم `pageX / pageY`.
 
-When the page is scrolled to the very beginning, so that the top/left corner of the window is exactly the document top/left corner, these coordinates equal each other. But after the document shifts, window-relative coordinates of elements change, as elements move across the window, while document-relative coordinates remain the same.
+عندما يتم تمرير الصفحة إلى البداية ، بحيث يكون الركن العلوي / الأيسر من النافذة هو بالضبط أعلى / يسار الزاوية ، فإن هذه الإحداثيات تساوي بعضها البعض. ولكن بعد تغيرات المستند ، تتغير الإحداثيات النسبية للعناصر ، حيث تتحرك العناصر عبر النافذة ، بينما تظل الإحداثيات النسبية للمستندات كما هي.
 
-On this picture we take a point in the document and demonstrate its coordinates before the scroll (left) and after it (right):
+في هذه الصورة ، نأخذ نقطة في المستند ونعرض إحداثياتها قبل التمرير (يسار) وبعده (يمين):
 
 ![](document-and-window-coordinates-scrolled.svg)
 
-When the document scrolled:
-- `pageY` - document-relative coordinate stayed the same, it's counted from the document top (now scrolled out).
-- `clientY` - window-relative coordinate did change (the arrow became shorter), as the same point became closer to window top.
+عند تمرير المستند:
+- `pageY` - ظلت الإحداثيات النسبية للمستندات كما هي ، يتم حسابها من أعلى المستند (تم التمرير الآن).
+- `العميل '- تغيرت إحداثيات النافذة (أصبح السهم أقصر) ، حيث اقتربت نفس النقطة من أعلى النافذة.
 
-## Element coordinates: getBoundingClientRect
+## إحداثيات العنصر: getBoundingClientRect
 
-The method `elem.getBoundingClientRect()` returns window coordinates for a minimal rectangle that encloses `elem` as an object of built-in [DOMRect](https://www.w3.org/TR/geometry-1/#domrect) class.
+تُرجع الطريقة `elem.getBoundingClientRect ()` إحداثيات النافذة لمستطيل صغير يشتمل على "elem" ككائن [DOMRect] مدمج (https://www.w3.org/TR/geometry-1/#domrect ) صف دراسي.
 
-Main `DOMRect` properties:
+خصائص `DOMRect` الرئيسية:
 
-- `x/y` -- X/Y-coordinates of the rectangle origin relative to window,
-- `width/height` -- width/height of the rectangle (can be negative).
+- `x / y` - إحداثيات X / Y لأصل المستطيل بالنسبة للنافذة ،
+- `العرض / الارتفاع` - عرض / ارتفاع المستطيل (يمكن أن يكون سالبًا).
 
-Additionally, there are derived properties:
+بالإضافة إلى ذلك ، هناك خصائص مشتقة:
 
-- `top/bottom` -- Y-coordinate for the top/bottom rectangle edge,
-- `left/right` -- X-coordinate for the left/right rectangle edge.
+- `أعلى / أسفل` - إحداثي Y لحافة المستطيل العلوي / السفلي ،
+- "يسار / يمين" - إحداثي X لحافة المستطيل الأيسر / الأيمن.
 
 ```online
-For instance click this button to see its window coordinates:
+على سبيل المثال ، انقر فوق هذا الزر لرؤية إحداثيات نافذته:
 
 <p><input id="brTest" type="button" value="Get coordinates using button.getBoundingClientRect() for this button" onclick='showRect(this)'/></p>
 
@@ -53,66 +53,66 @@ right:${r.right}
 }
 </script>
 
-If you scroll the page and repeat, you'll notice that as window-relative button position changes, its window coordinates (`y/top/bottom` if you scroll vertically) change as well.
+إذا قمت بتمرير الصفحة وتكرارها ، فستلاحظ أنه مع تغير موضع الزر النسبي للنافذة ، تتغير إحداثيات نافذتها (`y / top / bottom` إذا قمت بالتمرير عموديًا) أيضًا.
 ```
 
-Here's the picture of `elem.getBoundingClientRect()` output:
+إليكم صورة ناتج `elem.getBoundingClientRect ()`:
 
 ![](coordinates.svg)
 
-As you can see, `x/y` and `width/height` fully describe the rectangle. Derived properties can be easily calculated from them:
+كما ترى ، يصف `x / y` و` width / height` المستطيل بالكامل. يمكن حساب الخصائص المشتقة منها بسهولة:
 
 - `left = x`
 - `top = y`
 - `right = x + width`
 - `bottom = y + height`
 
-Please note:
+يرجى الملاحظة:
 
-- Coordinates may be decimal fractions, such as `10.5`. That's normal, internally browser uses fractions in calculations. We don't have to round them when setting to `style.left/top`.
-- Coordinates may be negative. For instance, if the page is scrolled so that `elem` is now above the window, then `elem.getBoundingClientRect().top` is negative.
+- قد تكون الإحداثيات كسور عشرية ، مثل `10.5`. هذا طبيعي ، يستخدم المتصفح داخليًا الكسور في الحسابات. لا يتعين علينا تقريبها عند الضبط على `style.left / top`.
+- قد تكون الإحداثيات سلبية. على سبيل المثال ، إذا تم تمرير الصفحة بحيث يكون "elem" أعلى النافذة الآن ، فإن "elem.getBoundingClientRect (). top" هو سلبي.
 
-```smart header="Why derived properties are needed? Why does `top/left` exist if there's `x/y`?"
-Mathematically, a rectangle is uniquely defined with its starting point `(x,y)` and the direction vector `(width,height)`. So the additional derived properties are for convenience.
+```عنوان مختصر="لماذا هناك حاجة إلى الخصائص المشتقة؟ لماذا يوجد "أعلى / يسار" إذا كان هناك "x / y"؟"
+رياضيا ، يتم تعريف المستطيل بشكل فريد بنقطة البداية `` (س ، ص) `وناقل الاتجاه` (العرض والارتفاع) `. لذا فإن الخصائص الإضافية المشتقة هي للسهولة في التعامل بها.
 
-Technically it's possible for `width/height` to be negative, that allows for "directed" rectangle, e.g. to represent mouse selection with properly marked start and end.
+من الناحية الفنية ، من الممكن أن يكون "العرض / الارتفاع" سالبًا ، مما يسمح للمستطيل "الموجه" ، على سبيل المثال لتمثيل اختيار الماوس مع بداية ونهاية تم وضع علامة عليها بشكل صحيح.
 
-Negative `width/height` values mean that the rectangle starts at its bottom-right corner and then "grows" left-upwards.
+تعني قيم "العرض / الارتفاع" السلبية أن المستطيل يبدأ من الزاوية السفلية اليمنى ثم "ينمو" إلى اليسار.
 
-Here's a rectangle with negative `width` and `height` (e.g. `width=-200`, `height=-100`):
+إليك مستطيل يحتوي على "عرض" و "ارتفاع" سالب (على سبيل المثال ، "عرض = -200" ، "ارتفاع = -100"):
 
 ![](coordinates-negative.svg)
 
-As you can see, `left/top` do not equal `x/y` in such case.
+كما ترى ، `اليسار / الأعلى` لا يساوي` x / y` في هذه الحالة.
 
-In practice though, `elem.getBoundingClientRect()` always returns positive width/height, here we mention negative `width/height` only for you to understand why these seemingly duplicate properties are not actually duplicates.
+من الناحية العملية ، يُرجع `elem.getBoundingClientRect ()` دائمًا العرض / الارتفاع الموجب ، وهنا نذكر `العرض / الارتفاع` السلبي فقط لكي تفهم لماذا هذه الخصائص التي تبدو مكررة ليست في الواقع مكررة.
 ```
 
-```warn header="Internet Explorer and Edge: no support for `x/y`"
-Internet Explorer and Edge don't support `x/y` properties for historical reasons.
+```عنوان تحذيري"Internet Explorer و Edge: لا يوجد دعم لـ`x/y`"
+لا يدعم Internet Explorer و Edge خصائص `x / y` لأسباب تاريخية.
 
-So we can either make a polyfill (add getters in `DomRect.prototype`) or just use `top/left`, as they are always the same as `x/y` for positive `width/height`, in particular in the result of `elem.getBoundingClientRect()`.
+لذلك يمكننا إما إنشاء ملف متعدد (أضف حروفًا في `DomRect.prototype`) أو فقط استخدام` أعلى / يسار` ، لأنها دائمًا ما تكون مثل `x / y` لـ` عرض / ارتفاع` إيجابي ، خاصة في نتيجة `elem.getBoundingClientRect ()`.
 ```
 
-```warn header="Coordinates right/bottom are different from CSS position properties"
-There are obvious similarities between window-relative coordinates and CSS `position:fixed`.
+```عنوان تحذيري="الإحداثيات إلى اليمين / الأسفل تختلف عن خصائص موضع CSS"
+هناك تشابه واضح بين الإحداثيات النسبية للنافذة و "الموضع: ثابت" في CSS.
 
-But in CSS positioning, `right` property means the distance from the right edge, and `bottom` property means the distance from the bottom edge.
+ولكن في وضع CSS ، تعني خاصية `right` المسافة من الحافة اليمنى ، وتعني خاصية` bottom` المسافة من الحافة السفلية.
 
-If we just look at the picture above, we can see that in JavaScript it is not so. All window coordinates are counted from the top-left corner, including these ones.
+إذا نظرنا فقط إلى الصورة أعلاه ، يمكننا أن نرى أنه في JavaScript ليس كذلك. يتم حساب جميع إحداثيات النوافذ من الزاوية العلوية اليسرى ، بما في ذلك هذه الإحداثيات.
 ```
 
-## elementFromPoint(x, y) [#elementFromPoint]
+## elementFromPoint (x، y) [#elementFromPoint]
 
-The call to `document.elementFromPoint(x, y)` returns the most nested element at window coordinates `(x, y)`.
+يؤدي استدعاء "document.elementFromPoint (x، y)` إلى إرجاع العنصر الأكثر تداخلاً في إحداثيات النافذة `(x، y)`.
 
-The syntax is:
+الصيغة هي:
 
 ```js
 let elem = document.elementFromPoint(x, y);
 ```
 
-For instance, the code below highlights and outputs the tag of the element that is now in the middle of the window:
+على سبيل المثال ، يبرز الرمز أدناه ويخرج علامة العنصر الموجود الآن في منتصف النافذة:
 
 ```js run
 let centerX = document.documentElement.clientWidth / 2;
@@ -124,14 +124,14 @@ elem.style.background = "red";
 alert(elem.tagName);
 ```
 
-As it uses window coordinates, the element may be different depending on the current scroll position.
+نظرًا لأنه يستخدم إحداثيات النافذة ، فقد يختلف العنصر اعتمادًا على موضع التمرير الحالي.
 
-````warn header="For out-of-window coordinates the `elementFromPoint` returns `null`"
-The method `document.elementFromPoint(x,y)` only works if `(x,y)` are inside the visible area.
+````عنوان تحذيري="بالنسبة إلى إحداثيات خارج النافذة ، يُرجع` elementFromPoint` `القيمة الخالية`
+لا تعمل الطريقة `document.elementFromPoint (x، y)` إلا إذا كانت "(x، y)` داخل المنطقة المرئية.
 
-If any of the coordinates is negative or exceeds the window width/height, then it returns `null`.
+إذا كانت أي من الإحداثيات سلبية أو تجاوزت عرض / ارتفاع النافذة ، فتُرجع `null`.
 
-Here's a typical error that may occur if we don't check for it:
+إليك خطأ نموذجي قد يحدث إذا لم نتحقق منه:
 
 ```js
 let elem = document.elementFromPoint(x, y);
@@ -142,13 +142,13 @@ elem.style.background = ''; // Error!
 ```
 ````
 
-## Using for "fixed" positioning
+## استخدام الوضع "الثابت"
 
-Most of time we need coordinates in order to position something.
+معظم الوقت نحتاج إحداثيات من أجل وضع شيء ما.
 
-To show something near an element, we can use `getBoundingClientRect` to get its coordinates, and then CSS `position` together with `left/top` (or `right/bottom`).
+لإظهار شيء بالقرب من عنصر ، يمكننا استخدام `getBoundingClientRect` للحصول على إحداثياته ، ثم CSS` position` مع `left / top` (أو` right / bottom`).
 
-For instance, the function `createMessageUnder(elem, html)` below shows the message under `elem`:
+على سبيل المثال ، تعرض الدالة `createMessageUnder (elem، html)` أدناه الرسالة تحت `elem`:
 
 ```js
 let elem = document.getElementById("coords-show-mark");
@@ -160,7 +160,7 @@ function createMessageUnder(elem, html) {
   message.style.cssText = "position:fixed; color: red";
 
 *!*
-  // assign coordinates, don't forget "px"!
+  // عند تعيين إحداثيات  ، لا تنسى "px"!
   let coords = elem.getBoundingClientRect();
 
   message.style.left = coords.left + "px";
@@ -172,8 +172,8 @@ function createMessageUnder(elem, html) {
   return message;
 }
 
-// Usage:
-// add it for 5 seconds in the document
+/// الاستخدام:
+// أضفه لمدة 5 ثوانٍ في document
 let message = createMessageUnder(elem, 'Hello, world!');
 document.body.append(message);
 setTimeout(() => message.remove(), 5000);
@@ -185,29 +185,30 @@ Click the button to run it:
 <button id="coords-show-mark">Button with id="coords-show-mark", the message will appear under it</button>
 ```
 
-The code can be modified to show the message at the left, right, below, apply CSS animations to "fade it in" and so on. That's easy, as we have all the coordinates and sizes of the element.
+يمكن تعديل الكود لإظهار الرسالة على اليسار ، اليمين ، أدناه ، تطبيق الرسوم المتحركة CSS "تتلاشى فيه" وهلم جرا. هذا سهل ، لأن لدينا جميع إحداثيات وأحجام العنصر.
 
-But note the important detail: when the page is scrolled, the message flows away from the button.
+لكن لاحظ التفاصيل المهمة: عندما يتم تمرير الصفحة ، تتدفق الرسالة بعيدًا عن الزر.
 
-The reason is obvious: the message element relies on `position:fixed`, so it remains at the same place of the window while the page scrolls away.
+والسبب واضح: يعتمد عنصر الرسالة على "الموضع: ثابت" ، لذلك يبقى في نفس مكان النافذة أثناء تمرير الصفحة بعيدًا.
 
-To change that, we need to use document-based coordinates and `position:absolute`.
+لتغيير ذلك ، نحتاج إلى استخدام الإحداثيات المستندة إلى المستندات و "الموضع: مطلق".
 
-## Document coordinates [#getCoords]
+## إحداثيات المستند [#getCoords]
 
-Document-relative coordinates start from the upper-left corner of the document, not the window.
+تبدأ الإحداثيات المتعلقة بالمستند من الزاوية العلوية اليسرى من المستند ، وليس النافذة.
 
-In CSS, window coordinates correspond to `position:fixed`, while document coordinates are similar to `position:absolute` on top.
+في CSS ، تتوافق إحداثيات النافذة مع "الموضع: ثابت" ، في حين أن إحداثيات المستند تشبه "الموضع: مطلق" في الأعلى.
 
-We can use `position:absolute` and `top/left` to put something at a certain place of the document, so that it remains there during a page scroll. But we need the right coordinates first.
+يمكننا استخدام "الموضع: مطلق" و "أعلى / يسار" لوضع شيء ما في مكان معين من المستند ، بحيث يبقى هناك أثناء تمرير الصفحة. لكننا بحاجة إلى الإحداثيات الصحيحة أولاً.
 
-There's no standard method to get the document coordinates of an element. But it's easy to write it.
+لا توجد طريقة قياسية للحصول على إحداثيات المستند لعنصر. ولكن من السهل كتابتها.
 
-The two coordinate systems are connected by the formula:
-- `pageY` = `clientY` + height of the scrolled-out vertical part of the document.
-- `pageX` = `clientX` + width of the scrolled-out horizontal part of the document.
+يتم توصيل نظامي الإحداثيات بواسطة الصيغة:
+- `pageY` =` clientY` + ارتفاع الجزء الرأسي القابل للتمرير من المستند.
+- `pageX` =` clientX` + عرض الجزء الأفقي القابل للتمرير من المستند.
 
-The function `getCoords(elem)` will take window coordinates from `elem.getBoundingClientRect()` and add the current scroll to them:
+ستأخذ الدالة `getCoords (elem)` إحداثيات النافذة من `elem.getBoundingClientRect ()` وتضيف التمرير الحالي إليها:
+
 
 ```js
 // get document coordinates of the element
@@ -221,9 +222,9 @@ function getCoords(elem) {
 }
 ```
 
-If in the example above we used it with `position:absolute`, then the message would stay near the element on scroll.
+إذا استخدمناها في المثال أعلاه مع "الموضع: مطلق" ، فستظل الرسالة بالقرب من العنصر عند التمرير.
 
-The modified `createMessageUnder` function:
+وظيفة `createMessageUnder` المعدلة:
 
 ```js
 function createMessageUnder(elem, html) {
@@ -241,13 +242,13 @@ function createMessageUnder(elem, html) {
 }
 ```
 
-## Summary
+## ملخص
 
-Any point on the page has coordinates:
+تحتوي أي نقطة في الصفحة على إحداثيات:
 
-1. Relative to the window -- `elem.getBoundingClientRect()`.
-2. Relative to the document -- `elem.getBoundingClientRect()` plus the current page scroll.
+1. بالنسبة إلى النافذة - `elem.getBoundingClientRect ()`.
+2. بالنسبة إلى المستند - `elem.getBoundingClientRect ()` بالإضافة إلى تمرير الصفحة الحالية.
 
-Window coordinates are great to use with `position:fixed`, and document coordinates do well with `position:absolute`.
+إحداثيات النوافذ رائعة للاستخدام مع "الموضع: ثابت" ، وإحداثيات المستند جيدة مع "الموضع: مطلق".
 
-Both coordinate systems have their pros and cons; there are times we need one or the other one, just like CSS `position` `absolute` and `fixed`.
+كلا النظامين المنسقين لهما إيجابيات وسلبيات ؛ هناك أوقات نحتاج فيها إلى واحد أو الآخر ، تمامًا مثل CSS `position`` مطلق` و` ثابت`.

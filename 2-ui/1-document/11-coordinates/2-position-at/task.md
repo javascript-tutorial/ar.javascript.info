@@ -1,18 +1,18 @@
-importance: 5
-
+درجة الأهمية: 5
 ---
 
-# Show a note near the element
+# عرض ملاحظة بالقرب من العنصر
 
-Create a function `positionAt(anchor, position, elem)` that positions `elem`, depending on `position` near `anchor` element.
+إنشاء وظيفة `positionAt (مرساة ، موضع ، elem)` تضع مواضع `elem` ، اعتمادًا على` position` بالقرب من عنصر `anchor`.
 
-The `position` must be a string with any one of 3 values:
-- `"top"` - position `elem` right above `anchor`
-- `"right"` - position `elem` immediately at the right of `anchor`
-- `"bottom"` - position `elem` right below `anchor`
+يجب أن يكون "الموضع" عبارة عن سلسلة تحتوي على أي قيمة من 3 قيم:
+- `` top '' - ضع `elem` فوق` anchor` مباشرة
+- "" right "" - ضع "elem" مباشرة على يمين "anchor"
+- "أسفل" "- ضع" elem "أسفل" anchor "مباشرة
 
-It's used inside function `showNote(anchor, position, html)`, provided in the task source code, that creates a "note" element with given `html` and shows it at the given `position` near the `anchor`.
+يتم استخدامه داخل الوظيفة `showNote (anchor ، position ، html)` ، المتوفرة في شفرة مصدر المهمة ، والتي تنشئ عنصر "note" مع `html` معينًا وتعرضه في" الموضع "القريب من" anchor ".
 
-Here's the demo of notes:
+إليك عرض الملاحظات:
 
 [iframe src="solution" height="350" border="1" link]
+

@@ -1,286 +1,280 @@
-# Arrays
+# المصفوفات
 
-Objects allow you to store keyed collections of values. That's fine.
+تسمح لك الكائنات بتخزين مجموعه من المفاتيح ذات قيم .الي الان هذا جيد .
 
-But quite often we find that we need an *ordered collection*, where we have a 1st, a 2nd, a 3rd element and so on. For example, we need that to store a list of something: users, goods, HTML elements etc.
+ولكن في كثير من الأحيان نجد أننا بحاجة إلى *مجموعة مرتبة*, حيث لدينا عنصر الأول والثاني والثالث وما إلى ذلك. علي سبيل المثال, نحن نحتاج الي تخزين مجموعه من الشياء: مسخدمين, بضائع, عناصر HTML الخ.
 
-It is not convenient to use an object here, because it provides no methods to manage the order of elements. We can’t insert a new property “between” the existing ones. Objects are just not meant for such use.
+ليس من المناسب ان نستخدم كائن هنا, لانه لايمتلك اي وسائل او طرق لترتيب العناصر. لايمكنا ادراج خاصيه جديده “بين” الموجوده بالفعل. الكائنات ليست معده لهذا الاستخدام فقط.
 
-There exists a special data structure named `Array`, to store ordered collections.
+يوجد هيكل بيانات خاص يسمي `Array`, لتخزين المجموعات المرتبه.
 
-## Declaration
+## الاعلان
 
-There are two syntaxes for creating an empty array:
+هناك طريقتين لإنشاء مصفوفه فارغه:
 
 ```js
 let arr = new Array();
 let arr = [];
 ```
 
-Almost all the time, the second syntax is used. We can supply initial elements in the brackets:
+في جميع الأوقات تقريبًا ، يتم استخدام بناء الجملة الثاني. يمكننا توفير العناصر الأولية في الأقواس:
 
 ```js
-let fruits = ["Apple", "Orange", "Plum"];
+let fruits = ["البرقوق", "البرتقال", "التفاح"];
 ```
 
-Array elements are numbered, starting with zero.
-
-We can get an element by its number in square brackets:
+يتم ترقيم عناصر المصفوفه ، بدءًا من صفر.
+يمكننا الحصول على عنصر من خلال الترقيم بين قوسين معقوفين:
 
 ```js run
-let fruits = ["Apple", "Orange", "Plum"];
+let fruits = ["البرقوق", "البرتقال", "التفاح"];
 
-alert( fruits[0] ); // Apple
-alert( fruits[1] ); // Orange
-alert( fruits[2] ); // Plum
+alert( fruits[0] ); // التفاح
+alert( fruits[1] ); // البرتقال
+alert( fruits[2] ); // البرقوق
 ```
 
-We can replace an element:
+يمكننا استبدال عنصر:
 
 ```js
-fruits[2] = 'Pear'; // now ["Apple", "Orange", "Pear"]
+fruits[2] = 'الكمثري'; // الآن ["التفاح", "البرتقال", "الكمثري"]
 ```
 
-...Or add a new one to the array:
+...او اضف واحد جديد الي المصفوفه :
 
 ```js
-fruits[3] = 'Lemon'; // now ["Apple", "Orange", "Pear", "Lemon"]
+fruits[3] = 'الليمون'; // الآن ["الليمون", "الكمثري", "البرتقال", "التفاح"]
 ```
 
-The total count of the elements in the array is its `length`:
+العدد الإجمالي للعناصر في المصفوفه هو `length`:
 
 ```js run
-let fruits = ["Apple", "Orange", "Plum"];
+let fruits = ["البرقوق", "البرتقال", "التفاح"];
 
 alert( fruits.length ); // 3
 ```
 
-We can also use `alert` to show the whole array.
+يمكن ان نستخدم `alert` حتي نعرض المصفوفه كامله.
 
 ```js run
-let fruits = ["Apple", "Orange", "Plum"];
+let fruits = ["البرقوق", "البرتقال", "التفاح"];
 
-alert( fruits ); // Apple,Orange,Plum
+alert( fruits ); // البرقوق,البرتقال,التفاح
 ```
 
-An array can store elements of any type.
+يمكن للمصفوفه ان تخزن عناصر من جميع الانواع.
 
-For instance:
+على سبيل المثال:
 
 ```js run no-beautify
-// mix of values
-let arr = [ 'Apple', { name: 'John' }, true, function() { alert('hello'); } ];
+// مزيج من القيم
+let arr = [ 'التفاح', { name: 'جوهان' }, true, function() { alert('اهلا'); } ];
 
-// get the object at index 1 and then show its name
-alert( arr[1].name ); // John
+// احصل على الكائن في الفهرس 1 ثم إظهار اسمه
+alert( arr[1].name ); // جوهان
 
-// get the function at index 3 and run it
-arr[3](); // hello
+// احصل على الكائن في الفهرس 3 ثم إظهار اسمه
+arr[3](); // اهلا
 ```
 
 
-````smart header="Trailing comma"
-An array, just like an object, may end with a comma:
+````smart header="الفاصلة اللاحقة"
+المصفوفه ، تمامًا مثل الكائن ، قد تنتهي بفاصلة:
 ```js
 let fruits = [
-  "Apple",
-  "Orange",
-  "Plum"*!*,*/!*
+  "التفاح",
+  "البرتقال",
+  "البرقوق"*!*,*/!*
 ];
 ```
 
-The "trailing comma" style makes it easier to insert/remove items, because all lines become alike.
-````
+يسهّل نمط "الفاصلة اللاحقة" إدراج / إزالة العناصر ، لأن جميع الخطوط متشابهة.````
 
 
-## Methods pop/push, shift/unshift
+## وسائل pop/push, shift/unshift
 
-A [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) is one of the most common uses of an array. In computer science, this means an ordered collection of elements which supports two operations:
+ [الطابور](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) هو أحد الاستخدامات الأكثر شيوعًا للمصفوفة. في علوم الحاسب, هذا يعني مجموعة مرتبة من العناصر التي تدعم عمليتين:
 
-- `push` appends an element to the end.
-- `shift` get an element from the beginning, advancing the queue, so that the 2nd element becomes the 1st.
+- `push`إلحاق عنصر إلي النهاية.
+- `shift` احصل على عنصر من البداية ، بدفع قائمة الانتظار ، بحيث يصبح العنصر الثاني هو الأول.
 
 ![](queue.svg)
 
-Arrays support both operations.
+تدعم المصفوفات كلا من العمليتين.
+في الممارسة العملية نحن بحاجة إليها في كثير من الأحيان. على سبيل المثال ،مجموعه الرسائل التي يجب عرضها على الشاشة.
+هناك حالة استخدام أخرى للمصفوفات -- هيكل البيانات يسمي [stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)).
 
-In practice we need it very often. For example, a queue of messages that need to be shown on-screen.
+يدعم عمليتين:
 
-There's another use case for arrays -- the data structure named [stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)).
+- `push` يضيف عنصرًا إلى النهاية.
+- `pop` يأخذ عنصر من النهاية.
 
-It supports two operations:
+لذلك يتم إضافة عناصر جديدة أو أخذها دائمًا من "النهايه".
 
-- `push` adds an element to the end.
-- `pop` takes an element from the end.
-
-So new elements are added or taken always from the "end".
-
-A stack is usually illustrated as a pack of cards: new cards are added to the top or taken from the top:
+ الكومه(stack) عادة ما يتم توضيحها كحزمة من البطاقات: تتم إضافة بطاقات جديدة إلى الأعلى أو مأخوذة من الأعلى:
 
 ![](stack.svg)
 
-For stacks, the latest pushed item is received first, that's also called LIFO (Last-In-First-Out) principle. For queues, we have FIFO (First-In-First-Out).
+بالنسبه للكومه(stacks), يتم استلام أحدث عنصر مدفوع أولاً ، وهذا ما يسمى  بمبدأ LIFO (Last-In-First-Out). بالنسبة لقوائم الانتظار ، لدينا FIFO (First-In-First-Out).
 
-Arrays in JavaScript can work both as a queue and as a stack. They allow you to add/remove elements both to/from the beginning or the end.
+يمكن أن تعمل المصفوفات في JavaScript كقائمة انتظار وكمجموعة(stack). تتيح لك إضافة / إزالة عناصر من / إلى البداية أو النهاية.
 
-In computer science the data structure that allows this, is called [deque](https://en.wikipedia.org/wiki/Double-ended_queue).
+في علم الحاسوب يسمى هيكل البيانات الذي يسمح بذلك [deque](https://en.wikipedia.org/wiki/Double-ended_queue).
 
-**Methods that work with the end of the array:**
+**الأساليب التي تعمل مع نهاية المصفوفه:**
 
 `pop`
-: Extracts the last element of the array and returns it:
+:تعمل علي استخراج العنصر الأخير من المصفوفة وتعيده :
 
     ```js run
-    let fruits = ["Apple", "Orange", "Pear"];
+     ;["الكمثري", "البرتقال", "التفاح"] = let fruits
 
-    alert( fruits.pop() ); // remove "Pear" and alert it
+     ;alert( fruits.pop() ) // قم بإزاله "الكمثري" وقم بالعرض في تنبيه
 
-    alert( fruits ); // Apple, Orange
+     ;alert( fruits ) // البرتقال, التفاح
     ```
 
 `push`
-: Append the element to the end of the array:
+: ألحق العنصر بنهاية المصفوفة:
 
     ```js run
-    let fruits = ["Apple", "Orange"];
+    let fruits = ["البرتقال", "التفاح"];
 
-    fruits.push("Pear");
+    fruits.push("الكمثري");
 
-    alert( fruits ); // Apple, Orange, Pear
+    alert( fruits ); // الكمثري, البرتقال, التفاح
     ```
 
-    The call `fruits.push(...)` is equal to `fruits[fruits.length] = ...`.
+    تنفيذ هذا الكود الاتي `(...)fruits.push` يساوي تماما `fruits[fruits.length] = ...`.
 
-**Methods that work with the beginning of the array:**
+**الأساليب التي تعمل مع بدايه المصفوفه:**
 
 `shift`
-: Extracts the first element of the array and returns it:
+: تعمل علي استخراج العنصر الاول من المصفوفة وتعيده:
 
     ```js run
-    let fruits = ["Apple", "Orange", "Pear"];
+    let fruits = ["الكمثري", "البرتقال", "التفاح"];
 
-    alert( fruits.shift() ); // remove Apple and alert it
+    alert( fruits.shift() ); // قم بإزاله التفاح وقم بالعرض في تنبيه
 
-    alert( fruits ); // Orange, Pear
+    alert( fruits ); // الكمثري, البرتقال
     ```
 
 `unshift`
-: Add the element to the beginning of the array:
+: إضافه العنصر في بدايه المصفوفه:
 
     ```js run
-    let fruits = ["Orange", "Pear"];
+    let fruits = ["الكمثري", "البرتقال"];
 
-    fruits.unshift('Apple');
+    fruits.unshift('التفاح');
 
-    alert( fruits ); // Apple, Orange, Pear
+    alert( fruits ); // الكمثري, البرتقال, التفاح
     ```
 
-Methods `push` and `unshift` can add multiple elements at once:
+الوسائل `push` و `unshift` يمكنهم إضافة عناصر متعددة في وقت واحد:
 
 ```js run
-let fruits = ["Apple"];
+let fruits = ["التفاح"];
 
-fruits.push("Orange", "Peach");
-fruits.unshift("Pineapple", "Lemon");
+fruits.push("خوخ", "البرتقال");
+fruits.unshift("الليمون", "أناناس");
 
-// ["Pineapple", "Lemon", "Apple", "Orange", "Peach"]
+// ["الخوخ", "البرتقال", "التفاح", "الليمون", "أناناس"]
 alert( fruits );
 ```
 
-## Internals
+## البنيه الداخليه للمصفوفه
 
-An array is a special kind of object. The square brackets used to access a property `arr[0]` actually come from the object syntax. That's essentially the same as `obj[key]`, where `arr` is the object, while numbers are used as keys.
+المصفوفه هي نوع خاص من الكائن. الأقواس المربعة تستخدم للتحكم في الخاصيه `arr[0]` في الواقع تأتي من بناء الكائن. هذا في الاساس نفس `obj[key]`, عندما تكون `arr` كائن, بينما الارقام تستخدم كمفاتيح.
 
-They extend objects providing special methods to work with ordered collections of data and also the `length` property. But at the core it's still an object.
+إنها تمد الكائنات التي توفر وسائل خاصة للعمل مع مجموعات البيانات المطلوبة وكذلك خاصية `length '. ولكن في جوهرها لا يزال كائن.
+تذكر,لا يوجد سوى 7 أنواع أساسية في جافا سكريبت. المصفوفه عباره عن كائن لذالك هي تتصرف مثله.
 
-Remember, there are only 7 basic types in JavaScript. Array is an object and thus behaves like an object.
-
-For instance, it is copied by reference:
+على سبيل المثال, يتم نسخه حسب المرجع:
 
 ```js run
-let fruits = ["Banana"]
+let fruits = ["الموز"]
 
-let arr = fruits; // copy by reference (two variables reference the same array)
+let arr = fruits; // نسخ عن طريق المرجع (متغيران يشيران إلى نفس المصفوفة)
+alert( arr === fruits ); // صحيح
 
-alert( arr === fruits ); // true
+arr.push("الكمثري"); // تعديل المصفوفه حسب المرجع
 
-arr.push("Pear"); // modify the array by reference
-
-alert( fruits ); // Banana, Pear - 2 items now
+alert( fruits ); // الموز ، الكمثرى - 2 من العناصر الآن
 ```
 
-...But what makes arrays really  special is their internal representation. The engine tries to store its elements in the contiguous memory area, one after another, just as depicted on the illustrations in this chapter, and there are other optimizations as well, to make arrays work really fast.
+...ولكن ما يجعل المصفوفات مميزة حقًا هو بنيتها الداخليه. يحاول المحرك تخزين عناصره في منطقة الذاكرة المجاورة, واحد تلو الآخر, تمامًا كما هو موضح في الرسوم التوضيحية في هذا الفصل ، وهناك تحسينات أخرى أيضًا ، لجعل المصفوفات تعمل بسرعة كبيرة.
 
-But they all break if we quit working with an array as with an "ordered collection" and start working with it as if it were a regular object.
+لكن جميعها تنكسر إذا توقفنا عن العمل مع مصفوفة كما هو الحال مع "مجموعة مرتبة" وبدأنا في العمل معها كما لو كانت كائنًا عاديًا.
 
-For instance, technically we can do this:
+على سبيل المثال ، من الناحية الفنية يمكننا القيام بذلك:
 
 ```js
-let fruits = []; // make an array
+let fruits = []; // إنشاء مصفوفه
 
-fruits[99999] = 5; // assign a property with the index far greater than its length
+fruits[99999] = 5; // قم بتعيين الخاصيه مع الفهرس أكبر بكثير من طوله
 
-fruits.age = 25; // create a property with an arbitrary name
+fruits.age = 25; // أنشئ الخاصيه باسم افتراضي 
 ```
 
-That's possible, because arrays are objects at their base. We can add any properties to them.
+هذا ممكن ، لأن المصفوفات هي كائن في أساسها. يمكننا إضافة أي خصائص لهم.
 
-But the engine will see that we're working with the array as with a regular object. Array-specific optimizations are not suited for such cases and will be turned off, their benefits disappear.
+لكن المحرك سيرى أننا نعمل مع المصفوفه كما هو الحال مع كائن عادي. التحسينات الخاصة بالمصفوفه غير مناسبة لمثل هذه الحالات وسيتم إيقافها ، وتختفي فوائدها.
 
-The ways to misuse an array:
+طرق إساءة استخدام مصفوفة:
 
-- Add a non-numeric property like `arr.test = 5`.
-- Make holes, like: add `arr[0]` and then `arr[1000]` (and nothing between them).
-- Fill the array in the reverse order, like `arr[1000]`, `arr[999]` and so on.
+- أضف خاصية غير رقمية مثل `arr.test = 5`.
+- اصنع فراغ, مثل: إضافه `arr[0]` وثم `arr[1000]` (ولا شيء بينهما).
+- املأ المصفوفة بالترتيب العكسي, مثل `arr[1000]`, `arr[999]` وما إلي ذالك.
 
-Please think of arrays as special structures to work with the *ordered data*. They provide special methods for that. Arrays are carefully tuned inside JavaScript engines to work with contiguous ordered data, please use them this way. And if you need arbitrary keys, chances are high that you actually require a regular object `{}`.
+يرجى التفكير في المصفوفات كبنى خاصة للعمل مع * البيانات المطلوبة *. أنها توفر أساليب خاصة لذلك.يتم ضبط المصفوفات بعنايةداخل محركات JavaScript للعمل مع البيانات المرتبة المتجاورة ، يرجى استخدامها بهذه الطريقة. وإذا كنت بحاجة إلى مفاتيح عشوائية ،هناك احتمالات عالية بأنك تحتاج بالفعل إلى كائن عادي `{}`.
 
-## Performance
+## الأداء
 
-Methods `push/pop` run fast, while `shift/unshift` are slow.
+الوسائل `push/pop` يتم تنفيذها أسرع, بينما `shift/unshift` تكون أبطئ.
 
 ![](array-speed.svg)
 
-Why is it faster to work with the end of an array than with its beginning? Let's see what happens during the execution:
+لماذا يكون العمل مع نهاية المصفوفة أسرع من بدايته؟ دعونا نرى ما يحدث أثناء التنفيذ:
 
 ```js
-fruits.shift(); // take 1 element from the start
+fruits.shift(); // قم بأخذ عنصر من البدايه
 ```
 
-It's not enough to take and remove the element with the number `0`. Other elements need to be renumbered as well.
+لا يكفي أخذ العنصر وإزالته بالرقم `0`.يجب إعادة ترقيم العناصر الأخرى أيضًا.
 
-The `shift` operation must do 3 things:
+ `shift` هذه العمليه يجب ان تفعل 3 أشياء:
 
-1. Remove the element with the index `0`.
-2. Move all elements to the left, renumber them from the index `1` to `0`, from `2` to `1` and so on.
-3. Update the `length` property.
+1. إزالة العنصر باستخدام الفهرس `0`.
+2. انقل كل العناصر إلى اليسار, ترقيمها من الفهرس `1` الي `0`, من `2` الي `1` وما الي ذالك.
+3.  قم بتحديث خاصيه `length` .
 
 ![](array-shift.svg)
 
-**The more elements in the array, the more time to move them, more in-memory operations.**
+**مزيد من العناصر في المصفوفه, مزيد من الوقت لتحريكها, المزيد من العمليات في الذاكرة.**
 
-The similar thing happens with `unshift`: to add an element to the beginning of the array, we need first to move existing elements to the right, increasing their indexes.
+نفس الشئ يحدث مع `unshift`: حتي تضيف عنصر في بدايه المصفوفه, نحتاج أولاً إلى نقل العناصر الموجودة إلى اليمين, زياده ترقيمهم لدي الفهرس.
 
-And what's with `push/pop`? They do not need to move anything. To extract an element from the end, the `pop` method cleans the index and shortens `length`.
+ وماذا مع الوسائل `push/pop`? لا يحتاجون لتحريك أي شيء. حتي تستخلص عنصر من النهايه,  `pop`  هذه الوسيله تمسح الفهرس وتقلل من الطول `length`.
 
-The actions for the `pop` operation:
+ `pop` الإجراءت التشغليه لهذه الوسيله:
 
 ```js
-fruits.pop(); // take 1 element from the end
+fruits.pop(); // تأخذ عنصر واحد من النهايه
 ```
 
 ![](array-pop.svg)
 
-**The `pop` method does not need to move anything, because other elements keep their indexes. That's why it's blazingly fast.**
+** `pop` لاتحتاج هذه الوسيله الي نقل أي شئ, لان العناصر الاخري تحتفظ بفهارسها. هذا هو السبب في أنها سريعه للغايه.**
 
-The similar thing with the `push` method.
+  نفس الشئ يحدث مع الوسيله`push` .
 
-## Loops
+## الحلقات التكراريه
 
-One of the oldest ways to cycle array items is the `for` loop over indexes:
+واحده من اقدم الطرق لتكرار لستخدام عناصر المصفوفه هي الحلقه   `for` عبر الفهارس:
 
 ```js run
-let arr = ["Apple", "Orange", "Pear"];
+let arr = ["الكمثري", "البرتقال", "التفاح"];
 
 *!*
 for (let i = 0; i < arr.length; i++) {
@@ -289,103 +283,102 @@ for (let i = 0; i < arr.length; i++) {
 }
 ```
 
-But for arrays there is another form of loop, `for..of`:
+ولكن بالنسبة للمصفوفات ، هناك شكل آخر من أشكال الحلقات, `for..of`:
 
 ```js run
-let fruits = ["Apple", "Orange", "Plum"];
+let fruits = ["البرقوق", "البرتقال", "التفاح"];
 
-// iterates over array elements
+// يتكرر عبر عناصر المصفوفه
 for (let fruit of fruits) {
   alert( fruit );
 }
 ```
 
-The `for..of` doesn't give access to the number of the current element, just its value, but in most cases that's enough. And it's shorter.
+The `for..of` لا يمنح الوصول إلى رقم العنصر الحالي, فقط قيمته ,ولكن في معظم الحالات يكون ذلك كافيًا. وهي أقصر.
 
-Technically, because arrays are objects, it is also possible to use `for..in`:
+من الناحية الفنية ، نظرًا لأن المصفوفات هي كائنات ، فمن الممكن أيضًا استخدامها `for..in`:
 
 ```js run
-let arr = ["Apple", "Orange", "Pear"];
+let arr = ["الكمثري", "البرتقال", "التفاح"];
 
 *!*
 for (let key in arr) {
 */!*
-  alert( arr[key] ); // Apple, Orange, Pear
+  alert( arr[key] ); // الكمثري, البرتقال, التفاح
 }
 ```
 
-But that's actually a bad idea. There are potential problems with it:
+لكن هذه في الواقع فكرة سيئة. هناك مشاكل محتملة معها:
 
-1. The loop `for..in` iterates over *all properties*, not only the numeric ones.
+1. تتكرر الحلقة `for ... in` على * جميع الخصائص * ، وليس فقط الخصائص الرقمية.
 
-    There are so-called "array-like" objects in the browser and in other environments, that *look like arrays*. That is, they have `length` and indexes properties, but they may also have other non-numeric properties and methods, which we usually don't need. The `for..in` loop will list them though. So if we need to work with array-like objects, then these "extra" properties can become a problem.
+    هناك ما يسمى بكائنات "مثل المصفوفة" في المتصفح وفي بيئات أخرى, انها *تبدوا مثل المصفوفات*. أي ، لديهم `length` ولديهم خصائص الفهرس, ولكن قد يكون لديهم أيضًا خصائص وسائل غير رقمية أخرى, التي لا نحتاجها عادةً.  `for..in` هذه الحلقه سوف ترتبهم بالرغم من ذلك. لذا إذا احتجنا للعمل مع كائنات تشبه المصفوفة ، فقد تصبح هذه الخصائص "الإضافية" مشكلة.
+2. تم تحسين الحلقة `for..in` للعناصر العامة ، وليس للمصفوفات ، وبالتالي فهي أبطأ بمقدار 10-100 مرة. بالطبع ، إنها لا تزال سريعة جدًا. قد يكون التسريع مهمًا فقط في الاختناقات. ولكن لا يزال يتعين علينا أن ندرك الفرق.
 
-2. The `for..in` loop is optimized for generic objects, not arrays, and thus is 10-100 times slower. Of course, it's still very fast. The speedup may only matter in bottlenecks. But still we should be aware of the difference.
-
-Generally, we shouldn't use `for..in` for arrays.
+بشكل عام ، لا يجب استخدام "for..in" للمصفوفات.
 
 
-## A word about "length"
+## كلمه عن "length"
 
-The `length` property automatically updates when we modify the array. To be precise, it is actually not the count of values in the array, but the greatest numeric index plus one.
+ `length` يتم تحديث هذه الخاصيه تلقائيًا عندما نقوم بتعديل المصفوفه. على وجه الدقة ، في الواقع هو ليس عدد القيم في المصفوفة ، ولكنه أكبر  من مؤشرالفهرس بواحد صحيح.
 
-For instance, a single element with a large index gives a big length:
+على سبيل المثال ، عنصر واحد بمؤشر كبير يعطي طولًا كبيرًا:
 
 ```js run
 let fruits = [];
-fruits[123] = "Apple";
+fruits[123] = "التفاح";
 
 alert( fruits.length ); // 124
 ```
 
-Note that we usually don't use arrays like that.
+لاحظ أننا عادة لا نستخدم مصفوفات من هذا القبيل.
 
-Another interesting thing about the `length` property is that it's writable.
+شيء آخر مثير للاهتمام حول خاصية `length` هو أنه قابل للكتابة.
 
-If we increase it manually, nothing interesting happens. But if we decrease it, the array is truncated. The process is irreversible, here's the example:
+إذا تم تزوديها يدويًا ، فلن يحدث شيء مثير للاهتمام. ولكن إذا قللناه ، فسيتم اقتطاع المصفوفة. العملية لا رجعة فيها ، وإليك المثال:
 
 ```js run
 let arr = [1, 2, 3, 4, 5];
 
-arr.length = 2; // truncate to 2 elements
+arr.length = 2; // يتم اقتطاعها إلى عنصرين
 alert( arr ); // [1, 2]
 
-arr.length = 5; // return length back
-alert( arr[3] ); // undefined: the values do not return
+arr.length = 5; // أعد قيمه الطول
+alert( arr[3] ); // غيرمعرف: لذالك القيم لن تعد
 ```
 
-So, the simplest way to clear the array is: `arr.length = 0;`.
+لذا ، فإن أبسط طريقة لمسح المصفوفه هي: `;arr.length = 0`.
 
 
-## new Array() [#new-array]
+## ()new Array [#new-array]
 
-There is one more syntax to create an array:
+يوجد اكثر من طريقه لإنشاء مصفوفه:
 
 ```js
-let arr = *!*new Array*/!*("Apple", "Pear", "etc");
+let arr = *!*new Array*/!*("الخ", "الكمثري", "التفاح");
 ```
 
-It's rarely used, because square brackets `[]` are shorter. Also there's a tricky feature with it.
+نادرًا ما يتم استخدامه ، لأن الأقواس المربعة `[] أقصر. أيضا هناك ميزة صعبة معها.
 
-If `new Array` is called with a single argument which is a number, then it creates an array *without items, but with the given length*.
+إذا تم استدعاء `مصفوفه جديده`  باستخدام وسيله واحدة عبارة عن رقم ، فإنه ينشئ مصفوفة * بدون عناصر ، ولكن بالطول المحدد *.
 
-Let's see how one can shoot themself in the foot:
+دعونا نرى كيف يمكن للمرء أن يطلق النار على قدمه:
 
 ```js run
-let arr = new Array(2); // will it create an array of [2] ?
+let arr = new Array(2); //هل سينشئ مصفوفه مكونه من [2] ?
 
-alert( arr[0] ); // undefined! no elements.
+alert( arr[0] ); // غير معرف! لا توجد عناصر.
 
-alert( arr.length ); // length 2
+alert( arr.length ); // الطول 2
 ```
 
-In the code above, `new Array(number)` has all elements `undefined`.
+في الكود أعلاه, `مصفوفه جديده(رقم)` تكون لديها كل العناصر `غير معرفه`.
 
-To evade such surprises, we usually use square brackets, unless we really know what we're doing.
+للتهرب من هذه المفاجآت ، نستخدم عادةً الأقواس المربعة ، إلا إذا كنا نعرف حقًا ما نقوم به.
 
-## Multidimensional arrays
+## مصفوفات متعدده الأبعاد
 
-Arrays can have items that are also arrays. We can use it for multidimensional arrays, for example to store matrices:
+يمكن أن تحتوي المصفوفات على عناصر عبارة عن مصفوفات أيضًا. يمكننا استخدامه للمصفوفات متعددة الأبعاد ، على سبيل المثال لتخزين المصفوفات:
 
 ```js run
 let matrix = [
@@ -394,24 +387,24 @@ let matrix = [
   [7, 8, 9]
 ];
 
-alert( matrix[1][1] ); // 5, the central element
+alert( matrix[1][1] ); // 5, العنصر المركزي
 ```
 
-## toString
+## التحويل إلي نص
 
-Arrays have their own implementation of `toString` method that returns a comma-separated list of elements.
+المصفوفات لها تنفيذها الخاص لطريقة `toString` التي تُرجع قائمة من العناصر مفصولة بفواصل.
 
-For instance:
+علي سبيل المثال:
 
 
 ```js run
 let arr = [1, 2, 3];
 
 alert( arr ); // 1,2,3
-alert( String(arr) === '1,2,3' ); // true
+alert( String(arr) === '1,2,3' ); // صحيح
 ```
 
-Also, let's try this:
+أيضا ، دعنا نجرب هذا:
 
 ```js run
 alert( [] + 1 ); // "1"
@@ -419,9 +412,8 @@ alert( [1] + 1 ); // "11"
 alert( [1,2] + 1 ); // "1,21"
 ```
 
-Arrays do not have `Symbol.toPrimitive`, neither a viable `valueOf`, they implement only `toString` conversion, so here `[]` becomes an empty string, `[1]` becomes `"1"` and `[1,2]` becomes `"1,2"`.
-
-When the binary plus `"+"` operator adds something to a string, it converts it to a string as well, so the next step looks like this:
+لا تحتوي المصفوفات على `Symbol.toPrimitive` ، ولا على` valueOf` قابلة للتطبيق ، فهي تنفذ تحويل `toString` فقط ، لذلك هنا` [] تصبح سلسلة فارغة ، `[1]` تصبح "" 1 "" و "[ 1،2] `تصبح" 1،2 ".
+عندما تضيف the binaryn plus بالإضافة إلى علامة "+" فإن هذا العامل يضيف هذا الشئ إلى سلسله نصيه ، فإنه يحولها إلى سلسلة أيضًا ، لذا تبدو الخطوة التالية كما يلي:
 
 ```js run
 alert( "" + 1 ); // "1"
@@ -429,35 +421,35 @@ alert( "1" + 1 ); // "11"
 alert( "1,2" + 1 ); // "1,21"
 ```
 
-## Summary
+## الملخص
 
-Array is a special kind of object, suited to storing and managing ordered data items.
+المصفوفات هو نوع خاص من الكائنات ، مناسب لتخزين وإدارة عناصر البيانات المطلوبة.
 
-- The declaration:
+- الإعلان:
 
     ```js
-    // square brackets (usual)
-    let arr = [item1, item2...];
+    // الأقواس المربعة (المعتادة)
+    let arr = [العنصر2, العنصر1...];
 
-    // new Array (exceptionally rare)
-    let arr = new Array(item1, item2...);
+    // مصفوفه جديده (نادره للغايه)
+    let arr = new Array(العنصر2, العنصر1...);
     ```
 
-    The call to `new Array(number)` creates an array with the given length, but without elements.
+    يؤدي استدعاء "مصفوفه جديده (رقم) " إلى إنشاء مصفوفة بطول معين ، ولكن بدون عناصر..
 
-- The `length` property is the array length or, to be precise, its last numeric index plus one. It is auto-adjusted by array methods.
-- If we shorten `length` manually, the array is truncated.
+- الخاصية `length` هي طول المصفوفة أو ، على وجه الدقة ، آخر فهرس رقمي بالإضافة إلى واحد. يتم ضبطه تلقائيًا بواسطة طرق للمصفوفه.
+- إذا اختصرنا "الطول" يدويًا ، فسيتم اقتطاع المصفوفة.
 
-We can use an array as a deque with the following operations:
+يمكننا استخدام مصفوفة كمادة مع العمليات التالية:
 
-- `push(...items)` adds `items` to the end.
-- `pop()` removes the element from the end and returns it.
-- `shift()` removes the element from the beginning and returns it.
-- `unshift(...items)` adds `items` to the beginning.
+- `push(...عناصر)`تضيف `العناصر` إلى النهاية.
+- `pop()`إزالة العنصر من النهاية وإعادته.
+- `shift()` يزيل العنصر من البداية ويعيده.
+- `unshift(...عناصر)` تضيف `العناصر` إلي البدايه.
 
-To loop over the elements of the array:
-  - `for (let i=0; i<arr.length; i++)` -- works fastest, old-browser-compatible.
-  - `for (let item of arr)` -- the modern syntax for items only,
-  - `for (let i in arr)` -- never use.
+للتكرار فوق عناصر المصفوفة:
+  - `for (let i=0; i<arr.length; i++)` --يعمل بشكل أسرع ومتوافق مع المتصفح القديم.
+  - `for (let item of arr)` -- البنية الحديثة للعناصر فقط ،
+  - `for (let i in arr)` -- لم يستعمل أبدا.
 
-We will return to arrays and study more methods to add, remove, extract elements and sort arrays in the chapter <info:array-methods>.
+سنعود إلى المصفوفات ودراسة المزيد من الطرق لإضافة العناصر وإزالتها واستخراجها وفرز المصفوفات في الفصل <info:array-methods>.

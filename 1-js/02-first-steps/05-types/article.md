@@ -82,7 +82,7 @@ const bigInt = 1234567890123456789012345678901234567890n;
 As `BigInt` numbers are rarely needed, we don't cover them here, but devoted them a separate chapter <info:bigint>. Read it when you need such big numbers.
 
 ```smart header="Compatability issues"
-Right now `BigInt` is supported in Firefox and Chrome, but not in Safari/IE/Edge.
+Right now `BigInt` is supported in Firefox/Chrome/Edge, but not in Safari/IE.
 ```
 
 ## String
@@ -257,7 +257,7 @@ There are 8 basic data types in JavaScript.
 
 - `number` for numbers of any kind: integer or floating-point, integers are limited by ±2<sup>53</sup>.
 - `bigint` is for integer numbers of arbitrary length.
-- `string` for strings. A string may have one or more characters, there's no separate single-character type.
+- `string` for strings. A string may have zero or more characters, there's no separate single-character type.
 - `boolean` for `true`/`false`.
 - `null` for unknown values -- a standalone type that has a single value `null`.
 - `undefined` for unassigned values -- a standalone type that has a single value `undefined`.

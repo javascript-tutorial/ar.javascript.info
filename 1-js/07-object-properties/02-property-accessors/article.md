@@ -2,11 +2,19 @@
 
 يوجد نوعين من الخصائص.
 
+<<<<<<< HEAD
 الأوّل هو خصائص البيانات _data properties_. نحن بالفعل نعلم كيف نتعامل مع هذا النوع. إذ كلّ ما استعملناه من البداية حتى الآن هو خصائص البيانات.
+=======
+There are two kinds of object properties.
+>>>>>>> cd2c7ce3c8f033e6f7861ed1b126552e41ba3e31
 
 النوع الثاني من الخصائص هو شيئ ما جديد. و هو _accessor properties_. هي دوال بشكل أساسي تجلب القيم و تضبطها, ولكن في الكود تظهرُ لنا وكأنها خصائص عادية.
 
+<<<<<<< HEAD
 ## الجالبات والضابطات
+=======
+The second type of properties is something new. It's *accessor properties*. They are essentially functions that execute on getting and setting a value, but look like regular properties to an external code.
+>>>>>>> cd2c7ce3c8f033e6f7861ed1b126552e41ba3e31
 
 خصائص الوصول تمثل بـ "getter" و "setter". يشار إليهم داخل الكائن بـ `get` and `set`:
 
@@ -52,7 +60,11 @@ alert(user.fullName); // John Smith
 */!*
 ```
 
+<<<<<<< HEAD
 من الخارج, لا تبدو خاصية الوصول إلا خاصية عادية. وهذا بالضبط الغرض من هذه الخصائص. فلسنا نريد _إستدعاء_ `user.fullName` على أنّها دالة, بل _قراءتها_ بشكل طبيعي: ونترك الجالب يقوم بعمله خلف الكواليس.
+=======
+From the outside, an accessor property looks like a regular one. That's the idea of accessor properties. We don't *call* `user.fullName` as a function, we *read* it normally: the getter runs behind the scenes.
+>>>>>>> cd2c7ce3c8f033e6f7861ed1b126552e41ba3e31
 
 حتى الآن, `fullName` لديها فقط جالب. لو حاولنا إسناد قيمة لها عن طريق `user.fullName=`, سوف يحدث خطأ:
 

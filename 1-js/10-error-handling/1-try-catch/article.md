@@ -354,20 +354,39 @@ try {
 
 بالطبع ، كل شيء ممكن! المبرمجون يرتكبون الأخطاء. حتى في المرافق المفتوحة المصدر التي يستخدمها الملايين لعقود - فجأة يمكن اكتشاف خطأ يؤدي إلى اختراق رهيب.
 
+<<<<<<< HEAD
 في حالتنا هذه, `try..catch` المقصود لالتقاط أخطاء "البيانات غير صحيحة".ولكن بطبيعتها ، `catch` يحصل على *كل* الأخطاء من `try`. هنا يحصل على خطأ غير متوقع, ولكن لا يزال يظهر `"JSON Error"`. هذا خطأ ويجعل أيضًا تصحيح التعليمات البرمجية أكثر صعوبة.
 
 لحسن الحظ ، يمكننا معرفة الخطأ الذي تحصلنا عليه ، على سبيل المثال من `name`:
+=======
+In our case, `try..catch` is placed to catch "incorrect data" errors. But by its nature, `catch` gets *all* errors from `try`. Here it gets an unexpected error, but still shows the same `"JSON Error"` message. That's wrong and also makes the code more difficult to debug.
+
+To avoid such problems, we can employ the "rethrowing" technique. The rule is simple:
+
+**Catch should only process errors that it knows and "rethrow" all others.**
+
+The "rethrowing" technique can be explained in more detail as:
+
+1. Catch gets all errors.
+2. In the `catch(err) {...}` block we analyze the error object `err`.
+2. If we don't know how to handle it, we do `throw err`.
+
+Usually, we can check the error type using the `instanceof` operator:
+>>>>>>> cd2c7ce3c8f033e6f7861ed1b126552e41ba3e31
 
 ```js run
 try {
   user = { /*...*/ };
-} catch(e) {
+} catch(err) {
 *!*
-  alert(e.name); // "ReferenceError" for accessing an undefined variable
+  if (err instanceof ReferenceError) {
 */!*
+    alert('ReferenceError'); // "ReferenceError" for accessing an undefined variable
+  }
 }
 ```
 
+<<<<<<< HEAD
 القاعدة بسيطة:
 
 **يجب أن يقوم Catch بمعالجة الأخطاء التي يعرفها و "إعادة رمي" كل الآخرين فقط.**
@@ -377,6 +396,9 @@ try {
 1. Catch يحصل على جميع الأخطاء.
 2. في `catch(err) {...}` نقوم بتحليل كائن الخطأ `err`.
 2. إذا لم نكن نعرف كيف نتعامل معها ، فنفعل `throw err`.
+=======
+We can also get the error class name from `err.name` property. All native errors have it. Another option is to read `err.constructor.name`.
+>>>>>>> cd2c7ce3c8f033e6f7861ed1b126552e41ba3e31
 
 في الكود أدناه ، نستخدم إعادة رمي بحيث `catch` يعالج فقط `SyntaxError`:
 
@@ -399,7 +421,7 @@ try {
 } catch(e) {
 
 *!*
-  if (e.name == "SyntaxError") {
+  if (e instanceof SyntaxError) {
     alert( "JSON Error: " + e.message );
   } else {
     throw e; // إعادة رمي (*)
@@ -426,7 +448,7 @@ function readData() {
 */!*
   } catch (e) {
     // ...
-    if (e.name != 'SyntaxError') {
+    if (!(e instanceof SyntaxError)) {
 *!*
       throw e; // لا تعرف كيفية التعامل معه
 */!*

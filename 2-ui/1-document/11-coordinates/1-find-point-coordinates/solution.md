@@ -1,8 +1,8 @@
-# Outer corners
+# الزوايا الخارجية
 
-Outer corners are basically what we get from [elem.getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/DOM/element.getBoundingClientRect).
+الزوايا الخارجية هي في الأساس ما نحصل عليه من [elem.getBoundingClientRect ()] (https://developer.mozilla.org/en-US/docs/DOM/element.getBoundingClientRect).
 
-Coordinates of the upper-left corner `answer1` and the bottom-right corner `answer2`:
+إحداثيات الزاوية العلوية اليسرى `answer1` والزاوية اليمنى السفلى` answer2`:
 
 ```js
 let coords = elem.getBoundingClientRect();
@@ -11,19 +11,17 @@ let answer1 = [coords.left, coords.top];
 let answer2 = [coords.right, coords.bottom];
 ```
 
-# Left-upper inner corner
+# الزاوية الداخلية اليسرى العليا
 
-That differs from the outer corner by the border width. A reliable way to get the distance is `clientLeft/clientTop`:
+هذا يختلف عن الزاوية الخارجية بعرض الحدود. طريقة موثوقة للحصول على المسافة هي `clientLeft / clientTop`:
 
 ```js
 let answer3 = [coords.left + field.clientLeft, coords.top + field.clientTop];
 ```
 
-# Right-bottom inner corner
-
-In our case we need to substract the border size from the outer coordinates.
-
-We could use CSS way:
+# الزاوية الداخلية اليمنى السفلية
+في حالتنا ، نحتاج إلى طرح حجم الحدود من الإحداثيات الخارجية.
+يمكننا استخدام طريقة CSS:
 
 ```js
 let answer4 = [
@@ -32,7 +30,7 @@ let answer4 = [
 ];
 ```
 
-An alternative way would be to add `clientWidth/clientHeight` to coordinates of the left-upper corner. That's probably even better:
+هناك طريقة بديلة تتمثل في إضافة "clientWidth / clientHeight" إلى إحداثيات الزاوية العلوية اليسرى. ربما هذا أفضل:
 
 ```js
 let answer4 = [
@@ -40,3 +38,4 @@ let answer4 = [
   coords.top + elem.clientTop + elem.clientHeight
 ];
 ```
+

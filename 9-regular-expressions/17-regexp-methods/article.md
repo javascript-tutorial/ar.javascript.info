@@ -1,14 +1,14 @@
-# Methods of RegExp and String
-
-In this article we'll cover various methods that work with regexps in-depth.
+#دوال الRegular Expressions والكلمات 
+Regular Expressions  تعني سلسلة من الرموز والأحرف التي تعبر عن سلسلة أو نقش ليتم البحث عنها ضمن نص أطول.
+في هذه المقالة سنغطي الطرق المختلفة التي تعمل مع regexps بتعمق.
 
 ## str.match(regexp)
 
-The method `str.match(regexp)` finds matches for `regexp` in the string `str`.
+تبحث الطريقة `str.match (regexp)` عن تطابقات لـ `regexp` في السلسلة` str`.
 
-It has 3 modes:
+لديها 3 طرق:
 
-1. If the `regexp` doesn't have flag `pattern:g`, then it returns the first match as an array with capturing groups and properties `index` (position of the match), `input` (input string, equals `str`):
+1. إذا كان "regexp" لا يحتوي على علامة `نقش` g: g` ، فإنه يُرجع المطابقة الأولى كمصفوفة مع مجموعات التقاط وخصائص `index` (موضع المطابقة) ،` الإدخال` (سلسلة الإدخال ، يساوي `str`):
 
     ```js run
     let str = "I love JavaScript";
@@ -24,7 +24,7 @@ It has 3 modes:
     alert( result.input );  // I love JavaScript (source string)
     ```
 
-2. If the `regexp` has flag `pattern:g`, then it returns an array of all matches as strings, without capturing groups and other details.
+2. إذا كان "regexp" يحتوي على نمط "flag: g" ، فسيُرجع مصفوفة من جميع المطابقات على شكل سلاسل ، دون التقاط مجموعات وتفاصيل أخرى.
     ```js run
     let str = "I love JavaScript";
 
@@ -34,9 +34,9 @@ It has 3 modes:
     alert( result.length ); // 1
     ```
 
-3. If there are no matches, no matter if there's flag `pattern:g` or not, `null` is returned.
+3. إذا لم تكن هناك تطابقات ، بغض النظر عما إذا كان هناك علامة `pattern: g` أم لا ، فسيتم إرجاع` null`.
 
-    That's an important nuance. If there are no matches, we don't get an empty array, but `null`. It's easy to make a mistake forgetting about it, e.g.:
+     هذا فارق بسيط مهم. إذا لم تكن هناك تطابقات ، فلن نحصل على مصفوفة فارغة ، ولكن `لاغية`. من السهل ارتكاب خطأ نسيان ذلك ، على سبيل المثال:
 
     ```js run
     let str = "I love JavaScript";
@@ -47,7 +47,7 @@ It has 3 modes:
     alert(result.length); // Error: Cannot read property 'length' of null
     ```
 
-    If we want the result to be an array, we can write like this:
+إذا أردنا أن تكون النتيجة مصفوفة ، فيمكننا الكتابة على النحو التالي:
 
     ```js
     let result = str.match(regexp) || [];
@@ -57,17 +57,17 @@ It has 3 modes:
 
 [recent browser="new"]
 
-The method `str.matchAll(regexp)` is a "newer, improved" variant of `str.match`.
+الطريقة `str.matchAll (regexp)` هي متغير "أحدث ، ومحسن" لـ "str.match".
 
-It's used mainly to search for all matches with all groups.
+يتم استخدامه بشكل أساسي للبحث عن جميع التطابقات مع جميع المجموعات.
 
-There are 3 differences from `match`:
+هناك 3 اختلافات عن "المباراة":
 
-1. It returns an iterable object with matches instead of an array. We can make a regular array from it using `Array.from`.
-2. Every match is returned as an array with capturing groups (the same format as `str.match` without flag `pattern:g`).
-3. If there are no results, it returns not `null`, but an empty iterable object.
+1. تقوم بإرجاع كائن قابل للتكرار مع تطابقات بدلاً من صفيف. يمكننا عمل مصفوفة منتظمة منه باستخدام `Array.from`.
+2. يتم إرجاع كل تطابق كمصفوفة مع مجموعات التقاط (نفس تنسيق `str.match` بدون علامة` pattern: g`).
+3. إذا لم تكن هناك نتائج ، فإنها لا تُرجع "null" ، ولكنها تُرجع كائنًا فارغًا قابلًا للتكرار.
 
-Usage example:
+مثال للاستخدام:
 
 ```js run
 let str = '<h1>Hello, world!</h1>';
@@ -86,19 +86,19 @@ alert( firstMatch.index );  // 0
 alert( firstMatch.input );  // <h1>Hello, world!</h1>
 ```
 
-If we use `for..of` to loop over `matchAll` matches, then we don't need `Array.from` any more.
+إذا استخدمنا "for..of" للتكرار فوق تطابقات `matchAll` ، فلن نحتاج بعد ذلك إلى" Array.from` ".
 
 ## str.split(regexp|substr, limit)
 
-Splits the string using the regexp (or a substring) as a delimiter.
+تقسيم السلسلة باستخدام regexp (أو سلسلة فرعية) كمحدد.
 
-We can use `split` with strings, like this:
+يمكننا استخدام `الانقسام` مع السلاسل ، مثل هذا:
 
 ```js run
 alert('12-34-56'.split('-')) // array of [12, 34, 56]
 ```
 
-But we can split by a regular expression, the same way:
+لكن يمكننا تقسيمها بتعبير عادي ، بالطريقة نفسها:
 
 ```js run
 alert('12, 34, 56'.split(/,\s*/)) // array of [12, 34, 56]
@@ -106,7 +106,7 @@ alert('12, 34, 56'.split(/,\s*/)) // array of [12, 34, 56]
 
 ## str.search(regexp)
 
-The method `str.search(regexp)` returns the position of the first match or `-1` if none found:
+تعرض الطريقة `str.search (regexp)` موضع التطابق الأول أو `-1` إذا لم يتم العثور على:
 
 ```js run
 let str = "A drop of ink may make a million think";
@@ -114,46 +114,49 @@ let str = "A drop of ink may make a million think";
 alert( str.search( /ink/i ) ); // 10 (first match position)
 ```
 
-**The important limitation: `search` only finds the first match.**
+** القيد المهم: "البحث" يعثر على المطابقة الأولى فقط. **
 
-If we need positions of further matches, we should use other means, such as finding them all with `str.matchAll(regexp)`.
+إذا احتجنا إلى مواضع لمطابقات أخرى ، فيجب أن نستخدم وسائل أخرى ، مثل العثور عليها جميعًا باستخدام `str.matchAll (regexp)`.
 
 ## str.replace(str|regexp, str|func)
 
-This is a generic method for searching and replacing, one of most useful ones. The swiss army knife for searching and replacing.  
+هذه طريقة عامة للبحث والاستبدال ، واحدة من أكثرها فائدة. سكين الجيش السويسري للبحث والاستبدال.
 
-We can use it without regexps, to search and replace a substring:
+يمكننا استخدامه بدون regexps للبحث عن سلسلة فرعية واستبدالها:
 
 ```js run
 // replace a dash by a colon
 alert('12-34-56'.replace("-", ":")) // 12:34-56
 ```
 
-There's a pitfall though.
+هناك مأزق بالرغم من ذلك.
 
-**When the first argument of `replace` is a string, it only replaces the first match.**
+** عندما تكون الوسيطة الأولى لـ `replace` عبارة عن سلسلة ، فإنها تحل محل المطابقة الأولى فقط. **
 
-You can see that in the example above: only the first `"-"` is replaced by `":"`.
+يمكنك أن ترى ذلك في المثال أعلاه: فقط أول "" - "" يتم استبداله بـ "": "".
 
-To find all hyphens, we need to use not the string `"-"`, but a regexp `pattern:/-/g`, with the obligatory `pattern:g` flag:
+للعثور على جميع الواصلات ، لا نحتاج إلى استخدام السلسلة "" - "` ، ولكن نمط regexp `: / - / g` ، مع العلامة` pattern: g` الإلزامية:
 
 ```js run
 // replace all dashes by a colon
 alert( '12-34-56'.replace( *!*/-/g*/!*, ":" ) )  // 12:34:56
 ```
 
-The second argument is a replacement string. We can use special character in it:
+الُمدخَل الثاني هو سلسلة بديلة. يمكننا استخدام حرف خاص فيه:
 
-| Symbols | Action in the replacement string |
+| الرموز | الإجراء في سلسلة الاستبدال |
 |--------|--------|
-|`$&`|inserts the whole match|
-|<code>$&#096;</code>|inserts a part of the string before the match|
-|`$'`|inserts a part of the string after the match|
-|`$n`|if `n` is a 1-2 digit number, inserts the contents of n-th capturing group, for details see [](info:regexp-groups)|
-|`$<name>`|inserts the contents of the parentheses with the given `name`, for details see [](info:regexp-groups)|
-|`$$`|inserts character `$` |
+|`$&`|إدراج التطابق كاملا |
 
-For instance:
+|<code>$&#096;</code>|إدراج جزء من السلسلة قبل التطابق
+|
+|`$'`|إدراج جزء من السلسلة بعد المباراة
+|
+|`$n`|إذا كان `n` رقمًا مكونًا من رقم أو رقمين ، يتم إدراج محتويات مجموعة الالتقاط n ، للحصول على التفاصيل ، راجع [] (info: regexp-groups)|
+|`$<name>`|إدراج محتويات الأقواس مع "الاسم" المحدد ، للحصول على التفاصيل ، انظر [] (info: regexp-groups)|
+|`$$`|إدراج حرف `$` |
+
+فمثلا:
 
 ```js run
 let str = "John Smith";
@@ -162,21 +165,21 @@ let str = "John Smith";
 alert(str.replace(/(john) (smith)/i, '$2, $1')) // Smith, John
 ```
 
-**For situations that require "smart" replacements, the second argument can be a function.**
+** بالنسبة للمواقف التي تتطلب بدائل "ذكية" ، يمكن أن تكون الوسيطة الثانية دالة. **
 
-It will be called for each match, and the returned value will be inserted as a replacement.
+سيتم استدعاؤها لكل مباراة ، وسيتم إدراج القيمة المرتجعة كبديل.
 
-The function is called with arguments `func(match, p1, p2, ..., pn, offset, input, groups)`:
+يتم استدعاء الوظيفة مع الوسيطات `func (match، p1، p2، ...، pn، offset، input، groups)`:
 
-1. `match` -- the match,
-2. `p1, p2, ..., pn` -- contents of capturing groups (if there are any),
-3. `offset` -- position of the match,
-4. `input` -- the source string,
-5. `groups` -- an object with named groups.
+1. "المباراة" - المباراة ،
+2. `p1، p2، ...، pn` - محتويات مجموعات الالتقاط (إن وجدت) ،
+3. "تعويض" - موقع المباراة ،
+4. "الإدخال" - سلسلة المصدر ،
+5. `المجموعات` - كائن له مجموعات مسماة.
 
-If there are no parentheses in the regexp, then there are only 3 arguments: `func(str, offset, input)`.
+إذا لم تكن هناك أقواس في regexp ، فهناك 3 وسيطات فقط: `func (str ، offset ، input)`.
 
-For example, let's uppercase all matches:
+على سبيل المثال ، دعنا نطابق جميع المطابقات بأحرف كبيرة:
 
 ```js run
 let str = "html and css";
@@ -186,13 +189,13 @@ let result = str.replace(/html|css/gi, str => str.toUpperCase());
 alert(result); // HTML and CSS
 ```
 
-Replace each match by its position in the string:
+يسبتدل كل التطابقات في مكانها في الكلمة :
 
 ```js run
 alert("Ho-Ho-ho".replace(/ho/gi, (match, offset) => offset)); // 0-3-6
 ```
 
-In the example below there are two parentheses, so the replacement function is called with 5 arguments: the first is the full match, then 2 parentheses, and after it (not used in the example) the match position and the source string:
+Iفي المثال أدناه يوجد قوسين ، لذلك يتم استدعاء وظيفة الاستبدال بخمس وسيطات: الأولى هي التطابق الكامل ، ثم قوسين ، وبعدها (غير مستخدمة في المثال) موضع المطابقة وسلسلة المصدر:
 
 ```js run
 let str = "John Smith";
@@ -202,7 +205,7 @@ let result = str.replace(/(\w+) (\w+)/, (match, name, surname) => `${surname}, $
 alert(result); // Smith, John
 ```
 
-If there are many groups, it's convenient to use rest parameters to access them:
+إذا كان هناك العديد من المجموعات ، فمن المناسب استخدام معلمات الراحة للوصول إليها:
 
 ```js run
 let str = "John Smith";
@@ -212,7 +215,7 @@ let result = str.replace(/(\w+) (\w+)/, (...match) => `${match[2]}, ${match[1]}`
 alert(result); // Smith, John
 ```
 
-Or, if we're using named groups, then `groups` object with them is always the last, so we can obtain it like this:
+أو ، إذا كنا نستخدم مجموعات مسماة ، فإن كائن `groups` معهم يكون دائمًا هو الأخير ، لذا يمكننا الحصول عليه كما يلي:
 
 ```js run
 let str = "John Smith";
@@ -226,25 +229,25 @@ let result = str.replace(/(?<name>\w+) (?<surname>\w+)/, (...match) => {
 alert(result); // Smith, John
 ```
 
-Using a function gives us the ultimate replacement power, because it gets all the information about the match, has access to outer variables and can do everything.
+يمنحنا استخدام دالة الطاقة البديلة القصوى ، لأنها تحصل على جميع المعلومات حول المباراة ، ولديها إمكانية الوصول إلى المتغيرات الخارجية ويمكنها القيام بكل شيء.
 
 ## regexp.exec(str)
 
-The method `regexp.exec(str)` method returns a match for `regexp` in the string `str`.  Unlike previous methods, it's called on a regexp, not on a string.
+تُظهر الطريقة `regexp.exec (str)` مطابقة لـ `regexp` في السلسلة` str`. على عكس الطرق السابقة ، يتم استدعاء regexp ، وليس على سلسلة.
 
-It behaves differently depending on whether the regexp has flag `pattern:g`.
+يتصرف بشكل مختلف اعتمادًا على ما إذا كان regexp يحتوي على علامة `pattern: g`.
 
-If there's no `pattern:g`, then `regexp.exec(str)` returns the first match exactly as  `str.match(regexp)`. This behavior doesn't bring anything new.
+إذا لم يكن هناك `pattern: g` ، فإن` regexp.exec (str) `تُرجع المطابقة الأولى كما` str.match (regexp) `. هذا السلوك لا يجلب أي شيء جديد.
 
-But if there's flag `pattern:g`, then:
-- A call to `regexp.exec(str)` returns the first match and saves the position immediately after it in the property `regexp.lastIndex`.
-- The next such call starts the search from position `regexp.lastIndex`, returns the next match and saves the position after it in `regexp.lastIndex`.
-- ...And so on.
-- If there are no matches, `regexp.exec` returns `null` and resets `regexp.lastIndex` to `0`.
+ولكن إذا كان هناك علامة `pattern: g` ، فعندئذٍ:
+- يؤدي استدعاء "regexp.exec (str)` إلى إرجاع المباراة الأولى وحفظ المركز فورًا في الخاصية `regexp.lastIndex".
+- تبدأ هذه المكالمة التالية البحث من الموضع `regexp.lastIndex` ، وتعيد المباراة التالية وتحفظ المركز بعدها في` regexp.lastIndex`.
+- ...وما إلى ذلك وهلم جرا.
+- في حالة عدم وجود تطابقات ، يُرجع `regexp.exec`` null` ويعيد تعيين `regexp.lastIndex` إلى` 0`.
 
-So, repeated calls return all matches one after another, using property `regexp.lastIndex` to keep track of the current search position.
+لذا ، تعيد المكالمات المتكررة جميع التطابقات الواحدة تلو الأخرى ، باستخدام الخاصية `regexp.lastIndex` لتتبع موضع البحث الحالي.
 
-In the past, before the method `str.matchAll` was added to JavaScript, calls of `regexp.exec` were used in the loop to get all matches with groups:
+في الماضي ، قبل إضافة الأسلوب `str.matchAll` إلى جافا سكريبت ، تم استخدام مكالمات` regexp.exec` في الحلقة للحصول على جميع التطابقات مع المجموعات:
 
 ```js run
 let str = 'More about JavaScript at https://javascript.info';
@@ -259,11 +262,11 @@ while (result = regexp.exec(str)) {
 }
 ```
 
-This works now as well, although for newer browsers `str.matchAll` is usually more convenient.
+يعمل هذا الآن أيضًا ، على الرغم من أن المتصفحات الأحدث `str.matchAll` تكون عادةً أكثر ملاءمة.
 
-**We can use `regexp.exec` to search from a given position by manually setting `lastIndex`.**
+** يمكننا استخدام "regexp.exec" للبحث من موضع معين عن طريق تعيين "lastIndex" يدويًا. **
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let str = 'Hello, world!';
@@ -274,9 +277,9 @@ regexp.lastIndex = 5; // search from 5th position (from the comma)
 alert( regexp.exec(str) ); // world
 ```
 
-If the regexp has flag `pattern:y`, then the search will be performed exactly at the  position `regexp.lastIndex`, not any further.
+إذا كان regexp يحتوي على علامة `pattern: y` ، فسيتم إجراء البحث تمامًا في الموضع` regexp.lastIndex` ، وليس بعد ذلك.
 
-Let's replace flag `pattern:g` with `pattern:y` in the example above. There will be no matches, as there's no word at position `5`:
+لنستبدل العلامة `pattern: g` بـ` pattern: y` في المثال أعلاه. لن تكون هناك تطابقات ، حيث لا توجد كلمة في الموضع `5`:
 
 ```js run
 let str = 'Hello, world!';
@@ -287,13 +290,13 @@ regexp.lastIndex = 5; // search exactly at position 5
 alert( regexp.exec(str) ); // null
 ```
 
-That's convenient for situations when we need to "read" something from the string by a regexp at the exact position, not somewhere further.
+هذا مناسب للحالات التي نحتاج فيها إلى "قراءة" شيء ما من السلسلة عن طريق التعبير العادي في الموضع المحدد ، وليس في مكان آخر.
 
 ## regexp.test(str)
 
-The method `regexp.test(str)` looks for a match and returns `true/false` whether it exists.
+تبحث الطريقة `regexp.test (str)` عن تطابق وتعرض `true / false` سواء كانت موجودة.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let str = "I love JavaScript";
@@ -303,7 +306,7 @@ alert( *!*/love/i*/!*.test(str) ); // true
 alert( str.search(*!*/love/i*/!*) != -1 ); // true
 ```
 
-An example with the negative answer:
+مثال بالإجابة السلبية:
 
 ```js run
 let str = "Bla-bla-bla";
@@ -312,9 +315,9 @@ alert( *!*/love/i*/!*.test(str) ); // false
 alert( str.search(*!*/love/i*/!*) != -1 ); // false
 ```
 
-If the regexp has flag `pattern:g`, then `regexp.test` looks from `regexp.lastIndex` property and updates this property, just like `regexp.exec`.
+إذا كان regexp يحتوي على علامة `pattern: g` ، فسيظهر` regexp.test` من خاصية `regexp.lastIndex` ويحدث هذه الخاصية ، مثل` regexp.exec` تمامًا.
 
-So we can use it to search from a given position:
+لذا يمكننا استخدامه للبحث من موضع معين:
 
 ```js run
 let regexp = /love/gi;
@@ -326,19 +329,20 @@ regexp.lastIndex = 10;
 alert( regexp.test(str) ); // false (no match)
 ```
 
-````warn header="Same global regexp tested repeatedly on different sources may fail"
-If we apply the same global regexp to different inputs, it may lead to wrong result, because `regexp.test` call advances `regexp.lastIndex` property, so the search in another string may start from non-zero position.
+````warn header="regexp نفسه الذي تم اختباره بشكل متكرر على مصادر مختلفة قد يفشل"
+إذا طبقنا نفس regexp العام على المدخلات المختلفة ، فقد يؤدي ذلك إلى نتيجة خاطئة ، لأن استدعاء `regexp.test` يُقدم خاصية` regexp.lastIndex` ، لذلك قد يبدأ البحث في سلسلة أخرى من موضع غير صفري.
 
-For instance, here we call `regexp.test` twice on the same text, and the second time fails:
+على سبيل المثال ، هنا نسمي "regexp.test" مرتين على نفس النص ، وتفشل المرة الثانية:
 
-```js run
-let regexp = /javascript/g;  // (regexp just created: regexp.lastIndex=0)
+تشغيل شبيبة
+let regexp = / javascript / g ؛ // (regexp الذي تم إنشاؤه للتو: regexp.lastIndex = 0)
 
-alert( regexp.test("javascript") ); // true (regexp.lastIndex=10 now)
-alert( regexp.test("javascript") ); // false
-```
+تنبيه (regexp.test ("javascript")) ؛ // true (regexp.lastIndex = 10 الآن)
+تنبيه (regexp.test ("javascript")) ؛ // خاطئة
+``
 
-That's exactly because `regexp.lastIndex` is non-zero in the second test.
+هذا بالضبط لأن "regexp.lastIndex" ليس صفراً في الاختبار الثاني.
 
-To work around that, we can set `regexp.lastIndex = 0` before each search. Or instead of calling methods on regexp, use string methods `str.match/search/...`, they don't use `lastIndex`.
+للتغلب على ذلك ، يمكننا تعيين `regexp.lastIndex = 0` قبل كل بحث. أو بدلاً من استدعاء طرق على regexp ، استخدم أساليب السلسلة `str.match / search / ...` ، ولا يستخدمون `lastIndex`.
 ````
+

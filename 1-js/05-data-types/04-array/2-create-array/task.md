@@ -1,24 +1,23 @@
-importance: 5
+الاهميه: 5
 
 ---
 
-# Array operations.
+# معاملات المصفوفه.
 
-Let's try 5 array operations.
+ هيا نجرب 5 معاملات للمصفوفه.
 
-1. Create an array `styles` with items "Jazz" and "Blues".
-2. Append "Rock-n-Roll" to the end.
-3. Replace the value in the middle by "Classics". Your code for finding the middle value should work for any arrays with odd length.
-4. Strip off the first value of the array and show it.
-5. Prepend `Rap` and `Reggae` to the array.
+1.   قم بانشاء عده عناصر `styles` "موسيقي الجاز" و "البلوز" .
+2.   اضف في النهايه" موسيقي الروك آند رول"
+3. استبدل القيمة في المنتصف بـ "كلاسيكيات". يجب ان يعمل الكود الخاص بك للعثور على القيمة الوسطى لأي مصفوفه ذات طول فردي.
+4. تجريد القيمة الأولى من مصفوفه وإظهارها.
+5. استعد `Rap` و `Reggae` الي المصفوفه .
 
-The array in the process:
-
+المصفوفه في العمليه :
 ```js no-beautify
-Jazz, Blues
-Jazz, Blues, Rock-n-Roll
-Jazz, Classics, Rock-n-Roll
-Classics, Rock-n-Roll
-Rap, Reggae, Classics, Rock-n-Roll
+موسيقي الجاز, البلوز
+موسيقي الجاز, البلوز, موسيقى الروك آند رول
+موسيقي الجاز, كلاسيكيات, موسيقى الروك آند رول
+كلاسيكيات,موسيقى الروك آند رول
+موسيقى الراب, موسيقي الريغي, كلاسيكيات, موسيقى الروك آند رول
 ```
 

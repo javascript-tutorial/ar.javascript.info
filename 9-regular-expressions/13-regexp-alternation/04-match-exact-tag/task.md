@@ -1,14 +1,13 @@
-# البحث عن العلامة الكاملة
+# Find the full tag
 
-اكتب regexp للعثور على العلامة `<style ...>`. يجب أن تتطابق مع العلامة الكاملة: قد لا تحتوي على سمات `<style>` أو تحتوي على العديد منها `<style type =" ... "id =" ... ">`.
+Write a regexp to find the tag `<style...>`. It should match the full tag: it may have no attributes  `<style>` or have several of them `<style type="..." id="...">`.
 
-... لكن التعبير العادي يجب ألا يطابق `<styler>`!
+...But the regexp should not match `<styler>`!
 
-على سبيل المثال:
+For instance:
 
 ```js
 let regexp = /your regexp/g;
 
 alert( '<style> <styler> <style test="...">'.match(regexp) ); // <style>, <style test="...">
 ```
-

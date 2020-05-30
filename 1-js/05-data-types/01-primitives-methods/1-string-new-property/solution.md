@@ -1,5 +1,5 @@
 
-Try running it:
+جرب تشغيلها:
 
 ```js run
 let str = "Hello";
@@ -9,16 +9,17 @@ str.test = 5; // (*)
 alert(str.test);
 ```
 
-Depending on whether you have `use strict` or not, the result may be:
+يعتمد على ما إذا كان لديك `use strict` أم لا, وقد تكون النتيجة كما يلي:
 1. `undefined` (no strict mode)
 2. An error (strict mode).
 
-Why? Let's replay what's happening at line `(*)`:
+لماذا؟ لنعيد ما يحدث على السطر `(*)`:
 
-1. When a property of `str` is accessed, a "wrapper object" is created.
-2. In strict mode, writing into it is an error.
-3. Otherwise, the operation with the property is carried on, the object gets the `test` property, but after that the "wrapper object" disappears, so in the last line `str` has no trace of the property.
+1. عندما تكون خاصية ال `str` يمكن الولوج إليها,  "wrapper object" يكون قد تكون.
+2. في حالة ال  strict mode, الكتابة فيها يكون خطأ.
+3. فيما عَدا ذلك, تجري العملية المتعلقة بالخصائص, ال object يحصل علي خاصية `test` , و لكن بعد ذلك يختفي "wrapper object" , لذلك في السطر الأخير `str` لا أثر له.
 
-**This example clearly shows that primitives are not objects.**
+**وهذا المثال يبين بوضوح أن الأنواع البدائية ليست objects.**
 
-They can't store additional data.
+لا يمكنهم تخزين بيانات إضافية
+.

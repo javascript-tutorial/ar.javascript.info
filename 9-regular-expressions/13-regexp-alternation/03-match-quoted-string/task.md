@@ -1,20 +1,20 @@
-# البحث عن سلاسل الاقتباس
+# Find quoted strings
 
-قم بإنشاء regexp للعثور على سلاسل في علامات اقتباس مزدوجة `الموضوع:" ... "`.
+Create a regexp to find strings in double quotes `subject:"..."`.
 
-يجب أن تدعم السلاسل الهروب ، بنفس الطريقة التي تدعمها سلاسل JavaScript. على سبيل المثال ، يمكن إدراج علامات الاقتباس كـ `subject: \" `سطر جديد مثل` subject: \ n` ، والشرطة نفسها كـ `subject: \\`.
+The strings should support escaping, the same way as JavaScript strings do. For instance, quotes can be inserted as `subject:\"` a newline as `subject:\n`, and the slash itself as `subject:\\`.
 
 ```js
 let str = "Just like \"here\".";
 ```
 
-يرجى ملاحظة ، على وجه الخصوص ، أن الاقتباس الهارب `موضوع: \" `لا ينهي سلسلة.
+Please note, in particular, that an escaped quote `subject:\"` does not end a string.
 
-لذلك يجب علينا البحث من اقتباس واحد إلى الآخر تجاهل علامات الاقتباس الهاربة على الطريق.
+So we should search from one quote to the other ignoring escaped quotes on the way.
 
-هذا هو الجزء الأساسي من المهمة ، وإلا سيكون تافها.
+That's the essential part of the task, otherwise it would be trivial.
 
-أمثلة على السلاسل المراد مطابقتها:
+Examples of strings to match:
 ```js
 .. *!*"test me"*/!* ..  
 .. *!*"Say \"Hello\"!"*/!* ... (escaped quotes inside)
@@ -22,7 +22,7 @@ let str = "Just like \"here\".";
 .. *!*"\\ \""*/!* ..  (double slash and an escaped quote inside)
 ```
 
-في جافا سكريبت ، نحتاج إلى مضاعفة الخطوط المائلة لتمريرها مباشرة في السلسلة ، مثل هذا:
+In JavaScript we need to double the slashes to pass them right into the string, like this:
 
 ```js run
 let str = ' .. "test me" .. "Say \\"Hello\\"!" .. "\\\\ \\"" .. ';
@@ -30,4 +30,3 @@ let str = ' .. "test me" .. "Say \\"Hello\\"!" .. "\\\\ \\"" .. ';
 // the in-memory string
 alert(str); //  .. "test me" .. "Say \"Hello\"!" .. "\\ \"" ..
 ```
-

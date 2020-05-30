@@ -1,31 +1,31 @@
-importance: 5
+درجة الأهمية: 5
 
 ---
 
-# Add toString to the dictionary
+# إضافة الدالة toString إلى القاموس
 
-There's an object `dictionary`, created as `Object.create(null)`, to store any `key/value` pairs.
+يوجد كائن يسمي `dictionary`، تم إنشاؤه باستخدام `Object.create(null)` لتخزين خصائص بقيمها.
 
-Add method `dictionary.toString()` into it, that should return a comma-delimited list of keys. Your `toString` should not show up in `for..in` over the object.
+أضف الدالة `dictionary.toString()` لهذا الكائن والتى يجب أن تقوم بإرجاع قائمة من الخصائص بينها الفاصلة. هذا الدالة يجب أن لا تظهر فى التكرار `for..in`.
 
-Here's how it should work:
+هنا كيف سيتم استخدامها:
 
 ```js
 let dictionary = Object.create(null);
 
 *!*
-// your code to add dictionary.toString method
+// الكود الخاص بك لإنشاء الدالة dictionary.toString
 */!*
 
-// add some data
+// أضف بعض البيانات
 dictionary.apple = "Apple";
-dictionary.__proto__ = "test"; // __proto__ is a regular property key here
+dictionary.__proto__ = "test"; // __proto__ هي خاصية عادية
 
-// only apple and __proto__ are in the loop
+// تظهر فقط apple & __proto__
 for(let key in dictionary) {
-  alert(key); // "apple", then "__proto__"
+  alert(key); // "apple", ثم "__proto__"
 }  
 
-// your toString in action
+// استخدام الدالة toString التى صنعتها
 alert(dictionary); // "apple,__proto__"
 ```

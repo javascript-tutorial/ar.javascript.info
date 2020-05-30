@@ -1,36 +1,35 @@
+# الـgenerators والتكرار الغير متزامن
 
-# Async iterators and generators
+تسمح لنا المتكررات الغير متزامنة (Asynchronous iterators) أن نقوم بالتكرار على بيانات تأتى بشكل غير متزامن. على سبيل المثال عندما نقوم بتحميل شيئ ما من الشبكة جزءًا بعد جزء. والـgenerators الغير متزامنة تجعل ذلك مناسبًا أكثر.
 
-Asynchronous iterators allow us to iterate over data that comes asynchronously, on-demand. Like, for instance, when we download something chunk-by-chunk over a network. And asynchronous generators make it even more convenient.
+هيا نرى مثالًا لنتعلم الشكل ثم نرى حالة استخدام حقيقية.
 
-Let's see a simple example first, to grasp the syntax, and then review a real-life use case.
+## المتكررات الغير متزامنة Async iterators
 
-## Async iterators
+الـAsynchronous iterators تشبه المتكررات العادية مع قليل من الإختلافات فى التركيب.
 
-Asynchronous iterators are similar to regular iterators, with a few syntactic differences.
-
-A "regular" iterable object, as described in the chapter <info:iterable>, looks like this:
+الكائن المتكرر iterable object "العادى" تم وصفه فى فصل <info:iterable> وهو يكون كالآتى:
 
 ```js run
 let range = {
   from: 1,
   to: 5,
 
-  // for..of calls this method once in the very beginning
+  // يستدعى التكرار for..of هذه الدالة مرة واحده فى البداية
 *!*
   [Symbol.iterator]() {
 */!*
-    // ...it returns the iterator object:
-    // onward, for..of works only with that object,
-    // asking it for next values using next()
+    // ...تقوم بإرجاع الـiterator object:
+    // يعمل التكرار مع هذا الكائن فقط,
+    // ويتوقع منه القيم التالية باستخدام next()
     return {
       current: this.from,
       last: this.to,
 
-      // next() is called on each iteration by the for..of loop
+      // next() يتم استدعاؤها فى كل دورة من قبل التكرار
 *!*
       next() { // (2)
-        // it should return the value as an object {done:.., value :...}
+        // يجب أن ترجع القيمة كـ {done:.., value :...}
 */!*
         if (this.current <= this.last) {
           return { done: false, value: this.current++ };
@@ -47,40 +46,41 @@ for(let value of range) {
 }
 ```
 
-If necessary, please refer to the [chapter about iterables](info:iterable) for details about regular iterators.
+أنظر إلى فصل [المتكررات](info:iterable) لمزيد من التفاصيل عن المتكررات العادية.
 
-To make the object iterable asynchronously:
-1. We need to use `Symbol.asyncIterator` instead of `Symbol.iterator`.
-2. `next()` should return a promise.
-3. To iterate over such an object, we should use a `for await (let item of iterable)` loop.
+لجعل الكائن (object) متكررًا بشكل غير متزامن:
 
-Let's make an iterable `range` object, like the one before, but now it will return values asynchronously, one per second:
+1. نحتاج إلى أن نستعمل `Symbol.asyncIterator` بدلًا من `Symbol.iterator`.
+2. يجب أن ترجع الدالة `next()` كائن promise.
+3. للتكرار على كائن كهذا يجب أن نستخدم التكرار `for await (let item of iterable)`
+
+هيا ننشئ متكرر `range` مثل السابق ولكن الآن سيقوم بإرجاع القيم بشكل غير متزامن، قيمة كل ثانية:
 
 ```js run
 let range = {
   from: 1,
   to: 5,
 
-  // for await..of calls this method once in the very beginning
+  // يستدعى التكرار هذه الدالة مرة واحدة فى البداية
 *!*
   [Symbol.asyncIterator]() { // (1)
 */!*
-    // ...it returns the iterator object:
-    // onward, for await..of works only with that object,
-    // asking it for next values using next()
+    // ...تقوم بإرجاع iterator object:
+    // ويعمل التكرار for await..of مع هذا الكائن فقط,
+    // سائلًا إياه عن القيمة التاالية باستخدام next()
     return {
       current: this.from,
       last: this.to,
 
-      // next() is called on each iteration by the for await..of loop
+      // next() يتم استدعاؤها فى كل دورة
 *!*
       async next() { // (2)
-        // it should return the value as an object {done:.., value :...}
-        // (automatically wrapped into a promise by async)
+        // يجب أن تقوم بإرجاع النتيجة كالآتى {done:.., value :...}
+        // (وتُحاط تلقائيًا بـ promise عند استخدام async)
 */!*
 
 *!*
-        // can use await inside, do async stuff:
+        // يمكن استخدام await:
         await new Promise(resolve => setTimeout(resolve, 1000)); // (3)
 */!*
 
@@ -105,37 +105,38 @@ let range = {
 })()
 ```
 
-As we can see, the structure is similar to regular iterators:
+كما نرى فإن الشكل والتركيب مثل الـiterators العادية:
 
-1. To make an object asynchronously iterable, it must have a method `Symbol.asyncIterator` `(1)`.
-2. This method must return the object with `next()` method returning a promise `(2)`.
-3. The `next()` method doesn't have to be `async`, it may be a regular method returning a promise, but `async` allows us to use `await`, so that's convenient. Here we just delay for a second `(3)`.
-4. To iterate, we use `for await(let value of range)` `(4)`, namely add "await" after "for". It calls `range[Symbol.asyncIterator]()` once, and then its `next()` for values.
+1. لجعل الكائن iterable بشكل غير متزامن، يجب أن يحتوى على الدالة `Symbol.asyncIterator` `(1)`.
+2. هذه الدالة يجب أن تقوم بإرجاع الكائن باستخدام `next()` والتى تقوم بإرجاع promise `(2)`.
+3. لا يجب أن تكون الدالة `next()` عباره عن `async` ويمكن أن تكون دالة عادية تُرجع promise ولكن الكلمة `async` تمكننا من استخدام الكلمة `await` وهذا مناسب. وهنا يمكننا التأخير ثانية `(3)`.
+4. للقيام بالتكرار نستخدم التكرار `for await(let value of range)` `(4)` ونضع الكلمة "await" بعد "for". وهي تستدعي الدالة `range[Symbol.asyncIterator]()` مرة واحدة وثم الدالة `next()` من أجل القيم.
 
-Here's a small cheatsheet:
+هنا ملخص بسيط:
 
-|       | Iterators | Async iterators |
-|-------|-----------|-----------------|
-| Object method to provide iterator | `Symbol.iterator` | `Symbol.asyncIterator` |
-| `next()` return value is              | any value         | `Promise`  |
-| to loop, use                          | `for..of`         | `for await..of` |
+|                              | Iterators         | Async iterators        |
+| ---------------------------- | ----------------- | ---------------------- |
+| الدوال لإنشاء متكرر          | `Symbol.iterator` | `Symbol.asyncIterator` |
+| القيمة التى تُرجعها `next()` | أى فيمة           | `Promise`              |
+| للتكرار، نستخدم              | `for..of`         | `for await..of`        |
 
-````warn header="The spread syntax `...` doesn't work asynchronously"
-Features that require regular, synchronous iterators, don't work with asynchronous ones.
+````warn header="شكل الإنتشار `...` لا تعمل بشكل غير متزامن"
+الأشياء التي تتطلب iterators عادية ومتزامنة synchronous لا تعمل فى المناطق الغير متزامنة.
 
-For instance, a spread syntax won't work:
+على سبيل المثال، لا تعمل الـspread syntax:
+
 ```js
-alert( [...range] ); // Error, no Symbol.iterator
+alert([...range]); // Error, no Symbol.iterator
 ```
 
-That's natural, as it expects to find `Symbol.iterator`, same as `for..of` without `await`. Not `Symbol.asyncIterator`.
+وهذا طبيعى، لأنها تتوقع وجود الدالة `Symbol.iterator` مثل التكرار `for..of` من غير الكلمة `await` وليس `Symbol.asyncIterator`.
 ````
 
-## Async generators
+## الـgenerators الغير متزامنة
 
-As we already know, JavaScript also supports generators, and they are iterable.
+كما نعلم بالفعل أن الجافاسكريبت تدعم الـgenerators وهم أيضا iterables.
 
-Let's recall a sequence generator from the chapter [](info:generators). It generates a sequence of values from `start` to `end`:
+هيا نقوم باسترجاع التسلسل الذي أنشأناه فى الفصل [](info:generators). هذه الدالة تقوم بإنشاء تسلسل من القيم من `start` إلى `end`:
 
 ```js run
 function* generateSequence(start, end) {
@@ -149,11 +150,11 @@ for(let value of generateSequence(1, 5)) {
 }
 ```
 
-In regular generators we can't use `await`. All values must come synchronously: there's no place for delay in `for..of`, it's a synchronous construct.
+فى الـgenerators العادية لا يمكننا استخدام االكلمة `await`. فكل القيم تأتي بشكل متزامن: لا يوجد مكان للتأخير فى التكرار `for..of` فهي متزامنة.
 
-But what if we need to use `await` in the generator body? To perform network requests, for instance.
+ولكن ماذا إذا أردنا أن نستخدم الكلمة `await` فى الـgenerator؟ للقيام بطلبات من الشبكة على سبيل المثال.
 
-No problem, just prepend it with `async`, like this:
+لا توجد مشكلة سنضع الكلمة `async` فى البداية كالآتى:
 
 ```js run
 *!*async*/!* function* generateSequence(start, end) {
@@ -161,7 +162,7 @@ No problem, just prepend it with `async`, like this:
   for (let i = start; i <= end; i++) {
 
 *!*
-    // yay, can use await!
+    // يمكنك استخدام await!
     await new Promise(resolve => setTimeout(resolve, 1000));
 */!*
 
@@ -180,21 +181,21 @@ No problem, just prepend it with `async`, like this:
 })();
 ```
 
-Now we have the async generator, iterable with `for await...of`.
+لدينا الآن async generator و أيضًا قابل للتكرار iterable باستخدام `for await...of`.
 
-It's indeed very simple. We add the `async` keyword, and the generator now can use `await` inside of it, rely on promises and other async functions.
+هذا سهل جدًا. نضيف الكلمة `async` ويمكن للـgenerator الآن أن يستخدم الكلمة `await` بداخله ومعتمدًا على الـpromises وغيره من الدوال الغير متزامنة.
 
-Technically, another difference of an async generator is that its `generator.next()` method is now asynchronous also, it returns promises.
+عمليًا يوجد اختلاف آخر فى الـasync generator وهو أن `generator.next()` أصبحت غير متزامنة asynchronous أيضًا وتقوم بإرجاع promises.
 
-In a regular generator we'd use `result = generator.next()` to get values. In an async generator, we should add `await`, like this:
+فى أى generator عادي يمكن أن نستخدم `result = generator.next()` للحصول على القيم. وفى الـasync generator يجب أن نستخدم `await` كالآتى:
 
 ```js
 result = await generator.next(); // result = {value: ..., done: true/false}
 ```
 
-## Async iterables
+## المتكررات الغير متزامنة Async iterables
 
-As we already know, to make an object iterable, we should add `Symbol.iterator` to it.
+كما علمنا فإنه لجعل الكائن قابل للتكرار iterable فيجب أن نضيف له `Symbol.iterator`.
 
 ```js
 let range = {
@@ -208,16 +209,16 @@ let range = {
 }
 ```
 
-A common practice for `Symbol.iterator` is to return a generator, rather than a plain object with `next` as in the example before.
+ومن الشائع أن تقوم `Symbol.iterator` بإرجاع generator بدلًا من كائن عادى باستخدام الدالة `next` كما فى مثال سابق.
 
-Let's recall an example from the chapter [](info:generators):
+هيا نسترجع مثالًا من فصل [](info:generators):
 
 ```js run
 let range = {
   from: 1,
   to: 5,
 
-  *[Symbol.iterator]() { // a shorthand for [Symbol.iterator]: function*()
+  *[Symbol.iterator]() { // اختصارًا لـ [Symbol.iterator]: function*()
     for(let value = this.from; value <= this.to; value++) {
       yield value;
     }
@@ -229,9 +230,9 @@ for(let value of range) {
 }
 ```
 
-Here a custom object `range` is iterable, and the generator `*[Symbol.iterator]` implements the logic for listing values.
+هنا الكائن `range` متكرر والـgenerator `*[Symbol.iterator]` يصنع المنطق لعرض القيم كقائمة.
 
-If we'd like to add async actions into the generator, then we should replace `Symbol.iterator` with async `Symbol.asyncIterator`:
+إذا أردنا أن نضيف أفعالًا غير متزامنة للـgenerator إذًا يجب أن نستبدل `Symbol.iterator` بالدالة `Symbol.asyncIterator`:
 
 ```js run
 let range = {
@@ -239,11 +240,11 @@ let range = {
   to: 5,
 
 *!*
-  async *[Symbol.asyncIterator]() { // same as [Symbol.asyncIterator]: async function*()
+  async *[Symbol.asyncIterator]() { // هو نفسه [Symbol.asyncIterator]: async function*()
 */!*
     for(let value = this.from; value <= this.to; value++) {
 
-      // make a pause between values, wait for something  
+      // make a pause between values, wait for something
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       yield value;
@@ -260,21 +261,21 @@ let range = {
 })();
 ```
 
-Now values come with a delay of 1 second between them.
+والآن تأتى القيم بتأخير ثانية بين كل قيمة.
 
-## Real-life example
+## مثال عملي
 
-So far we've seen simple examples, to gain basic understanding. Now let's review a real-life use case.
+لقد رأينا حتي الآن أمثلة بسيطة لفهم الأساسيات والآن هيا نري مثالًا عمليًا.
 
-There are many online services that deliver paginated data. For instance, when we need a list of users, a request returns a pre-defined count (e.g. 100 users) - "one page", and provides a URL to the next page.
+توجد الكثير من الخدمات التي تقدم بيانات متجزئة. على سبيل المثال عندما نريد قائمة من المستخدمين فإن الطلب يقوم بإرجاع رقم مُعطي سابقًا (مثلا 100 مستخدم) - فى الصفحة الواحدة وتعطي رابط للصفحة التالية.
 
-This pattern is very common. It's not about users, but just about anything. For instance, GitHub allows us to retrieve commits in the same, paginated fashion:
+هذا النمط شائع جدًا. وهذا ليس مع المستخدمين فقط ولكن مع كل شيئ. على سبيل المثال يمكننا موقع جيتهاب أن نسترجع الـcommits علي نفس التجزئة:
 
-- We should make a request to URL in the form `https://api.github.com/repos/<repo>/commits`.
-- It responds with a JSON of 30 commits, and also provides a link to the next page in the `Link` header.
-- Then we can use that link for the next request, to get more commits, and so on.
+- يجب أن نقوم بطلب على رابط بهذا الشكل `https://api.github.com/repos/<repo>/commits`.
+- فتقوم بالرد بـ JSON يتكون من 30 commits وأيضًا تعطي رابطًا للصفحة التالية فى الـ`Link` header.
+- بعد ذلك يمكننا أن نستخدم هذا الرابط للطلب التالى للحصول على المزيد من الـcommits وهكذا.
 
-But we'd like to have a simpler API: an iterable object with commits, so that we could go over them like this:
+ولكن نود أن نحصل على API أبسط: كائن قابل للتكرار يتكون من commits ولذلك يمكننا أن نكرر عليهم كالآتى:
 
 ```js
 let repo = 'javascript-tutorial/en.javascript.info'; // GitHub repository to get commits from
@@ -284,9 +285,9 @@ for await (let commit of fetchCommits(repo)) {
 }
 ```
 
-We'd like to make a function `fetchCommits(repo)` that gets commits for us, making requests whenever needed. And let it care about all pagination stuff. For us it'll be a simple `for await..of`.
+نود أن ننشئ دالة `fetchCommits(repo)` بتجلب لنا الـcommits وترسل الطلبات عند الحاجة. وتهتم هي بالتجزئة وبالنسبة لنا ستكون مجرد `for await..of`.
 
-With async generators that's pretty easy to implement:
+وهذا سهل باستخدام الـasync generators:
 
 ```js
 async function* fetchCommits(repo) {
@@ -294,12 +295,12 @@ async function* fetchCommits(repo) {
 
   while (url) {
     const response = await fetch(url, { // (1)
-      headers: {'User-Agent': 'Our script'}, // github requires user-agent header
+      headers: {'User-Agent': 'Our script'}, // هذا ضرورى من أجل جيتهاب
     });
 
     const body = await response.json(); // (2) response is JSON (array of commits)
 
-    // (3) the URL of the next page is in the headers, extract it
+    // (3) رابط الصفحة التالية موجود فى الهيدرز فنستخرجه
     let nextPage = response.headers.get('Link').match(/<(.*?)>; rel="next"/);
     nextPage = nextPage?.[1];
 
@@ -312,12 +313,12 @@ async function* fetchCommits(repo) {
 }
 ```
 
-1. We use the browser [fetch](info:fetch) method to download from a remote URL. It allows us to supply authorization and other headers if needed -- here GitHub requires `User-Agent`.
-2. The fetch result is parsed as JSON. That's again a `fetch`-specific method.
-3. We should get the next page URL from the `Link` header of the response. It has a special format, so we use a regexp for that. The next page URL may look like `https://api.github.com/repositories/93253246/commits?page=2`. It's generated by GitHub itself.
-4. Then we yield all commits received, and when they finish, the next `while(url)` iteration will trigger, making one more request.
+1. استخدمنا الدالة [fetch](info:fetch) الموجودة فى المتصفح للتحميل من رابط بعيد. فهي تسمح لنا بأن نضع هيدرز للطلب كما نريد وهنا يحتاج جيتهاب إلى الهيدر `User-Agent`.
+2. نتيجة الـfetch هي JSON مُحوَّل وهذه أيضًا دالة تخص الfetch.
+3. ويجب أن نحصل على رابط الصفحة التالية\الجزء التالي من الهيدر المسمّي `Link` والموجود فى هيدرز الرد. وهذا شكل خاص لذلك سنحتاج إلى استخدام regexp من أجل ذلك. وسيكون رابط الجزء التالى كهذا `https://api.github.com/repositories/93253246/commits?page=2`. وهو هكذا من قبل جيتهاب.
+4. بعد ذلك نقوم بإنتاج كل الـcommits التى وصلت إلينا وعندما ينتهون سيتم تنفيذ الدورة التالية من `while(url)` لعمل طلب آخر.
 
-An example of use (shows commit authors in console):
+ومثال على الإستخدام:
 
 ```js run
 (async () => {
@@ -336,28 +337,29 @@ An example of use (shows commit authors in console):
 })();
 ```
 
-That's just what we wanted. The internal mechanics of paginated requests is invisible from the outside. For us it's just an async generator that returns commits.
+هذا ما أردناه فقط. وما يحدث داخليًا هو غير مرئي. وما نعرفه أنه مجرد async generator يقوم بإرجاع commits.
 
-## Summary
+## الملخص
 
-Regular iterators and generators work fine with the data that doesn't take time to generate.
+المتكررات الطبيعية Regular iterators والـ generators تعمل جيدًا مع البيانات التي لا تأخذ وقتًا ليتم إنتاجها.
 
-When we expect the data to come asynchronously, with delays, their async counterparts can be used, and `for await..of` instead of `for..of`.
+عندما نتوقع أن تأتى البينات بشكل غير متزامن asynchronously بتأخير فيمكن عندئذ استخدام قدراتهم الغير متزامنة واستخدام التكرار `for await..of` بدلًا من `for..of`.
 
-Syntax differences between async and regular iterators:
+اختلاف الشكل ما بين المتكررات الطبيعية والغير متزامنه:
 
 |       | Iterable | Async Iterable |
 |-------|-----------|-----------------|
-| Method to provide iterator | `Symbol.iterator` | `Symbol.asyncIterator` |
-| `next()` return value is          | `{value:…, done: true/false}`         | `Promise` that resolves to `{value:…, done: true/false}`  |
+| الدالة لإنشاء متكرر | `Symbol.iterator` | `Symbol.asyncIterator` |
+| القيمة التى تقوم بإرجاعها `next()`          | `{value:…, done: true/false}`         | `Promise` والذي يصل إلى `{value:…, done: true/false}`  |
 
-Syntax differences between async and regular generators:
+الإختلاف فى الشكل بين الـasync و regular generators:
 
 |       | Generators | Async generators |
 |-------|-----------|-----------------|
-| Declaration | `function*` | `async function*` |
-| `next()` return value is          | `{value:…, done: true/false}`         | `Promise` that resolves to `{value:…, done: true/false}`  |
+| التعريف | `function*` | `async function*` |
+| القيمة التى ترجعها `next()`          | `{value:…, done: true/false}`         | `Promise` والذي يصل إلى `{value:…, done: true/false}`  |
 
-In web-development we often meet streams of data, when it flows chunk-by-chunk. For instance, downloading or uploading a big file.
 
-We can use async generators to process such data. It's also noteworthy that in some environments, like in browsers, there's also another API called Streams, that provides special interfaces to work with such streams, to transform the data and to pass it from one stream to another (e.g. download from one place and immediately send elsewhere).
+فى برمجة الويب نقابل غالبًا تدفقات من البيانات، عندما تأتى جزءًا بعد جزء. على سبيل المثال، تحميل أو رفع ملف كبير الحجم.
+
+يمكننا استخدام الـasync generators لاستعمال بيانات كهذه. وجدير بالذكر أنه فى بعض البيئات مثل المتصفحات هناك أيضًا وسائل أخرى تسمي Streams والتى تعطي أشكالًا خاصة للتعامل مع التدفقات لتحويل البيانات وتمريرها من تدفق إلى آخر (مثل التحميل من مكان وإرساله فورًا إلى مكان آخر).

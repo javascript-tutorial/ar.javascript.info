@@ -1,19 +1,19 @@
-importance: 4
+درجة الأهمية: 4
 
 ---
 
-# Add the decorating "defer()" to functions
+# إضافة الدالة المعدلة للدوال
 
-Add to the prototype of all functions the method `defer(ms)`, that returns a wrapper, delaying the call by `ms` milliseconds.
+أضف إلى النموذج الخاص بالدوال الدالة `defer(ms)`، والتى تقوم بإرجاع حاوى (wrapper) وتؤخر التنفيذ بعد `ms` مللى ثانية.
 
-Here's an example of how it should work:
+هاك مثال لكيفية استخدامها:
 
 ```js
 function f(a, b) {
   alert( a + b );
 }
 
-f.defer(1000)(1, 2); // shows 3 after 1 second
+f.defer(1000)(1, 2); // تعرض 3 بعد ثانية واحدة
 ```
 
-Please note that the arguments should be passed to the original function.
+لاحظ أن المتغيرات يجب أن تُمرر إلى الدالة الأصلية.

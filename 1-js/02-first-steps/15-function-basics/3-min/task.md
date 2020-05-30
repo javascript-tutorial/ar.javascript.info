@@ -1,12 +1,12 @@
-importance: 1
+الأهمية: 1
 
 ---
 
-# Function min(a, b)
+# دالة min(a, b)
 
-Write a function `min(a,b)` which returns the least of two numbers `a` and `b`.
+اكتب دالة `min(a,b)` التي ترجع الرقم الأقل بين رقمين `a` و `b`.
 
-For instance:
+مثلًا:
 
 ```js
 min(2, 5) == 2

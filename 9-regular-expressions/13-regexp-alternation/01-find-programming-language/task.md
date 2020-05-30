@@ -1,11 +1,12 @@
-# Find programming languages
+# البحث عن لغات البرمجة
 
-There are many programming languages, for instance Java, JavaScript, PHP, C, C++.
+هناك العديد من لغات البرمجة ، مثل Java و JavaScript و PHP و C و C ++.
 
-Create a regexp that finds them in the string `subject:Java JavaScript PHP C++ C`:
+أنشئ التعبير العادي الذي يعثر عليه في السلسلة `الموضوع: Java JavaScript PHP C ++ C`:
 
 ```js
 let regexp = /your regexp/g;
 
 alert("Java JavaScript PHP C++ C".match(regexp)); // Java JavaScript PHP C++ C
 ```
+

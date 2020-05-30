@@ -1,16 +1,17 @@
 
-The pattern start is obvious: `pattern:<style`.
+بداية النمط واضحة: `pattern: <style`.
 
-...But then we can't simply write `pattern:<style.*?>`, because `match:<styler>` would match it.
+... ولكن بعد ذلك لا يمكننا ببساطة كتابة `pattern: <style. *؟>` ، لأن `match: <styler>` ستطابقها.
 
-We need either a space after `match:<style` and then optionally something else or the ending `match:>`.
+نحتاج إلى مسافة بعد `match: <style` ثم اختياريًا شيء آخر أو` `match:>` النهائي.
 
-In the regexp language: `pattern:<style(>|\s.*?>)`.
+في لغة regexp: `pattern: <style (> | \ s. *؟>)`.
 
-In action:
+بشكل عملي:
 
 ```js run
 let regexp = /<style(>|\s.*?>)/g;
 
 alert( '<style> <styler> <style test="...">'.match(regexp) ); // <style>, <style test="...">
 ```
+

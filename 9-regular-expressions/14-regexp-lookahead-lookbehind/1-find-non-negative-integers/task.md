@@ -1,10 +1,8 @@
-# Find non-negative integers
+# البحث عن أعداد صحيحة غير سالبة
+هناك سلسلة من الأعداد الصحيحة.
+أنشئ تعبيرًا عاديًا لا يبحث إلا عن الكلمات غير السلبية (يُسمح بصفر).
 
-There's a string of integer numbers.
-
-Create a regexp that looks for only non-negative ones (zero is allowed).
-
-An example of use:
+مثال للاستخدام:
 ```js
 let regexp = /your regexp/g;
 

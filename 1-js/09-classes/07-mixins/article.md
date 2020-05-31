@@ -1,12 +1,12 @@
 # Mixins
 
-In JavaScript we can only inherit from a single object. There can be only one `[[Prototype]]` for an object. And a class may extend only one other class.
+فى جافاسكريبت يمكننا الوراثة من كائن واحد فقط. يمكن ان يوجد `[[Prototype]]` واحد فقط للكائن. و يمكن للـ `class` ان يقوم بـ `extend` فقط من `class` واحد آخر.
 
-But sometimes that feels limiting. For instance, we have a class `StreetSweeper` and a class `Bicycle`, and want to make their mix: a `StreetSweepingBicycle`.
+و لكن في بعض الأحيان ذلك يوحي بالتقييد. مثال علي ذلك, لدينا `class` هو `StreetSweeper` و `class` آخر هو `Bicycle`, و نريد تكوين ذلك المزيج بينهم: و هو  `StreetSweepingBicycle`.
 
-Or we have a class `User` and a class `EventEmitter` that implements event generation, and we'd like to add the functionality of `EventEmitter` to `User`, so that our users can emit events.
+أو لدينا `class` هو `User` و `class` آخر هو `EventEmitter` الذي يقوم بتنفيذ إستخراج الأحداث, و نريد الآن إضافة دوال `EventEmitter` إلى `User`, لكي يمكن مستخدمينا من إرسال الأحداث.
 
-There's a concept that can help here, called "mixins".
+يوجد مفهوم يمكن أن يساعدنا هنا, يُسيمى `mixins`.
 
 As defined in Wikipedia, a [mixin](https://en.wikipedia.org/wiki/Mixin) is a class containing methods that can be used by other classes without a need to inherit from it.
 

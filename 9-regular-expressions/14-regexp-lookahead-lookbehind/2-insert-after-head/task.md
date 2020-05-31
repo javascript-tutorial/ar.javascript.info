@@ -1,10 +1,10 @@
-# Insert After Head
+# أدخل بعد المقدمة
 
-We have a string with an HTML Document.
+لدينا سلسلة مع مستند HTML.
 
-Write a regular expression that inserts `<h1>Hello</h1>` immediately after `<body>` tag. The tag may have attributes.
+اكتب تعبيرًا عاديًا يُدرج `<h1> مرحبًا </ h1>` مباشرة بعد علامة `<body>`. قد يكون للسمات سمات.
 
-For instance:
+على سبيل المثال:
 
 ```js
 let regexp = /your regular expression/;
@@ -20,7 +20,7 @@ let str = `
 str = str.replace(regexp, `<h1>Hello</h1>`);
 ```
 
-After that the value of `str` should be:
+بعد هذا من المفترض أن تصبح قيمة `str`: 
 ```html
 <html>
   <body style="height: 200px"><h1>Hello</h1>

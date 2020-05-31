@@ -1,8 +1,8 @@
-There's a catch here.
+هناك صيد هنا.
 
-At the time of `<script>` execution the last DOM node is exactly `<script>`, because the browser did not process the rest of the page yet.
+في وقت تنفيذ `<script>` ، كانت العقدة DOM الأخيرة هي `<script>` بالضبط ، لأن المستعرض لم يقم بمعالجة باقي الصفحة بعد.
 
-So the result is `1` (element node).
+لذلك تكون النتيجة `1` (عقدة العنصر).
 
 ```html run height=60
 <html>

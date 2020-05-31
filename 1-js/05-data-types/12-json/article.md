@@ -1,10 +1,10 @@
-# JSON methods, toJSON
+# الكائن json وكيفية استخدامه
 
-Let's say we have a complex object, and we'd like to convert it into a string, to send it over a network, or just to output it for logging purposes.
+دعنا نقول أن لدينا كائن معقد ونريد تحويله إلى نص (string) لإرساله عن طريق شبكة الإنترنت أو أن نطبعه فقط.
 
-Naturally, such a string should include all important properties.
+من المفترض أن يحتوى النص هذا على كل الخصائص المهمه للكائن.
 
-We could implement the conversion like this:
+يمكننا إجراء التحويل كالآتى:
 
 ```js run
 let user = {
@@ -21,20 +21,24 @@ let user = {
 alert(user); // {name: "John", age: 30}
 ```
 
-...But in the process of development, new properties are added, old properties are renamed and removed. Updating such `toString` every time can become a pain. We could try to loop over properties in it, but what if the object is complex and has nested objects in properties? We'd need to implement their conversion as well.
+...ولكن عند التطبيق العملى يتم إضافة خصائص جديده أو إعادة تسمية خصائص قديمه أو إزالتها. فتحديث النص عن طريق الدالة `toString` كل  مرة سيكون صعبًا. يمكننا أن نقوم بالتكرار على كل الخصائص فى هذا الكائن ولكن ماذا إذا كان هذا الكائن معقدًا ويحتوى على كائنات أخرى بداخله؟ يجب أن نقوم بتحويلهم أيضًا.
 
-Luckily, there's no need to write the code to handle all this. The task has been solved already.
+لحسن الحظ، ليس هناك حاجه لكتابة كود يقوم بالتعامل مع ذلك. فقد تم حل هذه المشكله بالفعل.
 
 ## JSON.stringify
 
-The [JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a general format to represent values and objects. It is described as in [RFC 4627](http://tools.ietf.org/html/rfc4627) standard. Initially it was made for JavaScript, but many other languages have libraries to handle it as well.  So it's easy to use JSON for data exchange when the client uses JavaScript and the server is written on Ruby/PHP/Java/Whatever.
+إن الكائن 
+[JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation)
+هو شكل عام لعرض الكائنات والقيم. وقد تم وصفه كما فى ال [RFC 4627](http://tools.ietf.org/html/rfc4627).
+لقد صُنع فى البداية من أجل الجافاسكريبت، ولكن هناك لغات ومكتبات أخرى للتعامل معه أيضًا. ولذلك من السهل استخدام الكائن JSON لتبادل البيانات عندما تكون الواجهة بالجافاسكريبت والسيرفر / الباك اند بلغة مثل Ruby/PHP/Java أو أيًا كان.
 
-JavaScript provides methods:
+تحتوى الجافاسكريبت على دوال للتعامل مع الكائن JSON:
 
-- `JSON.stringify` to convert objects into JSON.
-- `JSON.parse` to convert JSON back into an object.
+- `JSON.stringify` لتحويل الكائن إلى جيسون.
+- `JSON.parse` لتحويل الجيسون مرة أخرى إلى كائن.
 
-For instance, here we `JSON.stringify` a student:
+على سبيل المثال، هنا قمنا بتحويل الكائن `student` باستخدام `JSON.stringify`:
+
 ```js run
 let student = {
   name: 'John',
@@ -48,7 +52,7 @@ let student = {
 let json = JSON.stringify(student);
 */!*
 
-alert(typeof json); // we've got a string!
+alert(typeof json); // لدينا نص!
 
 alert(json);
 *!*
@@ -64,67 +68,67 @@ alert(json);
 */!*
 ```
 
-The method `JSON.stringify(student)` takes the object and converts it into a string.
+تستقبل الدالة `JSON.stringify(student)` كائنًا وتحوّله إلى نص.
 
-The resulting `json` string is called a *JSON-encoded* or *serialized* or *stringified* or *marshalled* object. We are ready to send it over the wire or put into a plain data store.
+والجيسون الناتج عن ذلك يسمى _JSON-encoded object_ أو _serialized object_ أو _stringified object_ أو _marshalled object_. والآن يمكننا أن نرسله عن طريق الشبكة أو نضعه فى مكان ما لتخزين البيانات.
 
+لاحظ أن الكائن المحوَّل يختلف عن الكائن العادى فى عدة نقاط:
 
-Please note that a JSON-encoded object has several important differences from the object literal:
+- النصوص تستخدم العلامات النصيه `""` ولا توجد العلامه المفرده `''` أو هذه ` `. فإن `'John'` يتحول إلى `"John"`.
+- أسماء الخواص فى الكائن تكون محاطه بالعلامه النصيه الثنائية أيضًا `""` . ولذلك فإن `age:30` يتحول إلى `"age":30`.
 
-- Strings use double quotes. No single quotes or backticks in JSON. So `'John'` becomes `"John"`.
-- Object property names are double-quoted also. That's obligatory. So `age:30` becomes `"age":30`.
+ويمكن استخادم `JSON.stringify` مع القيم المفردة أيضًا وليس مع الكائنات فقط.
 
-`JSON.stringify` can be applied to primitives as well.
+يدعم الجيسون أنواع البيانات الآتية:
 
-JSON supports following data types:
+- الكائنات `{ ... }`
+- القوائم (arrays) `[ ... ]`
+- القيم المفردة (Primitives):
+  - النصوص (strings),
+  - الأرقام,
+  - القيم المنطقيه (booleans) `true/false`,
+  - `null`.
 
-- Objects `{ ... }`
-- Arrays `[ ... ]`
-- Primitives:
-    - strings,
-    - numbers,
-    - boolean values `true/false`,
-    - `null`.
-
-For instance:
+على سبيل المثال:
 
 ```js run
-// a number in JSON is just a number
-alert( JSON.stringify(1) ) // 1
+// الرقم المحوِّل إلى جيسون هو رقم أيضًا
+alert(JSON.stringify(1)); // 1
 
-// a string in JSON is still a string, but double-quoted
-alert( JSON.stringify('test') ) // "test"
+// النص المحوَّل إلى جيسون هو نصٌ أيضًا ولكن محاط بعلامة التنصيص الثنائية ""
+alert(JSON.stringify("test")); // "test"
 
-alert( JSON.stringify(true) ); // true
+alert(JSON.stringify(true)); // true
 
-alert( JSON.stringify([1, 2, 3]) ); // [1,2,3]
+alert(JSON.stringify([1, 2, 3])); // [1,2,3]
 ```
 
-JSON is data-only language-independent specification, so some JavaScript-specific object properties are skipped by `JSON.stringify`.
+الجيسون يستخدم خصيصًا لعرض البيانات فقط ولذلك فإن بعض خصائص الكائنات فى الجافاسكريبت يتم تخطيها عند استخدام `JSON.stringify`.
 
-Namely:
+وهى:
 
-- Function properties (methods).
-- Symbolic properties.
-- Properties that store `undefined`.
+- الخصائص التى هي عباره عن دوال (Functions).
+- الخصائص من نوع الرمز (Symbol).
+- الخصائص التى قيمتها `undefined`.
 
 ```js run
 let user = {
-  sayHi() { // ignored
+  sayHi() {
+    // يتم تجاهلها
     alert("Hello");
   },
-  [Symbol("id")]: 123, // ignored
-  something: undefined // ignored
+  [Symbol("id")]: 123, // يتم تجاهلها
+  something: undefined, // يتم تجاهلها
 };
 
-alert( JSON.stringify(user) ); // {} (empty object)
+alert(JSON.stringify(user)); // {} (كائن فارغ)
 ```
 
-Usually that's fine. If that's not what we want, then soon we'll see how to customize the process.
+عادةً ما يكون هذا جيدً. وإذا لم يكن هذا مانريده، إذا سنرى قريبًا كيف يمكن أن نعدل هذه العملية لصالحنا.
 
-The great thing is that nested objects are supported and converted automatically.
+الشئ الجيد هنا أن الكائنات الموجوده بداخل أخرى مدعومة ويتم تحويلها تلقائيًا.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let meetup = {
@@ -138,7 +142,7 @@ let meetup = {
 };
 
 alert( JSON.stringify(meetup) );
-/* The whole structure is stringified:
+/* الشكل بالكامل تم تحويله إلى نص:
 {
   "title":"Conference",
   "room":{"number":23,"participants":["john","ann"]},
@@ -146,9 +150,9 @@ alert( JSON.stringify(meetup) );
 */
 ```
 
-The important limitation: there must be no circular references.
+هناك شئ مهم يمنع هذا: وهو أنه لابد أن لا يحتوى الكائن على كائن هو أيضًا يحتوى على الكائن الأول.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let room = {
@@ -160,41 +164,40 @@ let meetup = {
   participants: ["john", "ann"]
 };
 
-meetup.place = room;       // meetup references room
-room.occupiedBy = meetup; // room references meetup
+meetup.place = room;       // meetup يحتوى على room
+room.occupiedBy = meetup; // room يحتوى على meetup
 
 *!*
-JSON.stringify(meetup); // Error: Converting circular structure to JSON
+JSON.stringify(meetup); // خطأ: Converting circular structure to JSON
 */!*
 ```
 
-Here, the conversion fails, because of circular reference: `room.occupiedBy` references `meetup`, and `meetup.place` references `room`:
+فى هذه الحالة يفضل التحويل وهذا بسبب احتواء كل كائن على آخر (circular reference): `room.occupiedBy` تحتوى على `meetup`، و `meetup.place` تحتوى على `room`
 
 ![](json-meetup.svg)
 
-
 ## Excluding and transforming: replacer
 
-The full syntax of `JSON.stringify` is:
+كيفية استخدام `JSON.stringify` هو كالآتى:
 
 ```js
 let json = JSON.stringify(value[, replacer, space])
 ```
 
 value
-: A value to encode.
+: هي القيمة التى ستحوَّل.
 
 replacer
-: Array of properties to encode or a mapping function `function(key, value)`.
+: قائمة (array) من الخصائص لتحويلها أو دالة لتنفيذعا على كل خاصية.
 
 space
-: Amount of space to use for formatting
+: كم المسافه التى يجب استخدامها من أجل التنظيم.
 
-Most of the time, `JSON.stringify` is used with the first argument only. But if we need to fine-tune the replacement process, like to filter out circular references, we can use the second argument of `JSON.stringify`.
+فى أغلب الوقت تُستخدم `JSON.stringify` مع أول متغير فقط، ولكن إذا أردنا أن نتحكم فى كيفية عمل هذه الدالة، مثل التحقق من وجود كائن بداخل آخر يحتوى على هذا الكائن والعكس (circular references)، إذًا يمكننا استخدام المتغير الثاني للدالة `JSON.stringify`.
 
-If we pass an array of properties to it, only these properties will be encoded.
+إذا مررنا قائمة من الخصائص للدالة، فسيتم تحويل قيم هذه الخصائص فقط.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let room = {
@@ -204,18 +207,18 @@ let room = {
 let meetup = {
   title: "Conference",
   participants: [{name: "John"}, {name: "Alice"}],
-  place: room // meetup references room
+  place: room // meetup يحتوى علي room
 };
 
-room.occupiedBy = meetup; // room references meetup
+room.occupiedBy = meetup; // room يحتوى علي meetup
 
 alert( JSON.stringify(meetup, *!*['title', 'participants']*/!*) );
 // {"title":"Conference","participants":[{},{}]}
 ```
 
-Here we are probably too strict. The property list is applied to the whole object structure. So the objects in `participants` are empty, because `name` is not in the list.
+هنا نحن محَدَّدين. حيث أن القائمة المُمرَّرة هي للكائن بأكمله ولذلك فإن الكائنات بداخل `participants` فارغة لأن الخاصية `name` ليست فى القائمة.
 
-Let's include in the list every property except `room.occupiedBy` that would cause the circular reference:
+هيا نحِّل كل الخصائص عدا `room.occupiedBy` والتى يمكن أن تسبب المرجع الدائرى (circular reference):
 
 ```js run
 let room = {
@@ -225,10 +228,10 @@ let room = {
 let meetup = {
   title: "Conference",
   participants: [{name: "John"}, {name: "Alice"}],
-  place: room // meetup references room
+  place: room // meetup يحتوى علي room
 };
 
-room.occupiedBy = meetup; // room references meetup
+room.occupiedBy = meetup; // room يحتوى علي meetup
 
 alert( JSON.stringify(meetup, *!*['title', 'participants', 'place', 'name', 'number']*/!*) );
 /*
@@ -240,31 +243,33 @@ alert( JSON.stringify(meetup, *!*['title', 'participants', 'place', 'name', 'num
 */
 ```
 
-Now everything except `occupiedBy` is serialized. But the list of properties is quite long.
+كل شيئ الآن تم تحويله عدا `occupiedBy`، ولكن القائمة طويلة قليلًا.
 
-Fortunately, we can use a function instead of an array as the `replacer`.
+لحسن الحظ، يمكننا أن نستعمل دالة بدلًا من القائمة وتسمّي `replacer`.
 
-The function will be called for every `(key, value)` pair and should return the "replaced" value, which will be used instead of the original one. Or `undefined` if the value is to be skipped.
+هذه الدالة سيتم استدعاؤها لكل خاصية وقيمتها وستقوم بإرجاع القيمة "البديلة" والتى ستستخدم بلًا من الأصلية أو ستقوم بإرجاع `undefined` للقيمة التى سيتم تخطيها.
 
-In our case, we can return `value` "as is" for everything except `occupiedBy`. To ignore `occupiedBy`, the code below returns `undefined`:
+فى حالتنا هذه، يمكننا أن نقوم بإرجاع القيمة "كما هي" لكل شئ عدا `occupiedBy`. ولتجاهل `occupiedBy`، سيقوم الكود التالى بإرجاع `undefinrd`:
 
 ```js run
 let room = {
-  number: 23
+  number: 23,
 };
 
 let meetup = {
   title: "Conference",
-  participants: [{name: "John"}, {name: "Alice"}],
-  place: room // meetup references room
+  participants: [{ name: "John" }, { name: "Alice" }],
+  place: room, // meetup يحتوى علي room
 };
 
-room.occupiedBy = meetup; // room references meetup
+room.occupiedBy = meetup; // room يحتوى علي meetup
 
-alert( JSON.stringify(meetup, function replacer(key, value) {
-  alert(`${key}: ${value}`);
-  return (key == 'occupiedBy') ? undefined : value;
-}));
+alert(
+  JSON.stringify(meetup, function replacer(key, value) {
+    alert(`${key}: ${value}`);
+    return key == "occupiedBy" ? undefined : value;
+  })
+);
 
 /* key:value pairs that come to replacer:
 :             [object Object]
@@ -279,20 +284,23 @@ number:       23
 */
 ```
 
-Please note that `replacer` function gets every key/value pair including nested objects and array items. It is applied recursively. The value of `this` inside `replacer` is the object that contains the current property.
+لاحظ أن الدالة `replacer` تستقبل كل خاصية وقيمتها بما فيها من كائنات مُضَمّنة وكذلك عناصر القائمة. حيث أنه سيتم تنفيذه بشكل متكرر. وقيمة 
+`this`
+ داخل الدالة 
+ `replacer`
+ هو كائن يحتوى على الخاصية الحالية.
 
-The first call is special. It is made using a special "wrapper object": `{"": meetup}`. In other words, the first `(key, value)` pair has an empty key, and the value is the target object as a whole. That's why the first line is `":[object Object]"` in the example above.
+الإستدعاء الأول للدالة خاص. لأنه يتم بكائن خاص يحتويه `{"": meetup}`. بصيغة أخرى يمكن أن نقول أن أول خاصية بقيمتها تحتوى على خاصية فارغة والقيمة هي الكائن المستهدف تحويله بأكمله.لهذا قيمة أول سطر هي `":[object Object]"` قى المثال أعلاه.
 
-The idea is to provide as much power for `replacer` as possible: it has a chance to analyze and replace/skip even the whole object if necessary.
+الفكرة هي أن تعطي صلاحيات للدالة `replacer` على قدر المستطاع: حيث أن لديها الفرصه للتحليل وكذلك الإستبدال أو التخطي حتي للكائن بأكمله إذا كان هذا ضروريًا.
 
+## التنظيم: المسافات
 
-## Formatting: space
+المتغير الثالث للدالة `JSON.stringify(value, replacer, space)` هو عدد المسافات لاستخدامها فى التنظيم.
 
-The third argument of `JSON.stringify(value, replacer, space)` is the number of spaces to use for pretty formatting.
+سابقًا، كانت كل الكائنات المُحوَّلة إلى نصوص لا تحتوى على أى تنظيم. وهذا كافى إذا كنا نريد أن نرسل الكائن عبر الشبكة. والمتغير `space` يستخدم تحديدًا لطباعة الكائن بشكل منظم.
 
-Previously, all stringified objects had no indents and extra spaces. That's fine if we want to send an object over a network. The `space` argument is used exclusively for a nice output.
-
-Here `space = 2` tells JavaScript to show nested objects on multiple lines, with indentation of 2 spaces inside an object:
+هنا `space = 2` تُخبر الجافاسكريبت أن تعرض الكائنات الداخلية على سطور عدة مع مسافات فارغة تقدر بمسافتين داخل الكائن:
 
 ```js run
 let user = {
@@ -300,8 +308,8 @@ let user = {
   age: 25,
   roles: {
     isAdmin: false,
-    isEditor: true
-  }
+    isEditor: true,
+  },
 };
 
 alert(JSON.stringify(user, null, 2));
@@ -316,7 +324,7 @@ alert(JSON.stringify(user, null, 2));
 }
 */
 
-/* for JSON.stringify(user, null, 4) the result would be more indented:
+/* عند استخدام JSON.stringify(user, null, 4) فإن النتيجة تحتوى على مزيد من المسافات الفارغة:
 {
     "name": "John",
     "age": 25,
@@ -327,14 +335,13 @@ alert(JSON.stringify(user, null, 2));
 }
 */
 ```
+يُستخدم المتغير `space` لوحده من أجل الطباعة بشكل منظم.
 
-The `space` parameter is used solely for logging and nice-output purposes.
+## دالة "toJson" مخصصه
 
-## Custom "toJSON"
+كما أنه توجد دالة `toString` للتحويل إلى نص، يمكن لأى كائن أن يحتوى علي دالة `toJSON` للتحويل إلى جيسون. وتستدعيها الدالة `JSON.stringify` تلقائيًا إذا كانت موجودة.
 
-Like `toString` for string conversion, an object may provide method `toJSON` for to-JSON conversion. `JSON.stringify` automatically calls it if available.
-
-For instance:
+على سبيل المثال:
 
 ```js run
 let room = {
@@ -359,9 +366,9 @@ alert( JSON.stringify(meetup) );
 */
 ```
 
-Here we can see that `date` `(1)` became a string. That's because all dates have a built-in `toJSON` method which returns such kind of string.
+يمكننا أن نري هنا أن `date` `(1)` أصبحت نصًا وهذا لأن كل التواريخ تحتوى على دالة `toJSON` موجودة بالفعل والتى تقوم بإرجاع هذا النوع من النصوص.
 
-Now let's add a custom `toJSON` for our object `room` `(2)`:
+هيا نقوم بإنشاء دالة `toJSON` مخصصة للكائن `room` `(2)`:
 
 ```js run
 let room = {
@@ -393,48 +400,49 @@ alert( JSON.stringify(meetup) );
 */
 ```
 
-As we can see, `toJSON` is used both for the direct call `JSON.stringify(room)` and when `room` is nested in another encoded object.
-
+كما نرى هنا فإن الدالة `toJSON` يمكن استخدامها عن طريق استدعاء `JSON.stringify(room)` مباشرةً أو عندما يكون الكائن `room` بداخل كائن آخر.
 
 ## JSON.parse
 
-To decode a JSON-string, we need another method named [JSON.parse](mdn:js/JSON/parse).
+لإرجاع الكائن المحوَّل إلى جيسون مرةً أخرى سنحتاج إلى دالة أخرى تسمى [JSON.parse](mdn:js/JSON/parse).
 
-The syntax:
+كيفية استخدامها:
+
 ```js
 let value = JSON.parse(str, [reviver]);
 ```
 
 str
-: JSON-string to parse.
+: النص المحوَّل لجيسون لإرجاعه.
 
 reviver
-: Optional function(key,value) that will be called for each `(key, value)` pair and can transform the value.
+: دالة اختيارية تستقبل الخاصية وقيمتها والتى سيتم استدعاؤها لكل خاصية وقيمتها ويمكنها تحويل القمة.
 
-For instance:
+على سبيل المثال:
 
 ```js run
-// stringified array
+// قائمة محوَّلة
 let numbers = "[0, 1, 2, 3]";
 
 numbers = JSON.parse(numbers);
 
-alert( numbers[1] ); // 1
+alert(numbers[1]); // 1
 ```
 
-Or for nested objects:
+أو لكائنات مُضَمَّنة (nested objects):
 
 ```js run
-let userData = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
+let userData =
+  '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
 
 let user = JSON.parse(userData);
 
-alert( user.friends[1] ); // 1
+alert(user.friends[1]); // 1
 ```
 
-The JSON may be as complex as necessary, objects and arrays can include other objects and arrays. But they must obey the same JSON format.
+يمكن أن يكون الجيسون معقدًا حيث يمكن أن تحتوى الكائنات علي كائنات أو قوائم أخرى، ولكنهم يجب أن يتبعو نفس تنظيم الكائن جيسون.
 
-Here are typical mistakes in hand-written JSON (sometimes we have to write it for debugging purposes):
+هنا بعض الأخطاء لجيسون تمت كتابته باليد (أحيانًا نحتاج لكتابته لأغراض البحث عن الأخطاء):
 
 ```js
 let json = `{
@@ -446,26 +454,26 @@ let json = `{
 }`;
 ```
 
-Besides, JSON does not support comments. Adding a comment to JSON makes it invalid.
+إلى جانب ذلك، لا يدعم الجيسون التعليقات (comments)، حيث أن إضافة تعليق للكائن جيسون سيجعله غير صالح.
 
-There's another format named [JSON5](http://json5.org/), which allows unquoted keys, comments etc. But this is a standalone library, not in the specification of the language.
+هناك بُنية أخري تسمي [JSON5](http://json5.org/) والتى تسمح بالخصائص الغير محاطة بعلامة التنصيص الثنائية والتعليقات وغيرها، ولكن هذه مكتبة أخرى وليست فى مواصفات اللغة.
 
-The regular JSON is that strict not because its developers are lazy, but to allow easy, reliable and very fast implementations of the parsing algorithm.
+إن الكائن JSON هو محدَّد وذلك ليس لأن المطوِّرين كسولين ولكن للسماح بسرعة وسهولة خطوات التحويل.
 
-## Using reviver
+## استخدام الدالة reviver
 
-Imagine, we got a stringified `meetup` object from the server.
+تخيل أن لدينا كائنًا محوَّل إلى نص يسمي `meetup` قادم من السيرفر\الخادم.
 
-It looks like this:
+سيكون بهذا الشكل:
 
 ```js
 // title: (meetup title), date: (meetup date)
 let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
 ```
 
-...And now we need to *deserialize* it, to turn back into JavaScript object.
+...والآن سنحتاج إلى تحويله إلى كائن عادى.
 
-Let's do it by calling `JSON.parse`:
+هيا نفعل ذلك باستدعاء `JSON.parse`:
 
 ```js run
 let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
@@ -473,15 +481,16 @@ let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
 let meetup = JSON.parse(str);
 
 *!*
-alert( meetup.date.getDate() ); // Error!
+alert( meetup.date.getDate() ); // خطأ!
 */!*
 ```
 
-Whoops! An error!
+يا إلهى! خطأ!
 
-The value of `meetup.date` is a string, not a `Date` object. How could `JSON.parse` know that it should transform that string into a `Date`?
+إن قيمة `meetup.date` هي نص وليست تاريخ، كيف يمكن للدالة `JSON.parse` أن تعلم أنها يجب أن تحول هذا النص إلى تاريخ؟
 
-Let's pass to `JSON.parse` the reviving function as the second argument, that returns all values "as is", but `date` will become a `Date`:
+هيا نمرر الدالة `reviver` إلى الدالة `JSON.parse` كمتغير ثانٍ والتى تقوم بإرجاع كل شيئ كما هو عدا 
+`date` ستتحول إلى `تاريخ`:
 
 ```js run
 let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
@@ -493,10 +502,10 @@ let meetup = JSON.parse(str, function(key, value) {
 });
 */!*
 
-alert( meetup.date.getDate() ); // now works!
+alert( meetup.date.getDate() ); // لا يوجد خطأ الآن!
 ```
 
-By the way, that works for nested objects as well:
+وهي تعمل مع الكائنات المُضَمَّنة أيضًا:
 
 ```js run
 let schedule = `{
@@ -512,16 +521,14 @@ schedule = JSON.parse(schedule, function(key, value) {
 });
 
 *!*
-alert( schedule.meetups[1].date.getDate() ); // works!
+alert( schedule.meetups[1].date.getDate() ); // تعمل جيدًا!
 */!*
 ```
 
+## الملخص
 
-
-## Summary
-
-- JSON is a data format that has its own independent standard and libraries for most programming languages.
-- JSON supports plain objects, arrays, strings, numbers, booleans, and `null`.
-- JavaScript provides methods [JSON.stringify](mdn:js/JSON/stringify) to serialize into JSON and [JSON.parse](mdn:js/JSON/parse) to read from JSON.
-- Both methods support transformer functions for smart reading/writing.
-- If an object has `toJSON`, then it is called by `JSON.stringify`.
+- الكائن JSON هو شكل من أشكال البيانات والتى تحتوى على قواعدها ومكتباتها الخاصة لأغلب لغات البرمجة.
+- الكائن JSON يدعم الكائنات العادية والقوائم والأرقام والقيم المنطقية والنصوص و القيمة `null`.
+- توجد دوال فى الجافاسكريبت [JSON.stringify](mdn:js/JSON/stringify) لتحويل الكائن إلى جيسون و أيضًا [JSON.parse](mdn:js/JSON/parse) لتحويله مرة أخري إلى كائن.
+- كلا الدالتين تدعم الدوال التى تحوِّل من وإلى بشكل ذكي.
+- إذا كان الكائن يحتوى على الدالة `toJSON`، إذا سيتم استدعاؤها عن طريق الدالة `JSON.stringify`.

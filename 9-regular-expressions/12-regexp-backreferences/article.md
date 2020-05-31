@@ -1,18 +1,18 @@
-# Backreferences in pattern: \N and \k<name>
+# المرجعيات الخلفية في النمط: \ N و \ k <name>
 
-We can use the contents of capturing groups `pattern:(...)` not only in the result or in the replacement string, but also in the pattern itself.
+يمكننا استخدام محتويات نمط التقاط المجموعات: (...) `ليس فقط في النتيجة أو في سلسلة الاستبدال ، ولكن أيضًا في النمط نفسه.
 
-## Backreference by number: \N
+## المرجع حسب الرقم: \ N
 
-A group can be referenced in the pattern using `pattern:\N`, where `N` is the group number.
+يمكن الرجوع إلى مجموعة في النمط باستخدام `pattern: \ N` ، حيث` N` هو رقم المجموعة.
 
-To make clear why that's helpful, let's consider a task.
+لتوضيح سبب ذلك ، دعنا نفكر في مهمة.
 
-We need to find quoted strings: either single-quoted `subject:'...'` or a double-quoted `subject:"..."` -- both variants should match.
+نحن بحاجة إلى العثور على السلاسل المقتبسة: إما "مفردة:" ... "مفردة الاقتباس أو" موضوع "مزدوج الاقتباس:" ... "- يجب أن يتطابق كلا الخيارين.
 
-How to find them?
+كيف تجدهم؟
 
-We can put both kinds of quotes in the square brackets: `pattern:['"](.*?)['"]`, but it would find strings with mixed quotes, like `match:"...'` and `match:'..."`. That would lead to incorrect matches when one quote appears inside other ones, like in the string `subject:"She's the one!"`:
+يمكننا وضع كلا النوعين من الاقتباسات بين قوسين معقوفين: `` pattern: [''] (. *؟) ["]" ، لكنه سيجد سلاسل بعلامات اقتباس مختلطة ، مثل "match:" ... "" و "المباراة:" ... "". سيؤدي ذلك إلى تطابقات غير صحيحة عندما يظهر اقتباس واحد داخل اقتباسات أخرى ، كما هو الحال في السلسلة "subject:" She is the one! ":
 
 ```js run
 let str = `He said: "She's the one!".`;
@@ -23,11 +23,11 @@ let regexp = /['"](.*?)['"]/g;
 alert( str.match(regexp) ); // "She'
 ```
 
-As we can see, the pattern found an opening quote `match:"`, then the text is consumed till the other quote `match:'`, that closes the match.
+كما نرى ، وجد النمط علامة اقتباس افتتاحية `` مطابقة '' ، ثم يتم استهلاك النص حتى `` مطابقة '' الاقتباس الآخر ، الذي يغلق المطابقة.
 
-To make sure that the pattern looks for the closing quote exactly the same as the opening one, we can wrap it into a capturing group and backreference it: `pattern:(['"])(.*?)\1`.
+للتأكد من أن النمط يبحث عن علامة اقتباس الإغلاق تمامًا مثل علامة الاقتباس الافتتاحية ، يمكننا لفه في مجموعة التقاط وإعادة الرجوع إليه: `pattern: (['"]) (. *؟) \ 1`.
 
-Here's the correct code:
+إليك الرمز الصحيح:
 
 ```js run
 let str = `He said: "She's the one!".`;
@@ -39,27 +39,27 @@ let regexp = /(['"])(.*?)\1/g;
 alert( str.match(regexp) ); // "She's the one!"
 ```
 
-Now it works! The regular expression engine finds the first quote `pattern:(['"])` and memorizes its content. That's the first capturing group.
+الآن يعمل! يعثر محرك التعبير العادي على "نمط" الاقتباس الأول: ([""]) `ويحتفظ بمحتواه. هذه أول مجموعة التقاط.
 
-Further in the pattern `pattern:\1` means "find the same text as in the first group", exactly the same quote in our case.
+علاوة على ذلك في النمط `pattern: \ 1` يعني" البحث عن نفس النص الموجود في المجموعة الأولى "، وهو نفس الاقتباس بالضبط في حالتنا.
 
-Similar to that, `pattern:\2` would mean the contents of the second group, `pattern:\3` - the 3rd group, and so on.
+وبالمثل ، فإن `pattern: \ 2` يعني محتويات المجموعة الثانية ،` pattern: \ 3` - المجموعة الثالثة ، وما إلى ذلك.
 
-```smart
-If we use `?:` in the group, then we can't reference it. Groups that are excluded from capturing `(?:...)` are not memorized by the engine.
-```
+`` ذكي
+إذا استخدمنا "؟:" في المجموعة ، فلا يمكننا الرجوع إليها. المجموعات التي تم استبعادها من التقاط `(؟: ...)` لا يحفظها المحرك.
+``
 
-```warn header="Don't mess up: in the pattern `pattern:\1`, in the replacement: `pattern:$1`"
-In the replacement string we use a dollar sign: `pattern:$1`, while in the pattern - a backslash `pattern:\1`.
-```
+```warn header="لا تعبث: في النقش` النمط: \ 1` ، في الاستبدال: `النقش: $ 1`"
+في سلسلة الاستبدال ، نستخدم علامة الدولار: `pattern: $ 1` ، بينما في النمط - 'pattern backlash'`: \ 1`.
+``
 
-## Backreference by name: `\k<name>`
+## رجوع بالاسم: `\ k <name>`
 
-If a regexp has many parentheses, it's convenient to give them names.
+إذا كان التعبير العادي يحتوي على العديد من الأقواس ، فمن المناسب إعطاءهم أسماء.
 
-To reference a named group we can use `pattern:\k<имя>`.
+للإشارة إلى مجموعة مسماة ، يمكننا استخدام `pattern: \ k <имя>`.
 
-In the example below the group with quotes is named `pattern:?<quote>`, so the backreference is `pattern:\k<quote>`:
+في المثال أدناه ، المجموعة التي تحتوي على علامات اقتباس تسمى `pattern :؟ <quote>` ، لذا فإن المرجع الخلفي هو `pattern: \ k <quote>`:
 
 ```js run
 let str = `He said: "She's the one!".`;
@@ -70,3 +70,4 @@ let regexp = /(?<quote>['"])(.*?)\k<quote>/g;
 
 alert( str.match(regexp) ); // "She's the one!"
 ```
+

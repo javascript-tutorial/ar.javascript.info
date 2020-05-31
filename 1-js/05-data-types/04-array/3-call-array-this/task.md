@@ -1,10 +1,10 @@
-importance: 5
+الاهميه: 5
 
 ---
 
-# Calling in an array context
+# استدعاء في سياق مصفوفه
 
-What is the result? Why?
+ ماهي النتيجه؟ لماذا؟
 
 ```js
 let arr = ["a", "b"];

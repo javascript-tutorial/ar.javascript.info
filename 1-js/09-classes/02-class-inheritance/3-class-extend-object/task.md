@@ -1,12 +1,12 @@
-importance: 3
+درجة الأهمية: 3
 
 ---
 
-# Class extends Object?
+# فئة تمدد الكائن؟
 
-As we know, all objects normally inherit from `Object.prototype` and get access to "generic" object methods like `hasOwnProperty` etc.
+كما نعلم ، عادة ما ترث جميع الكائنات من `Object.prototype` وتحصل على طرق للكائنات" العامة "مثل` hasOwnProperty` وما إلى ذلك.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 class Rabbit {
@@ -23,11 +23,11 @@ alert( rabbit.hasOwnProperty('name') ); // true
 */!*
 ```
 
-But if we spell it out explicitly like `"class Rabbit extends Object"`, then the result would be different from a simple `"class Rabbit"`?
+ولكن إذا وضحناها صراحة مثل "class class rabbit Extended Object" ، فستكون النتيجة مختلفة عن "class rabbit" بسيطة؟
 
-What's the difference?
+ماهو الفرق؟
 
-Here's an example of such code (it doesn't work -- why? fix it?):
+فيما يلي مثال لمثل هذا الرمز (لا يعمل - لماذا؟ إصلاحه؟):
 
 ```js
 class Rabbit extends Object {

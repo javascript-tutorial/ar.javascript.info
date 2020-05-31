@@ -1,6 +1,6 @@
-That's because the child constructor must call `super()`.
+هذا لأنه يجب على child contructor استدعاء `` super () `.
 
-Here's the corrected code:
+إليك الكود المصحح:
 
 ```js run
 class Animal {

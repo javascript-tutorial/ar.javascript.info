@@ -1,17 +1,17 @@
-# Hello, world!
+# أهلاً, بالعالم!
 
-This part of the tutorial is about core JavaScript, the language itself.
+هذا الجزء من البرنامج التعليمي عن أساسيات لغة الجافا سكريبت، اللغة نفسها.
 
-But we need a working environment to run our scripts and, since this book is online, the browser is a good choice. We'll keep the amount of browser-specific commands (like `alert`) to a minimum so that you don't spend time on them if you plan to concentrate on another environment (like Node.js). We'll focus on JavaScript in the browser in the [next part](/ui) of the tutorial.
+لكن نحتاج إلى بيئة عمل من أجل تشغيل النصوص الخاصة بنا، وبما أن هذا الكتاب عبر الانترنت، لذافإن المتصفح خيار جيد.سوف نقوم بالاحتفاظ بالأوامر الخاصة بالمتصفح (مثل `alert`) للحد الأدنى بحيث لا تقضي وقتًا عليها إذا كنت تخطط للتركيز على بيئة أخرى (مثل Node.js). سوف نركز على الجافا سكريبت في المتصفح [الجزء التالي](/ui) من البرنامج التعليمي.
 
-So first, let's see how we attach a script to a webpage. For server-side environments (like Node.js), you can execute the script with a command like `"node my.js"`.
+لذا أولاً, دعونا نرفق نص برمجي في صفحة الويب. بالنسبة للبيئات التي تعمل على الخوادم (مثل Node.js), يمكنك تنفيذها من خلال استخدام أمر مثل `"node my.js"`.
 
 
-## The "script" tag
+## الوسم "script"
 
-JavaScript programs can be inserted into any part of an HTML document with the help of the `<script>` tag.
+يمكن وضع برامج الجافاسكريبت في أي جزء في مستند HTML باستخدام وسم`<script>`.
 
-For instance:
+على سبيل المثال:
 
 ```html run height=100
 <!DOCTYPE HTML>
@@ -23,7 +23,7 @@ For instance:
 
 *!*
   <script>
-    alert( 'Hello, world!' );
+    alert( 'أهلاً, بالعالم!' );
   </script>
 */!*
 
@@ -35,24 +35,24 @@ For instance:
 ```
 
 ```online
-You can run the example by clicking the "Play" button in the right-top corner of the box above.
+يمكن أن تقوم بتشغيل المثال بالضغط على زر "تشغيل" في الجانب الأيمن العلوي بالمربع الأعلى.
 ```
 
-The `<script>` tag contains JavaScript code which is automatically executed when the browser processes the tag.
+الوسم `<script>` يحتوي على شفرات جافاسكريبت التي يمكن أن تُنفذ بشكل تلقائي عندما يقوم المتصفح بمعالجة الوسم.
 
 
-## Modern markup
+## الترميز الحديث
 
-The `<script>` tag has a few attributes that are rarely used nowadays but can still be found in old code:
+الوسم `<script>` يحتوي على بعض الخصائص التي نادراً مايتم استخدامها في وقتنا الحاضر، لكن يمكن أن تجدها في الشفرات البرمجية القديمة:
 
-The `type` attribute: <code>&lt;script <u>type</u>=...&gt;</code>
-: The old HTML standard, HTML4, required a script to have a `type`. Usually it was `type="text/javascript"`. It's not required anymore. Also, the modern HTML standard totally changed the meaning of this attribute. Now, it can be used for JavaScript modules. But that's an advanced topic, we'll talk about modules in another part of the tutorial.
+الخاصية `type`: <code>&lt;script <u>type</u>=...&gt;</code>
+: معيار HTML القديم, HTML4, يتطلب أن يحتوي وسم script على `type`. عادة ما كان `type="text/javascript"`. لم تعد مطلوبة الآن. وأيضاً,معايير HTML الحديثةغيرت معني هذه الخاصية. والآن، يمكن أن تستخدم لوحدات الجافا سكريبت. لكن هذا الموضوع متقدم، وسنتحدث عن الوحدات في جزءآخر من البرنامج التعليمي.
 
-The `language` attribute: <code>&lt;script <u>language</u>=...&gt;</code>
-: This attribute was meant to show the language of the script. This attribute no longer makes sense because JavaScript is the default language. There is no need to use it.
+الخاصية `language`: <code>&lt;script <u>language</u>=...&gt;</code>
+: كان الغرض من استخدام هذه الخاصية هو إظهار لغة النص البرمجي، لم تعد هذه الخاصية منطقية الآن لأن الجافا سكريبت هي اللغة الافتراضية. فليست هناك حاجة لاستخدامها.
 
-Comments before and after scripts.
-: In really ancient books and guides, you may find comments inside `<script>` tags, like this:
+التعليقات قبل وبعد النصوص البرمجية.
+: في الكتب والأدلة القديمة جداً، قد تجد تعليقات داخل وسم  `<script>` , مثل هذا:
 
     ```html no-beautify
     <script type="text/javascript"><!--
@@ -60,28 +60,28 @@ Comments before and after scripts.
     //--></script>
     ```
 
-    This trick isn't used in modern JavaScript. These comments hide JavaScript code from old browsers that didn't know how to process the `<script>` tag. Since browsers released in the last 15 years don't have this issue, this kind of comment can help you identify really old code.
+    لاستم استخدام هذه الخدعة في الجافاسكريبت الحديثة. تخفي هذه التعليقات شفرات الجافاسكريبت في المتصفحات القديمة التي لاتعرف كيفية عمل معالجة للوسم `<script>. نظراً لأن المتصحات التي تم إصدارها في آخر 15 عاماً لاتوجد فيها هذه المشكلة، فإن هذا النوع من التعليقات يمكن أن يساعدك في تحديد الشفرة القديمة حقاً.
 
 
-## External scripts
+## النصوص البرمجية الخارجية
 
-If we have a lot of JavaScript code, we can put it into a separate file.
+إذا كان لدينا عدد كبير من أكواد الجافا سكريبت، فإننا يمكن أن نضعها في ملف منفصل.
 
-Script files are attached to HTML with the `src` attribute:
+يتم إرفاق ملفات النصوص البرمجية  HTML باستخدام خاصية  `src` :
 
 ```html
 <script src="/path/to/script.js"></script>
 ```
 
-Here, `/path/to/script.js` is an absolute path to the script from the site root. One can also provide a relative path from the current page. For instance, `src="script.js"` would mean a file `"script.js"` in the current folder.
+هنا, `/path/to/script.js` هو مسار منفرد للنص البرمجي من جذر الموقع. يمكن أيضاً توفير مسار نسبي من خلال الصفحة الحالية.. على سبيل المثال، `src="script.js"` تعني أن الملف `"script.js"` في نفس المجلد.
 
-We can give a full URL as well. For instance:
+يمكن أن نعطي المسار الكامل أيضاً. على سبيل المثال :
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
 ```
 
-To attach several scripts, use multiple tags:
+لكي نرفق العديد من النصوص البرمجية، استخدم To attach several scripts, use الوسوم بصورة مضاعفة:
 
 ```html
 <script src="/js/script1.js"></script>
@@ -90,19 +90,19 @@ To attach several scripts, use multiple tags:
 ```
 
 ```smart
-As a rule, only the simplest scripts are put into HTML. More complex ones reside in separate files.
+كقاعدة، يتم وضع النصوص البرمجية البسيطة داخل HTML. والنصوص المعقدة يتم وضعها في ملفات منفصلة.
 
-The benefit of a separate file is that the browser will download it and store it in its [cache](https://en.wikipedia.org/wiki/Web_cache).
+فائدة الملفات المنفصلة هي أن المتصفح يقوم بتحميلهاوتخزينها في[ذاكرة التخزين المؤقتة](https://en.wikipedia.org/wiki/Web_cache).
 
-Other pages that reference the same script will take it from the cache instead of downloading it, so the file is actually downloaded only once.
+الصفحات الأخرى التي تشير إلى نفس النص البرمجي سوف تحصل عليه من ذاكرة التخزين المؤقتة بدلاً من تنزيله، لذا فإن الملف يتم تحميله مرة واحدة.
 
-That reduces traffic and makes pages faster.
+هذا يقلل من الحركة ويجعل الصفحات تكون أسرع.
 ```
 
-````warn header="If `src` is set, the script content is ignored."
-A single `<script>` tag can't have both the `src` attribute and code inside.
+````warn header="إذا `src` تم تعيين, يتم تجاهل محتوى النص البرمجي."
+وسم `<script>` منفرداً لايمكن أن يحتوي على خاصية `src`  والكود بداخله.
 
-This won't work:
+هذا لايعمل:
 
 ```html
 <script *!*src*/!*="file.js">
@@ -110,9 +110,9 @@ This won't work:
 </script>
 ```
 
-We must choose either an external `<script src="…">` or a regular `<script>` with code.
+يجب اختيار إما خارجي `<script src="…">` أو عادي `<script>` باستخدام الكود.
 
-The example above can be split into two scripts to work:
+يمكن تقسيم المثال أعلاه إلى نصين برمجيين لكي يعمل:
 
 ```html
 <script src="file.js"></script>
@@ -122,11 +122,11 @@ The example above can be split into two scripts to work:
 ```
 ````
 
-## Summary
+## ملخص
 
-- We can use a `<script>` tag to add JavaScript code to a page.
-- The `type` and `language` attributes are not required.
-- A script in an external file can be inserted with `<script src="path/to/script.js"></script>`.
+- يمكن استخدام وسم `<script>` لإضافة كود الجافا سكريبت إلى صفحة.
+- الخصائص `type` و `language` غير مطلوبة.
+- يمكن إدراج النص البرمجي في ملف خارجي باستخدام `<script src="path/to/script.js"></script>`.
 
 
-There is much more to learn about browser scripts and their interaction with the webpage. But let's keep in mind that this part of the tutorial is devoted to the JavaScript language, so we shouldn't distract ourselves with browser-specific implementations of it. We'll be using the browser as a way to run JavaScript, which is very convenient for online reading, but only one of many.
+هناك الكثير لتتعلمه عن نصوص المتصفح البرمجية وتفاعلها مع صفحة الويب. ولكن دعنا نضع في اعتبارنا أن هذا الجزء من البرنامج التعليمي مخصص للغة جافا سكريبت ، لذلك لا ينبغي أن نشتت انتباهنا بالتطبيقات الخاصة بالمتصفح. سنستخدم المتصفح كوسيلة لتشغيل جافا سكريبت ، وهو مناسب جدًا للقراءة عبر الإنترنت ، ولكن واحدًا فقط من بين العديد.

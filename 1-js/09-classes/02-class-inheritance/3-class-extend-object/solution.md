@@ -1,8 +1,8 @@
-First, let's see why the latter code doesn't work.
+أولاً ، دعنا نرى لماذا لا يعمل الكود الأخير.
 
-The reason becomes obvious if we try to run it. An inheriting class constructor must call `super()`. Otherwise `"this"` won't be "defined".
+يصبح السبب واضحًا إذا حاولنا تشغيله. يجب على مُنشئ الفصل الموروث استدعاء `` super () `. وإلا فلن يتم تحديد "هذا" ".
 
-So here's the fix:
+إذن هذا هو الإصلاح:
 
 ```js run
 class Rabbit extends Object {
@@ -19,16 +19,16 @@ let rabbit = new Rabbit("Rab");
 alert( rabbit.hasOwnProperty('name') ); // true
 ```
 
-But that's not all yet.
+لكن هذا ليس كل شيء بعد.
 
-Even after the fix, there's still important difference in `"class Rabbit extends Object"` versus `class Rabbit`.
+حتى بعد الإصلاح ، لا يزال هناك اختلاف مهم في "class rabbit يوسع الكائن" "مقابل" class Rabbit ".
 
-As we know, the "extends" syntax sets up two prototypes:
+كما نعلم ، فإن الصيغة "الممتدة" تضع نموذجين أوليين:
 
-1. Between `"prototype"` of the constructor functions (for methods).
-2. Between the constructor functions themselves (for static methods).
+1. بين "النموذج" لوظائف المنشئ (للطرق).
+2. بين وظائف المنشئ أنفسهم (للأساليب الثابتة).
 
-In our case, for `class Rabbit extends Object` it means:
+في حالتنا ، تعني كلمة "أرنب يمتد الكائن" ما يلي:
 
 ```js run
 class Rabbit extends Object {}
@@ -37,7 +37,7 @@ alert( Rabbit.prototype.__proto__ === Object.prototype ); // (1) true
 alert( Rabbit.__proto__ === Object ); // (2) true
 ```
 
-So `Rabbit` now provides access to static methods of `Object` via `Rabbit`, like this:
+إذن يوفر "الأرنب" الآن إمكانية الوصول إلى الأساليب الثابتة لـ "الكائن" عبر "الأرنب" ، على النحو التالي:
 
 ```js run
 class Rabbit extends Object {}
@@ -48,9 +48,9 @@ alert ( Rabbit.getOwnPropertyNames({a: 1, b: 2})); // a,b
 */!*
 ```
 
-But if we don't have `extends Object`, then `Rabbit.__proto__` is not set to `Object`.
+ولكن إذا لم يكن لدينا `Extended Object` ، فلن يتم تعيين` Rabbit .__ proto__` على `Object`.
 
-Here's the demo:
+هنا هو العرض التوضيحي:
 
 ```js run
 class Rabbit {}
@@ -65,15 +65,15 @@ alert ( Rabbit.getOwnPropertyNames({a: 1, b: 2})); // Error
 */!*
 ```
 
-So `Rabbit` doesn't provide access to static methods of `Object` in that case.
+لذا `Rabbit` لا يوفر الوصول إلى الأساليب الثابتة لـ "الكائن" في هذه الحالة.
 
-By the way, `Function.prototype` has "generic" function methods, like `call`, `bind` etc. They are ultimately available in both cases, because for the built-in `Object` constructor, `Object.__proto__ === Function.prototype`.
+بالمناسبة ، يحتوي `Function.prototype` على طرق وظيفية" عامة "، مثل` call` و` bind` وما إلى ذلك. وهي متاحة في النهاية في كلتا الحالتين ، لأن مُنشئ `Object` المدمج ،` Object .__ proto__ = == Function.prototype`.
 
-Here's the picture:
+ها هي الصورة:
 
 ![](rabbit-extends-object.svg)
 
-So, to put it short, there are two differences:
+لذلك ، باختصار ، هناك اختلافان:
 
 | class Rabbit | class Rabbit extends Object  |
 |--------------|------------------------------|

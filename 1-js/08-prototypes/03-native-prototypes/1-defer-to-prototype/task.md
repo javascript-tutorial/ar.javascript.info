@@ -1,17 +1,17 @@
-importance: 5
+درجة الأهمية: 5
 
 ---
 
-# Add method "f.defer(ms)" to functions
+# إضافة الدالة "f.defer(ms)" للدوال
 
-Add to the prototype of all functions the method `defer(ms)`, that runs the function after `ms` milliseconds.
+أضف إلى نموذج الدوال الدالة `defer(ms)` والتى تقوم بتشغيل الدالة بعد `ms` مللى ثانية.
 
-After you do it, such code should work:
+بعد أن تفعلها، سيعمل الكود التالى:
 
 ```js
 function f() {
   alert("Hello!");
 }
 
-f.defer(1000); // shows "Hello!" after 1 second
+f.defer(1000); // تعرض كلمة "Hello!" بعد 1 ثانية
 ```

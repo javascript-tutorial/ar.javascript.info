@@ -1,9 +1,9 @@
-importance: 5
+درجة الأهمية : 5
 
 ---
 
-# Rewrite to class
+# أعد صياغة الclass
 
-The `Clock` class is written in functional style. Rewrite it the "class" syntax.
+The `Clock` class مكتوب بأسلوب وظيفي. أعد كتابتها بصيغة "class".
 
-P.S. The clock ticks in the console, open it to see.
+ملاحظة. تدق الساعة في وحدة التحكم ، افتحها لترى.

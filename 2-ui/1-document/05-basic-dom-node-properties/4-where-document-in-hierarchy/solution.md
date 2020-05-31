@@ -1,40 +1,40 @@
 
-We can see which class it belongs by outputting it, like:
+Wيمكننا معرفة أي فئة ينتمي إليها بإخراجها ، مثل:
 
-```js run
-alert(document); // [object HTMLDocument]
-```
+تشغيل شبيبة
+تنبيه (وثيقة) ؛ // [كائن HTMLDocument]
+``
 
-Or:
+أو:
 
-```js run
-alert(document.constructor.name); // HTMLDocument
-```
+تشغيل شبيبة
+تنبيه (document.constructor.name) ؛ // HTMLDocument
+``
 
-So, `document` is an instance of `HTMLDocument` class.
+لذا ، `المستند` هو مثيل لفئة` HTMLDocument`.
 
-What's its place in the hierarchy?
+ما مكانها في التسلسل الهرمي؟
 
-Yeah, we could browse the specification, but it would be faster to figure out manually.
+نعم ، يمكننا تصفح المواصفات ، ولكن سيكون من الأسرع معرفة ذلك يدويًا.
 
-Let's traverse the prototype chain via `__proto__`.
+دعنا نجتاز سلسلة النموذج عبر "__proto__".
 
-As we know, methods of a class are in the `prototype` of the constructor. For instance, `HTMLDocument.prototype` has methods for documents.
+كما نعلم ، فإن طرق الصف موجودة في "النموذج الأولي" للمنشئ. على سبيل المثال ، يحتوي "HTMLDocument.prototype" على طرق للمستندات.
 
-Also, there's a reference to the constructor function inside the `prototype`:
+أيضًا ، هناك إشارة إلى وظيفة المُنشئ داخل `النموذج الأولي`:
 
-```js run
-alert(HTMLDocument.prototype.constructor === HTMLDocument); // true
-```
+تشغيل شبيبة
+تنبيه (HTMLDocument.prototype.constructor === HTMLDocument) ؛ // صحيح
+``
 
-To get a name of the class as a string, we can use `constructor.name`. Let's do it for the whole `document` prototype chain, till class `Node`:
+للحصول على اسم الفئة كسلسلة ، يمكننا استخدام `buildor.name`. لنفعل ذلك من أجل سلسلة النموذج "المستند" بالكامل ، حتى الفئة "العقدة":
 
-```js run
-alert(HTMLDocument.prototype.constructor.name); // HTMLDocument
-alert(HTMLDocument.prototype.__proto__.constructor.name); // Document
-alert(HTMLDocument.prototype.__proto__.__proto__.constructor.name); // Node
-```
+تشغيل شبيبة
+تنبيه (HTMLDocument.prototype.constructor.name) ؛ // HTMLDocument
+تنبيه (HTMLDocument.prototype .__ proto__.constructor.name) ؛ // المستند
+تنبيه (HTMLDocument.prototype .__ proto__.__proto__.constructor.name) ؛ // العقدة
+``
 
-That's the hierarchy.
+هذا هو التسلسل الهرمي.
 
-We also could examine the object using `console.dir(document)` and see these names by opening `__proto__`. The console takes them from `constructor` internally.
+يمكننا أيضًا فحص الكائن باستخدام `console.dir (مستند)` ورؤية هذه الأسماء من خلال فتح "__proto__". تأخذهم وحدة التحكم من `المنشئ` داخليًا.

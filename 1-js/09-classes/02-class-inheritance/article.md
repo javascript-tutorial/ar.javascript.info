@@ -1,13 +1,13 @@
 
-# Class inheritance
+# Class توريث ال
 
-Class inheritance is a way for one class to extend another class.
+توريث الclass هو وسيلة لفئة واحدة لتمديد فئة أخرى.
 
-So we can create new functionality on top of the existing.
+حتى نتمكن من إنشاء وظائف جديدة على رأس القائمة.
 
-## The "extends" keyword
+## الكلمة الرئيسية "يمتد"
 
-Let's say we have class `Animal`:
+لنفترض أن لدينا فئة `Animal`:
 
 ```js
 class Animal {
@@ -28,17 +28,17 @@ class Animal {
 let animal = new Animal("My animal");
 ```
 
-Here's how we can represent `animal` object and `Animal` class graphically:
+إليك كيفية تمثيل كائن "الحيوان" وفئة "الحيوان" بشكل رسومي:
 
 ![](rabbit-animal-independent-animal.svg)
 
-...And we would like to create another `class Rabbit`.
+... ونود إنشاء "أرنب من الدرجة" آخر.
 
-As rabbits are animals, `Rabbit` class should be based on `Animal`, have access to animal methods, so that rabbits can do what "generic" animals can do.
+نظرًا لأن الأرانب حيوانات ، يجب أن تستند فئة "الأرانب" إلى "الحيوانات" ، وأن تكون قادرة على الوصول إلى الأساليب الحيوانية ، حتى تتمكن الأرانب من القيام بما يمكن أن تفعله الحيوانات "العامة".
 
-The syntax to extend another class is: `class Child extends Parent`.
+بناء الجملة لتمديد فئة أخرى هو: `class child Extended Parent`.
 
-Let's create `class Rabbit` that inherits from `Animal`:
+لنقم بإنشاء "أرنب الطبقة" الذي يرث من "الحيوان":
 
 ```js
 *!*
@@ -55,23 +55,23 @@ rabbit.run(5); // White Rabbit runs with speed 5.
 rabbit.hide(); // White Rabbit hides!
 ```
 
-Object of `Rabbit` class have access to both `Rabbit` methods, such as `rabbit.hide()`, and also to `Animal` methods, such as `rabbit.run()`.
+يمكن لكائن فئة "أرنب" الوصول إلى كل من طرق "أرنب" ، مثل "أرنب. إخفاء ()" ، وأيضًا إلى طرق "الحيوان" ، مثل "أرنب". () `.
 
-Internally, `extends` keyword works using the good old prototype mechanics. It sets `Rabbit.prototype.[[Prototype]]` to `Animal.prototype`. So, if a method is not found in `Rabbit.prototype`, JavaScript takes it from `Animal.prototype`.
+داخليًا ، تعمل الكلمة الرئيسية `` الموسعة '' باستخدام ميكانيكا النموذج القديم الجيدة. يقوم بتعيين "Rabbit.prototype. [[Prototype]]` إلى "Animal.prototype`. لذلك ، إذا لم يتم العثور على طريقة في `Rabbit.prototype` ، فإن JavaScript تأخذها من` Animal.prototype`.
 
 ![](animal-rabbit-extends.svg)
 
-For instance, to find `rabbit.run` method, the engine checks (bottom-up on the picture):
-1. The `rabbit` object (has no `run`).
-2. Its prototype, that is `Rabbit.prototype` (has `hide`, but not `run`).
-3. Its prototype, that is (due to `extends`) `Animal.prototype`, that finally has the `run` method.
+على سبيل المثال ، للعثور على طريقة `rabbit.run` ، يتحقق المحرك (من أسفل إلى أعلى في الصورة):
+1. كائن "الأرنب" (ليس له "تشغيل").
+2. نموذجها الأولي ، وهو "Rabbit.prototype" (به "إخفاء" وليس "تشغيل").
+3. نموذجها الأولي ، أي (بسبب "يمتد") "Animal.prototype" ، الذي يحتوي في النهاية على طريقة "run".
 
-As we can recall from the chapter <info:native-prototypes>, JavaScript itself uses prototypal inheritance for built-in objects. E.g. `Date.prototype.[[Prototype]]` is `Object.prototype`. That's why dates have access to generic object methods.
+كما يمكننا أن نتذكر من الفصل <info: original-prototypes> ، فإن JavaScript نفسها تستخدم الوراثة النموذجية للكائنات المدمجة. على سبيل المثال `Date.prototype. [[Prototype]]` هو `Object.prototype`. هذا هو السبب في أن التواريخ يمكنها الوصول إلى طرق الكائنات العامة.
 
-````smart header="Any expression is allowed after `extends`"
-Class syntax allows to specify not just a class, but any expression after `extends`.
+````smart header="يسمح بأي تعبير بعد "يمتد"
+يسمح بناء جملة الصنف بتحديد ليس فئة فقط ، ولكن أي تعبير بعد "يمتد".
 
-For instance, a function call that generates the parent class:
+على سبيل المثال ، استدعاء دالة ينشئ الفئة الأصل:
 
 ```js run
 function f(phrase) {
@@ -86,16 +86,16 @@ class User extends f("Hello") {}
 
 new User().sayHi(); // Hello
 ```
-Here `class User` inherits from the result of `f("Hello")`.
+هنا يرث `مستخدم class` من نتيجة` f ("Hello") `.
 
-That may be useful for advanced programming patterns when we use functions to generate classes depending on many conditions and can inherit from them.
+قد يكون ذلك مفيدًا لأنماط البرمجة المتقدمة عندما نستخدم الدالات لإنشاء فئات اعتمادًا على العديد من الشروط ويمكن أن ترثها.
 ````
 
-## Overriding a method
+## تجاوز دالة
 
-Now let's move forward and override a method. By default, all methods that are not specified in `class Rabbit` are taken directly "as is" from `class Animal`.
+الآن دعنا نمضي قدمًا ونستبدل إحدى الطرق. افتراضيًا ، يتم أخذ جميع الطرق غير المحددة في "class Rabbit" مباشرةً "كما هي" من "class Animal`.
 
-But if we specify our own method in `Rabbit`, such as `stop()` then it will be used instead:
+ولكن إذا حددنا طريقتنا الخاصة في "أرنب" ، مثل `stop ()` ، فسيتم استخدامها بدلاً من ذلك:
 
 ```js
 class Rabbit extends Animal {
@@ -106,14 +106,14 @@ class Rabbit extends Animal {
 }
 ```
 
-Usually we don't want to totally replace a parent method, but rather to build on top of it to tweak or extend its functionality. We do something in our method, but call the parent method before/after it or in the process.
+عادة لا نريد استبدال طريقة رئيسية تمامًا ، ولكن بدلاً من ذلك نبني عليها لاستبدالها أو توسيع وظائفها. نفعل شيئًا في طريقتنا ، ولكن استدعاء الطريقة الأم قبل / بعدها أو في العملية.
 
-Classes provide `"super"` keyword for that.
+توفر الفصول كلمة رئيسية `` فائقة '' لذلك.
 
-- `super.method(...)` to call a parent method.
-- `super(...)` to call a parent constructor (inside our constructor only).
+- `super.method (...)` لاستدعاء طريقة أصل.
+- `` super (...) `لاستدعاء مُنشئ أصل (داخل مُنشئنا فقط).
 
-For instance, let our rabbit autohide when stopped:
+على سبيل المثال ، دع أرنبا يختبئ تلقائيًا عندما يتوقف:
 
 ```js run
 class Animal {
@@ -154,12 +154,13 @@ rabbit.run(5); // White Rabbit runs with speed 5.
 rabbit.stop(); // White Rabbit stands still. White rabbit hides!
 ```
 
-Now `Rabbit` has the `stop` method that calls the parent `super.stop()` in the process.
+الآن يحتوي "الأرنب" على طريقة "الإيقاف" التي تستدعي الأصل `super.stop ()` في العملية.
 
-````smart header="Arrow functions have no `super`"
-As was mentioned in the chapter <info:arrow-functions>, arrow functions do not have `super`.
+````smart header="وظائف السهم ليس لها" سوبر "
+كما ذكر في الفصل <info: arrow-function> ، فإن دالات الأسهم لا تحتوي على `super`.
 
-If accessed, it's taken from the outer function. For instance:
+إذا تم الوصول إليه ، فهو مأخوذ من الوظيفة الخارجية. على سبيل المثال:
+
 ```js
 class Rabbit extends Animal {
   stop() {
@@ -168,7 +169,7 @@ class Rabbit extends Animal {
 }
 ```
 
-The `super` in the arrow function is the same as in `stop()`, so it works as intended. If we specified a "regular" function here, there would be an error:
+وظيفة `super` في وظيفة السهم هي نفسها في` stop () `، لذا فهي تعمل على النحو المنشود. إذا حددنا وظيفة "عادية" هنا ، فسيكون هناك خطأ:
 
 ```js
 // Unexpected super
@@ -177,13 +178,13 @@ setTimeout(function() { super.stop() }, 1000);
 ````
 
 
-## Overriding constructor
+## تجاوز constructor
 
-With constructors it gets a little bit tricky.
+مع المنشئين يصبح الأمر صعبًا بعض الشيء.
 
-Until now, `Rabbit` did not have its own `constructor`.
+حتى الآن ، لم يكن لدى "الأرنب" "مُنشئ" خاص به.
 
-According to the [specification](https://tc39.github.io/ecma262/#sec-runtime-semantics-classdefinitionevaluation), if a class extends another class and has no `constructor`, then the following "empty" `constructor` is generated:
+وفقًا لـ [المواصفات] (https://tc39.github.io/ecma262/#sec-runtime-semantics-classdefinitionevaluation) ، إذا كان الفصل يمتد إلى فصل آخر ولا يحتوي على "مُنشئ" ، فإن المُنشئ التالي "الفارغ" التالي `يتم إنشاء:
 
 ```js
 class Rabbit extends Animal {
@@ -196,9 +197,10 @@ class Rabbit extends Animal {
 }
 ```
 
-As we can see, it basically calls the parent `constructor` passing it all the arguments. That happens if we don't write a constructor of our own.
+كما نرى ، فإنه يطلق بشكل أساسي على `المنشئ` الأصل ويمررها جميع الحجج. يحدث هذا إذا لم نكتب مُنشئًا خاصًا بنا.
 
-Now let's add a custom constructor to `Rabbit`. It will specify the `earLength` in addition to `name`:
+الآن دعنا نضيف مُنشئًا مخصصًا لـ "أرنب". ستحدد "طول الأذن" بالإضافة إلى "الاسم":
+
 
 ```js run
 class Animal {
@@ -228,24 +230,24 @@ let rabbit = new Rabbit("White Rabbit", 10); // Error: this is not defined.
 */!*
 ```
 
-Whoops! We've got an error. Now we can't create rabbits. What went wrong?
+عفوًا! لدينا خطأ. الآن لا يمكننا إنشاء الأرانب. ماذا حصل؟
 
-The short answer is: constructors in inheriting classes must call `super(...)`, and (!) do it before using `this`.
+الإجابة المختصرة هي: يجب على منشئو الفصول الموروثة استدعاء `super (...)` و (!) قبل ذلك باستخدام `this`.
 
-...But why? What's going on here? Indeed, the requirement seems strange.
+...لكن لماذا؟ ماذا يجري هنا؟ في الواقع ، يبدو الشرط غريبًا.
 
-Of course, there's an explanation. Let's get into details, so you'll really understand what's going on.
+بالطبع ، هناك تفسير. دعنا ندخل في التفاصيل ، حتى تفهم حقًا ما يحدث.
 
-In JavaScript, there's a distinction between a constructor function of an inheriting class (so-called "derived constructor") and other functions. A derived constructor has a special internal property `[[ConstructorKind]]:"derived"`. That's a special internal label.
+في جافا سكريبت ، هناك تمييز بين دالة المُنشئ لفئة وراثية (ما يسمى "مُنشئ مُشتق") ووظائف أخرى. لدى المنشئ المشتق خاصية داخلية خاصة `[[ConstructorKind]]:" مشتق "". هذا تسمية داخلية خاصة.
 
-That label affects its behavior with `new`.
+يؤثر هذا التصنيف على سلوكه بـ "جديد".
 
-- When a regular function is executed with `new`, it creates an empty object and assigns it to `this`.
-- But when a derived constructor runs, it doesn't do this. It expects the parent constructor to do this job.
+- عندما يتم تنفيذ وظيفة عادية باستخدام `new` ، فإنها تنشئ كائنًا فارغًا وتعينه بـ` this`.
+- ولكن عندما يعمل منشئ مشتق ، فإنه لا يفعل ذلك. وتتوقع من المُنشئ الأصلي أن يقوم بهذه المهمة.
 
-So a derived constructor must call `super` in order to execute its parent (non-derived) constructor, otherwise the object for `this` won't be created. And we'll get an error.
+لذا يجب على المُنشئ المشتق استدعاء `super` من أجل تنفيذ مُنشئه الأصلي (غير المُشتق) ، وإلا فلن يتم إنشاء كائن` this`. وسنحصل على خطأ.
 
-For the `Rabbit` constructor to work, it needs to call `super()` before using `this`, like here:
+لكي يعمل مُنشئ "الأرنب" ، يجب الاتصال بـ "super ()` قبل استخدام `this` ، كما يلي:
 
 ```js run
 class Animal {
@@ -279,27 +281,28 @@ alert(rabbit.earLength); // 10
 ```
 
 
-## Super: internals, [[HomeObject]]
+## Super: الأجزاء الداخلية ، [[HomeObject]]
 
-```warn header="Advanced information"
-If you're reading the tutorial for the first time - this section may be skipped.
+```warn header="معلومات متقدمة"
+إذا كنت تقرأ البرنامج التعليمي لأول مرة - فقد يتم تخطي هذا القسم.
 
-It's about the internal mechanisms behind inheritance and `super`.
-```
+إنه يتعلق بالآليات الداخلية الكامنة وراء الميراث و "السوبر".
+``
 
-Let's get a little deeper under the hood of `super`. We'll see some interesting things along the way.
+دعونا نتعمق قليلاً تحت غطاء "السوبر". سنرى بعض الأشياء المثيرة للاهتمام على طول الطريق.
 
-First to say, from all that we've learned till now, it's impossible for `super` to work at all!
+بادئ ذي بدء ، من كل ما تعلمناه حتى الآن ، من المستحيل أن يعمل "السوبر" على الإطلاق!
 
-Yeah, indeed, let's ask ourselves, how it should technically work? When an object method runs, it gets the current object as `this`. If we call `super.method()` then, the engine needs to get the `method` from the prototype of the current object. But how?
+نعم ، في الواقع ، دعونا نسأل أنفسنا ، كيف يجب أن تعمل تقنيًا؟ عندما يتم تشغيل أسلوب كائن ، فإنه يحصل على الكائن الحالي باسم `هذا`. إذا استدعىنا "super.method ()` ، فسيحتاج المحرك إلى الحصول على "الطريقة" من النموذج الأولي للكائن الحالي. ولكن كيف؟
 
-The task may seem simple, but it isn't. The engine knows the current object `this`, so it could get the parent `method` as `this.__proto__.method`. Unfortunately, such a "naive" solution won't work.
+قد تبدو المهمة بسيطة ، لكنها ليست كذلك. المحرك يعرف الكائن الحالي `هذا` ، لذا يمكن أن يحصل على` الطريقة` الرئيسية كـ `هذا .__ بروتو __. الطريقة`. لسوء الحظ ، لن يعمل مثل هذا الحل "الساذج".
 
-Let's demonstrate the problem. Without classes, using plain objects for the sake of simplicity.
+دعونا نثبت المشكلة. بدون فصول ، استخدام الأشياء البسيطة من أجل البساطة.
 
-You may skip this part and go below to the `[[HomeObject]]` subsection if you don't want to know the details. That won't harm. Or read on if you're interested in understanding things in-depth.
+يمكنك تخطي هذا الجزء والانتقال أدناه إلى القسم الفرعي [[HomeObject]] `إذا كنت لا تريد معرفة التفاصيل. هذا لن يضر. أو اقرأ إذا كنت مهتمًا بفهم الأشياء بعمق.
 
-In the example below, `rabbit.__proto__ = animal`. Now let's try: in `rabbit.eat()` we'll call `animal.eat()`, using `this.__proto__`:
+في المثال أدناه ، "rabbit .__ proto__ = animal`. الآن دعنا نحاول: في "rabbit.eat ()` سنطلق عليه `animal.eat ()` ، باستخدام `this .__ proto__`:
+
 
 ```js run
 let animal = {
@@ -323,11 +326,11 @@ let rabbit = {
 rabbit.eat(); // Rabbit eats.
 ```
 
-At the line `(*)` we take `eat` from the prototype (`animal`) and call it in the context of the current object. Please note that `.call(this)` is important here, because a simple `this.__proto__.eat()` would execute parent `eat` in the context of the prototype, not the current object.
+عند السطر `(*)` نأخذ `نأكل` من النموذج الأولي (` الحيوان`) ونطلق عليه في سياق الكائن الحالي. يرجى ملاحظة أن ".call (هذا)` مهم هنا ، لأن "هذا .__ proto __.
 
-And in the code above it actually works as intended: we have the correct `alert`.
+وفي الكود أعلاه يعمل في الواقع على النحو المنشود: لدينا "التنبيه" الصحيح.
 
-Now let's add one more object to the chain. We'll see how things break:
+الآن دعنا نضيف كائنًا آخر إلى السلسلة. سنرى كيف تنكسر الأشياء:
 
 ```js run
 let animal = {
@@ -358,17 +361,17 @@ longEar.eat(); // Error: Maximum call stack size exceeded
 */!*
 ```
 
-The code doesn't work anymore! We can see the error trying to call `longEar.eat()`.
+الكود لم يعد يعمل! يمكننا رؤية الخطأ في محاولة استدعاء `longEar.eat ()`.
 
-It may be not that obvious, but if we trace `longEar.eat()` call, then we can see why. In both lines `(*)` and `(**)` the value of `this` is the current object (`longEar`). That's essential: all object methods get the current object as `this`, not a prototype or something.
+قد لا يكون ذلك واضحًا ، ولكن إذا تتبعنا مكالمة `longEar.eat ()` ، فيمكننا معرفة السبب. في كلا الخطين `(*)` و `(**)` قيمة `هذا` هي الكائن الحالي (` longEar`). هذا أمر ضروري: تحصل جميع أساليب الكائن على الكائن الحالي كـ `this` ، وليس كنموذج أولي أو شيء من هذا القبيل.
 
-So, in both lines `(*)` and `(**)` the value of `this.__proto__` is exactly the same: `rabbit`. They both call `rabbit.eat` without going up the chain in the endless loop.
+لذا ، في كلا الخطين `(*)` و `(**)` قيمة `هذا .__ proto__` هي نفسها بالضبط:" أرنب ". كلاهما يطلق عليه "rabbit.eat" دون الصعود في السلسلة في الحلقة اللانهائية.
 
-Here's the picture of what happens:
+إليك صورة لما يحدث:
 
 ![](this-super-loop.svg)
 
-1. Inside `longEar.eat()`, the line `(**)` calls `rabbit.eat` providing it with `this=longEar`.
+1. داخل `longEar.eat ()` ، يستدعي السطر `(**)` rabbit.eat` تزويده بـ `this = longEar`.
     ```js
     // inside longEar.eat() we have this = longEar
     this.__proto__.eat.call(this) // (**)
@@ -377,7 +380,7 @@ Here's the picture of what happens:
     // that is
     rabbit.eat.call(this);
     ```
-2. Then in the line `(*)` of `rabbit.eat`, we'd like to pass the call even higher in the chain, but `this=longEar`, so `this.__proto__.eat` is again `rabbit.eat`!
+2. ثم في السطر `(*)` من 'rabbit.eat` ، نرغب في تمرير المكالمة أعلى في السلسلة ، ولكن `this = longEar` ، لذا` هذا .__ proto __. eat` هو مرة أخرى " أرنب يأكل `!
 
     ```js
     // inside rabbit.eat() we also have this = longEar
@@ -388,19 +391,19 @@ Here's the picture of what happens:
     rabbit.eat.call(this);
     ```
 
-3. ...So `rabbit.eat` calls itself in the endless loop, because it can't ascend any further.
+3. ... لذا فإن "rabbit.eat" تطلق على نفسها اسمها في الحلقة اللانهائية ، لأنها لا تستطيع الصعود أكثر من ذلك.
 
-The problem can't be solved by using `this` alone.
+لا يمكن حل المشكلة باستخدام "هذا" وحده.
 
 ### `[[HomeObject]]`
 
-To provide the solution, JavaScript adds one more special internal property for functions: `[[HomeObject]]`.
+لتوفير الحل ، تضيف JavaScript خاصية داخلية خاصة أخرى للوظائف: `[[HomeObject]]`.
 
-When a function is specified as a class or object method, its `[[HomeObject]]` property becomes that object.
+عند تحديد دالة كفئة أو أسلوب كائن ، تصبح خاصية `[[HomeObject]]` هي ذلك الكائن.
 
-Then `super` uses it to resolve the parent prototype and its methods.
+ثم يستخدمه `super` لحل النموذج الأولي وطرقه.
 
-Let's see how it works, first with plain objects:
+دعونا نرى كيف يعمل ، أولاً مع الأشياء العادية:
 
 ```js run
 let animal = {
@@ -432,17 +435,17 @@ longEar.eat();  // Long Ear eats.
 */!*
 ```
 
-It works as intended, due to `[[HomeObject]]` mechanics. A method, such as `longEar.eat`, knows its `[[HomeObject]]` and takes the parent method from its prototype. Without any use of `this`.
+يعمل على النحو المقصود ، بسبب ميكانيكا `[[HomeObject]]. هناك طريقة ، مثل `longEar.eat` ، تعرف` [[HomeObject]] `وتأخذ الطريقة الأم من النموذج الأولي الخاص بها. دون أي استخدام "هذا".
 
-### Methods are not "free"
+### الدوال ليست "مجانية"
 
-As we've known before, generally functions are "free", not bound to objects in JavaScript. So they can be copied between objects and called with another `this`.
+كما عرفنا من قبل ، تكون الوظائف عمومًا "مجانية" ، وليست مرتبطة بكائنات في JavaScript. لذا يمكن نسخها بين الأشياء واستدعاؤها بـ "هذا" آخر.
 
-The very existence of `[[HomeObject]]` violates that principle, because methods remember their objects. `[[HomeObject]]` can't be changed, so this bond is forever.
+إن وجود [[HomeObject]] بحد ذاته ينتهك هذا المبدأ ، لأن الأساليب تتذكر أغراضها. لا يمكن تغيير `[[HomeObject]]` ، لذا فإن هذه الرابطة إلى الأبد.
 
-The only place in the language where `[[HomeObject]]` is used -- is `super`. So, if a method does not use `super`, then we can still consider it free and copy between objects. But with `super` things may go wrong.
+المكان الوحيد في اللغة حيث يتم استخدام `[[HomeObject]] - هو` super`. لذلك ، إذا كانت الطريقة لا تستخدم `super` ، فيمكننا اعتبارها مجانية ونسخها بين الكائنات. ولكن مع الأشياء "الفائقة" ، قد تسوء الأمور.
 
-Here's the demo of a wrong `super` result after copying:
+في ما يلي عرض توضيحي لنتيجة "خارقة" خاطئة بعد النسخ:
 
 ```js run
 let animal = {
@@ -478,24 +481,24 @@ tree.sayHi();  // I'm an animal (?!?)
 */!*
 ```
 
-A call to `tree.sayHi()` shows "I'm an animal". Definitely wrong.
+يُظهر استدعاء "tree.sayHi ()` أنا حيوان ". خطأ بالتأكيد.
 
-The reason is simple:
-- In the line `(*)`, the method `tree.sayHi` was copied from `rabbit`. Maybe we just wanted to avoid code duplication?
-- Its `[[HomeObject]]` is `rabbit`, as it was created in `rabbit`. There's no way to change `[[HomeObject]]`.
-- The code of `tree.sayHi()` has `super.sayHi()` inside. It goes up from `rabbit` and takes the method from `animal`.
+والسبب بسيط:
+- في السطر `(*)` ، تم نسخ الأسلوب `tree.sayHi` من` rabbit`. ربما أردنا فقط تجنب تكرار التعليمات البرمجية؟
+- "[[HomeObject]]` هو "أرنب" ، حيث تم إنشاؤه في "أرنب". لا توجد طريقة لتغيير `[[HomeObject]]`.
+- كود `tree.sayHi ()` يحتوي على `super.sayHi ()` بالداخل. يرتفع من "أرنب" ويأخذ الطريقة من "حيوان".
 
-Here's the diagram of what happens:
+إليك الرسم البياني لما يحدث:
 
 ![](super-homeobject-wrong.svg)
 
-### Methods, not function properties
+### الدوال ، وليس خصائص الدوال
 
-`[[HomeObject]]` is defined for methods both in classes and in plain objects. But for objects, methods must be specified exactly as `method()`, not as `"method: function()"`.
+يتم تعريف `[[HomeObject]]` للطرق سواء في الفئات أو في الكائنات العادية. ولكن بالنسبة للكائنات ، يجب تحديد الطرق تمامًا باسم `الطريقة ()` ، وليس كـ '' الطريقة: الوظيفة () "`.
 
-The difference may be non-essential for us, but it's important for JavaScript.
+قد يكون الاختلاف غير ضروري بالنسبة لنا ، ولكنه مهم لجافا سكريبت.
 
-In the example below a non-method syntax is used for comparison. `[[HomeObject]]` property is not set and the inheritance doesn't work:
+في المثال أدناه ، يتم استخدام بناء جملة غير أسلوب للمقارنة. لم يتم تعيين خاصية `[[HomeObject]]` ولا يعمل الميراث:
 
 ```js run
 let animal = {
@@ -516,17 +519,17 @@ rabbit.eat();  // Error calling super (because there's no [[HomeObject]])
 */!*
 ```
 
-## Summary
+## ملخص
 
-1. To extend a class: `class Child extends Parent`:
-    - That means `Child.prototype.__proto__` will be `Parent.prototype`, so methods are inherited.
-2. When overriding a constructor:
-    - We must call parent constructor as `super()` in `Child` constructor before using `this`.
-3. When overriding another method:
-    - We can use `super.method()` in a `Child` method to call `Parent` method.
-4. Internals:
-    - Methods remember their class/object in the internal `[[HomeObject]]` property. That's how `super` resolves parent methods.
-    - So it's not safe to copy a method with `super` from one object to another.
+1. لتمديد الفصل الدراسي: `class child تمديد Parent`:
+     - هذا يعني أن "Child.prototype .__ proto__" سيكون "Parent.prototype" ، لذلك يتم توريث الطرق.
+2. عند تجاوز منشئ:
+     - يجب أن نطلق على مُنشئ الوالدين باسم `super ()` في مُنشئ `Child` قبل استخدام` this`.
+3. عند تجاوز طريقة أخرى:
+     - يمكننا استخدام `super.method ()` في طريقة `Child` لاستدعاء طريقة` Parent`.
+4. الداخلية:
+     - تتذكر الأساليب فئتها / كائنها في خاصية `[[HomeObject]] الداخلية. هذه هي الطريقة التي يحل `super` الأساليب الأم.
+     - لذا ليس من الآمن نسخ طريقة باستخدام "super" من كائن إلى آخر.
 
-Also:
-- Arrow functions don't have their own `this` or `super`, so they transparently fit into the surrounding context.
+أيضا:
+- لا تحتوي وظائف السهم على "هذا" أو "فائق" خاص بها ، لذا فهي تتناسب بشفافية مع السياق المحيط.

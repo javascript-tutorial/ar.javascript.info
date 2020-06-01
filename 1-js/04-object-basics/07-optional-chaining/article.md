@@ -1,57 +1,57 @@
 
-# Optional chaining '?.'
+# التسلسل الاختياري (غير الإجباري) '.?'
 
 [recent browser="new"]
 
-The optional chaining `?.` is an error-proof way to access nested object properties, even if an intermediate property doesn't exist.
+التسلسل الاختياري `.?` هو طريقة لتجنب الأخطاء التي تهدف للوصول إلى خصائص أو حقول غرض (كائن) ما، حتى إذا لم تكن الخصائص الوسيطة موجودة.
 
-## The problem
+## المشكلة
 
-If you've just started to read the tutorial and learn JavaScript, maybe the problem hasn't touched you yet, but it's quite common.
+إذا كنت قد بدأت للتو في قراءة هذه البرنامج التعليمي الخاصّ بـِ JavaScript، فربما لم تواجه هذه المشكلة من قبل ولكنها شائعة جداً.
 
-For example, some of our users have addresses, but few did not provide them. Then we can't safely read `user.address.street`:
+فعلى سبيل المثال، يمتلك بعض مستخدمين موقعنا عناويناً، ولكن بعضاً من هؤلاء المستخدمين لم يقوموا بحفظها ضمن ملفاتهم الشخصية. بالتالي لا يمكننا كتابة التعبير التالي من دون حدوث خطأ `user.address.street` وذلك من أجل عرض اسم الشارع الخاص بالعنوان:
 
 ```js run
-let user = {}; // the user happens to be without address
+let user = {}; // قد لا يملك المستخدم عنواناً، كهذا الغرض على سبيل المثال
 
-alert(user.address.street); // Error!
+alert(user.address.street); // وبالتالي يحدث الخطأ عند محاولة الوصول للخواص أو الحقول ضمنه
 ```
 
-Or, in the web development, we'd like to get an information about an element on the page, but it may not exist:
+أو عند الحديث عن تطوير مواقع الويب مثلاً، قد نودّ أحياناً الحصول على معلومات خاصة بعنصر من عناصر الصفحة والتي قد لا تكون موجودة بالأصل، فمثلاً:
 
 ```js run
-// Error if the result of querySelector(...) is null
+// يحدث الخطأ إذا كانت نتيجة التابع أو الطريقة querySelector(...) هي null
 let html = document.querySelector('.my-element').innerHTML;
 ```
 
-Before `?.` appeared in the language, the `&&` operator was used to work around that.
+قبل ظهور التركيب `.?` في اللغة، كنا نستخدم العامل `&&` لحل هذه المشكلة.
 
-For example:
-
-```js run
-let user = {}; // user has no address
-
-alert( user && user.address && user.address.street ); // undefined (no error)
-```
-
-AND'ing the whole path to the property ensures that all components exist, but is cumbersome to write.
-
-## Optional chaining
-
-The optional chaining `?.` stops the evaluation and returns `undefined` if the part before `?.` is `undefined` or `null`.
-
-Further in this article, for brevity, we'll be saying that something "exists" if it's not `null` and not `undefined`.
-
-
-Here's the safe way to access `user.address.street`:
+على سبيل المثال:
 
 ```js run
-let user = {}; // user has no address
+let user = {}; // غرض لمستخدم لا يملك عنوان
 
-alert( user?.address?.street ); // undefined (no error)
+alert( user && user.address && user.address.street ); // يظهر لنا undefined من دون حدوث خطأ
 ```
 
-Reading the address with `user?.address` works even if `user` object doesn't exist:
+وعلى الرغم من أن إضافة العامل `&&` على طول المسار المطلوب للوصول للخاصية المناسبة يضمن وجود هذه الخاصية وعدم وقوع أخطاء، إلا أنه مرهق في الكتابة.
+
+## التسلسل الاختياري (غير الإجباري)
+
+يؤدي التسلسل الاختياري `.?` إلى إيقاف تقييم الكود البرمجي وإرجاع `undefined` إذا كانت قيمة الجزء الموجود قبل (أيسر) التركيب `.?` هي `null` أو `undfined`.
+
+وللإيجاز، سنقول ضمن هذه المقالة أن شيئاً ما "موجود" إذا لم تكن قيمته `null` ولم تكن `undefined` كذلك.
+
+
+وأما الطريقة الآمنة للوصول لـِ `user.address.street` هي:
+
+```js run
+let user = {}; // غرض المستخدم التالي لا يملك خاصية العنوان
+
+alert( user?.address?.street ); // سيظهر لنا بدون حدوث خطأ undefined
+```
+
+وبالتالي سيبقى التعبير الخاص بقراءة عنوان المستخدم `user?.address` يعمل  حتى لو لم يكن غرض المستخدم موجوداً بالأصل:
 
 ```js run
 let user = null;
@@ -62,50 +62,50 @@ alert( user?.address.street ); // undefined
 alert( user?.address.street.anything ); // undefined
 ```
 
-Please note: the `?.` syntax works exactly where it's placed, not any further.
+يرجى ملاحظة أن التركيب أو الشقّ `.?` يعمل بشكل صحيح حيث يتم وضعه بالضبط، وليس بعد ذلك المكان الذي تم وضعه فيه.
 
-In the last two lines the evaluation stops immediately after `user?.`, never accessing further properties. But if the `user` actually exists, then the further intermediate properties, such as `user.address` must exist.
+في السطرين الأخيرين، سيتوقف تقييم الكود البرمجي بشكل فوري بعد الشقّ `.?user` ولا يستمر أبداً للخصائص التي تليه. ولكن إذا كان الغرض `user` موجوداً بالفعل، فيجب أن تكون الخصائص الوسيطة موجودة ونقصد بالخصائص الوسيطة `user.address` مثلاً.
 
-```warn header="Don't overuse the optional chaining"
-We should use `?.` only where it's ok that something doesn't exist.
+```warn header="لا تفرط في استخدام تركيب التسلسل الاختياري"
+يجب أن نستخدم التركيب `.?` فقط عندما يكون هناك غرض، كائن أو خاصية غير موجودة بالأصل.
 
-For example, if according to our coding logic `user` object must be there, but `address` is optional, then `user.address?.street` would be better.
+فعلى سبيل المثال، ووفقاً للمنطق المتعلق بالأمثلة السابقة، يجب أن يكون غرض المستخدم `user` موجوداً بالأصل، ولكن الخاصية `address` هي اختيارية وقد لا تكون موجودة، وبالتالي التعبير `user.address?.street` سيكون أفضل من إضافة التركيب `.?` للتحقق من كل خاصية أو حقل تابع للغرض `user?.address?.street`.
 
-So, if `user` happens to be undefined due to a mistake, we'll know about it and fix it. Otherwise, coding errors can be silenced where not appropriate, and become more difficult to debug.
+وبالتالي، إذا كان غرض المستخدم `user` غير معرف بسبب خطأ ما، فسوف نعرف عن هذا الخطأ ونصلحه. وإلا ستتسبب هذه الطريقة بإسكات الأخطاء البرمجية وقد لا يكون ذلك مناسباً، بل سيصبح من الصعب تصحيح هذه الأخطاء وكشفها.
 ```
 
-````warn header="The variable before `?.` must exist"
-If there's no variable `user`, then `user?.anything` triggers an error:
+````warn header="المتحول الواقع قبل التركيب `.?` يجب أن يكون معرّفاً"
+إذا لم يتمّ تعريف المتحول `user`، سيؤدي التعبير `user?.anything` إلى حصول خطأ:
 
 ```js run
 // ReferenceError: user is not defined
 user?.address;
 ```
-The optional chaining only tests for `null/undefined`, doesn't interfere with any other language mechanics.
+يقوم التسلسل الاختياري فقط باختبار القيم `null/undefined`، ولا يتداخل مع ميكانيكية أي من اللغات الأخرى.
 ````
 
-## Short-circuiting
+## اختصار الطرق (Short-circuiting)
 
-As it was said before, the `?.` immediately stops ("short-circuits") the evaluation if the left part doesn't exist.
+كما تمّ ذكره آنفاً، يقوم التركيب `.?` بإيقاف عملية تقييم الكود البرمجي (يختصر الطريق) إذا لم يكن القسم اليساري (على يسار التركيب) موجوداً.
 
-So, if there are any further function calls or side effects, they don't occur:
+لذلك، وإذا كان هنالك أي استدعاءات لتوابع، لا يتم استدعائها أو تنفيذها:
 
 ```js run
 let user = null;
 let x = 0;
 
-user?.sayHi(x++); // nothing happens
+user?.sayHi(x++); // لا يحدث شيء
 
-alert(x); // 0, value not incremented
+alert(x); // لا يتم زيادة القيمة 0
 ```
 
-## Other cases: ?.(), ?.[]
+## حالات أخرى ().?، [].?
 
-The optional chaining `?.` is not an operator, but a special syntax construct, that also works with functions and square brackets.
+لا يقتصر التسلسل الاختياري `.?` في عمله على المتحولات فقط فهو ليس بعامل (رياضي) كالجمع والطرح، بل هو تركيب بنيوي يعمل أيضاً على التوابع والأقواس المربعة (أقواس المصفوفات).
 
-For example, `?.()` is used to call a function that may not exist.
+على سبيل المثال، يمكن استخدام التركيب `().?` لاستدعاء تابع قد لا يكون معرّفاً بالأصل.
 
-In the code below, some of our users have `admin` method, and some don't:
+في المثال أدناه، يمتلك بعض أغراض المستخدمين الطريقة (method) أو التابع المُسمى `admin` وبعضهم الآخر لا يمتلك:
 
 ```js run
 let user1 = {
@@ -122,18 +122,18 @@ user2.admin?.();
 */!*
 ```
 
-Here, in both lines we first use the dot `.` to get `admin` property, because the user object must exist, so it's safe read from it.
+لقد استخدمنا في السطرين السابقين علامة النقطة `.` للوصول للتابع `admin` (مع عدم وجود إشارة الاستفهام) وذلك لأن غرض المستخدم `user` يجب أن يكون موجوداً من قبل ليكون من الآمن قراءة التعابير منه.
 
-Then `?.()` checks the left part: if the user exists, then it runs (for `user1`). Otherwise (for `user2`) the evaluation stops without errors.
+وبالتالي سيقوم التعبير `().?` بفحص الجزء اليساري، فإذا كان التابع `admin` معرّفاً، فيعمل التعبير (من أجل `user1`)، وإلا (من أجل `user2`) فستتوقف عملية التقييم من دون حدوث أخطاء.
 
-The `?.[]` syntax also works, if we'd like to use brackets `[]` to access properties instead of dot `.`. Similar to previous cases, it allows to safely read a property from an object that may not exist.
+في حال الرغبة باستخدام الأقواس المربّعة `[]` بدلاً من النقطة `.` للوصول للخواص ضمن غرض أو كائن ما، سيفي التعبير `[].?` بالغرض أيضاً. وبشكل مشابه للحالات السابقة، يسمح هذا التعبير بشكل آمن قراءةَ خاصية أو حقل ضمن غرض معيّن قد لا يكون موجوداً.
 
 ```js run
 let user1 = {
   firstName: "John"
 };
 
-let user2 = null; // Imagine, we couldn't authorize the user
+let user2 = null; // على سبيل المثال، لم يكن بإمكاننا المصادقة على وجود مستخدم ما (القيام بعملية تسجيل الدخول له)
 
 let key = "firstName";
 
@@ -143,34 +143,35 @@ alert( user2?.[key] ); // undefined
 alert( user1?.[key]?.something?.not?.existing); // undefined
 ```
 
-Also we can use `?.` with `delete`:
+كذلك يمكننا استخدام التركيب `.?` مع التعبير `delete`:
 
 ```js run
-delete user?.name; // delete user.name if user exists
+delete user?.name; // سيقوم بحذف اسم المستخدم في حال كان غرض المستخدم موجوداً
 ```
 
-```warn header="We can use `?.` for safe reading and deleting, but not writing"
-The optional chaining `?.` has no use at the left side of an assignment:
+```warn header="يمكننا استخدام التركيب `.?` للقراءة والحذف الآمن (بدون وقوع أخطاء)، ولكن ليس مع الكتابة (الإسناد)"
+لا يمكن استخدام تركيب التسلسل الاختياري `.?` في الطرف اليساري لعملية الإسناد:
 
 ```js run
-// the idea of the code below is to write user.name, if user exists
+// فإذا حاولنا إسناد قيمة معينة لاسم المستخدم إذا كان المستخدم موجوداً
 
-user?.name = "John"; // Error, doesn't work
-// because it evaluates to undefined = "John"
+user?.name = "John"; // فسيحدث خطأ، لأن هذه الطريقة لا تعمل
+// لأنه سيتم تقييمها على أن
+// undefined = "John"
 ```
 
-## Summary
+## الخلاصة
 
-The `?.` syntax has three forms:
+لتركيب التسلسل الاختياري `.?` ثلاثة أشكال:
 
-1. `obj?.prop` -- returns `obj.prop` if `obj` exists, otherwise `undefined`.
-2. `obj?.[prop]` -- returns `obj[prop]` if `obj` exists, otherwise `undefined`.
-3. `obj?.method()` -- calls `obj.method()` if `obj` exists, otherwise returns `undefined`.
+1. `obj?.prop` -- يردّ التعبير `obj.prop` قيمةً صحيحة إذا كان الغرض `obj` موجوداً، وإلا يُعيد `undefined`.
+2. `obj?.[prop]` -- يردّ التعبير `obj[prop]` قيمةً صحيحة إذا كان الغرض `obj` موجوداً، وإلا يُعيد `undefined`.
+3. `()obj?.method` -- يقوم باستدعاء `()obj.method` إذا كان الغرض `obj` موجوداً، وإلا يُعيد `undefined`.
 
-As we can see, all of them are straightforward and simple to use. The `?.` checks the left part for `null/undefined` and allows the evaluation to proceed if it's not so.
+وكما نرى، جميع الطرق السابقة واضحة وسهلة الاستخدام. فالتركيب `.?` يتحقق من الجزء الأيسر فيما إذا لم يكن `null/undefined` ليسمح بعدها بإكمال عملية التقييم.
 
-A chain of `?.` allows to safely access nested properties.
+وإذا كان لدينا خصائص متداخلة فيما بينها، فيسمح تسلسل من التركيب `.?` بقرائتها بشكلٍ آمن.
 
-Still, we should apply `?.` carefully, only where it's ok that the left part doesn't to exist.
+ومع ذلك، يجب علينا استخدام التركيب `.?` بعناية (عدم الإفراط) وذلك فقط في حالة عدم تأكدنا من وجود الجزء اليساري للتركيب.
 
-So that it won't hide programming errors from us, if they occur.
+حتى لا يخفي أخطاء البرمجة التي نرتكبها أحياناً، وذلك في حال حدثت.

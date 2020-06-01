@@ -2,10 +2,10 @@ importance: 5
 
 ---
 
-# Can I add a string property?
+# هل يمكن أن أضيف خاصية نصية؟
 
 
-Consider the following code:
+انظر الي الكود التالي:
 
 ```js
 let str = "Hello";
@@ -15,4 +15,5 @@ str.test = 5;
 alert(str.test);
 ```
 
-How do you think, will it work? What will be shown?
+كيف تعتقد أنها ستنجح؟
+ ماذا سيتضح؟

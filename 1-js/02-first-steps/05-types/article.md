@@ -1,18 +1,19 @@
 # Data types
 
-A value in JavaScript is always of a certain type. For example, a string or a number.
+القيمة في جافا سكربت دائما تكون من نوع معين . على سبيل المثال نص أو رقم.
 
-There are eight basic data types in JavaScript. Here, we'll cover them in general and in the next chapters we'll talk about each of them in detail.
+توجد 8 أنواع بيانات أساسية في الجافا سكربت . هنا سوف نغطيهم بشكل عام وفي الفصول القادمة سنتكلم عن كل نوع بالتفصيل.
 
-We can put any type in a variable. For example, a variable can at one moment be a string and then store a number:
+نستطيع أن نضع أي نوع في متغير . على سبيل المثال  المتغير قد يكون في لحظة ما نص ثم يتم تخزين رقم فيه: 
 
 ```js
-// no error
+// لا يوجد خطأ
 let message = "hello";
 message = 123456;
 ```
 
-Programming languages that allow such things, such as JavaScript, are called "dynamically typed", meaning that there exist data types, but variables are not bound to any of them.
+لغات البرمجة التي تسمح بذلك مثل الجافا سكربت يطلق عليها 
+"dynamically typed" يعني أنه يوجد أنواع بيانات محددة لكن المتغيرات غير مقيدة بهم .
 
 ## Number
 
@@ -21,73 +22,73 @@ let n = 123;
 n = 12.345;
 ```
 
-The *number* type represents both integer and floating point numbers.
+النوع *رقم* يمثل الأرقام الصحيحة والعشرية.
 
-There are many operations for numbers, e.g. multiplication `*`, division `/`, addition `+`, subtraction `-`, and so on.
+توجد عمليات كثيرة تتم على الأرقام مثل الضرب `*`والقسمة `/` والإضافة `+` و الطرح `-`وهكذا.
 
-Besides regular numbers, there are so-called "special numeric values" which also belong to this data type: `Infinity`, `-Infinity` and `NaN`.
+بجانب الأرقام الطبيعية هناك ما يسمى "قيم رقمية خاصة" التي أيضاً تنضم لهذا النوع من البيانات: `Infinity`و `-Infinity` و `NaN`.
 
-- `Infinity` represents the mathematical [Infinity](https://en.wikipedia.org/wiki/Infinity) ∞. It is a special value that's greater than any number.
+- `Infinity` تمثل التعبير الرياضي [مالانهاية](https://en.wikipedia.org/wiki/Infinity) ∞. وهي قيمة خاصة أكبر من أي رقم.
 
-    We can get it as a result of division by zero:
-
-    ```js run
-    alert( 1 / 0 ); // Infinity
-    ```
-
-    Or just reference it directly:
+    نستطيع أن نحصل عليها نتيجة القسمة على صفر:
 
     ```js run
-    alert( Infinity ); // Infinity
+    alert( 1 / 0 ); // مالا نهاية
     ```
-- `NaN` represents a computational error. It is a result of an incorrect or an undefined mathematical operation, for instance:
+
+    أو يتم الرجوع إليها مباشرة:
 
     ```js run
-    alert( "not a number" / 2 ); // NaN, such division is erroneous
+    alert( Infinity ); // مالانهاية
+    ```
+- `NaN` تعبر عن خطأ حسابي. نتيجة عملية حسابية خاطئة أو غير معروفة  على سبيل المثال:
+
+    ```js run
+    alert( "not a number" / 2 ); // NaN مثل هذه القسمة خاطئة
     ```
 
-    `NaN` is sticky. Any further operation on `NaN` returns `NaN`:
+    `NaN` لزجة. أي عملية تتم على  `NaN` ترجع `NaN`:
 
     ```js run
     alert( "not a number" / 2 + 5 ); // NaN
     ```
 
-    So, if there's a `NaN` somewhere in a mathematical expression, it propagates to the whole result.
+    لذلك إذا وجدت `NaN` في أي مكان في تعبير حسابي تنتشر في النتيجة بأكملها.
 
-```smart header="Mathematical operations are safe"
-Doing maths is "safe" in JavaScript. We can do anything: divide by zero, treat non-numeric strings as numbers, etc.
+```smart header="العمليات الرياضية أمنة"
+القيام بالرياضيات "أمن" في جافا سكربت. نستطيع القيام بأي شئ: القسمة على صفر و معاملة النصوص الغير الرقمية على أنها أرقام و إلخ.
 
-The script will never stop with a fatal error ("die"). At worst, we'll get `NaN` as the result.
+الكود لن يتوقف بخطأ قاتل ("موت"). في أسوأ الأحوال  سوف نحصل على `NaN` كنتيجة.
 ```
 
-Special numeric values formally belong to the "number" type. Of course they are not numbers in the common sense of this word.
+القيم العددية الخاصة رسمياً هي تعتبر من النوع "رقم" . بالطبع هم ليس أرقام بالمعنى المنطقي للكلمة.
 
-We'll see more about working with numbers in the chapter <info:number>.
+سنرى المزيد من التعامل مع الأرقام خلال هذا الفصل <info:number>.
 
 ## BigInt
 
-In JavaScript, the "number" type cannot represent integer values larger than <code>(2<sup>53</sup>-1)</code> (that's `9007199254740991`), or less than <code>-(-2<sup>53</sup>-1)</code> for negatives. It's a technical limitation caused by their internal representation.
+في الجافا سكربت، النوع "رقم"  لا يمثل الأعداد الصحيحة أكبر من <code>(2<sup>53</sup>-1)</code> ( `9007199254740991`)، أو أقل من <code>-(-2<sup>53</sup>-1)</code> للأرقام السالبة. إنها قيود فنية ناتجة عن تمثيلهم الداخلي.
 
-For most purposes that's quite enough, but sometimes we need really big numbers, e.g. for cryptography or microsecond-precision timestamps.
+لمعظم الأغراض هذا يكفي، لكن في بعض الأحيان نحتاج لأرقام كبيرة حقاً ، على سبيل المثال. للتشفير أو الطوابع الزمنية الدقيقة للميكرو ثانية.
 
-`BigInt` type was recently added to the language to represent integers of arbitrary length.
+`BigInt` تمت إضافة النوع مؤخرًا إلى اللغة لتمثيل الأعداد الصحيحة ذات الطول الكبير.
 
-A `BigInt` value is created by appending `n` to the end of an integer:
+  قيمة `BigInt` تنشأ بإلحاق حرف `n` إلى نهاية الرقم الصحيح:
 
 ```js
-// the "n" at the end means it's a BigInt
+//  "n" في النهاية تعني أنه من نوع BigInt
 const bigInt = 1234567890123456789012345678901234567890n;
 ```
 
-As `BigInt` numbers are rarely needed, we don't cover them here, but devoted them a separate chapter <info:bigint>. Read it when you need such big numbers.
+بما أن أرقام من نوع `BigInt` نحتاجها نادراً ، لن يتم تغطيتها هنا ، لكن سيفرد لها فصل مخصص  <info:bigint>. اقرأه عندما تحتاج لمثل هذه الأرقام الكبيرة.
 
-```smart header="Compatability issues"
-Right now `BigInt` is supported in Firefox and Chrome, but not in Safari/IE/Edge.
+```smart header="مشاكل توافقية"
+الأن `BigInt` متوافق مع الفايرفوكس والكروم ،لكن ليست متوافقة مع  سفاري/انترنت اكسبلورر/ايدج.
 ```
 
 ## String
 
-A string in JavaScript must be surrounded by quotes.
+النص في الجافا سكربت يتم إحاطته بعلامات تنصيص.
 
 ```js
 let str = "Hello";
@@ -97,127 +98,127 @@ let phrase = `can embed another ${str}`;
 
 In JavaScript, there are 3 types of quotes.
 
-1. Double quotes: `"Hello"`.
-2. Single quotes: `'Hello'`.
-3. Backticks: <code>&#96;Hello&#96;</code>.
+1. علامات التنصيص المزدوجة: `"Hello"`.
+2. علامات التنصيص المفردة: `'Hello'`.
+3. الباك تيك: <code>&#96;Hello&#96;</code>.
 
-Double and single quotes are "simple" quotes. There's practically no difference between them in JavaScript.
+علامات التنصيص المزدوجة والمفردة هما علامات تنصيص "بسيطة" . عملياً لا يوجد بينهم فرق في الجافا سكربت.
 
-Backticks are "extended functionality" quotes. They allow us to embed variables and expressions into a string by wrapping them in `${…}`, for example:
+الباك تيك عبارة عن علامات تنصيص "ممتدة وظيفياً" . تسمح لنا بتضمين متغيرات وتعبيرات داخل النص عن طريق إحاطتهم ب  `${…}`، على سبيل المثال:
 
 ```js run
 let name = "John";
 
-// embed a variable
+// تضمين متغير
 alert( `Hello, *!*${name}*/!*!` ); // Hello, John!
 
-// embed an expression
+// تضمين تعبير
 alert( `the result is *!*${1 + 2}*/!*` ); // the result is 3
 ```
 
-The expression inside `${…}` is evaluated and the result becomes a part of the string. We can put anything in there: a variable like `name` or an arithmetical expression like `1 + 2` or something more complex.
+التعبير داخل `${…}` يتم تقييمه والنتيجة تصبح جزء من النص. نستطيع أن نضع أي شئ هناك: متغير مثل `name` أو تعبير رياضي مثل `1 + 2` أو شئ أكثر تعقيداً.
 
-Please note that this can only be done in backticks. Other quotes don't have this embedding functionality!
+من فضلك تذكر الباك تيك وحدها هي من تستطيع فعل ذلك. علامات التنصيص الأخرى لا تحتوي على مثل تلك الوظيفة!
 ```js run
-alert( "the result is ${1 + 2}" ); // the result is ${1 + 2} (double quotes do nothing)
+alert( "the result is ${1 + 2}" ); // the result is ${1 + 2} (علامات التنصيص المزدوجة لا تفعل شئ)
 ```
 
-We'll cover strings more thoroughly in the chapter <info:string>.
+سنغطي النصوص بشئ من التفصيل في هذا الفصل <info:string>.
 
-```smart header="There is no *character* type."
-In some languages, there is a special "character" type for a single character. For example, in the C language and in Java it is called "char".
+```smart header="لا يوجد نوع *character* ."
+في بعض اللغات، يوجد نوع خاص "character" يعبر عن الحرف الواحد. For example,على سبيل المثال، في لغة سي وجافا يدعى "char".
 
-In JavaScript, there is no such type. There's only one type: `string`. A string may consist of only one character or many of them.
+في الجافا سكربت، لا يوجد مثل هذا النوع. يوجد نوع واحد فقط: `string`. النص قد يتكون من حرف واحد أو أكثر.
 ```
 
 ## Boolean (logical type)
 
-The boolean type has only two values: `true` and `false`.
+النوع boolean لديه قيمتين فقط: `صواب` and `خطأ`.
 
-This type is commonly used to store yes/no values: `true` means "yes, correct", and `false` means "no, incorrect".
+هذا النوع غالباً يستخدم لتخزين قيم نعم/لا : `true` تعني "نعم ، صحيح"، و `false` تعني "لا، خطأ".
 
-For instance:
+على سبيل المثال:
 
 ```js
-let nameFieldChecked = true; // yes, name field is checked
-let ageFieldChecked = false; // no, age field is not checked
+let nameFieldChecked = true; // نعم، حقل الإسم تم التأشير عليه
+let ageFieldChecked = false; // لا، حقل العمر لم يتم التأشير عليه
 ```
 
-Boolean values also come as a result of comparisons:
+القيم المنطقية تأتي أيضاً نتيجة المقارنة:
 
 ```js run
 let isGreater = 4 > 1;
 
-alert( isGreater ); // true (the comparison result is "yes")
+alert( isGreater ); // نعم (نتيجة المقارنة هي "نعم")
 ```
 
-We'll cover booleans more deeply in the chapter <info:logical-operators>.
+سنغطي القيم المنطقية بشكل أعمق في الفصل <info:logical-operators>.
 
 ## The "null" value
 
-The special `null` value does not belong to any of the types described above.
+القيمة الخاصة `null` لا ينتمي إلى أي نوع تم شرحه بالأعلى.
 
-It forms a separate type of its own which contains only the `null` value:
+إنه يكون نوع منفصل خاص من نفسه يحتوي على قيمة واحدة هي `null`:
 
 ```js
 let age = null;
 ```
 
-In JavaScript, `null` is not a "reference to a non-existing object" or a "null pointer" like in some other languages.
+في الجافا سكربت ، `null` ليست "مرجع لكائن غير موجود" أو "null pointer" مثل الموجود في لغات أخرى.
 
-It's just a special value which represents "nothing", "empty" or "value unknown".
+إنها مجرد قيمة خاصة تعبر عن "لا شئ" أو "فارغ" أو "قيمة غير معروفة".
 
-The code above states that `age` is unknown.
+الكود أعلاه يوضح أن `age` غير معروفة.
 
 ## The "undefined" value
 
-The special value `undefined` also stands apart. It makes a type of its own, just like `null`.
+القيمة الخاصة `undefined` أيضاً قيمة محايدة. أنها تصنع نوع من نفسها مثل `null`.
 
-The meaning of `undefined` is "value is not assigned".
+معنى `undefined` أن "القيمة لم يتم تعيينها".
 
-If a variable is declared, but not assigned, then its value is `undefined`:
+عندما يتم تعريف متغير، لكنه غير معين القيمة، عندها تكون قيمته هي `undefined`:
 
 ```js run
 let age;
 
-alert(age); // shows "undefined"
+alert(age); // تظهر "undefined"
 ```
 
-Technically, it is possible to explicitly assign `undefined` to a variable:
+فنياً، يمكن التصريح بتعيين قيمة `undefined` لمتغير:
 
 ```js run
 let age = 100;
 
-// change the value to undefined
+// تغيير القيمة إلى undefined
 age = undefined;
 
 alert(age); // "undefined"
 ```
 
-...But we don't recommend doing that. Normally, one uses `null` to assign an "empty" or "unknown" value to a variable, while `undefined` is reserved as a default initial value for unassigned things.
+...لكن لا ننصح بذلك. في الطبيعي، الشخص يستخدم `null` لتعيين قيمة "فارغ" أو "غير معروف" لمتغير، بينما `undefined` محجوزة كقيمة إفتراضية أساسية للأشياء غير المعينة.
 
 ## Objects and Symbols
 
-The `object` type is special.
+النوع `كائن` هو نوع خاص.
 
-All other types are called "primitive" because their values can contain only a single thing (be it a string or a number or whatever). In contrast, objects are used to store collections of data and more complex entities.
+كل الأنواع الأخرى تدعي "بدائية" لأن قيمها تستطيع فقط أن تخزن شئ واحد (قد يكون نص أو رقم أو أي شئ). في المقابل، الكائنات تستخدم لتخزين مجموعة من  للبيانات و كيانات أكثر تعقيداً.
 
-Being that important, objects deserve a special treatment. We'll deal with them later in the chapter <info:object>, after we learn more about primitives.
+لكونها بهذه الأهمية ، الكائنات تستحق معاملة خاصة. سيتم التعامل معهم لاحقاً في هذا الفصل <info:object>، بعد أن نتعلم أكثر عن الأنواع البدائية.
 
-The `symbol` type is used to create unique identifiers for objects. We have to mention it here for the sake of completeness, but also postpone the details till we know objects.
+النوع `symbol` يستخدم لإنشاء معرفات خاصة من الكائنات. يجب أن نذكرهم هنا من أجل الإكتمال،لكن سنؤجل التفاصيل حتى نعرف الكائنات.
 
 ## The typeof operator [#type-typeof]
 
-The `typeof` operator returns the type of the argument. It's useful when we want to process values of different types differently or just want to do a quick check.
+معامل `typeof` يرجع نوع قيمة المدخلات. إنه مفيد عندما نريد معالجة قيم من أنواع مختلفة بإختلاف أو لمجرد إجراد فحص سريع للنوع .
 
-It supports two forms of syntax:
+إنه يدعم نوعين من بناء الكود:
 
-1. As an operator: `typeof x`.
-2. As a function: `typeof(x)`.
+1. كمعامل: `typeof x`.
+2. كدالة: `typeof(x)`.
 
-In other words, it works with parentheses or without them. The result is the same.
+بكلمات أخرى ، إنها تعمل بأقواس أو بدون أقواس. النتيجة ستكون واحدة.
 
-The call to `typeof x` returns a string with the type name:
+إستدعاء `typeof x` يرجع نص بإسم نوع القيمة:
 
 ```js
 typeof undefined // "undefined"
@@ -245,29 +246,29 @@ typeof alert // "function"  (3)
 */!*
 ```
 
-The last three lines may need additional explanation:
+الثلاث سطور الأخيرة قد تحتاج لتوضيح إضافي:
 
-1. `Math` is a built-in object that provides mathematical operations. We will learn it in the chapter <info:number>. Here, it serves just as an example of an object.
-2. The result of `typeof null` is `"object"`. That's an officially recognized error in `typeof` behavior, coming from the early days of JavaScript and kept for compatibility. Definitely, `null` is not an object. It is a special value with a separate type of its own.
-3. The result of `typeof alert` is `"function"`, because `alert` is a function. We'll study functions in the next chapters where we'll also see that there's no special "function" type in JavaScript. Functions belong to the object type. But `typeof` treats them differently, returning `"function"`. That also comes from the early days of JavaScript. Technically, such behavior isn't correct, but can be convenient in practice.
+1. `Math` كائن مدمج داخلياً لتدعيم العمليات الرياضية. سنتعلمه في الفصل <info:number>. هنا، يخدم فقط كمثال للكائن.
+2. نتيجة `typeof null` هي `"object"`. هذا رسمياً يعتبر خطأ في سلوك `typeof` ، يأتي من الأيام الأولى لجافا سكربت وتم الحفاظ عليه من أجل التوافقية. قطعاً `null` ليس كائن. إنه قيمة خاصة بنوع منفصل خاص.
+3. نتيجة `typeof alert` هي `"function"`، لأن `alert` دالة. سندرس الدوال في الفصول القادمة وهناك سنرى أنه لا توجد نوع خاص  "دالة" في جافا سكربت. الدوال الدوال تنتمي للنوع كائن. لكن `typeof` تعاملهم بشكل مختلف، يرجع `"دالة"`. هذا أيضاً يأتي من الأيام الأولى للجافا سكربت. فنياً، مثل هذا السلوك غير صحيح، لكن قد يكون ملائم في الممارسة.
 
 ## Summary
 
-There are 8 basic data types in JavaScript.
+يوجد 8 أنواع للبيانات في جافا سكربت.
 
-- `number` for numbers of any kind: integer or floating-point, integers are limited by ±2<sup>53</sup>.
-- `bigint` is for integer numbers of arbitrary length.
-- `string` for strings. A string may have one or more characters, there's no separate single-character type.
-- `boolean` for `true`/`false`.
-- `null` for unknown values -- a standalone type that has a single value `null`.
-- `undefined` for unassigned values -- a standalone type that has a single value `undefined`.
-- `object` for more complex data structures.
-- `symbol` for unique identifiers.
+- `number` للأرقام من أي نوع: صحيح أو عشري، الأعداد الصحيحة محدودة بy ±2<sup>53</sup>.
+- `bigint` هو عدد صحيح طوله كبير.
+- `string` للنصوص. النص قد يحتوي على حرف أو أكثر، لا يوجد نوع منفصل للحرف الواحد.
+- `boolean` من أجل `صواب`/`خطأ`.
+- `null` للقيم غير المعروفة -- نوع قائم بذاته له قيمة واحدة فقط `null`.
+- `undefined` للقيم غير المعينة -- نوع قائم بذاته له قيمة واحدة فقط `undefined`.
+- `object` من أجل هياكل بيانات معقدة.
+- `symbol` من أجل معرفات فريدة.
 
-The `typeof` operator allows us to see which type is stored in a variable.
+معامل `typeof` يسمح لنا بمعرفة نوع البيانات الموجودة بداخل المتغيرة.
 
-- Two forms: `typeof x` or `typeof(x)`.
-- Returns a string with the name of the type, like `"string"`.
-- For `null` returns `"object"` -- this is an error in the language, it's not actually an object.
+- له شكلان: `typeof x` أو `typeof(x)`.
+- يرجع نص بإسم نوع البيانات، مثل  `"string"`.
+- من أجل `null` يرجع `"object"` -- هذا خطأ في اللغة، إنه ليس في الحقيقة كائن.
 
-In the next chapters, we'll concentrate on primitive values and once we're familiar with them, we'll move on to objects.
+في الفصول القادمة سنركز على القيم البدائية وعندما نكون متألفين معاهم، سنتجه للكائنات.

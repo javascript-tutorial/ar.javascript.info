@@ -1,10 +1,10 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# What is the result of AND?
+# نتيحة AND?
 
-What is this code going to show?
+ما خرج الكود التالي ؟
 
 ```js
 alert( 1 && null && 2 );

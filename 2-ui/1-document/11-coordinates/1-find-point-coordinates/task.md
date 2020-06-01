@@ -1,24 +1,24 @@
-importance: 5
+5
 
 ---
 
-# Find window coordinates of the field
+# البحث عن إحداثيات النافذة للحقل
 
-In the iframe below you can see a document with the green "field".
+في iframe أدناه ، يمكنك رؤية مستند يحتوي على "الحقل" الأخضر.
 
-Use JavaScript to find window coordinates of corners pointed by with arrows.
+استخدم JavaScript للعثور على إحداثيات النوافذ ذات الزوايا المشار إليها بالسهام.
 
-There's a small feature implemented in the document for convenience. A click at any place shows coordinates there.
+هناك ميزة صغيرة تم تنفيذها في المستند من أجل الراحة. تظهر نقرة في أي مكان إحداثيات هناك.
 
 [iframe border=1 height=360 src="source" link edit]
 
-Your code should use DOM to get window coordinates of:
+يجب أن يستخدم الرمز الخاص بك DOM للحصول على إحداثيات النافذة لـ:
 
-1. Upper-left, outer corner (that's simple).
-2. Bottom-right, outer corner (simple too).
-3. Upper-left, inner corner (a bit harder).
-4. Bottom-right, inner corner (there are several ways, choose one).
+1. الزاوية العلوية اليسرى ، (هذا بسيط).
+2. الزاوية اليمنى السفلية ، (بسيطة أيضًا).
+3. الزاوية اليسرى العليا ، الداخلية (أصعب قليلاً).
+4. الزاوية اليمنى السفلية (هناك عدة طرق ، اختر واحدة).
 
-The coordinates that you calculate should be the same as those returned by the mouse click.
+يجب أن تكون الإحداثيات التي تحسبها هي نفس الإحداثيات التي تم إرجاعها بواسطة النقر بالماوس.
 
-P.S. The code should also work if the element has another size or border, not bound to any fixed values.
+ملاحظة. يجب أن تعمل الشفرة أيضًا إذا كان للعنصر حجم أو حد آخر ، غير مرتبط بأي قيم ثابتة.

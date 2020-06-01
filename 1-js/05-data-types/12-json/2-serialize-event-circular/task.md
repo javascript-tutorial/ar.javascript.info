@@ -1,14 +1,14 @@
-importance: 5
+درجة الأهمية: 5
 
 ---
 
-# Exclude backreferences
+# استثناء المراجع لكائنات أخرى
 
-In simple cases of circular references, we can exclude an offending property from serialization by its name.
+فى بعض الحالات البسيطة من المرجعية الثنائية (circular references)، يمكننا أن نستبعد الخاصية الغير مرغوبة من التحويل عن طريق اسمها.
 
-But sometimes we can't just use the name, as it may be used both in circular references and normal properties. So we can check the property by its value.
+ولكن فى بعض الأوقات لا يمكننا أن نستخدم الإسم فقط، حيث أنها يمكن أن تكون مستخدمه فى مرجعية ثنائية وفى خاصية عادية، ولذلك يمكننا أن نختبر الخاصية عن طريق اسمها.
 
-Write `replacer` function to stringify everything, but remove properties that reference `meetup`:
+قم بإنشاء الدالة `replacer` لتحويل كل شيئ إلى نص ولكن تقوم بحذف الخصائص التى تحتوى على مرجع للكائن `meetup`:
 
 ```js run
 let room = {
@@ -28,10 +28,10 @@ meetup.self = meetup;
 */!*
 
 alert( JSON.stringify(meetup, function replacer(key, value) {
-  /* your code */
+  /* الحل الخاص بك */
 }));
 
-/* result should be:
+/* يجب أن تكون النتيجة كالآتي:
 {
   "title":"Conference",
   "occupiedBy":[{"name":"John"},{"name":"Alice"}],

@@ -1,14 +1,13 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Count descendants
+# عد الأحفاد
 
-There's a tree structured as nested `ul/li`.
+هناك شجرة منظمة على أنها متداخلة `ul / li`.
 
-Write the code that for each `<li>` shows:
+اكتب الرمز الذي يظهر لكل `<li>` ما يلي:
 
-1. What's the text inside it (without the subtree)
-2. The number of nested `<li>` -- all descendants, including the deeply nested ones.
-
+1. ما هو النص الموجود بداخله (بدون الشجرة الفرعية)
+2. عدد "<li>" المتداخلة - جميع الأحفاد ، بما في ذلك المتداخلون بعمق.
 [demo src="solution"]

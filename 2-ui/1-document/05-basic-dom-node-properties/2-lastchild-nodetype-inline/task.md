@@ -1,10 +1,10 @@
-importance: 5
+درجة الأهمية: 5
 
 ---
 
-# What's in the nodeType?
+# ماذا يوجد في العقدة؟
 
-What does the script show?
+ماذا يظهر النص؟
 
 ```html
 <html>

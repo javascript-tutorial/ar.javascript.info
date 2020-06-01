@@ -1,6 +1,5 @@
-# The JavaScript language
+# لغة الجافاسكريبت
 
-Here we learn JavaScript, starting from scratch and go on to advanced concepts like OOP.
+هنا ستتعلم لغة الجافاسكريبت، من البداية وحتى الاحتراف مثل البرمجة الكائنية (OOP).
 
-We concentrate on the language itself here, with the minimum of environment-specific notes.
-
+التركيز الأساسي لهذه السلسلة هو على اللغة نفسها، مع قليل من الملاحظات الخاصة ببيئة عمل الجافاسكريبت.

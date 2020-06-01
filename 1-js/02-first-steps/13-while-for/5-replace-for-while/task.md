@@ -1,10 +1,10 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Replace "for" with "while"
+# استبدل "for" ب "while"
 
-Rewrite the code changing the `for` loop to `while` without altering its behavior (the output should stay same).
+اعد كتابة الكود التالي وقم بتبديل حلقة `for` بحلقة `while` دون تغيير الخرج.
 
 ```js run
 for (let i = 0; i < 3; i++) {

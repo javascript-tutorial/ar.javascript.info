@@ -1,15 +1,16 @@
-# Basic operators, maths
+العاملات الأساسية والرياضيات # 
 
-We know many operators from school. They are things like addition `+`, multiplication `*`, subtraction `-`, and so on.
+نعرف الكتير من المعاملات الحسابية من التعليم الأساسي في المدارس مثل عامل الإضافة '+' , والضرب '*'  والطرح '-' وخلافه 
 
-In this chapter, we’ll start with simple operators, then concentrate on JavaScript-specific aspects, not covered by school arithmetic.
+في هذا الفصل سنبدأ بالعاملات الحسابية البسيطة ثم سنركز على النواحي المحددة بالنسبة للغة جافاسكريبت والتي لم يتم تغطيتها برياضيات الحساب في المدرسة 
 
-## Terms: "unary", "binary", "operand"
+#مصطلحات: أحادي، ثنائي ، ومعامل 
 
-Before we move on, let's grasp some common terminology.
+قبل ما ان نكمل، فلنفهم جيدا بعض المصطلحات
 
-- *An operand* -- is what operators are applied to. For instance, in the multiplication of `5 * 2` there are two operands: the left operand is `5` and the right operand is `2`. Sometimes, people call these "arguments" instead of "operands".
-- An operator is *unary* if it has a single operand. For example, the unary negation `-` reverses the sign of a number:
+*معامل * -- هو ما يتم تطبيق العاملات الحسابية عليه. على سبيل المثال، عند ضرب 2 * 5 يوجد معاملات اثنان: 
+المعامل الأيسر "5" والمعامل الأيمن "2" . أحيانا الناس يسمونها "عوامل متغيرة " بدلا من "معاملات " 
+العامل الحسابي يكون أحاديا إذا كان لديه معامل واحد فقط.  على سبيل المثال عامل الطرح الأحادي '-' يعكس إشارة الرقم: 
 
     ```js run
     let x = 1;
@@ -19,46 +20,45 @@ Before we move on, let's grasp some common terminology.
     */!*
     alert( x ); // -1, unary negation was applied
     ```
-- An operator is *binary* if it has two operands. The same minus exists in binary form as well:
+    العامل الحسابي يكون ثنائيا إذا كان لديه معاملين حسابيين  اثنين. نفس الشيء بالنسبة لعامل الطرح الحسابي أيضا: 
 
     ```js run no-beautify
     let x = 1, y = 3;
     alert( y - x ); // 2, binary minus subtracts values
     ```
 
-    Formally, in the examples above we have two different operators that share the same symbol: the negation operator, a unary operator that reverses the sign, and the subtraction operator, a binary operator that subtracts one number from another.
+    بشكل رسمي، في الأمثلة السابقة كان لدينا عاملين حسابيين مختلفين يشتركان في نفس الرمز: عامل النفي يعكس إلإشارة وعامل الطرح , عامل ثنائي يقوم يطرح رقم من آخر 
 
-## Maths
+#الرياضيات
 
-The following math operations are supported:
+العمليات الحسابية التالية مدعومة: 
 
-- Addition `+`,
-- Subtraction `-`,
-- Multiplication `*`,
-- Division `/`,
-- Remainder `%`,
-- Exponentiation `**`.
+- الإضافة "+"
+- الطرح "-"
+- الضرب "*" 
+- القسمة "/" 
+- باقي القسمة "%" 
+- الضرب الأسي  "**"
 
-The first four are straightforward, while `%` and `**` need a few words about them.
+العوامل الحسابية الأربع الأوئل واضحين بينما باقي القسمة "%" والضرب الأسي "**" بحاجة إلى بعض الإيضاح حولهم
+### بافي القسمة % 
 
-### Remainder %
+عامل باقي القسمة "%" بالرغم من شكله إلا أنه لا صلة له بالنسبة المئوية 
 
-The remainder operator `%`, despite its appearance, is not related to percents.
+ناتج `a % b` هو [باقي قسمة] الرقم "a" على الرقم "b"  (https://en.wikipedia.org/wiki/Remainder)
 
-The result of `a % b` is the [remainder](https://en.wikipedia.org/wiki/Remainder) of the integer division of `a` by `b`.
-
-For instance:
+على سبيل المثال: 
 
 ```js run
 alert( 5 % 2 ); // 1, a remainder of 5 divided by 2
 alert( 8 % 3 ); // 2, a remainder of 8 divided by 3
 ```
 
-### Exponentiation **
+### الضرب الأسي ** 
 
-The exponentiation operator `a ** b` multiplies `a` by itself `b` times.
+عامل الضرب الأسي `a ** b` يقوم بضرب الرقم `a`  في نفسه عدد `b` من المرات 
 
-For instance:
+على سبيل المثال: 
 
 ```js run
 alert( 2 ** 2 ); // 4  (2 multiplied by itself 2 times)
@@ -66,7 +66,8 @@ alert( 2 ** 3 ); // 8  (2 * 2 * 2, 3 times)
 alert( 2 ** 4 ); // 16 (2 * 2 * 2 * 2, 4 times)
 ```
 
-Mathematically, the exponentiation is defined for non-integer numbers as well. For example, a square root is an exponentiation by `1/2`:
+من الناحية الرياضياتية الضرب الأسي يستخدم أيضا مع الأرقام غير الصحيحة.  على سبيل المثال الجذر التربيعي هو ضرب أسي بقيمة
+ `1/2`:
 
 ```js run
 alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root)
@@ -74,54 +75,56 @@ alert( 8 ** (1/3) ); // 2 (power of 1/3 is the same as a cubic root)
 ```
 
 
-## String concatenation with binary +
+## إضافة الكلمات وسلاسل الحروف بعامل الإضافة + 
 
-Let's meet features of JavaScript operators that are beyond school arithmetics.
+هيا نتعرف على مميزات عوامل اللغة جافاسكريبت والتي تتجاوز الحساب المدرسي 
 
-Usually, the plus operator `+` sums numbers.
+عادة، عامل الإضافة "+" يقوم بجمع الأرقام
 
-But, if the binary `+` is applied to strings, it merges (concatenates) them:
+لكن  لو  العامل الحسابي الثنائي "+" تم تطبيقه على الكلمات فإنه يقوم بدمجهم معا: 
 
 ```js
 let s = "my" + "string";
 alert(s); // mystring
 ```
 
-Note that if any of the operands is a string, then the other one is converted to a string too.
+لاحظ أنه إذا كان أي من المعاملات عبارة عن كلمة فإنه يتم تحويل الآخر إلى كلمة أيضا 
 
-For example:
+على سبيل المثال: 
 
 ```js run
 alert( '1' + 2 ); // "12"
 alert( 2 + '1' ); // "21"
 ```
 
-See, it doesn't matter whether the first operand is a string or the second one.
+أرأيت، لا يهم إذا كان المعامل الأول أو الثاني عبارة عن كلمة 
 
-Here's a more complex example:
+مثال آخر أكثر تعقيدا:
 
 ```js run
 alert(2 + 2 + '1' ); // "41" and not "221"
 ```
 
-Here, operators work one after another. The first `+` sums two numbers, so it returns `4`, then the next `+` adds the string `1` to it, so it's like `4 + '1' = 41`.
+هنا العوامل الحسابية تعمل بعد الأخرى.  عامل الإضافة الأول "+" يقوم بجمع الرقمين فيصبح ناتجهمها  "4" ثم يقوم عامل الإضافة الثاني "+" بدمج "4" و "1" في كلمة واحدة فتصبح الناتج النهائي مثل  `4 + '1' = 41`.
 
-The binary `+` is the only operator that supports strings in such a way. Other arithmetic operators work only with numbers and always convert their operands to numbers.
+عامل الإضافة الثنائي "+" هو العامل الوحيد الذي يدعم الكلمات بهذه الطريقة 
+العوامل الحسابية الأخرى تعمل فقط مع الأرقام ودائما ما تحول المعاملات إلى أرقام 
 
-Here's the demo for subtraction and division:
+هنا شرح مبسط لعملية الطرح والقسمة: 
 
 ```js run
 alert( 6 - '2' ); // 4, converts '2' to a number
 alert( '6' / '2' ); // 3, converts both operands to numbers
 ```
 
-## Numeric conversion, unary +
+## التحويل العددي ، الأحادي + 
 
-The plus `+` exists in two forms: the binary form that we used above and the unary form.
+إشارة الجمع "+" توجد في شكلين ، الشكل الثنائي كما تم استخدامه من قبل والشكل الأحادي
 
-The unary plus or, in other words, the plus operator `+` applied to a single value, doesn't do anything to numbers. But if the operand is not a number, the unary plus converts it into a number.
+عامل الإضافة الأحادي أو بكلمات أخرى عامل الزائد "+" الذي يتم تطبيقه على قيمة واحدة لا يؤثر على الأرقام 
+لكن إذا كان المعامل ليس رقما فإن عامل الإضافة الأحادي يحولها إلى رقم 
 
-For example:
+على سبيل المثال: 
 
 ```js run
 // No effect on numbers
@@ -138,11 +141,13 @@ alert( +"" );   // 0
 */!*
 ```
 
-It actually does the same thing as `Number(...)`, but is shorter.
+فهو بالفعل يقوم بنفس عمل دالة `Number(...)` ولكنه أقصر 
 
-The need to convert strings to numbers arises very often. For example, if we are getting values from HTML form fields, they are usually strings. What if we want to sum them?
+فعادة ما يكون هناك حاجة لتحويل الكلمات إلى أرقام 
+على سبيل المثال ، إذا كنا نحصل من خلال استمارة HTML  على قيم ،فإنها عادة ما تكون على شكل كلمات 
+ماذا لو أردنا جمعهم سويا ؟ 
 
-The binary plus would add them as strings:
+معامل الزائد الثنائي سيقوم بجمعهم ودمجهم ككلمات: 
 
 ```js run
 let apples = "2";
@@ -151,7 +156,7 @@ let oranges = "3";
 alert( apples + oranges ); // "23", the binary plus concatenates strings
 ```
 
-If we want to treat them as numbers, we need to convert and then sum them:
+فإذا أردنا جمعهم كأرقام ، فإننا بحاجة إلى تحويلهم ثم جمعهم: 
 
 ```js run
 let apples = "2";
@@ -166,43 +171,46 @@ alert( +apples + +oranges ); // 5
 // alert( Number(apples) + Number(oranges) ); // 5
 ```
 
-From a mathematician's standpoint, the abundance of pluses may seem strange. But from a programmer's standpoint, there's nothing special: unary pluses are applied first, they convert strings to numbers, and then the binary plus sums them up.
+من وجهة نظر حسابية أو رياضياتية ، قد تبدو كثرة الزوائد شيئا غريبا
+لكن بالنسبة للمبرمج فلا يوجد شيء غريب : فالزوائد الأحادية تحول الكلمات إلى أرقام أولا ثم الزائد الثنائية تجمعهم معا 
 
-Why are unary pluses applied to values before the binary ones? As we're going to see, that's because of their *higher precedence*.
+لماذا يتم تطبيق الزوائد الأحادية على القيم قبل الزوائد الثنائية ؟
+كما سنرى فإن ذلك بسبب الأسبقية الأعلى 
 
-## Operator precedence
+##أسبقية العوامل
 
-If an expression has more than one operator, the execution order is defined by their *precedence*, or, in other words, the default priority order of operators.
+إذا كان التعبير يحتوي على أكثر من عامل واحد ، فسيتم تحديد أمر التنفيذ من خلال * أسبقيته * ، أو بعبارة أخرى ، ترتيب الأولوية الافتراضي للعوامل.
 
-From school, we all know that the multiplication in the expression `1 + 2 * 2` should be calculated before the addition. That's exactly the precedence thing. The multiplication is said to have *a higher precedence* than the addition.
+من المدرسة ، نعلم جميعًا أنه يجب حساب الضرب في التعبير `1 + 2 * 2` قبل الإضافة. هذا هو بالضبط الأسبقية. ويقال أن الضرب له * أسبقية أعلى من الإضافة.
 
-Parentheses override any precedence, so if we're not satisfied with the default order, we can use them to change it. For example, write `(1 + 2) * 2`.
+تلغي الأقواس أي أسبقية ، لذلك إذا لم نكن راضيين عن الترتيب الافتراضي ، فيمكننا استخدامها لتغييره. على سبيل المثال ، اكتب `(1 + 2) * 2`.
+ 
+هناك العديد من العوامل في JavaScript. لكل عامل رقم أسبقية مطابق. يتم تنفيذ واحد مع العدد الأكبر أولاً. إذا كانت الأسبقية هي نفسها ، فسيكون أمر التنفيذ من اليسار إلى اليمين.
 
-There are many operators in JavaScript. Every operator has a corresponding precedence number. The one with the larger number executes first. If the precedence is the same, the execution order is from left to right.
 
-Here's an extract from the [precedence table](https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence) (you don't need to remember this, but note that unary operators are higher than corresponding binary ones):
+إليك مقتطف من [جدول الأسبقية] (https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence) (لست بحاجة إلى تذكر ذلك ، ولكن لاحظ أن عوامل التشغيل الأحادية أعلى من الخيارات الثنائية المقابلة) منها):
 
-| Precedence | Name | Sign |
-|------------|------|------|
+| الأسبقية | الاسم | تسجيل |
+| ------------ | ------ | ------ |
 | ... | ... | ... |
-| 17 | unary plus | `+` |
-| 17 | unary negation | `-` |
-| 16 | exponentiation | `**` |
-| 15 | multiplication | `*` |
-| 15 | division | `/` |
-| 13 | addition | `+` |
-| 13 | subtraction | `-` |
+| 17 | أحادي زائد | `+` |
+| 17 | نفي أحادي | `-` |
+| 16 | الأسي | `**` |
+| 15 | الضرب | `*` |
+| 15 | تقسيم | `/` |
+| 13 | إضافة | `+` |
+| 13 | طرح | `-` |
 | ... | ... | ... |
-| 3 | assignment | `=` |
+| 3 | الاحالة | `=` |
 | ... | ... | ... |
 
-As we can see, the "unary plus" has a priority of `17` which is higher than the `13` of "addition" (binary plus). That's why, in the expression `"+apples + +oranges"`, unary pluses work before the addition.
+كما نرى ، فإن "unary plus" لها أولوية "17" وهي أعلى من "13" لـ "add" (ثنائي زائد). لهذا السبب ، في تعبير "+ apples + + oranges" ، تعمل الإيجابيات الأحادية قبل الإضافة.
 
-## Assignment
+## التعيين 
 
-Let's note that an assignment `=` is also an operator. It is listed in the precedence table with the very low priority of `3`.
+دعنا نلاحظ أن المهمة `=` هي أيضًا عامل. وهي مدرجة في جدول الأسبقية بأولوية منخفضة جدًا لـ `3`.
 
-That's why, when we assign a variable, like `x = 2 * 2 + 1`, the calculations are done first and then the `=` is evaluated, storing the result in `x`.
+لهذا السبب ، عندما نقوم بتعيين متغير ، مثل `x = 2 * 2 + 1` ، تتم الحسابات أولاً ثم يتم تقييم` = `، وتخزين النتيجة في` x`.
 
 ```js
 let x = 2 * 2 + 1;
@@ -210,15 +218,16 @@ let x = 2 * 2 + 1;
 alert( x ); // 5
 ```
 
-### Assignment = returns a value
+## التعيين == إرجاع قيمة 
 
-The fact of `=` being an operator, not a "magical" language construct has an interesting implication.
+إن حقيقة كونك عامل تشغيل ، وليس بنية لغة "سحرية" لها آثار مهمة.
 
-Most operators in JavaScript return a value. That's obvious for `+` and `-`, but also true for `=`.
+ترجع معظم عوامل التشغيل في JavaScript قيمة. هذا واضح لـ `+` و` -` ، ولكنه ينطبق أيضًا على `=`.
 
-The call `x = value` writes the `value` into `x` *and then returns it*.
+تؤدي المكالمة `x = value` إلى كتابة` value` في `x` * ثم إرجاعها *.
 
-Here's a demo that uses an assignment as part of a more complex expression:
+في ما يلي عرض توضيحي يستخدم مهمة كجزء من تعبير أكثر تعقيدًا:
+
 
 ```js run
 let a = 1;
@@ -232,15 +241,15 @@ alert( a ); // 3
 alert( c ); // 0
 ```
 
-In the example above, the result of expression `(a = b + 1)` is the value which was assigned to `a` (that is `3`). It is then used for further evaluations.
+في المثال أعلاه ، نتيجة التعبير `(a = b + 1)` هي القيمة التي تم تعيينها لـ `a` (أي` 3`). ثم يتم استخدامه لمزيد من التقييمات.
 
-Funny code, isn't it? We should understand how it works, because sometimes we see it in JavaScript libraries.
+كود مضحك ، أليس كذلك؟ يجب أن نفهم كيف يعمل ، لأنه في بعض الأحيان نراه في مكتبات JavaScript.
 
-Although, please don't write the code like that. Such tricks definitely don't make code clearer or readable.
+على الرغم من ذلك ، من فضلك لا تكتب الرمز مثل هذا. مثل هذه الحيل بالتأكيد لا تجعل الشفرة أكثر وضوحًا أو قابلة للقراءة.
 
-### Chaining assignments
+## التعيينات المتتابعة 
 
-Another interesting feature is the ability to chain assignments:
+: ميزة أخرى مثيرة للاهتمام هي القدرة على التعيين المتتابع 
 
 ```js run
 let a, b, c;
@@ -254,22 +263,22 @@ alert( b ); // 4
 alert( c ); // 4
 ```
 
-Chained assignments evaluate from right to left. First, the rightmost expression `2 + 2` is evaluated and then assigned to the variables on the left: `c`, `b` and `a`. At the end, all the variables share a single value.
+يتم تقييم التعيينات المتتابعة من اليمين إلى اليسار. أولاً ، يتم تقييم التعبير الموجود في أقصى اليمين `2 + 2` ثم يتم تعيينه للمتغيرات الموجودة على اليسار:` c` و` b` و` a`. في النهاية ، تشترك جميع المتغيرات في قيمة واحدة.
 
-Once again, for the purposes of readability it's better to split such code into few lines:
+مرة أخرى ، لأغراض سهولة القراءة ، من الأفضل تقسيم هذه الشفرة إلى بضعة أسطر:
 
 ```js
 c = 2 + 2;
 b = c;
 a = c;
 ```
-That's easier to read, especially when eye-scanning the code fast.
+هذا أسهل للقراءة ، خاصة عند مسح العين للرمز بسرعة.
 
-## Modify-in-place
+## تعديل في المكان
 
-We often need to apply an operator to a variable and store the new result in that same variable.
+غالبًا ما نحتاج إلى تطبيق عامل تشغيل على متغير وتخزين النتيجة الجديدة في نفس المتغير.
 
-For example:
+فمثلا:
 
 ```js
 let n = 2;
@@ -277,7 +286,7 @@ n = n + 5;
 n = n * 2;
 ```
 
-This notation can be shortened using the operators `+=` and `*=`:
+يمكن تقصير هذا التدوين باستخدام عوامل التشغيل `+ =` و `* =`:
 
 ```js run
 let n = 2;
@@ -287,9 +296,10 @@ n *= 2; // now n = 14 (same as n = n * 2)
 alert( n ); // 14
 ```
 
-Short "modify-and-assign" operators exist for all arithmetical and bitwise operators: `/=`, `-=`, etc.
+توجد معاملات "التعديل والتخصيص" القصيرة لجميع العمليات الحسابية ومعاملات البتات: `/ =` ، `- =` ، إلخ.
 
-Such operators have the same precedence as a normal assignment, so they run after most other calculations:
+مثل عوامل التشغيل هذه لها نفس الأسبقية للمهمة العادية ، لذلك يتم تشغيلها بعد معظم الحسابات الأخرى:
+
 
 ```js run
 let n = 2;
@@ -299,45 +309,45 @@ n *= 3 + 5;
 alert( n ); // 16  (right part evaluated first, same as n *= 8)
 ```
 
-## Increment/decrement
+## الزيادة / النقصان
 
-<!-- Can't use -- in title, because the built-in parser turns it into a 'long dash' – -->
+<! - لا يمكن استخدامه - في العنوان ، لأن المحلل اللغوي المدمج يحوله إلى "شرطة طويلة" - ->
 
-Increasing or decreasing a number by one is among the most common numerical operations.
+تعد زيادة أو إنقاص عدد بمقدار واحد من بين العمليات العددية الأكثر شيوعًا.
 
-So, there are special operators for it:
+لذلك ، هناك عوامل خاصة لذلك:
 
-- **Increment** `++` increases a variable by 1:
+- ** زيادة ** `++` يزيد المتغير بمقدار 1:
 
     ```js run no-beautify
     let counter = 2;
-    counter++;        // works the same as counter = counter + 1, but is shorter
+    counter++;        //يعمل مثل counter = counter + 1 ولكنه أقصر
     alert( counter ); // 3
     ```
 - **Decrement** `--` decreases a variable by 1:
 
     ```js run no-beautify
     let counter = 2;
-    counter--;        // works the same as counter = counter - 1, but is shorter
+    counter--;        // يعمل مثل counter = counter - 1 ولكنه أقصر
     alert( counter ); // 1
     ```
 
-```warn
-Increment/decrement can only be applied to variables. Trying to use it on a value like `5++` will give an error.
+```تحذير
+لا يمكن تطبيق الزيادة / التناقص إلا على المتغيرات. محاولة استخدامه على قيمة مثل `5 ++` سيعطي خطأ.
 ```
 
-The operators `++` and `--` can be placed either before or after a variable.
+يمكن وضع عوامل التشغيل `++` و` --` قبل أو بعد المتغير.
 
-- When the operator goes after the variable, it is in "postfix form": `counter++`.
-- The "prefix form" is when the operator goes before the variable: `++counter`.
+- عندما يسير المشغل بعد المتغير ، يكون في "نموذج postfix": `counter ++`.
+- "شكل البادئة" هو عندما يذهب عامل التشغيل قبل المتغير: `عداد ++`.
 
-Both of these statements do the same thing: increase `counter` by `1`.
+كلتا العبارتين تفعلان نفس الشيء: زيادة "العداد" بمقدار "1".
 
-Is there any difference? Yes, but we can only see it if we use the returned value of `++/--`.
+هل هناك فرق؟ نعم ، ولكن لا يمكننا رؤيتها إلا إذا استخدمنا القيمة المرتجعة لـ "++ / -".
 
-Let's clarify. As we know, all operators return a value. Increment/decrement is no exception. The prefix form returns the new value while the postfix form returns the old value (prior to increment/decrement).
+دعونا نوضح. كما نعلم ، ترجع كل عوامل التشغيل قيمة. زيادة / إنقاص ليست استثناء. يُرجع نموذج البادئة القيمة الجديدة بينما يُرجع نموذج postfix القيمة القديمة (قبل الزيادة / التناقص).
 
-To see the difference, here's an example:
+لمعرفة الفرق ، إليك مثال:
 
 ```js run
 let counter = 1;
@@ -346,9 +356,9 @@ let a = ++counter; // (*)
 alert(a); // *!*2*/!*
 ```
 
-In the line `(*)`, the *prefix* form `++counter` increments `counter` and returns the new value, `2`. So, the `alert` shows `2`.
+في السطر `(*)` ، * البادئة * من `++ counter` تزيد` العداد` وتعيد القيمة الجديدة `2`. لذا ، يُظهر "التنبيه" "2".
 
-Now, let's use the postfix form:
+الآن ، دعنا نستخدم شكل البادئة postfix: 
 
 ```js run
 let counter = 1;
@@ -357,11 +367,10 @@ let a = counter++; // (*) changed ++counter to counter++
 alert(a); // *!*1*/!*
 ```
 
-In the line `(*)`, the *postfix* form `counter++` also increments `counter` but returns the *old* value (prior to increment). So, the `alert` shows `1`.
+في السطر `(*)` ، فإن البادئة من `counter ++` يزيد أيضًا من "العداد" ولكنه يُرجع قيمة * القديمة * (قبل الزيادة). لذا ، يُظهر "التنبيه" "1".
 
-To summarize:
-
-- If the result of increment/decrement is not used, there is no difference in which form to use:
+باختصار: 
+- إذا لم يتم استخدام نتيجة الزيادة / النقصان ، فلا فرق في الشكل المستخدم:
 
     ```js run
     let counter = 0;
@@ -369,41 +378,41 @@ To summarize:
     ++counter;
     alert( counter ); // 2, the lines above did the same
     ```
-- If we'd like to increase a value *and* immediately use the result of the operator, we need the prefix form:
+- إذا أردنا زيادة القيمة واستخدام نتيجة عامل التشغيل على الفور ، فنحن بحاجة إلى نموذج البادئة:
 
     ```js run
     let counter = 0;
     alert( ++counter ); // 1
     ```
-- If we'd like to increment a value but use its previous value, we need the postfix form:
+- إذا كنا نرغب في زيادة قيمة ولكننا نستخدم قيمتها السابقة ، فنحن بحاجة إلى شكل  postfix:
 
     ```js run
     let counter = 0;
     alert( counter++ ); // 0
     ```
 
-````smart header="Increment/decrement among other operators"
-The operators `++/--` can be used inside expressions as well. Their precedence is higher than most other arithmetical operations.
+````عنوان ذكي ومختصر = "زيادة / نقصان بين العوامل الأخرى"
+يمكن استخدام عوامل التشغيل `++ / -` داخل التعبيرات أيضًا. أسبقيتها أعلى من معظم العمليات الحسابية الأخرى.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let counter = 1;
 alert( 2 * ++counter ); // 4
 ```
 
-Compare with:
+بالمقارنة مع: 
 
 ```js run
 let counter = 1;
 alert( 2 * counter++ ); // 2, because counter++ returns the "old" value
 ```
 
-Though technically okay, such notation usually makes code less readable. One line does multiple things -- not good.
+على الرغم من أنه بخير من الناحية الفنية ، فإن مثل هذا التدوين يجعل التعليمات البرمجية أقل قابلية للقراءة. سطر واحد يقوم بأشياء متعددة - ليس جيدًا.
 
-While reading code, a fast "vertical" eye-scan can easily miss something like `counter++` and it won't be obvious that the variable increased.
+أثناء قراءة الرمز ، يمكن أن يفقد مسح العين "العمودي" السريع شيئًا مثل `` عداد ++ '' ولن يكون من الواضح أن المتغير زاد.
 
-We advise a style of "one line -- one action":
+ننصح بأسلوب "سطر واحد - عمل واحد":
 
 ```js run
 let counter = 1;
@@ -412,13 +421,13 @@ counter++;
 ```
 ````
 
-## Bitwise operators
+## عوامل تشغيل Bitwise أحادية المعامل
 
-Bitwise operators treat arguments as 32-bit integer numbers and work on the level of their binary representation.
+يعامل عاملو Bitwise الوسيطات كأرقام صحيحة 32 بت ويعملون على مستوى تمثيلهم الثنائي.
 
-These operators are not JavaScript-specific. They are supported in most programming languages.
+هذه العوامل ليست خاصة بـ JavaScript. يتم دعمها في معظم لغات البرمجة.
 
-The list of operators:
+قائمة عوامل التشغيل:
 
 - AND ( `&` )
 - OR ( `|` )
@@ -428,16 +437,15 @@ The list of operators:
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
-These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) article on MDN when a need arises.
+نادرًا ما يتم استخدام عوامل التشغيل هذه ، عندما نحتاج إلى التلاعب بالأرقام على أدنى مستوى (أحادي البتات). لن نحتاج إلى هؤلاء المشغلين في أي وقت قريب ، لأن تطوير الويب لا يستخدمهم كثيرًا ، ولكن في بعض المجالات الخاصة ، مثل التشفير ، فهي مفيدة. يمكنك قراءة مقالة [عوامل تشغيل Bitwise] (https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) مقالة حول MDN عند الحاجة. 
 
-## Comma
+## الفاصلة 
 
-The comma operator `,` is one of the rarest and most unusual operators. Sometimes, it's used to write shorter code, so we need to know it in order to understand what's going on.
+عامل الفاصلة `،` هو أحد أندر العمليات وأكثرها غرابة. في بعض الأحيان ، يتم استخدامه لكتابة رمز أقصر ، لذلك نحتاج إلى معرفته من أجل فهم ما يحدث.
 
-The comma operator allows us to evaluate several expressions, dividing them with a comma `,`. Each of them is evaluated but only the result of the last one is returned.
+يسمح لنا عامل الفاصلة بتقييم العديد من التعبيرات ، وتقسيمها بفاصلة `،`. يتم تقييم كل واحد منهم ولكن يتم إرجاع نتيجة آخر واحد فقط.
 
-For example:
-
+فمثلا: 
 ```js run
 *!*
 let a = (1 + 2, 3 + 4);
@@ -446,25 +454,25 @@ let a = (1 + 2, 3 + 4);
 alert( a ); // 7 (the result of 3 + 4)
 ```
 
-Here, the first expression `1 + 2` is evaluated and its result is thrown away. Then, `3 + 4` is evaluated and returned as the result.
+هنا ، يتم تقييم التعبير الأول `1 + 2` ويتم التخلص من نتائجه. ثم يتم تقييم `3 + 4` وإرجاعها كنتيجة.
 
-```smart header="Comma has a very low precedence"
-Please note that the comma operator has very low precedence, lower than `=`, so parentheses are important in the example above.
+```عنوان ذكي ومختصر = "الفاصلة لها أسبقية منخفضة جدًا"
+يرجى ملاحظة أن عامل الفاصلة له أسبقية منخفضة جدًا ، أقل من `=` ، لذا فإن الأقواس مهمة في المثال أعلاه.
 
-Without them: `a = 1 + 2, 3 + 4` evaluates `+` first, summing the numbers into `a = 3, 7`, then the assignment operator `=` assigns `a = 3`, and the rest is ignored. It's like `(a = 1 + 2), 3 + 4`.
+بدونها: `a = 1 + 2 ، 3 + 4` يقيم` + `أولاً ، يلخص الأرقام في` a = 3 ، 7` ، ثم عامل التعيين `=` يخصص `a = 3` ، والباقي هو تجاهلها. إنه مثل `(أ = 1 + 2) ، 3 + 4`.
 ```
 
-Why do we need an operator that throws away everything except the last expression?
+لماذا نحتاج إلى عامل يعمل على التخلص من كل شيء باستثناء التعبير الأخير؟
 
-Sometimes, people use it in more complex constructs to put several actions in one line.
+في بعض الأحيان ، يستخدمه الأشخاص في تركيبات أكثر تعقيدًا لوضع العديد من الإجراءات في سطر واحد.
 
-For example:
+فمثلا:
 
 ```js
-// three operations in one line
+// ثلات عمليات حسابية في سطر واحد 
 for (*!*a = 1, b = 3, c = a * b*/!*; a < 10; a++) {
  ...
 }
 ```
 
-Such tricks are used in many JavaScript frameworks. That's why we're mentioning them. But usually they don't improve code readability so we should think well before using them.
+تُستخدم مثل هذه الحيل في العديد من أطر عمل JavaScript. لهذا السبب نذكرها. ولكن عادة لا يحسنون قابلية قراءة الشفرة ، لذا يجب أن نفكر جيدًا قبل استخدامها.

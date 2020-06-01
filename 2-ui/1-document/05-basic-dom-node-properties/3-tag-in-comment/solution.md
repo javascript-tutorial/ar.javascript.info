@@ -1,4 +1,4 @@
-The answer: **`BODY`**.
+الإجابة: **`BODY`**.
 
 ```html run
 <script>
@@ -10,8 +10,8 @@ The answer: **`BODY`**.
 </script>
 ```
 
-What's going on step by step:
+ما يحدث خطوة بخطوة:
 
-1. The content of `<body>` is replaced with the comment. The comment is `<!--BODY-->`, because `body.tagName == "BODY"`. As we remember, `tagName` is always uppercase in HTML.
-2. The comment is now the only child node, so we get it in `body.firstChild`.
-3. The `data` property of the comment is its contents (inside `<!--...-->`): `"BODY"`.
+1. يتم استبدال محتوى "<body>" بالتعليق. التعليق هو `<! - BODY ->` ، لأن `body.tagName ==" BODY "`. كما نتذكر ، فإن `tagName` دائمًا ما تكون أحرفًا كبيرة بتنسيق HTML.
+2. التعليق هو الآن العقدة الفرعية الوحيدة ، لذلك نحصل عليه في `body.firstChild`.
+3. خاصية "البيانات" للتعليق هي محتوياته (داخل `<! --...-->`): "" BODY "`.

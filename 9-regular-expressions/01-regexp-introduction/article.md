@@ -1,177 +1,177 @@
-# Patterns and flags
+# الأنماط والأعلام
 
-Regular expressions are patterns that provide a powerful way to search and replace in text.
+التعبيرات العادية هي أنماط توفر طريقة فعالة للبحث والاستبدال في النص.
 
-In JavaScript, they are available via the [RegExp](mdn:js/RegExp) object, as well as being integrated in methods of strings.
+في ال JavaScript, أنها تكون متوفرة عبر [RegExp](mdn:js/RegExp), وكذلك يمكن دمجها في طرق النصوص.
 
-## Regular Expressions
+## التعبيرات المنتظمة
 
-A regular expression (also "regexp", or just "reg") consists of a *pattern* and optional *flags*.
+النعبير المنتظم (ويمكن أختصاره الي "regexp", او "reg") يتكون من *نمط* و*أعلام* أختيارية.
 
-There are two syntaxes that can be used to create a regular expression object.
+هناك نوعان من بناء الجملة يمكن استخدامهما لإنشاء كائن تعبير منتظم.
 
-The "long" syntax:
-
-```js
-regexp = new RegExp("pattern", "flags");
-```
-
-And the "short" one, using slashes `"/"`:
+طريقة الكتابة "الطويلة":
 
 ```js
-regexp = /pattern/; // no flags
-regexp = /pattern/gmi; // with flags g,m and i (to be covered soon)
+regexp = new RegExp("نمط", "أعلام");
 ```
 
-Slashes `pattern:/.../` tell JavaScript that we are creating a regular expression. They play the same role as quotes for strings.
-
-In both cases `regexp` becomes an instance of the built-in `RegExp` class.
-
-The main difference between these two syntaxes is that pattern using slashes `/.../` does not allow for expressions to be inserted (like string template literals with `${...}`). They are fully static.
-
-Slashes are used when we know the regular expression at the code writing time -- and that's the most common situation. While `new RegExp`, is more often used when we need to create a regexp "on the fly" from a dynamically generated string. For instance:
+وطريقة الكتابة "القصيرة", بأستخدام "/":
 
 ```js
-let tag = prompt("What tag do you want to find?", "h2");
-
-let regexp = new RegExp(`<${tag}>`); // same as /<h2>/ if answered "h2" in the prompt above
+regexp = /نمط/; // بدون أعلام 
+regexp = /نمط/gmi; // أستخدام الاعلام g,m والعلم i (سيتم تغطيته فيما بعد)
 ```
 
-## Flags
+هذا الرمز "/.../" يعرف ال JavaScript أننا سننشئ تعبير منتظم. وهي كذلك مثل علامات التنصيص في النصوص.
 
-Regular expressions may have flags that affect the search.
+في الحالتين يصبح ال `regexp` نموذج مبني من ال `RegExp`.
 
-There are only 6 of them in JavaScript:
+الأختلاف الرئيسي بين الطريقتين أن النمط بأستخدام ال `/.../` لا يسمح لك بكتابة تعبيرات بداخله (مثل التعبير `${...}`). في هذه الحاله تكون الجمله ثابتة.
+
+يتم استخدام الشرطة المائلة عندما نعرف التعبير العادي في وقت كتابة الكود -- وهذا هو الوضع الأكثر شيوعًا. بينما ال `new RegExp`, يتم استخدامه غالبًا عندما نحتاج إلى إنشاء regexp "على السريع" من سلسلة تم إنشاؤها ديناميكيًا. علي سبيل المثال:
+
+```js
+let tag = prompt("ما العلامة التي تريد العثور عليها؟", "h2");
+
+let regexp = new RegExp(`<${tag}>`); // مثل /<h2>/ أذا أُجيب "h2" في prompt أعلاه
+```
+
+## الأعلام
+
+التعبيرات المنتظمة ربما تحتوي علي أعلام تؤثر في البحث.
+
+هناك فقط 6 منهم في ال JavaScript:
 
 `pattern:i`
-: With this flag the search is case-insensitive: no difference between `A` and `a` (see the example below).
+: عند أستخدام هذا العلم. البحث لا يهتم بحالة الاحرف. فلا أختلاف بين ال `A` وال `a` (أنظر للمثال بالأسفل).
 
 `pattern:g`
-: With this flag the search looks for all matches, without it -- only the first match is returned.
+: باستخدام هذه العلامة ، يبحث البحث عن جميع التطابقات ، بدونها -- يتم إرجاع المطابقة الأولى فقط
 
 `pattern:m`
-: Multiline mode (covered in the chapter <info:regexp-multiline-mode>).
+: وضع متعدد الاسطر (تم تغطيتها في الفصل <info:regexp-multiline-mode>).
 
 `pattern:s`
-: Enables "dotall" mode, that allows a dot `pattern:.` to match newline character `\n` (covered in the chapter <info:regexp-character-classes>).
+: يمكننا وضع ال "dotall", يسمح النقطة `pattern:.` لمطابقة السطر الجديد `\n` (تم تغطيته في الفصل <info:regexp-character-classes>).
 
 `pattern:u`
-: Enables full unicode support. The flag enables correct processing of surrogate pairs. More about that in the chapter <info:regexp-unicode>.
+: تمكين دعم Unicode الكامل. يتيح العلم المعالجة الصحيحة للأزواج البديلة. المزيد عن ذلك في الفصل <info:regexp-unicode>.
 
 `pattern:y`
-: "Sticky" mode: searching at the exact position in the text  (covered in the chapter <info:regexp-sticky>)
+: وضع ال "Sticky": يبحث عن الموضع في النص (تم تغطيتها في الفصل <info:regexp-sticky>)
 
-```smart header="Colors"
-From here on the color scheme is:
+```smart header="الألوان"
+من هنا في نظام الألوان:
 
-- regexp -- `pattern:red`
-- string (where we search) -- `subject:blue`
-- result -- `match:green`
+- التعبير المنتظم -- `pattern:red`
+- النص (حيث نبحث) -- `subject:blue`
+- النتيجة -- `match:green`
 ```
 
-## Searching: str.match
+## البحث بأستخدام: str.match
 
-As mentioned previously, regular expressions are integrated with string methods.
+كما ذكرنا سابقًا ، يتم دمج التعبيرات المنتظمة مع وظائف النص.
 
-The method `str.match(regexp)` finds all matches of `regexp` in the string `str`.
+الوظيفة `str.match(regexp)` تجد كل ما يحتوي علي `regexp` في النص `str`.
 
-It has 3 working modes:
+لديها 3 طرق عمل:
 
-1. If the regular expression has flag `pattern:g`, it returns an array of all matches:
+1. أذا كان التعبير المنتظم يحتوي علي العلم `pattern:g`, تقوم بإرجاع مجموعة من كافة التطابقات:
     ```js run
     let str = "We will, we will rock you";
 
-    alert( str.match(/we/gi) ); // We,we (an array of 2 substrings that match)
+    alert( str.match(/we/gi) ); // We,we (مصفوفة من نصين متطابقين)
     ```
-    Please note that both `match:We` and `match:we` are found, because flag `pattern:i` makes the regular expression case-insensitive.
+    من فضلك انتبه ان كلا من ال `match:We` وال `match:we` تم أيجادهم, لان العلم `pattern:i` يجعل التعبير المنتظم لا يهتم بحالة الاحرف.
 
-2. If there's no such flag it returns only the first match in the form of an array, with the full match at index `0` and some additional details in properties:
+2. إذا لم يكن هناك مثل هذا العلم ، فإنه يُرجع المطابقة الأولى فقط في شكل مصفوفة ، مع المطابقة الكاملة في الفهرس `0` وبعض التفاصيل الإضافية في الخصائص:
     ```js run
     let str = "We will, we will rock you";
 
-    let result = str.match(/we/i); // without flag g
+    let result = str.match(/we/i); // بدون العلم g
 
-    alert( result[0] );     // We (1st match)
+    alert( result[0] );     // We (المتطابقة الاولي)
     alert( result.length ); // 1
 
-    // Details:
-    alert( result.index );  // 0 (position of the match)
-    alert( result.input );  // We will, we will rock you (source string)
+    // االتفاصيل:
+    alert( result.index );  // 0 (موضع الجزء الذي تم البحث عنه)
+    alert( result.input );  // We will, we will rock you (النص)
     ```
-    The array may have other indexes, besides `0` if a part of the regular expression is enclosed in parentheses. We'll cover that in the chapter  <info:regexp-groups>.
+    قد تحتوي المصفوفة على فهارس أخرى ، إلى جانب `0` إذا تم تضمين جزء من التعبير المنتظم بين قوسين. سنتناول ذلك في الفصل  <info:regexp-groups>.
 
-3. And, finally, if there are no matches, `null` is returned (doesn't matter if there's flag `pattern:g` or not).
+3. وأخيراُ, أذا كان هناك ولا متطابقة, فأن الناتج يكون `null` (لا يهم أذا كان يوجد العلم `pattern:g` او لا يوجد).
 
-    This a very important nuance. If there are no matches, we don't receive an empty array, but instead receive `null`. Forgetting about that may lead to errors, e.g.:
+    هذا فارق بسيط مهم للغاية. إذا لم تكن هناك تطابقات ، فلن نتلقى مصفوفة فارغة ، ولكن بدلاً من ذلك نتلقى `null`. قد يؤدي نسيان ذلك إلى حدوث أخطاء ، على سبيل المثال:
 
     ```js run
     let matches = "JavaScript".match(/HTML/); // = null
 
-    if (!matches.length) { // Error: Cannot read property 'length' of null
-      alert("Error in the line above");
+    if (!matches.length) { // خطأ: لا يمكن قراءة الخاصية 'length' لدي null
+      alert("خطأ في السطر الأعلي");
     }
     ```
 
-    If we'd like the result to always be an array, we can write it this way:
+    إذا أردنا أن تكون النتيجة دائمًا مصفوفة ، فيمكننا كتابتها بهذه الطريقة:
 
     ```js run
     let matches = "JavaScript".match(/HTML/)*!* || []*/!*;
 
     if (!matches.length) {
-      alert("No matches"); // now it works
+      alert("لا متطابقات"); // الأن أنها تعمل
     }
     ```
 
-## Replacing: str.replace
+## الأستبدال: str.replace
 
-The method `str.replace(regexp, replacement)` replaces matches found using `regexp` in string `str` with `replacement` (all matches if there's flag `pattern:g`, otherwise, only the first one).
+الوظيفة `str.replace(regexp, replacement)` تستبدل المتطابقات التي يتم أيجادها بأستخدام ال `regexp` في النص `str` مع كلمة `replacement` (كل المتطابقات يتم أستبدالها أذا كان هنالك العلم `pattern:g`, غير ذلك, يتم أستبدال المتطابقة الاولي فقط).
 
-For instance:
+علي سبيل المثال:
 
 ```js run
-// no flag g
+// بدون العلم g 
 alert( "We will, we will".replace(/we/i, "I") ); // I will, we will
 
-// with flag g
+// مع أستخدام العلم g
 alert( "We will, we will".replace(/we/ig, "I") ); // I will, I will
 ```
 
-The second argument is the `replacement` string. We can use special character combinations in it to insert fragments of the match:
+العنصر الثاني يكون النص `replacement`. يمكننا استخدام تركيبات أحرف خاصة لإدراج أجزاء من المتطابقة:
 
-| Symbols | Action in the replacement string |
+| الرموز | الاجراء في نص الأستبدال |
 |--------|--------|
-|`$&`|inserts the whole match|
-|<code>$&#096;</code>|inserts a part of the string before the match|
-|`$'`|inserts a part of the string after the match|
-|`$n`|if `n` is a 1-2 digit number, then it inserts the contents of n-th parentheses, more about it in the chapter <info:regexp-groups>|
-|`$<name>`|inserts the contents of the parentheses with the given `name`, more about it in the chapter <info:regexp-groups>|
-|`$$`|inserts character `$` |
+|`$&`|إدراج المتطابقة كاملة|
+|<code>$&#096;</code>|أدراج جزء من النص قبل المتطابقة|
+|`$'`|أدراج جزء من النص بعد المتطابقة|
+|`$n`|أذا `n` تكون رقم او رقمين, ثم يدرج محتويات الأقواس رقم n ، المزيد عنها في الفصل <info:regexp-groups>|
+|`$<name>`|يدرج محتويات الأقواس مع "الاسم" المحدد ، المزيد عنه في الفصل <info:regexp-groups>|
+|`$$`|أدراج حرف `$` |
 
-An example with `pattern:$&`:
+مثال علي `pattern:$&`:
 
 ```js run
-alert( "I love HTML".replace(/HTML/, "$& and JavaScript") ); // I love HTML and JavaScript
+alert( "أنا أحب HTML".replace(/HTML/, "$& and JavaScript") ); // أنا أحب HTML and JavaScript
 ```
 
-## Testing: regexp.test
+## الأختبار: regexp.test
 
-The method `regexp.test(str)` looks for at least one match, if found, returns `true`, otherwise `false`.
+الوظيفة `regexp.test(str)` يبحث عن تطابق واحد على الأقل, أذا وُجد, يكون الناتج او العائد `true`, غير ذلك `false`.
 
 ```js run
-let str = "I love JavaScript";
-let regexp = /LOVE/i;
+let str = "أنا أحب JavaScript";
+let regexp = /أحب/i;
 
 alert( regexp.test(str) ); // true
 ```
 
-Later in this chapter we'll study more regular expressions, walk through more examples, and also meet other methods.
+لاحقًا في هذا الفصل ، سندرس تعبيرات أكثر انتظامًا ، وسنتعرف على المزيد من الأمثلة ، ونلتقي أيضًا بطرق أخرى.
 
-Full information about the methods is given in the article <info:regexp-methods>.
+يتم توفير معلومات كاملة عن الأساليب في المقالة <info:regexp-methods>.
 
-## Summary
+## الملخص
 
-- A regular expression consists of a pattern and optional flags: `pattern:g`, `pattern:i`, `pattern:m`, `pattern:u`, `pattern:s`, `pattern:y`.
-- Without flags and special symbols  (that we'll study later), the search by a regexp is the same as a substring search.
-- The method `str.match(regexp)` looks for matches: all of them if there's `pattern:g` flag, otherwise, only the first one.
-- The method `str.replace(regexp, replacement)` replaces matches found using `regexp` with `replacement`: all of them if there's `pattern:g` flag, otherwise only the first one.
-- The method `regexp.test(str)` returns `true` if there's at least one match, otherwise, it returns `false`.
+- يتكون التعبير المنتظم من نمط وأعلام اختيارية: `pattern:g`, `pattern:i`, `pattern:m`, `pattern:u`, `pattern:s`, `pattern:y`.
+- بدون أعلام او رموز خاصة  (ذلك سوف ندرسه لاحقاً), البحث عن طريق regexp هو نفسه البحث عن سلسلة فرعية.
+- الوظيفة `str.match(regexp)` يبحث عن المتطابقات: كلها إن وجدت `pattern:g` علم, غير ذلك, فقط المتطابقة الاولي.
+- الوظيفة `str.replace(regexp, replacement)` تستبدل المتطابقات التي توجد بأستخدام `regexp` مع `replacement`: كلهم أن تم أيجادهم `pattern:g` علم, غير ذلك الاولي فقط.
+- الوظيفة `regexp.test(str)` تُعيد لنا `true` أذا كان هناك علي الاقل متطابقة واحدة, غير ذلك, تُعيد لنا `false`.

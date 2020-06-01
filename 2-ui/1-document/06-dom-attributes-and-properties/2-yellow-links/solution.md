@@ -1,9 +1,8 @@
+أولاً ، نحن بحاجة إلى العثور على جميع المراجع الخارجية.
 
-First, we need to find all external references.
+هناك طريقتان.
 
-There are two ways.
-
-The first is to find all links using `document.querySelectorAll('a')` and then filter out what we need:
+الأول هو العثور على جميع الروابط باستخدام `document.querySelectorAll ('a')` ثم تصفية ما نحتاج إليه:
 
 ```js
 let links = document.querySelectorAll('a');
@@ -22,9 +21,9 @@ for (let link of links) {
 }
 ```
 
-Please note: we use `link.getAttribute('href')`. Not `link.href`, because we need the value from HTML.
+يرجى ملاحظة ما يلي: نستخدم `link.getAttribute ('href')`. ليس `link.href` ، لأننا نحتاج إلى القيمة من HTML.
 
-...Another, simpler way would be to add the checks to CSS selector:
+... طريقة أخرى أبسط هي إضافة الشيكات إلى محدد CSS:
 
 ```js
 // look for all links that have :// in href
@@ -34,3 +33,4 @@ let links = document.querySelectorAll(selector);
 
 links.forEach(link => link.style.color = 'orange');
 ```
+

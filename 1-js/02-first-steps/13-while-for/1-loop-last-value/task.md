@@ -1,10 +1,10 @@
-importance: 3
+الأهمية: 3
 
 ---
 
-# Last loop value
+# آخر قيمة للحلقة
 
-What is the last value alerted by this code? Why?
+ما هي آخر قيمة سيتم عرضها ؟ ولماذا ؟
 
 ```js
 let i = 3;

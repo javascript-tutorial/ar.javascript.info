@@ -1,3 +1,3 @@
-# Object properties configuration
+# خصائص تكوين الكائنات
 
-In this section we return to objects and study their properties even more in-depth.
+في هذا الفصل قمنا بالعودة الى الكائنات و دراسة خصائصها بشكل اعمق.

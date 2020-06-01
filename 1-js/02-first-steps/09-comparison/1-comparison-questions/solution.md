@@ -10,12 +10,12 @@ null == "\n0\n" → false
 null === +"\n0\n" → false
 ```
 
-Some of the reasons:
+بعض الأسباب:
 
-1. Obviously, true.
-2. Dictionary comparison, hence false. `"a"` is smaller than `"p"`.
-3. Again, dictionary comparison, first char of `"2"` is greater than the first char of `"1"`.
-4. Values `null` and `undefined` equal each other only.
-5. Strict equality is strict. Different types from both sides lead to false.
-6. Similar to `(4)`, `null` only equals `undefined`.
-7. Strict equality of different types.
+1. من الواضح ، صحيح.
+2. مقارنة القاموس ، وبالتالي خطأ. "" a "أصغر من" "p" ".
+3. مرة أخرى ، مقارنة القاموس ، الحرف الأول من "2" أكبر من الحرف الأول من "1".
+4. القيم "فارغة" و "غير محددة" تساوي بعضها البعض فقط.
+5. المساواة الصارمة صارمة. أنواع مختلفة من كلا الجانبين تؤدي إلى خطأ.
+6- على غرار "(4)` ، "فارغ" يساوي فقط "غير محدد".
+7. المساواة الصارمة بمختلف أنواعها.

@@ -1,11 +1,11 @@
 
-# Microtasks
+# المهام الصغيرة
 
-Promise handlers `.then`/`.catch`/`.finally` are always asynchronous.
+Promise معالجات الـ `.then`/`.catch`/`.finally` غير متزامنة دائما
 
-Even when a Promise is immediately resolved, the code on the lines *below* `.then`/`.catch`/`.finally` will still execute before these handlers.
+حتى عندما يتم حل promise على الفور ، فإن الكود الموجود على الأسطر * أدناه * `.then` /` .catch` / `.finally` ستستمر قبل تنفيذ هذه المعالجات.
 
-Here's a demo:
+هنا عرض توضيحي:
 
 ```js run
 let promise = Promise.resolve();
@@ -15,34 +15,33 @@ promise.then(() => alert("promise done!"));
 alert("code finished"); // this alert shows first
 ```
 
-If you run it, you see `code finished` first, and then `promise done!`.
+إذا قمت بتشغيله, ستلاحظ `code finished` أولا, ثم بعد ذلك`promise done!`.
 
-That's strange, because the promise is definitely done from the beginning.
+هذا غريب ، لأن الpromise يتم بالتأكيد من البداية.
 
-Why did the `.then` trigger afterwards? What's going on?
+لماذا تم تشغيل ".then" بعد ذلك؟ ماذا يحدث هنا؟
 
-## Microtasks queue
+## طابور المهام الصغيرة
 
-Asynchronous tasks need proper management. For that, the ECMA standard specifies an internal queue `PromiseJobs`, more often referred to as the "microtask queue" (ES8 term).
+المهام عير المتزامنة بحاجة إلى إدارة سليمة. لذلك ، يحدد معيار ECMA قائمة انتظار داخلية `PromiseJobs` ، والتي يشار إليها غالبًا باسم" قائمة انتظار المهام المصغرة "(مصطلح ES8).
 
-As stated in the [specification](https://tc39.github.io/ecma262/#sec-jobs-and-job-queues):
+كما هو مذكور في [المواصفات] (https://tc39.github.io/ecma262/#sec-jobs-and-job-queues):
 
-- The queue is first-in-first-out: tasks enqueued first are run first.
-- Execution of a task is initiated only when nothing else is running.
+- قائمة الانتظار هي أول ما يخرج أولاً: يتم تنفيذ المهام المحددة أولاً.
+- يبدأ تنفيذ المهمة فقط في حالة عدم تشغيل أي شيء آخر.
 
-Or, to say more simply, when a promise is ready, its `.then/catch/finally` handlers are put into the queue; they are not executed yet. When the JavaScript engine becomes free from the current code, it takes a task from the queue and executes it.
+أو ، ببساطة ، عندما يكون الوعد جاهزًا ، يتم وضع معالجات "then / catch / وأخيرا" في قائمة الانتظار ؛ لم يتم إعدامهم بعد. عندما يصبح محرك JavaScript خاليًا من التعليمات البرمجية الحالية ، فإنه يأخذ مهمة من قائمة الانتظار وينفذها.
 
-That's why "code finished" in the example above shows first.
-
+هذا هو السبب في أن "الرمز انتهى" في المثال أعلاه يظهر أولاً.
 ![](promiseQueue.svg)
 
-Promise handlers always go through this internal queue.
+تمر معالجات الوعد دائمًا من خلال قائمة الانتظار الداخلية هذه.
 
-If there's a chain with multiple `.then/catch/finally`, then every one of them is executed asynchronously. That is, it first gets queued, then executed when the current code is complete and previously queued handlers are finished.
+إذا كانت هناك سلسلة تحتوي على عدة ".then / catch / أخيرا" ، فسيتم تنفيذ كل واحد منها بشكل غير متزامن. أي أنه يتم وضعه في قائمة الانتظار أولاً ، ثم يتم تنفيذه عند اكتمال الرمز الحالي والانتهاء من معالجات قائمة الانتظار السابقة.
 
-**What if the order matters for us? How can we make `code finished` run after `promise done`?**
+** ماذا لو كان الأمر يهمنا؟ كيف يمكننا أن نجعل "الشفرة منتهية" تعمل بعد "الوعد"؟ **
 
-Easy, just put it into the queue with `.then`:
+سهل ، ما عليك سوى وضعها في قائمة الانتظار باستخدام ".then`:
 
 ```js run
 Promise.resolve()
@@ -50,17 +49,17 @@ Promise.resolve()
   .then(() => alert("code finished"));
 ```
 
-Now the order is as intended.
+الآن الأمر كما هو مقصود.
 
-## Unhandled rejection
+## رفض غير معالج
 
-Remember the `unhandledrejection` event from the article <info:promise-error-handling>?
+هل تتذكر حدث `unhandledrejection` من المقالة <info: promo-error-handling>؟
 
-Now we can see exactly how JavaScript finds out that there was an unhandled rejection.
+الآن يمكننا أن نرى بالضبط كيف تكتشف جافا سكريبت وجود رفض غير معالج.
 
-**An "unhandled rejection" occurs when a promise error is not handled at the end of the microtask queue.**
+** يحدث "رفض غير معالج" عندما لا تتم معالجة خطأ الوعد في نهاية قائمة المهام الدقيقة. **
 
-Normally, if we expect an error, we add `.catch` to the promise chain to handle it:
+عادةً ، إذا توقعنا خطأ ، فإننا نضيف ".catch" إلى سلسلة الوعود للتعامل معه:
 
 ```js run
 let promise = Promise.reject(new Error("Promise Failed!"));
@@ -72,7 +71,7 @@ promise.catch(err => alert('caught'));
 window.addEventListener('unhandledrejection', event => alert(event.reason));
 ```
 
-But if we forget to add `.catch`, then, after the microtask queue is empty, the engine triggers the event:
+ولكن إذا نسينا إضافة ".catch" ، فعندما تصبح قائمة انتظار المهام الدقيقة فارغة ، يقوم المحرك بتشغيل الحدث:
 
 ```js run
 let promise = Promise.reject(new Error("Promise Failed!"));
@@ -81,7 +80,7 @@ let promise = Promise.reject(new Error("Promise Failed!"));
 window.addEventListener('unhandledrejection', event => alert(event.reason));
 ```
 
-What if we handle the error later? Like this:
+ماذا لو تعاملنا مع الخطأ لاحقًا؟ مثله:
 
 ```js run
 let promise = Promise.reject(new Error("Promise Failed!"));
@@ -93,20 +92,20 @@ setTimeout(() => promise.catch(err => alert('caught')), 1000);
 window.addEventListener('unhandledrejection', event => alert(event.reason));
 ```
 
-Now, if we run it, we'll see `Promise Failed!` first and then `caught`.
+الآن ، إذا قمنا بتشغيله ، فسنرى "فشل الوعد!" أولاً ثم "تم الإمساك".
 
-If we didn't know about the microtasks queue, we could wonder: "Why did `unhandledrejection` handler run? We did catch and handle the error!"
+إذا لم نكن نعرف عن قائمة انتظار المهام الصغيرة ، فيمكننا أن نتساءل: "لماذا تم تشغيل معالج" عدم التعامل مع رفض "؟ لقد أمسكنا بالخطأ ومعالجته!"
 
-But now we understand that `unhandledrejection` is generated when the microtask queue is complete: the engine examines promises and, if any of them is in the "rejected" state, then the event triggers.
+ولكننا نفهم الآن أن "رفضًا غير معالَج" يتم إنشاؤه عند اكتمال قائمة انتظار المهام المصغرة: يقوم المحرك بفحص الوعود ، وإذا كان أي منها في حالة "مرفوضة" ، يتم تشغيل الحدث.
 
-In the example above, `.catch` added by `setTimeout` also triggers. But it does so later, after `unhandledrejection` has already occurred, so it doesn't change anything.
+في المثال أعلاه ، يتم تشغيل `.catch` بواسطة` setTimeout` أيضًا. ولكنه يفعل ذلك لاحقًا ، بعد حدوث "رفض غير معالَج" بالفعل ، لذلك لا يغير أي شيء.
 
-## Summary
+## ملخص
 
-Promise handling is always asynchronous, as all promise actions pass through the internal "promise jobs" queue, also called "microtask queue" (ES8 term).
+معالجة الوعد دائمًا غير متزامنة ، حيث تمر جميع إجراءات الوعد من خلال قائمة انتظار "وظائف الوعد" الداخلية ، والتي تسمى أيضًا "قائمة انتظار المهام المصغرة" (مصطلح ES8).
 
-So `.then/catch/finally` handlers are always called after the current code is finished.
+لذلك يتم دائمًا استدعاء معالجات `.then / catch / أخيرا` بعد انتهاء الكود الحالي.
 
-If we need to guarantee that a piece of code is executed after `.then/catch/finally`, we can add it into a chained `.then` call.
+إذا احتجنا إلى ضمان تنفيذ جزء من الرمز بعد ".then / catch / أخيرا" ، يمكننا إضافته إلى مكالمة ".then" المتسلسلة.
 
-In most Javascript engines, including browsers and Node.js, the concept of microtasks is closely tied with the "event loop" and "macrotasks". As these have no direct relation to promises, they are covered in another part of the tutorial, in the article <info:event-loop>.
+في معظم محركات جافا سكريبت ، بما في ذلك المتصفحات و Node.js ، يرتبط مفهوم المهام الدقيقة ارتباطًا وثيقًا بـ "حلقة الأحداث" و "المهام الكبيرة". نظرًا لأن هذه ليست لها علاقة مباشرة بالوعود ، فقد تم تناولها في جزء آخر من البرنامج التعليمي ، في المقالة <info: event-loop>.

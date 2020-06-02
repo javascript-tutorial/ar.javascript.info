@@ -4,6 +4,6 @@ importance: 4
 
 # A simple page
 
-Create a web-page that asks for a name and outputs it.
+قم بإنشاء صفحة ويب تسأل المستخدم لإدخال إسم ثم تظهره له.
 
 [demo]

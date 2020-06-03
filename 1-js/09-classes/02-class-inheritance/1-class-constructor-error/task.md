@@ -1,12 +1,12 @@
-importance: 5
+درجة الأهمية : 5
 
 ---
 
-# Error creating an instance
+# خطأ في إنشاء مثيل
 
-Here's the code with `Rabbit` extending `Animal`.
+إليك الرمز الذي يحتوي على "أرنب" يمتد "حيوان".
 
-Unfortunately, `Rabbit` objects can't be created. What's wrong? Fix it.
+لسوء الحظ ، لا يمكن إنشاء كائنات "أرنب". ماالخطب؟ اصلحه.
 ```js run
 class Animal {
 

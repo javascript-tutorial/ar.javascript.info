@@ -1,40 +1,39 @@
+# جالبات الخصائص وضابطاتها (Getters and Setters)
 
-# Property getters and setters
+يوجد نوعين من الخصائص.
 
-There are two kinds of properties.
+الأوّل هو خصائص البيانات _data properties_. نحن بالفعل نعلم كيف نتعامل مع هذا النوع. إذ كلّ ما استعملناه من البداية حتى الآن هو خصائص البيانات.
 
-The first kind is *data properties*. We already know how to work with them. All properties that we've been using until now were data properties.
+النوع الثاني من الخصائص هو شيئ ما جديد. و هو _accessor properties_. هي دوال بشكل أساسي تجلب القيم و تضبطها, ولكن في الكود تظهرُ لنا وكأنها خصائص عادية.
 
-The second type of properties is something new. It's *accessor properties*. They are essentially functions that work on getting and setting a value, but look like regular properties to an external code.
+## الجالبات والضابطات
 
-## Getters and setters
-
-Accessor properties are represented by "getter" and "setter" methods. In an object literal they are denoted by `get` and `set`:
+خصائص الوصول تمثل بـ "getter" و "setter". يشار إليهم داخل الكائن بـ `get` and `set`:
 
 ```js
 let obj = {
   *!*get propName()*/!* {
-    // getter, the code executed on getting obj.propName
+    // ‫جالب، يُستعمَل لجلب قيمة الخاصية obj.propName
   },
 
   *!*set propName(value)*/!* {
-    // setter, the code executed on setting obj.propName = value
+    // ‫ضابط يُستعمَل لضبط قيمة الخاصية obj.propName إلى value
   }
 };
 ```
 
-The getter works when `obj.propName` is read, the setter -- when it is assigned.
+يستعمل الجالب عند قراءة الخاصية `obj.propName`, الضابط -- عند ضبط أو إسناد قيمة تلك الخاصية.
 
-For instance, we have a `user` object with `name` and `surname`:
+لاحظ مثلا, لدينا كائن `user` و لديه `name` و `surname`:
 
 ```js
 let user = {
-  name: "John",
-  surname: "Smith"
+  name: 'John',
+  surname: 'Smith',
 };
 ```
 
-Now we want to add a `fullName` property, that should be `"John Smith"`. Of course, we don't want to copy-paste existing information, so we can implement it as an accessor:
+الآن نريد إضافة خاصية الاسم الكامل `fullName`, التى يجب ان تكون `"John Smith"`. بالطبع, طبعًا لا نريد نسخ المعلومات ولصقها, لذا سنُنفذها باستخدام خاصية الوصول (ِget) :
 
 ```js run
 let user = {
@@ -53,9 +52,9 @@ alert(user.fullName); // John Smith
 */!*
 ```
 
-From outside, an accessor property looks like a regular one. That's the idea of accessor properties. We don't *call* `user.fullName` as a function, we *read* it normally: the getter runs behind the scenes.
+من الخارج, لا تبدو خاصية الوصول إلا خاصية عادية. وهذا بالضبط الغرض من هذه الخصائص. فلسنا نريد _إستدعاء_ `user.fullName` على أنّها دالة, بل _قراءتها_ بشكل طبيعي: ونترك الجالب يقوم بعمله خلف الكواليس.
 
-As of now, `fullName` has only a getter. If we attempt to assign `user.fullName=`, there will be an error:
+حتى الآن, `fullName` لديها فقط جالب. لو حاولنا إسناد قيمة لها عن طريق `user.fullName=`, سوف يحدث خطأ:
 
 ```js run
 let user = {
@@ -65,11 +64,11 @@ let user = {
 };
 
 *!*
-user.fullName = "Test"; // Error (property has only a getter)
+user.fullName = "Test"; // خطأ (للخاصية جالب فقط)
 */!*
 ```
 
-Let's fix it by adding a setter for `user.fullName`:
+هيًا نُصلح الخطأ ونُضيف ضابطًا للخاصية `user.fullName`:
 
 ```js run
 let user = {
@@ -87,29 +86,29 @@ let user = {
 */!*
 };
 
-// set fullName is executed with the given value.
+// ضبط fullName تم بالقيمة المعطاه.
 user.fullName = "Alice Cooper";
 
 alert(user.name); // Alice
 alert(user.surname); // Cooper
 ```
 
-As the result, we have a "virtual" property `fullName`. It is readable and writable.
+و نتيجة لذلك, لدينا خاصية "وهمية" `fullName`. يمكننا قراءتها والكتابة عليها، ولكنها في واقع الأمر، غير موجودة.
 
-## Accessor descriptors
+## واصفات الوصول (Accessor Descriptors)
 
-Descriptors for accessor properties are different from those for data properties.
+واصِفات خصائص الوصول (Accessor Properties) تختلف عن واصِفات خصائص البيانات (Data Properties).
 
-For accessor properties, there is no `value` or `writable`, but instead there are `get` and `set` functions.
+بالنسبة لخصائص الوصول, لا يوجد `value` او `writable`, و لكن بدلاً من ذلك يوجد دوال `get` و `set`.
 
-That is, an accessor descriptor may have:
+أي, واصف الوصول يمكن ان يمتلك ما يلي:
 
-- **`get`** -- a function without arguments, that works when a property is read,
-- **`set`** -- a function with one argument, that is called when the property is set,
-- **`enumerable`** -- same as for data properties,
-- **`configurable`** -- same as for data properties.
+- **`get`** -- داله لا تستقبل قيم, و تعمل عند قراءة الخاصية,
+- **`set`** -- داله تستقبل قيمة واحدة, و تعمل عند إرادة ضبة الخاصية,
+- **`enumerable`** -- خاصية قابلية الإحصاء وهي مشابهة لخاصيّات البيانات,
+- **`configurable`** -- خاصية قابلية إعادة الضبط وهي مشابهة لخاصيّات البيانات.
 
-For instance, to create an accessor `fullName` with `defineProperty`, we can pass a descriptor with `get` and `set`:
+فمثلاً, لنُنشئ خاصية الوصول `fullName` بإستخدام `defineProperty`, يمكن أن نُمرر واصفاً مثل `get` و `set`:
 
 ```js run
 let user = {
@@ -134,13 +133,13 @@ alert(user.fullName); // John Smith
 for(let key in user) alert(key); // name, surname
 ```
 
-Please note that a property can be either an accessor (has `get/set` methods) or a data property (has a `value`), not both.
+يرجى ملاحظة أن الخاصية يمكن ان تكون خاصية وصول (لها طرق `get/set`) او خاصية بيانات (لديها `value`), و لكن ليس كلاهما.
 
-If we try to supply both `get` and `value` in the same descriptor, there will be an error:
+لو حاولنا تقديم `get` و `value` معاً في نفس الواصف, سوف يحدث خطأ:
 
 ```js run
 *!*
-// Error: Invalid property descriptor.
+// خطأ: واصِف الخاصية غير صالح.
 */!*
 Object.defineProperty({}, 'prop', {
   get() {
@@ -151,11 +150,11 @@ Object.defineProperty({}, 'prop', {
 });
 ```
 
-## Smarter getters/setters
+## الجوالب والضوابط الذكية
 
-Getters/setters can be used as wrappers over "real" property values to gain more control over operations with them.
+يمكننا استعمال الجوالب والضوابط كأغلفة لقيم الخاصيات "الفعلية" لكى تستطيع التحكم اكثر في العمليات بينهم.
 
-For instance, if we want to forbid too short names for `user`, we can have a setter `name` and keep the value in a separate property `_name`:
+فمثلاً, إذا اردنا منع الأسماء القصيرة لـ `user`, فيمكن ان يكون لدينا الضابط `name` و ترك القيمه في خاصية منفصلة `_name`:
 
 ```js run
 let user = {
@@ -165,29 +164,28 @@ let user = {
 
   set name(value) {
     if (value.length < 4) {
-      alert("Name is too short, need at least 4 characters");
+      alert('Name is too short, need at least 4 characters');
       return;
     }
     this._name = value;
-  }
+  },
 };
 
-user.name = "Pete";
+user.name = 'Pete';
 alert(user.name); // Pete
 
-user.name = ""; // Name is too short...
+user.name = ''; // ...الإسم قصير جدا
 ```
 
-So, the name is stored in `_name` property, and the access is done via getter and setter.
+إذاً, سوف يتخزن الإسم في خاصية `_name`, و الوصول سوف يكون عن طريق الجالبات و الضابطات.
 
-Technically, external code is able to access the name directly by using `user._name`. But there is a widely known convention that properties starting with an underscore `"_"` are internal and should not be touched from outside the object.
+عملياً, الكود الخارجي يمكن ان يصل الى الإسم بشكل مباشر عن طريق إستخدام `user._name`. ولكن هناك مفهوم شائع هو أنّ الخاصيات التي تبدأ بشرطة سفلية `"_"` هي خاصيات داخلية وممنوع التعديل عليها من خارج الكائن.
 
+## استعمالها لغرض التوافقية
 
-## Using for compatibility
+إحدى استعمالات خاصيات الوصول هذه هي إتاحة الفرصة للتحكّم بخاصية بيانات "عادية" متى أردنا واستبدالها بدالتي جلب وضبط وتعديل سلوكها.
 
-One of the great uses of accessors is that they allow to take control over a "regular" data property at any moment by replacing it with a getter and a setter and tweak its behavior.
-
-Imagine we started implementing user objects using data properties `name` and `age`:
+لنقل مثلًا بأنّا بدأنا المشروع حيث كانت كائنات المستخدمين تستعمل خاصيات البيانات `name` and `age`:
 
 ```js
 function User(name, age) {
@@ -195,12 +193,12 @@ function User(name, age) {
   this.age = age;
 }
 
-let john = new User("John", 25);
+let john = new User('John', 25);
 
-alert( john.age ); // 25
+alert(john.age); // 25
 ```
 
-...But sooner or later, things may change. Instead of `age` we may decide to store `birthday`, because it's more precise and convenient:
+...و لكن عاجلاً ام آجلاً, يمكن أن تتغير الأمور. بدلاً من `age` يمكن ان نقرر التخزين في `birthday`, لأنه اكثر دقه و سهوله في الإستعمال:
 
 ```js
 function User(name, birthday) {
@@ -208,16 +206,16 @@ function User(name, birthday) {
   this.birthday = birthday;
 }
 
-let john = new User("John", new Date(1992, 6, 1));
+let john = new User('John', new Date(1992, 6, 1));
 ```
 
-Now what to do with the old code that still uses `age` property?
+و لكن ماذا نفعل مع الكود القديم الذي ما زال يستخدم خاصية `age`؟
 
-We can try to find all such places and fix them, but that takes time and can be hard to do if that code is used by many other people. And besides, `age` is a nice thing to have in `user`, right?
+يمكن إن نبحث عن كل الأماكن التى تستخدمها و نقوم بالإصلاح, و لكن ذلك سوف يتغرق الوقت و يمكن ان يكون من الصعب تنفيذه إذا كان هذا الكود يستخدمه اشخاص آخرون. كما إن وجود عمر المستخدم, `age` داخل `user` هو امر جيد, اليس كذلك ؟
 
-Let's keep it.
+دعنا نبقي الخاصية كما هي.
 
-Adding a getter for `age` solves the problem:
+إضافة جالب للخاصية `age` سوف يقوم بحل المشكلة:
 
 ```js run no-beautify
 function User(name, birthday) {
@@ -225,7 +223,7 @@ function User(name, birthday) {
   this.birthday = birthday;
 
 *!*
-  // age is calculated from the current date and birthday
+  // العمر هو الفرق بين التاريخ اليوم وتاريخ الميلاد
   Object.defineProperty(this, "age", {
     get() {
       let todayYear = new Date().getFullYear();
@@ -237,8 +235,8 @@ function User(name, birthday) {
 
 let john = new User("John", new Date(1992, 6, 1));
 
-alert( john.birthday ); // birthday is available
-alert( john.age );      // ...as well as the age
+alert( john.birthday ); // تاريخ الميلاد موجود
+alert( john.age );      // ...وعمر المستخدم أيضًا
 ```
 
-Now the old code works too and we've got a nice additional property.
+الآن الكود القديم يعمل إيضاً و لدينا خاصية إضافية لطيفه.

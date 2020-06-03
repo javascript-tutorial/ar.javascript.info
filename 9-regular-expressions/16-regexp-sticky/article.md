@@ -1,33 +1,33 @@
 
-# Sticky flag "y", searching at position
+# علم ثابت "y" ، البحث في الموضع
 
-The flag `pattern:y` allows to perform the search at the given position in the source string.
+تسمح العلامة `pattern: y` بالبحث في الموضع المحدد في السلسلة المصدر.
 
-To grasp the use case of `pattern:y` flag, and see how great it is, let's explore a practical use case.
+لفهم حالة استخدام علامة "pattern: y" ، ومعرفة مدى روعتها ، دعنا نستكشف حالة استخدام عملية.
 
-One of common tasks for regexps is "lexical analysis": we get a text, e.g. in a programming language, and analyze it for structural elements.
+إحدى المهام الشائعة لـ regexps هي "التحليل المعجمي": نحصل على نص ، على سبيل المثال في لغة البرمجة ، وتحليلها للعناصر الهيكلية.
 
-For instance, HTML has tags and attributes, JavaScript code has functions, variables, and so on.
+على سبيل المثال ، يحتوي HTML على علامات وسمات ، وشفرة JavaScript لها وظائف ، ومتغيرات ، وما إلى ذلك.
 
-Writing lexical analyzers is a special area, with its own tools and algorithms, so we don't go deep in there, but there's a common task: to read something at the given position.
+تعد كتابة المحللات المعجمية مجالًا خاصًا ، مع أدواته وخوارزمياته الخاصة ، لذلك لا نتعمق في ذلك ، ولكن هناك مهمة مشتركة: قراءة شيء ما في الموضع المحدد.
 
-E.g. we have a code string `subject:let varName = "value"`, and we need to read the variable name from it, that starts at position `4`.
+على سبيل المثال لدينا سلسلة التعليمات البرمجية `subject: let varName =" value "` ، ونحتاج إلى قراءة اسم المتغير منه ، الذي يبدأ في الموضع `4`.
 
-We'll look for variable name using regexp `pattern:\w+`. Actually, JavaScript variable names need a bit more complex regexp for accurate matching, but here it doesn't matter.
+سنبحث عن اسم متغير باستخدام نمط regexp `: \ w +`. في الواقع ، تحتاج أسماء متغيرات جافا سكريبت إلى regexp أكثر تعقيدًا قليلاً لمطابقة دقيقة ، ولكن هنا لا يهم.
 
-A call to `str.match(/\w+/)` will find only the first word in the line. Or all words with the flag `pattern:g`. But we need only one word at position `4`.
+استدعاء `str.match (/ \ w + /)` سيجد الكلمة الأولى فقط في السطر. أو جميع الكلمات التي تحمل علامة `pattern: g`. ولكننا نحتاج إلى كلمة واحدة فقط في الموضع `4`.
 
-To search from the given position, we can use method `regexp.exec(str)`.
+للبحث من الموضع المحدد ، يمكننا استخدام الطريقة `regexp.exec (str)`.
 
-If the `regexp` doesn't have flags `pattern:g` or `pattern:y`, then this method looks for the first match in the string `str`, exactly like `str.match(regexp)`. Such simple no-flags case doesn't interest us here.
+إذا كان "regexp" لا يحتوي على علامات `pattern: g` أو` pattern: y` ، فإن هذه الطريقة تبحث عن المطابقة الأولى في السلسلة `str` ، تمامًا مثل` str.match (regexp) `. لا تثير اهتمامنا مثل هذه الحالة البسيطة التي لا توجد أعلام فيها.
 
-If there's flag `pattern:g`, then it performs the search in the string `str`, starting from position stored in its `regexp.lastIndex` property. And, if it finds a match, then sets `regexp.lastIndex` to the index immediately after the match.
+إذا كان هناك علامة `pattern: g` ، فسيتم البحث في السلسلة` str` ، بدءًا من الموضع المخزن في خاصية `regexp.lastIndex`. وإذا وجد تطابقًا ، فعيّن "regexp.lastIndex" إلى الفهرس بعد المباراة مباشرة.
 
-When a regexp is created, its `lastIndex` is `0`.
+عند إنشاء regexp ، يكون "lastIndex" هو "0".
 
-So, successive calls to `regexp.exec(str)` return matches one after another.
+لذلك ، المكالمات المتتالية لعودة `regexp.exec (str)` تتطابق واحدة تلو الأخرى.
 
-An example (with flag `pattern:g`):
+مثال (بعلامة `pattern: g`):
 
 ```js run
 let str = 'let varName';
@@ -48,9 +48,9 @@ alert(word3); // null (no more matches)
 alert(regexp.lastIndex); // 0 (resets at search end)
 ```
 
-Every match is returned as an array with groups and additional properties.
+يتم إرجاع كل مباراة كمصفوفة بمجموعات وخصائص إضافية.
 
-We can get all matches in the loop:
+يمكننا الحصول على جميع المباريات في الحلقة:
 
 ```js run
 let str = 'let varName';
@@ -65,11 +65,11 @@ while (result = regexp.exec(str)) {
 }
 ```
 
-Such use of `regexp.exec` is an alternative to method `str.matchAll`.
+يعد استخدام `regexp.exec` بديلاً للطريقة` str.matchAll`.
 
-Unlike other methods, we can set our own `lastIndex`, to start the search from the given position.
+على عكس الطرق الأخرى ، يمكننا تعيين "lastIndex" الخاص بنا لبدء البحث من الموضع المحدد.
 
-For instance, let's find a word, starting from position `4`:
+على سبيل المثال ، دعنا نجد كلمة ، بدءًا من الموضع `4`:
 
 ```js run
 let str = 'let varName = "value"';
@@ -84,9 +84,9 @@ let word = regexp.exec(str);
 alert(word); // varName
 ```
 
-We performed a search of `pattern:\w+`, starting from position `regexp.lastIndex = 4`.
+أجرينا بحثًا عن `النمط: \ w +` ، بدءًا من الموضع `regexp.lastIndex = 4`.
 
-Please note: the search starts at position `lastIndex` and then goes further. If there's no word at position `lastIndex`, but it's somewhere after it, then it will be found:
+يرجى ملاحظة: يبدأ البحث في الموضع `lastIndex` ثم يذهب إلى أبعد من ذلك. إذا لم يكن هناك كلمة في الموضع `lastIndex` ، لكنها موجودة في مكان ما بعدها ، فسيتم العثور عليها:
 
 ```js run
 let str = 'let varName = "value"';
@@ -102,11 +102,11 @@ alert(word[0]); // varName
 alert(word.index); // 4
 ```
 
-...So, with flag `pattern:g` property `lastIndex` sets the starting position for the search.
+...So ، مع وضع علامة `pattern: g` خاصية` lastIndex` تحدد موضع البداية للبحث.
 
-**Flag `pattern:y` makes `regexp.exec` to look exactly at position `lastIndex`, not before, not after it.**
+** وضع علامة على "النمط: y" يجعل "regexp.exec" ينظر بالضبط إلى الموضع "lastIndex" ، ليس قبله وليس بعده. **
 
-Here's the same search with flag `pattern:y`:
+هذا هو نفس البحث مع العلم `pattern: y`:
 
 ```js run
 let str = 'let varName = "value"';
@@ -120,8 +120,8 @@ regexp.lastIndex = 4;
 alert( regexp.exec(str) ); // varName (word at position 4)
 ```
 
-As we can see, regexp `pattern:/\w+/y` doesn't match at position `3` (unlike the flag  `pattern:g`), but matches at position `4`.
+كما نرى ، لا يتطابق regexp `pattern: / \ w + / y` في الموضع` 3` (على عكس العلم `pattern: g`) ، ولكنه يتطابق في الموضع` 4`.
 
-Imagine, we have a long text, and there are no matches in it, at all. Then searching with flag `pattern:g` will go till the end of the text, and this will take significantly more time than the search with flag `pattern:y`.
+تخيل ، لدينا نص طويل ، ولا يوجد تطابق على الإطلاق. ثم البحث باستخدام العلامة `نقش: g` سيستمر حتى نهاية النص ، وسيستغرق هذا وقتًا أكثر بكثير من البحث باستخدام العلم` نقش: ص`.
 
-In such tasks like lexical analysis, there are usually many searches at an exact position. Using flag `pattern:y` is the key for a good performance.
+في مثل هذه المهام مثل التحليل المعجمي ، عادة ما تكون هناك العديد من عمليات البحث في موضع محدد. إن استخدام العلم `pattern: y` هو مفتاح الأداء الجيد.

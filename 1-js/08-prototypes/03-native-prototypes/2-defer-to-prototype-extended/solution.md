@@ -8,17 +8,17 @@ Function.prototype.defer = function(ms) {
   }
 };
 
-// check it
+// اختبر
 function f(a, b) {
   alert( a + b );
 }
 
-f.defer(1000)(1, 2); // shows 3 after 1 sec
+f.defer(1000)(1, 2); // تعرض 3 بعد ثانية واحدة
 ```
 
-Please note: we use `this` in `f.apply` to make our decoration work for object methods.
+لاحظ: استخدمنا `this` فى `f.apply` لتعمل مع دوال الكائنات.
 
-So if the wrapper function is called as an object method, then `this` is passed to the original method `f`.
+ولذلك إذا تم استدعاء دالة كدالة كائن (method) فإن `this` سيتم تمرريرها إلى الدالة الأصلية `f`.
 
 ```js run
 Function.prototype.defer = function(ms) {

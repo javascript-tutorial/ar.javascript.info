@@ -1,22 +1,22 @@
-# Catastrophic backtracking
+# التراجع الكارثي
 
-Some regular expressions are looking simple, but can execute veeeeeery long time, and even "hang" the JavaScript engine.
+تبدو بعض التعبيرات العادية بسيطة ، ولكن يمكنها تنفيذ كل وقت طويل ، وحتى "تعليق" محرك جافا سكريبت.
 
-Sooner or later most developers occasionally face such behavior, because it's quite easy to create such a regexp.
+عاجلاً أم آجلاً ، يواجه معظم المطورين أحيانًا مثل هذا السلوك ، لأنه من السهل جدًا إنشاء مثل هذا regexp.
 
-The typical symptom -- a regular expression works fine sometimes, but for certain strings it "hangs", consuming 100% of CPU.
+العَرَض النموذجي - يعمل التعبير العادي بشكل جيد في بعض الأحيان ، ولكن بالنسبة لبعض السلاسل "يتوقف" ويستهلك 100٪ من وحدة المعالجة المركزية.
 
-In such case a web-browser suggests to kill the script and reload the page. Not a good thing for sure.
+في مثل هذه الحالة ، يقترح متصفح الويب إنهاء البرنامج النصي وإعادة تحميل الصفحة. ليس بالشيء الجيد بالتأكيد
 
-For server-side JavaScript it may become a vulnerability if regular expressions process user data.
+بالنسبة لجافا سكريبت من جانب الخادم ، قد تصبح ثغرة أمنية في حالة معالجة التعبيرات العادية لبيانات المستخدم.
 
-## Example
+## مثال
 
-Let's say we have a string, and we'd like to check if it consists of words  `pattern:\w+` with an optional space `pattern:\s?` after each.
+لنفترض أن لدينا سلسلة ، ونود أن نتحقق مما إذا كانت تتكون من الكلمات `pattern: \ w +` مع مساحة `اختيارية` `pattern: \ s؟` بعد كل منها.
 
-We'll use a regexp `pattern:^(\w+\s?)*$`, it specifies 0 or more such words.
+سنستخدم نمط regexp `: ^ (\ w + \ s؟) * $` ، فهو يحدد 0 أو أكثر من هذه الكلمات.
 
-In action:
+في العمل:
 
 ```js run
 let regexp = /^(\w+\s?)*$/;
@@ -25,9 +25,9 @@ alert( regexp.test("A good string") ); // true
 alert( regexp.test("Bad characters: $@#") ); // false
 ```
 
-It seems to work. The result is correct. Although, on certain strings it takes a lot of time. So long that JavaScript engine "hangs" with 100% CPU consumption.
+يبدو أنه يعمل. والنتيجة صحيحة. على الرغم من ذلك ، على سلاسل معينة يستغرق الكثير من الوقت. طالما أن محرك جافا سكريبت "توقف" مع استهلاك CPU بنسبة 100٪.
 
-If you run the example below, you probably won't see anything, as JavaScript will just "hang". A web-browser will stop reacting on events, the UI will stop working. After some time it will suggest to reloaad the page. So be careful with this:
+إذا قمت بتشغيل المثال أدناه ، فربما لن ترى أي شيء ، لأن JavaScript سوف "يتعطل" فقط. سيتوقف متصفح الويب عن التفاعل مع الأحداث ، وستتوقف واجهة المستخدم عن العمل. بعد مرور بعض الوقت سيقترح إعادة تحميل الصفحة. لذا كن حذرًا مع هذا:
 
 ```js run
 let regexp = /^(\w+\s?)*$/;
@@ -37,15 +37,15 @@ let str = "An input string that takes a long time or even makes this regexp to h
 alert( regexp.test(str) );
 ```
 
-Some regular expression engines can handle such search, but most of them can't.
+يمكن لبعض محركات التعبير العادي معالجة مثل هذا البحث ، ولكن معظمها لا يستطيع ذلك.
 
-## Simplified example
+## مثال مبسط
 
-What's the matter? Why the regular expression "hangs"?
+ما الأمر؟ لماذا "تعليق" التعبير العادي؟
 
-To understand that, let's simplify the example: remove spaces `pattern:\s?`. Then it becomes `pattern:^(\w+)*$`.
+لفهم ذلك ، دعنا نبسط المثال: إزالة المسافات `pattern: \ s؟`. ثم يصبح `النمط: ^ (\ w +) * $`.
 
-And, to make things more obvious, let's replace `pattern:\w` with `pattern:\d`. The resulting regular expression still hangs, for instance:
+ولجعل الأمور أكثر وضوحًا ، دعنا نستبدل `pattern: \ w` بـ` pattern: \ d`. مازال التعبير العادي الناتج معلقًا ، على سبيل المثال:
 
 <!-- let str = `AnInputStringThatMakesItHang!`; -->
 
@@ -58,113 +58,112 @@ let str = "012345678901234567890123456789!";
 alert( regexp.test(str) );
 ```
 
-So what's wrong with the regexp?
+إذن ما هو الخطأ في regexp؟
 
-First, one may notice that the regexp `pattern:(\d+)*` is a little bit strange. The quantifier `pattern:*` looks extraneous. If we want a number, we can use `pattern:\d+`.
+أولاً ، قد يلاحظ المرء أن نمط regexp `: (\ d +) *` غريب بعض الشيء. يبدو "نمط محدد الكمية: *` غريبًا. إذا أردنا رقمًا ، فيمكننا استخدام `pattern: \ d +`.
 
-Indeed, the regexp is artificial. But the reason why it is slow is the same as those we saw above. So let's understand it, and then the previous example will become obvious.
+في الواقع ، إن التعبير العادي مصطنع. لكن السبب في أنها بطيئة هو نفسه الذي رأيناه أعلاه. لذلك دعونا نفهمها ، ومن ثم سيصبح المثال السابق واضحًا.
 
-What happens during the search of `pattern:^(\d+)*$` in the line `subject:123456789!` (shortened a bit for clarity), why does it take so long?
+ماذا يحدث أثناء البحث عن `النمط: ^ (\ d +) * $` في السطر `الموضوع: 123456789!` (اختصارًا قليلاً للوضوح) ، لماذا يستغرق وقتًا طويلاً؟
 
-1. First, the regexp engine tries to find a number `pattern:\d+`. The plus `pattern:+` is greedy by default, so it consumes all digits:
+1. أولاً ، يحاول محرك regexp إيجاد رقم `النمط: \ d +`. نمط `plus +: 'جشع افتراضيًا ، لذلك يستهلك جميع الأرقام:
 
-    ```
-    \d+.......
-    (123456789)z
-    ```
+    ``
+    \ d + .......
+    (123456789) z
+    ``
 
-    Then it tries to apply the star quantifier, but there are no more digits, so it the star doesn't give anything.
+    ثم يحاول تطبيق مقياس كمية النجم ، ولكن لا يوجد المزيد من الأرقام ، لذا فهو لا يعطي أي شيء.
 
-    The next in the pattern is the string end `pattern:$`, but in the text we have `subject:!`, so there's no match:
+    التالي في النمط هو "نهاية السلسلة": $ `، ولكن في النص لدينا` الموضوع:! `، لذلك لا يوجد تطابق:
 
-    ```
-               X
-    \d+........$
-    (123456789)!
-    ```
+    ``
+               X
+    \ d + ........ $
+    (123456789)!
+    ``
 
-2. As there's no match, the greedy quantifier `pattern:+` decreases the count of repetitions, backtracks one character back.
+2. نظرًا لعدم وجود تطابق ، فإن نمط المحدد الكمي الجشع `: +` يقلل من عدد التكرار ، ويعيد حرفًا واحدًا إلى الوراء.
 
-    Now `pattern:\d+` takes all digits except the last one:
-    ```
-    \d+.......
-    (12345678)9!
-    ```
-3. Then the engine tries to continue the search from the new position (`9`).
+    الآن `النمط: \ d +` يأخذ جميع الأرقام باستثناء آخر:
+    ``
+    \ d + .......
+    (12345678) 9!
+    ``
+3. ثم يحاول المحرك متابعة البحث من الموضع الجديد (`9`).
 
-    The star `pattern:(\d+)*` can be applied -- it gives the number `match:9`:
+    يمكن تطبيق النجمة `نمط: (\ d +) *` - تعطي الرقم `تطابق: 9`:
 
-    ```
+    ``
 
-    \d+.......\d+
-    (12345678)(9)!
-    ```
+    \ d + ....... \ d +
+    (12345678) (9)!
+    ``
 
-    The engine tries to match `pattern:$` again, but fails, because meets `subject:!`:
+    يحاول المحرك مطابقة `النمط: $` مرة أخرى ، لكنه يفشل ، لأنه يلبي `الموضوع:!`:
 
-    ```
-                 X
-    \d+.......\d+
-    (12345678)(9)z
-    ```
-
-
-4. There's no match, so the engine will continue backtracking, decreasing the number of repetitions. Backtracking generally works like this: the last greedy quantifier decreases the number of repetitions until it can. Then the previous greedy quantifier decreases, and so on.
-
-    All possible combinations are attempted. Here are their examples.
-
-    The first number `pattern:\d+` has 7 digits, and then a number of 2 digits:
-
-    ```
-                 X
-    \d+......\d+
-    (1234567)(89)!
-    ```
-
-    The first number has 7 digits, and then two numbers of 1 digit each:
-
-    ```
-                   X
-    \d+......\d+\d+
-    (1234567)(8)(9)!
-    ```
-
-    The first number has 6 digits, and then a number of 3 digits:
-
-    ```
-                 X
-    \d+.......\d+
-    (123456)(789)!
-    ```
-
-    The first number has 6 digits, and then 2 numbers:
-
-    ```
-                   X
-    \d+.....\d+ \d+
-    (123456)(78)(9)!
-    ```
-
-    ...And so on.
+    ``
+                 X
+    \ d + ....... \ d +
+    (12345678) (9) z
+    ``
 
 
-There are many ways to split a set of digits `123456789` into numbers. To be precise, there are <code>2<sup>n</sup>-1</code>, where `n` is the length of the set.
+4. لا يوجد تطابق ، لذلك سيستمر المحرك في التراجع ، مما يقلل من عدد التكرار. يعمل التراجع بشكل عام على هذا النحو: يقلل محدد الكمية الجشع من عدد التكرار حتى يتمكن من ذلك. ثم ينقص محدد الكمية الجشع السابق ، وهكذا.
 
-For `n=20` there are about 1 million combinations, for `n=30` - a thousand times more. Trying each of them is exactly the reason why the search takes so long.
+    تتم محاولة جميع التركيبات الممكنة. هنا أمثلةهم.
 
-What to do?
+    يتكون الرقم الأول من `النمط: \ d +` من 7 أرقام ، ثم عدد من رقمين:
 
-Should we turn on the lazy mode?
+    ``
+                 X
+    \ d + ...... \ d +
+    (1234567) (89)!
+    ``
 
-Unfortunately, that won't help: if we replace `pattern:\d+` with `pattern:\d+?`, the regexp will still hang. The order of combinations will change, but not their total count.
+    يتكون الرقم الأول من 7 أرقام ، ثم رقمان من رقم واحد لكل منهما:
 
-Some regular expression engines have tricky tests and finite automations that allow to avoid going through all combinations or make it much faster, but not all engines, and not in all cases.
+    ``
+                   X
+    \ d + ...... \ d + \ d +
+    (1234567) (8) (9)!
+    ``
 
-## Back to words and strings
+    يتكون الرقم الأول من 6 أرقام ، ثم عدد 3 أرقام:
 
-The similar thing happens in our first example, when we look words by pattern `pattern:^(\w+\s?)*$` in the string `subject:An input that hangs!`.
+    ``
+                 X
+    \ d + ....... \ d +
+    (123456) (789)!
+    ``
 
-The reason is that a word can be represented as one `pattern:\w+` or many:
+    يتكون الرقم الأول من 6 أرقام ، ثم رقمان:
+
+    ``
+                   X
+    \ d + ..... \ d + \ d +
+    (123456) (78) (9)!
+    ``
+
+    ...وما إلى ذلك وهلم جرا.
+
+هناك عدة طرق لتقسيم مجموعة من الأرقام `123456789` إلى أرقام. على وجه الدقة ، هناك <code> 2 <sup> n </sup> -1 </code> ، حيث `n` هو طول المجموعة.
+
+بالنسبة لـ `n = 20` ، هناك حوالي مليون تركيبة ، لـ` n = 30` - ألف مرة أكثر. تجربة كل واحد منهم هو بالضبط السبب في أن البحث يستغرق وقتًا طويلاً.
+
+ماذا أفعل؟
+
+هل يجب تشغيل الوضع الكسول؟
+
+لسوء الحظ ، لن يساعد ذلك: إذا استبدلنا `pattern: \ d +` بـ `pattern: \ d +؟` ، فسيظل regexp معلقًا. سيتغير ترتيب المجموعات ، ولكن ليس العدد الإجمالي لها.
+
+بعض محركات التعبير العادي لديها اختبارات صعبة وأتمتة محدودة تسمح بتجنب المرور عبر جميع التركيبات أو تجعلها أسرع بكثير ، ولكن ليس جميع المحركات ، وليس في جميع الحالات.
+
+## الرجوع إلى الكلمات والسلاسل
+
+يحدث الشيء نفسه في مثالنا الأول ، عندما ننظر إلى الكلمات حسب النمط `pattern: ^ (\ w + \ s؟) * $` في السلسلة `subject: مدخل معلق!`.
+
+والسبب هو أن الكلمة يمكن تمثيلها كنمط `واحد: \ w +` أو العديد:
 
 ```
 (input)
@@ -174,19 +173,19 @@ The reason is that a word can be represented as one `pattern:\w+` or many:
 ...
 ```
 
-For a human, it's obvious that there may be no match, because the string ends with an exclamation sign `!`, but the regular expression expects a wordly character `pattern:\w` or a space `pattern:\s` at the end. But the engine doesn't know that.
+بالنسبة للإنسان ، من الواضح أنه قد لا يكون هناك تطابق ، لأن السلسلة تنتهي بعلامة تعجب `!` ، لكن التعبير العادي يتوقع حرفًا كلمة `نمط: \ w` أو نمط` مسافة: \ s` في النهاية. لكن المحرك لا يعرف ذلك.
 
-It tries all combinations of how the regexp `pattern:(\w+\s?)*` can "consume" the string, including variants with spaces `pattern:(\w+\s)*` and without them `pattern:(\w+)*` (because spaces `pattern:\s?` are optional). As there are many such combinations, the search takes a lot of time.
+يحاول جميع التركيبات كيف أن نمط regexp `: (\ w + \ s؟) *` يمكن "استهلاك" السلسلة ، بما في ذلك المتغيرات ذات نمط `المسافات: (\ w + \ s) *` وبدونها `نمط: (\ w +) * `(لأن المساحات` pattern: \ s؟ `اختيارية). نظرًا لوجود العديد من هذه المجموعات ، فإن البحث يستغرق الكثير من الوقت.
 
-## How to fix?
+## كيفية الإصلاح؟
 
-There are two main approaches to fixing the problem.
+هناك طريقتان رئيسيتان لإصلاح المشكلة.
 
-The first is to lower the number of possible combinations.
+الأول هو تقليل عدد التركيبات الممكنة.
 
-Let's rewrite the regular expression as `pattern:^(\w+\s)*\w*` - we'll look for any number of words followed by a space `pattern:(\w+\s)*`, and then (optionally) a word `pattern:\w*`.
+دعنا نعيد كتابة التعبير العادي كـ `pattern: ^ (\ w + \ s) * \ w *` - سنبحث عن أي عدد من الكلمات متبوعًا بنمط `المسافة: (\ w + \ s) *` ، ثم ( اختياريًا) كلمة `pattern: \ w *`.
 
-This regexp is equivalent to the previous one (matches the same) and works well:
+تعادل regexp هذه السابقة (تتطابق مع نفسها) وتعمل بشكل جيد:
 
 ```js run
 let regexp = /^(\w+\s)*\w*$/;
@@ -195,32 +194,32 @@ let str = "An input string that takes a long time or even makes this regex to ha
 alert( regexp.test(str) ); // false
 ```
 
-Why did the problem disappear?
+لماذا اختفت المشكلة؟
 
-Now the star `pattern:*` goes after `pattern:\w+\s` instead of `pattern:\w+\s?`. It became impossible to represent one word of the string with multiple successive `pattern:\w+`. The time needed to try such combinations is now saved.
+الآن النجمة `pattern: *` يذهب بعد `pattern: \ w + \ s` بدلاً من` pattern: \ w + \ s؟ `. أصبح من المستحيل تمثيل كلمة واحدة من السلسلة مع `نمط متعدد متتالي: \ w +`. يتم الآن توفير الوقت اللازم لتجربة هذه المجموعات.
 
-For example, the previous pattern `pattern:(\w+\s?)*` could match the word `subject:string` as two `pattern:\w+`:
+على سبيل المثال ، النقش السابق `pattern: (\ w + \ s؟) *` يمكن أن يتطابق مع الكلمة `subject: string` على هيئة` `pattern: \ w +`:
 
 ```js run
 \w+\w+
 string
 ```
 
-The previous pattern, due to the optional `pattern:\s` allowed variants `pattern:\w+`, `pattern:\w+\s`, `pattern:\w+\w+` and so on.
+النمط السابق ، بسبب `` النمط: \ s` الاختياري للمتغيرات المسموح بها `النمط: \ w +` ، `النمط: \ w + \ s` ،` النمط: \ w + \ w + `وما إلى ذلك.
 
-With the rewritten pattern `pattern:(\w+\s)*`, that's impossible: there may be  `pattern:\w+\s` or `pattern:\w+\s\w+\s`, but not `pattern:\w+\w+`. So the overall combinations count is greatly decreased.
+مع النقش المُعاد كتابته `النمط: (\ w + \ s) *` ، هذا مستحيل: قد يكون هناك `نمط: \ w + \ s` أو` النمط: \ w + \ s \ w + \ s` ، ولكن ليس `النمط: \ w + \ w + `. لذلك تم تقليل عدد المجموعات بشكل كبير.
 
-## Preventing backtracking
+## منع التراجع
 
-It's not always convenient to rewrite a regexp. And it's not always obvious how to do it.
+ليس من المناسب دائمًا إعادة كتابة regexp. وليس من الواضح دائمًا كيفية القيام بذلك.
 
-The alternative approach is to forbid backtracking for the quantifier.
+النهج البديل هو منع التراجع عن المقياس الكمي.
 
-The regular expressions engine tries many combinations that are obviously wrong for a human.
+يحاول محرك التعبيرات العادية العديد من المجموعات التي من الواضح أنها خاطئة للإنسان.
 
-E.g. in the regexp `pattern:(\d+)*$` it's obvious for a human, that `pattern:+` shouldn't backtrack. If we replace one `pattern:\d+` with two separate `pattern:\d+\d+`, nothing changes:
+على سبيل المثال في نمط regexp `: (\ d +) * $` من الواضح للإنسان ، أن `النمط: +` لا يجب التراجع عنه. إذا استبدلنا نمطًا `` واحدًا: \ d + `بنمطين` منفصلين: \ d + \ d + `، فلن يتغير شيء:
 
-```
+``
 \d+........
 (123456789)!
 
@@ -228,48 +227,48 @@ E.g. in the regexp `pattern:(\d+)*$` it's obvious for a human, that `pattern:+` 
 (1234)(56789)!
 ```
 
-And in the original example `pattern:^(\w+\s?)*$` we may want to forbid backtracking in `pattern:\w+`. That is: `pattern:\w+` should match a whole word, with the maximal possible length. There's no need to lower the repetitions count in `pattern:\w+`, try to split it into two words `pattern:\w+\w+` and so on.
+وفي المثال الأصلي `pattern: ^ (\ w + \ s؟) * $` قد نرغب في منع التراجع في `pattern: \ w +`. هذا هو: `النمط: \ w +` يجب أن يتطابق مع كلمة كاملة ، مع أقصى طول ممكن. ليست هناك حاجة لخفض عدد التكرارات في `النمط: \ w +` ، حاول تقسيمه إلى كلمتين `نمط: \ w + \ w +` وما إلى ذلك.
 
-Modern regular expression engines support possessive quantifiers for that. They are like greedy ones, but don't backtrack (so they are actually simpler than regular quantifiers).
+تدعم محركات التعبير العادية الحديثة محددات الكمية الملكية لذلك. إنهم مثل الجشعين ، لكنهم لا يتراجعون (لذلك هم في الواقع أبسط من المحددات الكمية العادية).
 
-There are also so-called "atomic capturing groups" - a way to disable backtracking inside parentheses.
+هناك أيضًا ما يسمى "مجموعات الالتقاط الذري" - وهي طريقة لتعطيل التراجع داخل الأقواس.
 
-Unfortunately, in JavaScript they are not supported. But there's another way.
+لسوء الحظ ، في JavaScript غير مدعومة. ولكن هناك طريقة أخرى.
 
-### Lookahead to the rescue!
+### انظروا إلى الإنقاذ!
 
-We can prevent backtracking using lookahead.
+يمكننا منع التراجع باستخدام lookahead.
 
-The pattern to take as much repetitions of `pattern:\w` as possible without backtracking is: `pattern:(?=(\w+))\1`.
+النمط الذي يجب أن يتكرر من خلال "النمط: \ w" بقدر الإمكان بدون التراجع هو: "النمط: (؟ = (\ w +)) \ 1`.
 
-Let's decipher it:
-- Lookahead `pattern:?=` looks forward for the longest word `pattern:\w+` starting at the current position.
-- The contents of parentheses with `pattern:?=...` isn't memorized by the engine, so wrap `pattern:\w+` into parentheses. Then the engine will memorize their contents
-- ...And allow us to reference it in the pattern as `pattern:\1`.
+دعونا نفكها:
+- Lookahead `pattern:؟ =` يتطلع لأطول كلمة `pattern: \ w +` بدءًا من الموضع الحالي.
+- محتويات الأقواس مع `النمط:؟ = ...` لا يحفظها المحرك ، لذا قم بتغليف `النمط: \ w +` بين قوسين. ثم يقوم المحرك بحفظ محتوياتها
+- ... واسمح لنا بالإشارة إليها في النمط باسم "pattern: \ 1".
 
-That is: we look ahead - and if there's a word `pattern:\w+`, then match it as `pattern:\1`.
+هذا هو: نحن نتطلع إلى المستقبل - وإذا كانت هناك كلمة `pattern: \ w +` ، فقم بمطابقتها كـ `pattern: \ 1`.
 
-Why? That's because the lookahead finds a word `pattern:\w+` as a whole and we capture it into the pattern with `pattern:\1`. So we essentially implemented a possessive plus `pattern:+` quantifier. It captures only the whole word `pattern:\w+`, not a part of it.
+لماذا ا؟ ذلك لأن lookahead يعثر على كلمة `pattern: \ w +` ككل ونلتقطها في النمط بـ `pattern: \ 1`. لذا قمنا بتطبيق نمط امتلاك زائد `نمط: +` كمّي. يلتقط فقط الكلمة `نمط: \ w +` ، وليس جزءًا منها.
 
-For instance, in the word `subject:JavaScript` it may not only match `match:Java`, but leave out `match:Script` to match the rest of the pattern.
+على سبيل المثال ، في كلمة `subject: JavaScript` ، قد لا تتطابق فقط مع` match: Java` ، ولكن تترك `match: Script` لتتطابق مع باقي النمط.
 
-Here's the comparison of two patterns:
+إليك مقارنة بين نمطين:
 
 ```js run
 alert( "JavaScript".match(/\w+Script/)); // JavaScript
 alert( "JavaScript".match(/(?=(\w+))\1Script/)); // null
 ```
 
-1. In the first variant `pattern:\w+` first captures the whole word `subject:JavaScript` but then `pattern:+` backtracks character by character, to try to match the rest of the pattern, until it finally succeeds (when `pattern:\w+` matches `match:Java`).
-2. In the second variant `pattern:(?=(\w+))` looks ahead and finds the word  `subject:JavaScript`, that is included into the pattern as a whole by `pattern:\1`, so there remains no way to find `subject:Script` after it.
+1. في المتغير الأول `النمط: \ w +` يلتقط أولاً الكلمة `الموضوع: جافا سكريبت` ثم` النمط: + `يتراجع حرفًا بحرف ، في محاولة لمطابقة بقية النمط ، حتى ينجح في النهاية (عندما `pattern: \ w +` يتطابق مع `match: Java`).
+2. في المتغير الثاني `النمط: (؟ = (\ w +))` يتطلع إلى الأمام ويجد كلمة `الموضوع: JavaScript` ، المضمنة في النمط ككل بواسطة` النمط: \ 1` ، لذلك لا يزال هناك لا توجد طريقة للعثور على "الموضوع: البرنامج النصي" بعده.
 
-We can put a more complex regular expression into `pattern:(?=(\w+))\1` instead of `pattern:\w`, when we need to forbid backtracking for `pattern:+` after it.
+يمكننا وضع تعبير عادي أكثر تعقيدًا في `النمط: (؟ = (\ w +)) \ 1` بدلاً من` النمط: \ w` ، عندما نحتاج إلى منع التراجع عن `النمط: +` بعده.
 
 ```smart
-There's more about the relation between possessive quantifiers and lookahead in articles [Regex: Emulate Atomic Grouping (and Possessive Quantifiers) with LookAhead](http://instanceof.me/post/52245507631/regex-emulate-atomic-grouping-with-lookahead) and [Mimicking Atomic Groups](http://blog.stevenlevithan.com/archives/mimic-atomic-groups).
-```
+هناك المزيد حول العلاقة بين محددات الكمية التملكية و lookahead في المقالات [Regex: Emulate Atomic Grouping (and Possessive Quantifiers) with LookAhead] (http://instanceof.me/post/52245507631/regex-emulate-atomic-grouping-with-lookahead ) و [محاكاة المجموعات الذرية] (http://blog.stevenlevithan.com/archives/mimic-atomic-groups).
+``
 
-Let's rewrite the first example using lookahead to prevent backtracking:
+دعونا نعيد كتابة المثال الأول باستخدام lookahead لمنع التراجع:
 
 ```js run
 let regexp = /^((?=(\w+))\2\s?)*$/;
@@ -281,7 +280,7 @@ let str = "An input string that takes a long time or even makes this regex to ha
 alert( regexp.test(str) ); // false, works and fast!
 ```
 
-Here `pattern:\2` is used instead of `pattern:\1`, because there are additional outer parentheses. To avoid messing up with the numbers, we can give the parentheses a name, e.g. `pattern:(?<word>\w+)`.
+هنا يُستخدم "النمط: \ 2" بدلاً من "النمط: \ 1" ، نظرًا لوجود أقواس خارجية إضافية. لتجنب العبث بالأرقام ، يمكننا تسمية الأقواس ، على سبيل المثال `نمط :(؟ <word> \ w +)`.
 
 ```js run
 // parentheses are named ?<word>, referenced as \k<word>
@@ -294,8 +293,8 @@ alert( regexp.test(str) ); // false
 alert( regexp.test("A correct string") ); // true
 ```
 
-The problem described in this article is called "catastrophic backtracking".
+تسمى المشكلة الموضحة في هذه المقالة "التراجع الكارثي".
 
-We covered two ways how to solve it:
-- Rewrite the regexp to lower the possible combinations count.
-- Prevent backtracking.
+تناولنا طريقتين لكيفية حلها:
+- أعد كتابة regexp لخفض عدد المجموعات الممكنة.
+- منع التراجع.

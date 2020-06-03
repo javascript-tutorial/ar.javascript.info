@@ -1,12 +1,12 @@
-importance: 3
+درجة الأهمية: 3
 
 ---
 
-# Make external links orange
+# اجعل الروابط الخارجية برتقالية
 
-Make all external links orange by altering their `style` property.
+اجعل جميع الروابط الخارجية برتقالية من خلال تعديل خاصية `النمط 'الخاصة بها.
 
-A link is external if:
+الرابط يعتبر خارجيا إذا:
 - Its `href` has `://` in it
 - But doesn't start with `http://internal.com`.
 
@@ -30,6 +30,7 @@ Example:
 </script>
 ```
 
-The result should be:
+النتيجة يجيب أن تكون: 
 
 [iframe border=1 height=180 src="solution"]
+

@@ -1,4 +1,4 @@
-Using a question mark operator `'?'`:
+استخدام معامل علامة الاستفهام `'?'`:
 
 ```js
 function checkAge(age) {
@@ -14,4 +14,4 @@ function checkAge(age) {
 }
 ```
 
-Note that the parentheses around `age > 18` are not required here. They exist for better readabilty.
+لاحظ أن الأقواس حول `age > 18` غير مطلوبة ولكن تم وضعها لزيادة القدرة على قراءة الكود.

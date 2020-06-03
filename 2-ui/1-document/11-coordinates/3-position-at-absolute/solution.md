@@ -1,4 +1,4 @@
-The solution is actually pretty simple:
+الحل بسيط للغاية:
 
-- Use `position:absolute` in CSS instead of `position:fixed` for `.note`.
-- Use the function [getCoords()](info:coordinates#getCoords) from the chapter <info:coordinates> to get document-relative coordinates.
+- استخدم "الموضع: مطلق" في CSS بدلاً من "الموضع: ثابت" لـ ". ملاحظة".
+- استخدم الوظيفة [getCoords ()] (info: إحداثيات # getCoords) من الفصل <info: إحداثيات> للحصول على إحداثيات نسبية للdocument.

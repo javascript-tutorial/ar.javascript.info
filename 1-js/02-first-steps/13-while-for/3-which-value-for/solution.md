@@ -1,4 +1,4 @@
-**The answer: from `0` to `4` in both cases.**
+**الإجابة: من `0` إلى `4` في كلتا الحالتين.**
 
 ```js run
 for (let i = 0; i < 5; ++i) alert( i );
@@ -6,12 +6,12 @@ for (let i = 0; i < 5; ++i) alert( i );
 for (let i = 0; i < 5; i++) alert( i );
 ```
 
-That can be easily deducted from the algorithm of `for`:
+يمكن إيجاد الحل بسهولة من خوارزمية `for`:
 
-1. Execute once `i = 0` before everything (begin).
-2. Check the condition `i < 5`
-3. If `true` -- execute the loop body `alert(i)`, and then `i++`
+1. تنفذ لمرة واحدة `i = 0` قبل أي شئ (begin).
+2. تفحص الشرط `i < 5`
+3. لو `true` -- تنفذل الأمر `alert(i)` ثم `i++`
 
-The increment `i++` is separated from the condition check (2). That's just another statement.
+الزيادة `i++` منفصلة عن فحص الشرط (2). هي فقط أمر آخر.
 
-The value returned by the increment is not used here, so there's no difference between `i++` and `++i`.
+لا يتم استخدام القيمة الراجعة من عملية الزيادة لذلك لا فرق بين `i++` و `++i`.

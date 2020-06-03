@@ -1,12 +1,12 @@
-importance: 4
+الأهمية: 4
 
 ---
 
-# Rewrite the function using '?' or '||'
+# اعد كتابة الدالة باستخدام '?' أو '||'
 
-The following function returns `true` if the parameter `age` is greater than `18`.
+الدالة التالية ترجع `true` إذا كانت قيمة `age` أكبر من `18`.
 
-Otherwise it asks for a confirmation and returns its result.
+وإلا فهي تطلب تأكيد وترجع نتيجته:
 
 ```js
 function checkAge(age) {
@@ -18,9 +18,9 @@ function checkAge(age) {
 }
 ```
 
-Rewrite it, to perform the same, but without `if`, in a single line.
+اعد كتابتها للحصول على نفس النتيجة ولكن بدون `if` وفي سطر واحد.
 
-Make two variants of `checkAge`:
+اعد كتابة `checkAge`:
 
-1. Using a question mark operator `?`
-2. Using OR `||`
+1. باستخدام معامل علامة الاستفهام `?`
+2. باستخدام OR `||`

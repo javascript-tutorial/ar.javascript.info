@@ -1,15 +1,15 @@
-importance: 5
+درجة الأهمية: 5
 
 ---
 
-# Extended clock
+# ساعة ممتدة
 
-We've got a `Clock` class. As of now, it prints the time every second.
+لدينا فصل "ساعة". حتى الآن ، يطبع الوقت كل ثانية.
 
 
-[js src="source.view/clock.js"]
+[js src = "source.view / clock.js"]
 
-Create a new class `ExtendedClock` that inherits from `Clock` and adds the parameter `precision` -- the number of `ms` between "ticks". Should be `1000` (1 second) by default.
+أنشئ فئة جديدة `ExtendedClock` ترث من` Clock` وتضيف المعلمة `الدقة` - عدد` ms` بين "القراد". يجب أن يكون "1000" (ثانية واحدة) افتراضيًا.
 
-- Your code should be in the file `extended-clock.js`
-- Don't modify the original `clock.js`. Extend it.
+- يجب أن يكون الكود الخاص بك في ملف `ممتد على مدار الساعة. js`
+- لا تعدّل "clock.js" الأصلي. توسيعها.

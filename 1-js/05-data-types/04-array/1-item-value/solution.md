@@ -1,17 +1,17 @@
-The result is `4`:
+`4`:الناتج
 
 
 ```js run
-let fruits = ["Apples", "Pear", "Orange"];
+let fruits = ["البرتقال", "الكمثري", "التفاح"];
 
 let shoppingCart = fruits;
 
-shoppingCart.push("Banana");
+shoppingCart.push("الموز");
 
 *!*
 alert( fruits.length ); // 4
 */!*
 ```
 
-That's because arrays are objects. So both `shoppingCart` and `fruits` are the references to the same array.
+هذا لان المصفوفات تعتبر كائنات. لذا كلا من `shoppingCart` و `fruits` يعدوا كمرجع لنفس المصفوفه.
 

@@ -1,52 +1,58 @@
-# Mouse events
+# أحداث الماوس
 
-In this chapter we'll get into more details about mouse events and their properties.
+في هذا الفصل سنتناول المزيد حول أحداث الماوس وخصائصها.
 
-Please note: such events may come not only from "mouse devices", but are also from other devices, such as phones and tablets, where they are emulated for compatibility.
+يرجى ملاحظة: هذه الأحداث ليست مقتصرة على "الماوس " ولكن تأتى أيضاً من أجهزة أخرى مثل الهواتف والأجهزة اللوحية، والتى يتم مضاهاتها للتوافق.
 
-## Mouse event types
+## أنواع أحداث الماوس
 
-We've already seen some of these events:
+لقد راينا بالفعل بعض هذه الأحداث:
 
 `mousedown/mouseup`
-: Mouse button is clicked/released over an element.
+
+:استخدام زر الماوس في النقر / تحرير النقر عن العنصر .
 
 `mouseover/mouseout`
-: Mouse pointer comes over/out from an element.
+: تحريك مؤشر الماوس فوق / خارج العنصر.
 
 `mousemove`
-: Every mouse move over an element triggers that event.
+: يعمل هذا الحدث فعلياً مع كل حركة لمؤشر الماوس فوق العنصر.
 
 `click`
-: Triggers after `mousedown` and then `mouseup` over the same element if the left mouse button was used.
+: يعمل بعد `mousedown`ثم `mouseup` على نفس العنصر بإستخدام الزر الأيسر للماوس.
 
 `dblclick`
-: Triggers after two clicks on the same element within a short timeframe. Rarely used nowadays.
+: يعمل بعد النقر مرتين على نفس العنصر خلال فترة زمنية قصيرة. نادرا ما يستخدم في الوقت الحاضر.
 
 `contextmenu`
-: Triggers when when the right mouse button is pressed. There are other ways to open a context menu, e.g. using a special keyboard key, it triggers in that case also, so it's not exactly the mouse event.
 
-...There are several other events too, we'll cover them later.
+:يعمل عندما يتم الضغط على زر الفأرة الأيمن. وهناك طرق أخرى لفتح قائمة السياق ، على سبيل المثال باستخدام مفتاح معين من لوحة المفاتيح ، ويمكن أيضًا استخدامه في هذه الحالة ، لذا فهو ليس بالضبط حدث للماوس .
 
-## Events order
+... وهناك أيضا العديد من الأحداث الأخرى ، واللتى سنتطرق لها لاحقًا
+.
 
-As you can see from the list above, a user action may trigger multiple events.
+## نرتيب الأحداث
 
-For instance, a left-button click first triggers `mousedown`, when the button is pressed, then `mouseup` and `click` when it's released.
+كما ترى من القائمة السابقة ، قد يقوم إجراء المستخدم  بتشغيل أكثر من حدث أو أحداث متعددة
 
-In cases when a single action initiates multiple events, their order is fixed. That is, the handlers are called in the order `mousedown` -> `mouseup` -> `click`. 
+
+على سبيل المثال , عند النقر على الزر الايسر فإن أول حدث يتم تشغيله  `mousedown`, عند الضغط على الزر, ثم `mouseup` وبالتالي أيضا `click` عند تحرير النقر.
+
+في الحالات التي يبدأ فيها إجراء واحد أحداثًا متعددة ، فإنه يتم إصلاح ترتيبها. بمعنى ، أنه يقوم  باستدعاء الأحداث بالترتيب
+ `mousedown` -> `mouseup` -> `click`. 
 
 ```online
-Click the button below and you'll see the events. Try double-click too.
+لمعاينة الأحداث بوضوح أنقر فوق الزر أدناه. جرب النقر مرتين أيضاً.
 
-On the teststand below all mouse events are logged, and if there is more than a 1 second delay between them they are separated by a horizontal ruler.
+في التجربة التالية ، يتم تسجيل جميع أحداث الماوس ، وإذا كان هناك  تأخير لأكثر من ثانية واحدة يتم فصلها بخط أفقي متقطع.
 
-Also we can see the `button` property that allows to detect the mouse button, it's explained below.
 
-<input onmousedown="return logMouse(event)" onmouseup="return logMouse(event)" onclick="return logMouse(event)" oncontextmenu="return logMouse(event)" ondblclick="return logMouse(event)" value="Click me with the right or the left mouse button" type="button"> <input onclick="logClear('test')" value="Clear" type="button"> <form id="testform" name="testform"> <textarea style="font-size:12px;height:150px;width:360px;"></textarea></form>
+كما يمكننا أن نرى  `button` الذي يسمح لنا باكتشاف زر الماوس ، كما هو موضح أدناه.
+
+<input onmousedown="return logMouse(event)" onmouseup="return logMouse(event)" onclick="return logMouse(event)" oncontextmenu="return logMouse(event)" ondblclick="return logMouse(event)" value="أنقر فوقي  بزر الماوس الايمن أو الأيسر " type="button"> <input onclick="logClear('test')" value="مسح" type="button"> <form id="testform" name="testform"> <textarea style="font-size:12px;height:150px;width:360px;"></textarea></form>
 ```
 
-## Mouse button
+## زر الماوس
 
 Click-related events always have the `button` property, which allows to get the exact mouse button.
 

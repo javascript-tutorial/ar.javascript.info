@@ -1,19 +1,19 @@
 
-# Class basic syntax
+# الصيغة الأساسية للClass
 
 ```quote author="Wikipedia"
-In object-oriented programming, a *class* is an extensible program-code-template for creating objects, providing initial values for state (member variables) and implementations of behavior (member functions or methods).
+في البرمجة الموجهة للكائنات ، * الفئة * عبارة عن قالب رمز برنامج قابل للتوسيع لإنشاء الكائنات ، ويوفر القيم الأولية للحالة (متغيرات الأعضاء) وتنفيذ السلوك (وظائف الأعضاء أو الأساليب).
 ```
 
-In practice, we often need to create many objects of the same kind, like users, or goods or whatever.
+من الناحية العملية ، نحتاج غالبًا إلى إنشاء العديد من العناصر من نفس النوع ، مثل المستخدمين أو السلع أو أيا كان.
 
-As we already know from the chapter <info:constructor-new>, `new function` can help with that.
+كما نعلم بالفعل من الفصل <info: buildor-new> ، يمكن أن تساعد `الوظيفة الجديدة` في ذلك.
 
-But in the modern JavaScript, there's a more advanced "class" construct, that introduces great new features which are useful for object-oriented programming.
+ولكن في جافا سكريبت الحديثة ، هناك بنية "صنف" أكثر تقدمًا ، تقدم ميزات جديدة رائعة مفيدة للبرمجة الموجهة للكائنات.
 
-## The "class" syntax
+# الصيغة الأساسية للClass
 
-The basic syntax is:
+الصيغة الأساسية هي: 
 ```js
 class MyClass {
   // class methods
@@ -25,11 +25,11 @@ class MyClass {
 }
 ```
 
-Then use `new MyClass()` to create a new object with all the listed methods.
+ثم استخدم `New MyClass ()` لإنشاء كائن جديد بكل الطرق المدرجة.
 
-The `constructor()` method is called automatically by `new`, so we can initialize the object there.
+يتم استدعاء طريقة `constructor ()` تلقائيًا بواسطة `new` ، حتى نتمكن من تهيئة الكائن هناك.
 
-For example:
+فمثلا:
 
 ```js run
 class User {
@@ -49,28 +49,28 @@ let user = new User("John");
 user.sayHi();
 ```
 
-When `new User("John")` is called:
-1. A new object is created.
-2. The `constructor` runs with the given argument and assigns `this.name` to it.
+عند استدعاء`new User("John")` :
+1. يتم إنشاء كائن جديد.
+2. يعمل "المُنشئ" مع الوسيطة المحددة ويعين "اسم هذا" إليه.
 
-...Then we can call object methods, such as `user.sayHi()`.
+... ثم يمكننا استدعاء طرق الكائن ، مثل `user.sayHi ()`.
 
 
-```warn header="No comma between class methods"
-A common pitfall for novice developers is to put a comma between class methods, which would result in a syntax error.
+"` `warn header =" لا فاصلة بين طرق الفصل "
+من المشاكل الشائعة للمطورين المبتدئين وضع فاصلة بين طرق الفصل ، مما يؤدي إلى خطأ في بناء الجملة.
 
-The notation here is not to be confused with object literals. Within the class, no commas are required.
-```
+لا يجب الخلط بين التدوين هنا وحرف الشيء. داخل الفصل الدراسي ، لا يلزم وجود فواصل.
+``
 
-## What is a class?
+## ما هي الclass ؟
 
-So, what exactly is a `class`? That's not an entirely new language-level entity, as one might think.
+إذن ، ما هي "الطبقة" بالضبط؟ هذا ليس كيانًا جديدًا تمامًا على مستوى اللغة ، كما قد يعتقد المرء.
 
-Let's unveil any magic and see what a class really is. That'll help in understanding many complex aspects.
+دعونا نكشف عن أي سحر ونرى ما هو الصف حقا. سيساعد ذلك في فهم العديد من الجوانب المعقدة.
 
-In JavaScript, a class is a kind of function.
+في JavaScript ، الفئة هي نوع من الوظائف.
 
-Here, take a look:
+هنا ، ألق نظرة:
 
 ```js run
 class User {
@@ -84,18 +84,18 @@ alert(typeof User); // function
 */!*
 ```
 
-What `class User {...}` construct really does is:
+ما يفعله بناء `مستخدم الفئة {... }` حقًا هو:
 
-1. Creates a function named `User`, that becomes the result of the class declaration. The function code is taken from the `constructor` method (assumed empty if we don't write such method).
-2. Stores class methods, such as `sayHi`, in `User.prototype`.
+1. إنشاء وظيفة باسم "المستخدم" ، والتي تصبح نتيجة لإعلان الفئة. يتم أخذ رمز الوظيفة من طريقة `المنشئ` (يفترض أنها فارغة إذا لم نكتب مثل هذه الطريقة).
+2. يخزن طرق الفصل ، مثل `sayHi` ، في` User.prototype`.
 
-After `new User` object is created, when we call its method, it's taken from the prototype, just as described in the chapter <info:function-prototype>. So the object has access to class methods.
+بعد إنشاء كائن "مستخدم جديد" ، عندما نسمي أسلوبه ، يتم أخذه من النموذج الأولي ، تمامًا كما هو موضح في الفصل <info: function-prototype>. لذا فإن الكائن لديه حق الوصول إلى أساليب الفصل.
 
-We can illustrate the result of `class User` declaration as:
+يمكننا توضيح نتيجة إعلان "مستخدم الفئة" كما يلي:
 
 ![](class-user.svg)
 
-Here's the code to introspect it:
+إليك كود لتتفكر فيه: 
 
 ```js run
 class User {
@@ -116,9 +116,9 @@ alert(User.prototype.sayHi); // alert(this.name);
 alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
 ```
 
-## Not just a syntactic sugar
+## ليس مجرد سكر نحوي
 
-Sometimes people say that `class` is a "syntactic sugar" (syntax that is designed to make things easier to read, but doesn't introduce anything new), because we could actually declare the same without `class` keyword at all:
+أحيانًا يقول الناس أن "class" عبارة عن "سكر نحوي" (بنية تم تصميمها لتسهيل قراءة الأشياء ، ولكن لا تقدم أي شيء جديد) ، لأنه يمكننا في الواقع أن نعلن الشيء نفسه بدون كلمة "class" على الإطلاق:
 
 ```js run
 // rewriting class User in pure functions
@@ -140,13 +140,13 @@ let user = new User("John");
 user.sayHi();
 ```
 
-The result of this definition is about the same. So, there are indeed reasons why `class` can be considered a syntactic sugar to define a constructor together with its prototype methods.
+نتيجة هذا التعريف هي نفسها. لذا ، هناك بالفعل أسباب تجعل من الممكن اعتبار "class" سكرًا نحويًا لتحديد المنشئ مع طرق النموذج الأولي.
 
-Still, there are important differences.
+لا تزال هناك اختلافات مهمة.
 
-1. First, a function created by `class` is labelled by a special internal property `[[FunctionKind]]:"classConstructor"`. So it's not entirely the same as creating it manually.
+1. أولاً ، يتم تصنيف دالة تم إنشاؤها بواسطة "class" بواسطة خاصية داخلية خاصة `[[FunctionKind]]:" classConstructor "`. لذلك فهي ليست تمامًا مثل إنشائها يدويًا.
 
-    The language checks for that property in a variety of places. For example, unlike a regular function, it must be called with `new`:
+     تقوم اللغة بالتحقق من هذه الخاصية في أماكن متنوعة. على سبيل المثال ، على عكس الوظيفة العادية ، يجب أن يتم استدعاؤها بـ `new`:
 
     ```js run
     class User {
@@ -157,7 +157,7 @@ Still, there are important differences.
     User(); // Error: Class constructor User cannot be invoked without 'new'
     ```
 
-    Also, a string representation of a class constructor in most JavaScript engines starts with the "class..."
+أيضًا ، يبدأ تمثيل السلسلة لمنشئ فئة في معظم محركات JavaScript بـ "class ..."
 
     ```js run
     class User {
@@ -166,24 +166,23 @@ Still, there are important differences.
 
     alert(User); // class User { ... }
     ```
-    There are other differences, we'll see them soon.
+   هناك اختلافات أخرى ، سنراها قريبًا.
 
-2. Class methods are non-enumerable.
-    A class definition sets `enumerable` flag to `false` for all methods in the `"prototype"`.
+2. دوال الclass لا تعد ولا تحصى.
+     يقوم تعريف الفئة بتعيين علامة `enumerable` إلى` false` لجميع الطرق في "" prototype "`.
 
-    That's good, because if we `for..in` over an object, we usually don't want its class methods.
+     هذا أمر جيد ، لأنه إذا كنا 'for..in` فوق كائن ما ، فإننا عادة لا نريد طرقه الطبقية.
 
-3. Classes always `use strict`.
-    All code inside the class construct is automatically in strict mode.
+3. الclasses دائمًا "استخدام صارم".
+     تكون جميع التعليمات البرمجية داخل بنية الفصل تلقائيًا في وضع صارم.
 
-Besides, `class` syntax brings many other features that we'll explore later.
+بالإضافة إلى ذلك ، فإن بناء جملة `class` يجلب العديد من الميزات الأخرى التي سنستكشفها لاحقًا.
 
-## Class Expression
+## تعبير الclass
 
-Just like functions, classes can be defined inside another expression, passed around, returned, assigned, etc.
+تمامًا مثل functions ، يمكن تعريف الفئات داخل تعبير آخر ، وتمريرها ، وإعادتها ، وتعيينها ، وما إلى ذلك.
 
-Here's an example of a class expression:
-
+إليك مثالاً على تعبير class:
 ```js
 let User = class {
   sayHi() {
@@ -192,9 +191,9 @@ let User = class {
 };
 ```
 
-Similar to Named Function Expressions, class expressions may have a name.
+على غرار تعبيرات الوظائف المسماة ، قد يكون لتعبيرات الفئة اسم.
 
-If a class expression has a name, it's visible inside the class only:
+إذا كان تعبير فئة له اسم ، فإنه يكون مرئيًا داخل الفصل فقط:
 
 ```js run
 // "Named Class Expression"
@@ -210,7 +209,7 @@ new User().sayHi(); // works, shows MyClass definition
 alert(MyClass); // error, MyClass name isn't visible outside of the class
 ```
 
-We can even make classes dynamically "on-demand", like this:
+يمكننا أيضًا أن نجعل classes ديناميكيًا "حسب الطلب" ، مثل هذا:
 
 ```js run
 function makeClass(phrase) {
@@ -231,9 +230,9 @@ new User().sayHi(); // Hello
 
 ## Getters/setters
 
-Just like literal objects, classes may include getters/setters, computed properties etc.
+تمامًا مثل الأشياء الحرفية ، قد تتضمن الفئات الحروف / المستوطنين والخصائص المحسوبة وما إلى ذلك.
 
-Here's an example for `user.name` implemented using `get/set`:
+في ما يلي مثال لـ `user.name` تم تنفيذه باستخدام` get / set`:
 
 ```js run
 class User {
@@ -267,11 +266,11 @@ alert(user.name); // John
 user = new User(""); // Name is too short.
 ```
 
-Technically, such class declaration works by creating getters and setters in `User.prototype`.
+من الناحية الفنية ، يعمل إعلان الفئة هذا عن طريق إنشاء الحروف والمستوطنين في `User.prototype`.
 
-## Computed names [...]
+## الأسماء المحسوبة [...]
 
-Here's an example with a computed method name using brackets `[...]`:
+في ما يلي مثال باسم الطريقة المحسوبة باستخدام الأقواس `[...]`:
 
 ```js run
 class User {
@@ -287,19 +286,19 @@ class User {
 new User().sayHi();
 ```
 
-Such features are easy to remember, as they resemble that of literal objects.
+من السهل تذكر هذه الميزات ، لأنها تشبه تلك الموجودة في الأشياء الحرفية.
 
-## Class fields
+## حقول class
 
-```warn header="Old browsers may need a polyfill"
-Class fields are a recent addition to the language.
-```
+"` `warn header =" قد تحتاج المتصفحات القديمة إلى ملف متعدد "
+تعد حقول الصف إضافة حديثة للغة.
+``
 
-Previously, our classes only had methods.
+في السابق ، كانت فصولنا تمتلك طرقًا فقط.
 
-"Class fields" is a syntax that allows to add any properties.
+"حقول class" هي بنية تسمح بإضافة أي خصائص.
 
-For instance, let's add `name` property to `class User`:
+على سبيل المثال ، دعنا نضيف خاصية `name` إلى` class User`:
 
 ```js run
 class User {
@@ -315,9 +314,9 @@ class User {
 new User().sayHi(); // Hello, John!
 ```
 
-So, we just write "<property name> = <value>" in the declaration, and that's it.
+لذلك ، نكتب فقط "<اسم الخاصية> = <قيمة>" في الإعلان ، وهذا كل شيء.
 
-The important difference of class fields is that they are set on individual objects, not `User.prototype`:
+الاختلاف المهم في حقول الصف هو أنه يتم تعيينها على كائنات فردية ، وليس `User.prototype`:
 
 ```js run
 class User {
@@ -331,7 +330,7 @@ alert(user.name); // John
 alert(User.prototype.name); // undefined
 ```
 
-Technically, they are processed after the constructor has done it's job, and we can use for them complex expressions and function calls:
+من الناحية الفنية ، تتم معالجتها بعد أن يقوم المنشئ بعمله ، ويمكننا استخدامه بالنسبة لهم التعبيرات المعقدة واستدعاءات الوظائف:
 
 ```js run
 class User {
@@ -344,13 +343,14 @@ let user = new User();
 alert(user.name); // John
 ```
 
-### Making bound methods with class fields
+### عمل طرق مرتبطة بحقول class
 
-As demonstrated in the chapter <info:bind> functions in JavaScript have a dynamic `this`. It depends on the context of the call.
+كما هو موضح في الفصل <info: bind> ، فإن وظائف JavaScript لها ديناميكية `this`. يعتمد ذلك على سياق المكالمة.
 
-So if an object method is passed around and called in another context, `this` won't be a reference to its object any more.
+لذلك إذا تم تمرير طريقة كائن واستدعاؤها في سياق آخر ، فلن يكون `هذا` مرجعاً إلى كائنه بعد الآن.
 
-For instance, this code will show `undefined`:
+على سبيل المثال ، سيُظهر هذا الرمز `undefined`:
+
 
 ```js run
 class Button {
@@ -370,12 +370,12 @@ setTimeout(button.click, 1000); // undefined
 */!*
 ```
 
-The problem is called "losing `this`".
+تسمى المشكلة "فقدان" this "".
 
-There are two approaches to fixing it, as discussed in the chapter <info:bind>:
+هناك طريقتان لإصلاحها ، كما هو موضح في الفصل <info: bind>:
 
-1. Pass a wrapper-function, such as `setTimeout(() => button.click(), 1000)`.
-2. Bind the method to object, e.g. in the constructor:
+1. قم بتمرير دالة مجمعة ، مثل `setTimeout (() => button.click ()، 1000)`.
+2. ربط طريقة الاعتراض ، على سبيل المثال في المنشئ:
 
 ```js run
 class Button {
@@ -398,7 +398,7 @@ setTimeout(button.click, 1000); // hello
 */!*
 ```
 
-Class fields provide a more elegant syntax for the latter solution:
+توفر حقول class بنية أكثر أناقة للحل الأخير:
 
 ```js run
 class Button {
@@ -417,13 +417,13 @@ let button = new Button("hello");
 setTimeout(button.click, 1000); // hello
 ```
 
-The class field `click = () => {...}` creates an independent function on each `Button` object, with `this` bound to the object. Then we can pass `button.click` around anywhere, and it will be called with the right `this`.
+ينشئ حقل الفئة `click = () => {...}` وظيفة مستقلة على كل كائن `Button` ، مع` this` مرتبطًا بالكائن. ثم يمكننا تمرير "button.click" في أي مكان ، وسيتم استدعاؤها باستخدام `this` الصحيح.
 
-That's especially useful in browser environment, when we need to setup a method as an event listener.
+هذا مفيد بشكل خاص في بيئة المتصفح ، عندما نحتاج إلى إعداد طريقة كمستمع للأحداث.
 
-## Summary
+## ملخص
 
-The basic class syntax looks like this:
+تبدو بنية الصف الأساسية كما يلي:
 
 ```js
 class MyClass {
@@ -443,6 +443,6 @@ class MyClass {
 }
 ```
 
-`MyClass` is technically a function (the one that we provide as `constructor`), while methods, getters and setters are written to `MyClass.prototype`.
+`MyClass` هي وظيفة من الناحية الفنية (تلك التي نقدمها على أنها `مُنشئ`) ، بينما تتم كتابة الأساليب والرسومات والمستوطنين على` MyClass.prototype`.
 
-In the next chapters we'll learn more about classes, including inheritance and other features.
+في الفصول التالية سنتعلم المزيد عن الفصول ، بما في ذلك الميراث والميزات الأخرى.

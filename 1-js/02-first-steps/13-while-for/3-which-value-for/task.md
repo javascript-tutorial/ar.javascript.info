@@ -1,19 +1,19 @@
-importance: 4
+الأهمية: 4
 
 ---
 
-# Which values get shown by the "for" loop?
+# ما القيم التي ستعرض بواسطة الحلقة "for"?
 
-For each loop write down which values it is going to show. Then compare with the answer.
+قم بكتابة القيمة التي ستعرض في كل كل حلقة وقارنها بالحل.
 
-Both loops `alert` same values or not?
+هل ستقوم كلتا الحلقتين بعرض نفس القيم أم لا ؟
 
-1. The postfix form:
+1. صيغة postfix:
 
     ```js
     for (let i = 0; i < 5; i++) alert( i );
     ```
-2. The prefix form:
+2. صيغة prefix:
 
     ```js
     for (let i = 0; i < 5; ++i) alert( i );

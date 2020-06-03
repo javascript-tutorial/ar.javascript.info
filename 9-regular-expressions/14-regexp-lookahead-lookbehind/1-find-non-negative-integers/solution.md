@@ -1,9 +1,9 @@
 
-The regexp for an integer number is `pattern:\d+`.
+regexp لرقم صحيح هو `pattern: \ d +`.
 
-We can exclude negatives by prepending it with the negative lookahead: `pattern:(?<!-)\d+`.
+يمكننا استبعاد السلبيات عن طريق إلحاقها بالمظهر السلبي: `pattern: (؟ <! -) \ d +`.
 
-Although, if we try it now, we may notice one more "extra" result:
+على الرغم من أننا إذا جربناها الآن ، فقد نلاحظ نتيجة "إضافية" أخرى:
 
 ```js run
 let regexp = /(?<!-)\d+/g;
@@ -13,11 +13,11 @@ let str = "0 12 -5 123 -18";
 console.log( str.match(regexp) ); // 0, 12, 123, *!*8*/!*
 ```
 
-As you can see, it matches `match:8`, from `subject:-18`. To exclude it, we need to ensure that the regexp starts matching a number not from the middle of another (non-matching) number.
+كما ترون ، فإنه يطابق `المباراة: 8` ، من` الموضوع: -18`. لاستبعاده ، نحتاج إلى التأكد من أن regexp يبدأ في مطابقة رقم ليس من منتصف رقم آخر (غير مطابق).
 
-We can do it by specifying another negative lookbehind: `pattern:(?<!-)(?<!\d)\d+`. Now `pattern:(?<!\d)` ensures that a match does not start after another digit, just what we need.
+يمكننا القيام بذلك عن طريق تحديد مظهر سلبي آخر خلف: `pattern: (؟ <! -) (؟ <! \ d) \ d +`. الآن `النمط: (؟ <! \ d)` يضمن أن المطابقة لا تبدأ بعد رقم آخر ، فقط ما نحتاجه.
 
-We can also join them into a single lookbehind here:
+يمكننا أيضًا أن ننضم إليهم في lookbehind خلفنا هنا:
 
 ```js run
 let regexp = /(?<![-\d])\d+/g;

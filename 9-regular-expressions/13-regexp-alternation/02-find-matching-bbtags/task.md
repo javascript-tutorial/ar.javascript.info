@@ -1,25 +1,25 @@
-# Find bbtag pairs
+# البحث عن أزواج bbtag
 
-A "bb-tag" looks like `[tag]...[/tag]`, where `tag` is one of: `b`, `url` or `quote`.
+تبدو علامة "bb-tag" مثل `[tag] ... [/ tag]` ، حيث `tag` هي واحدة من:` b` أو `url` أو` quote`.
 
-For instance:
+على سبيل المثال:
 ```
 [b]text[/b]
 [url]http://google.com[/url]
 ```
 
-BB-tags can be nested. But a tag can't be nested into itself, for instance:
+يمكن أن تتداخل علامات BB. ولكن لا يمكن إدراج علامة في نفسها ، على سبيل المثال:
 
 ```
-Normal:
+بشكل طبيعي:
 [url] [b]http://google.com[/b] [/url]
 [quote] [b]text[/b] [/quote]
 
-Can't happen:
+لا يمكن حدوثه:
 [b][b]text[/b][/b]
 ```
 
-Tags can contain line breaks, that's normal:
+يمكن أن تحتوي العلامات على فواصل أسطر ، وهذا أمر طبيعي:
 
 ```
 [quote]
@@ -27,9 +27,9 @@ Tags can contain line breaks, that's normal:
 [/quote]
 ```
 
-Create a regexp to find all BB-tags with their contents.
+قم بإنشاء التعبير العادي للعثور على جميع علامات BB مع محتوياتها.
+على سبيل المثال:
 
-For instance:
 
 ```js
 let regexp = /your regexp/flags;
@@ -38,7 +38,7 @@ let str = "..[url]http://google.com[/url]..";
 alert( str.match(regexp) ); // [url]http://google.com[/url]
 ```
 
-If tags are nested, then we need the outer tag (if we want we can continue the search in its content):
+إذا كانت العلامات متداخلة ، فإننا نحتاج إلى العلامة الخارجية (إذا أردنا ، يمكننا متابعة البحث في محتواها):
 
 ```js
 let regexp = /your regexp/flags;
@@ -46,3 +46,4 @@ let regexp = /your regexp/flags;
 let str = "..[url][b]http://google.com[/b][/url]..";
 alert( str.match(regexp) ); // [url][b]http://google.com[/b][/url]
 ```
+

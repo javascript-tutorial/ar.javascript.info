@@ -1,4 +1,4 @@
-The answer is: **no, it won't**:
+الإجابة هي **no, it won't**:
 
 ```js run
 new Promise(function(resolve, reject) {
@@ -8,6 +8,6 @@ new Promise(function(resolve, reject) {
 }).catch(alert);
 ```
 
-As said in the chapter, there's an "implicit `try..catch`" around the function code. So all synchronous errors are handled.
+كما ذكر في الفصل ، هناك "try...catch" ضمنية حول رمز الوظيفة. لذلك يتم التعامل مع جميع الأخطاء المتزامنة.
 
-But here the error is generated not while the executor is running, but later. So the promise can't handle it. 
+ولكن هنا يتم إنشاء الخطأ ليس أثناء تشغيل المنفذ ، ولكن في وقت لاحق. لذا الوعد لا يمكن أن ينفذ به.

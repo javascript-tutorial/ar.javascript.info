@@ -1,6 +1,6 @@
-# Error in setTimeout
+# خطأ في setTimeout
 
-What do you think? Will the `.catch` trigger? Explain your answer.
+ما رأيك؟ هل سيتم تشغيل "catch"؟ اشرح اجابتك.
 
 ```js
 new Promise(function(resolve, reject) {

@@ -1,46 +1,46 @@
-# Code editors
+# محررات الأكواد
 
-A code editor is the place where programmers spend most of their time.
+محرر الأكواد هو المكان الذي يقضي فيه المبرمجون معظم وقتهم.
 
-There are two main types of code editors: IDEs and lightweight editors. Many people use one tool of each type.
+يوجد نوعين من محررات الأكواد: IDEs ( بيئة التطوير الكاملة)و المحررات البسيطة. العديد من الناس يستخدمون أداة واحدة لكل نوع.
 
 ## IDE
 
-The term [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) (Integrated Development Environment) refers to a powerful editor with many features that usually operates on a "whole project." As the name suggests, it's not just an editor, but a full-scale "development environment."
+مصطلح [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) (Integrated Development Environment) يشير إلى محرر بإمكانات هائلة، مع العديد من المميزات التي تعمل عادة على " مشروع كامل". كما يوحي الاسم، فهو ليس مجرد محرر أكواد، ولكنه "بيئة تطوير" واسعة النطاق.
 
-An IDE loads the project (which can be many files), allows navigation between files, provides autocompletion based on the whole project (not just the open file), and integrates with a version management system (like [git](https://git-scm.com/)), a testing environment, and other "project-level" stuff.
+ IDE تقوم بتحميل المشروع ) الذي يمكن أن يتكون من العديد من الملفات)، ويسمح بالتنقل بين الملفات، ويوفر خاصة الإكمال التلقائي المعتمدة على المشروع ككل ( وليس الملف المفتوح فقط) , كما أنه يمكن أن يرتبط مع أنظمة إدارة الإصدار  (مثل [git](https://git-scm.com/)), وبيئة الاختبار, وغيرها من الأشياء على مستوى المشروع.
 
-If you haven't selected an IDE yet, consider the following options:
+إذا لم تقم باختيار IDE بعد ، ففكر في الخيارات التالية:
 
-- [Visual Studio Code](https://code.visualstudio.com/) (cross-platform, free).
-- [WebStorm](http://www.jetbrains.com/webstorm/) (cross-platform, paid).
+- [فيجوال ستديو كود](https://code.visualstudio.com/) (يعمل على أكثر من نظام تشغيل, مجاني).
+- [ويب ستورم](http://www.jetbrains.com/webstorm/) (يعمل على أكثر من نظام تشغيل, مدفوع).
 
-For Windows, there's also "Visual Studio", not to be confused with "Visual Studio Code". "Visual Studio" is a paid and mighty Windows-only editor, well-suited for the .NET platform. It's also good at JavaScript. There's also a free version [Visual Studio Community](https://www.visualstudio.com/vs/community/).
+بالنسبة للويندوز، يمكن استخدام برنامج فيجوال ستديو، لايجب الخلط بينه وبين الفيجوال ستديو كود، فيجوال ستديو هو محرر  مدفوع يعمل على نظام ويندوز فقك، ومناسب تماماً لبيئة الدوت نت. أنه أيضاً جيد للجافاسكريبت. كما يوجد إصدار مجاني منه [Visual Studio Community](https://www.visualstudio.com/vs/community/).
 
-Many IDEs are paid, but have a trial period. Their cost is usually negligible compared to a qualified developer's salary, so just choose the best one for you.
+.عادة ما تكون تكلفتها ضئيلة للغاية مقارنة براتب المطور المؤهل ، لذلك فقط اختر الأفضل بالنسبة لك.العديد من بيئات التطوير مدفوعة، لكن لها فترة سماحية
 
-## Lightweight editors
+## المحررات البسيطة
 
-"Lightweight editors" are not as powerful as IDEs, but they're fast, elegant and simple.
+المحررات البسيطة"  ليست بقوة ال"  IDEs لكنها سريعة, وأنيقة وبسيطة
 
-They are mainly used to open and edit a file instantly.
+يتم استخدامها بشكل رئيسي لفتح وتحرير ملف على الفور.
 
-The main difference between a "lightweight editor" and an "IDE" is that an IDE works on a project-level, so it loads much more data on start, analyzes the project structure if needed and so on. A lightweight editor is much faster if we need only one file.
+الفارق الرئيسي بين المحررات البسيطة و "بيئة التطوير" هو أن بيئة التطوير تعمل على مستوى المشروع، لذلك فإنها تقوم بتحميل المزيد من البيانات عند البدء، وتحليل هيكل المشروع إذا لزم ذلك. أما المحررات البسيطة فإنها أسرع في حال نريد ملف واحد فقط.
 
-In practice, lightweight editors may have a lot of plugins including directory-level syntax analyzers and autocompleters, so there's no strict border between a lightweight editor and an IDE.
+من الناحية العملية ، قد تحتوي المحررات البسيطة على الكثير من المكونات الإضافية بما في ذلك محللات بناء الجملة على مستوى الدليل وأجهزة الإكمال التلقائي ، لذلك لا توجد حدود صارمة بين المحرر البسيط و IDE.
 
-The following options deserve your attention:
+الخيارات التالية تستحق انتباهك:
 
-- [Atom](https://atom.io/) (cross-platform, free).
-- [Visual Studio Code](https://code.visualstudio.com/) (cross-platform, free).
-- [Sublime Text](http://www.sublimetext.com) (cross-platform, shareware).
-- [Notepad++](https://notepad-plus-plus.org/) (Windows, free).
-- [Vim](http://www.vim.org/) and [Emacs](https://www.gnu.org/software/emacs/) are also cool if you know how to use them.
+- [Atom](https://atom.io/) (يعمل على العديد من أنظمة التشغيل, مجاني).
+- [Visual Studio Code](https://code.visualstudio.com/) (يعمل على العديد من أنظمة التشغيل, مجاني).
+- [Sublime Text](http://www.sublimetext.com) (يعمل على العديد من أنظمة التشغيل, برنامج مشاركة).
+- [Notepad++](https://notepad-plus-plus.org/) (الويندوز, مجاني).
+- [Vim](http://www.vim.org/) و [Emacs](https://www.gnu.org/software/emacs/)  رائعة إذا كنت تعرف كيفية استخدامها.
 
-## Let's not argue
+## دعونا لانتشاجر
 
-The editors in the lists above are those that either I or my friends whom I consider good developers have been using for a long time and are happy with.
+المحررات التي بالقائمة الأعلى هي التي نقوم باستخدامها أنا وأصدقائي، والذين أعتقد أنهم مطورون جيدون يستخدمونها منذ وقت طويل وتسعدهم.
 
-There are other great editors in our big world. Please choose the one you like the most.
+يوجد أيضاً محررات رائعة في عالمنا الكبير، الرجاء اختيار المحرر الذي تفضله.
 
-The choice of an editor, like any other tool, is individual and depends on your projects, habits, and personal preferences.
+اختيار المحرر، مثل أي أداة أخرى، هو اختيار فردي ويعتمد على مشروعاتك، وعاداتك، وتفضيلاتك الشخصية.

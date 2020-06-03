@@ -1,10 +1,10 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Type conversions
+# اكتب التحويلات
 
-What are results of these expressions?
+ما هي نتائج هذه التعبيرات؟
 
 ```js no-beautify
 "" + 1 + 0
@@ -24,4 +24,4 @@ undefined + 1
 " \t \n" - 2
 ```
 
-Think well, write down and then compare with the answer.
+فكر جيدًا ، واكتب ثم قارن مع الإجابة.

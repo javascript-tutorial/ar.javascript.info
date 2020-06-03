@@ -1,14 +1,13 @@
-# Character classes
+# فئات الأحرف
 
-Consider a practical task -- we have a phone number like `"+7(903)-123-45-67"`, and we need to turn it into pure numbers: `79031234567`.
+أعتبر هذه المهمه تدريب -- لدينا رقم هاتف خلوي مثل `"+7(903)-123-45-67"`, ونريد تحويله من هذا الشكل الي أرقام فقط: `79031234567`.
 
-To do so, we can find and remove anything that's not a number. Character classes can help with that.
+للقيام بذلك ، يمكننا العثور على وإزالة أي شيء ليس رقمًا. يمكن أن تساعد فئات الأحرف في ذلك.
 
-A *character class* is a special notation that matches any symbol from a certain set.
+*فئات الاحرف*  هو رمز خاص يطابق أي رمز من مجموعة معينة.
+ 
 
-For the start, let's explore the "digit" class. It's written as `pattern:\d` and corresponds to "any single digit".
-
-For instance, the let's find the first digit in the phone number:
+على سبيل المثال ، دعنا نعثر على الرقم الأول في رقم الهاتف:
 
 ```js run
 let str = "+7(903)-123-45-67";
@@ -18,39 +17,39 @@ let regexp = /\d/;
 alert( str.match(regexp) ); // 7
 ```
 
-Without the flag `pattern:g`, the regular expression only looks for the first match, that is the first digit `pattern:\d`.
+بدون العلم `pattern:g`, التعبير المنتظم ينظر فقط للمتطابقة الاولي, والذي يكون الرقم الاول `pattern:\d`.
 
-Let's add the `pattern:g` flag to find all digits:
+لنقم بأضافة العلم `pattern:g` لأيجاد كل الارقام:
 
 ```js run
 let str = "+7(903)-123-45-67";
 
 let regexp = /\d/g;
 
-alert( str.match(regexp) ); // array of matches: 7,9,0,3,1,2,3,4,5,6,7
+alert( str.match(regexp) ); // مصفوفة من المتطابقات: 7,9,0,3,1,2,3,4,5,6,7
 
-// let's make the digits-only phone number of them:
+// دعنا نحصل علي أرقام الهاتف الحلوي فقط
 alert( str.match(regexp).join('') ); // 79031234567
 ```
 
-That was a character class for digits. There are other character classes as well.
+وهذا كان فئة الحرف للأرقام. هناك فئات الاحرف الاخري كذلك.
 
-Most used are:
+الأكثر أستخداماً:
 
-`pattern:\d` ("d" is from "digit")
-: A digit: a character from `0` to `9`.
+`pattern:\d` ( الحرف "d" جاء من كلمة "digit" )
+: الرقم: يكون من `0` الي `9`.
 
-`pattern:\s` ("s" is from "space")
-: A space symbol: includes spaces, tabs `\t`, newlines `\n` and few other rare characters, such as `\v`, `\f` and `\r`.
+`pattern:\s` ( الحرف "s" جاء من كلمة "space")
+: رمز المسافة: يحتوي علي مسافات او مسافات طويلة `\t` او أسطر جديده `\n` وعدد قليل من الاحرف النادرة الاخري, مثل `\v` و `\f` و `\r`.
 
-`pattern:\w` ("w" is from "word")
-: A "wordly" character: either a letter of Latin alphabet or a digit or an underscore `_`. Non-Latin letters (like cyrillic or hindi) do not belong to `pattern:\w`.
+`pattern:\w` ( الحرف "w" جاء من كلمة "word")
+: الحرف هذا: إما حرف الأبجدية اللاتينية أو رقم أو تسطير أسفل السطر `_`. لا تنتمي الأحرف غير اللاتينية (مثل السيريلية أو الهندية) `pattern:\w`.
 
-For instance, `pattern:\d\s\w` means a "digit" followed by a "space character" followed by a "wordly character", such as `match:1 a`.
+علي سبيل المثال, `pattern:\d\s\w` الرمز هذا يعني رقم يأتي بعده مسافة ثم يُتبع بحرف, مثل `match:1 a`.
 
-**A regexp may contain both regular symbols and character classes.**
+**قد يحتوي التعبير المنتظم على كل من الرموز المنتظمة وفئات الاحرف.**
 
-For instance, `pattern:CSS\d` matches a string `match:CSS` with a digit after it:
+علي سبيل المثال, `pattern:CSS\d` ينتج عنه نص `match:CSS` مع رقم يأتي بعده:
 
 ```js run
 let str = "Is there CSS4?";
@@ -59,32 +58,32 @@ let regexp = /CSS\d/
 alert( str.match(regexp) ); // CSS4
 ```
 
-Also we can use many character classes:
+أيضاً نستطيع أستخدام الكثير من فئات الأحرف:
 
 ```js run
 alert( "I love HTML5!".match(/\s\w\w\w\w\d/) ); // ' HTML5'
 ```
 
-The match (each regexp character class has the corresponding result character):
+الناتج (كل فئة حرف تقابلها الناتج الخاص بها):
 
 ![](love-html5-classes.svg)
 
-## Inverse classes
+## الفئات العكسية
 
-For every character class there exists an "inverse class", denoted with the same letter, but uppercased.
+يوجد لكل فئة أحرف "فئة معكوسة" ، يُشار إليها بالحرف نفسه ، ولكن بالأحرف الكبيرة.
 
-The "inverse" means that it matches all other characters, for instance:
+يعني "معكوس" أنه يطابق جميع الأحرف الأخرى ، على سبيل المثال:
 
 `pattern:\D`
-: Non-digit: any character except `pattern:\d`, for instance a letter.
+: غير رقمي: أي حرف ما عدا `pattern:\d`, علي سبيل المثال حرف نصي.
 
 `pattern:\S`
-: Non-space: any character except `pattern:\s`, for instance a letter.
+: بدون مسافة: أي حرف ما عدا `pattern:\s`, علي سبيل المثال حرف نصي.
 
 `pattern:\W`
-: Non-wordly character: anything but `pattern:\w`, e.g a non-latin letter or a space.
+: حرف غير نصي: أي شئ لكن `pattern:\w`, علي سبيل المثال حرف غير لاتيني او مسافة.
 
-In the beginning of the chapter we saw how to make a number-only phone number from a string like `subject:+7(903)-123-45-67`: find all digits and join them.
+في بداية الفصل رأينا كيفية صنع رقم هاتف لرقم فقط من النص مثل`subject:+7(903)-123-45-67`: أيجاد كل الارقام وتم جمعهم.
 
 ```js run
 let str = "+7(903)-123-45-67";
@@ -92,7 +91,7 @@ let str = "+7(903)-123-45-67";
 alert( str.match(/\d/g).join('') ); // 79031234567
 ```
 
-An alternative, shorter way is to find non-digits `pattern:\D` and remove them from the string:
+طريقة بديلة ,أسهل هي العثور علي أي شئ غير الارقام `pattern:\D` من النص و حذفه من النص:
 
 ```js run
 let str = "+7(903)-123-45-67";
@@ -100,104 +99,104 @@ let str = "+7(903)-123-45-67";
 alert( str.replace(/\D/g, "") ); // 79031234567
 ```
 
-## A dot is "any character"
+## النقطة هي "أي حرف"
 
-A dot `pattern:.` is a special character class that matches "any character except a newline".
+النقطة `pattern:.` تكون فئة حرف ويكون الناتج الخاص بها "أي حرف ما عدا سطر جديد".
 
-For instance:
+علي سبيل المثال:
 
 ```js run
 alert( "Z".match(/./) ); // Z
 ```
 
-Or in the middle of a regexp:
+او يمكن أستخدامها في منتصف التعبير المنتظم:
 
 ```js run
 let regexp = /CS.4/;
 
 alert( "CSS4".match(regexp) ); // CSS4
 alert( "CS-4".match(regexp) ); // CS-4
-alert( "CS 4".match(regexp) ); // CS 4 (space is also a character)
+alert( "CS 4".match(regexp) ); // CS 4 (المسافة تعتبر أيضاً حرف)
 ```
 
-Please note that a dot means "any character", but not the "absense of a character". There must be a character to match it:
+يرجى ملاحظة أن النقطة تعني "أي حرف" ، ولكن ليس "عدم وجود حرف". يجب أن يكون هناك حرف لمطابقته:
 
 ```js run
-alert( "CS4".match(/CS.4/) ); // null, no match because there's no character for the dot
+alert( "CS4".match(/CS.4/) ); // الناتج يكون null لان لا يجود أي حرف موضع النقطة.
 ```
 
-### Dot as literally any character with "s" flag
+### النقطة تكون أي حرف مثل العلم "s"
 
-By default, a dot doesn't match the newline character `\n`.
+بشكل افتراضي ، لا تتطابق النقطة مع حرف السطر الجديد `\n`.
 
-For instance, the regexp `pattern:A.B` matches `match:A`, and then `match:B` with any character between them, except a newline `\n`:
+علي سبيل المثال, التعبير المنتظم `pattern:A.B` يطابق `match:A`, ومن ثم `match:B` مع أي حرف بينهم, ما عدا السطر الجديد `\n`:
 
 ```js run
-alert( "A\nB".match(/A.B/) ); // null (no match)
+alert( "A\nB".match(/A.B/) ); // null (لا متطابقة)
 ```
 
-There are many situations when we'd like a dot to mean literally "any character", newline included.
+هناك العديد من المواقف عندما نرغب في أن تعني النقطة حرفياً "أي حرف" ، بما في ذلك السطر الجديد.
 
-That's what flag `pattern:s` does. If a regexp has it, then a dot `pattern:.` matches literally any character:
+ماذا العلم `pattern:s` يفعل. اذا كان التعبير المنتظم يحتوي عليه, كذلك النقطة `pattern:.` ينتج عنها أي حرف:
 
 ```js run
 alert( "A\nB".match(/A.B/s) ); // A\nB (match!)
 ```
 
-````warn header="Not supported in Firefox, IE, Edge"
-Check <https://caniuse.com/#search=dotall> for the most recent state of support. At the time of writing it doesn't include Firefox, IE, Edge.
+````warn header="لا يدعم في Firefox و IE و Edge"
+أفحص هذا الموقع <https://caniuse.com/#search=dotall> للمزيد من المعلومات حول الدعم. وفي نفس وقت الكتابة لا تنتمي الي Firefox و IE و Edge.
 
-Luckily, there's an alternative, that works everywhere. We can use a regexp like `pattern:[\s\S]` to match "any character".
+لحسن الحظ ، هناك بديل يعمل في كل مكان. نستطيع أستخدام تعبير منتظم مثل `pattern:[\s\S]` ليكون الناتج "أي حرف".
 
 ```js run
-alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (match!)
+alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (الناتج!)
 ```
 
-The pattern `pattern:[\s\S]` literally says: "a space character OR not a space character". In other words, "anything". We could use another pair of complementary classes, such as `pattern:[\d\D]`, that doesn't matter. Or even the `pattern:[^]` -- as it means match any character except nothing.
+الرمز `pattern:[\s\S]` يقول: "حرف مسافة او ليس حرف مسافة". وبعبارة أخرى ، "أي شيء". يمكننا أستخدام زوج أخر من الفئات التكميلية, مثل `pattern:[\d\D]`, لا يهم أو حتي `pattern:[^]` -- لأنه يعني مطابقة أي حرف باستثناء أي شيء.
 
-Also we can use this trick if we want both kind of "dots" in the same pattern: the actual dot `pattern:.` behaving the regular way ("not including a newline"), and also a way to match "any character" with `pattern:[\s\S]` or alike.
+كما يمكننا استخدام هذه الخدعة إذا أردنا نوعي "النقاط" في نفس النمط: النقطة الفعلية "النقط" في نفس الرمز: النقطة الفعلية `pattern:.` يشتغل بالطريقة المنتظمة ("لا يحتوي علي سطر جديد"), وأيضاً طريقة أخري للحصول علي "أي حرف" مع الرمز `pattern:[\s\S]` او علي حد سواء.
 ````
 
-````warn header="Pay attention to spaces"
-Usually we pay little attention to spaces. For us strings `subject:1-5` and `subject:1 - 5` are nearly identical.
+````warn header="أنتبه للمسافات"
+عادة نولي القليل من الاهتمام للمساحات. للنصوص `subject:1-5` و `subject:1 - 5` متطابة تقريباً.
 
-But if a regexp doesn't take spaces into account, it may fail to work.
+ولكن أذا كان التعبير المنتظم لا يحسب مسافات, قد تفشل في العمل.
 
-Let's try to find digits separated by a hyphen:
+فلنحاول أيجاد الأرقام مفصوله بواصلة:
 
 ```js run
-alert( "1 - 5".match(/\d-\d/) ); // null, no match!
+alert( "1 - 5".match(/\d-\d/) ); // null, لا ناتج!
 ```
 
-Let's fix it adding spaces into the regexp `pattern:\d - \d`:
+دعنا نصلحه بإضافة مسافات إلى التعبير المنتظم `pattern:\d - \d`:
 
 ```js run
-alert( "1 - 5".match(/\d - \d/) ); // 1 - 5, now it works
+alert( "1 - 5".match(/\d - \d/) ); // 1 - 5, الان أنها تعمل
 // or we can use \s class:
-alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, also works
+alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, أيضاً تعمل
 ```
 
-**A space is a character. Equal in importance with any other character.**
+**المسافة تعتبر حرف. تساوي في الاهمية مع أي حرف أخر.**
 
-We can't add or remove spaces from a regular expression and expect to work the same.
+لا يمكننا إضافة مسافات أو إزالتها من التعبير المنتظم ونتوقع أن تعمل بالطريقة نفسها.
 
-In other words, in a regular expression all characters matter, spaces too.
+بمعني أخر, في التعبير المنتظم كل الحروف لها أهمية, والمسافات أيضاً.
 ````
 
-## Summary
+## الملخص
 
-There exist following character classes:
+توجد فئات الأحرف التالية:
 
-- `pattern:\d` -- digits.
-- `pattern:\D` -- non-digits.
-- `pattern:\s` -- space symbols, tabs, newlines.
-- `pattern:\S` -- all but `pattern:\s`.
-- `pattern:\w` -- Latin letters, digits, underscore `'_'`.
-- `pattern:\W` -- all but `pattern:\w`.
-- `pattern:.` -- any character if with the regexp `'s'` flag, otherwise any except a newline `\n`.
+- `pattern:\d` -- الارقام.
+- `pattern:\D` -- غير الارقام.
+- `pattern:\s` -- مسافات و مسافات طويلة وسطر جديد.
+- `pattern:\S` -- أي شئ ما عدا `pattern:\s`.
+- `pattern:\w` -- الحروف اللاتينية و الارقام و التطسير `'_'`.
+- `pattern:\W` -- الكل ما عدا `pattern:\w`.
+- `pattern:.` -- أي حرف أذا كان مع التعبير المنتظم العلم `'s'`, غير ذلك يكون أي شئ ما عدا السطر الجديد `\n`.
 
-...But that's not all!
+...ولكن هذا ليس كل شيء!
 
-Unicode encoding, used by JavaScript for strings, provides many properties for characters, like: which language the letter belongs to (if it's a letter) it is it a punctuation sign, etc.
+يوفر ترميز Unicode ، الذي تستخدمه JavaScript للسلاسل ، العديد من الخصائص للأحرف ، مثل: اللغة التي ينتمي إليها الحرف (إذا كان حرفًا) فهو علامة ترقيم ، إلخ.
 
-We can search by these properties as well. That requires flag `pattern:u`, covered in the next article.
+يمكننا البحث بهذه الخصائص أيضًا. هذا يتطلب العلم `pattern:u`, تم تغطيته في المقال التالي.

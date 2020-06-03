@@ -1,44 +1,44 @@
 # Interaction: alert, prompt, confirm
 
-As we'll be using the browser as our demo environment, let's see a couple of functions to interact with the user: `alert`, `prompt` and `confirm`.
+بينما نستخدم المتصفح كبيئة تجريبية، تعال نرى بعض الدوال المستخدمة في التعامل مع المستخدم: `alert`و `prompt` و `confirm`.
 
 ## alert
 
-This one we've seen already. It shows a message and waits for the user to presses "OK".
+هذه رأيناها بالفعل. إنها تظهر رسالة وتنتظر من المستخدم أن يضغط على "OK".
 
-For example:
+على سبيل المثال:
 
 ```js run
 alert("Hello");
 ```
 
-The mini-window with the message is called a *modal window*. The word "modal" means that the visitor can't interact with the rest of the page, press other buttons, etc, until they have dealt with the window. In this case -- until they press "OK".
+النافذة الصغيرة التي تحتوي على رسالة تدعى *modal window*. الكلمة "modal" تعني أن المستخدم لا يستطيع أن يتفاعل مع باقي الصفحة، مثل الضغط على أزرار أخرى، إلخ، حتى يتعامل مع هذه النافذة. في هذه الحالة -- حتى يضغط على "OK".
 
 ## prompt
 
-The function `prompt` accepts two arguments:
+الدالة `prompt` تقبل معاملين اثنين:
 
 ```js no-beautify
 result = prompt(title, [default]);
 ```
 
-It shows a modal window with a text message, an input field for the visitor, and the buttons OK/Cancel.
+إنها تظهر نافذة مشروطة برسالة نصية و  حقل إدخال للزائر و وأزرار OK/Cancel.
 
 `title`
-: The text to show the visitor.
+: النص الذي يظهر في الزائر.
 
 `default`
-: An optional second parameter, the initial value for the input field.
+: معامل ثاني إختياري، القيمة الأولية لحقل الإدخال.
 
 ```smart header="The square brackets in syntax `[...]`"
-The square brackets around `default` in the syntax above denote that the parameter as optional, not required.
+الأقواس المربعة حول `default` في الكود أعلاه يوضح أن المعامل إختياري، ليس مطلوب.
 ```
 
-The visitor can type something in the prompt input field and press OK. Then we get that text in the `result`. Or they can cancel the input by pressing Cancel or hitting the `key:Esc` key, then we get `null` as the `result`.
+الزائر يستطيع كتابة أي شئ في حقل الإدخال ويضغط أوك. ثم نحصل على النص في `النتيجة`. أو يستطيع إلغاء الإدخال بالضغط على إلغاء  أو الضغط على زرار `key:Esc` ، عندها سنحصل على  `null` ك`result`.
 
-The call to `prompt` returns the text from the input field or `null` if the input was canceled.
+إستدعاء `prompt` ترجع النص من حقل الإدخال أو `null` لو هذا الإدخال تم إلغاؤه.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let age = prompt('How old are you?', 100);
@@ -47,15 +47,15 @@ alert(`You are ${age} years old!`); // You are 100 years old!
 ```
 
 ````warn header="In IE: always supply a `default`"
-The second parameter is optional, but if we don't supply it, Internet Explorer will insert the text `"undefined"` into the prompt.
+المعامل الثاني إختياري، لكن إذا لم يتم إدخاله، انترنت اكسبلورر سيدخل النص `"undefined"` داخل حقل الإدخال.
 
-Run this code in Internet Explorer to see:
+جرب هذا الكود في متصفح إنترنت إكسبلورر وسترى:
 
 ```js run
 let test = prompt("Test");
 ```
 
-So, for prompts to look good in IE, we recommend always providing the second argument:
+لذلك، ال prompts لكي تظهر بشكل جيد في انترنت اكسبلورر، ننصح دائما بتزويد المتصفح بالمعامل الثاني:
 
 ```js run
 let test = prompt("Test", ''); // <-- for IE
@@ -64,42 +64,42 @@ let test = prompt("Test", ''); // <-- for IE
 
 ## confirm
 
-The syntax:
+الكود:
 
 ```js
 result = confirm(question);
 ```
 
-The function `confirm` shows a modal window with a `question` and two buttons: OK and Cancel.
+الدالة `confirm` تظهر نافذة مشروطة ب `سؤال` و زرارين: OK and Cancel.
 
-The result is `true` if OK is pressed and `false` otherwise.
+النتيجة هي `true` لو تم الضغط على زر  أوك أو`false` لغير ذلك.
 
-For example:
+على سبيل المثال:
 
 ```js run
 let isBoss = confirm("Are you the boss?");
 
-alert( isBoss ); // true if OK is pressed
+alert( isBoss ); // true لو زر أوك تم الضغط عليه
 ```
 
 ## Summary
 
-We covered 3 browser-specific functions to interact with visitors:
+غطينا 3  دوال خاصة بالمتصفح للتعامل مع الزوار:
 
 `alert`
-: shows a message.
+: يظهر رسالة.
 
 `prompt`
-: shows a message asking the user to input text. It returns the text or, if Cancel button or `key:Esc` is clicked, `null`.
+: يظهر رسالة تسال المستخدم لإدخال نص. يتم إرجاع النص ،  أو زر إلغاء أو زر `key:Esc` تم الضغط عليه، أو `null`.
 
 `confirm`
-: shows a message and waits for the user to press "OK" or "Cancel". It returns `true` for OK and `false` for Cancel/`key:Esc`.
+: تظهر رسالة وتنتظر المستخدم ليضغط على زر "OK" أو "Cancel". ترجع `true` في حالة أوك و `false` في حالة Cancel/`key:Esc`.
 
-All these methods are modal: they pause script execution and don't allow the visitor to interact with the rest of the page until the window has been dismissed.
+كل هذه الطرق مشروطة: إنها توقف تنفيذ الكود ولا تسمح للزائر للتعامل مع باقي الصفحة حتى يتم صرف النافذة .
 
-There are two limitations shared by all the methods above:
+يوجد قيدان مشتركان لكل الطرق أعلاه :
 
-1. The exact location of the modal window is determined by the browser. Usually, it's in the center.
-2. The exact look of the window also depends on the browser. We can't modify it.
+1. الموقع المضبوط للنافذة المشروطة يتم تقريره من خلال المتصفح. عادة، إنها تكون في المنتصف.
+2. الشكل المضبوط للنافذة أيضاً يعتمد على المتصفح . لا نستطيع تعديله.
 
-That is the price for simplicity. There are other ways to show nicer windows and richer interaction with the visitor, but if "bells and whistles" do not matter much, these methods work just fine.
+هذا ثمن البساطة. هناك طرق أخرى تظهر نوافذ ألطف و أغنى في التعامل مع المستخدم، لكن لو "الأجراس و الصفارات" لا تهم كثيراً، هذه الطرق تعمل بشكل جيد.

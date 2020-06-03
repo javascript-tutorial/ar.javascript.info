@@ -1,3 +1,3 @@
-# UI Events
+# أحداث الواجهة 
 
-Here we cover most important user interface events and how to work with them.
+هنا سوف ندرس الأحداث الرئيسية لواجهة المستخدم وكيفية العمل معها.

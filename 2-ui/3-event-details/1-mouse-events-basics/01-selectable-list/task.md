@@ -1,18 +1,18 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Selectable list
+# قائمة قابلة للتحديد
 
-Create a list where elements are selectable, like in file-managers.
+قم بإنشاء قائمة يمكن فيها تحديد العناصر , مثل الموجودة بمدير الملفات.
 
-- A click on a list element selects only that element (adds the class `.selected`), deselects all others.
-- If a click is made with `key:Ctrl` (`key:Cmd` for Mac), then the selection is toggled on the element, but other elements are not modified.
+- عند النقر فوق عنصر في القائمة يتم تحديد هذا العنصر فقط (إضافة الفئةs `.selected`), وإلغاء تحديد العناصر الأخرى.
+- إذا تم النقر مع `key:Ctrl` (`key:Cmd` لنظام Mac), يتم  التحديد على العنصر ، ولكن لا يتم تغيير بقية العناصر
 
-The demo:
+مثال توضيحي:
 
 [iframe border="1" src="solution" height=180]
 
-P.S. For this task we can assume that list items are text-only. No nested tags.
+P.S. ملاحظة: في هذه المهمة ، تحتوي جميع عناصر القائمة على نص فقط. لا توجد علامات متداخلة
 
-P.P.S. Prevent the native browser selection of the text on clicks.
+P.P.S. منع اختيار النص الأصلي للمتصفح على النقرات.

@@ -2,19 +2,19 @@
 
 ```js
 function min(a, b) {
-  if (a < b) {
-    return a;
-  } else {
-    return b;
-  }
+    if (a < b) {
+        return a;
+    } else {
+        return b;
+    }
 }
 ```
 
-الحل باستخدام معامل علامة الاستفهام `'?'`:
+الحل باستخدام عامل علامة الاستفهام `'?'`:
 
 ```js
 function min(a, b) {
-  return a < b ? a : b;
+    return a < b ? a : b;
 }
 ```
 

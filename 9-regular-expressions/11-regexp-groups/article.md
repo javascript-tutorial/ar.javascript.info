@@ -1,31 +1,31 @@
-# Capturing groups
+# التقاط المجموعات
 
-A part of a pattern can be enclosed in parentheses `pattern:(...)`. This is called a "capturing group".
+يمكن وضع جزء من النموذج بين قوسين `نمط: (...)`. وهذا ما يسمى "مجموعة أسر".
 
-That has two effects:
+هذا له تأثيران:
 
-1. It allows to get a part of the match as a separate item in the result array.
-2. If we put a quantifier after the parentheses, it applies to the parentheses as a whole.
+1. يسمح بالحصول على جزء من المباراة كبند منفصل في مصفوفة النتائج.
+2. إذا وضعنا كمياً بعد الأقواس ، فإنه ينطبق على الأقواس ككل.
 
-## Examples
+## الأمثلة
 
-Let's see how parentheses work in examples.
+دعونا نرى كيف تعمل الأقواس في الأمثلة.
 
-### Example: gogogo
+### مثال: gogogo
 
-Without parentheses, the pattern `pattern:go+` means `subject:g` character, followed by `subject:o` repeated one or more times. For instance, `match:goooo` or `match:gooooooooo`.
+بدون قوسين ، فإن النمط `النمط: go +` يعني `الموضوع: g` ، متبوعًا بـ` الموضوع: o` مكررًا مرة واحدة أو أكثر. على سبيل المثال ، `match: goooo` أو` match: gooooooooo`.
 
-Parentheses group characters together, so `pattern:(go)+` means `match:go`, `match:gogo`, `match:gogogo` and so on.
+تجمع الأقواس الأحرف معًا ، لذا `النمط: (go) +` يعني `match: go` و` match: gogo` و `match: gogogo` وما إلى ذلك.
 
 ```js run
 alert( 'Gogogo now!'.match(/(go)+/i) ); // "Gogogo"
 ```
 
-### Example: domain
+### مثال: المجال
 
-Let's make something more complex -- a regular expression to search for a website domain.
+دعونا نجعل شيئًا أكثر تعقيدًا - تعبيرًا عاديًا للبحث عن نطاق موقع ويب.
 
-For example:
+فمثلا:
 
 ```
 mail.com
@@ -33,9 +33,9 @@ users.mail.com
 smith.users.mail.com
 ```
 
-As we can see, a domain consists of repeated words, a dot after each one except the last one.
+كما نرى ، المجال يتكون من كلمات متكررة ، نقطة بعد كل واحدة باستثناء الأخيرة.
 
-In regular expressions that's `pattern:(\w+\.)+\w+`:
+في التعبيرات العادية هذا `نمط: (\ w + \.) + \ w +`:
 
 ```js run
 let regexp = /(\w+\.)+\w+/g;
@@ -43,17 +43,17 @@ let regexp = /(\w+\.)+\w+/g;
 alert( "site.com my.site.com".match(regexp) ); // site.com,my.site.com
 ```
 
-The search works, but the pattern can't match a domain with a hyphen, e.g. `my-site.com`, because the hyphen does not belong to class `pattern:\w`.
+يعمل البحث ، ولكن لا يمكن أن يتطابق النمط مع النطاق بواصلة ، على سبيل المثال `my-site.com` ، لأن الواصلة لا تنتمي إلى النمط` class: \ w`.
 
-We can fix it by replacing `pattern:\w` with `pattern:[\w-]` in every word except the last one: `pattern:([\w-]+\.)+\w+`.
+يمكننا إصلاحه عن طريق استبدال `pattern: \ w` بـ` pattern: [\ w-] `في كل كلمة باستثناء الكلمة الأخيرة:` pattern: ([\ w -] + \.) + \ w + `.
 
-### Example: email
+### مثال: البريد الإلكتروني
 
-The previous example can be extended. We can create a regular expression for emails based on it.
+يمكن توسيع المثال السابق. يمكننا إنشاء تعبير عادي للرسائل الإلكترونية بناءً عليه.
 
-The email format is: `name@domain`. Any word can be the name, hyphens and dots are allowed. In regular expressions that's `pattern:[-.\w]+`.
+تنسيق البريد الإلكتروني هو: `name @ domain`. يمكن أن تكون أي كلمة الاسم والواصلات والنقاط مسموحًا بها. في التعبيرات العادية هذا `النمط: [-. \ w] +`.
 
-The pattern:
+النمط:
 
 ```js run
 let regexp = /[-.\w]+@([\w-]+\.)+[\w-]+/g;
@@ -61,24 +61,24 @@ let regexp = /[-.\w]+@([\w-]+\.)+[\w-]+/g;
 alert("my@mail.com @ his@site.com.uk".match(regexp)); // my@mail.com, his@site.com.uk
 ```
 
-That regexp is not perfect, but mostly works and helps to fix accidental mistypes. The only truly reliable check for an email can only be done by sending a letter.
+هذا التعبير العادي ليس مثاليًا ، ولكنه يعمل في الغالب ويساعد على إصلاح الأخطاء العرضية. لا يمكن إجراء الاختيار الوحيد الموثوق به حقًا للبريد الإلكتروني إلا عن طريق إرسال بريد إلكتروني.
 
-## Parentheses contents in the match
+## أقواس المحتويات في المباراة
 
-Parentheses are numbered from left to right. The search engine memorizes the content matched by each of them and allows to get it in the result.
+الأقواس مرقمة من اليسار إلى اليمين. يحفظ محرك البحث المحتوى المطابق لكل منها ويسمح بالحصول عليه في النتيجة.
 
-The method `str.match(regexp)`, if `regexp` has no flag `g`, looks for the first match and returns it as an array:
+الطريقة `str.match (regexp)` ، إذا لم يكن لـ `regexp` علامة` g` ، فابحث عن المطابقة الأولى وترجعها كمصفوفة:
 
-1. At index `0`: the full match.
-2. At index `1`: the contents of the first parentheses.
-3. At index `2`: the contents of the second parentheses.
-4. ...and so on...
+1. في الفهرس `0`: المباراة الكاملة.
+2. في الفهرس `1`: محتويات الأقواس الأولى.
+3. في الفهرس `2`: محتويات الأقواس الثانية.
+4. ... وهكذا ...
 
-For instance, we'd like to find HTML tags `pattern:<.*?>`, and process them. It would be convenient to have tag content (what's inside the angles), in a separate variable.
+على سبيل المثال ، نود العثور على علامات HTML `pattern: <. *؟>` ، ومعالجتها. سيكون من المناسب وجود محتوى علامة (ما يوجد داخل الزوايا) ، في متغير منفصل.
 
-Let's wrap the inner content into parentheses, like this: `pattern:<(.*?)>`.
+دعونا نلف المحتوى الداخلي بين قوسين ، مثل هذا: `pattern: <(. *؟)>`.
 
-Now we'll get both the tag as a whole `match:<h1>` and its contents `match:h1` in the resulting array:
+الآن سنحصل على كل من العلامة على أنها `مطابقة كاملة: <h1>` ومحتوياتها `مطابقة: h1` في الصفيف الناتج:
 
 ```js run
 let str = '<h1>Hello, world!</h1>';
@@ -89,19 +89,19 @@ alert( tag[0] ); // <h1>
 alert( tag[1] ); // h1
 ```
 
-### Nested groups
+### المجموعات المتداخلة
 
-Parentheses can be nested. In this case the numbering also goes from left to right.
+يمكن أن تتداخل الأقواس. في هذه الحالة ، ينتقل الترقيم أيضًا من اليسار إلى اليمين.
 
-For instance, when searching a tag in `subject:<span class="my">` we may be interested in:
+على سبيل المثال ، عند البحث عن علامة في `الموضوع: <span class =" my ">` قد نكون مهتمين بما يلي:
 
-1. The tag content as a whole: `match:span class="my"`.
-2. The tag name: `match:span`.
-3. The tag attributes: `match:class="my"`.
+1. محتوى العلامة ككل: `match: span class =" my "`.
+2. اسم العلامة: `match: span`.
+3. سمات العلامة: `match: class =" my "`.
 
-Let's add parentheses for them: `pattern:<(([a-z]+)\s*([^>]*))>`.
+دعونا نضيف أقواسًا لهم: `pattern: <(([a-z] +) \ s * ([^>] *))>`.
 
-Here's how they are numbered (left to right, by the opening paren):
+إليك كيفية ترقيمها (من اليسار إلى اليمين ، عن طريق قوس الافتتاح):
 
 ![](regexp-nested-groups-pattern.svg)
 
@@ -119,23 +119,23 @@ alert(result[2]); // span
 alert(result[3]); // class="my"
 ```
 
-The zero index of `result` always holds the full match.
+دائمًا ما يحمل الفهرس الصفري "النتيجة" المطابقة الكاملة.
 
-Then groups, numbered from left to right by an opening paren. The first group is returned as `result[1]`. Here it encloses the whole tag content.
+ثم المجموعات ، مرقمة من اليسار إلى اليمين بواسطة قوس افتتاح. تم إرجاع المجموعة الأولى على أنها `نتيجة [1]`. هنا يرفق محتوى العلامة بالكامل.
 
-Then in `result[2]` goes the group from the second opening paren `pattern:([a-z]+)` - tag name, then in `result[3]` the tag: `pattern:([^>]*)`.
+ثم في `النتيجة [2]` تنتقل المجموعة من نمط `` الفتح الثاني '': ([az] +) `- اسم العلامة ، ثم في` النتيجة [3] `العلامة:` النمط: ([^>] * ) `.
 
-The contents of every group in the string:
+محتويات كل مجموعة في السلسلة:
 
 ![](regexp-nested-groups-matches.svg)
 
-### Optional groups
+### المجموعات الاختيارية
 
-Even if a group is optional and doesn't exist in the match (e.g. has the quantifier `pattern:(...)?`), the corresponding `result` array item is present and equals `undefined`.
+حتى إذا كانت المجموعة اختيارية ولا وجود لها في المطابقة (على سبيل المثال ، تحتوي على النموذج `المُحدِّد الكمي: (...)؟`) ، فإن عنصر صفيف `النتيجة` المطابق موجود ويساوي` غير معرّف`.
 
-For instance, let's consider the regexp `pattern:a(z)?(c)?`. It looks for `"a"` optionally followed by `"z"` optionally followed by `"c"`.
+على سبيل المثال ، دعنا نفكر في regexp `pattern: a (z)؟ (c)؟`. تبحث عن "" "متبوعًا اختياريًا بـ" "z" "متبوعًا اختياريًا بـ" "c" ".
 
-If we run it on the string with a single letter `subject:a`, then the result is:
+إذا قمنا بتشغيله على السلسلة بحرف واحد `subject: a` ، فإن النتيجة هي:
 
 ```js run
 let match = 'a'.match(/a(z)?(c)?/);
@@ -146,9 +146,9 @@ alert( match[1] ); // undefined
 alert( match[2] ); // undefined
 ```
 
-The array has the length of `3`, but all groups are empty.
+الصفيف له طول `3` ، لكن كل المجموعات فارغة.
 
-And here's a more complex match for the string `subject:ac`:
+وإليك مطابقة أكثر تعقيدًا للسلسلة `subject: ac`:
 
 ```js run
 let match = 'ac'.match(/a(z)?(c)?/)
@@ -159,19 +159,19 @@ alert( match[1] ); // undefined, because there's nothing for (z)?
 alert( match[2] ); // c
 ```
 
-The array length is permanent: `3`. But there's nothing for the group `pattern:(z)?`, so the result is `["ac", undefined, "c"]`.
+طول الصفيف دائم: `3`. ولكن لا يوجد شيء للمجموعة 'pattern: (z)؟ `، لذا فإن النتيجة هي" ["ac"، undefined، "c"] `.
 
-## Searching for all matches with groups: matchAll
+## البحث عن جميع التطابقات مع المجموعات: matchAll
 
-```warn header="`matchAll` is a new method, polyfill may be needed"
-The method `matchAll` is not supported in old browsers.
+`` `warn header =" "matchAll` هي طريقة جديدة ، قد تكون هناك حاجة إلى تعبئة متعددة"
+الطريقة `matchAll` غير مدعومة في المتصفحات القديمة.
 
-A polyfill may be required, such as <https://github.com/ljharb/String.prototype.matchAll>.
-```
+قد تكون هناك حاجة إلى تعبئة متعددة ، مثل <https://github.com/ljharb/String.prototype.matchAll>.
+``
 
-When we search for all matches (flag `pattern:g`), the `match` method does not return contents for groups.
+عندما نبحث عن جميع التطابقات (الإبلاغ عن `pattern: g`) ، لا تُرجع طريقة` match` محتويات المجموعات.
 
-For example, let's find all tags in a string:
+على سبيل المثال ، دعنا نجد كل العلامات في سلسلة:
 
 ```js run
 let str = '<h1> <h2>';
@@ -181,19 +181,19 @@ let tags = str.match(/<(.*?)>/g);
 alert( tags ); // <h1>,<h2>
 ```
 
-The result is an array of matches, but without details about each of them. But in practice we usually need contents of capturing groups in the result.
+والنتيجة هي مجموعة من التطابقات ، ولكن بدون تفاصيل حول كل منها. ولكن في الممارسة العملية ، نحتاج عادةً إلى محتويات مجموعات الالتقاط في النتيجة.
 
-To get them, we should search using the method `str.matchAll(regexp)`.
+للحصول عليها ، يجب البحث باستخدام الطريقة `str.matchAll (regexp)`.
 
-It was added to JavaScript language long after `match`, as its "new and improved version".
+تمت إضافتها إلى لغة جافا سكريبت بعد فترة طويلة من "التطابق" ، باعتبارها "نسختها الجديدة والمحسنة".
 
-Just like `match`, it looks for matches, but there are 3 differences:
+تمامًا مثل `match` ، فإنه يبحث عن المباريات ، ولكن هناك 3 اختلافات:
 
-1. It returns not an array, but an iterable object.
-2. When the flag `pattern:g` is present, it returns every match as an array with groups.
-3. If there are no matches, it returns not `null`, but an empty iterable object.
+1. لا تقوم بإرجاع صفيف ، ولكن كائن قابل للتكرار.
+2. عند وجود العلامة "pattern: g" ، فإنها تُرجع كل مطابقة كمصفوفة بمجموعات.
+3. في حالة عدم وجود تطابقات ، فإنها لا تُرجع "قيمة خالية" ، بل تُرجع كائنًا فارغًا قابلًا للتكرار.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
@@ -209,9 +209,9 @@ alert(results[0]); // <h1>,h1 (1st tag)
 alert(results[1]); // <h2>,h2 (2nd tag)
 ```
 
-As we can see, the first difference is very important, as demonstrated in the line `(*)`. We can't get the match as `results[0]`, because that object isn't pseudoarray. We can turn it into a real `Array` using `Array.from`. There are more details about pseudoarrays and iterables in the article <info:iterable>.
+كما نرى ، فإن الفرق الأول مهم للغاية ، كما هو موضح في السطر `(*)`. لا يمكننا الحصول على المطابقة كـ "النتائج [0]` ، لأن هذا الكائن ليس كاذبًا. يمكننا تحويلها إلى `Array` حقيقي باستخدام` Array.from`. هناك المزيد من التفاصيل حول المصفوفات الكاذبة والقابلة للتكرار في المقالة <info: iterable>.
 
-There's no need in `Array.from` if we're looping over results:
+ليست هناك حاجة في `Array.from` إذا كنا نراجع النتائج:
 
 ```js run
 let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
@@ -223,13 +223,13 @@ for(let result of results) {
 }
 ```
 
-...Or using destructuring:
+... أو باستخدام الـ `destructuring`:
 
 ```js
 let [tag1, tag2] = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
 ```
 
-Every match, returned by `matchAll`, has the same format as returned by `match` without flag `pattern:g`: it's an array with additional properties `index` (match index in the string) and `input` (source string):
+كل مطابقة ، يتم إرجاعها بواسطة `matchAll` ، لها نفس التنسيق الذي تم إرجاعه بواسطة` مطابقة` بدون نمط `العلامة: g`: إنها مصفوفة ذات خصائص إضافية` فهرس` (فهرس المطابقة في السلسلة) و `الإدخال` (سلسلة المصدر ):
 
 ```js run
 let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
@@ -242,23 +242,23 @@ alert( tag1.index ); // 0
 alert( tag1.input ); // <h1> <h2>
 ```
 
-```smart header="Why is a result of `matchAll` an iterable object, not an array?"
-Why is the method designed like that? The reason is simple - for the optimization.
+```smart header="لماذا نتيجة" matchAll "كائن قابل للتكرار وليس مصفوفة؟"
+لماذا تم تصميم الطريقة بهذه الطريقة؟ والسبب بسيط - للتحسين.
 
-The call to `matchAll` does not perform the search. Instead, it returns an iterable object, without the results initially. The search is performed each time we iterate over it, e.g. in the loop.
+استدعاء "matchAll" لا يجري البحث. بدلاً من ذلك ، تقوم بإرجاع كائن قابل للتكرار ، بدون النتائج في البداية. يتم إجراء البحث في كل مرة نكرر فيها ذلك ، على سبيل المثال في الحلقة.
 
-So, there will be found as many results as needed, not more.
+لذلك ، سيتم العثور على العديد من النتائج حسب الحاجة ، وليس أكثر.
 
-E.g. there are potentially 100 matches in the text, but in a `for..of` loop we found 5 of them, then decided it's enough and make a `break`. Then the engine won't spend time finding other 95 matches.
-```
+على سبيل المثال من المحتمل أن يكون هناك 100 تطابق في النص ، ولكن في حلقة "for..of` وجدنا 5 منها ، ثم قررنا أنها كافية وقمنا بعمل" استراحة ". ثم لن يقضي المحرك وقتًا في العثور على 95 مباراة أخرى.
+``
 
-## Named groups
+## المجموعات المسماة
 
-Remembering groups by their numbers is hard. For simple patterns it's doable, but for more complex ones counting parentheses is inconvenient. We have a much better option: give names to parentheses.
+من الصعب تذكر المجموعات بأرقامها. بالنسبة للأنماط البسيطة ، يمكن القيام بذلك ، ولكن بالنسبة للأنماط الأكثر تعقيدًا ، يعد حساب الأقواس غير مريح. لدينا خيار أفضل بكثير: إعطاء أسماء للأقواس.
 
-That's done by putting `pattern:?<name>` immediately after the opening paren.
+يتم ذلك عن طريق وضع "pattern :؟ <name>` بعد علامة الافتتاح مباشرة.
 
-For example, let's look for a date in the format "year-month-day":
+على سبيل المثال ، دعنا نبحث عن تاريخ بتنسيق "عام-شهر-يوم":
 
 ```js run
 *!*
@@ -273,11 +273,11 @@ alert(groups.month); // 04
 alert(groups.day); // 30
 ```
 
-As you can see, the groups reside in the `.groups` property of the match.
+كما ترى ، المجموعات موجودة في خاصية ".groups" للمباراة.
 
-To look for all dates, we can add flag `pattern:g`.
+للبحث عن جميع التواريخ ، يمكننا إضافة العلم `pattern: g`.
 
-We'll also need `matchAll` to obtain full matches, together with groups:
+سنحتاج أيضًا إلى "matchAll" للحصول على تطابقات كاملة ، جنبًا إلى جنب مع المجموعات:
 
 ```js run
 let dateRegexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/g;
@@ -295,11 +295,11 @@ for(let result of results) {
 }
 ```
 
-## Capturing groups in replacement
+## الاستيلاء على المجموعات في الاستبدال
 
-Method `str.replace(regexp, replacement)` that replaces all matches with `regexp` in `str` allows to use parentheses contents in the `replacement` string. That's done using `pattern:$n`, where `pattern:n` is the group number.
+تسمح الطريقة `str.replace (regexp ، الاستبدال)` التي تستبدل جميع التطابقات بـ `regexp` في` str` باستخدام محتويات الأقواس في سلسلة `replace`. يتم ذلك باستخدام `pattern: $ n` ، حيث` pattern: n` هو رقم المجموعة.
 
-For example,
+فمثلا،
 
 ```js run
 let str = "John Bull";
@@ -308,9 +308,9 @@ let regexp = /(\w+) (\w+)/;
 alert( str.replace(regexp, '$2, $1') ); // Bull, John
 ```
 
-For named parentheses the reference will be `pattern:$<name>`.
+بالنسبة للأقواس المسماة ، سيكون المرجع `pattern: $ <name>`.
 
-For example, let's reformat dates from "year-month-day" to "day.month.year":
+على سبيل المثال ، دعنا نعيد تنسيق التواريخ من "year-month-day" إلى "day.month.year":
 
 ```js run
 let regexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/g;
@@ -321,15 +321,15 @@ alert( str.replace(regexp, '$<day>.$<month>.$<year>') );
 // 30.10.2019, 01.01.2020
 ```
 
-## Non-capturing groups with ?:
+## المجموعات غير الملتقطة مع؟:
 
-Sometimes we need parentheses to correctly apply a quantifier, but we don't want their contents in results.
+في بعض الأحيان نحتاج إلى قوسين لتطبيق مُحدِّد الكمية بشكل صحيح ، لكننا لا نريد محتوياتها في النتائج.
 
-A group may be excluded by adding `pattern:?:` in the beginning.
+يمكن استبعاد مجموعة بإضافة "pattern:؟:" في البداية.
 
-For instance, if we want to find `pattern:(go)+`, but don't want the parentheses contents (`go`) as a separate array item, we can write: `pattern:(?:go)+`.
+على سبيل المثال ، إذا أردنا العثور على "pattern: (go) +` ، لكننا لا نريد محتويات الأقواس (`go`) كعنصر صفيف منفصل ، فيمكننا كتابة:` pattern :( ؟: go) + ` .
 
-In the example below we only get the name `match:John` as a separate member of the match:
+في المثال أدناه ، نحصل فقط على الاسم `match: John` كعضو منفصل في المباراة:
 
 ```js run
 let str = "Gogogo John!";
@@ -346,19 +346,19 @@ alert( result[1] ); // John
 alert( result.length ); // 2 (no more items in the array)
 ```
 
-## Summary
+## الملخص
 
-Parentheses group together a part of the regular expression, so that the quantifier applies to it as a whole.
+تجمع الأقواس معًا جزءًا من التعبير العادي ، بحيث ينطبق المقياس عليه ككل.
 
-Parentheses groups are numbered left-to-right, and can optionally be named with  `(?<name>...)`.
+يتم ترقيم مجموعات الأقواس من اليسار إلى اليمين ، ويمكن اختياريًا تسميتها بـ `(؟ <name> ...)`.
 
-The content, matched by a group, can be obtained in the results:
+يمكن الحصول على المحتوى المطابق لمجموعة ما في النتائج:
 
-- The method `str.match` returns capturing groups only without flag `pattern:g`.
-- The method `str.matchAll` always returns capturing groups.
+- تُظهر الطريقة `str.match` مجموعات الالتقاط فقط بدون وضع علامة على" النموذج: g`.
+- الطريقة `str.matchAll` تُرجع دائمًا مجموعات الالتقاط.
 
-If the parentheses have no name, then their contents is available in the match array by its number. Named parentheses are also available in the property `groups`.
+إذا لم يكن للأقواس اسم ، فإن محتوياتها متاحة في مصفوفة المطابقة برقمها. الأقواس المسموعة متاحة أيضًا في خاصية "المجموعات".
 
-We can also use parentheses contents in the replacement string in `str.replace`: by the number `$n` or the name `$<name>`.
+يمكننا أيضًا استخدام محتويات الأقواس في سلسلة الاستبدال في `str.replace`: بالرقم` $ n` أو بالاسم `$ <name>`.
 
-A group may be excluded from numbering by adding `pattern:?:` in its start. That's used when we need to apply a quantifier to the whole group, but don't want it as a separate item in the results array. We also can't reference such parentheses in the replacement string.
+يمكن استبعاد مجموعة من الترقيم عن طريق إضافة "pattern:؟:" في بدايتها. يُستخدم هذا عندما نحتاج إلى تطبيق مُحدِّد الكمية على المجموعة بأكملها ، ولكن لا نريدها كبند منفصل في صفيف النتائج. لا يمكننا أيضًا الإشارة إلى هذه الأقواس في سلسلة الاستبدال.

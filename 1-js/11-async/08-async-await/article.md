@@ -1,10 +1,10 @@
-# Async/await
+# Async/await (غير المتزامن /الانتظار) 
 
-There's a special syntax to work with promises in a more comfortable fashion, called "async/await". It's surprisingly easy to understand and use.
+هناك بنية خاصة للعمل مع الوعود بطريقة أكثر راحة ، تسمى "غير متزامن / انتظار". من السهل جدًا فهمها واستخدامها.
 
-## Async functions
+## الدوال غير المتزامنة
 
-Let's start with the `async` keyword. It can be placed before a function, like this:
+لنبدأ بالكلمة الرئيسية `async`. يمكن وضعها قبل دالة ، مثل هذا:
 
 ```js
 async function f() {
@@ -12,9 +12,10 @@ async function f() {
 }
 ```
 
-The word "async" before a function means one simple thing: a function always returns a promise. Other values are wrapped in a resolved promise automatically.
+تعني كلمة "غير متزامن" قبل دالة شيء واحد بسيط: ترجع الدالة دائمًا الوعد. يتم تغليف القيم الأخرى في وعد تم حله تلقائيًا.
 
-For instance, this function returns a resolved promise with the result of `1`; let's test it:
+على سبيل المثال ، ترجع هذه الوظيفة وعدًا تم حله بنتيجة `1` ؛ دعنا نختبره:
+
 
 ```js run
 async function f() {
@@ -24,7 +25,7 @@ async function f() {
 f().then(alert); // 1
 ```
 
-...We could explicitly return a promise, which would be the same:
+... يمكن أن نعيد وعدًا صريحًا ، والذي سيكون نفسه:
 
 ```js run
 async function f() {
@@ -34,20 +35,20 @@ async function f() {
 f().then(alert); // 1
 ```
 
-So, `async` ensures that the function returns a promise, and wraps non-promises in it. Simple enough, right? But not only that. There's another keyword, `await`, that works only inside `async` functions, and it's pretty cool.
+لذا ، يضمن `` غير متزامن '' أن ترجع الدالة promise ، وتلف غير وعود فيه. بسيطة بما يكفي ، أليس كذلك؟ ولكن ليس هذا فقط. هناك كلمة رئيسية أخرى `` تنتظر '' تعمل فقط داخل وظائف `غير متزامن '، وهي رائعة جدًا.
 
 ## Await
 
-The syntax:
+الصيغة:
 
 ```js
 // works only inside async functions
 let value = await promise;
 ```
 
-The keyword `await` makes JavaScript wait until that promise settles and returns its result.
+تجعل الكلمة الرئيسية "في انتظار" جافا سكريبت تنتظر حتى يستقر هذا الوعد ويعيد نتيجته.
 
-Here's an example with a promise that resolves in 1 second:
+في ما يلي مثال بوعد يتم حله في ثانية واحدة:
 ```js run
 async function f() {
 
@@ -65,14 +66,15 @@ async function f() {
 f();
 ```
 
-The function execution "pauses" at the line `(*)` and resumes when the promise settles, with `result` becoming its result. So the code above shows "done!" in one second.
+تنفيذ الوظيفة "يتوقف" عند السطر `(*)` ويستأنف عندما يستقر الوعد ، ويصبح "النتيجة" نتيجته. لذلك يظهر الرمز أعلاه "تم!" في ثانية واحدة.
 
-Let's emphasize: `await` literally makes JavaScript wait until the promise settles, and then go on with the result. That doesn't cost any CPU resources, because the engine can do other jobs in the meantime: execute other scripts, handle events, etc.
+دعونا نؤكد: `` انتظارًا '' يجعل جافا سكريبت تنتظر حتى يستقر الوعد ، ثم استمر في النتيجة. هذا لا يكلف أي موارد وحدة المعالجة المركزية ، لأن المحرك يمكنه القيام بمهام أخرى في الوقت نفسه: تنفيذ البرامج النصية الأخرى ، والتعامل مع الأحداث ، وما إلى ذلك.
 
-It's just a more elegant syntax of getting the promise result than `promise.then`, easier to read and write.
+إنها مجرد بنية أكثر أناقة للحصول على نتيجة الوعد من "الوعد. ثم" ، أسهل للقراءة والكتابة.
 
-````warn header="Can't use `await` in regular functions"
-If we try to use `await` in non-async function, there would be a syntax error:
+`` `` warn header = "لا يمكن استخدام` انتظار 'في الوظائف العادية "
+إذا حاولنا استخدام `` انتظار '' في وظيفة غير متزامنة ، فسيكون هناك خطأ في بناء الجملة:
+
 
 ```js run
 function f() {
@@ -83,13 +85,13 @@ function f() {
 }
 ```
 
-We will get this error if we do not put `async` before a function. As said, `await` only works inside an `async function`.
-````
+سنحصل على هذا الخطأ إذا لم نضع `async` قبل دالة. كما ذكر ، يعمل `` انتظار '' فقط داخل `وظيفة غير متزامنة`.
+`` ``
 
-Let's take the `showAvatar()` example from the chapter <info:promise-chaining> and rewrite it using `async/await`:
+لنأخذ مثال `showAvatar ()` من الفصل <info: prom-chaining> ونعيد كتابته باستخدام `async / await`:
 
-1. We'll need to replace `.then` calls with `await`.
-2. Also we should make the function `async` for them to work.
+1. سنحتاج إلى استبدال مكالمات ".then" بـ "ينتظر".
+2. كما يجب أن نجعل الوظيفة "غير متزامنة" حتى تعمل.
 
 ```js run
 async function showAvatar() {
@@ -119,10 +121,10 @@ async function showAvatar() {
 showAvatar();
 ```
 
-Pretty clean and easy to read, right? Much better than before.
+نظيفة جدا وسهلة القراءة ، أليس كذلك؟ أفضل بكثير من ذي قبل.
 
-````smart header="`await` won't work in the top-level code"
-People who are just starting to use `await` tend to forget the fact that we can't use `await` in top-level code. For example, this will not work:
+`` `` smart header = "` `انتظار '' لن يعمل في رمز المستوى الأعلى"
+يميل الأشخاص الذين بدأوا للتو في استخدام `` انتظار '' إلى نسيان حقيقة أنه لا يمكننا استخدام `` انتظار '' في رمز المستوى الأعلى. على سبيل المثال ، لن يعمل هذا:
 
 ```js run
 // syntax error in top-level code
@@ -142,10 +144,10 @@ But we can wrap it into an anonymous async function, like this:
 
 
 ````
-````smart header="`await` accepts \"thenables\""
-Like `promise.then`, `await` allows us to use thenable objects (those with a callable `then` method). The idea is that a third-party object may not be a promise, but promise-compatible: if it supports `.then`, that's enough to use it with `await`.
+"" `` smart header = "` `في انتظار` يقبل \" ثماني \ ""
+مثل "prom.then`" ، يتيح لنا "await" استخدام العناصر القابلة للاستعمال (تلك التي تستخدم طريقة `ثم` القابلة للاستدعاء). الفكرة هي أن كائن طرف ثالث قد لا يكون وعدًا ، ولكنه متوافق مع الوعد: إذا كان يدعم `.then` ، فهذا يكفي لاستخدامه مع` `بانتظار ''.
 
-Here's a demo `Thenable` class; the `await` below accepts its instances:
+إليك فئة `` Thenable` التجريبية ؛ تقبل "الانتظار" أدناه حالاتها:
 
 ```js run
 class Thenable {
@@ -168,11 +170,11 @@ async function f() {
 f();
 ```
 
-If `await` gets a non-promise object with `.then`, it calls that method providing the built-in functions `resolve` and `reject` as arguments (just as it does for a regular `Promise` executor). Then `await` waits until one of them is called (in the example above it happens in the line `(*)`) and then proceeds with the result.
-````
+إذا حصل `await` على كائن غير مبشر باستخدام` .then` ، فإنه يستدعي هذه الطريقة التي توفر الوظائف المضمنة `حل 'و'رفض` كوسيطات (تمامًا مثلما يفعل لمنفذ` وعد عادي'). ثم تنتظر `انتظار 'حتى يتم استدعاء أحدهم (في المثال أعلاه يحدث في السطر` (*) `) ثم يواصل النتيجة.
+`` ``
 
-````smart header="Async class methods"
-To declare an async class method, just prepend it with `async`:
+"" smart header = "أساليب فئة Async"
+للإعلان عن أسلوب فئة غير متزامن ، ما عليك سوى إلحاقها بـ `غير متزامن ':
 
 ```js run
 class Waiter {
@@ -190,11 +192,11 @@ new Waiter()
 The meaning is the same: it ensures that the returned value is a promise and enables `await`.
 
 ````
-## Error handling
+## معالجة الأخطاء
 
-If a promise resolves normally, then `await promise` returns the result. But in the case of a rejection, it throws the error, just as if there were a `throw` statement at that line.
+إذا تم حل الـ `promise` بشكل طبيعي ، فإن "انتظار الوعد" يُرجع النتيجة. ولكن في حالة الرفض ، فإنه يلقي الخطأ ، كما لو كان هناك بيان `رمي 'في ذلك السطر.
 
-This code:
+هذا الكود:
 
 ```js
 async function f() {
@@ -214,9 +216,9 @@ async function f() {
 }
 ```
 
-In real situations, the promise may take some time before it rejects. In that case there will be a delay before `await` throws an error.
+في المواقف الحقيقية ، قد يستغرق الوعد بعض الوقت قبل أن يرفض. في هذه الحالة ، سيكون هناك تأخير قبل أن يطرح "انتظار" خطأ.
 
-We can catch that error using `try..catch`, the same way as a regular `throw`:
+يمكننا اكتشاف هذا الخطأ باستخدام `try..catch` ، بالطريقة نفسها التي تستخدمها` رمية` عادية:
 
 ```js run
 async function f() {
@@ -233,7 +235,7 @@ async function f() {
 f();
 ```
 
-In the case of an error, the control jumps to the `catch` block. We can also wrap multiple lines:
+في حالة حدوث خطأ ، ينتقل عنصر التحكم إلى كتلة "الالتقاط". يمكننا أيضًا لف خطوط متعددة:
 
 ```js run
 async function f() {
@@ -250,7 +252,7 @@ async function f() {
 f();
 ```
 
-If we don't have `try..catch`, then the promise generated by the call of the async function `f()` becomes rejected. We can append `.catch` to handle it:
+إذا لم يكن لدينا "try..catch" ، فسيتم رفض الوعد الذي تم إنشاؤه بواسطة استدعاء دالة async `f ()`. يمكننا إلحاق ".catch" للتعامل معها:
 
 ```js run
 async function f() {
@@ -263,17 +265,17 @@ f().catch(alert); // TypeError: failed to fetch // (*)
 */!*
 ```
 
-If we forget to add `.catch` there, then we get an unhandled promise error (viewable in the console). We can catch such errors using a global `unhandledrejection` event handler as described in the chapter <info:promise-error-handling>.
+إذا نسينا إضافة ".catch" هناك ، فإننا نتلقى خطأ وعد غير معالج (قابل للعرض في وحدة التحكم). يمكننا اكتشاف مثل هذه الأخطاء باستخدام معالج الأحداث `unhandledrejection` العالمي كما هو موضح في الفصل <info: prom-error-handling>.
 
 
-```smart header="`async/await` and `promise.then/catch`"
-When we use `async/await`, we rarely need `.then`, because `await` handles the waiting for us. And we can use a regular `try..catch` instead of `.catch`. That's usually (but not always) more convenient.
+"` `smart header =" `async / await` و` prom.then / catch` "
+عندما نستخدم "غير متزامن / انتظار" ، نادرًا ما نحتاج إلى ". ثم" ، لأن "انتظار" يتعامل مع الانتظار. ويمكننا استخدام 'try..catch` العادية بدلاً من `.atch'. هذا عادة (ولكن ليس دائما) أكثر ملاءمة.
 
-But at the top level of the code, when we're outside any `async` function, we're syntactically unable to use `await`, so it's a normal practice to add `.then/catch` to handle the final result or falling-through error, like in the line `(*)` of the example above.
-```
+ولكن في المستوى العلوي من الشفرة ، عندما نكون خارج أي وظيفة "غير متزامن" ، يتعذر علينا استخدام "انتظار" من الناحية النحوية ، لذلك من المعتاد إضافة ".then / catch" للتعامل مع النتيجة النهائية أو خطأ السقوط ، كما هو الحال في السطر `(*)` من المثال أعلاه.
+``
 
-````smart header="`async/await` works well with `Promise.all`"
-When we need to wait for multiple promises, we can wrap them in `Promise.all` and then `await`:
+"` `smart header =" `async / await` يعمل بشكل جيد مع" Promise.all` "
+عندما نحتاج إلى انتظار وعود متعددة ، يمكننا أن نلفها في "Promise.all" ثم "انتظر":
 
 ```js
 // wait for the array of results
@@ -284,22 +286,22 @@ let results = await Promise.all([
 ]);
 ```
 
-In the case of an error, it propagates as usual, from the failed promise to `Promise.all`, and then becomes an exception that we can catch using `try..catch` around the call.
+في حالة وجود خطأ ، يتم نشره كالمعتاد ، من الوعد الفاشل إلى "Promise.all" ، ثم يصبح استثناء يمكننا التقاطه باستخدام "try..catch" حول المكالمة.
 
-````
+`` ``
 
-## Summary
+## ملخص
 
-The `async` keyword before a function has two effects:
+الكلمة الأساسية `غير متزامن 'قبل دالة لها تأثيران:
 
-1. Makes it always return a promise.
-2. Allows `await` to be used in it.
+1. يجعلها دائما تعيد الوعد.
+2. يسمح باستخدام "ينتظر" لاستخدامه.
 
-The `await` keyword before a promise makes JavaScript wait until that promise settles, and then:
+تجعل الكلمة الرئيسية "في انتظار" قبل الوعد جافا سكريبت تنتظر حتى يستقر هذا الوعد ، ثم:
 
-1. If it's an error, the exception is generated — same as if `throw error` were called at that very place.
-2. Otherwise, it returns the result.
+1. إذا كان هناك خطأ ، فسيتم إنشاء الاستثناء - مثل استدعاء "خطأ في الخطأ" في ذلك المكان.
+2. وإلا ، فإنها ترجع النتيجة.
 
-Together they provide a great framework to write asynchronous code that is easy to both read and write.
+يوفرون معًا إطارًا رائعًا لكتابة رمز غير متزامن يسهل قراءته وكتابته.
 
-With `async/await` we rarely need to write `promise.then/catch`, but we still shouldn't forget that they are based on promises, because sometimes (e.g. in the outermost scope) we have to use these methods. Also `Promise.all` is nice when we are waiting for many tasks simultaneously.
+باستخدام "غير متزامن / انتظار" ، نادرًا ما نحتاج إلى كتابة "وعد. ثم / التقاط" ، ولكن لا يزال يتعين علينا ألا ننسى أنها تستند إلى الوعود ، لأنه في بعض الأحيان (على سبيل المثال في النطاق الخارجي) علينا استخدام هذه الأساليب. كما أن "Promise.all" جميل عندما ننتظر العديد من المهام في وقت واحد.

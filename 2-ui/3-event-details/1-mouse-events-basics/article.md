@@ -26,12 +26,12 @@
 
 `contextmenu`
 
-:يعمل عندما يتم الضغط على زر الفأرة الأيمن. وهناك طرق أخرى لفتح قائمة السياق ، على سبيل المثال باستخدام مفتاح معين من لوحة المفاتيح ، ويمكن أيضًا استخدامه في هذه الحالة ، لذا فهو ليس بالضبط حدث للماوس .
+يعمل عندما يتم الضغط على زر الفأرة الأيمن. وهناك طرق أخرى لفتح قائمة السياق ، على سبيل المثال باستخدام مفتاح معين من لوحة المفاتيح ، ويمكن أيضًا استخدامه في هذه الحالة ، لذا فهو ليس بالضبط حدث للماوس .
 
 ... وهناك أيضا العديد من الأحداث الأخرى ، واللتى سنتطرق لها لاحقًا
 .
 
-## نرتيب الأحداث
+## ترتيب الأحداث
 
 كما ترى من القائمة السابقة ، قد يقوم إجراء المستخدم  بتشغيل أكثر من حدث أو أحداث متعددة
 
@@ -54,164 +54,166 @@
 
 ## زر الماوس
 
-Click-related events always have the `button` property, which allows to get the exact mouse button.
+تحتوي دائما الأحداث المتعلقة بالنقر على خاصية `button`, والتي تسمح لك بأستخدام زر الماوس.
 
-We usually don't use it for `click` and `contextmenu` events, because the former happens only on left-click, and the latter -- only on right-click. 
+وعادة لا نستخدم هذه الخاصية لكل من هذين الحدثين  `click` و `contextmenu` , وذلك لأن الأول يحدث فقط عند النقر بزر الماوس الأيسر ، والأخير - فقط عند النقر بزر الماوس الأيمن.
 
-From the other hand, `mousedown` and `mouseup` handlers we may need `event.button`, because these events trigger on any button, so `button` allows to distinguish between "right-mousedown" and "left-mousedown".
+من ناحية أخرى فإن, `mousedown` و `mouseup` قد تحتاج معالجتها إلى `event.button`, وذلك لأن هذه الأحداث من الممكن أن تعمل على أى زر لذا فإن  `button` يتيح لك التمييز بين  "زر الماوس الأيمن" و "زر الماوس الأيسر".
 
-The possible values of `event.button` are:
+القيم المحتملة لـ `event.button` هي:
 
-| Button state | `event.button` |
+| حالة الزر | `event.button` |
 |--------------|----------------|
-| Left button (primary) | 0 |
-| Middle button (auxillary) | 1 |
-| Right button (secondary) | 2 |
-| X1 button (back) | 3 |
-| X2 button (forward) | 4 |
+| الزر الأيسر (أساسي) | 0 |
+| الزر الأوسط (مساعد) | 1 |
+| الزر الايمن (ثانوي) | 2 |
+| X1 زر (خلف) | 3 |
+| X2 زر (أمام) | 4 |
 
-Most mouse devices only have the left and right buttons, so possible values are `0` or `2`. Touch devices also generate similar events when one taps on them.
+تحتوي معظم أجهزة الماوس على الزرين الأيسر والأيمن فقط ، لذا فإن القيم المحتملة هي "0" أو "2". وكذلك الأجهزة التي تعمل باللمس أيضًا تولد أحداثًا مماثلة عندما ينقر عليها .
 
-Also there's `event.buttons` property that has all currently pressed buttons as an integer, one bit per button. In practice this property is very rarely used, you can find details at [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons) if you ever need it.
+هناك أيضًا خاصية `event.buttons` تحتوي على جميع الأزرار المضغوطة حاليًا كعدد صحيح ، بت واحد لكل زر. في الواقع ، نادرًا ما يتم استخدامها, يمكنك الرجوع الى مزيد من التفاصيل على  [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)اذا  احتجت اليها في أي وقت.
 
-```warn header="The outdated `event.which`"
-Old code may use `event.which` property that's an old non-standard way of getting a button, with possible values:
+```warn header="عفا عليها الزمن `event.which`"
+في الأكواد القديمة قد تجد استخدام خاصية `event.which` وهي  تعتبر طريقة قديمة غير قياسية للحصول على زر ، مع القيم المحتملة :
 
-- `event.which == 1` – left button,
-- `event.which == 2` – middle button,
-- `event.which == 3` – right button.
+- `event.which == 1` – الزر الأيسر,
+- `event.which == 2` – الزر الأوسط,
+- `event.which == 3` – الزر الأيمن.
 
-As of now, `event.which` is deprecated, we shouldn't use it.
+إعتباراً من الأن, `event.which` تم ايقافها, لذا لا يجب إستخدامها.
 ```
 
-## Modifiers: shift, alt, ctrl and meta
+## مفاتيح التعديل: shift, alt, ctrl و meta
 
-All mouse events include the information about pressed modifier keys.
+تتضمن جميع أحداث الماوس معلومات عند الضغط على مفاتيح التعديل
 
-Event properties:
+خصائص الحدث :
 
 - `shiftKey`: `key:Shift`
-- `altKey`: `key:Alt` (or `key:Opt` for Mac)
+- `altKey`: `key:Alt` (أو `key:Opt` لنظام تشغيل Mac)
 - `ctrlKey`: `key:Ctrl`
-- `metaKey`: `key:Cmd` for Mac
+- `metaKey`: `key:Cmd` لنظام Mac
 
-They are `true` if the corresponding key was pressed during the event.
+تكون القيمة `true`   إذا تم الضغط على المفتاح المقابل أثناء الحدث.
 
-For instance, the button below only works on `key:Alt+Shift`+click:
+على سبيل المثال, الزر أدناه يعمل فقط عند الضغط على  `key:Alt+Shift` ثم النقر :
 
 ```html autorun height=60
-<button id="button">Alt+Shift+Click on me!</button>
+<button id="button">Alt+Shift+أنقر علي!</button>
 
 <script>
   button.onclick = function(event) {
 *!*
     if (event.altKey && event.shiftKey) {
 */!*
-      alert('Hooray!');
+      alert('مرحى!');
     }
   };
 </script>
 ```
 
-```warn header="Attention: on Mac it's usually `Cmd` instead of `Ctrl`"
-On Windows and Linux there are modifier keys `key:Alt`, `key:Shift` and `key:Ctrl`. On Mac there's one more: `key:Cmd`, corresponding to the property `metaKey`.
+```warn header="إنتبه: نظام Mac عادة نستخدم  `Cmd` بدلا من `Ctrl`"
+في نظامى التشغيل  Windows و Linux توجد مفاتيح التعديل `key:Alt`, `key:Shift` و `key:Ctrl`. بينما نظام تشغيل  Mac هناك آخر: `key:Cmd`, يتوافق مع خاصية `metaKey`.
 
-In most applications, when Windows/Linux uses `key:Ctrl`, on Mac `key:Cmd` is used.
+في معظم التطبيقات, عندما Windows/Linux بستخدم `key:Ctrl`, على Mac  نستخدم `key:Cmd`.
 
-That is: where a Windows user presses `key:Ctrl+Enter` or `key:Ctrl+A`, a Mac user would press `key:Cmd+Enter` or `key:Cmd+A`, and so on.
+وهذا يعنى: عندما يقوم مستخدم Windows بالضغط على `key:Ctrl+Enter` أو `key:Ctrl+A`, فإن مستخدم Mac يضغط على `key:Cmd+Enter` أو `key:Cmd+A`, وهكذا.
 
-So if we want to support combinations like `key:Ctrl`+click, then for Mac it makes sense to use `key:Cmd`+click. That's more comfortable for Mac users.
+لذا إذا أردنا دعم مجموعات مثل `key:Ctrl`+ النقر, فمن المنطقي بالنسبة لنظام Mac نستخدم `key:Cmd`+ النقر. وهذا يكون أكثر راحة لمستخدمي Mac .
 
-Even if we'd like to force Mac users to `key:Ctrl`+click -- that's kind of difficult. The problem is: a left-click with `key:Ctrl` is interpreted as a *right-click* on MacOS, and it generates the `contextmenu` event, not `click` like Windows/Linux.
+حتى اذا أردنا إجبار مستخدمي Mac بإستخدام `key:Ctrl`+ النقر -- فهذا يعد صعباً.وتكمن المشكلة في : أن النقر الأيسر مع المفتاح `key:Ctrl` تكون بمثابة *right-click* على  MacOS, وبالتالى تقوم بتشغيل حدث `contextmenu` , وليس  `click` كما في Windows/Linux.
 
-So if we want users of all operating systems to feel comfortable, then together with `ctrlKey` we should check `metaKey`.
+ولذلك إذا أردنا أن يشعر المستخدمين لجميع أنظمة التشغيل بالراحة  , بإستخدامهم  `ctrlKey` فإنه ينبغي علينا التحقق من `metaKey`.
 
-For JS-code it means that we should check `if (event.ctrlKey || event.metaKey)`.
+بالنسبة لترميز  - JS  فإنه يجب علينا التحقق مما إذا كان `if (event.ctrlKey || event.metaKey)`.
 ```
 
-```warn header="There are also mobile devices"
-Keyboard combinations are good as an addition to the workflow. So that if the visitor uses a keyboard -- they work. 
+```warn header="هناك أيضا أجهزة هواتف محمولة"
+وجود لوحة مفاتيح أمر جيد كإضافة الى سير العمل. فإذا كان الزائر يستخدمها  -- فلا بأس. 
 
-But if their device doesn't have it -- then there should be a way to live without modifier keys.
+ولكن إذا لم يكن أجهزتهم بها -- فلابد أن تكون هناك طريقة للعمل بدون مفاتيح التعديل.
 ```
 
-## Coordinates: clientX/Y, pageX/Y
+## الأحداثيات: clientX/Y, pageX/Y
 
-All mouse events provide coordinates in two flavours:
+ جميع أحداث الماوس توفر إحداثيات بطريقتين:
 
-1. Window-relative: `clientX` and `clientY`.
-2. Document-relative: `pageX` and `pageY`.
+1. نسبي-للنافذة: `clientX` و `clientY`.
+2. نسبي-للمستند: `pageX` و `pageY`.
 
-We already covered the difference between them in the chapter <info:coordinates>.
+وقد غطينا بالفعل الإختلاف بينهما في فصل <info:coordinates>.
 
-In short, document-relative coordinates `pageX/Y` are counted from the left-upper corner of the document, and do not change when the page is scrolled, while `clientX/Y` are counted from the current window left-upper corner. When the page is scrolled, they change.
+بإختصار , الأحداثيات النسبية-للمستند `pageX/Y` يتم حسابها من الزاوية العلويه اليسرى للمستند, ولا تتغير أو تتأثر عند تمرير الصفحة, بينما `clientX/Y` تحسب من الواوية العلوية اليسرى للنافذة الحالية. وعندما يتم تمرير الصفحة , فإنها تتغير.
 
-For instance, if we have a window of the size 500x500, and the mouse is in the left-upper corner, then `clientX` and `clientY` are `0`, no matter how the page is scrolled. 
+على سبيل المثال, إذا كان لدينا نافذة بحجم  500x500, ومؤشر الماوس في الزاوية العلوية اليسرى , فإن `clientX` و `clientY` تكون `0`, بغض النظر عن أى تمرير للصفحة. 
 
-And if the mouse is in the center, then `clientX` and `clientY` are `250`, no matter what place in the document it is. They are similar to `position:fixed` in that aspect.
+وإذا كان مؤشر الماوس في المنتصف, فإن `clientX` و `clientY` تكون `250`, بغض النظر عن مكانه في المستند. وهي تتشابه مع  `position:fixed` في هذا الجانب.
 
 ````online
-Move the mouse over the input field to see `clientX/clientY` (the example is in the `iframe`, so coordinates are relative to that `iframe`):
+حرك الماوس فوق حقل الإدخال لرؤية `clientX/clientY` (هذا المثال موجود في `iframe`, لذا فإن الأحداثيات مرتبطة بهذا `iframe`):
 
 ```html autorun height=50
-<input onmousemove="this.value=event.clientX+':'+event.clientY" value="Mouse over me">
+<input onmousemove="this.value=event.clientX+':'+event.clientY" value="حرك الماوس فوقي">
 ```
 ````
 
-## Preventing selection on mousedown
+## منع الإختيار في الماوس
 
-Double mouse click has a side-effect that may be disturbing in some interfaces: it selects text.
+النقر المزدوج بزر الماوس له تأثير جانبي قد يكون غير ملائم في بعض الواجهات: فهو يحدد النص.
 
-For instance, a double-click on the text below selects it in addition to our handler:
+على سبيل المثال, يؤدي النقر المزدوج على النص أدناه إلى تحديده بالإضافة إلى معالجنا:
 
 ```html autorun height=50
-<span ondblclick="alert('dblclick')">Double-click me</span>
+<span ondblclick="alert('dblclick')">أنقر مرتين علي</span>
 ```
 
-If one presses the left mouse button and, without releasing it, moves the mouse, that also makes the selection, often unwanted.
+إذا قمت بالضغط مع الإستمرار على زر الماوس الأيسر,  ودون تحرير الزر ,  "إضغط مع الإستمرار على الماوس",فسيكون هناك أيضًا تحديد , وقد يكون على غير ما تريد.
 
-There are multiple ways to prevent the selection, that you can read in the chapter <info:selection-range>.
+هناك عدة طرق لمنع التحديد , بإمكانك أن تقرأ عنها في فصل <info:selection-range>.
 
-In this particular case the most reasonable way is to prevent the browser action on `mousedown`. It prevents both these selections:
+ في هذه الحالة  ، فإن الطريقة الأكثر منطقية هي منع إجراء المتصفح من   `mousedown`. وسيؤدي هذا الى الغاء كل هذه التحديدات:
 
 ```html autorun height=50
-Before...
+قبل...
 <b ondblclick="alert('Click!')" *!*onmousedown="return false"*/!*>
-  Double-click me
+  أنقر مرتين علي
 </b>
-...After
+...بعد
 ```
 
-Now the bold element is not selected on double clicks, and pressing the left button on it won't start the selection.
+الآن لم يتم تحديد العنصر بالخط العريض  بنقرات مزدوجة ، ولن يؤدي الضغط على الزر الأيسر عليه إلى بدء التحديد.
 
-Please note: the text inside it is still selectable. However, the selection should start not on the text itself, but before or after it. Usually that's fine for users.
 
-````smart header="Preventing copying"
-If we want to disable selection to protect our page content from copy-pasting, then we can use another event: `oncopy`.
+يرجى ملاحظة أن النص الموجود بداخله لا يزال قابلاً للتحديد. ومع ذلك ، يجب ألا يبدأ التحديد في النص نفسه ، ولكن قبله أو بعده. عادة هذا جيد للمستخدمين.
+
+````smart header="منع النسخ"
+إذا أردنا تعطيل التحديد لحماية محتوى صفحتنا من لصق النسخ ، فيمكننا استخدام حدث آخر
+: `oncopy`.
 
 ```html autorun height=80 no-beautify
 <div *!*oncopy="alert('Copying forbidden!');return false"*/!*>
-  Dear user,
-  The copying is forbidden for you.
-  If you know JS or HTML, then you can get everything from the page source though.
+عزيزي المستخدم،
+ النسخ ممنوع لك.
+ إذا كنت تعرف JS أو HTML ، فيمكنك الحصول على كل شيء من مصدر الصفحة.
 </div>
 ```
-If you try to copy a piece of text in the `<div>`, that won't work, because the default action `oncopy` is prevented.
+إذا حاولت نسخ جزء من النص في `<div>`, فلن ينجح ذلك, لأن الإجراء الافتراضي  `oncopy` ممنوع.
 
-Surely the user has access to HTML-source of the page, and can take the content from there, but not everyone knows how to do it.
+من المؤكد أن المستخدم لديه حق الوصول إلى مصدر HTML-للصفحة, ويمكنه أخذ المحتوى من هناك, ولكن لا يعرف الجميع كيفية القيام بذلك.
 ````
 
-## Summary
+## ملخص
 
-Mouse events have the following properties:
+تتميز أحداث الماوس بالخصائص التالية:
 
-- Button: `button`.
-- Modifier keys (`true` if pressed): `altKey`, `ctrlKey`, `shiftKey` and `metaKey` (Mac).
-  - If you want to handle `key:Ctrl`, then don't forget Mac users, they usually use `key:Cmd`, so it's better to check `if (e.metaKey || e.ctrlKey)`.
+- زر: `button`.
+- مفاتيح التعديل (`true` إذا تم الضغط عليه): `altKey`, `ctrlKey`, `shiftKey` و `metaKey` (Mac).
+- إذا كنت تريد التعامل معها `key:Ctrl`, لذا لا تنسى Mac مستخدمي , عادة ما يستخدم `key:Cmd`, لذلك من الأفضل التحقق `if (e.metaKey || e.ctrlKey)`.
 
-- Window-relative coordinates: `clientX/clientY`.
-- Document-relative coordinates: `pageX/pageY`.
+- إحداثيات النافذة: `clientX/clientY`.
+- إحداثيات المستند: `pageX/pageY`.
 
-The default browser action of `mousedown` is text selection, if it's not good for the interface, then it should be prevented.
+الإجراء الافتراضي للحدث `mousedown` هو تحديد النص,  إذا كان من المرجح أن يتدخل في الواجهة يمكنك إلغاؤه.
 
-In the next chapter we'll see more details about events that follow pointer movement and how to track element changes under it.
+في الفصل التالي ، سنرى المزيد من التفاصيل حول الأحداث التي تتبع حركة المؤشر وكيفية تتبع تغييرات العناصر تحت المؤشر

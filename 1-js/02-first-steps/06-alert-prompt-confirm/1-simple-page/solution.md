@@ -5,7 +5,7 @@ let name = prompt("What is your name?", "");
 alert(name);
 ```
 
-The full page:
+الصفحة كاملة:
 
 ```html
 <!DOCTYPE html>

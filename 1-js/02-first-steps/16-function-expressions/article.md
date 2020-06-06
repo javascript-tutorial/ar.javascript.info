@@ -1,30 +1,30 @@
-# Function expressions
+# تعبيرات الدوال
 
-In JavaScript, a function is not a "magical language structure", but a special kind of value.
+في الجافاسكربت فإن الدوال ليست بنية سحرية للغة ولكنها نوع خاص من القيم.
 
-The syntax that we used before is called a *Function Declaration*:
+الطريقة التي استخدمناها سابقًا تسمى _Function Declaration_:
 
 ```js
 function sayHi() {
-  alert( "Hello" );
+    alert("Hello");
 }
 ```
 
-There is another syntax for creating a function that is called a *Function Expression*.
+هناك طريقة أخرى لعمل دالة وتسمى _Function Expression_.
 
-It looks like this:
+كالتالي:
 
 ```js
-let sayHi = function() {
-  alert( "Hello" );
+let sayHi = function () {
+    alert("Hello");
 };
 ```
 
-Here, the function is created and assigned to the variable explicitly, like any other value. No matter how the function is defined, it's just a value stored in the variable `sayHi`.
+هنا تم عمل الدالة وتخزينها في متغير مثل أي قيمة أخرى ولا يهم كيف تم تعريفها. هي فقط تخزن في متغير اسمه `sayHi`.
 
-The meaning of these code samples is the same: "create a function and put it into the variable `sayHi`".
+معنى هذا الكود كالآتي: "إنشئ دالةوضعها في المتغير `sayHi`".
 
-We can even print out that value using `alert`:
+يمكننا حتى طباعة هذه القيمة باستخدام `alert`:
 
 ```js run
 function sayHi() {
@@ -32,53 +32,53 @@ function sayHi() {
 }
 
 *!*
-alert( sayHi ); // shows the function code
+alert( sayHi ); // يعرض كود الدالة
 */!*
 ```
 
-Please note that the last line does not run the function, because there are no parentheses after `sayHi`. There are programming languages where any mention of a function name causes its execution, but JavaScript is not like that.
+لاحظ أن آخر سطر لا يقوم بتنفيذ الدالة لعدم وجود قوسين بعد `sayHi`. هناك لغات برمجة حيث يمكنك استدعاء الدالة بمجرد ذكر اسمها ولكن الجافاسكربت ليست منهم.
 
-In JavaScript, a function is a value, so we can deal with it as a value. The code above shows its string representation, which is the source code.
+في الجافاسكربت الدالة هي قيمة لذلك يمكننا معاملتها مثل أي قيمة والكود بالأعلى يعرض نص به الكود الخاص بها
 
-Surely, a function is a special value, in the sense that we can call it like `sayHi()`.
+بالتأكيد هي قيمة من نوع خاص حيث يمكن استدعائها `sayHi()`.
 
-But it's still a value. So we can work with it like with other kinds of values.
+لكنها لا تزال قيمة يمكننا التعامل معها كأي قيمة أخرى.
 
-We can copy a function to another variable:
+يمكننا نسخ الدالة لمتغير آخر:
 
 ```js run no-beautify
-function sayHi() {   // (1) create
-  alert( "Hello" );
+function sayHi() {
+    // (1) create
+    alert("Hello");
 }
 
-let func = sayHi;    // (2) copy
+let func = sayHi; // (2) copy
 
 func(); // Hello     // (3) run the copy (it works)!
 sayHi(); // Hello    //     this still works too (why wouldn't it)
 ```
 
-Here's what happens above in detail:
+هذه تفاصيل ما حدث:
 
-1. The Function Declaration `(1)` creates the function and puts it into the variable named `sayHi`.
-2. Line `(2)` copies it into the variable `func`. Please note again: there are no parentheses after `sayHi`. If there were, then `func = sayHi()` would write  *the result of the call* `sayHi()` into `func`, not *the function* `sayHi` itself.
-3. Now the function can be called as both `sayHi()` and `func()`.
+1. تعريف الدالة `(1)` ينشئ دالة ويضعها في متغير اسمه `sayHi`.
+2. السطر `(2)` ينسخها إلى متغير اسمه `func`. لاحظ عدم وجود أقواس بعد `sayHi`. إذا وجدت الأقواس `func = sayHi()` سيتم وضع نتيجة تنفيذ `sayHi()` داخل `func` وليس الدالة `sayHi` نفسها.
+3. الآن يمكننا استدعاء الدالة عن طريق `sayHi()` أو `func()`.
 
-Note that we could also have used a Function Expression to declare `sayHi`, in the first line:
+لاحظ أنه يمكننا استخدام Function Expression لتعريف `sayHi` في السطر الأول:
 
 ```js
-let sayHi = function() {
-  alert( "Hello" );
+let sayHi = function () {
+    alert("Hello");
 };
 
 let func = sayHi;
 // ...
 ```
 
-Everything would work the same.
+كل شئ يعمل بنفس الطريقة.
 
-
-````smart header="Why is there a semicolon at the end?"
-You might wonder, why does Function Expression have a semicolon `;` at the end, but Function Declaration does not:
+````smart header="لماذا يوجد فاصلة منقوطة في النهاية ?"
+ربما تتسائل لماذا يوجد فاصلة منقوطة في نهاية Function Expression ولا يوجد مع Function Declaration:
 
 ```js
 function sayHi() {
@@ -90,27 +90,27 @@ let sayHi = function() {
 }*!*;*/!*
 ```
 
-The answer is simple:
-- There's no need for `;` at the end of code blocks and syntax structures that use them like `if { ... }`, `for {  }`, `function f { }` etc.
-- A Function Expression is used inside the statement: `let sayHi = ...;`, as a value. It's not a code block, but rather an assignment. The semicolon `;` is recommended at the end of statements, no matter what the value is. So the semicolon here is not related to the Function Expression itself, it just terminates the statement.
+الإجابة بسيطة:
+- لا حاجة للفاصلة المنقوطة `;` في نهاية code blocks والهياكل المشابهة مثل `if { ... }`, `for {  }`, `function f { }` الخ.
+- يتم استخدام Function Expression داخل التعبير: `let sayHi = ...;` كقيمة وليس code block. يفضل استخدام الفاصلة المنقوطة `;` في نهاية التعبيرات مهما كانت القيمة. لذلك فالفاصلة المنقوطة هنا لا تخص Function Expression نفسه ولكنها فقط تنهي التعبير.
 ````
 
 ## Callback functions
 
-Let's look at more examples of passing functions as values and using function expressions.
+دعنا نرى مثال على تمرير الدالة كقيمة.
 
-We'll write a function `ask(question, yes, no)` with three parameters:
+سنقوم بكتابة الدالة `ask(question, yes, no)` بثلاثة معاملات:
 
 `question`
-: Text of the question
+: نص السؤال
 
 `yes`
-: Function to run if the answer is "Yes"
+: دالة يتم تنفيذها إذا كانت الإجابة "Yes"
 
 `no`
-: Function to run if the answer is "No"
+: دالة يتم تنفيذها إذا كانت الإجابة "No"
 
-The function should ask the `question` and, depending on the user's answer, call `yes()` or `no()`:
+الدالة ستسأل سؤال `question` وبناءًا على جواب المستخدم ستنفذ `yes()` أو `no()`:
 
 ```js run
 *!*
@@ -128,17 +128,17 @@ function showCancel() {
   alert( "You canceled the execution." );
 }
 
-// usage: functions showOk, showCancel are passed as arguments to ask
+// الاستخدام: الدوال showOk, showCancel يتم تمريرهم كمعاملات للدالة ask
 ask("Do you agree?", showOk, showCancel);
 ```
 
-In practice, such functions are quite useful. The major difference between a real-life `ask` and the example above is that real-life functions use more complex ways to interact with the user than a simple `confirm`. In the browser, such function usually draws a nice-looking question window. But that's another story.
+هذه الدوال مفيدة إلى حد ما. الفرق الأساسي بين `ask` في الواقع والمثال السابق هو أن في الواقع يتم استخدام طرق أكثر تعقيدًا للتعامل مع المستخدم بدلًا من مجرد `confirm`. ربما يتم رسم نافذة سؤال بشكل لطيف ولكن هذه قصة أخرى.
 
-**The arguments `showOk` and `showCancel` of `ask` are called *callback functions* or just *callbacks*.**
+**المعاملات `showOk` و `showCancel` الخاصين ب `ask` يسمون _callback functions_ أو فقط _callbacks_.**
 
-The idea is that we pass a function and expect it to be "called back" later if necessary. In our case, `showOk` becomes the callback for "yes" answer, and `showCancel` for "no" answer.
+الفكرة هي أننا نقوم بتمرير دالة ونتوقع أن يتم استدعائها لاحقًا إذا لزم الأمر. وفي حالتنا فإن `showOk` تصبح رد على الإجابة "yes" answer و `showCancel` للإجابة "no".
 
-We can use Function Expressions to write the same function much shorter:
+يمكن استخدام Function Expressions لكتابة نفس الدالة بشكل أقصر:
 
 ```js run no-beautify
 function ask(question, yes, no) {
@@ -155,59 +155,59 @@ ask(
 */!*
 ```
 
-Here, functions are declared right inside the `ask(...)` call. They have no name, and so are called *anonymous*. Such functions are not accessible outside of `ask` (because they are not assigned to variables), but that's just what we want here.
+هنا تم تعريف الدوال داخل استدعاء `ask(...)`. ليس لديهم أسماء ويسمون _anonymous_. وهذه الدوال لا يمكن الوصول إليها خارج `ask` (لأنه لم يتم تخزينهم في متغيرات) ولكن هذا كل ما نحتاجه هنا.
 
-Such code appears in our scripts very naturally, it's in the spirit of JavaScript.
+كود مثل هذا يظهر في برامجنا بشكل طبيعي. إنه في روح الجافاسكربت.
 
-```smart header="A function is a value representing an \"action\""
-Regular values like strings or numbers represent the *data*.
+```smart header="الدالة هي قيمة تمثل حدث"
+القيم العادية مثل الأرقام والنصوص تمثل بيانات.
 
-A function can be perceived as an *action*.
+لكن يمكن اعتبار الدالة أنها تمثل حدث.
 
-We can pass it between variables and run when we want.
+يمكننا تمريرها بين المتغيرات وتنفيذها حيثما نشاء.
 ```
-
 
 ## Function Expression vs Function Declaration
 
-Let's formulate the key differences between Function Declarations and Expressions.
+دعنا نوضح الفرق بين Function Declarations و Expressions.
 
-First, the syntax: how to differentiate between them in the code.
+أولا طريقة الكتابة: كيف تفرق بينهم في الكود.
 
-- *Function Declaration:* a function, declared as a separate statement, in the main code flow.
+-   _Function Declaration:_ يتم تعريف الدالة كجزء منفصل في سريان البرنامج.
 
     ```js
     // Function Declaration
     function sum(a, b) {
-      return a + b;
+        return a + b;
     }
     ```
-- *Function Expression:* a function, created inside an expression or inside another syntax construct. Here, the function is created at the right side of the "assignment expression" `=`:
+
+-   _Function Expression:_ يتم إنشاء الدالة داخل تعبير أو جزء آخر. هنا تم إنشاء الدالة في الجزء الأيمن من "assignment expression" `=`:
 
     ```js
     // Function Expression
-    let sum = function(a, b) {
-      return a + b;
+    let sum = function (a, b) {
+        return a + b;
     };
     ```
 
-The more subtle difference is *when* a function is created by the JavaScript engine.
+الفرق الأكثر أهمية هو متي يقوم JavaScript engine بإنشاء كل منهما.
 
-**A Function Expression is created when the execution reaches it and is usable only from that moment.**
+**يتم إنشاء Function Expression عندما يصل لها التنفيذ.**
 
-Once the execution flow passes to the right side of the assignment `let sum = function…` -- here we go, the function is created and can be used (assigned, called, etc. ) from now on.
+عندما يصل التنفيذ إلى الجزء الأيمن من عملية التخصيص `let sum = function…` -- فمن هنا يمكننا استخدام الدالة (assigned, called, etc. ) .
 
-Function Declarations are different.
+Function Declarations تكون مختلفة.
 
-**A Function Declaration can be called earlier than it is defined.**
+**يمكن استدعاء Function Declaration قبل تعريفها.**
 
-For example, a global Function Declaration is visible in the whole script, no matter where it is.
+على سبيل المثال فإن تعريف Function Declaration على المستوى العالمي يجعلها مرئية في كل البرنامج ولا يهم من أين نستخدمها.
 
-That's due to internal algorithms. When JavaScript prepares to run the script, it first looks for global Function Declarations in it and creates the functions. We can think of it as an "initialization stage".
+وفقًا لخوارزميات داخلية فعندما تقوم الجافاسكربت بالتجهيز لتنفيذ البرنامج فهي تبحث عن Function Declarations العالمية وتقوم بإنشاء هذه الدوال كخطوة في مرحلة التهيئة initialization stage.
 
-And after all Function Declarations are processed, the code is executed. So it has access to these functions.
+وبعد الإنتهاء من إنشاء كل الدوال يبدأ تنفيذ البرنامج ولهذا يمكننا استخدام الدوال.
 
-For example, this works:
+هذا المثال سيعمل جيدًا:
 
 ```js run refresh untrusted
 *!*
@@ -219,9 +219,9 @@ function sayHi(name) {
 }
 ```
 
-The Function Declaration `sayHi` is created when JavaScript is preparing to start the script and is visible everywhere in it.
+تعريف الدالة `sayHi` يتم عندما تقوم الجافاسكربت بالتجهيز لتنفيذ البرنامج ويكون متاح في أي مكان.
 
-...If it were a Function Expression, then it wouldn't work:
+...ولكن لو كانت Function Expression فلن تعمل:
 
 ```js run refresh untrusted
 *!*
@@ -233,15 +233,15 @@ let sayHi = function(name) {  // (*) no magic any more
 };
 ```
 
-Function Expressions are created when the execution reaches them. That would happen only in the line `(*)`. Too late.
+يتم إنشاء Function Expressions عندما يصل لها التنفيذ أي في السطر `(*)`. وهذا متأخر دًا.
 
-Another special feature of Function Declarations is their block scope.
+ميزة أخرى ل Function Declarations هي مجالهم الخاص.
 
-**In strict mode, when a Function Declaration is within a code block, it's visible everywhere inside that block. But not outside of it.**
+**في strict mode عندما يتم وضع Function Declaration داخل جزء من الكود فتكون متاحة فقط بداخله وغير متاحة خارجه.**
 
-For instance, let's imagine that we need to declare a function `welcome()` depending on the `age` variable that we get during runtime. And then we plan to use it some time later.
+دعنا نفترض أننا نريد عمل الدالة `welcome()` بناءًا على قيمة المتغير `age` التي نحصل عليها وقت التنفيذ. ونخطط لاستخدامها في وقت لاحق.
 
-If we use Function Declaration, it won't work as intended:
+إذا استخدمنا Function Declaration لن تعمل كما هو متوقع:
 
 ```js run
 let age = prompt("What is your age?", 18);
@@ -267,9 +267,9 @@ welcome(); // Error: welcome is not defined
 */!*
 ```
 
-That's because a Function Declaration is only visible inside the code block in which it resides.
+هذا لأن Function Declaration متاحة فقط في code block الذي تم تعريفها بداخله.
 
-Here's another example:
+مثال آخر:
 
 ```js run
 let age = 16; // take 16 as an example
@@ -279,7 +279,7 @@ if (age < 18) {
   welcome();               // \   (runs)
 */!*
                            //  |
-  function welcome() {     //  |  
+  function welcome() {     //  |
     alert("Hello!");       //  |  Function Declaration is available
   }                        //  |  everywhere in the block where it's declared
                            //  |
@@ -289,24 +289,24 @@ if (age < 18) {
 
 } else {
 
-  function welcome() {    
+  function welcome() {
     alert("Greetings!");
   }
 }
 
-// Here we're out of curly braces,
-// so we can not see Function Declarations made inside of them.
+// هنا خارج الأقواس المعقوفة
+// لذا لا يمكننا استخدام الدوال المعرفة بداخلها.
 
 *!*
 welcome(); // Error: welcome is not defined
 */!*
 ```
 
-What can we do to make `welcome` visible outside of `if`?
+ماذا يمكن أن نفعل لجعل `welcome` متاحة خارج `if`?
 
-The correct approach would be to use a Function Expression and assign `welcome` to the variable that is declared outside of `if` and has the proper visibility.
+الطريقة الصحيحة ستكون استخدام Function Expression ووضع `welcome` داخل متغير خارج `if` يمكن الوصول إليه.
 
-This code works as intended:
+كما فعلنا هنا:
 
 ```js run
 let age = prompt("What is your age?", 18);
@@ -332,7 +332,7 @@ welcome(); // ok now
 */!*
 ```
 
-Or we could simplify it even further using a question mark operator `?`:
+يمكننا تبسيطها باستخدام العامل الشرطي `?`:
 
 ```js run
 let age = prompt("What is your age?", 18);
@@ -346,23 +346,22 @@ welcome(); // ok now
 */!*
 ```
 
+```smart header="متى نستخدم Function Declaration أو Function Expression?"
+عندما نريد عمل دالة فأول ما يجب أن نفكر فيه هو Function Declaration فهو يعطينا حرية أكثر لتنظيم الكود لأن يمكننا استخدام الدالة قبل تعريفها.
 
-```smart header="When to choose Function Declaration versus Function Expression?"
-As a rule of thumb, when we need to declare a function, the first to consider is Function Declaration syntax. It gives more freedom in how to organize our code, because we can call such functions before they are declared.
+وهذا أفضل من ناحية قراءة الكود فمن الأسهل ملاحظة `function f(…) {…}` عن `let f = function(…) {…};`..
 
-That's also better for readability, as it's easier to look up `function f(…) {…}` in the code than `let f = function(…) {…};`. Function Declarations are more "eye-catching".
-
-...But if a Function Declaration does not suit us for some reason, or we need a conditional declaration (we've just seen an example), then Function Expression should be used.
+...ولكن إذا كان Function Declaration غير مناسب لسبب ما أو نريد تعريف دالة بناءًا على شرط معين كما رأينا سابقًا فعندها يجب استخدام Function Expression.
 ```
 
-## Summary
+## ملخص
 
-- Functions are values. They can be assigned, copied or declared in any place of the code.
-- If the function is declared as a separate statement in the main code flow, that's called a "Function Declaration".
-- If the function is created as a part of an expression, it's called a "Function Expression".
-- Function Declarations are processed before the code block is executed. They are visible everywhere in the block.
-- Function Expressions are created when the execution flow reaches them.
+-   الدوال هي قيم يمكن تخزينها ونسخها وتعريفها في أي مكان.
+-   إذا تم تعريف الدالة كجزء منفصل في البرنامج فتسمى "Function Declaration".
+-   وإذا تم تعريفها كجزء من تعبير معين فتسمى "Function Expression".
+-   Function Declarations يتم عملها قبل تنفيذ الكود فتكون متاحة في أي مكان بداخله.
+-   Function Expressions يتم إنشاءها عندما يصل التنفيذ إليها.
 
-In most cases when we need to declare a function, a Function Declaration is preferable, because it is visible prior to the declaration itself. That gives us more flexibility in code organization, and is usually more readable.
+في معظم الحالات عندما نريد عمل دالة يفضل استخدام Function Declaration لأنه يكون متاح قبل التعريف نفسه. وهذا يعطينا مرونة أكثر في البرنامج.
 
-So we should use a Function Expression only when a Function Declaration is not fit for the task. We've seen a couple of examples of that in this chapter, and will see more in the future.
+يجب استخدام Function Expression فقط عندما يكون Function Declaration غير مناسب. ولقد رأينا أمثلة عديدة هنا وسنرى أكثر في المستقبل.

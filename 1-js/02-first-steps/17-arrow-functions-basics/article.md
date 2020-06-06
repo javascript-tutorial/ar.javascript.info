@@ -1,54 +1,54 @@
-# Arrow functions, the basics
+# أساسيات Arrow functions
 
-There's another very simple and concise syntax for creating functions, that's often better than Function Expressions.
+هناك طريقة أبسط لتعريف الدالة وغالبًا تكون أفضل من Function Expressions.
 
-It's called "arrow functions", because it looks like this:
+تسمى "arrow functions" لأنها تشبه السهم:
 
 ```js
-let func = (arg1, arg2, ...argN) => expression
+let func = (arg1, arg2, ...argN) => expression;
 ```
 
-...This creates a function `func` that accepts arguments `arg1..argN`, then evaluates the `expression` on the right side with their use and returns its result.
+...هذا ينشئ دالة `func` تأخذ قيم `arg1..argN` وتنفذ `expression` الطرف الأيمن باستخدامهم وترجع النتيجة.
 
-In other words, it's the shorter version of:
+بصيغة أخرى فهي إختصار ل:
 
 ```js
-let func = function(arg1, arg2, ...argN) {
-  return expression;
+let func = function (arg1, arg2, ...argN) {
+    return expression;
 };
 ```
 
-Let's see a concrete example:
+لنرى أمثلة:
 
 ```js run
 let sum = (a, b) => a + b;
 
-/* This arrow function is a shorter form of:
+/* هذه arrow function إختصار ل:
 
 let sum = function(a, b) {
   return a + b;
 };
 */
 
-alert( sum(1, 2) ); // 3
+alert(sum(1, 2)); // 3
 ```
 
-As you can, see `(a, b) => a + b` means a function that accepts two arguments named `a` and `b`. Upon the execution, it evaluates the expression `a + b` and returns the result.
+كما ترى فإن `(a, b) => a + b` تعني أن الدالة تستقبل قيمتين `a` و `b`. وتنفذ التعبير `a + b` وترجع نتيجته.
 
-- If we have only one argument, then parentheses around parameters can be omitted, making that even shorter.
+-   إذا كان لديك معامل واحد فقط فيمكن حذف الأقواس الدائرية من حوله لجعل التعبير أقصر.
 
-    For example:
+    مثل:
 
     ```js run
     *!*
     let double = n => n * 2;
-    // roughly the same as: let double = function(n) { return n * 2 }
+    // تمامًا مثل: let double = function(n) { return n * 2 }
     */!*
 
     alert( double(3) ); // 6
     ```
 
-- If there are no arguments, parentheses will be empty (but they should be present):
+-   إذا لم يوجد معاملات يتم ترك الأقواس فارغة (ولكن يجب كتابتها):
 
     ```js run
     let sayHi = () => alert("Hello!");
@@ -56,29 +56,27 @@ As you can, see `(a, b) => a + b` means a function that accepts two arguments na
     sayHi();
     ```
 
-Arrow functions can be used in the same way as Function Expressions.
+يمكن استخدام Arrow functions بنفس طريقة Function Expressions.
 
-For instance, to dynamically create a function:
+على سبيل المثال إذا أردنا إنشاء دالة بطريقة ديناميكية:
 
 ```js run
 let age = prompt("What is your age?", 18);
 
-let welcome = (age < 18) ?
-  () => alert('Hello') :
-  () => alert("Greetings!");
+let welcome = age < 18 ? () => alert("Hello") : () => alert("Greetings!");
 
 welcome();
 ```
 
-Arrow functions may appear unfamiliar and not very readable at first, but that quickly changes as the eyes get used to the structure.
+ربما تكون Arrow functions غير معروفة وذات بنية غريبة لا يمكن التعرف عليها في البداية ولكن مع كثرة الاستخدام ستعتاد عينك عليها.
 
-They are very convenient for simple one-line actions, when we're just too lazy to write many words.
+هي مناسبة جدًا للأحداث التي تتطلب سطر واحد ولكننا كسالى لنكتب كلمات كثيرة.
 
 ## Multiline arrow functions
 
-The examples above took arguments from the left of `=>` and evaluated the right-side expression with them.
+المثال بالأعلى يأخذ القيم على يسار `=>` وينفذ التعبير على اليمين باستخدامهم.
 
-Sometimes we need something a little bit more complex, like multiple expressions or statements. It is also possible, but we should enclose them in curly braces. Then use a normal `return` within them.
+أحيانًا نريد شئ أكثر تعقيدًا كتنفيذ عدة أوامر. عندها يمكن وصعهم داخل أقواس معقوفة ولكن يجب استخدام `return` الطبيعية معهم.
 
 Like this:
 
@@ -86,26 +84,26 @@ Like this:
 let sum = (a, b) => {  // the curly brace opens a multiline function
   let result = a + b;
 *!*
-  return result; // if we use curly braces, then we need an explicit "return" 
+  return result; // if we use curly braces, then we need an explicit "return"
 */!*
 };
 
 alert( sum(1, 2) ); // 3
 ```
 
-```smart header="More to come"
-Here we praised arrow functions for brevity. But that's not all!
+```smart header="الكثير آتٍ"
+تعرفنا على arrow functions بإيجاز ولكن هذا ليس كل شئ
 
-Arrow functions have other interesting features.
+Arrow functions لديها العديد من المميزات الشيقة.
 
-To study them in-depth, we first need to get to know some other aspects of JavaScript, so we'll return to arrow functions later in the chapter <info:arrow-functions>.
+لدراستها بعمق سنحتاج معرفة بأشياء أكثر في الجافاسكربت لذلك سنرجع إليها مرة أخرى في فصل <info:arrow-functions>.
 
-For now, we can already use arrow functions for one-line actions and callbacks.
+للآن يمكننا استخدامها لأحداث السطر الواحد و callbacks.
 ```
 
-## Summary
+## ملخص
 
-Arrow functions are handy for one-liners. They come in two flavors:
+Arrow functions تأتي بصيغتين:
 
-1. Without curly braces: `(...args) => expression` -- the right side is an expression: the function evaluates it and returns the result.
-2. With curly braces: `(...args) => { body }` -- brackets allow us to write multiple statements inside the function, but we need an explicit `return` to return something.
+1. بدون أقواس معقوفة: `(...args) => expression` -- تقوم الدالة بتنفيذ التعبير الموجود بالجزء الأيمن وترجع نتيحته.
+2. مع أقواس معقوفة: `(...args) => { body }` -- تسمح لنا بتنفيذ أكثر من أمر ولكن يجب وضع `return` لكي نرجع قيمة ما.

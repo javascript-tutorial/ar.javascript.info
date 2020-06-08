@@ -1,9 +1,12 @@
 importance: 5
 
 ---
+# إطبع قائمة متصلة فردية بشكل عكسي
 
-# Output a single-linked list in the reverse order
+إطبع القائمة المتصلة من المهمة السابقة <info:task/output-single-linked-list> لكن بشكل عكسي هذه المرة
 
-Output a single-linked list from the previous task <info:task/output-single-linked-list> in the reverse order.
+بطريقتين : 
 
-Make two solutions: using a loop and using a recursion.
+1. بإستخدام الحلقة
+2. بإستخدام التكرار
+

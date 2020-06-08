@@ -126,28 +126,16 @@ alert(undefined || null || 0); // 0 (الكل falsy, ترجع آخر قيمة)
 
     أهمية هذه الميزة تصبح ملحوظة إذا كانت القيمة الممررة عبارة عن عملية لها آثار جانبية مثل تخصيص قيمة متغير أو استدعاء دالة
 
-<<<<<<< HEAD
     في هذا المثال سيتم طباعة الرسالة الأولى ولن يتم طباعة الثانية:
 
     ```js run no-beautify
-    *!*false*/!* || alert("printed");
-    *!*true*/!* || alert("not printed");
-=======
-    In the example below, only the second message is printed:
-
-    ```js run no-beautify
     *!*true*/!* || alert("not printed");
     *!*false*/!* || alert("printed");
->>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
     ```
 
     في السطر الثاني يتوقف العامل OR `||` مباشرة عند الوصول إلى `true` لذلك فإن `alert` لا ينفذ.
 
-<<<<<<< HEAD
-    أحيانًا يستخدم الناس هذه الخاصية لتنفيذ أوامر فقط إذا كان الجزء الأيسر truthy.
-=======
-    Sometimes, people use this feature to execute commands only if the condition on the left part is falsy.
->>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
+    أحيانًا يستخدم الناس هذه الخاصية لتنفيذ أوامر فقط إذا كان الجزء الأيسر زائف.
 
 ## && (AND)
 

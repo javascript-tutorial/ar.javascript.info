@@ -1,28 +1,28 @@
-# Recursion and stack
+# التكرار و الحزمة
+حان الوقت لنعود الأن إلي الدوال ونتعمق في دراستها
 
-Let's return to functions and study them more in-depth.
+موضوعنا الأول سيكون *التكرار*
 
-Our first topic will be *recursion*.
+إن لم تكن جديداً بمجال البرمجة, إذن من المحتمل أنه مألوف بالنسبة لك ويمكنك تخطي هذا الفصل
 
-If you are not new to programming, then it is probably familiar and you could skip this chapter.
+التكرار هو نمط برمجة مفيد في الحالات التي يمكن فيها تقسيم المهمة بشكل طبيعي إلي عدة مهام من النوع نفسه لكن أبسط أو عندما يمكن تبسيط مهمة ما إلي إجراء سهل بالإضافة إلي بديل أبسط لنفس المهمة أو كما سنرى قريباً, للتعامل مع بنية بيانات معينة
 
-Recursion is a programming pattern that is useful in situations when a task can be naturally split into several tasks of the same kind, but simpler. Or when a task can be simplified into an easy action plus a simpler variant of the same task. Or, as we'll see soon, to deal with certain data structures.
+فعندما تقوم إحدى الدوال بحل مهمة ما, يمكن أن تنادي بداخلها دوال أخرى كثيرة. ومن الممكن ايضاً أن تنادي الدالة علي *نفسها*. ذلك ما يعرف بإسم *التكرار*.
 
-When a function solves a task, in the process it can call many other functions. A partial case of this is when a function calls *itself*. That's called *recursion*.
 
-## Two ways of thinking
+## طريقتان للتفكير
 
-For something simple to start with -- let's write a function `pow(x, n)` that raises `x` to a natural power of `n`. In other words, multiplies `x` by itself `n` times.
+لنبدأ بمثال صغير يوضح الفكرة -- دعنا نكتب دالة `pow(x, n)` التي ترفع `x` إلي الأوس `n`, أو بمعني أخر تضرب `x` في نفسه عدد `n` من المرات
+
 
 ```js
 pow(2, 2) = 4
 pow(2, 3) = 8
 pow(2, 4) = 16
 ```
+هناك طريقتان لتحقيق ذلك
 
-There are two ways to implement it.
-
-1. Iterative thinking: the `for` loop:
+1. التفكير التكراري "Iterative": حلقة `for` :
 
     ```js run
     function pow(x, n) {
@@ -38,8 +38,8 @@ There are two ways to implement it.
 
     alert( pow(2, 3) ); // 8
     ```
+2. التفكير المتكرر "Recursive": تبسيط المهمة وتكرارها :
 
-2. Recursive thinking: simplify the task and call self:
 
     ```js run
     function pow(x, n) {
@@ -52,10 +52,9 @@ There are two ways to implement it.
 
     alert( pow(2, 3) ); // 8
     ```
+يجب ملاحظة كيف أن المتغير المتكرر مختلف جوهرياً
 
-Please note how the recursive variant is fundamentally different.
-
-When `pow(x, n)` is called, the execution splits into two branches:
+عندما يتم استدعاء `pow(x, n)`, التنفيذ ينقسم إلي فرعين : 
 
 ```js
               if n==1  = x
@@ -64,28 +63,28 @@ pow(x, n) =
              \       
               else     = x * pow(x, n - 1)
 ```
+1. إذا كان `n == 1`, إذن كل شي بديهى. ذلك يسمي *قاعدة* التكرار, لأنه علي الفور يعطي الحل البديهى : `pow(x, 1)` تساوي `x`. 
 
-1. If `n == 1`, then everything is trivial. It is called *the base* of recursion, because it immediately produces the obvious result: `pow(x, 1)` equals `x`.
-2. Otherwise, we can represent `pow(x, n)` as `x * pow(x, n - 1)`. In maths, one would write <code>x<sup>n</sup> = x * x<sup>n-1</sup></code>. This is called *a recursive step*: we transform the task into a simpler action (multiplication by `x`) and a simpler call of the same task (`pow` with lower `n`). Next steps simplify it further and further until `n` reaches `1`.
+2. فيما عدا ذلك, يمكننا أن نعتبر `pow(x, n)` أنها `x * pow(x, n - 1)`. في الرياضات, نكتب هذا التعبير علي هذا الشكل <code>x<sup>n</sup> = x * x<sup>n-1</sup></code>. هذا  يسمى بـ *خطوة تكرارية* : نحن نحول المهمة إلي مهمة أصغر ( الضرب في `x` ) و مناداة الدالة بشكل أبسط ( `pow` بـ قيمة أصغر للـ `n` ) والخطوة التالية تبسط الدالة أكثر فأكثر حتي تصل  `n` إلي `1`. 
 
-We can also say that `pow` *recursively calls itself* till `n == 1`.
+نستطيع أن نقول أيضاً أن `pow` *تكرر مناداة نفسها* حتي تصل `n == 1`.
 
 ![recursive diagram of pow](recursion-pow.svg)
 
-
-For example, to calculate `pow(2, 4)` the recursive variant does these steps:
+على سبيل المثال, لحساب `pow(2, 4)` المتغير المتكرر يقوم بهذه الخطوات:
 
 1. `pow(2, 4) = 2 * pow(2, 3)`
 2. `pow(2, 3) = 2 * pow(2, 2)`
 3. `pow(2, 2) = 2 * pow(2, 1)`
 4. `pow(2, 1) = 2`
 
-So, the recursion reduces a function call to a simpler one, and then -- to even more simpler, and so on, until the result becomes obvious.
+لذلك, التكرار يقلص مناداة الدالة إلي دالة ابسط ثم أبسط وهكذا حتي تصبح الإجابة واضحة ونصل إلي *قاعدة التكرار*.
 
-````smart header="Recursion is usually shorter"
-A recursive solution is usually shorter than an iterative one.
+````smart header="التكرار دائماً أقصر Recursive"
 
-Here we can rewrite the same using the conditional operator `?` instead of `if` to make `pow(x, n)` more terse and still very readable:
+الحل المتكرر "Recursive" دائماً أقصر من التكراري "Iterative".
+
+هنا يمكننا إعادة كتابة `pow(x, n)` بإستخدام العامل المشروط `?` بدلاً من `if` لنجعلها أكثر اختصاراً و قراءً
 
 ```js run
 function pow(x, n) {
@@ -93,37 +92,38 @@ function pow(x, n) {
 }
 ```
 ````
+العدد الأقصي للمنادايات المتداخلة بما فيهم المناداة الأولي يسمي *عمق التكرار* في حالتنا سيكون `n`.
 
-The maximal number of nested calls (including the first one) is called *recursion depth*. In our case, it will be exactly `n`.
+الحد الأقصي لعمق التكرار يحدده محرك جافاسكريبت. يمكننا أن نعتمد علي أنه 10000, بعض المحركات تسمح بأكثر من ذلك لكن 100000 غالباً خارج نطاق معظمهم. وهناك تحسينات تلقائية تساعد علي التخفيف من حدة هذا ("tail calls optimizations"), ولكن لم يحصلوا بعد علي الدعم في كل مكان ويعملون في حالات بسيطة فقط.
 
-The maximal recursion depth is limited by JavaScript engine. We can rely on it being 10000, some engines allow more, but 100000 is probably out of limit for the majority of them. There are automatic optimizations that help alleviate this ("tail calls optimizations"), but they are not yet supported everywhere and work only in simple cases.
+هذا العيب يحد من تطبيقات التكرار "Recursion", ولكنه يظل له إنتشار واسع جداً. وهناك العديد من المهام تحتاج طريقة التفكير المتكررة لإعطائك كود أبسط وأسهل.
 
-That limits the application of recursion, but it still remains very wide. There are many tasks where recursive way of thinking gives simpler code, easier to maintain.
+## سياق التنفيذ "Execution context" و الكومة "Stack"
 
-## The execution context and stack
+الأن دعونا نفحص كيف تعمل المنادايات المتكررة. وننظر للجانب المحجوب عن عيوننا للدوال
 
-Now let's examine how recursive calls work. For that we'll look under the hood of functions.
+المعلومات التي تخص عملية تنفيذ الدالة تخزن في شئ يدعي *سياق التنفيذ*.
 
-The information about the process of execution of a running function is stored in its *execution context*.
+[سياق التنفيذ](https://tc39.github.io/ecma262/#sec-execution-contexts) هو بنية بيانات داخلية تشمل تفاصيل عن تنفيذ الدالة مثل: من أي مكان تمت مناداة هذه الدالة , و القيمة الحالية للمتغير `this` (نحن لا نستخدمها هنا) و بعض التفاصيل الداخلية الأخرى
 
-The [execution context](https://tc39.github.io/ecma262/#sec-execution-contexts) is an internal data structure that contains details about the execution of a function: where the control flow is now, the current variables, the value of `this` (we don't use it here) and few other internal details.
+ كل هذا يبدو مبهماً أليس كذلك.؟ دعنا نبسط الأمر أكثر
 
-One function call has exactly one execution context associated with it.
+مع كل دالة يتم مناداتها يتم صنع سياق تنفيذي خاص بها وينسب لها
 
-When a function makes a nested call, the following happens:
+لكن عندما يتم مناداة دالة أخري بداخلها, يحدث الأتي: 
 
-- The current function is paused.
-- The execution context associated with it is remembered in a special data structure called *execution context stack*.
-- The nested call executes.
-- After it ends, the old execution context is retrieved from the stack, and the outer function is resumed from where it stopped.
+- يتم إيقاف الدالة الحالية
+- السياق التنفيذي لهذه الدالة يتم تخزينه في بنية بيانات خاصة تدعي *كومة السايق التنفيذي* "execution context stack" 
+- بدأ تنفيذ الدالة التي تمت مناداتها بداخلها 
+- بعد إنتهاء الدالة الداخلية من التنفيذ يتم إسترجاع السياق التنفيذي الذي تم تخزينه في الكومة "Stack", ثم تعود لمواصلة تشغيل الدالة الخارجية من عند نقطة الإيقاف
 
-Let's see what happens during the `pow(2, 3)` call.
+دعنا الأن نري ماذا حدث أثناء مناداة `pow(2, 3)`
 
 ### pow(2, 3)
 
-In the beginning of the call `pow(2, 3)` the execution context will store variables: `x = 2, n = 3`, the execution flow is at line `1` of the function.
+في بداية مناداة `pow(2, 3)` السياق التنفيذي سيقوم بتخزين المتغيرات: `x = 2, n = 3`, وأيضاً سيقوم بتخزين نقطة التنفيذ التي توجد عند السطر `1` للدالة
 
-We can sketch it as:
+يمكن رسم ما حدث في هذا الشكل: 
 
 <ul class="function-execution-context-list">
   <li>
@@ -132,7 +132,7 @@ We can sketch it as:
   </li>
 </ul>
 
-That's when the function starts to execute. The condition `n == 1` is false, so the flow continues into the second branch of `if`:
+بعد ذلك سيتم تنفيذ الدالة, الشرط `n == 1` سيعتبر خطأً لذلك سيتوجه التنفيذ إلي الفرع الاخر من `if`: 
 
 ```js run
 function pow(x, n) {
@@ -147,9 +147,7 @@ function pow(x, n) {
 
 alert( pow(2, 3) );
 ```
-
-
-The variables are same, but the line changes, so the context is now:
+المتغيرات كما هي, لكن السطر تغير لذلك السياق سيكون هكذا: 
 
 <ul class="function-execution-context-list">
   <li>
@@ -158,19 +156,21 @@ The variables are same, but the line changes, so the context is now:
   </li>
 </ul>
 
-To calculate `x * pow(x, n - 1)`, we need to make a subcall of `pow` with new arguments `pow(2, 2)`.
+لحساب `x * pow(x, n - 1)`, نحتاج إلي نداء الدالة مرة أخري ولكن بقيمة أصغر `pow(2, 2)`.
+
+
 
 ### pow(2, 2)
 
-To do a nested call, JavaScript remembers the current execution context in the *execution context stack*.
+لكي نستطيع القيام بمناداة دالة داخل أخري, يجب علي جافاسكريبت تذكر السياق التنفيذي الحالي وتخزينه في *كومة السياق التنفيذي* وكل هذا لكي يستطيع المحرك العودة للدالة الخارجية مرة أخري عند الانتهاء من الدالة الداخلية
 
-Here we call the same function `pow`, but it absolutely doesn't matter. The process is the same for all functions:
+هنا نحن نادينا نفس الدالة `pow`, لكن هذا لا يهم لأن الخطوات السابقة سيتم تنفيذها مرة أخرى :
 
-1. The current context is "remembered" on top of the stack.
-2. The new context is created for the subcall.
-3. When the subcall is finished -- the previous context is popped from the stack, and its execution continues.
+1. السياق الحالي سيتم تخزينه أعلي الكومة
+2. سيتم صنع السياق الجديد الخاص بالدالة الداخلية
+3. عند الانتهاء من الدالة الداخلية -- نستعيد السياق السابق للدالة الخارجية من الكومة ونستكمل تنفيذه
 
-Here's the context stack when we entered the subcall `pow(2, 2)`:
+ها هو سياق الكومة عنما نستدعي الدالة `pow(2, 2)` :
 
 <ul class="function-execution-context-list">
   <li>
@@ -183,21 +183,21 @@ Here's the context stack when we entered the subcall `pow(2, 2)`:
   </li>
 </ul>
 
-The new current execution context is on top (and bold), and previous remembered contexts are below.
+السياق التنفيذي الجديد سيكون أعلي الكومة وجميع السياقات السابق ستكون أسفله
 
-When we finish the subcall -- it is easy to resume the previous context, because it keeps both variables and the exact place of the code where it stopped.
+عندما ننتهي من الدالة الداخلية -- يكون من السهل إستعادة السياق السابق لأنه يحتفظ بالمتغيرات الخاصة بالدالة و المكان المحدد التي توقفت فيه.
 
 ```smart
-Here in the picture we use the word "line", as our example there's only one subcall in line, but generally a single line of code may contain multiple subcalls, like `pow(…) + pow(…) + somethingElse(…)`.
+في الصور نحن نستخدم كلمة "line", لأنه في المثال الذي نناقشه هناك دالة واحدة تمت مناداتها في هذا السطر, لكن في العام السطر الواحد يمكن ان يكون به عدة دوال أخرى مثل `pow(…) + pow(…) + somethingElse(…)`.
 
-So it would be more precise to say that the execution resumes "immediately after the subcall".
+لذلك يجب علينا أن نكون أكثر دقة و نقول أن الدالة الخارجية تعود لأستكمال التنفيذ مباشرةً بعد الانتهاء من الدالة الداخلية.
 ```
 
 ### pow(2, 1)
 
-The process repeats: a new subcall is made at line `5`, now with arguments `x=2`, `n=1`.
+تتكرر العملية مرة أخري: دالة أخرى تتم مناداتها عند السطر `5` و بقيم `x=2`, `n=1`.
 
-A new execution context is created, the previous one is pushed on top of the stack:
+سياق تنفيذي جديد يتم صنعه, والقديم يضاف إلي أعلي الكومة: 
 
 <ul class="function-execution-context-list">
   <li>
@@ -214,11 +214,12 @@ A new execution context is created, the previous one is pushed on top of the sta
   </li>
 </ul>
 
-There are 2 old contexts now and 1 currently running for `pow(2, 1)`.
+يوجد الأن 2 سياق قدماء و سياق يتم تنفيذه حالياً لـ `pow(2, 1)`.
 
-### The exit
 
-During the execution of `pow(2, 1)`, unlike before, the condition `n == 1` is truthy, so the first branch of `if` works:
+### الخروج
+
+خلال تنفيذ `pow(2, 1)`, وعلي غير العادة, الشرط `n == 1` الأن أصبح صحيح, لذلك الفرع الأول `if` يعمل:
 
 ```js
 function pow(x, n) {
@@ -231,11 +232,9 @@ function pow(x, n) {
   }
 }
 ```
+لم يعد هناك دوال أخري ليتم مناداتها, لذلك ستنتهي الدالة برجوع `2`.
 
-There are no more nested calls, so the function finishes, returning `2`.
-
-As the function finishes, its execution context is not needed anymore, so it's removed from the memory. The previous one is restored off the top of the stack:
-
+عندما تنتهي الدالة, السياق التنفيذي لها لم يعد له فائدة بعد الأن, لذلك نقوم بحذفها من الذاكرة. ثم نأتي بالسياق السابق من أعلي الكومة :
 
 <ul class="function-execution-context-list">
   <li>
@@ -248,9 +247,9 @@ As the function finishes, its execution context is not needed anymore, so it's r
   </li>
 </ul>
 
-The execution of `pow(2, 2)` is resumed. It has the result of the subcall `pow(2, 1)`, so it also can finish the evaluation of `x * pow(x, n - 1)`, returning `4`.
+ثم يعود تنفيذ دالة `pow(2, 2)`. إنها تمتلك ناتج نداء `pow(2, 1)`, لذلك تنتهي هي الاخري بتقدير `x * pow(x, n - 1)`, وتعود بناتج `4`.
 
-Then the previous context is restored:
+ثم نأتي بالسياق السابق: 
 
 <ul class="function-execution-context-list">
   <li>
@@ -259,15 +258,16 @@ Then the previous context is restored:
   </li>
 </ul>
 
-When it finishes, we have a result of `pow(2, 3) = 8`.
+عندما تنتهي أخر دالة, نحصل علي ناتج `pow(2, 3) = 8`
 
-The recursion depth in this case was: **3**.
+العمق التكراري في هذه الحالة يكون: **3**.
 
-As we can see from the illustrations above, recursion depth equals the maximal number of context in the stack.
+كما هو موضح في الأعلي, العمق التكراري يساوي العدد الأقصي للسياقات الموجودة في الكومة
 
-Note the memory requirements. Contexts take memory. In our case, raising to the power of `n` actually requires the memory for `n` contexts, for all lower values of `n`.
+يجب ملاحظة متطلبات الذاكرة. السياقات تحتاج إلي ذاكرة. في المثال الذي نشرحه, رفع عدد لأوس `n` يحتاج إلي ذاكرة تكفي لـ `n` سياق.
 
-A loop-based algorithm is more memory-saving:
+طرق الحلول المبنية علي حلقات مثل `for`,`while` تعتبر أكثر توفيراً للذاكرة.
+
 
 ```js
 function pow(x, n) {
@@ -281,19 +281,20 @@ function pow(x, n) {
 }
 ```
 
-The iterative `pow` uses a single context changing `i` and `result` in the process. Its memory requirements are small, fixed and do not depend on `n`.
+التكرار *Iterative* في دالة `pow`يستخدم سياق تنفيذي واحد و يتغير فيه المتغيرات `i` و `result`. وهذا يحتاج إلي ذاكرة صغيرة وثابتة لا تعتمد علي عدد الـ `n` كما في
 
-**Any recursion can be rewritten as a loop. The loop variant usually can be made more effective.**
+**أي دالة متكررة "Recursive" يمكن أن نعيد كتابتها بطريقة التكرار "Iterative".ودائماً ما يكون التكرار بإستخدام الحلقات أكثر كفاءة.**
 
-...But sometimes the rewrite is non-trivial, especially when function uses different recursive subcalls depending on conditions and merges their results or when the branching is more intricate. And the optimization may be unneeded and totally not worth the efforts.
+لكن أحياناً إعادة كتابة الدالة بطريقة التكرار لا يكون سهلاً أبداً خصوصاً عندما تكون الدالة الخارجية تعتمد علي أكثر من دالة داخلية وشروط كثيرة والكثيرة من فروع الشروط. كل هذا يجعلك لا تستطيع إعادة كتابتها مرة أخري بطرية الحلقات.
 
-Recursion can give a shorter code, easier to understand and support. Optimizations are not required in every place, mostly we need a good code, that's why it's used.
+الدالة المتكررة "Recursion" تعطيك كود أقصر وأسهل في القراءة. وضع في إعتبارك أن تحقيق الاستخدام الأمثل ليس مطلوباً في كل الحالات في بعض الحالات أنت فقط تريد كود جيداً.
 
-## Recursive traversals
 
-Another great application of the recursion is a recursive traversal.
+## التنقل المتكرر
 
-Imagine, we have a company. The staff structure can be presented as an object:
+مثال أخر وتطبيق علي الدالة المتكررة هو التنقل المتكرر "Recursive Traversals".
+
+تخيل أنك صاحب شركة. وبنية بيانات العاملين بالشركة مخزنة بهذا الشكل: 
 
 ```js
 let company = {
@@ -321,32 +322,30 @@ let company = {
   }
 };
 ```
+أو بمعني أخر الشركة لها أقسام 
 
-In other words, a company has departments.
+- القسم يمكن أن يحتوي علي ترتيب "Array" للعاملين بهذا القسم, علي سبيل المثال قسم `sales` يمتلك 2 موظفين: John و Alice.
+- أو يمكن تقسيم القسم الواحد إلي عدة أقسام أخري مثل قسم `development` له فرعان : `sites` و `internals`. كل قسم منهم له الموظفين الخاصيين به.
+- يمكن أيضا أن يتشعب كل قسم من هذه الأقسام أكثر فأكثر 
 
-- A department may have an array of staff. For instance, `sales` department has 2 employees: John and Alice.
-- Or a department may split into subdepartments, like `development` has two branches: `sites` and `internals`. Each of them has their own staff.
-- It is also possible that when a subdepartment grows, it divides into subsubdepartments (or teams).
+    مثلاً قسم `sites` يمكن أن يتشعب في المستقبل إلي فرق مثل `siteA` و `siteB`. وهم نفسهم يمكن تقسيهم أكثر فأكثر ويصبح الأمر مثل الشجرة. هذا ليس بالمثال ولكن يجب أن تضعه في حسابك
 
-    For instance, the `sites` department in the future may be split into teams for `siteA` and `siteB`. And they, potentially, can split even more. That's not on the picture, just something to have in mind.
+دعنا نقول الأن أننا نريد دالة تجمع لنا كل الرواتب في هذه البنية. كيف يمكننا فعل ذلك؟
 
-Now let's say we want a function to get the sum of all salaries. How can we do that?
+تفكير التكرار "Iterative" في هذه الحالة ليس سهلاً علي الإطلاق, لأن بنية الموظفين ليست بسيطة. قد يخطر ببالك أولاً عمل حلقة `for` حول `company` وبداخلها حلقة أخري حول الأقسام الموجودة في المستوي الأول. ولكن في هذه الحالة نحن نحتاج حلقة أخري بالداخل حول المستوي الثاني من الاقسام مثل `sites`... وأيضاً حلقة رابعة لاقسام القادمة في المستقبل؟ إذا وضعنا ثلاث أو أربع حلقات داخل بعضهم لكي أستطيع التنقل خلال بيانات هذا الشئ سيكون ذلك كابوساً. 
 
-An iterative approach is not easy, because the structure is not simple. The first idea may be to make a `for` loop over `company` with nested subloop over 1st level departments. But then we need more nested subloops to iterate over the staff in 2nd level departments like `sites`... And then another subloop inside those for 3rd level departments that might appear in the future? If we put 3-4 nested subloops in the code to traverse a single object, it becomes rather ugly.
+إذن دعنا نفكر بطريقة متكررة "Recursion".
 
-Let's try recursion.
+عندما تعطي الدالة قسم لتجمع رواتبه, هناك حالتين محتملتين: 
 
-As we can see, when our function gets a department to sum, there are two possible cases:
+1. إما ان يكون قسم بسيط ليس له فروع ويتكون من ترتيب "Array" من الأشخاص -- حينها سنقوم بعمل حلقة تجمع رواتب هذا القسم ببساطة.
+2. إما أن يكون قسم معقد يتكون من عدد `N` أقسام داخلية -- حينها نكرر مناداة الدالة عدد `N` من المرات لنجمع كل قسم داخلي ونأتي بالناتج.
 
-1. Either it's a "simple" department with an *array* of people -- then we can sum the salaries in a simple loop.
-2. Or it's *an object* with `N` subdepartments -- then we can make `N` recursive calls to get the sum for each of the subdeps and combine the results.
+الحالة الأولي هي *أساس التكرار*, الحالة البديهية, عندما نستلم ترتيب *array*
 
-The 1st case is the base of recursion, the trivial case, when we get an array.
+الحالة الثانية عندما تستلم الدالة شئ "object", يعتبر خطوة متكررة. تعتبر هذه الخطوة معقدة ولكن عن طريق التكرار سيتم تقسيم المهمة إلي مهمات أصغر وأبسط حتي هذه المهات يمكن تقسيمها فيما بعض إلي مهمات أكثر تبسيطاً لكن عاجلاً أم أجلاً ستنتهي المهمات عند الحالة الأولي.
 
-The 2nd case when we get an object is the recursive step. A complex task is split into subtasks for smaller departments. They may in turn split again, but sooner or later the split will finish at (1).
-
-The algorithm is probably even easier to read from the code:
-
+طريقة الحل ستكون بسيطة حتي أنك تسطيع قرأتها من الكود وفهمها:
 
 ```js run
 let company = { // the same object, compressed for brevity
@@ -375,62 +374,68 @@ function sumSalaries(department) {
 alert(sumSalaries(company)); // 7700
 ```
 
-The code is short and easy to understand (hopefully?). That's the power of recursion. It also works for any level of subdepartment nesting.
+الكود قصير وسهل الفهم (نرجو ذلك!). هذه هي قوة الدالة المتكررة. هذه الدالة تعمل ايضاً مع أي عدد من التفرعات المتداخلة
 
-Here's the diagram of calls:
+
+ها هو رسم بياني يوضح كيف تتم مناداة الدالة وما بداخلها.
 
 ![recursive salaries](recursive-salaries.svg)
 
-We can easily see the principle: for an object `{...}` subcalls are made, while arrays `[...]` are the "leaves" of the recursion tree, they give immediate result.
+يمكن أن نستشف المبدأ من خلال ما سبق: كل شئ object `{...}` يعتبر نداء لدالة أخري, بينما كل ترتيب arrays `[...]` يعتبر أطراف لشجرة التكرار وهذا هو اساس التكرار الذي يعطينا الحل علي الفور.
+
+لاحظ أن الكود يستخدم بعض السمات الذكية التي تم شرحها فيما سبق:
 
 Note that the code uses smart features that we've covered before:
 
-- Method `arr.reduce` explained in the chapter <info:array-methods> to get the sum of the array.
-- Loop `for(val of Object.values(obj))` to iterate over object values: `Object.values` returns an array of them.
+- طريقة `arr.reduce` تم شرحها في فصل <info:array-methods> للحصول علي مجموع ارقام داخل ترتيب.
+- حلقة `for(val of Object.values(obj))` للتكرار علي عدد قيم شئ: `Object.values` ونعطي ترتيب بيهم أو بمعني أخر تحويل قيم الشئ إلي ترتيب Array.
 
 
-## Recursive structures
+## الهياكل المتكررة
 
-A recursive (recursively-defined) data structure is a structure that replicates itself in parts.
+هيكل البيانات التكرارية هو هيكل (بنية) يكرر نفسه في أجزاء أصغر منه.
 
-We've just seen it in the example of a company structure above.
+لقد رأينا للتو هذا علي هيكل الشركة.
 
-A company *department* is:
-- Either an array of people.
-- Or an object with *departments*.
+الشركة *القسم* يعتبر:
 
-For web-developers there are much better-known examples: HTML and XML documents.
+- إما ترتيب Array من الأشخاص.
+- أو شئ object يمتلك أقسام أخري
 
-In the HTML document, an *HTML-tag* may contain a list of:
-- Text pieces.
-- HTML-comments.
-- Other *HTML-tags* (that in turn may contain text pieces/comments or other tags etc).
+لاكن بالنسبة لمطورين الويب هناك أمثلة أفضل وأشهر بكثير مثل HTML و XML documents.
 
-That's once again a recursive definition.
+ في وثيقة الـ *HTML-tag*, HTML يمكن أن يحتوي علي أي شئ من هذه الأشياء:
+- جمل نصية.
+- تعليقات HTML.
+- *HTML-tag*  أخري (التي تحتوي علي جمل نصيةأو تعليقات أو *HTML-tag* أخري وهكذا )
 
-For better understanding, we'll cover one more recursive structure named "Linked list" that might be a better alternative for arrays in some cases.
+هذا الهيكل لا يذكرك بشئ؟ نعم أنه هو ثانياً تعريف متكرر.
 
-### Linked list
+لكي نفهم أكثر ونتعمق, سنغطي الأن واحدة أخري من هياكل التكرار تدعي *القائمة المتصلة* "Linked List" التي من الممكن أن تكون بديلة للترتيب Array في بعض الحالات.
 
-Imagine, we want to store an ordered list of objects.
 
-The natural choice would be an array:
+### القائمة المتصلة
+
+تخيل أننا نريد تخزين قائمة مرتبة من الاشياء objects.
+
+الاختيار الطبيعي سيكون "ترتيب" Array:
 
 ```js
 let arr = [obj1, obj2, obj3];
 ```
 
-...But there's a problem with arrays. The "delete element" and "insert element" operations are expensive. For instance, `arr.unshift(obj)` operation has to renumber all elements to make room for a new `obj`, and if the array is big, it takes time. Same with `arr.shift()`.
+ لكن هناك مشكلة مع الترتيب. عملية "إضافة عنصر" و "إزالة عنصر" مكلفة جداً. مثلاً عملية `arr.unshift(obj)` أو `arr.shift()` يجب علي الترتيب إعادة ترقيم كل العناصر بعد كل عملية منهم وإذا كان الترتيب كبير جداً هذه العمليات ستأخذ وقت. 
 
-The only structural modifications that do not require mass-renumbering are those that operate with the end of array: `arr.push/pop`. So an array can be quite slow for big queues, when we have to work with the beginning.
+في الترتيب Array العمليات السهلة فقط هم `arr.push/pop`. لأنهم لايحتاجوا إلي الترقيم بعدهم لأنك إما تضيف في أخر الترتيب أو تحذف منه.
 
-Alternatively, if we really need fast insertion/deletion, we can choose another data structure called a [linked list](https://en.wikipedia.org/wiki/Linked_list).
+كبديل أفضل بكثير في حالة الإضافة والإزالة هو هبكل بيانات يسمي بـ [القائمة المتصلة ](https://en.wikipedia.org/wiki/Linked_list).
 
-The *linked list element* is recursively defined as an object with:
-- `value`.
-- `next` property referencing the next *linked list element* or `null` if that's the end.
+تعتبر القائمة المتصلة شئ Object يحتوي علي:
+- `قيمة`
+- `التالي` وهذه تعتبر خاصية تشير إلي العنصر التالي للقائمة المتصلة أو `null` وهذا يعبر نهاية القائمة.
 
-For instance:
+
+مثلاً:
 
 ```js
 let list = {
@@ -448,11 +453,11 @@ let list = {
 };
 ```
 
-Graphical representation of the list:
+عرض بياني للقائمة: 
 
 ![linked list](linked-list.svg)
 
-An alternative code for creation:
+كود بديل لصنعها: 
 
 ```js no-beautify
 let list = { value: 1 };
@@ -461,10 +466,9 @@ list.next.next = { value: 3 };
 list.next.next.next = { value: 4 };
 list.next.next.next.next = null;
 ```
+هنا يمكن أن نري بوضح أن هناك عدة أشياء objects, يحتوي كل منهم علي `قيمة` و `التالي` الذي يشير إلي ما بعده. المتغير `list` هو الأول في هذه السلسلة, لذلك إتباع `التالي` الذي يشير إلي التالي يجعلني أصل إلي نهاية العناصر والقائمة.
 
-Here we can even more clearly see that there are multiple objects, each one has the `value` and `next` pointing to the neighbour. The `list` variable is the first object in the chain, so following `next` pointers from it we can reach any element.
-
-The list can be easily split into multiple parts and later joined back:
+يمكن تقسيم القائمة لعدة أجزاء وتجميعهم لاحقاً.
 
 ```js
 let secondList = list.next.next;
@@ -473,15 +477,15 @@ list.next.next = null;
 
 ![linked list split](linked-list-split.svg)
 
-To join:
+
+للربط:
 
 ```js
 list.next.next = secondList;
 ```
+وبالطبع يمكننا إزالة أو إضافة أي عنصر في أي مكان. 
 
-And surely we can insert or remove items in any place.
-
-For instance, to prepend a new value, we need to update the head of the list:
+مثلاً كي نضع قيمة جديدة في بداية القائمة, نحتاج إلي تعديل رأس القائمة: 
 
 ```js
 let list = { value: 1 };
@@ -497,7 +501,7 @@ list = { value: "new item", next: list };
 
 ![linked list](linked-list-0.svg)
 
-To remove a value from the middle, change `next` of the previous one:
+لحذف قيمة من المنتصف كل ما عليك فعله هة تغير قيمة `التالي` للعنصر الذي يسبق ما تريد حذفه:
 
 ```js
 list.next = list.next.next;
@@ -505,38 +509,42 @@ list.next = list.next.next;
 
 ![linked list](linked-list-remove-1.svg)
 
-We made `list.next` jump over `1` to value `2`. The value `1` is now excluded from the chain. If it's not stored anywhere else, it will be automatically removed from the memory.
+نحن جعلنا هنا `list.next` تتخطي قيمة `1` إلي قيمة `2`. الأن قيمة `1` حالياً تم إقصائها من السلسلة. لو هذا االعنصر لم يتم تخزينه في مكان أخر, أذا سيتم مسحه تلقائياً من الذاكرة.
 
-Unlike arrays, there's no mass-renumbering, we can easily rearrange elements.
+علي عكس الترتيبات Arrays, لا يوجد إعادة ترقيم, نحن نستطيع ببساطة إعادة ترتيب العناصر.
 
-Naturally, lists are not always better than arrays. Otherwise everyone would use only lists.
+في الطبيعي, القائمة ليست دائماً أحسن من الترتيبات. وإلا كان كل الاشخاص استخدموا القائمة فقط.
 
-The main drawback is that we can't easily access an element by its number. In an array that's easy: `arr[n]` is a direct reference. But in the list we need to start from the first item and go `next` `N` times to get the Nth element.
+الجانب السلبي الرئيسي أنك لا تستطيع الوصول إلي عنصر عن طريق رقمه. في الترتيب هذا سهل:  `arr[n]`. لكن في القائمة نحتاج إلي البدأ من بداية القائمة ونذهب `التالي` عدد `N` من مرات لنصل إلي اخر القائمة
 
-...But we don't always need such operations. For instance, when we need a queue or even a [deque](https://en.wikipedia.org/wiki/Double-ended_queue) -- the ordered structure that must allow very fast adding/removing elements from both ends, but access to its middle is not needed.
+لكن لا نحتاج دائماً لمثل هذه العمليات. مثلاً عندما نحتاج أول و أخر عنصر في القائمة إذن يمكن استخدام هيكل البيانات هذا [deque](https://en.wikipedia.org/wiki/Double-ended_queue) -- هذا الهيكل يمنحني سرعة إضافة و حذف العناصر من الطرفين, ولكن لا يساعدني في عناصر المنتصف.
 
-Lists can be enhanced:
-- We can add property `prev` in addition to `next` to reference the previous element, to move back easily.
-- We can also add a variable named `tail` referencing the last element of the list (and update it when adding/removing elements from the end).
-- ...The data structure may vary according to our needs.
+بإختصار إذا أردت التعامل أكثر مع عناصر المنتصف استخدم هيكل البيانات **القائمة المتصلة** 
+إذا اردت التعامل أكثر مع عناصر الطرفين الأول و الأخير استخدم هيكل بيانات **الصف**
 
-## Summary
+يمكن أيضاً للقوائم أن تتحسن: 
+- يمكن أن نضيف خاصية أخري تدعي `السابق` إلي جانب خاصية `التالي` .التي تشير إلي العنصر السابق لتسهيل الوصول إلي العنصر السابق.
+- من الممكن أيضاً إضافة متغير نحتفظ فيه بمكان العنصر الاخير ونسمي هذا المتغير `ذيل` `tail`.
+- يمكن تعديل الهيكل ليناسب إحتياجاتك
 
-Terms:
-- *Recursion*  is a programming term that means calling a function from itself. Recursive functions can be used to solve tasks in elegant ways.
 
-    When a function calls itself, that's called a *recursion step*. The *basis* of recursion is function arguments that make the task so simple that the function does not make further calls.
+## ملخص
 
-- A [recursively-defined](https://en.wikipedia.org/wiki/Recursive_data_type) data structure is a data structure that can be defined using itself.
+بعض التعريفات:
+- *التكرار* "Recursion" : يعتبر تعريف برمجي معناه مناداة الدالة لنفسها.
+الدالة المتكررة تستخدم لحل المهام بشكل أنيق.
 
-    For instance, the linked list can be defined as a data structure consisting of an object referencing a list (or null).
+    عندما تنادي الدالة نفسها, هذا يسمي *خطوة متكررة*. الاساس للدالة المتكررة يعتبر أبسط صورة للدالة ولا يمكن مناداة الدالة مرة أخرى ولولا هذا الشرط ستظل الدالة تنادي نفسها إلي ما لا نهاية.
 
-    ```js
+- الـ [تعريف المتكرر](https://en.wikipedia.org/wiki/Recursive_data_type) يعتبر هيكل بيانات يعرف نفسه بنفسه عن طريق التكرار.
+
+    مثلاً القائمة المتصلة يمكن تعريفها علي أنها هيكل بيانات تتكون من شئ object  يشير إلي القائمة نفسها.
+
+     ```js
     list = { value, next -> list }
     ```
 
-    Trees like HTML elements tree or the department tree from this chapter are also naturally recursive: they branch and every branch can have other branches.
+    **الشجر** مثل عناصر الـ HTML أو الأقسام مثل ما ذكرنا أعلي هذا الفصل.
 
-    Recursive functions can be used to walk them as we've seen in the `sumSalary` example.
 
-Any recursive function can be rewritten into an iterative one. And that's sometimes required to optimize stuff. But for many tasks a recursive solution is fast enough and easier to write and support.
+أي دالة متكررة يمكن كتابتها أيضاً بشكل "Iterative". وأحياناً يحتاج إلي تحسين. ولكن في بعض الحالات الحل المتكرر هو أحسن وأسهل كفاية لتستخدمه.

@@ -1,67 +1,67 @@
 
-# Private and protected properties and methods
+# الخواص والدوال الـ `private` و الـ `protected` 
 
-One of the most important principles of object oriented programming -- delimiting internal interface from the external one.
+أحد أهم مبادئ البرمجة الشيئية - تحديد الواجهة الداخلية عن الواجهة الخارجية.
 
-That is "a must" practice in developing anything more complex than a "hello world" app.
+هذه ممارسة "لا بد منها" في تطوير أي شيء أكثر تعقيدًا من تطبيق "hello world".
 
-To understand this, let's break away from development and turn our eyes into the real world.
+لفهم هذا ، دعونا نبتعد عن التنمية ونحول أعيننا إلى عالم حقيقي.
 
-Usually, devices that we're using are quite complex. But delimiting the internal interface from the external one allows to use them without problems.
+عادةً ما تكون الأجهزة التي نستخدمها معقدة للغاية. لكن تحديد الواجهة الداخلية عن الواجهة الخارجية يسمح باستخدامها دون مشاكل.
 
-## A real-life example
+## مثال واقعي
 
-For instance, a coffee machine. Simple from outside: a button, a display, a few holes...And, surely, the result -- great coffee! :)
+على سبيل المثال ، آلة صنع القهوة. بسيط من الخارج: زر ، شاشة ، بضع ثقوب ... وبالتأكيد النتيجة - قهوة رائعة!  :)
 
 ![](coffee.jpg)
 
-But inside... (a picture from the repair manual)
+ولكن في الداخل ... (صورة من دليل الإصلاح)
 
 ![](coffee-inside.jpg)
 
-A lot of details. But we can use it without knowing anything.
+الكثير من التفاصيل. ولكن يمكننا استخدامه دون معرفة أي شيء.
 
-Coffee machines are quite reliable, aren't they? We can use one for years, and only if something goes wrong -- bring it for repairs.
+آلات القهوة موثوقة تمامًا ، أليس كذلك؟ يمكننا استخدام واحد لسنوات ، وفقط إذا حدث خطأ - إحضاره للإصلاحات.
 
-The secret of reliability and simplicity of a coffee machine -- all details are well-tuned and *hidden* inside.
+سر الموثوقية والبساطة في آلة القهوة - كل التفاصيل مضبوطة جيدًا و * مخفية * من الداخل.
 
-If we remove the protective cover from the coffee machine, then using it will be much more complex (where to press?), and dangerous (it can electrocute).
+إذا أزلنا الغطاء الواقي من آلة القهوة ، فسيكون استخدامه أكثر تعقيدًا (أين نضغط؟) ، وخطير (يمكن أن يصعق بالكهرباء).
 
-As we'll see, in programming objects are like coffee machines.
+كما سنرى ، في أدوات البرمجة تشبه آلات القهوة.
 
-But in order to hide inner details, we'll use not a protective cover, but rather special syntax of the language and conventions.
+ولكن من أجل إخفاء التفاصيل الداخلية ، لن نستخدم غطاءًا واقيًا ، بل صياغة خاصة للغة والاتفاقيات.
 
-## Internal and external interface
+## الواجهة الداخلية والخارجية
 
-In object-oriented programming, properties and methods are split into two groups:
+في البرمجة الشيئية ، تنقسم الخصائص والأساليب إلى مجموعتين:
 
-- *Internal interface* -- methods and properties, accessible from other methods of the class, but not from the outside.
-- *External interface* -- methods and properties, accessible also from outside the class.
+- * الواجهة الداخلية * - الأساليب والخصائص ، يمكن الوصول إليها من طرق أخرى للفئة ، ولكن ليس من الخارج.
+- * الواجهة الخارجية * - الأساليب والخصائص ، ويمكن الوصول إليها أيضًا من خارج الفصل.
 
-If we continue the analogy with the coffee machine -- what's hidden inside: a boiler tube, heating element, and so on -- is its internal interface.
+إذا واصلنا المقارنة مع آلة القهوة - ما هو مخفي في الداخل: أنبوب غلاية ، وعنصر تسخين ، وما إلى ذلك - هي واجهتها الداخلية.
 
-An internal interface is used for the object to work, its details use each other. For instance, a boiler tube is attached to the heating element.
+يتم استخدام واجهة داخلية لكي يعمل الكائن ، وتفاصيله تستخدم بعضها البعض. على سبيل المثال ، يتم إرفاق أنبوب مرجل بعنصر التسخين.
 
-But from the outside a coffee machine is closed by the protective cover, so that no one can reach those. Details are hidden and inaccessible. We can use its features via the external interface.
+ولكن من الخارج يتم إغلاق آلة القهوة بواسطة الغطاء الواقي ، بحيث لا يمكن لأحد الوصول إليها. التفاصيل مخفية ولا يمكن الوصول إليها. يمكننا استخدام ميزاته عبر الواجهة الخارجية.
 
-So, all we need to use an object is to know its external interface. We may be completely unaware how it works inside, and that's great.
+لذا ، كل ما نحتاجه لاستخدام كائن هو معرفة واجهته الخارجية. قد نكون غير مدركين تمامًا لكيفية عملها في الداخل ، وهذا أمر رائع.
 
-That was a general introduction.
+كانت تلك مقدمة عامة.
 
-In JavaScript, there are two types of object fields (properties and methods):
+في JavaScript ، هناك نوعان من حقول الكائن (الخصائص والأساليب):
 
-- Public: accessible from anywhere. They comprise the external interface. Until now we were only using public properties and methods.
-- Private: accessible only from inside the class. These are for the internal interface.
+- عام: يمكن الوصول إليه من أي مكان. وهي تشمل الواجهة الخارجية. حتى الآن كنا نستخدم فقط الممتلكات العامة والأساليب.
+- خاص: يمكن الوصول إليه فقط من داخل الفصل. هذه هي للواجهة الداخلية.
 
-In many other languages there also exist "protected" fields: accessible only from inside the class and those extending it (like private, but plus access from inheriting classes). They are also useful for the internal interface. They are in a sense more widespread than private ones, because we usually want inheriting classes to gain access to them.
+في العديد من اللغات الأخرى ، توجد أيضًا حقول "محمية": يمكن الوصول إليها فقط من داخل الفصل وتلك التي توسعه (مثل الخاصة ، ولكن بالإضافة إلى الوصول من وراثة الطبقات). كما أنها مفيدة للواجهة الداخلية. إنها بمعنى أكثر انتشارًا من تلك الخاصة ، لأننا عادة ما نريد أن ترث الصفوف للوصول إليها.
 
-Protected fields are not implemented in JavaScript on the language level, but in practice they are very convenient, so they are emulated.
+لا يتم تنفيذ الحقول المحمية في JavaScript على مستوى اللغة ، ولكنها عمليًا مريحة للغاية ، لذا فهي محاكات.
 
-Now we'll make a coffee machine in JavaScript with all these types of properties. A coffee machine has a lot of details, we won't model them to stay simple (though we could).
+الآن سنقوم بصنع آلة قهوة في JavaScript مع كل هذه الأنواع من الخصائص. تحتوي آلة القهوة على الكثير من التفاصيل ، لن نقوم بتصميمها لتبقى بسيطة (على الرغم من أننا نستطيع).
 
-## Protecting "waterAmount"
+## حماية "waterAmount"
 
-Let's make a simple coffee machine class first:
+دعونا نصنع صانعة قهوة بسيطة أولاً:
 
 ```js run
 class CoffeeMachine {
@@ -81,15 +81,15 @@ let coffeeMachine = new CoffeeMachine(100);
 coffeeMachine.waterAmount = 200;
 ```
 
-Right now the properties `waterAmount` and `power` are public. We can easily get/set them from the outside to any value.
+الآن خصائص "waterAmount" و "power" عامة. يمكننا بسهولة الحصول عليها / تعيينها من الخارج إلى أي قيمة.
 
-Let's change `waterAmount` property to protected to have more control over it. For instance, we don't want anyone to set it below zero.
+دعنا نغير خاصية `waterAmount` لتكون محمية لمزيد من السيطرة عليها. على سبيل المثال ، لا نريد أن يقوم أي شخص بوضعه تحت الصفر.
 
-**Protected properties are usually prefixed with an underscore `_`.**
+** عادةً ما تكون الخصائص المحمية مسبوقة بشرطة سفلية `_`. **
 
-That is not enforced on the language level, but there's a well-known convention between programmers that such properties and methods should not be accessed from the outside.
+لا يتم فرض ذلك على مستوى اللغة ، ولكن هناك اتفاقية معروفة بين المبرمجين مفادها أنه لا يمكن الوصول إلى هذه الخصائص والأساليب من الخارج.
 
-So our property will be called `_waterAmount`:
+لذلك سيتم تسمية ممتلكاتنا `_waterAmount`:
 
 ```js run
 class CoffeeMachine {
@@ -117,15 +117,15 @@ let coffeeMachine = new CoffeeMachine(100);
 coffeeMachine.waterAmount = -10; // Error: Negative water
 ```
 
-Now the access is under control, so setting the water below zero fails.
+الآن الوصول تحت السيطرة ، لذلك فشل إعداد المياه تحت الصفر.
 
-## Read-only "power"
+## "قوة" للقراءة فقط
 
-For `power` property, let's make it read-only. It sometimes happens that a property must be set at creation time only, and then never modified.
+بالنسبة إلى خاصية `power` ، دعنا نجعلها للقراءة فقط. يحدث أحيانًا أنه يجب تعيين خاصية في وقت الإنشاء فقط ، ثم لا يتم تعديلها مطلقًا.
 
-That's exactly the case for a coffee machine: power never changes.
+هذا هو الحال تمامًا بالنسبة لآلة القهوة: لا تتغير الطاقة أبدًا.
 
-To do so, we only need to make getter, but not the setter:
+للقيام بذلك ، نحن بحاجة فقط إلى جعل getter ، ولكن ليس المحدد:
 
 ```js run
 class CoffeeMachine {
@@ -149,10 +149,10 @@ alert(`Power is: ${coffeeMachine.power}W`); // Power is: 100W
 coffeeMachine.power = 25; // Error (no setter)
 ```
 
-````smart header="Getter/setter functions"
-Here we used getter/setter syntax.
+````smart header="Getter/setter دوال"
+استخدمنا هنا صيغة getter / setter.
 
-But most of the time `get.../set...` functions are preferred, like this:
+ولكن يُفضل استخدام وظائف `get ... / set ...` في معظم الأوقات ، مثل هذا:
 
 ```js
 class CoffeeMachine {
@@ -171,26 +171,26 @@ class CoffeeMachine {
 new CoffeeMachine().setWaterAmount(100);
 ```
 
-That looks a bit longer, but functions are more flexible. They can accept multiple arguments (even if we don't need them right now).
+يبدو ذلك أطول قليلاً ، ولكن الوظائف أكثر مرونة. يمكنهم قبول الحجج المتعددة (حتى لو لم نكن بحاجة إليها الآن).
 
-On the other hand, get/set syntax is shorter, so ultimately there's no strict rule, it's up to you to decide.
+من ناحية أخرى ، يكون بناء جملة get / set أقصر ، لذلك في النهاية لا توجد قاعدة صارمة ، الأمر متروك لك لاتخاذ القرار.
 ````
 
-```smart header="Protected fields are inherited"
-If we inherit `class MegaMachine extends CoffeeMachine`, then nothing prevents us from accessing `this._waterAmount` or `this._power` from the methods of the new class.
+```smart header="الحقول المحمية موروثة"
+إذا ورثنا `class MegaMachine يوسع CoffeeMachine` ، فلا شيء يمنعنا من الوصول إلى` this._waterAmount` أو `this._power` من طرق الفصل الجديد.
 
-So protected fields are naturally inheritable. Unlike private ones that we'll see below.
+لذا فإن الحقول المحمية قابلة للتوريث بشكل طبيعي. على عكس الخاصة التي سنراها أدناه.
 ```
 
 ## Private "#waterLimit"
 
 [recent browser=none]
 
-There's a finished JavaScript proposal, almost in the standard, that provides language-level support for private properties and methods.
+هناك اقتراح جافا سكريبت مكتمل ، تقريبًا بشكل قياسي ، يوفر دعمًا على مستوى اللغة للممتلكات والأساليب الخاصة.
 
-Privates should start with `#`. They are only accessible from inside the class.
+يجب أن يبدأ الأفراد بـ `#`. يمكن الوصول إليها فقط من داخل الفصل.
 
-For instance, here's a private `#waterLimit` property and the water-checking private method `#checkWater`:
+على سبيل المثال ، إليك خاصية `# waterLimit` الخاصة والطريقة الخاصة لفحص المياه` # checkWater`:
 
 ```js run
 class CoffeeMachine {
@@ -216,11 +216,11 @@ coffeeMachine.#waterLimit = 1000; // Error
 */!*
 ```
 
-On the language level, `#` is a special sign that the field is private. We can't access it from outside or from inheriting classes.
+على مستوى اللغة ، يعد `#` علامة خاصة على أن المجال خاص. لا يمكننا الوصول إليها من الخارج أو من وراثة الطبقات.
 
-Private fields do not conflict with public ones. We can have both private `#waterAmount` and public `waterAmount` fields at the same time.
+لا تتعارض الحقول الخاصة مع الحقول العامة. يمكننا الحصول على حقلي `# waterAmount` الخاص وحقل` waterAmount` العام في نفس الوقت.
 
-For instance, let's make `waterAmount` an accessor for `#waterAmount`:
+على سبيل المثال ، دعنا نجعل `waterAmount` موصلًا لـ` # waterAmount`:
 
 ```js run
 class CoffeeMachine {
@@ -243,9 +243,9 @@ machine.waterAmount = 100;
 alert(machine.#waterAmount); // Error
 ```
 
-Unlike protected ones, private fields are enforced by the language itself. That's a good thing.
+على عكس المجالات المحمية ، يتم فرض الحقول الخاصة بواسطة اللغة نفسها. هذا شيء جيد.
 
-But if we inherit from `CoffeeMachine`, then we'll have no direct access to `#waterAmount`. We'll need to rely on `waterAmount` getter/setter:
+ولكن إذا ورثنا من "CoffeeMachine" ، فلن يكون لدينا وصول مباشر إلى "# waterAmount". سنحتاج إلى الاعتماد على مُحضِّر / أداة تعيين "waterAmount":
 
 ```js
 class MegaCoffeeMachine extends CoffeeMachine {
@@ -257,12 +257,12 @@ class MegaCoffeeMachine extends CoffeeMachine {
 }
 ```
 
-In many scenarios such limitation is too severe. If we extend a `CoffeeMachine`, we may have legitimate reasons to access its internals. That's why protected fields are used more often, even though they are not supported by the language syntax.
+في العديد من السيناريوهات ، يكون هذا التقييد شديدًا جدًا. إذا قمنا بتمديد "CoffeeMachine" ، فقد تكون لدينا أسباب مشروعة للوصول إلى محتوياتها الداخلية. هذا هو السبب في استخدام الحقول المحمية في كثير من الأحيان ، على الرغم من أنها لا تدعمها بنية اللغة.
 
-````warn header="Private fields are not available as this[name]"
-Private fields are special.
+````warn header="الحقول الخاصة غير متاحة كـ this[name]"
+الحقول الخاصة خاصة.
 
-As we know, usually we can access fields using `this[name]`:
+كما نعلم ، عادة يمكننا الوصول إلى الحقول باستخدام`this[name]`:
 
 ```js
 class User {
@@ -274,43 +274,43 @@ class User {
 }
 ```
 
-With private fields that's impossible: `this['#name']` doesn't work. That's a syntax limitation to ensure privacy.
-````
+مع الحقول الخاصة المستحيلة: لا يعمل هذا ['# name']. هذا قيود على بناء الجملة لضمان الخصوصية.
+`` ``
 
-## Summary
+## ملخص
 
-In terms of OOP, delimiting of the internal interface from the external one is called [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)).
+من حيث OOP ، فإن تحديد الواجهة الداخلية من الواجهة الخارجية يسمى [التغليف] (https://en.wikipedia.org/wiki/Encapsulation_ (computer_programming)).
 
-It gives the following benefits:
+يعطي الفوائد التالية:
 
-Protection for users, so that they don't shoot themselves in the foot
-: Imagine, there's a team of developers using a coffee machine. It was made by the "Best CoffeeMachine" company, and works fine, but a protective cover was removed. So the internal interface is exposed.
+حماية للمستخدمين ، حتى لا يطلقوا النار على أنفسهم في القدم
+: تخيل ، هناك فريق من المطورين يستخدمون آلة صنع القهوة. تم تصنيعه من قبل شركة "Best CoffeeMachine" ، ويعمل بشكل جيد ، ولكن تمت إزالة غطاء واقٍ. لذلك يتم الكشف عن الواجهة الداخلية.
 
-    All developers are civilized -- they use the coffee machine as intended. But one of them, John, decided that he's the smartest one, and made some tweaks in the coffee machine internals. So the coffee machine failed two days later.
+    جميع المطورين متحضرين - يستخدمون آلة القهوة على النحو المنشود. لكن أحدهم ، جون ، قرر أنه الأذكى ، وقام ببعض التعديلات في آلة صنع القهوة الداخلية. لذلك فشلت آلة القهوة بعد ذلك بيومين.
 
-    That's surely not John's fault, but rather the person who removed the protective cover and let John do his manipulations.
+    هذا بالتأكيد ليس خطأ جون ، بل الشخص الذي أزال الغطاء الواقي وترك جون يتلاعب به.
 
-    The same in programming. If a user of a class will change things not intended to be changed from the outside -- the consequences are unpredictable.
+    نفس الشيء في البرمجة. إذا قام مستخدم من فئة ما بتغيير الأشياء التي لا يقصد تغييرها من الخارج - فإن العواقب لا يمكن التنبؤ بها.
 
-Supportable
-: The situation in programming is more complex than with a real-life coffee machine, because we don't just buy it once. The code constantly undergoes development and improvement.
+يمكن دعمه
+: الوضع في البرمجة أكثر تعقيدًا من ماكينة القهوة الواقعية ، لأننا لا نشتريها مرة واحدة فقط. يخضع القانون باستمرار للتطوير والتحسين.
 
-    **If we strictly delimit the internal interface, then the developer of the class can freely change its internal properties and methods, even without informing the users.**
+    ** إذا قمنا بتحديد الواجهة الداخلية بشكل صارم ، فيمكن لمطور الفئة تغيير خصائصه وأساليبه الداخلية بحرية ، حتى بدون إعلام المستخدمين. **
 
-    If you're a developer of such class, it's great to know that private methods can be safely renamed, their parameters can be changed, and even removed, because no external code depends on them.
+    إذا كنت مطورًا لمثل هذه الفئة ، فمن الرائع أن تعرف أنه يمكن إعادة تسمية الطرق الخاصة بأمان ، ويمكن تغيير معلماتها ، بل وإزالتها ، لأنه لا يوجد كود خارجي يعتمد عليها.
 
-    For users, when a new version comes out, it may be a total overhaul internally, but still simple to upgrade if the external interface is the same.
+    بالنسبة للمستخدمين ، عندما يظهر إصدار جديد ، قد يكون إصلاحًا شاملاً داخليًا ، ولكن لا يزال من السهل الترقية إذا كانت الواجهة الخارجية هي نفسها.
 
-Hiding complexity
-: People adore using things that are simple. At least from outside. What's inside is a different thing.
+إخفاء التعقيد
+: يعشق الناس باستخدام أشياء بسيطة. على الأقل من الخارج. ما في الداخل شيء مختلف.
 
-    Programmers are not an exception.
+    المبرمجون ليسوا استثناء.
 
-    **It's always convenient when implementation details are hidden, and a simple, well-documented external interface is available.**
+    ** من الملائم دائمًا أن تكون تفاصيل التنفيذ مخفية ، وتتوافر واجهة خارجية بسيطة وموثقة جيدًا. **
 
-To hide an internal interface we use either protected or private properties:
+لإخفاء واجهة داخلية ، نستخدم إما خصائص محمية أو خاصة:
 
-- Protected fields start with `_`. That's a well-known convention, not enforced at the language level. Programmers should only access a field starting with `_` from its class and classes inheriting from it.
-- Private fields start with `#`. JavaScript makes sure we can only access those from inside the class.
+- تبدأ الحقول المحمية بـ `_`. هذه اتفاقية معروفة جيدًا ، ولا يتم تطبيقها على مستوى اللغة. يجب على المبرمجين الوصول فقط إلى حقل يبدأ بـ `_` من فئته والفصول الموروثة منه.
+- تبدأ الحقول الخاصة بـ `#`. جافا سكريبت تتأكد من أنه لا يمكننا الوصول إلا من داخل الفصل.
 
-Right now, private fields are not well-supported among browsers, but can be polyfilled.
+في الوقت الحالي ، لا يتم دعم الحقول الخاصة بشكل جيد بين المتصفحات ، ولكن يمكن إعادة ملؤها.

@@ -1,10 +1,10 @@
 # Promisification
 
-"Promisification" is a long word for a simple transformation. It's the conversion of a function that accepts a callback into a function that returns a promise.
+"Promisification" هي كلمة طويلة للتحول البسيط. إنه تحويل دالة تقبل رد الاتصال إلى دالة ترجع promise.
 
-Such transformations are often required in real-life, as many functions and libraries are callback-based. But promises are more convenient, so it makes sense to promisify them.
+غالبًا ما تكون هذه التحولات مطلوبة في الحياة الواقعية ، حيث تعتمد العديد من الوظائف والمكتبات على رد الاتصال. لكن الوعود أكثر ملاءمة ، لذلك من المنطقي أن نعدها.
 
-For instance, we have `loadScript(src, callback)` from the chapter <info:callbacks>.
+على سبيل المثال ، لدينا `loadScript (src ، callback)` من الفصل <info:callbacks>.
 
 ```js run
 function loadScript(src, callback) {
@@ -21,7 +21,7 @@ function loadScript(src, callback) {
 // loadScript('path/script.js', (err, script) => {...})
 ```
 
-Let's promisify it. The new `loadScriptPromise(src)` function achieves the same result, but it accepts only `src` (no `callback`) and returns a promise.
+لنحولها إلى promise. تحقق وظيفة `تحميل loadScriptPromise (src)` نفس النتيجة ، لكنها تقبل `src` فقط (لا` رد اتصال`) وتعيد promise.
 
 ```js
 let loadScriptPromise = function(src) {
@@ -37,13 +37,13 @@ let loadScriptPromise = function(src) {
 // loadScriptPromise('path/script.js').then(...)
 ```
 
-Now `loadScriptPromise` fits well in promise-based code.
+الآن يتلاءم `loadScriptPromise` جيدًا مع التعليمات البرمجية المستندة إلى promises.
 
-As we can see, it delegates all the work to the original `loadScript`, providing its own callback that translates to promise `resolve/reject`.
+كما نرى ، فإنه يفوض كل العمل إلى `تحميل` الأصلي `، مما يوفر رد الاتصال الخاص به الذي يترجم إلى الوعد` حل / رفض`.
 
-In practice we'll probably need to promisify many functions, so it makes sense to use a helper. We'll call it `promisify(f)`: it accepts a to-promisify function `f` and returns a wrapper function.
+من الناحية العملية ، ربما نحتاج إلى الوعد بالعديد من الوظائف ، لذلك من المنطقي استخدام المساعد. سنطلق عليه `promisify (f)`: يقبل وظيفة to-promisify `f` ويعيد دالة مجمعة.
 
-That wrapper does the same as in the code above: returns a promise and passes the call to the original `f`, tracking the result in a custom callback:
+يعمل هذا المجمّع كما هو الحال في الرمز أعلاه: إرجاع وعد وتمرير المكالمة إلى `f` الأصلي ، وتتبع النتيجة في رد اتصال مخصص:
 
 ```js
 function promisify(f) {
@@ -69,11 +69,11 @@ let loadScriptPromise = promisify(loadScript);
 loadScriptPromise(...).then(...);
 ```
 
-Here we assume that the original function expects a callback with two arguments `(err, result)`. That's what we encounter most often. Then our custom callback is in exactly the right format, and `promisify` works great for such a case.
+هنا نفترض أن الوظيفة الأصلية تتوقع رد اتصال بحججتين `(خطأ ، نتيجة)`. هذا ما نواجهه في أغلب الأحيان. ثم يكون رد الاتصال المخصص الخاص بنا بالتنسيق الصحيح تمامًا ، ويعمل `promisify` بشكل رائع لمثل هذه الحالة.
 
-But what if the original `f` expects a callback with more arguments `callback(err, res1, res2, ...)`?
+ولكن ماذا لو توقع `f` الأصلي رد اتصال به المزيد من الوسائط` callback  (err ، res1 ، res2 ، ...) `؟
 
-Here's a more advanced version of `promisify`: if called as `promisify(f, true)`, the promise result will be an array of callback results `[res1, res2, ...]`:
+في ما يلي نسخة أكثر تقدمًا من "promisify": إذا تم تسميتها باسم "promisify (f، true)` ، فستكون نتيجة الوعد مجموعة من نتائج الاستدعاء`[res1, res2, ...]`:
 
 ```js
 // promisify(f, true) to get array of results
@@ -101,14 +101,14 @@ f = promisify(f, true);
 f(...).then(arrayOfResults => ..., err => ...)
 ```
 
-For more exotic callback formats, like those without `err` at all: `callback(result)`, we can promisify such functions manually without using the helper.
+لمزيد من تنسيقات رد الاتصال الغريبة ، مثل تلك التي لا تحتوي على `err` على الإطلاق:` رد الاتصال (النتيجة) `، يمكننا أن نعد هذه الوظائف يدويًا دون استخدام المساعد.
 
-There are also modules with a bit more flexible promisification functions, e.g. [es6-promisify](https://github.com/digitaldesignlabs/es6-promisify). In Node.js, there's a built-in `util.promisify` function for that.
+هناك أيضًا وحدات ذات وظائف واعدة أكثر مرونة قليلاً ، على سبيل المثال [es6-promisify] (https://github.com/digitaldesignlabs/es6-promisify). في Node.js ، توجد وظيفة `` use.promisify` مضمنة لذلك.
 
-```smart
-Promisification is a great approach, especially when you use `async/await` (see the next chapter), but not a total replacement for callbacks.
+`` ذكي
+يعد Promisification نهجًا رائعًا ، خاصة عند استخدام `async / await` (انظر الفصل التالي) ، ولكن ليس بديلاً كليًا لعمليات الاسترجاعات.
 
-Remember, a promise may have only one result, but a callback may technically be called many times.
+تذكر أن الوعد قد يكون له نتيجة واحدة فقط ، ولكن قد يتم استدعاء الاستدعاء من الناحية الفنية عدة مرات.
 
-So promisification is only meant for functions that call the callback once. Further calls will be ignored.
-```
+لذا فإن Promisification مخصص فقط للوظائف التي تستدعي الاستدعاء مرة واحدة. سيتم تجاهل مكالمات أخرى.
+``

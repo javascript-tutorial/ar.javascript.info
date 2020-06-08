@@ -1,9 +1,9 @@
 
-# Extending built-in classes
+# امتداد الـ `classes` المدمجة 
 
-Built-in classes like Array, Map and others are extendable also.
+الـ `classes` المدمجة مثل الـ `Array` و `Map` وغيرهم قابلين للامتداد أيضا
 
-For instance, here `PowerArray` inherits from the native `Array`:
+على سبيل المثال ، هنا يرث `PowerArray` من` Array` الأصلي:
 
 ```js run
 // add one more method to it (can do more)
@@ -21,20 +21,20 @@ alert(filteredArr); // 10, 50
 alert(filteredArr.isEmpty()); // false
 ```
 
-Please note a very interesting thing. Built-in methods like `filter`, `map` and others -- return new objects of exactly the inherited type `PowerArray`. Their internal implementation uses the object's `constructor` property for that.
+يرجى ملاحظة شيء مثير جدا للاهتمام. الأساليب المدمجة مثل `filter` و` map` وغيرها - تُرجع كائنات جديدة من النوع الموروث` PowerArray` بالضبط. يستخدم التنفيذ الداخلي خاصية `مُنشئ 'الكائن لذلك.
 
-In the example above,
+في المثال أعلاه,
 ```js
 arr.constructor === PowerArray
 ```
 
-When `arr.filter()` is called, it internally creates the new array of results using exactly `arr.constructor`, not basic `Array`. That's actually very cool, because we can keep using `PowerArray` methods further on the result.
+عند استدعاء `arr.filter ()` ، فإنه ينشئ داخليًا مجموعة جديدة من النتائج باستخدام "arr.constructor" بالضبط ، وليس `Array` الأساسي. هذا في الواقع رائع جدًا ، لأنه يمكننا الاستمرار في استخدام طرق `` PowerArray` بشكل أكبر على النتيجة.
 
-Even more, we can customize that behavior.
+بل وأكثر من ذلك ، يمكننا تخصيص هذا السلوك.
 
-We can add a special static getter `Symbol.species` to the class. If it exists, it should return the constructor that JavaScript will use internally to create new entities in `map`, `filter` and so on.
+يمكننا إضافة مُصطلح ثابت خاص `Symbol.species` إلى الفصل. إذا كان موجودًا ، فيجب أن يُرجع المُنشئ الذي ستستخدمه JavaScript داخليًا لإنشاء كيانات جديدة في `خريطة` و` فلتر` وما إلى ذلك.
 
-If we'd like built-in methods like `map` or `filter` to return regular arrays, we can return `Array` in `Symbol.species`, like here:
+إذا كنا نرغب في استخدام طرق مضمنة مثل `الخريطة` أو` الفلتر` لإرجاع المصفوفات العادية ، فيمكننا إرجاع `المصفوفة` في` الرمز المحدد '، كما يلي:
 
 ```js run
 class PowerArray extends Array {
@@ -62,28 +62,29 @@ let filteredArr = arr.filter(item => item >= 10);
 alert(filteredArr.isEmpty()); // Error: filteredArr.isEmpty is not a function
 ```
 
-As you can see, now `.filter` returns `Array`. So the extended functionality is not passed any further.
+كما ترى ، الآن يُرجع `.filter`` Array`. لذلك لم يتم تمرير الدالة الموروثة أكثر من ذلك.
 
-```smart header="Other collections work similarly"
-Other collections, such as `Map` and `Set`, work alike. They also use `Symbol.species`.
-```
+"` `smart header =" مجموعات أخرى تعمل بنفس الطريقة "
+تعمل مجموعات أخرى ، مثل `Map` و` Set` ، على حد سواء. كما أنهم يستخدمون `Symbol.species`.
+``
 
-## No static inheritance in built-ins
+## لا وجود للتوريث الثابت في كل المدمجات
 
-Built-in objects have their own static methods, for instance `Object.keys`, `Array.isArray` etc.
+لها دوال  ثابتة خاصة بها ، مثل `Object.keys` ،` Array.isArray` إلخ.
 
-As we already know, native classes extend each other. For instance, `Array` extends `Object`.
+كما نعلم بالفعل ، تمتد الفصول الدراسية الأصلية لبعضها البعض. على سبيل المثال ، `Array` يمتد` Object`.
 
-Normally, when one class extends another, both static and non-static methods are inherited. That was thoroughly explained in the article [](info:static-properties-methods#statics-and-inheritance).
+عادة ، عندما تمد فئة واحدة أخرى ، يتم توريث كل من الأساليب الثابتة وغير الثابتة. تم شرح ذلك تمامًا في المقالة [] (info: static-properties-methods # statics-and-inheritance).
 
-But built-in classes are an exception. They don't inherit statics from each other.
+لكن الفصول المدمجة استثناء. لا يرثون إحصائيات عن بعضهم البعض.
 
-For example, both `Array` and `Date` inherit from `Object`, so their instances have methods from `Object.prototype`. But `Array.[[Prototype]]` does not reference `Object`, so there's no, for instance, `Array.keys()` (or `Date.keys()`) static method.
+على سبيل المثال ، يرث كل من `Array` و` Date` من `Object` ، لذا فإن نُسخهما تحتوي على طرق من` Object.prototype`. لكن `Array. [[Prototype]]` لا يشير إلى `Object` ، لذلك لا يوجد ، على سبيل المثال ،` Array.keys () `(أو` Date.keys () `) طريقة ثابتة.
 
-Here's the picture structure for `Date` and `Object`:
+إليك بنية الصورة لـ `Date` و` Object`:
+
 
 ![](object-date-inheritance.svg)
 
-As you can see, there's no link between `Date` and `Object`. They are independent, only `Date.prototype` inherits from `Object.prototype`.
+كما ترى ، لا يوجد رابط بين `التاريخ` و` الكائن`. إنهم مستقلون ، فقط يرث `Date.prototype` من` Object.prototype`.
 
-That's an important difference of inheritance between built-in objects compared to what we get with `extends`.
+هذا اختلاف مهم في الميراث بين الكائنات المضمنة مقارنة بما نحصل عليه مع `extends` ''.

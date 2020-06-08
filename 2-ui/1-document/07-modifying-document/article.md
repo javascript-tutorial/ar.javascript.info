@@ -1,14 +1,14 @@
-# Modifying the document
+# تعديل الوثيقة 
 
-DOM modification is the key to creating "live" pages.
+DOM التعديل هو مفتاح إنشاء صفحات "حية".
 
-Here we'll see how to create new elements "on the fly" and modify the existing page content.
+سنرى هنا كيفية إنشاء عناصر جديدة "بسرعة" وتعديل محتوى الصفحة الحالية.
 
-## Example: show a message
+## مثال: إظهار رسالة
 
-Let's demonstrate using an example. We'll add a message on the page that looks nicer than `alert`.
+دعونا نتظاهر باستخدام مثال. سنضيف رسالة على الصفحة تبدو أجمل من "تنبيه".
 
-Here's how it will look:
+إليك كيف ستبدو:
 
 ```html autorun height="80"
 <style>
@@ -28,11 +28,11 @@ Here's how it will look:
 */!*
 ```
 
-That was an HTML example. Now let's create the same `div` with JavaScript (assuming that the styles are in the HTML or an external CSS file).
+كان هذا مثال HTML. الآن دعنا ننشئ نفس `div` باستخدام JavaScript (على افتراض أن الأنماط موجودة في HTML أو ملف CSS خارجي).
 
-## Creating an element
+## إنشاء عنصر
 
-To create DOM nodes, there are two methods:
+لإنشاء عقد DOM ، هناك طريقتان:
 
 `document.createElement(tag)`
 : Creates a new *element node* with the given tag:
@@ -48,9 +48,9 @@ To create DOM nodes, there are two methods:
     let textNode = document.createTextNode('Here I am');
     ```
 
-### Creating the message
+### إنشاء الرسالة
 
-In our case the message is a `div` with `alert` class and the HTML in it:
+في حالتنا ، تكون الرسالة `div` مع فئة` تنبيه 'و HTML فيها:
 
 ```js
 let div = document.createElement('div');
@@ -58,15 +58,15 @@ div.className = "alert";
 div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
 ```
 
-We created the element, but as of now it's only in a variable. We can't see the element on the page, as it's not yet a part of the document.
+لقد أنشأنا العنصر ، ولكن حتى الآن إنه متغير فقط. لا يمكننا رؤية العنصر على الصفحة ، لأنه ليس جزءًا من المستند حتى الآن.
 
-## Insertion methods
+## طرق الإدراج
 
-To make the `div` show up, we need to insert it somewhere into `document`. For instance, in `document.body`.
+لعرض "div" ، نحتاج إلى إدراجه في مكان ما في "المستند". على سبيل المثال ، في `document.body`.
 
-There's a special method `append` for that: `document.body.append(div)`.
+هناك طريقة خاصة `append` لذلك:` document.body.append (div) `.
 
-Here's the full code:
+إليك الكود الكامل:
 
 ```html run height="80"
 <style>
@@ -90,15 +90,15 @@ Here's the full code:
 </script>
 ```
 
-This set of methods provides more ways to insert:
+توفر هذه المجموعة من الطرق المزيد من الطرق لإدراج:
 
-- `node.append(...nodes or strings)` -- append nodes or strings at the end of `node`,
-- `node.prepend(...nodes or strings)` -- insert nodes or strings at the beginning of `node`,
-- `node.before(...nodes or strings)` –- insert nodes or strings before `node`,
-- `node.after(...nodes or strings)` –- insert nodes or strings after `node`,
-- `node.replaceWith(...nodes or strings)` –- replaces `node` with the given nodes or strings.
+- `node.append (... nodes or strings)` - إلحاق عقد أو سلاسل في نهاية `node` ،
+- `node.prepend (... العقد أو السلاسل)` - إدراج العقد أو السلاسل في بداية `العقدة` ،
+- `node.before (... nodes or strings)` –- أدخل العقد أو السلاسل قبل `node` ،
+- `العقدة بعد (... العقد أو السلاسل)` - - إدراج العقد أو السلاسل بعد `العقدة` ،
+- `node.replaceWith (... العقد أو السلاسل)` - - يستبدل `العقدة` بالعقد أو السلاسل المعطاة.
 
-Here's an example of using these methods to add items to a list and the text before/after it:
+فيما يلي مثال على استخدام هذه الأساليب لإضافة عناصر إلى قائمة والنص قبلها / بعدها:
 
 ```html autorun
 <ol id="ol">
@@ -121,11 +121,11 @@ Here's an example of using these methods to add items to a list and the text bef
 </script>
 ```
 
-Here's a visual picture what methods do:
+هذه صورة بصرية عن الأساليب التي تفعلها:
 
 ![](before-prepend-append-after.svg)
 
-So the final list will be:
+لذا ستكون القائمة النهائية:
 
 ```html
 before
@@ -139,9 +139,9 @@ before
 after
 ```
 
-These methods can insert multiple lists of nodes and text pieces in a single call.
+يمكن لهذه الطرق إدراج قوائم متعددة للعقد والقطع النصية في مكالمة واحدة.
 
-For instance, here a string and an element are inserted:
+على سبيل المثال ، هنا يتم إدراج سلسلة وعنصر:
 
 ```html run
 <div id="div"></div>
@@ -150,9 +150,9 @@ For instance, here a string and an element are inserted:
 </script>
 ```
 
-All text is inserted *as text*.
+يتم إدراج كل النص * كنص *.
 
-So the final HTML is:
+إذن HTML النهائي هو:
 
 ```html run
 *!*
@@ -162,26 +162,26 @@ So the final HTML is:
 <div id="div"></div>
 ```
 
-In other words, strings are inserted in a safe way, like `elem.textContent` does it.
+بمعنى آخر ، يتم إدخال السلاسل بطريقة آمنة ، مثل `` elem.textContent` يفعل ذلك.
 
-So, these methods can only be used to insert DOM nodes or text pieces.
+لذلك ، لا يمكن استخدام هذه الطرق إلا لإدراج عقد DOM أو أجزاء نصية.
 
-But what if we want to insert HTML "as html", with all tags and stuff working, like `elem.innerHTML`?
+ولكن ماذا لو أردنا إدراج HTML "كـ html" ، مع عمل جميع العلامات والأشياء ، مثل `elem.innerHTML`؟
 
-## insertAdjacentHTML/Text/Element
+## insertAdjacentHTML / Text / Element
 
-For that we can use another, pretty versatile method: `elem.insertAdjacentHTML(where, html)`.
+لذلك يمكننا استخدام طريقة أخرى متعددة الاستخدامات: `elem.insertAdjacentHTML (حيث ، html)`.
 
-The first parameter is a code word, specifying where to insert relative to `elem`. Must be one of the following:
+المعلمة الأولى هي كلمة كود ، تحدد مكان إدراج نسبة إلى `elem`. يجب أن يكون واحدًا مما يلي:
 
-- `"beforebegin"` -- insert `html` immediately before `elem`,
-- `"afterbegin"` -- insert `html` into `elem`, at the beginning,
-- `"beforeend"` -- insert `html` into `elem`, at the end,
-- `"afterend"` -- insert `html` immediately after `elem`.
+- "beforebegin" "- أدخل" html "مباشرةً قبل" elem "،
+- "afterbegin" "- أدخل" html "في" elem "في البداية ،
+- "قبل" "- أدخل" html "في" elem "، في النهاية ،
+- "" بعد نهاية "" - أدخل "html" مباشرة بعد "elem".
 
-The second parameter is an HTML string, that is inserted "as HTML".
+المعلمة الثانية هي سلسلة HTML ، يتم إدراجها "كـ HTML".
 
-For instance:
+على سبيل المثال:
 
 ```html run
 <div id="div"></div>
@@ -191,7 +191,7 @@ For instance:
 </script>
 ```
 
-...Would lead to:
+... سيؤدي إلى:
 
 ```html run
 <p>Hello</p>
@@ -199,22 +199,22 @@ For instance:
 <p>Bye</p>
 ```
 
-That's how we can append arbitrary HTML to the page.
+هذه هي الطريقة التي يمكننا بها إلحاق HTML التعسفي بالصفحة.
 
-Here's the picture of insertion variants:
+إليك صورة متغيرات الإدراج:
 
-![](insert-adjacent.svg)
+! [] (insert-adjacent.svg)!
 
-We can easily notice similarities between this and the previous picture. The insertion points are actually the same, but this method inserts HTML.
+يمكننا أن نلاحظ بسهولة أوجه التشابه بين هذا والصورة السابقة. نقاط الإدراج هي نفسها في الواقع ، ولكن هذه الطريقة تدخل HTML.
 
-The method has two brothers:
+الطريقة لديها شقيقان:
 
-- `elem.insertAdjacentText(where, text)` -- the same syntax, but a string of `text` is inserted "as text" instead of HTML,
-- `elem.insertAdjacentElement(where, elem)` -- the same syntax, but inserts an element.
+- `elem.insertAdjacentText (حيث ، نص)` - نفس البنية ، ولكن يتم إدراج سلسلة "نص" "كنص" بدلاً من HTML ،
+- `elem.insertAdjacentElement (أين ، elem)` - نفس البنية ، ولكن إدراج عنصر.
 
-They exist mainly to make the syntax "uniform". In practice, only `insertAdjacentHTML` is used most of the time. Because for elements and text, we have methods `append/prepend/before/after` -- they are shorter to write and can insert nodes/text pieces.
+وهي موجودة بشكل أساسي لجعل بناء الجملة "موحدًا". عمليًا ، يتم استخدام `insertAdjacentHTML` فقط معظم الوقت. لأن العناصر والنصوص ، لدينا طرق "إلحاق / قبل / قبل / بعد" - فهي أقصر في الكتابة ويمكنها إدراج العقد / أجزاء النص.
 
-So here's an alternative variant of showing a message:
+لذا إليك متغير بديل لعرض رسالة:
 
 ```html run
 <style>
@@ -234,11 +234,11 @@ So here's an alternative variant of showing a message:
 </script>
 ```
 
-## Node removal
+## إزالة العقدة
 
-To remove a node, there's a method `node.remove()`.
+لإزالة العقدة ، هناك طريقة `node.remove ()`.
 
-Let's make our message disappear after a second:
+دعونا نجعل رسالتنا تختفي بعد ثانية:
 
 ```html run untrusted
 <style>
@@ -263,11 +263,11 @@ Let's make our message disappear after a second:
 </script>
 ```
 
-Please note: if we want to *move* an element to another place -- there's no need to remove it from the old one.
+يرجى ملاحظة: إذا أردنا * نقل * عنصر إلى مكان آخر - فلا حاجة لإزالته من العنصر القديم.
 
-**All insertion methods automatically remove the node from the old place.**
+** تقوم جميع طرق الإدراج تلقائيًا بإزالة العقدة من المكان القديم. **
 
-For instance, let's swap elements:
+على سبيل المثال ، دعنا نتبادل العناصر:
 
 ```html run height=50
 <div id="first">First</div>
@@ -278,17 +278,17 @@ For instance, let's swap elements:
 </script>
 ```
 
-## Cloning nodes: cloneNode
+## عقد الاستنساخ: cloneNode
 
-How to insert one more similar message?
+كيفية إدراج رسالة أخرى مماثلة؟
 
-We could make a function and put the code there. But the alternative way would be to *clone* the existing `div` and modify the text inside it (if needed).
+يمكننا عمل دالة ووضع الكود هناك. لكن الطريقة البديلة ستكون * استنساخ * "div" الموجود وتعديل النص الموجود بداخله (إذا لزم الأمر).
 
-Sometimes when we have a big element, that may be faster and simpler.
+في بعض الأحيان عندما يكون لدينا عنصر كبير ، قد يكون ذلك أسرع وأبسط.
 
-- The call `elem.cloneNode(true)` creates a "deep" clone of the element -- with all attributes and subelements. If we call `elem.cloneNode(false)`, then the clone is made without child elements.
+- الاستدعاء "elem.cloneNode (true)" يخلق استنساخ "عميق" للعنصر - مع جميع السمات والعناصر الفرعية. إذا كنا نسمي `elem.cloneNode (false)` ، فإن الاستنساخ يتم بدون عناصر تابعة.
 
-An example of copying the message:
+مثال لنسخ الرسالة:
 
 ```html run height="120"
 <style>
@@ -315,13 +315,13 @@ An example of copying the message:
 </script>
 ```
 
-## DocumentFragment [#document-fragment]
+## DocumentFragment [# document-fragment]
 
-`DocumentFragment` is a special DOM node that serves as a wrapper to pass around lists of nodes.
+`DocumentFragment` عبارة عن عقدة DOM خاصة تعمل كغلاف لتمرير قوائم العقد.
 
-We can append other nodes to it, but when we insert it somewhere, then its content is inserted instead.
+يمكننا إلحاق العقد الأخرى بها ، ولكن عندما ندرجها في مكان ما ، يتم إدراج محتواها بدلاً من ذلك.
 
-For example, `getListContent` below generates a fragment with `<li>` items, that are later inserted into `<ul>`:
+على سبيل المثال ، يُنشئ `getListContent` أدناه جزءًا يحتوي على عناصر` <li> `، والتي يتم إدراجها لاحقًا في` <ul> `:
 
 ```html run
 <ul id="ul"></ul>
@@ -345,7 +345,7 @@ ul.append(getListContent()); // (*)
 </script>
 ```
 
-Please note, at the last line `(*)` we append `DocumentFragment`, but it "blends in", so the resulting structure will be:
+يرجى ملاحظة أنه في السطر الأخير `(*)` نلحق `DocumentFragment` ، ولكنه" يمتزج "، وبالتالي فإن البنية الناتجة ستكون:
 
 ```html
 <ul>
@@ -355,7 +355,7 @@ Please note, at the last line `(*)` we append `DocumentFragment`, but it "blends
 </ul>
 ```
 
-`DocumentFragment` is rarely used explicitly. Why append to a special kind of node, if we can return an array of nodes instead? Rewritten example:
+`DocumentFragment` نادرا ما يستخدم صراحة. لماذا تضيف إلى نوع خاص من العقدة ، إذا كان بإمكاننا إرجاع مجموعة من العقد بدلاً من ذلك؟ مثال معاد كتابته:
 
 ```html run
 <ul id="ul"></ul>
@@ -379,22 +379,22 @@ ul.append(...getListContent()); // append + "..." operator = friends!
 </script>
 ```
 
-We mention `DocumentFragment` mainly because there are some concepts on top of it, like [template](info:template-element) element, that we'll cover much later.
+نذكر `DocumentFragment` بشكل أساسي نظرًا لوجود بعض المفاهيم فوقه ، مثل عنصر [template] (info: template-element) ، الذي سنغطيه لاحقًا.
 
-## Old-school insert/remove methods
+## طريقة إدخال / إزالة المدرسة القديمة
 
-[old]
+[قديم]
 
-There are also "old school" DOM manipulation methods, existing for historical reasons.
+هناك أيضًا طرق معالجة DOM "المدرسة القديمة" ، موجودة لأسباب تاريخية.
 
-These methods come from really ancient times. Nowadays, there's no reason to use them, as modern methods, such as `append`, `prepend`, `before`, `after`, `remove`, `replaceWith`, are more flexible.
+تأتي هذه الأساليب من العصور القديمة حقًا. في الوقت الحاضر ، لا يوجد سبب لاستخدامها ، حيث أن الأساليب الحديثة ، مثل "إلحاق" ، "قبل" ، "قبل" ، "بعد" ، "إزالة" ، "استبدال" ، تكون أكثر مرونة.
 
-The only reason we list these methods here is that you can find them in many old scripts:
+السبب الوحيد لإدراج هذه الطرق هنا هو أنه يمكنك العثور عليها في العديد من النصوص القديمة:
 
-`parentElem.appendChild(node)`
-: Appends `node` as the last child of `parentElem`.
+`الوالدان. appendChild (العقدة)`
+: إلحاق `العقدة` بآخر طفل لـ" الوالدين ".
 
-    The following example adds a new `<li>` to the end of `<ol>`:
+     يضيف المثال التالي `<li>` جديدة إلى نهاية `<ol>`:
 
     ```html run height=100
     <ol id="list">
@@ -412,9 +412,9 @@ The only reason we list these methods here is that you can find them in many old
     ```
 
 `parentElem.insertBefore(node, nextSibling)`
-: Inserts `node` before `nextSibling` into `parentElem`.
+:إدراج "العقدة" قبل "nextSibling" في "motherElem".
 
-    The following code inserts a new list item before the second `<li>`:
+     يدرج الكود التالي عنصر قائمة جديد قبل الثانية `<li>`:
 
     ```html run height=100
     <ol id="list">
@@ -431,19 +431,19 @@ The only reason we list these methods here is that you can find them in many old
     */!*
     </script>
     ```
-    To insert `newLi` as the first element, we can do it like this:
+    لإدراج `newLi` كعنصر أول ، يمكننا القيام بذلك على النحو التالي:
 
     ```js
     list.insertBefore(newLi, list.firstChild);
     ```
 
 `parentElem.replaceChild(node, oldChild)`
-: Replaces `oldChild` with `node` among children of `parentElem`.
+:يستبدل `oldChild` بـ" عقدة "بين أطفال" الوالدين ".
 
-`parentElem.removeChild(node)`
-: Removes `node` from `parentElem` (assuming `node` is its child).
+`الوالدلمحذف الطفل (عقدة)`
+: يزيل `العقدة` من` الوالدين` (بافتراض أن `العقدة` هي تابعها).
 
-    The following example removes first `<li>` from `<ol>`:
+     المثال التالي يزيل `` <li> `أولاً من` <ol> `:
 
     ```html run height=100
     <ol id="list">
@@ -458,13 +458,13 @@ The only reason we list these methods here is that you can find them in many old
     </script>
     ```
 
-All these methods return the inserted/removed node. In other words, `parentElem.appendChild(node)` returns `node`. But usually the returned value is not used, we just run the method.
+كل هذه الأساليب ترجع العقدة المدرجة / المُزالة. بمعنى آخر ، تُرجع `parents 'appendChild (العقدة)` العقدة`. ولكن عادة لا يتم استخدام القيمة التي تم إرجاعها ، نقوم فقط بتشغيل الطريقة.
 
-## A word about "document.write"
+## كلمة عن "document.write"
 
-There's one more, very ancient method of adding something to a web-page: `document.write`.
+هناك طريقة أخرى قديمة جدًا لإضافة شيء ما إلى صفحة الويب: `document.write`.
 
-The syntax:
+الصيغة:
 
 ```html run
 <p>Somewhere in the page...</p>
@@ -476,17 +476,17 @@ The syntax:
 <p>The end</p>
 ```
 
-The call to `document.write(html)` writes the `html` into page "right here and now". The `html` string can be dynamically generated, so it's kind of flexible. We can use JavaScript to create a full-fledged webpage and write it.
+يؤدي استدعاء "document.write (html)` إلى كتابة "html" في الصفحة "هنا والآن". يمكن إنشاء سلسلة `html` ديناميكيًا ، لذا فهي مرنة نوعًا ما. يمكننا استخدام JavaScript لإنشاء صفحة ويب كاملة وكتابتها.
 
-The method comes from times when there was no DOM, no standards... Really old times. It still lives, because there are scripts using it.
+تأتي الطريقة من الأوقات التي لم يكن فيها DOM ، ولا معايير ... الأوقات القديمة حقًا. إنها لا تزال حية ، لأن هناك سكربتات تستخدمها.
 
-In modern scripts we can rarely see it, because of the following important limitation:
+في النصوص الحديثة نادرًا ما نراها بسبب القيود المهمة التالية:
 
-**The call to `document.write` only works while the page is loading.**
+** لا يعمل الاتصال بـ `document.write` إلا أثناء تحميل الصفحة. **
 
-If we call it afterwards, the existing document content is erased.
+إذا نسميها بعد ذلك ، فسيتم مسح محتوى المستند الحالي.
 
-For instance:
+على سبيل المثال:
 
 ```html run
 <p>After one second the contents of this page will be replaced...</p>
@@ -499,50 +499,50 @@ For instance:
 */!*
 ```
 
-So it's kind of unusable at "after loaded" stage, unlike other DOM methods we covered above.
+لذا فهو غير قابل للاستخدام في مرحلة "بعد التحميل" ، على عكس طرق DOM الأخرى التي تناولناها أعلاه.
 
-That's the downside.
+هذا هو الجانب السلبي.
 
-There's an upside also. Technically, when `document.write` is called while the browser is reading ("parsing") incoming HTML, and it writes something, the browser consumes it just as if it were initially there, in the HTML text.
+هناك جانب صاعد أيضا. من الناحية الفنية ، عندما يتم استدعاء `document.write` أثناء قراءة المستعرض لـ HTML (" تحليل ") ، ويكتب شيئًا ، يستهلكه المستعرض تمامًا كما لو كان موجودًا في البداية ، في نص HTML.
 
-So it works blazingly fast, because there's *no DOM modification* involved. It writes directly into the page text, while the DOM is not yet built.
+لذلك يعمل بسرعة فائقة ، لأنه لا يوجد * تعديل DOM * المعنية. يكتب مباشرة في نص الصفحة ، بينما لم يتم بناء DOM بعد.
 
-So if we need to add a lot of text into HTML dynamically, and we're at page loading phase, and the speed matters, it may help. But in practice these requirements rarely come together. And usually we can see this method in scripts just because they are old.
+لذا إذا احتجنا إلى إضافة الكثير من النص إلى HTML ديناميكيًا ، ونحن في مرحلة تحميل الصفحة ، وكانت السرعة مهمة ، فقد يساعد ذلك. لكن في الواقع نادرا ما تجتمع هذه المتطلبات. وعادة ما يمكننا رؤية هذه الطريقة في البرامج النصية لمجرد أنها قديمة.
 
-## Summary
+## ملخص
 
-- Methods to create new nodes:
-    - `document.createElement(tag)` -- creates an element with the given tag,
-    - `document.createTextNode(value)` -- creates a text node (rarely used),
-    - `elem.cloneNode(deep)` -- clones the element, if `deep==true` then with all descendants.  
+- طرق إنشاء العقد الجديدة:
+    - `document.createElement (علامة)` - ينشئ عنصرًا بالعلامة المحددة ،
+    - `document.createTextNode (القيمة)` - إنشاء عقدة نصية (نادرًا ما تستخدم) ،
+    - `elem.cloneNode (deep)` - استنساخ العنصر ، إذا كان `deep == true` ثم مع جميع الأحفاد.
 
-- Insertion and removal:
-    - `node.append(...nodes or strings)` -- insert into `node`, at the end,
-    - `node.prepend(...nodes or strings)` -- insert into `node`, at the beginning,
-    - `node.before(...nodes or strings)` –- insert right before `node`,
-    - `node.after(...nodes or strings)` –- insert right after `node`,
-    - `node.replaceWith(...nodes or strings)` –- replace `node`.
-    - `node.remove()` –- remove the `node`.
+- الإدخال والفك:
+    - `node.append (... nodes or strings)` - أدخل في `node` ، في النهاية ،
+    - `node.prepend (... العقد أو السلاسل)` - أدخل في `العقدة` ، في البداية ،
+    - `node.before (... nodes or strings)` –- أدخل مباشرة قبل `node` ،
+    - `node.after (... nodes or strings)` –- أدخل مباشرة بعد `node` ،
+    - `node.replaceWith (... العقد أو السلاسل)` –- استبدال `العقدة`.
+    - `node.remove ()` –- قم بإزالة `العقدة`.
 
-    Text strings are inserted "as text".
+    يتم إدراج السلاسل النصية "كنص".
 
-- There are also "old school" methods:
-    - `parent.appendChild(node)`
-    - `parent.insertBefore(node, nextSibling)`
-    - `parent.removeChild(node)`
-    - `parent.replaceChild(newElem, node)`
+- هناك أيضًا طرق "المدرسة القديمة":
+    - `الوالد. appendChild (العقدة)`
+    - `mother.insertBefore (عقدة ، nextSibling)`
+    - `mother.removeChild (node)`
+    - `الأصل. إعادة مكان الطفل (newElem ، عقدة)`
 
-    All these methods return `node`.
+    جميع هذه الطرق تُرجع `العقدة`.
 
-- Given some HTML in `html`, `elem.insertAdjacentHTML(where, html)` inserts it depending on the value of `where`:
-    - `"beforebegin"` -- insert `html` right before `elem`,
-    - `"afterbegin"` -- insert `html` into `elem`, at the beginning,
-    - `"beforeend"` -- insert `html` into `elem`, at the end,
-    - `"afterend"` -- insert `html` right after `elem`.
+- بالنظر إلى بعض HTML في `html` ،` elem.insertAdjacentHTML (حيث ، html) `يُدخلها بناءً على قيمة` أين`:
+    - "beforebegin" "- أدخل" html "قبل" elem "مباشرةً ،
+    - "afterbegin" "- أدخل" html "في" elem "في البداية ،
+    - "قبل" "- أدخل" html "في" elem "، في النهاية ،
+    - "" بعد نهاية "" - أدخل "html" مباشرةً بعد "elem".
 
-    Also there are similar methods, `elem.insertAdjacentText` and `elem.insertAdjacentElement`, that insert text strings and elements, but they are rarely used.
+    هناك أيضًا طرق مشابهة ، `elem.insertAdjacentText` و` elem.insertAdjacentElement` ، والتي تُدرج سلاسل نصية وعناصر ، ولكن نادرًا ما يتم استخدامها.
 
-- To append HTML to the page before it has finished loading:
-    - `document.write(html)`
+- لإلحاق HTML بالصفحة قبل أن ينتهي التحميل:
+    - `document.write (html)`
 
-    After the page is loaded such a call erases the document. Mostly seen in old scripts.
+    بعد تحميل الصفحة تقوم هذه المكالمة بمسح المستند. غالبا ما ينظر إليها في النصوص القديمة.

@@ -1,50 +1,50 @@
-# Window sizes and scrolling
+# أحجام النوافذ والتمرير
 
-How do we find the width and height of the browser window? How do we get the full width and height of the document, including the scrolled out part? How do we scroll the page using JavaScript?
+كيف نجد عرض وارتفاع نافذة المتصفح؟ كيف نحصل على العرض والارتفاع الكاملين للوثيقة ، بما في ذلك الجزء المسحوب؟ كيف ننتقل الصفحة باستخدام جافا سكريبت؟
 
-For most such requests, we can use the root document element `document.documentElement`, that corresponds to the `<html>` tag. But there are additional methods and peculiarities important enough to consider.
+بالنسبة لمعظم هذه الطلبات ، يمكننا استخدام عنصر المستند الجذر `document.documentElement` ، الذي يتوافق مع العلامة` <html> `. ولكن هناك طرق وخصائص إضافية مهمة بما يكفي للنظر فيها.
 
-## Width/height of the window
+## عرض / ارتفاع النافذة
 
-To get window width and height we can use `clientWidth/clientHeight` of `document.documentElement`:
+للحصول على عرض النافذة وارتفاعها ، يمكننا استخدام `clientWidth / clientHeight` من` document.documentElement`:
 
 ![](document-client-width-height.svg)
 
 ```online
-For instance, this button shows the height of your window:
+على سبيل المثال ، يعرض هذا الزر ارتفاع النافذة:
 
 <button onclick="alert(document.documentElement.clientHeight)">alert(document.documentElement.clientHeight)</button>
 ```
 
-````warn header="Not `window.innerWidth/Height`"
-Browsers also support properties `window.innerWidth/innerHeight`. They look like what we want. So why not to use them instead?
+````warn header="ليس `window.innerWidth / Height`"
+كما تدعم المستعرضات الخصائص `window.innerWidth / innerHeight`. يبدون مثل ما نريد. فلماذا لا تستخدمها بدلاً من ذلك؟
 
-If there exists a scrollbar, and it occupies some space, `clientWidth/clientHeight` provide the width/height without it (subtract it). In other words, they return width/height of the visible part of the document, available for the content.
+إذا كان هناك شريط تمرير ، ويحتل بعض المساحة ، يوفر `clientWidth / clientHeight` العرض / الارتفاع بدونه (اطرحه). بمعنى آخر ، تقوم بإرجاع عرض / ارتفاع الجزء المرئي من المستند المتاح للمحتوى.
 
-...And `window.innerWidth/innerHeight` include the scrollbar.
+... و `window.innerWidth / innerHeight` تتضمن شريط التمرير.
 
-If there's a scrollbar, and it occupies some space, then these two lines show different values:
+إذا كان هناك شريط تمرير ، ويشغل بعض المساحة ، فإن هذين الخطين يعرضان قيمًا مختلفة:
 ```js run
 alert( window.innerWidth ); // full window width
 alert( document.documentElement.clientWidth ); // window width minus the scrollbar
 ```
 
-In most cases we need the *available* window width: to draw or position something. That is: inside scrollbars if there are any. So we should use `documentElement.clientHeight/Width`.
-````
+في معظم الحالات ، نحتاج إلى عرض النافذة * المتوفرة *: لرسم شيء ما أو وضعه. هذا هو: داخل أشرطة التمرير إذا كان هناك أي. لذا يجب علينا استخدام `documentElement.clientHeight / Width`.
+`` ``
 
-```warn header="`DOCTYPE` is important"
-Please note: top-level geometry properties may work a little bit differently when there's no `<!DOCTYPE HTML>` in HTML. Odd things are possible.
+`` `warn header =" "DOCTYPE` مهم"
+يرجى ملاحظة: قد تعمل خصائص الهندسة عالية المستوى بشكل مختلف قليلاً عندما لا يكون هناك <! DOCTYPE HTML> `في HTML. الأشياء الغريبة ممكنة.
 
-In modern HTML we should always write `DOCTYPE`.
-```
+في HTML الحديثة يجب أن نكتب دائمًا "DOCTYPE".
+``
 
-## Width/height of the document
+## عرض / ارتفاع الوثيقة
 
-Theoretically, as the root document element is `document.documentElement`, and it encloses all the content, we could measure document full size as `document.documentElement.scrollWidth/scrollHeight`.
+نظريًا ، نظرًا لأن عنصر المستند الجذر هو `document.documentElement` ، ويشتمل على كل المحتوى ، يمكننا قياس حجم المستند بالكامل على أنه` document.documentElement.scrollWidth / ScrollHeight`.
 
-But on that element, for the whole page, these properties do not work as intended. In Chrome/Safari/Opera if there's no scroll, then `documentElement.scrollHeight` may be even less than  `documentElement.clientHeight`! Sounds like a nonsense, weird, right?
+ولكن في هذا العنصر ، بالنسبة للصفحة بأكملها ، لا تعمل هذه الخصائص على النحو المنشود. في Chrome / Safari / Opera إذا لم يكن هناك تمرير ، فقد يكون `documentElement.scrollHeight` أقل من` documentElement.clientHeight`! يبدو هراء ، غريب ، أليس كذلك؟
 
-To reliably obtain the full document height, we should take the maximum of these properties:
+للحصول على ارتفاع المستند بشكل موثوق ، يجب أن نأخذ الحد الأقصى من هذه الخصائص:
 
 ```js run
 let scrollHeight = Math.max(
@@ -56,101 +56,100 @@ let scrollHeight = Math.max(
 alert('Full document height, with scrolled out part: ' + scrollHeight);
 ```
 
-Why so? Better don't ask. These inconsistencies come from ancient times, not a "smart" logic.
+لما ذلك؟ من الأفضل ألا تسأل. هذه التناقضات تأتي من العصور القديمة ، وليس منطق "ذكي".
 
-## Get the current scroll [#page-scroll]
+## احصل على التمرير الحالي [# page-roll]
 
-DOM elements have their current scroll state in `elem.scrollLeft/scrollTop`.
+عناصر DOM لها حالة التمرير الحالية في `elem.scrollLeft / rollTop`.
 
-For document scroll `document.documentElement.scrollLeft/Top` works in most browsers, except older WebKit-based ones, like Safari (bug [5991](https://bugs.webkit.org/show_bug.cgi?id=5991)), where we should use `document.body` instead of `document.documentElement`.
+بالنسبة إلى تمرير المستند ، يعمل المستند document.documentElement.scrollLeft / Top` في معظم المتصفحات ، باستثناء المتصفحات القديمة التي تستند إلى WebKit ، مثل Safari (الخطأ [5991] (https://bugs.webkit.org/show_bug.cgi؟id=5991) ) ، حيث يجب أن نستخدم `document.body` بدلاً من` document.documentElement`.
 
-Luckily, we don't have to remember these peculiarities at all, because the scroll is available in the special properties `window.pageXOffset/pageYOffset`:
+لحسن الحظ ، ليس علينا أن نتذكر هذه الخصائص على الإطلاق ، لأن التمرير متاح في الخصائص الخاصة `window.pageXOffset/pageYOffset`:
 
 ```js run
 alert('Current scroll from the top: ' + window.pageYOffset);
 alert('Current scroll from the left: ' + window.pageXOffset);
 ```
 
-These properties are read-only.
+هذه الخصائص للقراءة فقط.
 
-## Scrolling: scrollTo, scrollBy, scrollIntoView [#window-scroll]
+## التمرير: التمرير إلى التمرير التمرير التمرير العرضي [# window-تمرير]
 
-```warn
-To scroll the page from JavaScript, its DOM must be fully built.
+احذر
+لتمرير الصفحة من JavaScript ، يجب بناء DOM بالكامل.
 
-For instance, if we try to scroll the page from the script in `<head>`, it won't work.
-```
+على سبيل المثال ، إذا حاولنا تمرير الصفحة من البرنامج النصي في `<head>` ، فلن تعمل.
+``
 
-Regular elements can be scrolled by changing `scrollTop/scrollLeft`.
+يمكن تمرير العناصر العادية عن طريق تغيير `التمرير / التمرير لليسار`.
 
-We can do the same for the page using `document.documentElement.scrollTop/Left` (except Safari, where `document.body.scrollTop/Left` should be used instead).
+يمكننا فعل الشيء نفسه للصفحة باستخدام `document.documentElement.scrollTop / Left` (باستثناء Safari ، حيث يجب استخدام` document.body.scrollTop / Left` بدلاً من ذلك).
 
-Alternatively, there's a simpler, universal solution: special methods  [window.scrollBy(x,y)](mdn:api/Window/scrollBy) and [window.scrollTo(pageX,pageY)](mdn:api/Window/scrollTo).
+بدلاً من ذلك ، هناك حل أبسط وعالمي: طرق خاصة [window.scrollBy (x، y)] (mdn: api / Window / rollBy) و [window.scrollTo (pageX، pageY)] (mdn: api / Window / rollTo) .
 
-- The method `scrollBy(x,y)` scrolls the page *relative to its current position*. For instance, `scrollBy(0,10)` scrolls the page `10px` down.
+- طريقة `التمرير (x، y) 'تقوم بتمرير الصفحة * بالنسبة إلى موقعها الحالي *. على سبيل المثال ، يؤدي `التمرير (0،10)` إلى تمرير الصفحة `10 بكسل` لأسفل.
 
-    ```online
-    The button below demonstrates this:
+    `` online
+    يوضح الزر أدناه هذا:
 
-    <button onclick="window.scrollBy(0,10)">window.scrollBy(0,10)</button>
-    ```
-- The method `scrollTo(pageX,pageY)` scrolls the page *to absolute coordinates*, so that the top-left corner of the visible part has coordinates `(pageX, pageY)` relative to the document's top-left corner. It's like setting `scrollLeft/scrollTop`.
+    <button onclick = "window.scrollBy (0،10)"> window.scrollBy (0،10) </button>
+    ``
+- طريقة `التمرير (pageX ، pageY)` تقوم بتمرير الصفحة * إلى إحداثيات مطلقة * ، بحيث يكون للزاوية العلوية اليسرى للجزء المرئي إحداثيات `((pageX ، pageY)` بالنسبة إلى الزاوية العلوية اليسرى للمستند. الأمر أشبه بإعداد `التمرير الأيسر / التمرير العلوي`.
 
-    To scroll to the very beginning, we can use `scrollTo(0,0)`.
-
+    للتمرير إلى البداية ، يمكننا استخدام `التمرير (0،0)`.
     ```online
     <button onclick="window.scrollTo(0,0)">window.scrollTo(0,0)</button>
     ```
 
-These methods work for all browsers the same way.
+تعمل هذه الطرق لجميع المتصفحات بنفس الطريقة.
 
 ## scrollIntoView
 
-For completeness, let's cover one more method:  [elem.scrollIntoView(top)](mdn:api/Element/scrollIntoView).
+للاستكمال ، دعنا نغطي طريقة أخرى: [elem.scrollIntoView (top)] (mdn: api / Element / rollIntoView).
 
-The call to `elem.scrollIntoView(top)` scrolls the page to make `elem` visible. It has one argument:
+يؤدي استدعاء `elem.scrollIntoView (أعلى)` إلى تمرير الصفحة لإظهار `elem`. لها حجة واحدة:
 
-- if `top=true` (that's the default), then the page will be scrolled to make `elem` appear on the top of the window. The upper edge of the element is aligned with the window top.
-- if `top=false`, then the page scrolls to make `elem` appear at the bottom. The bottom edge of the element is aligned with the window bottom.
+- إذا كان `top = true` (هذا هو الافتراضي) ، فسيتم تمرير الصفحة لإظهار` elem` في أعلى النافذة. يتم محاذاة الحافة العلوية للعنصر مع أعلى النافذة.
+- إذا كان `top = false` ، فتمرر الصفحة لتظهر` elem` في الأسفل. يتم محاذاة الحافة السفلية للعنصر مع أسفل النافذة.
 
 ```online
-The button below scrolls the page to make itself show at the window top:
+يمرر الزر أدناه الصفحة لإظهار نفسها في أعلى النافذة:
 
-<button onclick="this.scrollIntoView()">this.scrollIntoView()</button>
+<button onclick = "this.scrollIntoView ()"> this.scrollIntoView () </button>
 
-And this button scrolls the page to show it at the bottom:
+وهذا الزر يقوم بتمرير الصفحة لإظهارها في الأسفل:
 
 <button onclick="this.scrollIntoView(false)">this.scrollIntoView(false)</button>
 ```
 
-## Forbid the scrolling
+## منع التمرير
 
-Sometimes we need to make the document "unscrollable". For instance, when we need to cover it with a large message requiring immediate attention, and we want the visitor to interact with that message, not with the document.
+نحتاج أحيانًا إلى جعل المستند "غير قابل للتمرير". على سبيل المثال ، عندما نحتاج إلى تغطيتها برسالة كبيرة تتطلب اهتمامًا فوريًا ، ونريد من الزائر أن يتفاعل مع هذه الرسالة ، وليس مع المستند.
 
-To make the document unscrollable, it's enough to set `document.body.style.overflow = "hidden"`. The page will freeze on its current scroll.
+لجعل المستند غير قابل للتمرير ، يكفي تعيين `document.body.style.overflow =" hidden "`. سيتم تجميد الصفحة في التمرير الحالي.
 
 ```online
-Try it:
+جربها:
 
 <button onclick="document.body.style.overflow = 'hidden'">document.body.style.overflow = 'hidden'</button>
 
 <button onclick="document.body.style.overflow = ''">document.body.style.overflow = ''</button>
 
-The first button freezes the scroll, the second one resumes it.
-```
+يجمد الزر الأول التمرير ، ويستأنفه الزر الثاني.
+``
 
-We can use the same technique to "freeze" the scroll for other elements, not just for `document.body`.
+يمكننا استخدام نفس التقنية "لتجميد" التمرير للعناصر الأخرى ، وليس فقط لـ `المستند.
 
-The drawback of the method is that the scrollbar disappears. If it occupied some space, then that space is now free, and the content "jumps" to fill it.
+عيب الطريقة هو اختفاء شريط التمرير. إذا كانت تحتل بعض المساحة ، فإن هذه المساحة الآن خالية ، ويزداد المحتوى لملئها.
 
-That looks a bit odd, but can be worked around if we compare `clientWidth` before and after the freeze, and if it increased (the scrollbar disappeared) then add `padding` to `document.body` in place of the scrollbar, to keep the content width the same.
+يبدو هذا غريبًا بعض الشيء ، ولكن يمكن التعامل معه إذا قارنا `ClientWidth` قبل التجميد وبعده ، وإذا زاد (اختفى شريط التمرير) ، فأضف` padding` إلى `document.body` بدلاً من شريط التمرير ، إلى حافظ على عرض المحتوى كما هو.
 
-## Summary
+## الملخص
 
-Geometry:
+الهندسة:
 
-- Width/height of the visible part of the document (content area width/height): `document.documentElement.clientWidth/Height`
-- Width/height of the whole document, with the scrolled out part:
+- عرض / ارتفاع الجزء المرئي من المستند (عرض / ارتفاع منطقة المحتوى): `document.documentElement.clientWidth / Height`
+- عرض / ارتفاع الوثيقة بأكملها ، مع الجزء الممرر:
 
     ```js
     let scrollHeight = Math.max(
@@ -160,11 +159,11 @@ Geometry:
     );
     ```
 
-Scrolling:
+التمرير:
 
-- Read the current scroll: `window.pageYOffset/pageXOffset`.
-- Change the current scroll:
+- قراءة التمرير الحالي: `window.pageYOffset / pageXOffset`.
+- تغيير التمرير الحالي:
 
-    - `window.scrollTo(pageX,pageY)` -- absolute coordinates,
-    - `window.scrollBy(x,y)` -- scroll relative the current place,
-    - `elem.scrollIntoView(top)` -- scroll to make `elem` visible (align with the top/bottom of the window).
+    - `window.scrollTo (pageX ، pageY)` - الإحداثيات المطلقة ،
+     - `window.scrollBy (x، y)` - انتقل نسبيًا إلى المكان الحالي ،
+     - `elem.scrollIntoView (أعلى)` - قم بالتمرير لجعل `elem` مرئيًا (محاذاة مع الجزء العلوي / السفلي من النافذة).

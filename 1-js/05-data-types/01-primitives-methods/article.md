@@ -1,20 +1,21 @@
-# Methods of primitives
+# الأساليب البدائية للبيانات
 
-JavaScript allows us to work with primitives (strings, numbers, etc.) as if they were objects. They also provide methods to call as such. We will study those soon, but first we'll see how it works because, of course, primitives are not objects (and here we will make it even clearer).
+الجافاسكربت تتيح لنا العمل بالأساليب البدائية (strings, numbers, etc.) كما لو كانت objects. كما أنها توفر وسائل للأتصال علي هذا النحو. وسندرسها قريبا, لكن أولاً سنرى كيف يعمل لأن الأساليب البدائية ليست objects
+(وهنا سنجعله أكثر وضوحاً).
 
-Let's look at the key distinctions between primitives and objects.
+لننظر إلى الفروق الرئيسية بين الأساليب البدائية و objects .
 
-A primitive
+بدائية
 
-- Is a value of a primitive type.
-- There are 7 primitive types: `string`, `number`, `bigint`, `boolean`, `symbol`, `null` and `undefined`.
+- هو قيمة من النوع البدائي.
+- هناك 7 أنواع بدائية: `string`, `number`, `bigint`, `boolean`, `symbol`, `null` أيضا `undefined`.
 
 An object
 
-- Is capable of storing multiple values as properties.
-- Can be created with `{}`, for instance: `{name: "John", age: 30}`. There are other kinds of objects in JavaScript: functions, for example, are objects.
+- قادر على تخزين قيم متعددة كخصائص.
+- يمكن تكوينه بواسطة `{}`, على سبيل المثال: `{name: "John", age: 30}`. هناك أنواع أخرى من objects في الجافاسكربت: functions, على سبيل المثال,  objects.
 
-One of the best things about objects is that we can store a function as one of its properties.
+أحد أفضل الأشياء في ال objects هو أنه يمكننا أن نخزن a function كأحد خصائصها.
 
 ```js run
 let john = {
@@ -27,32 +28,33 @@ let john = {
 john.sayHi(); // Hi buddy!
 ```
 
-So here we've made an object `john` with the method `sayHi`.
+إذاً هنا صنعنا an object `john` مع ال  `sayHi` method.
 
-Many built-in objects already exist, such as those that work with dates, errors, HTML elements, etc. They have different properties and methods.
+العديد من ال built-in objects موجودة بالفعل, مثل تلك التي تعمل مع التواريخ و الأخطاء و عناصر HTML , إلخ. فلهم خصائص وأساليب مختلفة.
 
-But, these features come with a cost!
+ولكن ، تأتي هذه الميزات بتكلفة!
 
-Objects are "heavier" than primitives. They require additional resources to support the internal machinery.
+Objects  "اثقل" من الأساليب البدائية. وهي تتطلب موارد إضافية لدعم الآلية الداخلية.
 
-## A primitive as an object
+## بدائي كا an object
 
-Here's the paradox faced by the creator of JavaScript:
+هنا التناقض الذي واجه صانع جافاسكربت:
 
-- There are many things one would want to do with a primitive like a string or a number. It would be great to access them as methods.
-- Primitives must be as fast and lightweight as possible.
+- هناك العديد من الأشياء التي يمكن أن يفعلها الشخص بالأسلوب البدائي مثل  string أو  number. سيكون من الرائع استخدامهم كا methods.
+- الأساليب البدائية يجب أن تكون سريعة وخفيفة بقدر الإمكان.
 
-The solution looks a little bit awkward, but here it is:
+إن الحل يبدو غريبا بعض الشيء، ولكن ها هو:
 
-1. Primitives are still primitive. A single value, as desired.
-2. The language allows access to methods and properties of strings, numbers, booleans and symbols.
-3. In order for that to work, a special "object wrapper" that provides the extra functionality is created, and then is destroyed.
+1. الأساليب البدائية  ما زالت بدائية. قيمة واحدة, كما يحلو لها.
+2. تسمح اللغة بالوصول الي ال  methods و الخصائص الخاصة ب strings, numbers, booleans و symbols.
+3. ولكي يعمل ذلك، يتم إنشاء "object wrapper" خاص يوفر الوظائف الإضافية، ثم يتم تدميره.
 
-The "object wrappers" are different for each primitive type and are called: `String`, `Number`, `Boolean` and `Symbol`. Thus, they provide different sets of methods.
+ال "object wrappers" تختلف لكل نوع بدائي و تدعى: `String`, `Number`, `Boolean` و `Symbol`. وبالتالي، فإنها توفر مجموعات مختلفة من methods.
 
-For instance, there exists a string method [str.toUpperCase()](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase) that returns a capitalized `str`.
+على سبيل المثال
+, هنالك a string method [()str.toUpperCase](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase) التي ترجع capitalized `str`.
 
-Here's how it works:
+إليك كيف يعمل:
 
 ```js run
 let str = "Hello";
@@ -60,17 +62,17 @@ let str = "Hello";
 alert( str.toUpperCase() ); // HELLO
 ```
 
-Simple, right? Here's what actually happens in `str.toUpperCase()`:
+بسيط، أليس كذلك؟ إليكم ما يحدث في الواقع `()str.toUpperCase`:
 
-1. The string `str` is a primitive. So in the moment of accessing its property, a special object is created that knows the value of the string, and has useful methods, like `toUpperCase()`.
-2. That method runs and returns a new string (shown by `alert`).
-3. The special object is destroyed, leaving the primitive `str` alone.
+1. النص `str` هو نوع بدائي. لذا في لحظة الولوج لخصائصه, يتكون object خاص يعرف قيمة النص, و لديه  methods مفيدة, مثل `()toUpperCase`.
+2. هذه ال method  تعْملُ وتقوم بإرجاع نص جديد (يعرض بواسطة `alert`).
+3. ال object تم تدميره, و ترك النوع البدائي  `str` مُنْفَرِداً.
 
-So primitives can provide methods, but they still remain lightweight.
+يمكن للأنواع البدائية أن توفر methods, لكنها لا تزال خفيفة.
 
-The JavaScript engine highly optimizes this process. It may even skip the creation of the extra object at all. But it must still adhere to the specification and behave as if it creates one.
+محرك الجافاسكربت يرتقي بهذه العملية إلى أقصى حد. قد يتخطي عملية تكوين  object إضافي على الإطلاق. ولكن ما زال عليها أن تلتزم بالمواصفات وتتصرف كما لو أنها تنشئ واحد.
 
-A number has methods of its own, for instance, [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) rounds the number to the given precision:
+الرقم لديه ال methods الخاصة به, علي سبيل المثال, [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) تقوم بتقريب الرقم حسب القيمة المعطاه :
 
 ```js run
 let n = 1.23456;
@@ -78,15 +80,15 @@ let n = 1.23456;
 alert( n.toFixed(2) ); // 1.23
 ```
 
-We'll see more specific methods in chapters <info:number> and <info:string>.
+سنري methods أكثر تحديداً في الفصول <info:number> و <info:string>.
 
 
-````warn header="Constructors `String/Number/Boolean` are for internal use only"
-Some languages like Java allow us to explicitly create "wrapper objects" for primitives using a syntax like `new Number(1)` or `new Boolean(false)`.
+````warn header="Constructors `String/Number/Boolean` هي للاستعمال الداخلي فقط"
+بعض اللغات مثل جافا تسمح لنا بصريح التعبير بصنع "object wrappers" للأنواع البدائية بإستخدام   syntax مثل `new Number(1)` أو `new Boolean(false)`.
 
-In JavaScript, that's also possible for historical reasons, but highly **unrecommended**. Things will go crazy in several places.
+في الجافاسكربت, وهذا ممكن أيضا لأسباب تاريخية, اكن **غير موصى به**. ستصاب الأمور بالجنون في عدة مواضع.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 alert( typeof 0 ); // "number"
@@ -94,7 +96,7 @@ alert( typeof 0 ); // "number"
 alert( typeof new Number(0) ); // "object"!
 ```
 
-Objects are always truthy in `if`, so here the alert will show up:
+Objects دائما صادق في `if`, لذا هنا سيظهر الإنذار:
 
 ```js run
 let zero = new Number(0);
@@ -104,9 +106,9 @@ if (zero) { // zero is true, because it's an object
 }
 ```
 
-On the other hand, using the same functions `String/Number/Boolean` without `new` is a totally sane and useful thing. They convert a value to the corresponding type: to a string, a number, or a boolean (primitive).
+من ناحية أخرى, استخدام نفس ال functions `String/Number/Boolean` بدون `new` هو شيء سَليم و مفيد. يحولون قيمة إلى النوع المقابل: إلي a string, a number, or a boolean (primitive - نوع بدائي).
 
-For example, this is entirely valid:
+علي سبيل المثال, هذا صحيح تماما:
 ```js
 let num = Number("123"); // convert a string to number
 ```
@@ -114,15 +116,15 @@ let num = Number("123"); // convert a string to number
 
 
 ````warn header="null/undefined have no methods"
-The special primitives `null` and `undefined` are exceptions. They have no corresponding "wrapper objects" and provide no methods. In a sense, they are "the most primitive".
+الأنواع البدائية الخاصة `null` و `undefined` حالات استثنائية. ليس لديهم ما يشابههم "wrapper objects" و لا تزودنا بال methods. بمعنى, هم "الأكثر بدائية".
 
-An attempt to access a property of such value would give the error:
+ومن شأن محاولة الوصول إلى خاصية بهذه القيمة أن تعطي هذا الخطأ:
 
 ```js run
 alert(null.test); // error
 ````
 
-## Summary
+## مُلخّص
 
-- Primitives except `null` and `undefined` provide many helpful methods. We will study those in the upcoming chapters.
-- Formally, these methods work via temporary objects, but JavaScript engines are well tuned to optimize that internally, so they are not expensive to call.
+- الأنواع البدائية ماعدا `null` و `undefined` تزودنا بالعديد من ال  methods المساعدة. وسندرسها في الفصول القادمة.
+- رَسمِيّا, هذه ال  methods تعمل عن طريق  objects مؤقتة, ولكن محركات جافاسكربت مضبوطة بشكل جيد لتحسين ذلك داخليا, لذا ليس مكلفا إستدعائهم.

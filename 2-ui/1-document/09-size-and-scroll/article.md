@@ -1,12 +1,12 @@
-# Element size and scrolling
+# حجم العنصر والتمرير
 
-There are many JavaScript properties that allow us to read information about element width, height and other geometry features.
+هناك العديد من خصائص JavaScript التي تسمح لنا بقراءة معلومات حول عرض العنصر وارتفاعه وميزات الهندسة الأخرى.
 
-We often need them when moving or positioning elements in JavaScript.
+غالبًا ما نحتاج إليها عند تحريك العناصر أو وضعها في JavaScript.
 
-## Sample element
+## عنصر العينة
 
-As a sample element to demonstrate properties we'll use the one given below:
+كعنصر عينة لإثبات الخصائص ، سنستخدم الخاصية الواردة أدناه:
 
 ```html no-beautify
 <div id="example">
@@ -23,49 +23,49 @@ As a sample element to demonstrate properties we'll use the one given below:
 </style>
 ```
 
-It has the border, padding and scrolling. The full set of features. There are no margins, as they are not the part of the element itself, and there are no special properties for them.
+لديها الحدود والحشو والتمرير. مجموعة كاملة من الميزات. لا توجد هوامش ، لأنها ليست جزءًا من العنصر نفسه ، ولا توجد خصائص خاصة لهم.
 
-The element looks like this:
+يبدو العنصر كما يلي:
 
 ![](metric-css.svg)
 
 You can [open the document in the sandbox](sandbox:metric).
 
 ```smart header="Mind the scrollbar"
-The picture above demonstrates the most complex case when the element has a scrollbar. Some browsers (not all) reserve the space for it by taking it from the content (labeled as "content width" above).
+توضح الصورة أعلاه الحالة الأكثر تعقيدًا عندما يكون للعنصر شريط تمرير. تحتفظ بعض المتصفحات (وليس كلها) بالفضاء الخاص بها من خلال أخذها من المحتوى (المسمى "عرض المحتوى" أعلاه).
 
-So, without scrollbar the content width would be `300px`, but if the scrollbar is `16px` wide (the width may vary between devices and browsers) then only `300 - 16 = 284px` remains, and we should take it into account. That's why examples from this chapter assume that there's a scrollbar. Without it, some calculations are simpler.
+لذلك ، بدون شريط التمرير ، سيكون عرض المحتوى `300 بكسل` ، ولكن إذا كان شريط التمرير بعرض` 16 بكسل` (قد يختلف العرض بين الأجهزة والمتصفحات) ، فعندئذٍ يبقى `300 - 16 = 284 بكسل` فقط ، ويجب أن نأخذه في الاعتبار . لهذا السبب تفترض أمثلة من هذا الفصل وجود شريط تمرير. بدونه ، بعض الحسابات أبسط.
 ```
 
-```smart header="The `padding-bottom` area may be filled with text"
-Usually paddings are shown empty on our illustrations, but if there's a lot of text in the element and it overflows, then browsers show the "overflowing" text at `padding-bottom`, that's normal.
+```smart header="The `padding-bottom` aقد تكون مليئة بالنص "
+عادةً ما يتم عرض الحشو فارغة على الرسوم التوضيحية الخاصة بنا ، ولكن إذا كان هناك الكثير من النص في العنصر وتجاوزه ، فإن المتصفحات تعرض النص "الفائض" في "الحشو السفلي" ، فهذا أمر طبيعي.
 ```
 
-## Geometry
+## الهندسة
 
-Here's the overall picture with geometry properties:
+فيما يلي الصورة العامة بخصائص الهندسة:
 
-![](metric-all.svg)
+! [] (metric-all.svg)
 
-Values of these properties are technically numbers, but these numbers are "of pixels", so these are pixel measurements.
+قيم هذه الخصائص هي أرقام تقنيًا ، لكن هذه الأرقام هي "بكسل" ، لذا فهي قياسات بكسل.
 
-Let's start exploring the properties starting from the outside of the element.
+لنبدأ في استكشاف الخصائص بدءًا من خارج العنصر.
 
 ## offsetParent, offsetLeft/Top
 
-These properties are rarely needed, but still they are the "most outer" geometry properties, so we'll start with them.
+نادرًا ما تكون هذه الخصائص مطلوبة ، لكنها لا تزال هي الخصائص الهندسية "الخارجية" ، لذلك سنبدأ بها.
 
-The `offsetParent` is the nearest ancestor that the browser uses for calculating coordinates during rendering.
+يعد "offsetParent" أقرب سلف يستخدمه المتصفح لحساب الإحداثيات أثناء العرض.
 
-That's the nearest ancestor that is one of the following:
+هذا هو أقرب سلف وهو واحد مما يلي:
 
-1. CSS-positioned (`position` is `absolute`, `relative`, `fixed` or `sticky`),  or
-2. `<td>`, `<th>`, or `<table>`,  or
+1- وضع CSS ("الموضع" هو "مطلق" ، "قريب" ، "ثابت" أو "ثابت") ، أو
+2. `<td>` أو `<th>` أو `<table>` أو
 3. `<body>`.
 
-Properties `offsetLeft/offsetTop` provide x/y coordinates relative to `offsetParent` upper-left corner.
+توفر الخصائص `offsetLeft / offsetTop` إحداثيات س / ص نسبة إلى` `offsetParent` الزاوية العلوية اليسرى.
 
-In the example below the inner `<div>` has `<main>` as `offsetParent` and `offsetLeft/offsetTop` shifts from its upper-left corner (`180`):
+في المثال أدناه ، يحتوي `<div>` الداخلي على `<main>` كـ `offsetParent` و` offsetLeft / offsetTop` من الزاوية العلوية اليسرى (`180`):
 
 ```html run height=10
 <main style="position: relative" id="main">
@@ -82,33 +82,33 @@ In the example below the inner `<div>` has `<main>` as `offsetParent` and `offse
 
 ![](metric-offset-parent.svg)
 
-There are several occasions when `offsetParent` is `null`:
+هناك عدة مناسبات عندما يكون "offsetParent" "فارغًا":
 
-1. For not shown elements (`display:none` or not in the document).
-2. For `<body>` and `<html>`.
-3. For elements with `position:fixed`.
+1. للعناصر غير المعروضة (`display: none` أو not in the document).
+2. بالنسبة لـ "<body>` و "<html>`.
+3- للعناصر ذات "الموضع: ثابت".
 
 ## offsetWidth/Height
 
-Now let's move on to the element itself.
+الآن دعنا ننتقل إلى العنصر نفسه.
 
-These two properties are the simplest ones. They provide the "outer" width/height of the element. Or, in other words, its full size including borders.
+هاتان الخاصيتان هما الأبسط. توفر العرض / الارتفاع "الخارجي" للعنصر. أو بعبارة أخرى حجمها الكامل بما في ذلك الحدود.
 
 ![](metric-offset-width-height.svg)
 
-For our sample element:
+لعنصر العينة لدينا:
 
-- `offsetWidth = 390` -- the outer width, can be calculated as inner CSS-width (`300px`) plus paddings (`2 * 20px`) and borders (`2 * 25px`).
-- `offsetHeight = 290` -- the outer height.
+- `offsetWidth = 390` - العرض الخارجي ، يمكن حسابه على أنه عرض CSS داخلي (` 300 بكسل`) بالإضافة إلى حشوات (`2 * 20 بكسل`) وحدود (` 2 * 25 بكسل`).
+- `offsetHeight = 290` - الارتفاع الخارجي.
 
-````smart header="Geometry properties are zero/null for elements that are not displayed"
-Geometry properties are calculated only for displayed elements.
+````smart header="خصائص الهندسة هي صفر / قيمة للعناصر التي لا يتم عرضها"
+يتم حساب خصائص الهندسة فقط للعناصر المعروضة.
 
-If an element (or any of its ancestors) has `display:none` or is not in the document, then all geometry properties are zero (or `null` for `offsetParent`).
+إذا كان أحد العناصر (أو أي من أسلافه) يحتوي على "عرض: لا شيء" أو غير موجود في المستند ، فإن جميع الخصائص الهندسية تكون صفرية (أو "خالية" لـ "offsetParent").
 
-For example, `offsetParent` is `null`, and `offsetWidth`, `offsetHeight` are `0` when we created an element, but haven't inserted it into the document yet, or it (or it's ancestor) has `display:none`.
+على سبيل المثال ، `offsetParent` هي` null` ، و `offsetWidth` ،` offsetHeight` هي `0` عندما أنشأنا عنصرًا ، ولكننا لم نقم بإدراجه في المستند حتى الآن ، أو (أو أصله) يحتوي على` عرض : لا شيء.
 
-We can use this to check if an element is hidden, like this:
+يمكننا استخدام هذا للتحقق مما إذا كان العنصر مخفيًا ، مثل هذا:
 
 ```js
 function isHidden(elem) {
@@ -116,68 +116,69 @@ function isHidden(elem) {
 }
 ```
 
-Please note that such `isHidden` returns `true` for elements that are on-screen, but have zero sizes (like an empty `<div>`).
+يرجى ملاحظة أن مثل `isHidden` يعرض` true` للعناصر التي تظهر على الشاشة ، ولكن بدون أحجام (مثل `<div>` فارغ).
 ````
 
 ## clientTop/Left
 
-Inside the element we have the borders.
+داخل العنصر لدينا الحدود.
 
-To measure them, there are properties `clientTop` and `clientLeft`.
+لقياسها ، هناك خصائص `clientTop` و` clientLeft`.
 
-In our example:
+في مثالنا:
 
 - `clientLeft = 25` -- left border width
 - `clientTop = 25` -- top border width
 
 ![](metric-client-left-top.svg)
 
-...But to be precise -- these properties are not border width/height, but rather relative coordinates of the inner side from the outer side.
+ولكن على وجه الدقة - هذه الخصائص ليست عرض / ارتفاع الحد ، بل هي إحداثيات نسبية للجانب الداخلي من الجانب الخارجي.
 
-What's the difference?
+ماهو الفرق؟
 
-It becomes visible when the document is right-to-left (the operating system is in Arabic or Hebrew languages). The scrollbar is then not on the right, but on the left, and then `clientLeft` also includes the scrollbar width.
+تصبح مرئية عندما يكون المستند من اليمين إلى اليسار (نظام التشغيل باللغة العربية أو العبرية). شريط التمرير ليس بعد ذلك على اليمين ، ولكن على اليسار ، ثم يتضمن "clientLeft" أيضًا عرض شريط التمرير.
 
-In that case, `clientLeft` would be not `25`, but with the scrollbar width `25 + 16 = 41`.
+في هذه الحالة ، لن يكون "clientLeft" `25` ، ولكن بعرض شريط التمرير` 25 + 16 = 41`.
 
-Here's the example in hebrew:
+هذا هو المثال بالعبرية:
 
 ![](metric-client-left-top-rtl.svg)
 
 ## clientWidth/Height
 
-These properties provide the size of the area inside the element borders.
+توفر هذه الخصائص حجم المنطقة داخل حدود العنصر.
 
-They include the content width together with paddings, but without the scrollbar:
+تتضمن عرض المحتوى مع الحشو ، لكن بدون شريط التمرير:
 
-![](metric-client-width-height.svg)
+! [] (metric-client-width-height.svg)
 
-On the picture above let's first consider `clientHeight`.
+في الصورة أعلاه ، لنفكر أولاً في "clientHeight".
 
-There's no horizontal scrollbar, so it's exactly the sum of what's inside the borders: CSS-height `200px` plus top and bottom paddings (`2 * 20px`) total `240px`.
+لا يوجد شريط تمرير أفقي ، لذلك فهو بالضبط مجموع ما يوجد داخل الحدود: ارتفاع CSS `200 بكسل` بالإضافة إلى حشوات علوية وسفلية (` 2 * 20 بكسل`) إجمالي `240 بكسل`.
 
-Now `clientWidth` -- here the content width is not `300px`, but `284px`, because `16px` are occupied by the scrollbar. So the sum is `284px` plus left and right paddings, total `324px`.
+الآن "clientWidth" - هنا ليس عرض المحتوى "300 بكسل" ، ولكن "284 بكسل" ، لأن "16 بكسل" مشغول بشريط التمرير. لذلك يكون المجموع `284 بكسل` بالإضافة إلى حشوات اليسار واليمين ، إجمالي` 324 بكسل`.
 
-**If there are no paddings, then `clientWidth/Height` is exactly the content area, inside the borders and the scrollbar (if any).**
+** إذا لم تكن هناك حشوات ، فإن "clientWidth / Height" هي بالضبط منطقة المحتوى ، داخل الحدود وشريط التمرير (إن وجد). **
+
 
 ![](metric-client-width-nopadding.svg)
 
-So when there's no padding we can use `clientWidth/clientHeight` to get the content area size.
+لذلك عندما لا يكون هناك أي مساحة ، يمكننا استخدام `clientWidth / clientHeight` للحصول على حجم منطقة المحتوى.
 
 ## scrollWidth/Height
 
-These properties are like `clientWidth/clientHeight`, but they also include the scrolled out (hidden) parts:
+هذه الخصائص مثل `clientWidth / clientHeight` ، ولكنها تشمل أيضًا الأجزاء التي تم تمريرها (المخفية):
 
-![](metric-scroll-width-height.svg)
+! [] (metric-roll-width-height.svg)
 
-On the picture above:
+في الصورة أعلاه:
 
-- `scrollHeight = 723` -- is the full inner height of the content area including the scrolled out parts.
-- `scrollWidth = 324` -- is the full inner width, here we have no horizontal scroll, so it equals `clientWidth`.
+- `التمرير = 723` - الارتفاع الداخلي الكامل لمنطقة المحتوى بما في ذلك الأجزاء التي تم تمريرها.
+- `التمرير العرضي = 324` - هو العرض الداخلي الكامل ، وهنا ليس لدينا تمرير أفقي ، لذا فهو يساوي` clientWidth`.
 
-We can use these properties to expand the element wide to its full width/height.
+يمكننا استخدام هذه الخصائص لتوسيع العنصر إلى عرضه / ارتفاعه الكامل.
 
-Like this:
+مثله:
 
 ```js
 // expand the element to the full content height
@@ -185,7 +186,7 @@ element.style.height = `${element.scrollHeight}px`;
 ```
 
 ```online
-Click the button to expand the element:
+انقر فوق الزر لمد العنصر:
 
 <div id="element" style="width:300px;height:200px; padding: 0;overflow: auto; border:1px solid black;">text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text</div>
 
@@ -194,33 +195,34 @@ Click the button to expand the element:
 
 ## scrollLeft/scrollTop
 
-Properties `scrollLeft/scrollTop` are the width/height of the hidden, scrolled out part of the element.
+الخصائص `التمرير لليسار / التمرير العلوي` هي عرض / ارتفاع الجزء المخفي من العنصر.
 
-On the picture below we can see `scrollHeight` and `scrollTop` for a block with a vertical scroll.
+في الصورة أدناه ، يمكننا رؤية "التمرير" و "التمرير العلوي" للكتلة ذات التمرير العمودي.
 
-![](metric-scroll-top.svg)
+! [] (metric-تمرير-top.svg)
 
-In other words, `scrollTop` is "how much is scrolled up".
+وبعبارة أخرى ، فإن "rollTop" هو "مقدار التمرير".
 
-````smart header="`scrollLeft/scrollTop` can be modified"
-Most of the geometry properties here are read-only, but `scrollLeft/scrollTop` can be changed, and the browser will scroll the element.
+`` `` smart header = "يمكن تعديل" التمرير لليسار / التمرير العلوي "
+معظم الخصائص الهندسية هنا للقراءة فقط ، ولكن يمكن تغيير `التمرير لليسار / التمرير العلوي` ، وسوف يقوم المتصفح بتمرير العنصر.
 
-```online
-If you click the element below, the code `elem.scrollTop += 10` executes. That makes the element content scroll `10px` down.
+`` عبر الإنترنت
+إذا قمت بالنقر فوق العنصر أدناه ، فسيتم تنفيذ الرمز `elem.scrollTop + = 10`. هذا يجعل محتوى العنصر بالتمرير `10px` للأسفل.
+
 
 <div onclick="this.scrollTop+=10" style="cursor:pointer;border:1px solid black;width:100px;height:80px;overflow:auto">Click<br>Me<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
 ```
 
-Setting `scrollTop` to `0` or `Infinity` will make the element scroll to the very top/bottom respectively.
-````
+يؤدي تعيين "التمرير" إلى "0" أو "إنفينيتي" إلى جعل العنصر ينتقل إلى الأعلى / الأسفل على التوالي.
+`` ``
 
-## Don't take width/height from CSS
+## لا تأخذ العرض / الارتفاع من CSS
 
-We've just covered geometry properties of DOM elements, that can be used to get widths, heights and calculate distances.
+لقد غطينا للتو الخصائص الهندسية لعناصر DOM ، والتي يمكن استخدامها للحصول على العرض والارتفاعات وحساب المسافات.
 
-But as we know from the chapter <info:styles-and-classes>, we can read CSS-height and width using `getComputedStyle`.
+ولكن كما نعلم من الفصل <info: styles-and-classes> ، يمكننا قراءة ارتفاع وعرض CSS باستخدام `getComputedStyle`.
 
-So why not to read the width of an element with `getComputedStyle`, like this?
+فلماذا لا تقرأ عرض عنصر باستخدام `getComputedStyle` ، مثل هذا؟
 
 ```js run
 let elem = document.body;
@@ -228,10 +230,10 @@ let elem = document.body;
 alert( getComputedStyle(elem).width ); // show CSS width for elem
 ```
 
-Why should we use geometry properties instead? There are two reasons:
+لماذا يجب أن نستخدم الخصائص الهندسية بدلاً من ذلك؟ هناك سببان:
 
-1. First, CSS `width/height` depend on another property: `box-sizing` that defines "what is" CSS width and height. A change in `box-sizing` for CSS purposes may break such JavaScript.
-2. Second, CSS `width/height` may be `auto`, for instance for an inline element:
+1. أولاً ، يعتمد "عرض / ارتفاع" CSS على خاصية أخرى: "تحجيم المربع" الذي يحدد "ما هو" عرض وارتفاع CSS. قد يؤدي التغيير في "تحجيم المربع" لأغراض CSS إلى كسر جافا سكريبت.
+2. ثانيًا ، قد يكون "عرض / ارتفاع" CSS "تلقائي" ، على سبيل المثال لعنصر مضمن:
 
     ```html run
     <span id="elem">Hello!</span>
@@ -243,34 +245,34 @@ Why should we use geometry properties instead? There are two reasons:
     </script>
     ```
 
-    From the CSS standpoint, `width:auto` is perfectly normal, but in JavaScript we need an exact size in `px` that we can use in calculations. So here CSS width is useless.
+    من وجهة نظر CSS ، يعد `العرض: تلقائي` أمرًا طبيعيًا تمامًا ، ولكن في جافا سكريبت نحتاج إلى حجم دقيق في` بكسل` يمكننا استخدامه في العمليات الحسابية. حتى هنا عرض CSS عديم الفائدة.
 
-And there's one more reason: a scrollbar. Sometimes the code that works fine without a scrollbar becomes buggy with it, because a scrollbar takes the space from the content in some browsers. So the real width available for the content is *less* than CSS width. And `clientWidth/clientHeight` take that into account.
+وهناك سبب آخر: شريط التمرير. في بعض الأحيان ، تصبح الشفرة التي تعمل بشكل جيد بدون شريط تمرير عربات التي تجرها الدواب ، لأن شريط التمرير يأخذ المساحة من المحتوى في بعض المتصفحات. لذا فإن العرض الحقيقي المتاح للمحتوى هو * أقل * من عرض CSS. و "clientWidth / clientHeight" يأخذ ذلك في الاعتبار.
 
-...But with `getComputedStyle(elem).width` the situation is different. Some browsers (e.g. Chrome) return the real inner width, minus the scrollbar, and some of them (e.g. Firefox) -- CSS width (ignore the scrollbar). Such cross-browser differences is the reason not to use `getComputedStyle`, but rather rely on geometry properties.
+... ولكن مع "getComputedStyle (elem) .width" ، الوضع مختلف. تعرض بعض المتصفحات (مثل Chrome) العرض الداخلي الحقيقي مطروحًا منه شريط التمرير ، وبعضها (مثل Firefox) - عرض CSS (تجاهل شريط التمرير). هذه الاختلافات بين المتصفحات هي السبب في عدم استخدام `getComputedStyle` ، بل الاعتماد على الخصائص الهندسية.
 
 ```online
-If your browser reserves the space for a scrollbar (most browsers for Windows do), then you can test it below.
+إذا كان المستعرض الخاص بك يحتفظ بمساحة شريط التمرير (معظم المستعرضات لنظام Windows) ، فيمكنك اختباره أدناه.
 
-[iframe src="cssWidthScroll" link border=1]
+[iframe src = "cssWidthScroll" حدود الرابط = 1]
 
-The element with text has CSS `width:300px`.
+يحتوي العنصر الذي يحتوي على نص على CSS `width: 300px`.
 
-On a Desktop Windows OS, Firefox, Chrome, Edge all reserve the space for the scrollbar. But  Firefox shows `300px`, while Chrome and Edge show less. That's because Firefox returns the CSS width and other browsers return the "real" width.
-```
+على نظام التشغيل Windows Desktop و Firefox و Chrome و Edge ، كلهم ​​يحجزون مساحة شريط التمرير. لكن Firefox يُظهر `300 بكسل` ، بينما يُظهر Chrome و Edge أقل. ذلك لأن Firefox يعرض عرض CSS وتعرض المستعرضات الأخرى العرض "الحقيقي".
+``
 
-Please note that the described difference is only about reading `getComputedStyle(...).width` from JavaScript, visually everything is correct.
+يرجى ملاحظة أن الفرق الموضح هو فقط حول قراءة `getComputedStyle (...). width` من JavaScript ، كل شيء بصريًا صحيح.
 
-## Summary
+## الملخص
 
-Elements have the following geometry properties:
+العناصر لها خصائص الهندسة التالية:
 
-- `offsetParent` -- is the nearest positioned ancestor or `td`, `th`, `table`, `body`.
-- `offsetLeft/offsetTop` -- coordinates relative to the upper-left edge of `offsetParent`.
-- `offsetWidth/offsetHeight` -- "outer" width/height of an element including borders.
-- `clientLeft/clientTop` -- the distances from the upper-left outer corner to the upper-left inner (content + padding) corner. For left-to-right OS they are always the widths of left/top borders. For right-to-left OS the vertical scrollbar is on the left so `clientLeft` includes its width too.
-- `clientWidth/clientHeight` -- the width/height of the content including paddings, but without the scrollbar.
-- `scrollWidth/scrollHeight` -- the width/height of the content, just like `clientWidth/clientHeight`, but also include scrolled-out, invisible part of the element.
-- `scrollLeft/scrollTop` -- width/height of the scrolled out upper part of the element, starting from its upper-left corner.
+- `offsetParent` - أقرب سلف تم وضعه أو` td` أو `th` أو` table` أو `body`.
+- `offsetLeft / offsetTop` - الإحداثيات المتعلقة بالحافة العلوية اليسرى لـ` offsetParent`.
+- "offsetWidth / offsetHeight" - العرض / الارتفاع "الخارجي" للعنصر بما في ذلك الحدود.
+- `clientLeft / clientTop` - المسافات من الزاوية الخارجية العلوية اليسرى إلى الزاوية الداخلية العلوية اليسرى (المحتوى + المساحة). بالنسبة لنظام التشغيل من اليسار إلى اليمين ، تكون دائمًا عروض الحدود اليسرى / العلوية. بالنسبة لنظام التشغيل من اليمين إلى اليسار ، يكون شريط التمرير الرأسي على اليسار بحيث يتضمن "clientLeft" عرضه أيضًا.
+- "clientWidth / clientHeight" - عرض / ارتفاع المحتوى بما في ذلك البطانات ، ولكن بدون شريط التمرير.
+- "التمرير / التمرير" - عرض / ارتفاع المحتوى ، مثل "clientWidth / clientHeight" ، ولكن يشمل أيضًا الجزء غير المرئي من العنصر.
+- `التمرير لليسار / التمرير العلوي` - عرض / ارتفاع الجزء العلوي الذي تم تمريره للخارج من العنصر ، بدءًا من الزاوية العلوية اليسرى.
 
-All properties are read-only except `scrollLeft/scrollTop` that make the browser scroll the element if changed.
+جميع الخصائص للقراءة فقط باستثناء `التمرير الأيسر / التمرير العلوي` والتي تجعل المتصفح يقوم بتمرير العنصر إذا تم تغييره.

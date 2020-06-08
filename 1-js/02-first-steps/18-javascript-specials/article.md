@@ -1,23 +1,23 @@
-# JavaScript specials
+# خواصّ جافاسكريبت
 
-This chapter briefly recaps the features of JavaScript that we've learned by now, paying special attention to subtle moments.
+يلخص هذا الفصل بإيجاز ميزات جافاسكريبت التي تعلمناها حتى الآن، مع التركيز بشكل دقيق على مواضيع معيّنة.
 
-## Code structure
+## هيكل الكود البرمجي
 
-Statements are delimited with a semicolon:
+يتم الفصل بين التعابير بفاصلة منقوطة:
 
 ```js run no-beautify
 alert('Hello'); alert('World');
 ```
 
-Usually, a line-break is also treated as a delimiter, so that would also work:
+كما يمكن اعتبار السطر الجديد كفاصل أيضاً بين التعابير:
 
 ```js run no-beautify
 alert('Hello')
 alert('World')
 ```
 
-That's called "automatic semicolon insertion". Sometimes it doesn't work, for instance:
+وهذا ما ندعوه بـِ "الإدراج التلقائي للفاصلة المنقوطة"، ولكنه لا يعمل بشكل صحيح في بعض الأحيان، فعلى سبيل المثال:
 
 ```js run
 alert("There will be an error after this message")
@@ -25,27 +25,27 @@ alert("There will be an error after this message")
 [1, 2].forEach(alert)
 ```
 
-Most codestyle guides agree that we should put a semicolon after each statement.
+وهنا يجب التنويه أن معظم الأدلة والبرامج التعليمية تشير إلى أنه من الأفضل أن نضع الفواصل المنقوطة عند نهاية التعابير.
 
-Semicolons are not required after code blocks `{...}` and syntax constructs with them like loops:
+إلا أنه ليس مطلوبٌ وضع هذه الفواصل المنقوطة عند نهاية أقواس الكتل البرمجية `{...}` والتعليمات الخاصة كالحلقات على سبيل المثال:
 
 ```js
 function f() {
-  // no semicolon needed after function declaration
+  // ليس من المطلوب وضع الفاصلة المنقوطة بعد تعريف التابع
 }
 
 for(;;) {
-  // no semicolon needed after the loop
+  // ليس من المطلوب وضع الفاصلة المنقوطة بعد الحلقة التكرارية
 }
 ```
 
-...But even if we can put an "extra" semicolon somewhere, that's not an error. It will be ignored.
+ولكن حتى لو قمنا بوضع فاصلة منقوطة إضافية في مكان ما، فهذا ليس بخطأ، حيث سيتمّ تجاهلها.
 
-More in: <info:structure>.
+للمزيد من التفاصيل: <info:structure>.
 
-## Strict mode
+## الوضع الدقيق (الصارم) (Strict mode)
 
-To fully enable all features of modern JavaScript, we should start scripts with `"use strict"`.
+لتمكين وتفعيل جميع ميزات الإصدار الحديث من جافاسكريبت، يجب علينا بدء أي ملف لبرنامج معين بـِ `"use strict"`.
 
 ```js
 'use strict';
@@ -53,68 +53,68 @@ To fully enable all features of modern JavaScript, we should start scripts with 
 ...
 ```
 
-The directive must be at the top of a script or at the beginning of a function body.
+يجب وضع هذه التعليمة أو التوجيه في أعلى النص البرمجي أو في بداية جسم التابع.
 
-Without `"use strict"`, everything still works, but some features behave in the old-fashion, "compatible" way. We'd generally prefer the modern behavior.
+وبدون وضع التعليمة `"use strict"`، سيعمل كل شيء على ما يرام، ولكن ستعمل بعض الميزات بأسلوبها القديم المتوافق مع السلوك الحديث. لذلك يُفضل عموماً استخدام هذا الأسلوب الأحدث.
 
-Some modern features of the language (like classes that we'll study in the future) enable strict mode implicitly.
+جديرٌ بالذكر، أن بعضاً من هذه الميزات (كالصفوف التي سندرسها في المستقبل) تقوم بتفعيل هذا الوضع الحديث (الدقيق) بشكل ضمني حتى لو لم يتم كتابة التعليمة بشكل صريح.
 
-More in: <info:strict-mode>.
+للمزيد من المعلومات: <info:strict-mode>.
 
-## Variables
+## المتحولات (المتغيرات)
 
-Can be declared using:
+يُمكن تعريفها كالتالي:
 
 - `let`
-- `const` (constant, can't be changed)
-- `var` (old-style, will see later)
+- `const` (ثابت، لا يمكن تغيير قيمته)
+- `var` (باستخدام الأسلوب القديم، كما سنراه لاحقاً)
 
-A variable name can include:
-- Letters and digits, but the first character may not be a digit.
-- Characters `$` and `_` are normal, on par with letters.
-- Non-Latin alphabets and hieroglyphs are also allowed, but commonly not used.
+يمكن أن يحتوي اسم المتحول على:
+- الحروف والأرقام، ولكن بشرط ألا يكون المحرف الأول رقماً.
+- تعتبر المحارف `$` و `_` طبيعية، وتعامل مثلها كمثل الحروف. 
+- يُسمح أيضاً بالأبجدية الهيروغليفية غير اللاتينية، ولكن عادةً لا يتم استخدامها.
 
-Variables are dynamically typed. They can store any value:
+المتغيرات هي ديناميكية النمط. أي يمكن تخزين أي قيمة فيها:
 
 ```js
 let x = 5;
 x = "John";
 ```
 
-There are 8 data types:
+وهناك 8 أنواع من أنماط البيانات:
 
-- `number` for both floating-point and integer numbers,
-- `bigint` for integer numbers of arbitrary length,
-- `string` for strings,
-- `boolean` for logical values: `true/false`,
-- `null` -- a type with a single value `null`, meaning "empty" or "does not exist",
-- `undefined` -- a type with a single value `undefined`, meaning "not assigned",
-- `object` and `symbol` -- for complex data structures and unique identifiers, we haven't learnt them yet.
+- `number` لكل من الأرقام العشرية والأرقام الصحيحة،
+- `bigint` للأرقام الصحيحة غير محددة الطول،
+- `string` لسلاسل المحارف,
+- `boolean` للقيم المنطقية: `true/false`,
+- `null` -- وهو نوع بقيمة واحدة وهي `null`, وتعني "فارغ" أو "غير موجود",
+- `undefined` -- وهو نوع بقيمة واحدة وهي `undefined`, وتعني "غير مُسند",
+- `object` و `symbol` -- وتستخدم لبُنى المعطيات المعقدة والمُعرّفات الفريدة أو غير المتكررة، ولم نتطرق لذكر هذه الأنماط بعد.
 
-The `typeof` operator returns the type for a value, with two exceptions:
+يُعيد العامل `typeof` النمط الخاص بقيمة معيّنة، باستثناء الحالتين التالييتين:
 ```js
-typeof null == "object" // error in the language
-typeof function(){} == "function" // functions are treated specially
+typeof null == "object" // خطأ في اللغة
+typeof function(){} == "function" // يتم معالجة التوابع بشكل خاص
 ```
 
-More in: <info:variables> and <info:types>.
+للمزيد من التفاصيل: <info:variables> وَ <info:types>.
 
-## Interaction
+## التفاعل مع المتصفح
 
-We're using a browser as a working environment, so basic UI functions will be:
+نحن نستخدم المتصفح كبيئة عمل، لذا تكون واجهات المستخدم الأساسية للتفاعل معه هي:
 
 [`prompt(question, [default])`](mdn:api/Window/prompt)
-: Ask a `question`, and return either what the visitor entered or `null` if they clicked "cancel".
+: عن طريق هذه التعليمة يتم طرح سؤال على المستخدم، مع حقل نصّي لإدخال الجواب المناسب، فيتم إرجاع القيمة التي أدخلها المستخدم أو `null` إذا نقر على زر الإلغاء (cancel).
 
 [`confirm(question)`](mdn:api/Window/confirm)
-: Ask a `question` and suggest to choose between Ok and Cancel. The choice is returned as `true/false`.
+: تقوم هذه التعليمة بطرح سؤال مع إمكانية الجواب بموافق (Ok) أو إلغاء (Cancel). وبحسب الاختيار يتم إرجاع قيمة `false/true`.
 
 [`alert(message)`](mdn:api/Window/alert)
-: Output a `message`.
+: تقوم هذه التعليمة بإظهار رسالة معيّنة `message`.
 
-All these functions are *modal*, they pause the code execution and prevent the visitor from interacting with the page until they answer.
+جميع التوابع السابقة هي عبارة عن ملاحظات شكلية أي يتم فتح نافذة صغيرة في أعلى الصفحة نفسها وتقوم بعرض السؤال، فتقوم هذه الملاحظة بإيقاف تنفيذ الكود البرمجي وتمنع المستخدم من التفاعل مع الصفحة حتى تتم الإجابة على السؤال المطروح.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let userName = prompt("Your name?", "Alice");
@@ -124,61 +124,61 @@ alert( "Visitor: " + userName ); // Alice
 alert( "Tea wanted: " + isTeaWanted ); // true
 ```
 
-More in: <info:alert-prompt-confirm>.
+للمزيد من التفاصيل: <info:alert-prompt-confirm>.
 
-## Operators
+## العوامل
 
-JavaScript supports the following operators:
+تدعم جافاسكريبت العوامل التالية:
 
-Arithmetical
-: Regular: `* + - /`, also `%` for the remainder and `**` for power of a number.
+العوامل الرياضية
+: العوامل النظامية المعروفة كـَ `* + - /`، بالإضافة لـِ `%` لحساب باقي القسمة و `**` لحساب قوى أو أسّ عدد معين.
 
-    The binary plus `+` concatenates strings. And if any of the operands is a string, the other one is converted to string too:
+    يقوم العامل الرياضي `+` بضم سلاسل المحارف أيضاً (strings). وفي حال كان أي من المعاملات (طرفي العامل) من نمط سلسلة محارف، يتم تحويل نمط الطرف الآخر لسلسلة محارف أيضاً في حال لم يكن كذلك:
 
     ```js run
     alert( '1' + 2 ); // '12', string
     alert( 1 + '2' ); // '12', string
     ```
 
-Assignments
-: There is a simple assignment: `a = b` and combined ones like `a *= 2`.
+الإسناد
+: الإسناد البسيط هو من الشكل: `a = b` أما الإسناد المركّب فهو من الشكل `a *= 2`.
 
-Bitwise
-: Bitwise operators work with 32-bit integers at the lowest, bit-level: see the [docs](mdn:/JavaScript/Reference/Operators/Bitwise_Operators) when they are needed.
+عوامل البِتّات (Bitwise)
+: تقوم عوامل الـ Bitwise بالعمل مع الأعداد الصحيحة من فئة 32-بِت على الأقل، فهي تعمل على مستوى البِت، وللاطلاع عليها يمكن مراجعة [التوثيق](mdn:/JavaScript/Reference/Operators/Bitwise_Operators) عند الحاجة.
 
-Conditional
-: The only operator with three parameters: `cond ? resultA : resultB`. If `cond` is truthy, returns `resultA`, otherwise `resultB`.
+العوامل الشرطية
+: والعامل الشرطي هو العامل الوحيد الذي يأخذ ثلاث معاملات: `cond ? resultA : resultB`. فإذا كان الشرط `cond` صحيحاً، سيتمّ إرجاع `resultA` وإلا سيتم إرجاع `resultB`.
 
-Logical operators
-: Logical AND `&&` and OR `||` perform short-circuit evaluation and then return the value where it stopped (not necessary `true`/`false`). Logical NOT `!` converts the operand to boolean type and returns the inverse value.
+العوامل المنطقية
+: تقوم العوامل المنطقية AND `&&` وَ OR `||` باختصار عملية تقييم الكود البرمجي وإرجاع تلك القيمة حيث توقفت (وليس بالضرورة أن تكون تلك القيمة `true/false`). أما النفي المنطقي NOT `!` فيقوم بتحويل المعامل المُمرّر إلى نمط boolean ويرد القيمة المعاكسة له (نفي الشرط أو عكسه).
 
-Nullish coalescing operator
-: The `??` operator provides a way to choose a defined value from a list of variables. The result of `a ?? b` is `a` unless it's `null/undefined`, then `b`.
+عامل دمج القيم الفارغة (غير الموجودة)
+: يقدّم العامل `??` طريقة لاختيار قيمة محدّدة بين قائمة من المتحولات (المتغيرات). فنتيجة التعبير التالي `a ?? b` هي قيمة `a` ما لم تكن قيمته `null/undefined`، وإلا قيمة `b`.
 
-Comparisons
-: Equality check `==` for values of different types converts them to a number (except `null` and `undefined` that equal each other and nothing else), so these are equal:
+المقارنات
+: يقوم عامل التحقق من المساواة `==` للأنماط المختلفة بتحويل المعاملات لنمط رقم (number) (مالم تكن `null` أو `undefined` والتي تتساوى مع بعضها البعض ولا شي آخر يتساوى معها)، وبناءً عليه تعتبر التعابير التالية متساوية:
 
     ```js run
     alert( 0 == false ); // true
     alert( 0 == '' ); // true
     ```
 
-    Other comparisons convert to a number as well.
+    والمقارنات الأخرى تتحوّل لرقم أيضاً.
 
-    The strict equality operator `===` doesn't do the conversion: different types always mean different values for it.
+    في حين لا يقوم عامل المقارنة الدقيق `===` بالتحويل: أي أن الأنماط المختلفة تعني وجود قيم مختلفة دائماً.
 
-    Values `null` and `undefined` are special: they equal `==` each other and don't equal anything else.
+    أما القيم `null` و `undefined` فلها وضعٌ خاص: حيث تتساوى مع بعضها البعض عن طريق عامل المقارنة `==` ولا تتساوى مع أي شيء آخر.
 
-    Greater/less comparisons compare strings character-by-character, other types are converted to a number.
+    تقوم مقارنات الـ أكبر/أصغر بمقارنة سلسلة المحارف محرف محرف، في حين باقي الأنماط يتم تحويلها لنمط الرقم (number).
 
-Other operators
-: There are few others, like a comma operator.
+عوامل أخرى
+: هناك عوامل أخرى كذلك، كعامل الفاصلة.
 
-More in: <info:operators>, <info:comparison>, <info:logical-operators>, <info:nullish-coalescing-operator>.
+للمزيد من التفاصيل: <info:operators>, <info:comparison>, <info:logical-operators>, <info:nullish-coalescing-operator>.
 
-## Loops
+## الحلقات التكرارية
 
-- We covered 3 types of loops:
+- كنا قد قمنا سابقاً بتغطية ثلاثة أنواعٍ للحلقات:
 
     ```js
     // 1
@@ -197,25 +197,25 @@ More in: <info:operators>, <info:comparison>, <info:logical-operators>, <info:nu
     }
     ```
 
-- The variable declared in `for(let...)` loop is visible only inside the loop. But we can also omit `let` and reuse an existing variable.
-- Directives `break/continue` allow to exit the whole loop/current iteration. Use labels to break nested loops.
+- يكون المتحول المعرف ضمن `for(let...)` مرئياً فقط داخل الحلقة. ولكن بإمكاننا حذف `let` وإعادة استخدام متحول معرّف قبل ذلك.
+- تسمح التعمليات `break/continue` بالخروج من الحلقة بشكل كامل أو من التكرار الحالي فقط. يمكنك استخدامها لكسر الحلقات التكرارية المتداخلة.
 
-Details in: <info:while-for>.
+للمزيد من التفاصيل: <info:while-for>.
 
-Later we'll study more types of loops to deal with objects.
+سنقوم لاحقاً بدراسة المزيد من أنواع الحلقات التكرارية والتي تتعامل مع الأغراض (الكائنات).
 
-## The "switch" construct
+## جملة "switch"
 
-The "switch" construct can replace multiple `if` checks. It uses `===` (strict equality) for comparisons.
+يمكن أن تحلّ البنية البرمجية "switch" محلّ العديد من التحققات المبنية باستخدام `if`. حيث تستخدم عامل المقارنة الدقيق `===` للتحقق من القيم الممررة.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 let age = prompt('Your age?', 18);
 
 switch (age) {
   case 18:
-    alert("Won't work"); // the result of prompt is a string, not a number
+    alert("Won't work"); // نتيجة أو خرج التابع السابق هو من نمط سلسلة من المحارف وليس برقم
     break;
 
   case "18":
@@ -227,13 +227,13 @@ switch (age) {
 }
 ```
 
-Details in: <info:switch>.
+للمزيد من التفاصيل: <info:switch>.
 
-## Functions
+## الدوال (التوابع)
 
-We covered three ways to create a function in JavaScript:
+كنا قد قمنا بتغطية ثلاثة أنواع لإنشاء الدوال في جافاسكريبت:
 
-1. Function Declaration: the function in the main code flow
+1. تعريف الدالة: حيث تكون الدالة موجودة ضمن نطاق التنفيذ الأساسي
 
     ```js
     function sum(a, b) {
@@ -243,7 +243,7 @@ We covered three ways to create a function in JavaScript:
     }
     ```
 
-2. Function Expression: the function in the context of an expression
+2. الدوال كتعابير: حيث تكون الدوال موجودة ضمن سياق تعبير عادي وليس كتعريف كما سبق
 
     ```js
     let sum = function(a, b) {
@@ -253,32 +253,33 @@ We covered three ways to create a function in JavaScript:
     };
     ```
 
-3. Arrow functions:
+3. الدوال كأسهم: (حيث تُرسم الدوال بطريقة تشبه شكل السهم)
 
     ```js
-    // expression at the right side
+    // توضع التعابير في الطرف اليميني
     let sum = (a, b) => a + b;
 
-    // or multi-line syntax with { ... }, need return here:
+    // أو يمكن استخدام أكثر من سطر مع أقواس الكتل {...}
+    // ولكن سنحتاج لتعليمة return هنا:
     let sum = (a, b) => {
       // ...
       return a + b;
     }
 
-    // without arguments
+    // بلا معاملات
     let sayHi = () => alert("Hello");
 
-    // with a single argument
+    // مع معامل وحيد
     let double = n => n * 2;
     ```
 
 
-- Functions may have local variables: those declared inside its body. Such variables are only visible inside the function.
-- Parameters can have default values: `function sum(a = 1, b = 2) {...}`.
-- Functions always return something. If there's no `return` statement, then the result is `undefined`.
+- يمكن أن تتضمن الدالة على متغيرات محلية: وهي المتغيرات التي يتم تعريفها ضمن جسم الدالة. وهذه المتغيرات تكون مرئية فقط ضمن الدالة نفسها.
+- يمكن أن تحتوي المعاملات على قيم افتراضية: ` {...} function sum(a = 1, b = 2)`.
+- تقوم الدوال بإرجاع قيمة دائماً. وإذا لم يكن هنالك تعليمة `return`، ستكون النتيجة هي `undefined`.
 
-Details: see <info:function-basics>, <info:arrow-functions-basics>.
+للمزيد من التفاصيل: <info:function-basics>, <info:arrow-functions-basics>.
 
-## More to come
+## المزيد قادم
 
-That was a brief list of JavaScript features. As of now we've studied only basics. Further in the tutorial you'll find more specials and advanced features of JavaScript.
+كانت تلك قائمة مختصر بميزات جافاسكريبت، وحتى الآن قمنا بدراسة الأساسيات فقط. علاوةً على ذلك وفي البرنامج التعليمي، ستجد المزيد من الميزات الخاصة والمتقدمة لجافاسكريبت.

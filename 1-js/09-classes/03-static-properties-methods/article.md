@@ -1,9 +1,9 @@
 
-# Static properties and methods
+# الخواص والدوال الثابتة
 
-We can also assign a method to the class function itself, not to its `"prototype"`. Such methods are called *static*.
+كما يمكننا تعيين خاصية لدالة الclass ذاتها, وليس لـ `"prototype"` الخاص بها. مثل هذه الدوال تسمى بـ*static*.
 
-In a class, they are prepended by `static` keyword, like this:
+في الـ class, يتم إلحاقهم بكلمة رئيسية ` static `'' ، مثل هذا:
 
 ```js run
 class User {
@@ -17,7 +17,7 @@ class User {
 User.staticMethod(); // true
 ```
 
-That actually does the same as assigning it as a property directly:
+هذا في الواقع يفعل نفس الشيء عند تعيينه كخاصية مباشرة:
 
 ```js run
 class User { }
@@ -29,11 +29,11 @@ User.staticMethod = function() {
 User.staticMethod(); // true
 ```
 
-The value of `this` in `User.staticMethod()` call is the class constructor `User` itself (the "object before dot" rule).
+قيمة `this` في` User.staticMethod () `هي مُنشئ الفئة` المستخدم` نفسه (قاعدة "object قبل النقطة").
 
-Usually, static methods are used to implement functions that belong to the class, but not to any particular object of it.
+عادة ، يتم استخدام الأساليب الثابتة لتنفيذ الوظائف التي تنتمي إلى الفئة ، ولكن ليس لأي object معين منها.
 
-For instance, we have `Article` objects and need a function to compare them. A natural solution would be to add `Article.compare` method, like this:
+على سبيل المثال ، لدينا objects `Article` ونحتاج إلى وظيفة لمقارنتها. الحل الطبيعي هو إضافة طريقة `Article.compare` ، على النحو التالي:
 
 ```js run
 class Article {
@@ -63,17 +63,17 @@ articles.sort(Article.compare);
 alert( articles[0].title ); // CSS
 ```
 
-Here `Article.compare` stands "above" articles, as a means to compare them. It's not a method of an article, but rather of the whole class.
+هنا "Article.compare" تقف المقالات "أعلاه" ، كوسيلة لمقارنتها. إنها ليست دالة لـ `article` ، ولكن بدلاً من الـ `class` بأكمله.
 
-Another example would be a so-called "factory" method. Imagine, we need few ways to create an article:
+مثال آخر هو ما يسمى طريقة "المصنع". تخيل ، نحن بحاجة إلى طرق قليلة لإنشاء مقال:
 
-1. Create by given parameters (`title`, `date` etc).
-2. Create an empty article with today's date.
-3. ...or else somehow.
+1. إنشاء بواسطة معلمات معينة (`العنوان` ،` التاريخ` وما إلى ذلك).
+2. إنشاء مقال فارغ بتاريخ اليوم.
+3. ... أو بطريقة أخرى.
 
-The first way can be implemented by the constructor. And for the second one we can make a static method of the class.
+يمكن تنفيذ الطريقة الأولى من قبل المنشئ. وللثاني يمكننا عمل طريقة ثابتة للفئة.
 
-Like `Article.createTodays()` here:
+مثل `Article.createTodays()` هنا:
 
 ```js run
 class Article {
@@ -95,9 +95,9 @@ let article = Article.createTodays();
 alert( article.title ); // Today's digest
 ```
 
-Now every time we need to create a today's digest, we can call `Article.createTodays()`. Once again, that's not a method of an article, but a method of the whole class.
+الآن في كل مرة نحتاج فيها إلى إنشاء ملخص اليوم ، يمكننا استدعاء `` Article.createTodays () `. مرة أخرى ، هذه ليست طريقة لمقالة ، ولكنها طريقة للفصل بأكمله.
 
-Static methods are also used in database-related classes to search/save/remove entries from the database, like this:
+يتم استخدام الأساليب الثابتة أيضًا في الفئات المتعلقة بقاعدة البيانات للبحث / حفظ / إزالة الإدخالات من قاعدة البيانات ، مثل هذا:
 
 ```js
 // assuming Article is a special class for managing articles
@@ -109,7 +109,7 @@ Article.remove({id: 12345});
 
 [recent browser=Chrome]
 
-Static properties are also possible, they look like regular class properties, but prepended by `static`:
+الخصائص الثابتة ممكنة أيضًا ، فهي تبدو مثل خصائص الفئة العادية ، ولكن يتم إلحاقها بـ `static`:
 
 ```js run
 class Article {
@@ -125,11 +125,11 @@ That is the same as a direct assignment to `Article`:
 Article.publisher = "Ilya Kantor";
 ```
 
-## Inheritance of static properties and methods
+## وراثة الدوال والخصائص الثابتة
 
-Static properties and methods are inherited.
+الخصائص والأساليب الثابتة موروثة.
 
-For instance, `Animal.compare` and `Animal.planet` in the code below are inherited and accessible as `Rabbit.compare` and `Rabbit.planet`:
+على سبيل المثال ، `Animal.compare` و` Animal.planet` في الشفرة أدناه موروثة ويمكن الوصول إليها باسم `Rabbit.compare` و`Rabbit.planet`:
 
 ```js run
 class Animal {
@@ -174,9 +174,9 @@ rabbits[0].run(); // Black Rabbit runs with speed 5.
 alert(Rabbit.planet); // Earth
 ```
 
-Now when we call `Rabbit.compare`, the inherited `Animal.compare` will be called.
+الآن عندما نسمي "Rabbit.compare" ، سيتم استدعاء "Animal.compare" الموروث.
 
-How does it work? Again, using prototypes. As you might have already guessed, `extends` gives `Rabbit` the `[[Prototype]]` reference to `Animal`.
+كيف يعمل؟ مرة أخرى ، باستخدام النماذج الأولية. كما كنت قد خمنت بالفعل ، فإن كلمة "يمتد" تعطي كلمة "أرنب" يشير "[[نموذج أولي]]` إلى "حيوان".
 
 ![](animal-rabbit-static.svg)
 
@@ -200,17 +200,18 @@ alert(Rabbit.__proto__ === Animal); // true
 alert(Rabbit.prototype.__proto__ === Animal.prototype); // true
 ```
 
-## Summary
+## ملخص
 
-Static methods are used for the functionality that belongs to the class "as a whole". It doesn't relate to a concrete class instance.
+يتم استخدام الأساليب الثابتة للوظيفة التي تنتمي إلى الفئة "ككل". لا يتعلق الأمر بمثيل فئة ملموسة.
 
-For example, a method for comparison `Article.compare(article1, article2)` or a factory method `Article.createTodays()`.
+على سبيل المثال ، طريقة للمقارنة `Article.compare (article1 ، article2)` أو طريقة مصنع `Article.createTodays ()`.
 
-They are labeled by the word `static` in class declaration.
+يتم تسميتها بكلمة "ثابت" في إعلان الفئة.
 
-Static properties are used when we'd like to store class-level data, also not bound to an instance.
+يتم استخدام الخصائص الثابتة عندما نرغب في تخزين البيانات على مستوى الفصل الدراسي ، والتي لا ترتبط أيضًا بمثيل.
 
-The syntax is:
+الصيغة هي:
+
 
 ```js
 class MyClass {
@@ -222,13 +223,14 @@ class MyClass {
 }
 ```
 
-Technically, static declaration is the same as assigning to the class itself:
+من الناحية الفنية ، فإن الإعلان الثابت هو نفسه التخصيص للـ `class` نفسها:
 
 ```js
 MyClass.property = ...
 MyClass.method = ...
 ```
 
-Static properties and methods are inherited.
+الخصائص والأساليب الثابتة موروثة.
 
-For `class B extends A` the prototype of the class `B` itself points to `A`: `B.[[Prototype]] = A`. So if a field is not found in `B`, the search continues in `A`.
+بالنسبة إلى "الفئة B التي تمد A" ، يشير النموذج الأولي للفئة `B` نفسها إلى` A`: `B. [[Prototype]] = A`. لذا ، إذا لم يتم العثور على حقل في `B` ، فسيستمر البحث في` A`.
+

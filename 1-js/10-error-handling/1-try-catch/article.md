@@ -354,25 +354,17 @@ try {
 
 بالطبع ، كل شيء ممكن! المبرمجون يرتكبون الأخطاء. حتى في المرافق المفتوحة المصدر التي يستخدمها الملايين لعقود - فجأة يمكن اكتشاف خطأ يؤدي إلى اختراق رهيب.
 
-<<<<<<< HEAD
-في حالتنا هذه, `try..catch` المقصود لالتقاط أخطاء "البيانات غير صحيحة".ولكن بطبيعتها ، `catch` يحصل على *كل* الأخطاء من `try`. هنا يحصل على خطأ غير متوقع, ولكن لا يزال يظهر `"JSON Error"`. هذا خطأ ويجعل أيضًا تصحيح التعليمات البرمجية أكثر صعوبة.
+في حالتنا هذه, `try..catch` المقصود لالتقاط أخطاء "البيانات غير صحيحة".ولكن بطبيعتها ، `catch` يحصل على *كل* الأخطاء من `try`. هنا يحصل على خطأ غير متوقع, ولكن لا يزال يظهر `"JSON Error"`. هذا خطأ ويجعل أيضًا تصحيح التعليمات البرمجية أكثر صعوبة.القاعدة بسيطة:
 
-لحسن الحظ ، يمكننا معرفة الخطأ الذي تحصلنا عليه ، على سبيل المثال من `name`:
-=======
-In our case, `try..catch` is placed to catch "incorrect data" errors. But by its nature, `catch` gets *all* errors from `try`. Here it gets an unexpected error, but still shows the same `"JSON Error"` message. That's wrong and also makes the code more difficult to debug.
+**يجب أن يقوم Catch بمعالجة الأخطاء التي يعرفها و "إعادة رمي" كل الآخرين فقط.**
 
-To avoid such problems, we can employ the "rethrowing" technique. The rule is simple:
+يمكن شرح تقنية "إعادة الرمي" بمزيد من التفصيل على النحو التالي:
 
-**Catch should only process errors that it knows and "rethrow" all others.**
+1. Catch يحصل على جميع الأخطاء.
+2. في `catch(err) {...}` نقوم بتحليل كائن الخطأ `err`.
+3. إذا لم نكن نعرف كيف نتعامل معها ، فنفعل `throw err`.
 
-The "rethrowing" technique can be explained in more detail as:
-
-1. Catch gets all errors.
-2. In the `catch(err) {...}` block we analyze the error object `err`.
-2. If we don't know how to handle it, we do `throw err`.
-
-Usually, we can check the error type using the `instanceof` operator:
->>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
+عادة ، يمكننا التحقق من نوع الخطأ باستخدام العامل `instanceof`:
 
 ```js run
 try {
@@ -381,24 +373,13 @@ try {
 *!*
   if (err instanceof ReferenceError) {
 */!*
-    alert('ReferenceError'); // "ReferenceError" for accessing an undefined variable
+    alert('ReferenceError'); // "ReferenceError" للوصول إلى متغير غير محدد
+
   }
 }
 ```
 
-<<<<<<< HEAD
-القاعدة بسيطة:
-
-**يجب أن يقوم Catch بمعالجة الأخطاء التي يعرفها و "إعادة رمي" كل الآخرين فقط.**
-
-يمكن شرح تقنية "إعادة الرمي" بمزيد من التفصيل على النحو التالي:
-
-1. Catch يحصل على جميع الأخطاء.
-2. في `catch(err) {...}` نقوم بتحليل كائن الخطأ `err`.
-2. إذا لم نكن نعرف كيف نتعامل معها ، فنفعل `throw err`.
-=======
-We can also get the error class name from `err.name` property. All native errors have it. Another option is to read `err.constructor.name`.
->>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
+يمكننا أيضًا الحصول على اسم فئة الخطأ من خاصية `err.name`. جميع الأخطاء الأصلية لديها هذه الخاصية. خيار آخر هو قراءة err.constructor.name.
 
 في الكود أدناه ، نستخدم إعادة رمي بحيث `catch` يعالج فقط `SyntaxError`:
 

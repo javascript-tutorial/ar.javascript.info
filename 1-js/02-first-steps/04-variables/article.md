@@ -83,14 +83,8 @@ let user = 'John'
 
 تقنيا, كل هذه الطرق تؤدي لنفس الشئ. لذلك, انها مسألة ذوق وجمال شخصي.
 
-<<<<<<< HEAD
-
 ````smart header="`var` بدلا من `let`"
-في الاصدارات الاقدم, قد تجد ايضا كلمة اخري: `var` بدلا من `let`
-=======
-````smart header="`var` instead of `let`"
-In older scripts, you may also find another keyword: `var` instead of `let`:
->>>>>>> d35baee32dcce127a69325c274799bb81db1afd8
+في الاصدارات الاقدم, قد تجد ايضا كلمة اخري: `var` بدلا من `let`:
 
 ```js
 *!*var*/!* message = 'Hello';
@@ -210,11 +204,8 @@ let имя = '...';
 let 我 = '...';
 ```
 
-<<<<<<< HEAD
-تقنياً, لا يوجد خطأ هنا, مثل هذه الاسماء مسموح بها, ولكن هناك تقاليد عالميه لأستخدام اللغه الانجليزيه في أسماء المتغيرات. حتي لو كنا نكتب نصاً صغيراً, قد يكون لها حياة طويله في المستقبل. الناس من مختلف البلاد ربما يحتاجوا لقرأءتها في بنفس الكتابة.
-=======
-Technically, there is no error here. Such names are allowed, but there is an international convention to use English in variable names. Even if we're writing a small script, it may have a long life ahead. People from other countries may need to read it some time.
->>>>>>> d35baee32dcce127a69325c274799bb81db1afd8
+تقنياً, لا يوجد خطأ هنا, مثل هذه الاسماء مسموح بها, ولكن هناك تقاليد عالميه لأستخدام اللغه الانجليزيه في أسماء المتغيرات. حتي لو كنا نكتب نصاً صغيراً, قد يكون لها حياة طويله في المستقبل. الناس من مختلف البلاد ربما يحتاجوا لقرأءتها لبعض الوقت.
+
 ````
 
 ````warn header="الأسماء المحجوزه"

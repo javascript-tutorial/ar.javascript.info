@@ -286,7 +286,7 @@ A style guide contains general rules about "how to write" code, e.g. which quote
 
 بعض الخيارات الشائعة:
 
-- [ارشادات أسلوب Google لكتابة ال JavaScript](https://google.github.io/styleguide/javascriptguide.xml)
+- [ارشادات أسلوب Google لكتابة ال JavaScript](https://google.github.io/styleguide/jsguide.html)
 - [ارشادات أسلوب AirBnb لكتابة ال JavaScript](https://github.com/airbnb/javascript)
 - [Idiomatic.JS](https://github.com/rwaldron/idiomatic.js)
 - [StandardJS](https://standardjs.com/)

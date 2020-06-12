@@ -150,7 +150,7 @@ function isHidden(elem) {
 
 تتضمن عرض المحتوى مع الحشو ، لكن بدون شريط التمرير:
 
-! [] (metric-client-width-height.svg)
+![](metric-client-width-height.svg)
 
 في الصورة أعلاه ، لنفكر أولاً في "clientHeight".
 
@@ -169,7 +169,7 @@ function isHidden(elem) {
 
 هذه الخصائص مثل `clientWidth / clientHeight` ، ولكنها تشمل أيضًا الأجزاء التي تم تمريرها (المخفية):
 
-! [] (metric-roll-width-height.svg)
+![](metric-roll-width-height.svg)
 
 في الصورة أعلاه:
 
@@ -199,22 +199,22 @@ element.style.height = `${element.scrollHeight}px`;
 
 في الصورة أدناه ، يمكننا رؤية "التمرير" و "التمرير العلوي" للكتلة ذات التمرير العمودي.
 
-! [] (metric-تمرير-top.svg)
+![](metric-scroll-top.svg)
 
 وبعبارة أخرى ، فإن "rollTop" هو "مقدار التمرير".
 
-`` `` smart header = "يمكن تعديل" التمرير لليسار / التمرير العلوي "
+````smart header = "يمكن تعديل" التمرير لليسار / التمرير العلوي "
 معظم الخصائص الهندسية هنا للقراءة فقط ، ولكن يمكن تغيير `التمرير لليسار / التمرير العلوي` ، وسوف يقوم المتصفح بتمرير العنصر.
 
-`` عبر الإنترنت
+```online
 إذا قمت بالنقر فوق العنصر أدناه ، فسيتم تنفيذ الرمز `elem.scrollTop + = 10`. هذا يجعل محتوى العنصر بالتمرير `10px` للأسفل.
 
 
 <div onclick="this.scrollTop+=10" style="cursor:pointer;border:1px solid black;width:100px;height:80px;overflow:auto">Click<br>Me<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
 ```
 
-يؤدي تعيين "التمرير" إلى "0" أو "إنفينيتي" إلى جعل العنصر ينتقل إلى الأعلى / الأسفل على التوالي.
-`` ``
+يؤدي تعيين "scrollTop" إلى "0" أو "إنفينيتي" إلى جعل العنصر ينتقل إلى الأعلى/الأسفل على التوالي.
+````
 
 ## لا تأخذ العرض / الارتفاع من CSS
 

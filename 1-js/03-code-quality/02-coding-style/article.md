@@ -1,12 +1,12 @@
-# Coding Style
+# أسلوب كتابة الكود
 
-Our code must be as clean and easy to read as possible.
+يجب أن يكون الكود الخاص بنا نظيف وسهل القراءة قدر الإمكان.
 
-That is actually the art of programming -- to take a complex task and code it in a way that is both correct and human-readable. A good code style greatly assists in that.  
+هذا هو في الواقع فن البرمجة ... القيام بمهمة معقدة و كتابة الكود الخاص بها بطريقة صحيحة و قابلة للقراءة بواسطة مبرمج آخر. لذا يساعد أسلوب كتابة الكود الجيد إلى حد كبير في ذلك.
 
-## Syntax
+## بناء الجملة
 
-Here is a cheat sheet with some suggested rules (see below for more details):
+إليك تجميعة لبعض القواعد المقترحة (انظر أدناه لمزيد من التفاصيل):
 
 ![](code-style.svg)
 <!--
@@ -34,15 +34,15 @@ if (n < 0) {
 
 -->
 
-Now let's discuss the rules and reasons for them in detail.
+الآن دعونا نناقش القواعد وأسبابها بالتفصيل.
 
-```warn header="There are no \"you must\" rules"
-Nothing is set in stone here. These are style preferences, not religious dogmas.
+```warn header="لا توجد قاعدة \"يجب أن تفعل كذا\""
+لا يوجد شيء محدد هنا. هي مجرد تفضيلات لأسلوب الكتابة ، ليست كالعقائد الدينية.
 ```
 
-### Curly Braces
+### الأقواس المعقوفة
 
-In most JavaScript projects curly braces are written in "Egyptian" style with the opening brace on the same line as the corresponding keyword -- not on a new line. There should also be a space before the opening bracket, like this:
+في معظم مشاريع جافا سكريبت ، يتم كتابة الأقواس المعقوفة بأسلوب "مصري" مع قوس فتح على نفس السطر مثل الكلمة الرئيسية المقابلة - وليس على سطر جديد. يجب أيضًا أن يكون هناك مسافة قبل قوس الفتح ، كالتالي:
 
 ```js
 if (condition) {
@@ -52,39 +52,39 @@ if (condition) {
 }
 ```
 
-A single-line construct, such as `if (condition) doSomething()`, is an important edge case. Should we use braces at all?
+بناء أحادي الخط مثل`if (condition) doSomething()`, هي قضية مهمة.هل يجب علينا استخدام الأقواس من الأساس؟
 
-Here are the annotated variants so you can judge their readability for yourself:
+إليك المتغيرات التي تحكم على مدى سهولة قراءتها بنفسك:
 
-1. 😠 Beginners sometimes do that. Bad! Curly braces are not needed:
+1. 😠 يقوم المبتدئون بذلك في بعض الأحيان. هذا سيئ! لا حاجة إلى الأقواس المعقوفة:
     ```js
     if (n < 0) *!*{*/!*alert(`Power ${n} is not supported`);*!*}*/!*
     ```
-2. 😠 Split to a separate line without braces. Never do that, easy to make an error when adding new lines:
+2. 😠 انقسم إلى خط منفصل بدون أقواس. لا تفعل ذلك أبدًا ، من السهل ارتكاب خطأ عند إضافة خطوط جديدة:
     ```js
     if (n < 0)
       alert(`Power ${n} is not supported`);
     ```
-3. 😏 One line without braces - acceptable, if it's short:
+3. 😏 سطر واحد بدون أقواس - مقبول ، إذا كان  السطر قصيرًا:
     ```js
     if (n < 0) alert(`Power ${n} is not supported`);
     ```
-4. 😃 The best variant:
+4. 😃 الخيار الأفضل:
     ```js
     if (n < 0) {
       alert(`Power ${n} is not supported`);
     }
     ```
 
-For a very brief code, one line is allowed, e.g. `if (cond) return null`. But a code block (the last variant) is usually more readable.
+لكود مختصر للغاية ، يُسمح بسطر واحد, مثال `if (cond) return null`. ولكن عادة ما تكون اجزاء الكود (الخيار الأخير) أكثر قابلية للقراءة.
 
-### Line Length
+### طول الخط
 
-No one likes to read a long horizontal line of code. It's best practice to split them.
+لا أحد يحب قراءة سطر أفقي طويل من الكود. من الأفضل تقسيمها.
 
-For example:
+مثال:
 ```js
-// backtick quotes ` allow to split the string into multiple lines
+// backtick quotes ` تسمح بكتابة النصوص علي سطور متعددة
 let str = `
   ECMA International's TC39 is a group of JavaScript developers,
   implementers, academics, and more, collaborating with the community
@@ -92,7 +92,7 @@ let str = `
 `;
 ```
 
-And, for `if` statements:
+و بالنسبة لعبارة`if`:
 
 ```js
 if (
@@ -104,20 +104,19 @@ if (
 }
 ```
 
-The maximum line length should be agreed upon at the team-level. It's usually 80 or 120 characters.
+يجب الاتفاق على الحد الأقصى لطول الخط على مستوى الفريق. عادة ما تكون 80 أو 120 حرفًا.
 
-### Indents
+### المسافات البادئة
 
-There are two types of indents:
+يوجد نوعان من المسافات البادئة:
 
-- **Horizontal indents: 2 or 4 spaces.**
+- **المسافات البادئة الأفقية: 2 أو 4 مسافات.**
 
-    A horizontal indentation is made using either 2 or 4 spaces or the horizontal tab symbol (key `key:Tab`). Which one to choose is an old holy war. Spaces are more common nowadays.
+   يتم عمل مسافة بادئة أفقية باستخدام مسافتين أو 4 مسافات أو رمز علامة التبويب الأفقية (key `key:Tab`). أيهما تختار فهي حرب قديمة. المساحات هي الأكثر شيوعًا في الوقت الحاضر.
 
-    One advantage of spaces over tabs is that spaces allow more flexible configurations of indents than the tab symbol.
+  هنالك ميزة واحدة للمسافات عن علامات التبويب الا و هي أن المسافات تسمح بتكوينات مسافات بادئة أكثر مرونة من رمز علامة التبويب.
 
-    For instance, we can align the arguments with the opening bracket, like this:
-
+    على سبيل المثال ، يمكننا محاذاة المعاملات مع قوس الفتح ، مثل هذا:
     ```js no-beautify
     show(parameters,
          aligned, // 5 spaces padding at the left  
@@ -129,9 +128,9 @@ There are two types of indents:
     }
     ```
 
-- **Vertical indents: empty lines for splitting code into logical blocks.**
+- **المسافات البادئة العمودية: أسطر فارغة لتقسيم الشفرة إلى كتل منطقية.**
 
-    Even a single function can often be divided into logical blocks. In the example below, the initialization of variables, the main loop and returning the result are split vertically:
+    غالبًا ما يمكن تقسيم دالة واحدة إلى كتل منطقية. في المثال أدناه ، يتم تقسيم تهيئة المتغيرات والحلقة الرئيسية وإرجاع النتيجة عموديًا:
 
     ```js
     function pow(x, n) {
@@ -145,23 +144,23 @@ There are two types of indents:
     }
     ```
 
-    Insert an extra newline where it helps to make the code more readable. There should not be more than nine lines of code without a vertical indentation.
+    أدخل سطرًا جديدًا إضافيًا حيث يساعد على جعل الرمز أكثر قابلية للقراءة. يجب ألا يكون هناك أكثر من تسعة أسطر من الكود بدون مسافة بادئة رأسية.
 
-### Semicolons
+### الفاصلة المنقوطة
 
-A semicolon should be present after each statement, even if it could possibly be skipped.
+يجب أن تكون الفاصلة المنقوطة موجودة بعد كل عبارة ، حتى لو كان من الممكن تخطيها.
 
-There are languages where a semicolon is truly optional and it is rarely used. In JavaScript, though, there are cases where a line break is not interpreted as a semicolon, leaving the code vulnerable to errors. See more about that in the chapter <info:structure#semicolon>.
+هناك لغات تكون فيها الفاصلة المنقوطة اختيارية حقًا ونادرًا ما يتم استخدامها. في JavaScript ، على الرغم من ذلك ، هناك حالات لا يتم فيها تفسير فاصل الأسطر على أنه فاصلة منقوطة ، مما يجعل الشفرة عرضة للأخطاء. انظر المزيد عن ذلك في الفصل <info:structure#semicolon>.
 
-If you're an experienced JavaScript programmer, you may choose a no-semicolon code style like [StandardJS](https://standardjs.com/). Otherwise, it's best to use semicolons to avoid possible pitfalls. The majority of developers put semicolons.
+إذا كنت مبرمجًا JavaScript متمرسًا ، فيمكنك اختيار نمط رمز بلا فاصلة منقوطة مثل [StandardJS](https://standardjs.com/). خلاف ذلك ، من الأفضل استخدام الفواصل المنقوطة لتجنب الأخطاء. لذا يضع غالبية المطورين الفواصل المنقوطة.
 
-### Nesting Levels
+### مستويات التعمق
 
-Try to avoid nesting code too many levels deep.
+حاول تجنب تداخل التعليمات البرمجية بعمق أكبر من اللازم.
 
-For example, in the loop, it's sometimes a good idea to use the [`continue`](info:while-for#continue) directive to avoid extra nesting.
+ على سبيل المثال ، في الحلقة ، من الجيد أحيانًا استخدام عبارة [`continue`](info:while-for#continue)  لتجنب التعمق الزائد عن الحاجة.
 
-For example, instead of adding a nested `if` conditional like this:
+على سبيل المثال ، بدلاً من إضافة شرط `if` متداخل مثل هذا:
 
 ```js
 for (let i = 0; i < 10; i++) {
@@ -171,7 +170,7 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-We can write:
+تستطيع كتابة:
 
 ```js
 for (let i = 0; i < 10; i++) {
@@ -180,11 +179,11 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-A similar thing can be done with `if/else` and `return`.
+يمكن تطبيق نفس الشئ باستخدام `if/else` و `return`.
 
-For example, two constructs below are identical.
+على سبيل المثال ، البناءان أدناه متطابقان.
 
-Option 1:
+الخيار الأول :
 
 ```js
 function pow(x, n) {
@@ -202,7 +201,7 @@ function pow(x, n) {
 }
 ```
 
-Option 2:
+الخيار الثاني:
 
 ```js
 function pow(x, n) {
@@ -221,16 +220,16 @@ function pow(x, n) {
 }
 ```
 
-The second one is more readable because the "special case" of `n < 0` is handled early on. Once the check is done we can move on to the "main" code flow without the need for additional nesting.
+والثاني هو أكثر قابلية للقراءة بسبب "الحالة الخاصة" `n < 0` يتم التعامل معها في وقت مبكر. بمجرد الانتهاء من الفحص ، يمكننا الانتقال إلى تدفق الكود "الرئيسي" دون الحاجة إلى تعمق إضافي.
 
-## Function Placement
+## مكان الدوال
 
-If you are writing several "helper" functions and the code that uses them, there are three ways to organize the functions.
+إذا كنت تكتب العديد من الدوال المساعدة الكود الذي يستخدمهم ، فهناك ثلاث طرق لتنظيم الدوال.
 
-1. Declare the functions *above* the code that uses them:
+1. عرف الدوال *أعلي* الكود الذي يستخدمها:
 
     ```js
-    // *!*function declarations*/!*
+    // *!*تعريف دالة*/!*
     function createElement() {
       ...
     }
@@ -243,20 +242,20 @@ If you are writing several "helper" functions and the code that uses them, there
       ...
     }
 
-    // *!*the code which uses them*/!*
+    // *!*الكود الذي يستخدمها*/!*
     let elem = createElement();
     setHandler(elem);
     walkAround();
     ```
-2. Code first, then functions
+2. الكود أولا ثم الدوال
 
     ```js
-    // *!*the code which uses the functions*/!*
+    // *!*الكود الذي يستخدم الدالة*/!*
     let elem = createElement();
     setHandler(elem);
     walkAround();
 
-    // --- *!*helper functions*/!* ---
+    // --- *!*الدوال المساعدة*/!* ---
     function createElement() {
       ...
     }
@@ -269,54 +268,56 @@ If you are writing several "helper" functions and the code that uses them, there
       ...
     }
     ```
-3. Mixed: a function is declared where it's first used.
+3. مختلط: يتم اتعريف الدالة في مكان استخدامها لأول مرة.
 
-Most of time, the second variant is preferred.
+معظم الوقت ، يفضل الخيار الثاني.
 
-That's because when reading code, we first want to know *what it does*. If the code goes first, then it becomes clear from the start. Then, maybe we won't need to read the functions at all, especially if their names are descriptive of what they actually do.
+ذلك لأنه عند قراءة الكود ، نريد أولاً معرفة *ما يفعله*. إذا ذهب الكود أولاً ، يصبح واضحًا من البداية. بعد ذلك ، ربما لن نحتاج إلى قراءة الدوال على الإطلاق ، خاصة إذا كانت أسمائهم وصفية لما يقومون به بالفعل.
 
-## Style Guides
+## ارشادات الأسلوب
 
 A style guide contains general rules about "how to write" code, e.g. which quotes to use, how many spaces to indent, the maximal line length, etc. A lot of minor things.
 
-When all members of a team use the same style guide, the code looks uniform, regardless of which team member wrote it.
+تحتوي ارشادات الأسلوب على قواعد عامة حول "كيفية كتابة" الكود ، على سبيل المثال أي علامات تنصيص نستخدمها ، وعدد المسافات البادئة ، وطول الخط الأقصى ، وما إلى ذلك. الكثير من الأشياء الثانوية.
 
-Of course, a team can always write their own style guide, but usually there's no need to. There are many existing guides to choose from.
+عندما يستخدم جميع أعضاء الفريق دليل الأسلوب نفسه ، تبدو الشفرة موحدة ، بغض النظر عن أي عضو في الفريق كتبه.
 
-Some popular choices:
+بالطبع ، يمكن للفريق دائمًا كتابة دليل أسلوبه الخاص ، ولكن عادةً لا داعي لذلك. هناك العديد من الارشادات الموجودة للاختيار من بينها.
 
-- [Google JavaScript Style Guide](https://google.github.io/styleguide/javascriptguide.xml)
-- [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
+بعض الخيارات الشائعة:
+
+- [ارشادات أسلوب Google لكتابة ال JavaScript](https://google.github.io/styleguide/javascriptguide.xml)
+- [ارشادات أسلوب AirBnb لكتابة ال JavaScript](https://github.com/airbnb/javascript)
 - [Idiomatic.JS](https://github.com/rwaldron/idiomatic.js)
 - [StandardJS](https://standardjs.com/)
-- (plus many more)
+- (بالإضافة إلى المزيد)
 
-If you're a novice developer, start with the cheat sheet at the beginning of this chapter. Then you can browse other style guides to pick up more ideas and decide which one you like best.
+إذا كنت مطورًا مبتدئًا ، فابدأ بالارشادات في بداية هذا الفصل. ثم يمكنك تصفح أدلة أنماط أخرى لالتقاط المزيد من الأفكار وتحديد أيها تفضل.
 
-## Automated Linters
+## أدوات فحص الكود (Automated Linters)
 
-Linters are tools that can automatically check the style of your code and make improving suggestions.
+Linters هي أدوات يمكنها التحقق تلقائيًا من اسلوب الأكواد الخاصة بك وتقديم اقتراحات لتحسينها.
 
-The great thing about them is that style-checking can also find some bugs, like typos in variable or function names. Because of this feature, using a linter is recommended even if you don't want to stick to one particular "code style".
+ الشيء العظيم في الأمر هو أن فحص الأسلوب يمكن أن يجد أيضًا بعض الأخطاء ، مثل الأخطاء المطبعية في أسماء المتغيرات أو الدوال. بسبب هذه الميزة ، يوصى باستخدام Linters حتى إذا كنت لا ترغب في التمسك بـ "اسلوب كود" معين.
 
-Here are some well-known linting tools:
+فيما يلي بعض أدوات الفحص الشهيرة:
 
-- [JSLint](http://www.jslint.com/) -- one of the first linters.
-- [JSHint](http://www.jshint.com/) -- more settings than JSLint.
-- [ESLint](http://eslint.org/) -- probably the newest one.
+- [JSLint](http://www.jslint.com/) -- أحد أوائل ادوات الفحص.
+- [JSHint](http://www.jshint.com/) -- به خصائص اكثر من JSLint.
+- [ESLint](http://eslint.org/) -- غالبا هو الأحدث.
 
-All of them can do the job. The author uses [ESLint](http://eslint.org/).
+يمكن لجميعهم القيام بهذه المهمة. المؤلف يستخدم [ESLint](http://eslint.org/).
 
-Most linters are integrated with many popular editors: just enable the plugin in the editor and configure the style.
+تتكامل معظم أدوات فحص الكود مع العديد من محررات الأكواد الشهيرة: ما عليك سوى تمكين الاضافة )(Plugin) في المحرر وتكوين الكود.
 
-For instance, for ESLint you should do the following:
+على سبيل المثال ، بالنسبة لـ ESLint ، يجب عليك القيام بما يلي:
 
-1. Install [Node.js](https://nodejs.org/).
-2. Install ESLint with the command `npm install -g eslint` (npm is a JavaScript package installer).
-3. Create a config file named `.eslintrc` in the root of your JavaScript project (in the folder that contains all your files).
-4. Install/enable the plugin for your editor that integrates with ESLint. The majority of editors have one.
+1. تنزيل [Node.js](https://nodejs.org/).
+2. قم بتثبيت ESLint باستخدام الأمر `npm install -g eslint` (npm مثبت حزمة JavaScript).
+3. قم بإنشاء ملف التكوين المسمى `.eslintrc` في جذر مشروع جافا سكريبت الخاص بك (في المجلد الذي يحتوي على جميع ملفاتك).
+4. قم بتثبيت / تمكين الاضافة لمحرر الأكواد الخاص بك و الذي يتكامل مع ESLint. غالبية المحررين لديهم واحد.
 
-Here's an example of an `.eslintrc` file:
+هنا مثال على ملف`.eslintrc`:
 
 ```js
 {
@@ -333,16 +334,16 @@ Here's an example of an `.eslintrc` file:
 }
 ```
 
-Here the directive `"extends"` denotes that the configuration is based on the "eslint:recommended" set of settings. After that, we specify our own.
+هنا التوجيه `"extends"` يشير إلى أن التكوين يستند إلى مجموعة اعدادات "eslint:recommended" . بعد ذلك يمكننا تحديد الاعدادات الخاصة بنا.
 
-It is also possible to download style rule sets from the web and extend them instead. See <http://eslint.org/docs/user-guide/getting-started> for more details about installation.
+من الممكن أيضًا تنزيل مجموعات من ارشادات الأسلوب و الاضافة عليها بدلاً من ذلك. See <http://eslint.org/docs/user-guide/getting-started> لمعلومات أكثر عن التنزيل.
 
-Also certain IDEs have built-in linting, which is convenient but not as customizable as ESLint.
+كما أن بعض بيئة تطوير متكاملة (IDEs)  تحتوي على أدوات فحص الكود مدمجة ، وهو أمر مريح ولكنه غير قابل للتخصيص مثل ESLint.
 
-## Summary
+## الملخص
 
-All syntax rules described in this chapter (and in the style guides referenced) aim to increase the readability of your code. All of them are debatable.
+تهدف جميع قواعد كتابة جمل الكود في هذا الفصل (وفي ارشادات الأسلوب المشار إليها) إلى زيادة إمكانية قراءة الأكواد الخاصة بك. و كلهما قابلة للنقاش.
 
-When we think about writing "better" code, the questions we should ask ourselves are: "What makes the code more readable and easier to understand?" and "What can help us avoid errors?" These are the main things to keep in mind when choosing and debating code styles.
+عندما نفكر في كتابة كود "أفضل" ، فإن الأسئلة التي يجب أن نطرحها على أنفسنا هي: "ما الذي يجعل الكود أكثر قابلية للقراءة وأسهل في الفهم؟" و "ما الذي يمكن أن يساعدنا في تجنب الأخطاء؟" تلك هي الأشياء الرئيسية التي يجب وضعها في الاعتبار عند اختيار ومناقشة ارشادات أسلوب كتابة الكود.
 
-Reading popular style guides will allow you to keep up to date with the latest ideas about code style trends and best practices.
+ستسمح لك قراءة أدلة الأنماط الشائعة بمواكبة أحدث الأفكار حول اتجاهات نمط التعليمات البرمجية وأفضل الممارسات.

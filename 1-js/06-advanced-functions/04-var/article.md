@@ -1,106 +1,105 @@
 
-# The old "var"
+# "var" القديم 
 
-```smart header="This article is for understanding old scripts"
-The information in this article is useful for understanding old scripts.
+```smart header="هذه المقالة لفهم النصوص القديمة"
+المعلومات الواردة في هذه المقالة مفيدة لفهم النصوص القديمة.
 
-That's not how we write a new code.
+هذه ليست طريقة لكتابة النصوص الجديدة.
 ```
 
-In the very first chapter about [variables](info:variables), we mentioned three ways of variable declaration:
+في الفصل الأول حول [المتغيرات](info:variables), ذكرنا ثلاث طرق لتعريف المتغير وهي:
 
 1. `let`
 2. `const`
 3. `var`
 
-`let` and `const` behave exactly the same way in terms of Lexical Environments.
+`let` و `const` يتصرف بنفس الطريقة تمامًا فيما يتعلق بالبيئات المعجمية.
 
-But `var` is a very different beast, that originates from very old times. It's generally not used in modern scripts, but still lurks in the old ones.
+ولكن `var`  مختلف تمامًا ، نشأ قديمًا جدًا. بشكل عام ، لا يتم استخدامه في النصوص الحديثة ، ولكنه لا يزال يتوارى في النصوص القديمة.
 
-If you don't plan on meeting such scripts you may even skip this chapter or postpone it, but then there's a chance that it bites you later.
+إذا كنت لا تخطط لأستخدام مثل هذه النصوص البرمجية ، يمكنك تخطي هذا الفصل أو تأجيله ، ولكن هناك فرصة لمواجهته لاحقًا.
 
-From the first sight, `var` behaves similar to `let`. That is, declares a variable:
+من النظرة الأولى ، يتصرف `var` بطريقة مشابهة بـ`let`. في تعريف المتغير:
 
 ```js run
 function sayHi() {
-  var phrase = "Hello"; // local variable, "var" instead of "let"
+  var phrase = "Hello"; // "let" بدلا من "var" , متغير محلي
 
   alert(phrase); // Hello
 }
 
 sayHi();
 
-alert(phrase); // Error, phrase is not defined
+alert(phrase); // محدد غير phrase : خطأ
 ```
 
-...But here are the differences.
+...ولكن هنا الأختلافات كالأتي.
 
-## "var" has no block scope
+## المتغير "var" ليس له نطاق محدد
 
-Variables, declared with `var`, are either function-wide or global. They are visible through blocks.
+المتغيرات بـ `var` ، إما تكون في نطاق الدالة  أو على النطاق العام. في الحالتين ليس لها نطاق محدد.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 if (true) {
-  var test = true; // use "var" instead of "let"
+  var test = true; // "let" من بدلا "var" استخدم 
 }
 
 *!*
-alert(test); // true, the variable lives after if
+alert(test); // if صحيح ، المتغير موجود بعد 
 */!*
 ```
 
-As `var` ignores code blocks, we've got a global variable `test`.
+نظرًا لأن `var` يتجاهل النطاق او الكتلة المغلقة ، فلدينا الان متغير عام.
 
-If we used `let test` instead of `var test`, then the variable would only be visible inside `if`:
+
+إذا استخدمنا `let test` بدلاً من `var test` ، فسيكون المتغير مرئيًا فقط داخل `if`:
 
 ```js run
 if (true) {
-  let test = true; // use "let"
+  let test = true; // استخدم "let"
 }
 
 *!*
-alert(test); // Error: test is not defined
+alert(test); // محدد غير test : خطأ
 */!*
 ```
 
-The same thing for loops: `var` cannot be block- or loop-local:
-
+الشيء نفسه بالنسبة للحلقات: لا يمكن أن يكون `var` داخل نطاق محدد أو محليًا داخل حلقات التكرار:
 ```js
 for (var i = 0; i < 10; i++) {
   // ...
 }
 
 *!*
-alert(i); // 10, "i" is visible after loop, it's a global variable
+alert(i); // 10, مرئي بعد التكرار ، إنه متغير عام "i"
 */!*
 ```
 
-If a code block is inside a function, then `var` becomes a function-level variable:
-
+إذا كان في نطاق محدد داخل دالة ، يصبح `var` متغيرًا على مستوى الدالة:
 ```js run
 function sayHi() {
   if (true) {
     var phrase = "Hello";
   }
 
-  alert(phrase); // works
+  alert(phrase); // تعمل
 }
 
 sayHi();
-alert(phrase); // Error: phrase is not defined (Check the Developer Console)
+alert(phrase); // تحقق من (Developer  Console)phrase خطأ: لم يتم تحديد  
 ```
 
-As we can see, `var` pierces through `if`, `for` or other code blocks. That's because a long time ago in JavaScript blocks had no Lexical Environments. And `var` is a remnant of that.
+كما نرى ، `var` يخترق `if` أو `for` أو أي نطاق محدد برمجي أخر. هذا لأنه منذ فترة طويلة جافا سكريبت لم يكن لديها بيئات معجمية. و `var` لم يكن منهم.
 
-## "var" declarations are processed at the function start
+## يتم تعريف  "var" في بداية الدالة
 
-`var` declarations are processed when the function starts (or script starts for globals).
+يتم تعريف  `var` في بداية الدالة (او عند بداية النص البرمجي).
 
-In other words, `var` variables are defined from the beginning of the function, no matter where the definition is (assuming that the definition is not in the nested function).
+بمعنى آخر ، يتم تعريف المتغيرات بـ`var` من بداية الدالة ، بغض النظر عن مكان التعريف (على افتراض أن التعريف ليس في الدوال المتداخلة).
 
-So this code:
+إذن هذا هو الكود:
 
 ```js run
 function sayHi() {
@@ -115,8 +114,7 @@ function sayHi() {
 sayHi();
 ```
 
-...Is technically the same as this (moved `var phrase` above):
-
+... هو تقنيًا مثل هذا (نقل عبارة var أعلاه):
 ```js run
 function sayHi() {
 *!*
@@ -130,8 +128,7 @@ function sayHi() {
 sayHi();
 ```
 
-...Or even as this (remember, code blocks are ignored):
-
+... أو حتى مع هذا (تذكر ، يتم تجاهل النطاق المحدد):
 ```js run
 function sayHi() {
   phrase = "Hello"; // (*)
@@ -147,13 +144,13 @@ function sayHi() {
 sayHi();
 ```
 
-People also call such behavior "hoisting" (raising), because all `var` are "hoisted" (raised) to the top of the function.
+يطلق الناس أيضًا على مثل هذا السلوك "hoisting" (رفع) ، لأن جميع المتغيرات مرفوعة في أعلى الدالة.
 
-So in the example above, `if (false)` branch never executes, but that doesn't matter. The `var` inside it is processed in the beginning of the function, so at the moment of `(*)` the variable exists.
+لذلك في المثال أعلاه ، لا يتم تنفيذ فرع `if (false)` أبدًا ، ولكن هذا لا يهم. تتم معالجة `var` بداخلها في بداية الدالة ، لذلك في لحظة `(*)` يوجد المتغير.
 
-**Declarations are hoisted, but assignments are not.**
+**يتم رفع التعريفات ، ولكن لا يتم رفع التعيينات.**
 
-That's best demonstrated with an example:
+من الأفضل توضيح ذلك بمثال:
 
 ```js run
 function sayHi() {
@@ -167,40 +164,40 @@ function sayHi() {
 sayHi();
 ```
 
-The line `var phrase = "Hello"` has two actions in it:
+يحتوي السطر `var var = "Hello"` على إجراءين:
 
-1. Variable declaration `var`
-2. Variable assignment `=`.
+1. تعريف المتغير  `var`
+2. تعيين المتتغير `=`.
 
-The declaration is processed at the start of function execution ("hoisted"), but the assignment always works at the place where it appears. So the code works essentially like this:
+تتم معالجة التعريف في بداية تنفيذ الدالة ("hoisted") ، ولكن التعيين تعمل دائمًا في المكان الذي تظهر فيه. لذلك يعمل الكود بشكل أساسي على النحو التالي:
 
 ```js run
 function sayHi() {
 *!*
-  var phrase; // declaration works at the start...
+  var phrase; // يعمل التعريف في البداية ...
 */!*
 
-  alert(phrase); // undefined
+  alert(phrase); // undefined = غير محدد
 
 *!*
-  phrase = "Hello"; // ...assignment - when the execution reaches it.
+  phrase = "Hello"; // ... التعيين - عندما يصل تنفيذ الكود إلى ذلك.
 */!*
 }
 
 sayHi();
 ```
 
-Because all `var` declarations are processed at the function start, we can reference them at any place. But variables are undefined until the assignments.
+نظرًا لأنه تتم معالجة جميع تعريفات `var` في بداية الدالة ، يمكننا الرجوع إليها في أي مكان. لكن المتغيرات تكون  `undefined` حتى التعيين.
 
-In both examples above `alert` runs without an error, because the variable `phrase` exists. But its value is not yet assigned, so it shows `undefined`.
+في كلا المثالين أعلاه ، يتم تشغيل `alert` بدون خطأ ، لأن المتغير `phrase` موجود. لكن قيمته لم يتم تعيينها بعد ، لذلك فهي تظهر `undefined`.
 
 ### IIFE
 
-As in the past there was only `var`, and it has no block-level visibility, programmers invented a way to emulate it. What they did was called "immediately-invoked function expressions" (abbreviated as IIFE).
+كما في الماضي ، كان هناك فقط `var` ، ولم يكن لديها رؤية على مستوى الكتلة ، اخترع المبرمجون طريقة لمحاكاة ذلك. ما فعلوه كان يسمى "الدوال التي يتم استدعاؤها على الفور" (اختصارها IIFE).
 
-That's not something we should use nowadays, but you can find them in old scripts.
+هذا ليس شيئًا يجب أن نستخدمه في الوقت الحاضر ، ولكن يمكنك العثور عليه في النصوص القديمة.
 
-An IIFE looks like this:
+يبدو IIFE مثل كالأتي:
 
 ```js run
 (function() {
@@ -212,13 +209,13 @@ An IIFE looks like this:
 })();
 ```
 
-Here a Function Expression is created and immediately called. So the code executes right away and has its own private variables.
+هنا يتم إنشاء دالة ويتم استدعاؤه على الفور. لذا يتم تنفيذ الكود على الفور ولها متغيرات خاصة بها.
 
-The Function Expression is wrapped with parenthesis `(function {...})`, because when JavaScript meets `"function"` in the main code flow, it understands it as the start of a Function Declaration. But a Function Declaration must have a name, so this kind of code will give an error:
+يتم تغليف تعريف الدالة بقوس `({...} function)` ، لأنه عندما تلتقي JavaScript مع `"function"` في الكود الرئيسي ، فإنها تفهمها على أنها بداية تعريف الدالة. ولكن يجب أن يكون لتعريف الدالة اسم ، لذلك سيعطي هذا النوع من الكود خطأ:
 
 ```js run
-// Try to declare and immediately call a function
-function() { // <-- Error: Function statements require a function name
+// حاول تعريف الدالة واستدعاءها على الفور
+function() { // <-- خطأ: تتطلب عبارات الدوال اسم دالة
 
   let message = "Hello";
 
@@ -227,21 +224,22 @@ function() { // <-- Error: Function statements require a function name
 }();
 ```
 
-Even if we say: "okay, let's add a name", that won't work, as JavaScript does not allow Function Declarations to be called immediately:
+حتى إذا قلنا: "حسنًا ، فلنضيف اسمًا" ، لن ينجح ذلك ، لأن جافا سكريبت لا تسمح باستدعاء تعريف الدالة على الفور:
 
 ```js run
-// syntax error because of parentheses below
+// خطأ في بناء الجملة بسبب الأقواس أدناه
+
 function go() {
 
-}(); // <-- can't call Function Declaration immediately
+}(); // <-- لا يمكن استدعاء تعريف الدالة على الفور
 ```
 
-So, the parentheses around the function is a trick to show JavaScript that the function is created in the context of another expression, and hence it's a Function Expression: it needs no name and can be called immediately.
+لذا ، فإن الأقواس حول الدالة هي خدعة لإظهار جافا سكريبت أن الدالة تم إنشاؤها في سياق تعبير آخر ، وبالتالي فهي تعبير الدالة: لا تحتاج إلى اسم ويمكن استدعاؤها على الفور.
 
-There exist other ways besides parentheses to tell JavaScript that we mean a Function Expression:
+توجد طرق أخرى إلى جانب الأقواس لإخبار جافا سكريبت بأننا نعني تعبير الدالة:
 
 ```js run
-// Ways to create IIFE
+// IIFE طرق إنشاء  
 
 (function() {
   alert("Parentheses around the function");
@@ -260,15 +258,15 @@ There exist other ways besides parentheses to tell JavaScript that we mean a Fun
 }();
 ```
 
-In all the above cases we declare a Function Expression and run it immediately. Let's note again: nowadays there's no reason to write such code.
+في جميع الحالات المذكورة أعلاه نعلن عن تعبير دالة ونقوم باستدعاؤها على الفور. دعنا نلاحظ مرة أخرى: في الوقت الحاضر لا يوجد سبب لكتابة مثل هذا الرمز.
 
-## Summary
+## الملخص
 
-There are two main differences of `var` compared to `let/const`:
+هناك اختلافان رئيسيان لـ `var` مقارنة بـ` let / const`:
 
-1. `var` variables have no block scope, they are visible minimum at the function level.
-2. `var` declarations are processed at function start (script start for globals).
+1.  متغيرات `var` ليس لها نطاق معين ، فهي مرئية كحد الأدنى على مستوى الدالة.
+2.  تتم معالجة تعريف `var` في بداية الدالة (بداية النص للنصوص العامة).
 
-There's one more very minor difference related to the global object, that we'll cover in the next chapter.
+هناك اختلاف ثانوي واحد إضافي يتعلق بالكائن العام ، والذي سنتناوله في الفصل التالي.
 
-These differences make `var` worse than `let` most of the time. Block-level variables is such a great thing. That's why `let` was introduced in the standard long ago, and is now a major way (along with `const`) to declare a variable.
+هذه الاختلافات تجعل `var` أسوأ من `let` معظم الوقت. متغيرات مستوى الكتلة هي شيء عظيم. لهذا السبب تم تقديم `let` في المعيار منذ فترة طويلة ، وهو الآن طريقة رئيسية (جنبًا إلى جنب مع `const`) تعريف عن متغير.

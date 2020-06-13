@@ -1,6 +1,6 @@
-That's because `i` would never equal `10`.
+هذا بسبب `i` لن يساوي أبداً `10`.
 
-Run it to see the *real* values of `i`:
+شغله لترى القيم  *الحقيقية* لـ `i`:
 
 ```js run
 let i = 0;
@@ -10,8 +10,8 @@ while (i < 11) {
 }
 ```
 
-None of them is exactly `10`.
+لا أحد منهم بالظبط `10`.
 
-Such things happen because of the precision losses when adding fractions like `0.2`.
+مثل هذه الأشياء تحدث بسبب الدقة الفائتة عند إضافة أجزاء مثل `0.2`.
 
-Conclusion: evade equality checks when working with decimal fractions.
+الاستنتاج: التحقق من عدم المساواة عند التعامل مع الكسور العشرية.

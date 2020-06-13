@@ -1,6 +1,6 @@
-# The simple but wrong solution
+# الحل البسيط ولكن الخاطئ
 
-The simplest, but wrong solution would be to generate a value from `min` to `max` and round it:
+الأبسط، ولكن الحل الخاطئ هو إنتاج قيمة من `min` الي `max` و تقريبها:
 
 ```js run
 function randomInteger(min, max) {
@@ -11,11 +11,11 @@ function randomInteger(min, max) {
 alert( randomInteger(1, 3) );
 ```
 
-The function works, but it is incorrect. The probability to get edge values `min` and `max` is two times less than any other.
+الـ function تعمل، ولكن هذا غير صحيح. احتمال الحصول على قيم متميزة `min` و `max` أقل بمرتين من أي مرة أخرى.
 
-If you run the example above many times, you would easily see that `2` appears the most often.
+اذا استعنت بالمثال اعلاه عدة مرات، فسترى بسهولة ان  `2` يظهر في اغلب الاحيان.
 
-That happens because `Math.round()` gets random numbers from the interval `1..3` and rounds them as follows:
+هذا يحدث لأن `Math.round()` يحصل على أرقام عشوائية من الفترة الفاصلة `1..3` وتقربهم كما يلي:
 
 ```js no-beautify
 values from 1    ... to 1.4999999999  become 1
@@ -23,11 +23,11 @@ values from 1.5  ... to 2.4999999999  become 2
 values from 2.5  ... to 2.9999999999  become 3
 ```
 
-Now we can clearly see that `1` gets twice less values than `2`. And the same with `3`.
+الآن يمكننا أن نرى بوضوح أن `1` يحصل على قيم أقل بمرتين من `2`. ونفس الشيء مع `3`.
 
-# The correct solution
+# الحل الصحيح
 
-There are many correct solutions to the task. One of them is to adjust interval borders. To ensure the same intervals, we can generate values from `0.5 to 3.5`, thus adding the required probabilities to the edges:
+هناك العديد من الحلول الصحيحة لهذه المهمة. أحدها هو تعديل الحدود الفاصلة. لضمان نفس الفواصل، يمكننا خلق قيم من `0.5 to 3.5`، وبذلك نضيف الاحتمالات المطلوبة إلى الأطراف:
 
 ```js run
 *!*
@@ -41,7 +41,7 @@ function randomInteger(min, max) {
 alert( randomInteger(1, 3) );
 ```
 
-An alternative way could be to use `Math.floor` for a random number from `min` to `max+1`:
+يمكن أن تكون الطريقة البديلة هي استخدام `Math.floor` لرقم عشوائي من `min` الي `max+1`:
 
 ```js run
 *!*
@@ -55,7 +55,7 @@ function randomInteger(min, max) {
 alert( randomInteger(1, 3) );
 ```
 
-Now all intervals are mapped this way:
+الآن كل الفواصل مرسومة بهذه الطريقة:
 
 ```js no-beautify
 values from 1  ... to 1.9999999999  become 1
@@ -63,4 +63,4 @@ values from 2  ... to 2.9999999999  become 2
 values from 3  ... to 3.9999999999  become 3
 ```
 
-All intervals have the same length, making the final distribution uniform.
+فجميع الفترات الفاصلة متساوية الطول، مما يجعل التوزيع النهائي متماثلا.

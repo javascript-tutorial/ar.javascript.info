@@ -2,13 +2,13 @@ importance: 5
 
 ---
 
-# Repeat until the input is a number
+# كرر حتى يكون المُدخل هو رقم
 
-Create a function `readNumber` which prompts for a number until the visitor enters a valid numeric value.
+إنشاء function `readNumber` الذي تدفع للرقم حتى يدخل الزائر قيمة رقمية صالحة.
 
-The resulting value must be returned as a number.
+ويجب أن تعاد القيمة الناتجة كرقم.
 
-The visitor can also stop the process by entering an empty line or pressing "CANCEL". In that case, the function should return `null`.
+ويمكن للزائر أيضا أن يوقف العملية بإدخال خط فارغ أو الضغط على "إلغاء". في هذه الحالة،الـ function يجب أن ترجع `null`.
 
 [demo]
 

@@ -9,7 +9,7 @@ str.test = 5; // (*)
 alert(str.test);
 ```
 
-يعتمد على ما إذا كان لديك `use strict` أم لا, وقد تكون النتيجة كما يلي:
+يعتمد على ما إذا كان لديك `use strict` أم لا، وقد تكون النتيجة كما يلي:
 1. `undefined` (no strict mode)
 2. An error (strict mode).
 

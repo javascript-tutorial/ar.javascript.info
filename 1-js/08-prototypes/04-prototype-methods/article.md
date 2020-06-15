@@ -57,11 +57,15 @@ alert(rabbit.jumps); // true
 يمكننا استخدام `Object.create` للقيام بنسخ كائن بشكل أفضل من نسخ الخصائص باستخدام التكرار `for..in`:
 
 ```js
+<<<<<<< HEAD
 // كائن جديد مماثل تمامًا
 let clone = Object.create(
   Object.getPrototypeOf(obj),
   Object.getOwnPropertyDescriptors(obj)
 );
+=======
+let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+>>>>>>> b52aa942a8e9b75ba8a65124c22593171e273bb6
 ```
 
 هذا الإستدعاء يقوم بإنشاء نسخه طبق الأصل من الكائن `obj` بما فيه من خصائص سواءًا كانت معدودة (enumerable) أم لا وكذلك الجالبات والمغيرات (getters & setters) -- كل شيئ وبالخاصية `[[Prototype]]` الصحيحة.

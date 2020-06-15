@@ -63,11 +63,19 @@ alert(height || 100); // 100
 alert(height ?? 100); // 0
 ```
 
+<<<<<<< HEAD
 هنا `height || 100` تعامل الصفر كـ `null`, `undefined` أو أي قيمة زائفة. اذا الصفر يصبح `100`.
 
 ولكن `height ?? 100` ترجع `100` إذا كان فقط `height` يساوي تمامًا `null` أو `undefined`. اذا الصفر يبقى "كما هو".
 
 يعتمد السلوك الافضل على حالة الاستخدام. تكون `??` الطريقة الافضل عندما يكون صفر height قيمة صالحة.
+=======
+Here, `height || 100` treats zero height as unset, same as `null`, `undefined` or any other falsy value. So the result is `100`.
+
+The `height ?? 100` returns `100` only if `height` is exactly `null` or `undefined`. So the `alert` shows the height value `0` "as is".
+
+Which behavior is better depends on a particular use case. When zero height is a valid value, then `??` is preferrable.
+>>>>>>> b52aa942a8e9b75ba8a65124c22593171e273bb6
 
 ## الأولوية
 

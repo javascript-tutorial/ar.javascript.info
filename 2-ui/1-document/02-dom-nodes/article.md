@@ -4,49 +4,49 @@ libs:
 
 ---
 
-# DOM tree
+# نموذج كائن المستند DOM
 
-The backbone of an HTML document is tags.
+تُعد العلامات (الوسوم) عصب مستند HTML.
 
-According to the Document Object Model (DOM), every HTML tag is an object. Nested tags are  "children" of the enclosing one. The text inside a tag is an object as well.
+وفقًا لنموذج كائن المستند (DOM)، فإن كل علامة (وسم) من علامات HTML يُعد كائن. وكل العلامات المُدرجة داخل هذه العلامة تُعد أبناءً لها. كما يُعد النص الموجود داخل هذه العلامة كائنًا أيضا.
 
-All these objects are accessible using JavaScript, and we can use them to modify the page.
+يُمكن الوصول إلى جميع تلك الكائنات باستخدام الجافاسكريبت؛ كما يُمكن استخدامهم لتعديل الصفحة.
 
-For example, `document.body` is the object representing the `<body>` tag.
+على سبيل المثال، فإن `document.body` هو الكائن المُمثل للعلامة `<body>`.
 
-Running this code will make the `<body>` red for 3 seconds:
+سيؤدي تشغيل الكود التالي لجعل خلفية العلامة `<body>` أحمر اللون لمدة ثلاث ثوانٍ:
 
 ```js run
-document.body.style.background = 'red'; // make the background red
+document.body.style.background = 'red'; // لجعل الخلفية حمراء اللون
 
-setTimeout(() => document.body.style.background = '', 3000); // return back
+setTimeout(() => document.body.style.background = '', 3000); // لإزالة اللون من الخلفية
 ```
 
-Here we used `style.background` to change the background color of `document.body`, but there are many other properties, such as:
+اُستخدم `style.background` في هذا المثال لتغيير لون الخلفية الخاصة بـ `document.body`؛ ومع ذلك، فإنه يوجد العديد من الخصائص الأخرى لاستخدامها، مثل:
 
-- `innerHTML` -- HTML contents of the node.
-- `offsetWidth` -- the node width (in pixels)
-- ...and so on.
+- `innerHTML` -- محتوى HTML للعقدة.
+- `offsetWidth` -- عرض العقدة (بالبكسل).
+- ...وغيرها.
 
-Soon we'll learn more ways to manipulate the DOM, but first we need to know about its structure.
+لاحقا، سنتعلم المزيد من الطرق للتعامل مع نموذج كائن المستند DOM؛ ولكن قبل ذلك، ينبغي معرفة هيكله.
 
-## An example of the DOM
+## مثال على نموذج كائن المستند DOM
 
-Let's start with the following simple document:
+لنبدأ بالمستند التالي:
 
 ```html run no-beautify
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>About elk</title>
+  <title>عن الظباء</title>
 </head>
 <body>
-  The truth about elk.
+  حقائق عن الظباء
 </body>
 </html>
 ```
 
-The DOM represents HTML as a tree structure of tags. Here's how it looks:
+يُمثل نموذج كائن المستند الـ HTML كشجرة من العلامات. إليك كيف تبدو:
 
 <div class="domtree"></div>
 
@@ -57,35 +57,35 @@ drawHtmlTree(node1, 'div.domtree', 690, 320);
 </script>
 
 ```online
-On the picture above, you can click on element nodes and their children will open/collapse.
+في الصورة أعلاه، يؤدي الضغط على أي عقدة عنصر إلى تمديد او طي أبنائها من العلامات.
 ```
 
-Every tree node is an object.
+كل عقدة في هذه الشجرة تُمثل كائنًا.
 
-Tags are *element nodes* (or just elements) and form the tree structure: `<html>` is at the root, then `<head>` and `<body>` are its children, etc.
+العلامات ما هي إلا *عقد العنصر* (أو تُعرف بالعناصر اختصارا)، وهي المُكونة لبنية الشجرة. `<html>` هو الجذر، ويُمثل كلا من الـ `<head>` والـ `<body>` ابناؤه، إلخ.
 
-The text inside elements forms *text nodes*, labelled as `#text`. A text node contains only a string. It may not have children and is always a leaf of the tree.
+يُشكل النص الموجود داخل العناصر *عقد النصوص*، والمسمى `#text`. تشتمل عقدة النص على سلسلة واحدة فقط. قد لا تحتوي عقدة النص على أية ابناء، وهي دائما تُمثل ورقة في هذه الشجرة.
 
-For instance, the `<title>` tag has the text `"About elk"`.
+على سبيل المثال، العلامة `<title>` تحتوي على النص `"عن الظباء"`.
 
-Please note the special characters in text nodes:
+يرجى ملاحظة الأحرف الخاصة في العقد النصية:
 
-- a newline: `↵` (in JavaScript known as `\n`)
-- a space: `␣`
+- سطر جديد: `↵` (تُعرف في الجافاسكريبت بـ `\n`)
+- مسافة: `␣`
 
-Spaces and newlines are totally valid characters, like letters and digits. They form text nodes and become a part of the DOM. So, for instance, in the example above the `<head>` tag contains some spaces before `<title>`, and that text becomes a `#text` node (it contains a newline and some spaces only).
+كلا من المسافات والأسطر الجديدة هي أحرف صالحة مثل الحروف والأرقام. وهي جميعا تُمثل عقد النص وتصبح جزءًا من نموذج كائن المستند. لذلك، وعلى سبيل المثال، فإن علامة `<head>` في المثال أعلاه تحتوي على بعض المسافات قبل الـ `<title>`، وهذا النص يُصبح عقدة `#text` (والتي تحتوي فقط على سطر جديد وبعض المسافات).
 
-There are only two top-level exclusions:
-1. Spaces and newlines before `<head>` are ignored for historical reasons.
-2. If we put something after `</body>`, then that is automatically moved inside the `body`, at the end, as the HTML spec requires that all content must be inside `<body>`. So there can't be any spaces after `</body>`.
+هناك استثناءان فقط مهمان:
+1. يتم تجاهل المسافات والأسطر الجديدة التي تأتي قبل الـ `<head>` وذلك لأسباب تاريخية.
+2. إذا وُضع شيء بعد الـ `</body>`، فإنه سيُنقل تلقائيا إلى داخل الـ `body` وذلك في نهايته؛ حيث تتطلب مواصفات HTML أن يكون كل المحتوى داخل الـ `<body>`. ولذلك، فإنه من غير الممكن وجود أية مسافات بعد الـ `</body>`.
 
-In other cases everything's straightforward -- if there are spaces (just like any character) in the document, then they become text nodes in the DOM, and if we remove them, then there won't be any.
+كل شيء يكون واضحا في بقية الحالات، فإذا كانت هناك مسافات في المستند (تماما مثل أي حرف)، فإنها تُسبح عقد نص في نموذج كائن المستند، وإذا اُزيلت فإن أيا منها لن يكون موجودا.
 
-Here are no space-only text nodes:
+فيما يلي لا توجد عقد نصية تحتوي على مسافات فقط: 
 
 ```html no-beautify
 <!DOCTYPE HTML>
-<html><head><title>About elk</title></head><body>The truth about elk.</body></html>
+<html><head><title>عن الظباء</title></head><body>حقائق عن الظباء.</body></html>
 ```
 
 <div class="domtree"></div>
@@ -96,62 +96,62 @@ let node2 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,
 drawHtmlTree(node2, 'div.domtree', 690, 210);
 </script>
 
-```smart header="Spaces at string start/end and space-only text nodes are usually hidden in tools"
-Browser tools (to be covered soon) that work with DOM usually do not show spaces at the start/end of the text and empty text nodes (line-breaks) between tags.
+```smart header="عادة ما تُخفى المسافات في بداية/نهاية السلاسل، وفي العقد النصية التي تحتوي على مسافات فقط من الادوات"
+أدوات المتصفح (التي سيتم تغطيتها قريبا) والتي تعمل مع نموذج كائن المستند لا تعرض عادة المسافات في بداية/نهاية النص، والعقد النصية الفارغة (فواصل الأسطر) بين العلامات.
 
-Developer tools save screen space this way.
+وبهذه الطريقة، توفر أدوات المطور مساحة الشاشة.
 
-On further DOM pictures we'll sometimes omit them when they are irrelevant. Such spaces usually do not affect how the document is displayed.
+في صور نموذج كائن المستند الأخرى، سنحذفها أحيانا عندما تكون غير متصلة بالموضوع. عادة، فإن هذه المسافات لا تؤثر على كيفية عرض المستند.
 ```
 
-## Autocorrection
+## التصحيح التلقائي
 
-If the browser encounters malformed HTML, it automatically corrects it when making the DOM.
+عندما يواجه المتصفح ترميز HTML مكتوب بشكل غير صحيح، فإنه يقوم بتصحيحه تلقائيا عند إنشاء نموذج كائن المستند DOM.
 
-For instance, the top tag is always `<html>`. Even if it doesn't exist in the document, it will exist in the DOM, because the browser will create it. The same goes for `<body>`.
+على سبيل المثال,تتواجد العلامة `<html>` في الأعلى؛ وذلك حتى في حال عدم تواجدها في المستند، فإنها تظل متواجدة في نموذج كائن المستند؛ وذلك لأن المتصفح يقوم بإنشائها. وينطبق الأمر ذاته على علامة `<body>`.
 
-As an example, if the HTML file is the single word `"Hello"`, the browser will wrap it into `<html>` and `<body>`, and add the required `<head>`, and the DOM will be:
+مثال: إذا كان ملف الـ HTML يحتوى فقط على كلمة `"مرحبا"`، فإن المتصفح سيقوم بتضمينه داخل علامتي `<html>` و `<body>`، كما سيقوم بإضافة علامة `<head>`؛ وعليه يكون نموذج كائن المستند كما يلي:
 
 
 <div class="domtree"></div>
 
 <script>
-let node3 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"Hello"}]}]}
+let node3 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"مرحبا"}]}]}
 
 drawHtmlTree(node3, 'div.domtree', 690, 150);
 </script>
 
-While generating the DOM, browsers automatically process errors in the document, close tags and so on.
+أثناء إنشاء نموذج كائن المتسند، تقوم المتصفحات تلقائيا بمعاجلة الأخطاء في المستند وإغلاق العلامات وما إلى ذلك.
 
-A document with unclosed tags:
+مستند به علامات غير مغلقة:
 
 ```html no-beautify
-<p>Hello
-<li>Mom
-<li>and
-<li>Dad
+<p>مرحبا
+<li>أمي
+<li>و
+<li>أبي
 ```
 
-...will become a normal DOM as the browser reads tags and restores the missing parts:
+...سيصبح نموذج كائن مستند طبيعيا، وذلك عندما يقرأ المتصفح العلامات ويُعيد الأجزاء المفقودة:
 
 <div class="domtree"></div>
 
 <script>
-let node4 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"P","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"Hello"}]},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"Mom"}]},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"and"}]},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"Dad"}]}]}]}
+let node4 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"P","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"مرحبا"}]},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"أمي"}]},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"و"}]},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"أبي"}]}]}]}
 
 drawHtmlTree(node4, 'div.domtree', 690, 360);
 </script>
 
-````warn header="Tables always have `<tbody>`"
-An interesting "special case" is tables. By the DOM specification they must have `<tbody>`, but HTML text may (officially) omit it. Then the browser creates `<tbody>` in the DOM automatically.
+````warn header="الجداول دائما ما تحتوي على `<tbody>`"
+تُشكل الجداول "حالة خاصة" مُثيرة للإهتمام. وفقا لمواصفات نموذج كائن المستند، ينبغي أن يكون لدى الجداول علامة `<tbody>`، ولكنها قد تكون محذوفة من HTML (الرسمي). ويقوم المتصفح لاحقا بإنشاء `<tbody>` تلقائيا في نموذج كائن المستند.
 
-For the HTML:
+ملف HTML:
 
 ```html no-beautify
 <table id="table"><tr><td>1</td></tr></table>
 ```
 
-DOM-structure will be:
+بنية نموذج كائن المستند ستصبح:
 <div class="domtree"></div>
 
 <script>
@@ -160,26 +160,26 @@ let node5 = {"name":"TABLE","nodeType":1,"children":[{"name":"TBODY","nodeType":
 drawHtmlTree(node5,  'div.domtree', 600, 200);
 </script>
 
-You see? The `<tbody>` appeared out of nowhere. You should keep this in mind while working with tables to avoid surprises.
+أترى؟ لقد وُجدت علامة `<tbody>` من العدم. يجب أن تضع هذا في الاعتبار أثناء العمل مع الجداول لتجنب المفاجأت.
 ````
 
-## Other node types
+## أنواع العقد الأخرى
 
-There are some other node types besides elements and text nodes.
+هناك بعض أنواع العقد الأخرى إلى جانب العناصر وعقد النص.
 
-For example, comments:
+على سبيل المثال ، التعليقات:
 
 ```html
 <!DOCTYPE HTML>
 <html>
 <body>
-  The truth about elk.
+  حقائق عن الظباء.
   <ol>
-    <li>An elk is a smart</li>
+    <li>الظبي ذكي.</li>
 *!*
-    <!-- comment -->
+    <!-- تعليق -->
 */!*
-    <li>...and cunning animal!</li>
+    <li>...وحيوان ماكر!</li>
   </ol>
 </body>
 </html>
@@ -188,95 +188,95 @@ For example, comments:
 <div class="domtree"></div>
 
 <script>
-let node6 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elk.\n    "},{"name":"OL","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n      "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"An elk is a smart"}]},{"name":"#text","nodeType":3,"content":"\n      "},{"name":"#comment","nodeType":8,"content":"comment"},{"name":"#text","nodeType":3,"content":"\n      "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"...and cunning animal!"}]},{"name":"#text","nodeType":3,"content":"\n    "}]},{"name":"#text","nodeType":3,"content":"\n  \n"}]}]};
+let node6 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  حقائق عن الظباء.\n    "},{"name":"OL","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n      "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"الظبي ذكي."}]},{"name":"#text","nodeType":3,"content":"\n      "},{"name":"#comment","nodeType":8,"content":"تعليق"},{"name":"#text","nodeType":3,"content":"\n      "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"...وحيوان ماكر!"}]},{"name":"#text","nodeType":3,"content":"\n    "}]},{"name":"#text","nodeType":3,"content":"\n  \n"}]}]};
 
 drawHtmlTree(node6, 'div.domtree', 690, 500);
 </script>
 
-We can see here a new tree node type -- *comment node*, labeled as `#comment`, between two text nodes.
+يُمكننا أن نرى هنا نوعا جديدا من عقد الشجرة – وهي عقدة التعليق، والمسماة #comment، بين عقدتين نصيتين.
 
-We may think -- why is a comment added to the DOM? It doesn't affect the visual representation in any way. But there's a rule -- if something's in HTML, then it also must be in the DOM tree.
+قد نتسائل – لماذا أُضيف تعليق إلى نموذج كائن المستند؟ فهو لا يؤثر على التمثيل البصري بأي شكل من الأشكال. ولكن هناك قاعدة – إذا كان وُجد شيء في HTML فإنه يجب أن يكون موجود أيضا في شجرة نموذج كائن المستند.
 
-**Everything in HTML, even comments, becomes a part of the DOM.**
+**كل شيء في HTML، حتى التعليقات، تصبح جزءا من نموذج كائن المستند.**
 
-Even the `<!DOCTYPE...>` directive at the very beginning of HTML is also a DOM node. It's in the DOM tree right before `<html>`. We are not going to touch that node, we even don't draw it on diagrams for that reason, but it's there.
+حتى تعليمة `<!DOCTYPE...>` في بداية HTML هي أيضا عقدة من نموذج كائن المستند. فهي تتواجد في شجرة نموذج كائن المستند قبل `<html>` مباشرة. لن نتعامل مع تلك العقدة، حتى أنها لا تُرسم على الرسوم البيانية لهذا السبب، ولكنها موجودة.
 
-The `document` object that represents the whole document is, formally, a DOM node as well.
+كائن `المستند`، والذي يُمثل المستند بأكمله، يُكون عقدة من نموذج كائن المستند أيضا.
 
-There are [12 node types](https://dom.spec.whatwg.org/#node). In practice we usually work with 4 of them:
+هناك [12 نوع من العقد](https://dom.spec.whatwg.org/#node). ومن الناحية العملية، نعمل عادة مع 4 منهم:
 
-1. `document` -- the "entry point" into DOM.
-2. element nodes -- HTML-tags, the tree building blocks.
-3. text nodes -- contain text.
-4. comments -- sometimes we can put information there, it won't be shown, but JS can read it from the DOM.
+1. `المستند  document` -- يُمثل "نقطة الدخول" إلى نموذج كائن المستند.
+2. عقد العناصر element nodes -- وهي علامات HTML، وتُمثل كتل بناء الشجرة.
+3. العقد النصية text nodes  -- وتحتوي على نص.
+4. التعليقات comments -- في بعض الأحيان يُمكن وضع معلومات بها، لن يتم عرض المعلومات، ولكن يُمكن قرائتها من نموذج كائن المستند باستخدام الجافاسكربت.
 
-## See it for yourself
+## انظر بنفسك
 
-To see the DOM structure in real-time, try [Live DOM Viewer](http://software.hixie.ch/utilities/js/live-dom-viewer/). Just type in the document, and it will show up as a DOM at an instant.
+لمشاهدة بنية نموذج كائن المستند مباشرة، جرب استخدام  [Live DOM Viewer](http://software.hixie.ch/utilities/js/live-dom-viewer/). ما عليك سوى الكتابة في المستند، وسيظهر كنموذج كائن مستند في الحال.
 
-Another way to explore the DOM is to use the browser developer tools. Actually, that's what we use when developing.
+هناك طريقة أخرى لاستكشاف نموذج كائن المستند وهي استخدام أدوات مطور المتصفح. وهذا ما نستخدمه في الواقع أثناء التطوير.
 
-To do so, open the web page [elk.html](elk.html), turn on the browser developer tools and switch to the Elements tab.
+للقيام بذلك، افتح صفحة الويب [elk.html](elk.html)، وشغّل أدوات مطور المتصفح، وانتقل إلى علامة التبويب  العناصر Elements.
 
-It should look like this:
+يجب أن تبدو مثل هذه:
 
 ![](elk.svg)
 
-You can see the DOM, click on elements, see their details and so on.
+يُمكنك رؤية نموذج كائن المستند، والنقر على العناصر، والإطلاع على تفاصيلها، وما إلى ذلك.
 
-Please note that the DOM structure in developer tools is simplified. Text nodes are shown just as text. And there are no "blank" (space only) text nodes at all. That's fine, because most of the time we are interested in element nodes.
+يُرجى ملاحظة أن بنية نموذج كائن المستند في أدوات المطورين مُبسطة. حيث يتم عرض العُقد النصية كنص فقط؛ ولا توجد أي عُقد نصية "فارغة" (مسافة فقط) على الإطلاق. وهذا جيد، لأننا مهتمون في معظم الأحيان بعُقد العناصر.
 
-Clicking the <span class="devtools" style="background-position:-328px -124px"></span> button in the left-upper corner allows us to choose a node from the webpage using a mouse (or other pointer devices) and "inspect" it (scroll to it in the Elements tab). This works great when we have a huge HTML page (and corresponding huge DOM) and would like to see the place of a particular element in it.
+يسمح لنا النقر على الزر  <span class="devtools" style="background-position:-328px -124px"></span> في الزاوية اليُسرى العُليا باختيار عقدة من صفحة الويب باستخدام الفأرة (أو أجهزة التأشير الأخرى) و "فحصها" (الانتقال إليها في علامة تبويب العناصر). وهذا يكون رائعا عندما يكون لدينا صفحة HTML ضخمة (ونموذج كائن مستند ضخم بالتبعية) ونود أن نرى مكان عنصر معين فيه.
 
-Another way to do it would be just right-clicking on a webpage and selecting "Inspect" in the context menu.
+هناك طريقة أخرى للقيام بذلك وهي النقر بزر الفأرة الأيمن على صفحة الويب واختيار "فحص Inspect" في قائمة السياق.
 
 ![](inspect.svg)
 
-At the right part of the tools there are the following subtabs:
-- **Styles** -- we can see CSS applied to the current element rule by rule, including built-in rules (gray). Almost everything can be edited in-place, including the dimensions/margins/paddings of the box below.
-- **Computed** -- to see CSS applied to the element by property: for each property we can see a rule that gives it (including CSS inheritance and such).
-- **Event Listeners** -- to see event listeners attached to DOM elements (we'll cover them in the next part of the tutorial).
-- ...and so on.
+يوجد في الجزء الأيمن من الأدوات علامات التبويب الفرعية التالية:
+- **Styles** -- يُمكننا رؤية تنسيقات CSS المطبقة على العنصر الحالي قاعدة بعد الأخرى، بما في ذلك القواعد الذاتية (باللون الرمادي). ويُمكن تحرير كل شيء تقريبا، بما في ذلك الأبعاد/margins/paddings في الصندوق أدناه.
+- **Computed** -- يُمكننا من رؤية CSS مطبقة على العنصر حسب الخاصية: لكل خاصية يُمكننا أن نرى القاعدة التي تمنحها (بما في ذلك CSS الموروث وما إلى ذلك).
+- **Event Listeners** -- لرؤية event listeners المرتبطة بعناصر نموذج كائن المستند (سيتم تغطيتهم في الجزء التالي من البرنامج التعليمي).
+-...وما إلى ذلك.
 
-The best way to study them is to click around. Most values are editable in-place.
+أفضل طريقة لدراستها هي النقر عليها وحولها. معظم القيم قابلة للتعديل في مكانها.
 
-## Interaction with console
+## التفاعل مع الـ Console
 
-As we work the DOM, we also may want to apply JavaScript to it. Like: get a node and run some code to modify it, to see the result. Here are few tips to travel between the Elements tab and the console.
+أثناء العمل مع نموذج كائن المستند، قد نرغب أيضا في تطبيق الجافاسكربت عليه. مثل: ايجاد عقدة وتشغيل بعض التعليمات البرمجية لتعديلها، وذلك لرؤية النتيجة. إليك بعض النصائح للتنقل بين علامتي التبويب Elements و console.
 
-For the start:
+في البداية:
 
-1. Select the first `<li>` in the Elements tab.
-2. Press `key:Esc` -- it will open console right below the Elements tab.
+1. حدد أول عنصر `<li>` في تبويب Elements.
+2. اضغط `مفتاح:Esc`-- سيفتح الـ console اسفل علامة تبويب Elements مباشرة.
 
-Now the last selected element is available as `$0`, the previously selected is `$1` etc.
+الآن أخر عنصر تم تحديده متاح كـ `$0`، والعنصر الذي كان مُحددا قبله هو `$1` إلخ.
 
-We can run commands on them. For instance, `$0.style.background = 'red'` makes the selected list item red, like this:
+يُمكننا تشغيل الأوامر عليهم. على سبيل المثال، `$0.style.background = 'red'` يجعل عنصر القائمة المحدد أحمر، مثل هذا:
 
 ![](domconsole0.svg)
 
-That's how to get a node from Elements in Console.
+هذه هي كيفية الحصول على عقدة من علامة تبويب Elements في console.
 
-There's also a road back. If there's a variable referencing a DOM node, then we can use the command `inspect(node)` in Console to see it in the Elements pane.
+ووعلى عكس المثال السابق، فإذا كان هناك متغير يُشير إلى عقدة من نموذج كائن المستند، فيُمكننا استخدام الأمر `فحص(العقدة) inspect(node)` في الـ Console لرؤيته في جزء العناصر.
 
-Or we can just output the DOM node in the console and explore "in-place", like `document.body` below:
+أو يُمكننا فقط اخراج عقدة نموذج كائن المستند في الـ console واستكشافها "في مكانها"، مثل: `document.body` أدناه:
 
 ![](domconsole1.svg)
 
-That's for debugging purposes of course. From the next chapter on we'll access and modify DOM using JavaScript.
+وهذا بالطبع لأغراض التصحيح debugging. بدءا من الفصل التالي، سنقوم بالوصول إلى نموذج كائن المستند وتعديله باستخدام الجافاسكربت.
 
-The browser developer tools are a great help in development: we can explore the DOM, try things and see what goes wrong.
+تُساعد أدوات مطور المتصفح مساعدة كبيرة في التطوير: يُمكننا استكشاف نموذج كائن المستند وتجربة الأشياء ومعرفة الأخطاء.
 
-## Summary
+## الملخص
 
-An HTML/XML document is represented inside the browser as the DOM tree.
+يتم تمثيل مستند  HTML/XML داخل المتصفح باعتباره شجرة نموذج كائن المستند DOM Tree.
 
-- Tags become element nodes and form the structure.
-- Text becomes text nodes.
-- ...etc, everything in HTML has its place in DOM, even comments.
+- تصبح العلامات عقد عناصر وتُشكل البنية.
+- تصبح النصوص عقد نصية.
+-...إلخ، كل شيء في HTML له مكانه في نموذج كائن المستند، حتى التعليقات.
 
-We can use developer tools to inspect DOM and modify it manually.
+يُمكننا استخدام أدوات المطورين لفحص نموذج كائن المستند وتعديله يدويا.
 
-Here we covered the basics, the most used and important actions to start with. There's an extensive documentation about Chrome Developer Tools at <https://developers.google.com/web/tools/chrome-devtools>. The best way to learn the tools is to click here and there, read menus: most options are obvious. Later, when you know them in general, read the docs and pick up the rest.
+قمنا هنا بتغطية الأساسيات والإجراءات الأكثر استخدامًا والأكثر أهمية للبدء بها. هناك وثائق شاملة حول Chrome Developer Tools على <https://developers.google.com/web/tools/chrome-devtools>. أفضل طريقة لتعلم الأدوات هي بالنقر هنا وهناك، وقراءة القوائم: حيث مُعظم الخيارات واضحة. لاحقًا، عندما تعرفها مُجملة،  اقرأ وثائقها وتعلم الباقي.
 
-DOM nodes have properties and methods that allow us to travel between them, modify them, move around the page, and more. We'll get down to them in the next chapters.
+تحتوي عقد نموذج شجرة المستند على خصائص وأساليب تتيح لنا التنقل بينها وتعديلها والتنقل في الصفحة والمزيد. سنتناولها في الفصول القادمة.

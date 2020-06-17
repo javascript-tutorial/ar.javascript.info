@@ -204,9 +204,6 @@ The basic garbage collection algorithm is called "mark-and-sweep".
 
 - **مجموعة وقت الخمول** -- يحاول جامع القمامة ان يعمل في حالة ان وحدة المعالجة المركزية (CPU) في حالة خمول حتي لا يؤثر علي عملية التنفيذ.
 
-
-There exist other optimizations and flavours of garbage collection algorithms. As much as I'd like to describe them here, I have to hold off, because different engines implement different tweaks and techniques. And, what's even more important, things change as engines develop, so studying deeper "in advance", without a real need is probably not worth that. Unless, of course, it is a matter of pure interest, then there will be some links for you below.
-
 هنالك العديد من التحسينات في خوارزميات جامع القمامة. و علي قدر ما اود ان اشرحها هنا,يجب ان نتوقف و ذلك لأن المحركات الختلفة تتبني طرق و حلول مختلفة و الأهم من ذلك ان الأشياء تتغير بتتطور المحركات, لذا ادرس أكثر "مقدما" فبدون الحاجة الحقيقية لمعرفتها فهي لا تستحق العناء الا ان كنت و بالطبع تمتلك الشغف للمعرفة فالروابط بالأسفل ستساعدك بالتأكيد.
 
 ## الملخص

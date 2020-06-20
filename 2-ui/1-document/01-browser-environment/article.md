@@ -78,7 +78,7 @@ setTimeout(() => document.body.style.background = "", 1000);
 إليك كيفية استخدام كائن `location`:
 
 ```js run
-alert(location.href); //يظهر URL الحالى
+alert(location.href); //يظهر الـ URL الحالى
 if (confirm("Go to Wikipedia?")) {
   location.href = "https://wikipedia.org"; //إعادة توجيه المتصفح إلى عنوان URL آخر
 }

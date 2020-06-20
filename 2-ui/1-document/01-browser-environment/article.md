@@ -10,7 +10,7 @@
 
 ![](windowObjects.svg)
 
-لدينا كائن الجذر `window` , له دورين:
+لدينا كائن "الجذر" `window` . له دورين:
 
 1. أولا, هو كائن عالمى لشفرة javascript ,كما وصِف فى فصل <info:global-object>
 

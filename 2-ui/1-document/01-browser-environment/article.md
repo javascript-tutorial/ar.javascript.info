@@ -49,7 +49,7 @@ document.body.style.background = "red";
 setTimeout(() => document.body.style.background = "", 1000);
 ```
 
-استخدمنا هنا `document.body.style` ، ولكن هناك الكثير والكثير. يتم وصف الخصائص والأساليب في المواصفات:
+استخدمنا هنا `document.body.style`، ولكن هناك الكثير والكثير. يتم وصف الخصائص والأساليب في المواصفات:
 
 - **DOM الحالة القياسية** فى <https://dom.spec.whatwg.org>
 

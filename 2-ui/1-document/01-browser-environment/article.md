@@ -72,7 +72,7 @@ setTimeout(() => document.body.style.background = "", 1000);
 
 على سبيل المثال:
 
-- يوفر كائن [navigator](mdn:api/Window/navigator) معلومات أساسية حول المتصفح ونظام التشغيل. هناك العديد من الخصائص ، لكن الأكثر شهرة هما:
+- يوفر كائن [navigator](mdn:api/Window/navigator) معلومات أساسية حول المتصفح ونظام التشغيل. هناك العديد من الخصائص ، لكن الأكثر شهرة هما: `navigator.userAgent` -- حول المتصفح الحالي، و `navigator.platform` -- حول النظام الأساسي (يمكن أن يساعد على تحديد الاختلاف بين Windows/Linux/Mac إلخ).
 
 - يسمح لنا كائن [location](mdn:api/Window/location) بقراءة عنوان URL الحالي ويمكنه إعادة توجيه المتصفح إلى عنوان جديد.
 

@@ -84,7 +84,7 @@ if (confirm("Go to Wikipedia?")) {
 }
 ```
 
-تعد `alert/confirm/prompt` الوظائف أيضًا جزءًا من DOM المواد: فهي لا تتعلق مباشرة بالمستند ، ولكنها تمثل طرق متصفح خالصة للتواصل مع المستخدم.
+تعد الدوال `alert/confirm/prompt` جزءًا من الـ BOM: فهي لا تتعلق مباشرة بالمستند، ولكنها تمثل طرق متصفح خالصة للتواصل مع المستخدم.
 
 ```smart header="مواصفات"
 BOM هو جزء من مواصفات[HTML specification](https://html.spec.whatwg.org).

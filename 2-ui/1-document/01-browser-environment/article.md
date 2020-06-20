@@ -46,7 +46,7 @@ alert(window.innerHeight); // ارتفاع النافذة الداخلية
 document.body.style.background = "red";
 
 // تغييره مرة أخرى بعد ثانية واحدة
-setTimeout(() => (document.body.style.background = ""), 1000);
+setTimeout(() => document.body.style.background = "", 1000);
 ```
 
 استخدمنا هنا `document.body.style` ، ولكن هناك الكثير والكثير. يتم وصف الخصائص والأساليب في المواصفات:

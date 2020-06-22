@@ -181,10 +181,10 @@ Promise.allSettled(urls.map(url => fetch(url)))
 if(!Promise.allSettled) {
   Promise.allSettled = function(promises) {
     return Promise.all(promises.map(p => Promise.resolve(p).then(value => ({
-      state: 'fulfilled',
+      status: 'fulfilled',
       value
     }), reason => ({
-      state: 'rejected',
+      status: 'rejected',
       reason
     }))));
   };
@@ -193,7 +193,11 @@ if(!Promise.allSettled) {
 
 في هذا الرمز ، يأخذ `promises.map` قيم الإدخال ، ويحولها إلى وعود (فقط في حالة تمرير عدم الوعد) مع` p => Promise.resolve (p) `، ثم يضيف معالج` .then` إلى كل واحد.
 
+<<<<<<< HEAD
 يحول هذا المعالج نتيجة "القيمة" الناجحة إلى "{state:" الوفاء "و value}` والخطأ "reason" إلى "{state: "رفض"، reason} `. هذا هو بالضبط تنسيق `Promise.allSettled`.
+=======
+That handler turns a successful result `value` into `{status:'fulfilled', value}`, and an error `reason` into `{status:'rejected', reason}`. That's exactly the format of `Promise.allSettled`.
+>>>>>>> e4e6a50b5762dd5dc4c0f0c58f870c64be39dcfa
 
 الآن يمكننا استخدام "Promise.allSettled" للحصول على نتائج * جميع * الوعود المعطاة ، حتى لو رفض بعضها.
 
@@ -277,6 +281,7 @@ let promise = new Promise((resolve, reject) => reject(error));
 
 هناك 5 طرق ثابتة لفئة `Promise`:
 
+<<<<<<< HEAD
 1. "Promise.all (الوعود)" - تنتظر جميع الوعود لحل وإرجاع مجموعة من نتائجها. إذا تم رفض أي من الوعود المعطاة ، يصبح خطأ "Promise.all" ، ويتم تجاهل جميع النتائج الأخرى.
 2. "Promise.allSettled (الوعود)" (الطريقة المضافة حديثًا) - تنتظر جميع الوعود بتسوية نتائجها وإعادتها كمجموعة من الأشياء مع:
      - `الدولة`:` `محقق '' أو` `مرفوض ''
@@ -284,5 +289,14 @@ let promise = new Promise((resolve, reject) => reject(error));
 3. "الوعد" (الوعود) - ينتظر الوعد الأول بالاستقرار ، وتصبح نتيجته / خطأه النتيجة.
 4. "Promise.resolve (القيمة)" - يقدم وعدًا ثابتًا بقيمة معينة.
 5. "Promise.reject (خطأ)" - يقدم وعدًا مرفوضًا مع الخطأ المحدد.
+=======
+1. `Promise.all(promises)` -- waits for all promises to resolve and returns an array of their results. If any of the given promises rejects, it becomes the error of `Promise.all`, and all other results are ignored.
+2. `Promise.allSettled(promises)` (recently added method) -- waits for all promises to settle and returns their results as an array of objects with:
+    - `status`: `"fulfilled"` or `"rejected"`
+    - `value` (if fulfilled) or `reason` (if rejected).
+3. `Promise.race(promises)` -- waits for the first promise to settle, and its result/error becomes the outcome.
+4. `Promise.resolve(value)` -- makes a resolved promise with the given value.
+5. `Promise.reject(error)` -- makes a rejected promise with the given error.
+>>>>>>> e4e6a50b5762dd5dc4c0f0c58f870c64be39dcfa
 
 من بين هذه العناصر الخمسة ، يعد "Promise.all" الأكثر شيوعًا في الممارسة.

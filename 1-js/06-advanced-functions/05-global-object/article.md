@@ -1,87 +1,88 @@
 
-# Global object
+#  الكائن العام  Global object 
+الكائن العام يخدم المتغيرات والدوال المتاحة في أي مكان في الكود. مبدئيًا، المتغيرات والدوال مبنيان داخل اللغة أو بيئة العمل.
 
-The global object provides variables and functions that are available anywhere. By default, those that are built into the language or the environment.
 
-In a browser it is named `window`, for Node.js it is `global`, for other environments it may have another name.
+داخل المتصفح تسمى `window`، أما بخصوص الــ Node.js فهي تسمى `global`، ولأي بيئة أخرى فربما تحمل أسم أخر. 
 
-Recently, `globalThis` was added to the language, as a standardized name for a global object, that should be supported across all environments. In some browsers, namely non-Chromium Edge, `globalThis` is not yet supported, but can be easily polyfilled.
+مؤخرًا، تم إضافة `globalThis` للغة البرمجة كمعيار أسمي للكائن العام الذي يجب أن يُدعم خلال كل البيئات. في بعض المتصفحات، تحديدًا المتصفحات غير الكروميوم، `globalThis` ليست مدعمة بعد فيهم، لكن يمكن تطبيقه بسهوله داخل المتصفح.
 
-We'll use `window` here, assuming that our environment is a browser. If your script may run in other environments, it's better to use `globalThis` instead.
+سوف نستخدم `window` هنا، افتراضًا أن بيئتنا هي المتصفح. لو استخدمت السكريبت في أي بيئة أخرى، فالأفضل لك استخدام `globalThis` بدلًا من `window`. 
 
-All properties of the global object can be accessed directly:
+كل صفات الكائن العام نستطيع استرجعها مباشرة:
 
 ```js run
-alert("Hello");
-// is the same as
-window.alert("Hello");
+alert("أهلًا");
+// مطابق لـ
+window.alert("أهلًا");
 ```
 
-In a browser, global functions and variables declared with `var` (not `let/const`!) become the property of the global object:
+في المتصفح، الدوال العامة والمتغيرات تُعرف بـ `var` (ليس بـ `let/const`) لتصبح الخاصية للكائن العام:
 
 ```js run untrusted refresh
 var gVar = 5;
 
-alert(window.gVar); // 5 (became a property of the global object)
+alert(window.gVar); // 5 (تصبح خاصية للكائن العام)
 ```
 
-Please don't rely on that! This behavior exists for compatibility reasons. Modern scripts use [JavaScript modules](info:modules) where such thing doesn't happen.
+لا تعتمد على ذلك! هذه الطريقة وُجدت لدواعي التنسيق. السكريبتات الحديثة تستخدم [JavaScript modules](info:modules).
 
-If we used `let` instead, such thing wouldn't happen:
+لو تم استخدام `let`، تلك الخاصية لن تُعرّف.
+
 
 ```js run untrusted refresh
 let gLet = 5;
 
-alert(window.gLet); // undefined (doesn't become a property of the global object)
+alert(window.gLet); // undefined (لا تصبح خاصية للكائن العام)
 ```
 
-If a value is so important that you'd like to make it available globally, write it directly as a property:
+لو أصبحت القيمة أو المُخرج مهم جدًا وتفضل جعله عام ليكون متاحًا للاستخدام بعد ذلك، أكتبه مباشرة كخاصية: 
 
 ```js run
 *!*
-// make current user information global, to let all scripts access it
+
+// جعل معلومات المستخدم الحالي عامة لكي يتسمى لكل السكريبتات باستخدامها
 window.currentUser = {
   name: "John"
 };
 */!*
 
-// somewhere else in code
+// في مكان أخر في الكود
 alert(currentUser.name);  // John
 
-// or, if we have a local variable with the name "currentUser"
-// get it from window explicitly (safe!)
+// أو لو كان لدينا متغير داخلي باسم "currentUser" 
+// نحصل عليه من شاشة منفصلة (أأمن!)
 alert(window.currentUser.name); // John
 ```
 
-That said, using global variables is generally discouraged. There should be as few global variables as possible. The code design where a function gets "input" variables and produces certain "outcome" is clearer, less prone to errors and easier to test than if it uses outer or global variables.
+يمكننا أن نستنتج أن استخدام المتغيرات العامة عمومَا غير محبذ به. يجب أن تقل المتغيرات العامة بقدر الإمكان. تصميم الكود حيث جعل الدوال تستخدم متغيرات داخلية (خاصة) لتخرج نتائج محددة، أفضل وأقل عرضة للأخطاء وأسهل للاختبار، من استخدام متغيرات خارجية وعامة.
 
-## Using for polyfills
+## استخدام للبولي فيلز Using for polyfills
 
-We use the global object to test for support of modern language features.
-
-For instance, test if a built-in `Promise` object exists (it doesn't in really old browsers):
+لو كان لا يوجد (افترض أننا في متصفح قديم)، يمكننا كتابة كود (بولي فيلز) لتعريف الدوال التي لا تدعم بالبيئات، لكنها توجد في المعاير الحديثة.
 ```js run
 if (!window.Promise) {
-  alert("Your browser is really old!");
+  alert("المتصفح لديك قديم!");
 }
 ```
 
-If there's none (say, we're in an old browser), we can create "polyfills": add functions that are not supported by the environment, but exist in the modern standard.
+
+لو كان لا يوجد (افترض أننا في متصفح قديم)، يمكننا كتابة كود لتعريف الدوال التي لا تدعم بالبيئات، لكنها توجد في المعاير الحديثة.
+
 
 ```js run
 if (!window.Promise) {
-  window.Promise = ... // custom implementation of the modern language feature
+  window.Promise = ... // إدخال خواص لغة البرمجة الحديثة
 }
 ```
 
-## Summary
+## الملخص Summary
 
-- The global object holds variables that should be available everywhere.
+- 	الكائن العام يحمل المتغيرات التي يجب أن تكون متاحة في أي مكان.
+ذلك يتضمن مدموجات الجافا سكريبت، مثل `Array` وقيم البيئة الخاصة، مثل `window.innerHeight` -- ارتفاع الشاشة داخل المتصفح.
+-	الكائن العام يحمل أسم عمومي `globalThis`.
+لكن في بعض الأحيان يُشار إليه بأسامي "تقليدية" للبيئة الخاصة، مثل `window` (المتصفح) و `global` (Node.js). بينما `globalThis` كمشروع جديد، فهو لا يُدعم بمتصفحات غير الكروميوم (لكن يمكن تعريفه).
+-	يجب تخزين القيم في كائنات عامة فقط في حالة أنهم قيم عامة للمشروع. ويجب تقليل عددهم.
+-	في المتصفحات، مالم نستخدم [modules](info:modules)، فإن الدوال عامة والمتغيرات تُعرف ب`var`، وتصبح خاصية للكائن العام.
+-	لجعل الكود برهان مستقبلي وأسهل للفهم، فإنه يجب إدخال خواص الكائن العام مباشرة، كـ`window.x`.
 
-    That includes JavaScript built-ins, such as `Array` and environment-specific values, such as `window.innerHeight` -- the window height in the browser.
-- The global object has a universal name `globalThis`.
-
-    ...But more often is referred by "old-school" environment-specific names, such as `window` (browser) and `global` (Node.js). As `globalThis` is a recent proposal, it's not supported in non-Chromium Edge (but can be polyfilled).
-- We should store values in the global object only if they're truly global for our project. And keep their number at minimum.
-- In-browser, unless we're using [modules](info:modules), global functions and variables declared with `var` become a property of the global object.
-- To make our code future-proof and easier to understand, we should access properties of the global object directly, as `window.x`.

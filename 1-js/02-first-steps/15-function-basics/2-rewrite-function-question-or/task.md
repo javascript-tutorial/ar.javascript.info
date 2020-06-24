@@ -10,11 +10,11 @@
 
 ```js
 function checkAge(age) {
-  if (age > 18) {
-    return true;
-  } else {
-    return confirm('Did parents allow you?');
-  }
+    if (age > 18) {
+        return true;
+    } else {
+        return confirm("Did parents allow you?");
+    }
 }
 ```
 
@@ -22,5 +22,5 @@ function checkAge(age) {
 
 اعد كتابة `checkAge`:
 
-1. باستخدام معامل علامة الاستفهام `?`
+1. باستخدام عامل علامة الاستفهام `?`
 2. باستخدام OR `||`

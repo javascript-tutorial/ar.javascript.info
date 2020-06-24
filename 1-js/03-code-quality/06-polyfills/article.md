@@ -1,54 +1,53 @@
+# تعدد الأشكال
 
-# Polyfills
+تتطور لغة جافاسكريبت بثبات. تظهر مقترحات جديدة للغة بانتظام, يتم تحليلها و, إذا كانت جديرة بالإهتمام, يتم إضافتها إلى القائمة في <https://tc39.github.io/ecma262/> و من ثم التقدم في [specification](http://www.ecma-international.org/publications/standards/Ecma-262.htm).
 
-The JavaScript language steadily evolves. New proposals to the language appear regularly, they are analyzed and, if considered worthy, are appended to the list at <https://tc39.github.io/ecma262/> and then progress to the [specification](http://www.ecma-international.org/publications/standards/Ecma-262.htm).
+الفرق خلف محركات جافاسكريبت لديهم افكارهم الخاصه عن ماذا يقوموا بتنفيذه اولاً. قد يقررون تنفيذ المقترحات الموجودة في المسودة وتأجيل الأشياء الموجودة بالفعل في المواصفات, لأنهم أقل إثارة للاهتمام أو يصعب القيام بهم.
 
-Teams behind JavaScript engines have their own ideas about what to implement first. They may decide to implement proposals that are in draft and postpone things that are already in the spec, because they are less interesting or just harder to do.
+لذا فمن الشائع تمامًا أن يقوم المحرك بتطبيق الجزء القياسي فقط.
 
-So it's quite common for an engine to implement only the part of the standard.
-
-A good page to see the current state of support for language features is <https://kangax.github.io/compat-table/es6/> (it's big, we have a lot to study yet).
+صفحة جيدة لمعرفة الحالة الحالية لدعم ميزات اللغة هي <https://kangax.github.io/compat-table/es6/> (إنها ضخمه, لدينا الكثير لندرسه بعد).
 
 ## Babel
 
-When we use modern features of the language, some engines may fail to support such code. Just as said, not all features are implemented everywhere.
+عندما نستخدم الميزات الحديثة للغة, قد تفشل بعض المحركات في دعم مثل هذا الكود. كما يقال, لا يتم تنفيذ جميع الميزات في كل مكان.
 
-Here Babel comes to the rescue.
+هنا `Babel` تأتي لإنقاذ الموقف.
 
-[Babel](https://babeljs.io) is a [transpiler](https://en.wikipedia.org/wiki/Source-to-source_compiler). It rewrites modern JavaScript code into the previous standard.
+[Babel](https://babeljs.io) هي [transpiler](https://en.wikipedia.org/wiki/Source-to-source_compiler). إنها تعيد كتابة كود جافاسكريبت الحديث إلى معايير سابقة.
 
-Actually, there are two parts in Babel:
+فعلياً, يوجد قسمين في `Babel`:
 
-1. First, the transpiler program, which rewrites the code. The developer runs it on their own computer. It rewrites the code into the older standard. And then the code is delivered to the website for users. Modern project build systems like [webpack](http://webpack.github.io/) provide means to run transpiler automatically on every code change, so that it's very easy to integrate into development process.
+1. الأول, برنامج المترجم, الذي يعيد كتابة الكود. يقوم المطور بتشغيله على جهاز الكمبيوتر الخاص به. إنه يعيد كتابة الكود للمعايير القديمة. ثم يتم تسليم الكود إلى الموقع الإلكتروني للمستخدمين. أنظمة بناء المشاريع الحديثة مثل [webpack](http://webpack.github.io/) توفير وسائل لتشغيل الترجمة تلقائيًا عند كل تغيير للكود, بحيث يسهل الاندماج في عملية التطوير.
 
-2. Second, the polyfill.
+2. الثاني, تعدد الأشكال.
 
-    New language features may include new built-in functions and syntax constructs.
-    The transpiler rewrites the code, transforming syntax constructs into older ones. But as for new built-in functions, we need to implement them. JavaScript is a highly dynamic language, scripts may add/modify any functions, so that they behave according to the modern standard.
+   قد تتضمن ميزات اللغة الجديدة وظائف مضمنة جديدة وتركيبات بناء جملة.
+   المترجم يقوم بإعادة بناء الكود, تحويل بناء الجملة إلى التركيبات القديمة. و لكن بالنسبة للدوال المُضمنه الجديدة, نريد تنفيذهم. جافاسكريبت هى لغه ديناميكيه للغايه, الـ سكريبتات يمكن ان تقول بـ إضافة/تعديل أي دوال, بحيث يتصرفون وفقًا للمعايير الحديثة.
 
-    A script that updates/adds new functions is called "polyfill". It "fills in" the gap and adds missing implementations.
+   الـ سكريبت الذي يقوم بـ تعديل/إضافة الدوال الجديده يسمى "polyfill". إنه "يملأ" الفجوة و يضيف كل الدوال المفقودة.
 
-    Two interesting polyfills are:
-    - [core js](https://github.com/zloirock/core-js) that supports a lot, allows to include only needed features.
-    - [polyfill.io](http://polyfill.io) service that provides a script with polyfills, depending on the features and user's browser.
+   إثنان مهمان من `polyfills` هما:
 
-So, if we're going to use modern language features, a transpiler and a polyfill are necessary.
+   - [core js](https://github.com/zloirock/core-js) الذي يوفر الكثير, يسمح بتضمين الميزات المطلوبة فقط.
+   - [polyfill.io](http://polyfill.io) خدمة توفر سكريبت مع `polyfills`, اعتمادًا على الميزات ومتصفح المستخدم.
 
-## Examples in the tutorial
+لذا, إذا كنا سنستخدم ميزات اللغة الحديثة, الـ `transpiler` و `polyfill` ضروريان.
 
+## أمثلة في البرنامج التعليمي
 
 ````online
-Most examples are runnable at-place, like this:
+يمكن تشغيل معظم الأمثلة في مكانها, مثل ذلك:
 
 ```js run
-alert('Press the "Play" button in the upper-right corner to run');
+alert('إضغط زر "Play" في الجزء الأيمن العلوي للتشغيل');
 ```
 
-Examples that use modern JS will work only if your browser supports it.
+لن تعمل الأمثلة التي تستخدم جافاسكريبت الحديثة إلا إذا كان متصفحك يدعمها.
 ````
 
 ```offline
-As you're reading the offline version, in PDF examples are not runnable. In EPUB some of them can run.
+بما أنك تقرأ النسخة بلا إنترنت, الأمثله غير قابلة للتشغيل في `PDF`. في `EPUB` يمكن لبعضهم أن يعمل.
 ```
 
-Google Chrome is usually the most up-to-date with language features, good to run bleeding-edge demos without any transpilers, but other modern browsers also work fine.
+عادةً ما يكون `Google Chrome` هو الأحدث مع ميزات اللغة, جيد فى تشغيل العروض التوضيحيه بدون اى مترجمات `transpilers`, ولكن المتصفحات الحديثة الأخرى تعمل أيضًا بشكل جيد.

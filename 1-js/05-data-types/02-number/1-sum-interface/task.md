@@ -2,10 +2,10 @@ importance: 5
 
 ---
 
-# Sum numbers from the visitor
+# مجموع الأرقام من الزائر
 
-Create a script that prompts the visitor to enter two numbers and then shows their sum.
+أنشئ برنامج نصي يحث الزائر على إدخال رقمين ثم يظهر مجموع الأرقام.
 
 [demo]
 
-P.S. There is a gotcha with types.
+ملاحظة. هناك  gotcha مع الأنواع.

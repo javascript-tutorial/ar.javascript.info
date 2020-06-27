@@ -2,9 +2,9 @@ importance: 4
 
 ---
 
-# An occasional infinite loop
+# حلقة مفرغة
 
-This loop is infinite. It never ends. Why?
+هذه الحلقة لا نهائية. إنها لاتنتهي أبداً. لماذا؟
 
 ```js
 let i = 0;

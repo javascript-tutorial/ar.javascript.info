@@ -1,30 +1,30 @@
-Internally the decimal fraction `6.35` is an endless binary. As always in such cases, it is stored with a precision loss.
+داخلياً الكسر العشري `6.35` هو ثنائي لانهائي. وكما هو الحال دائما في مثل هذه الحالات، فإنها تخزن مع فقدان الدقة.
 
-Let's see:
+دعنا نرى:
 
 ```js run
 alert( 6.35.toFixed(20) ); // 6.34999999999999964473
 ```
 
-The precision loss can cause both increase and decrease of a number. In this particular case the number becomes a tiny bit less, that's why it rounded down.
+قد يتسبب فقدان الدقة في زيادة وتناقص عدد. في هذه الحالة بالذات يصبح الرقم أقل قليلا، لذلك هو يقرب للأقل.
 
-And what's for `1.35`?
+و مالفائدة `1.35`؟
 
 ```js run
 alert( 1.35.toFixed(20) ); // 1.35000000000000008882
 ```
 
-Here the precision loss made the number a little bit greater, so it rounded up.
+هنا خسارة الدقّة جعل العدد أكبر بقليل، لذا قام بتقريبه للأكبر.
 
-**How can we fix the problem with `6.35` if we want it to be rounded the right way?**
+**كيف يمكننا أن نحل المشكلة مع `6.35` إذا أردناه أن يكون مقرباً بالطريقة الصحيحة؟**
 
-We should bring it closer to an integer prior to rounding:
+نحن يجب أن نجعله أقرب إلى عدد صحيح قبل تقريبه:
 
 ```js run
 alert( (6.35 * 10).toFixed(20) ); // 63.50000000000000000000
 ```
 
-Note that `63.5` has no precision loss at all. That's because the decimal part `0.5` is actually `1/2`. Fractions divided by powers of `2` are exactly represented in the binary system, now we can round it:
+لاحظوا أن `63.5` لا تفقد دقتها على الإطلاق. هذا لأن الجزء العشري `0.5` هو في الواقع `1/2`. اجزاء مقسومة على `2` هي ممثلة تماما في النظام الثنائي، الآن يمكننا أن نقربه:
 
 
 ```js run

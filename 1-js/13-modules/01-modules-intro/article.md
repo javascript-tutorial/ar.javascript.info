@@ -1,13 +1,21 @@
 
 # مقدّمة إلى الوِحدات
 
+<<<<<<< HEAD
 سنرى سريعًا بينما تطبيقنا يكبُر حجمًا وتعقيدًا بأنّ علينا تقسيمه إلى ملفات متعدّدة، أو ”وِحدات“ (module). عادةً ما تحتوي الوِحدة على صنف أو مكتبة فيها دوالّ.
+=======
+As our application grows bigger, we want to split it into multiple files, so called "modules". A module may contain a class or a library of functions for a specific purpose.
+>>>>>>> 340ce4342100f36bb3c4e42dbe9ffa647d8716c8
 
 كانت محرّكات جافاسكربت تعمل لفترة طويلة جدًا دون أيّ صياغة وِحدات على مستوى اللغة، ولم تكن هذه بالمشكلة إذ أنّ السكربتات سابقًا كانت بسيطة وسهلة ولم يكن هناك داعٍ فعلي للوِحدات.
 
 ولكن كالعادة صارت السكربتات هذه أكثر تعقيدًا وأكبر، فكان على المجتمع اختراع طرائق مختلفة لتنظيم الشيفرات في وحدات (أو مكتبات خاصّة تُحمّل تلك الوِحدات حين الطلب).
 
+<<<<<<< HEAD
 مثال:
+=======
+To name some (for historical reasons):
+>>>>>>> 340ce4342100f36bb3c4e42dbe9ffa647d8716c8
 
 - [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition): هذه إحدى نُظم المكتبات القديمة جدًا والتي كتبت تنفيذها بدايةً المكتبة [require.js](http://requirejs.org/).
 - [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1): نظام الوِحدات الذي صُنِع لخوادم Node.js.
@@ -15,11 +23,19 @@
 
 أمّا الآن فهذه المكتبات صارت (أو تصير، يومًا بعد آخر) جزءًا من التاريخ، ولكن مع ذلك سنراها في السكربتات القديمة.
 
+<<<<<<< HEAD
 ظهر نظام الوِحدات (على مستوى اللغة) في المعيار عام 2015، وتطوّر شيئًا فشيئًا منذئذ وصارت الآن أغلب المتصفّحات الرئيسة (كما و Node.js) تدعمه. لذا سيكون أفضل لو بدأنا دراسة عملها من الآن.
+=======
+The language-level module system appeared in the standard in 2015, gradually evolved since then, and is now supported by all major browsers and in Node.js. So we'll study the modern JavaScript modules from now on.
+>>>>>>> 340ce4342100f36bb3c4e42dbe9ffa647d8716c8
 
 ## ما الوِحدة؟
 
+<<<<<<< HEAD
 الوِحدة هي ملف، فقط. كلّ نص برمجي يساوي وحدة واحدة.
+=======
+A module is just a file. One script is one module. As simple as that.
+>>>>>>> 340ce4342100f36bb3c4e42dbe9ffa647d8716c8
 
 يمكن أن تُحمّل الوِحدات بعضها البعض وتستعمل توجيهات خاصة مثل التصدير `export` والاستيراد `import` لتتبادل الميزات فيما بينها وتستدعي الدوالّ الموجودة في وحدة ص، من وحدة س:
 
@@ -55,7 +71,15 @@ sayHi('John'); // Hello, John!
 
 [codetabs src="say" height="140" current="index.html"]
 
+<<<<<<< HEAD
 يجلب المتصفّح الوِحدة تلقائيًا ويقيم الشيفرة البرمجية بداخلها (ويستورد جميع الوحدات المتعلقة بها إن لزم الأمر)، وثمّ يشغلها.
+=======
+The browser automatically fetches and evaluates the imported module (and its imports if needed), and then runs the script.
+
+```warn header="Modules work only via HTTP(s), not in local files"
+If you try to open a web-page locally, via `file://` protocol, you'll find that `import/export` directives don't work. Use a local web-server, such as [static-server](https://www.npmjs.com/package/static-server#getting-started) or use the "live server" capability of your editor, such as VS Code [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to test modules.
+```
+>>>>>>> 340ce4342100f36bb3c4e42dbe9ffa647d8716c8
 
 
 ## ميزات الوِحدات الأساسية

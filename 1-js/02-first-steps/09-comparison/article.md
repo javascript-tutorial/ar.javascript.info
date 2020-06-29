@@ -9,7 +9,13 @@
 - يساوي: `a == b` ، يرجى ملاحظة أن علامة المساواة المزدوجة` = `تعني اختبار المساواة ، في حين أن كلمة واحدة` a = b` تعني  تعيين أو مساواة .
 - لا تساوي. في الرياضيات يكون الترميز <code>&ne;</code> ،لكن في JavaScript تكتب هكذا <code>a != b</code>.
 
+<<<<<<< HEAD
 في هذه المقالة سنتعلم المزيد عن الأنواع المختلفة من المقارنات ، وكيف تجعلها JavaScript ، بما في ذلك الخصائص المهمة.
+=======
+In this article we'll learn more about different types of comparisons, how JavaScript makes them, including important peculiarities. 
+
+At the end you'll find a good recipe to avoid "javascript quirks"-related issues.
+>>>>>>> 340ce4342100f36bb3c4e42dbe9ffa647d8716c8
 
 ## Boolean هي النتيجة
 
@@ -24,7 +30,7 @@
 alert( 2 > 1 );  // true (correct)
 alert( 2 == 1 ); // false (wrong)
 alert( 2 != 1 ); // true (correct)
-```
+``` 
 
 يمكن تعيين نتيجة مقارنة لمتغير ، تمامًا مثل أي قيمة:
 
@@ -197,6 +203,7 @@ alert( undefined == 0 ); // false (3)
 - المقارنات `(1)` و `(2)` إرجاع `false` لأنه يتم تحويل` undefined` إلى `NaN` و` NaN` هي قيمة رقمية خاصة تُرجع `false` لجميع المقارنات.
 - تحقق المساواة `((3)` تُرجع `false` لأن` undefined` تساوي فقط `null` و` undefined` ولا قيمة أخرى.
 
+<<<<<<< HEAD
 ### تجنب المشاكل
 
 لماذا راجعنا هذه الأمثلة؟ هل يجب أن نتذكر هذه الخصائص المميزة طوال الوقت؟ حسنًا ، ليس حقًا. في الواقع ، ستصبح هذه الأشياء الصعبة مألوفة تدريجيًا بمرور الوقت ، ولكن هناك طريقة صلبة للتهرب من المشاكل معها:
@@ -204,6 +211,14 @@ alert( undefined == 0 ); // false (3)
 فقط تعامل مع أي مقارنة بـ "undefined / null" باستثناء المساواة الصارمة `===` مع رعاية استثنائية.
 
 لا تستخدم المقارنات `> => <<=` مع متغير قد يكون `فارغًا / غير محدد` ، ما لم تكن متأكدًا حقًا مما تفعله. إذا كان المتغير يمكن أن يكون له هذه القيم ، تحقق منها بشكل منفصل.
+=======
+### Avoid problems
+
+Why did we go over these examples? Should we remember these peculiarities all the time? Well, not really. Actually, these tricky things will gradually become familiar over time, but there's a solid way to avoid problems with them:
+
+- Treat any comparison with `undefined/null` except the strict equality `===` with exceptional care.
+- Don't use comparisons `>= > < <=` with a variable which may be `null/undefined`, unless you're really sure of what you're doing. If a variable can have these values, check for them separately.
+>>>>>>> 340ce4342100f36bb3c4e42dbe9ffa647d8716c8
 
 ## ملخص
 

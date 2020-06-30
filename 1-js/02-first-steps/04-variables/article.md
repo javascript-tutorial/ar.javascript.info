@@ -83,9 +83,8 @@ let user = 'John'
 
 تقنيا, كل هذه الطرق تؤدي لنفس الشئ. لذلك, انها مسألة ذوق وجمال شخصي.
 
-
 ````smart header="`var` بدلا من `let`"
-في الاصدارات الاقدم, قد تجد ايضا كلمة اخري: `var` بدلا من `let`
+في الاصدارات الاقدم, قد تجد ايضا كلمة اخري: `var` بدلا من `let`:
 
 ```js
 *!*var*/!* message = 'Hello';
@@ -135,6 +134,20 @@ message = hello;
 alert(hello); // Hello world!
 alert(message); // Hello world!
 ```
+
+````warn header="Declaring twice triggers an error"
+A variable should be declared only once.
+
+A repeated declaration of the same variable is an error:
+
+```js run
+let message = "This";
+
+// repeated 'let' leads to an error
+let message = "That"; // SyntaxError: 'message' has already been declared
+```
+So, we should declare a variable once and then refer to it without `let`.
+````
 
 ```smart header="Functional languages"
 من المثير للاهتمام ملاحظة وجود [وظيفي](https://en.wikipedia.org/wiki/Functional_programming) لغات برمجه, مثل [Scala](http://www.scala-lang.org/) او [Erlang](http://www.erlang.org/) تمنع تغيير قيم المتغير.
@@ -191,7 +204,8 @@ let имя = '...';
 let 我 = '...';
 ```
 
-تقنياً, لا يوجد خطأ هنا, مثل هذه الاسماء مسموح بها, ولكن هناك تقاليد عالميه لأستخدام اللغه الانجليزيه في أسماء المتغيرات. حتي لو كنا نكتب نصاً صغيراً, قد يكون لها حياة طويله في المستقبل. الناس من مختلف البلاد ربما يحتاجوا لقرأءتها في بنفس الكتابة.
+تقنياً, لا يوجد خطأ هنا, مثل هذه الاسماء مسموح بها, ولكن هناك تقاليد عالميه لأستخدام اللغه الانجليزيه في أسماء المتغيرات. حتي لو كنا نكتب نصاً صغيراً, قد يكون لها حياة طويله في المستقبل. الناس من مختلف البلاد ربما يحتاجوا لقرأءتها لبعض الوقت.
+
 ````
 
 ````warn header="الأسماء المحجوزه"

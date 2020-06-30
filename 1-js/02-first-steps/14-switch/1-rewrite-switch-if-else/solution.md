@@ -1,17 +1,19 @@
-للوصول إلى وظيفة `switch` باستخدام `if` يجب استخدام معامل التساوي الثلاثي `'==='`.
+للوصول إلى وظيفة `switch` باستخدام `if` يجب استخدام عامل التساوي الثلاثي `'==='`.
 
 بالنسبة للنصوص فإن `'=='` ستعمل أيضًا.
 
 ```js no-beautify
-if(browser == 'Edge') {
-  alert( "لديك Edge!" );
-} else if (browser == 'Chrome'
- || browser == 'Firefox'
- || browser == 'Safari'
- || browser == 'Opera') {
-  alert( 'حسنا نحن ندعم هذه المتصفحات أيضًا' );
+if (browser == "Edge") {
+    alert("لديك Edge!");
+} else if (
+    browser == "Chrome" ||
+    browser == "Firefox" ||
+    browser == "Safari" ||
+    browser == "Opera"
+) {
+    alert("حسنا نحن ندعم هذه المتصفحات أيضًا");
 } else {
-  alert( 'نتمنى أن تكون هذه الصفحة معروضة بشكل جيد' );
+    alert("نتمنى أن تكون هذه الصفحة معروضة بشكل جيد");
 }
 ```
 

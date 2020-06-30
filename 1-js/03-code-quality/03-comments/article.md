@@ -1,14 +1,14 @@
-# Comments
+# التعليقات
 
-As we know from the chapter <info:structure>, comments can be single-line: starting with `//` and multiline: `/* ... */`.
+كما نعلم من الفصل <info: structure> ، يمكن أن تكون التعليقات سطر واحد: بدءًا من `//` و multiline: `/ * ... * /`.
 
-We normally use them to describe how and why the code works.
+نستخدمها عادةً لوصف كيف ولماذا يعمل الرمز.
 
-At first sight, commenting might be obvious, but novices in programming often use them wrongly.
+للوهلة الأولى ، قد يكون التعليق واضحًا ، لكن المبتدئين في البرمجة غالبًا ما يستخدمونها بشكل خاطئ.
 
-## Bad comments
+## التعليقات السيئة
 
-Novices tend to use comments to explain "what is going on in the code". Like this:
+يميل المبتدئون إلى استخدام التعليقات لشرح "ما يجري في الكود". مثله:
 
 ```js
 // This code will do this thing (...) and that thing (...)
@@ -18,13 +18,13 @@ complex;
 code;
 ```
 
-But in good code, the amount of such "explanatory" comments should be minimal. Seriously, the code should be easy to understand without them.
+ولكن في مدونة جيدة ، يجب أن تكون كمية هذه التعليقات "التفسيرية" ضئيلة. على محمل الجد ، يجب أن يكون الرمز سهل الفهم بدونها.
 
-There's a great rule about that: "if the code is so unclear that it requires a comment, then maybe it should be rewritten instead".
+هناك قاعدة رائعة حول ذلك: "إذا كان الرمز غير واضح إلى حد أنه يتطلب تعليقًا ، فربما يجب إعادة كتابته بدلاً من ذلك".
 
-### Recipe: factor out functions
+### الوصفة: قم بعمل إعادة اعتبار للدوال 
 
-Sometimes it's beneficial to replace a code piece with a function, like here:
+في بعض الأحيان يكون من المفيد استبدال قطعة التعليمات البرمجية بدالة ، كما يلي:
 
 ```js
 function showPrimes(n) {
@@ -43,7 +43,8 @@ function showPrimes(n) {
 }
 ```
 
-The better variant, with a factored out function `isPrime`:
+البديل الأفضل ، مع دالة محسوبة
+`isPrime`:
 
 
 ```js
@@ -65,11 +66,11 @@ function isPrime(n) {
 }
 ```
 
-Now we can understand the code easily. The function itself becomes the comment. Such code is called *self-descriptive*.
+الآن يمكننا فهم الرمز بسهولة. تصبح الوظيفة نفسها التعليق. يسمى هذا الرمز * وصفي ذاتي *.
 
-### Recipe: create functions
+### الوصفة: إنشاء وظائف
 
-And if we have a long "code sheet" like this:
+وإذا كان لدينا "صفحة تعليمات برمجية" طويلة مثل هذا:
 
 ```js
 // here we add whiskey
@@ -90,7 +91,7 @@ for(let t = 0; t < 3; t++) {
 // ...
 ```
 
-Then it might be a better variant to refactor it into functions like:
+بعد ذلك ، قد يكون من الأفضل تغييرها إلى دوال مثل:
 
 ```js
 addWhiskey(glass);
@@ -111,21 +112,22 @@ function addJuice(container) {
 }
 ```
 
-Once again, functions themselves tell what's going on. There's nothing to comment. And also the code structure is better when split. It's clear what every function does, what it takes and what it returns.
+مرة أخرى ، تخبر الوظائف نفسها عما يحدث. لا يوجد أي تعليق. وكذلك بنية الكود أفضل عند التقسيم. من الواضح ما تقوم به كل وظيفة ، وما تحتاجه وما تعيده.
 
-In reality, we can't totally avoid "explanatory" comments. There are complex algorithms. And there are smart "tweaks" for purposes of optimization. But generally we should try to keep the code simple and self-descriptive.
+في الواقع ، لا يمكننا تجنب التعليقات "التفسيرية" تمامًا. هناك خوارزميات معقدة. وهناك "تعديلات" ذكية لأغراض التحسين. ولكن بشكل عام يجب أن نحاول الحفاظ على الكود بسيطًا وصفيًا ذاتيًا.
 
-## Good comments
+## تعليقات جيدة
 
-So, explanatory comments are usually bad. Which comments are good?
+لذا ، التعليقات التوضيحية عادة ما تكون سيئة. ما هي التعليقات الجيدة؟
 
-Describe the architecture
-: Provide a high-level overview of components, how they interact, what's the control flow in various situations... In short -- the bird's eye view of the code. There's a special language [UML](http://wikipedia.org/wiki/Unified_Modeling_Language) to build high-level architecture diagrams explaining the code. Definitely worth studying.
+وصف العمارة
+: تقديم نظرة عامة عالية المستوى على المكونات ، وكيفية تفاعلها ، وما هو تدفق التحكم في المواقف المختلفة ... باختصار - رؤية عين الطائر للرمز. هناك لغة خاصة [UML] (http://wikipedia.org/wiki/Unified_Modeling_Language) لإنشاء مخططات معمارية عالية المستوى تشرح الكود. بالتأكيد تستحق الدراسة.
 
-Document function parameters and usage
-: There's a special syntax [JSDoc](http://en.wikipedia.org/wiki/JSDoc) to document a function: usage, parameters, returned value.
+معلمات وظيفة الوثيقة واستخدامها
+: هناك بنية خاصة [JSDoc] (http://en.wikipedia.org/wiki/JSDoc) لتوثيق دالة: الاستخدام ، المعلمات ، القيمة المرتجعة.
 
-For instance:
+على سبيل المثال:
+
 ```js
 /**
  * Returns x raised to the n-th power.
@@ -139,42 +141,42 @@ function pow(x, n) {
 }
 ```
 
-Such comments allow us to understand the purpose of the function and use it the right way without looking in its code.
+تسمح لنا هذه التعليقات بفهم الغرض من الوظيفة واستخدامها بالطريقة الصحيحة دون النظر في التعليمات البرمجية الخاصة بها.
 
-By the way, many editors like [WebStorm](https://www.jetbrains.com/webstorm/) can understand them as well and use them to provide autocomplete and some automatic code-checking.
+بالمناسبة ، يمكن للعديد من المحررين مثل [WebStorm] (https://www.jetbrains.com/webstorm/) فهمهم أيضًا واستخدامهم لتوفير الإكمال التلقائي وبعض التحقق التلقائي من التعليمات البرمجية.
 
-Also, there are tools like [JSDoc 3](https://github.com/jsdoc3/jsdoc) that can generate HTML-documentation from the comments. You can read more information about JSDoc at <http://usejsdoc.org/>.
+أيضًا ، هناك أدوات مثل [JSDoc 3] (https://github.com/jsdoc3/jsdoc) يمكنها إنشاء وثائق HTML من التعليقات. يمكنك قراءة المزيد من المعلومات حول JSDoc على <http://usejsdoc.org/>.
 
-Why is the task solved this way?
-: What's written is important. But what's *not* written may be even more important to understand what's going on. Why is the task solved exactly this way? The code gives no answer.
+لماذا تحل المهمة بهذه الطريقة؟
+: ما هو مكتوب مهم. لكن ما هو * غير * مكتوب قد يكون أكثر أهمية لفهم ما يحدث. لماذا يتم حل المهمة بهذه الطريقة بالضبط؟ الكود لا يعطي إجابة.
 
-    If there are many ways to solve the task, why this one? Especially when it's not the most obvious one.
+    إذا كانت هناك طرق عديدة لحل المهمة ، فلماذا هذه المهمة؟ خاصة عندما لا يكون الأمر الأكثر وضوحًا.
 
-    Without such comments the following situation is possible:
-    1. You (or your colleague) open the code written some time ago, and see that it's "suboptimal".
-    2. You think: "How stupid I was then, and how much smarter I'm now", and rewrite using the "more obvious and correct" variant.
-    3. ...The urge to rewrite was good. But in the process you see that the "more obvious" solution is actually lacking. You even dimly remember why, because you already tried it long ago. You revert to the correct variant, but the time was wasted.
+    بدون هذه التعليقات يكون الوضع التالي ممكناً:
+    1. أنت (أو زميلك) تفتح الشفرة المكتوبة منذ بعض الوقت ، وترى أنها "دون المستوى الأمثل".
+    2. أنت تفكر: "كم كنت غبيًا في ذلك الوقت ، وكم أنا أذكى الآن" ، وأعد الكتابة باستخدام متغير "أكثر وضوحًا وصحة".
+    3. ... كانت الرغبة في إعادة الكتابة جيدة. ولكن في هذه العملية ، ترى أن الحل "الأكثر وضوحًا" غير موجود بالفعل. حتى أنك تتذكر لماذا ، لأنك جربته بالفعل منذ فترة طويلة. أنت تعود إلى البديل الصحيح ، لكن الوقت ضاع.
 
-    Comments that explain the solution are very important. They help to continue development the right way.
+    التعليقات التي تشرح الحل مهمة جدا. أنها تساعد على مواصلة التنمية بالطريقة الصحيحة.
 
-Any subtle features of the code? Where they are used?
-: If the code has anything subtle and counter-intuitive, it's definitely worth commenting.
+أي ميزات خفية للكود؟ أين يتم استخدامها؟
+: إذا كان الرمز يحتوي على أي شيء خفي وغير بديهي ، فمن المؤكد أنه يستحق التعليق.
 
-## Summary
+## ملخص
 
-An important sign of a good developer is comments: their presence and even their absence.
+من التعليقات الهامة لمطور جيد التعليقات: حضورهم وحتى غيابهم.
 
-Good comments allow us to maintain the code well, come back to it after a delay and use it more effectively.
+تسمح لنا التعليقات الجيدة بالحفاظ على الشفرة جيدًا ، والعودة إليها بعد فترة تأخير واستخدامها بشكل أكثر فعالية.
 
-**Comment this:**
+** تعليق هذا: **
 
-- Overall architecture, high-level view.
-- Function usage.
-- Important solutions, especially when not immediately obvious.
+- العمارة الشاملة ، منظر عالى المستوى.
+- استخدام الوظيفة.
+- حلول مهمة خاصة عندما لا تكون واضحة على الفور.
 
-**Avoid comments:**
+** تجنب التعليقات: **
 
-- That tell "how code works" and "what it does".
-- Put them in only if it's impossible to make the code so simple and self-descriptive that it doesn't require them.
+- يخبر "كيف يعمل الرمز" و "ماذا يفعل".
+- ضعهم فقط إذا كان من المستحيل جعل الكود بسيطًا وصفيًا ذاتيًا بحيث لا يتطلبهم.
 
-Comments are also used for auto-documenting tools like JSDoc3: they read them and generate HTML-docs (or docs in another format).
+تُستخدم التعليقات أيضًا في أدوات التوثيق التلقائي مثل JSDoc3: فهم يقرؤونها وينشئون مستندات HTML (أو مستندات بتنسيق آخر).

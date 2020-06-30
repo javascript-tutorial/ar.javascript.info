@@ -1,102 +1,102 @@
 # Type Conversions
 
-Most of the time, operators and functions automatically convert the values given to them to the right type.
+معظم الوقت، المعاملات والدوال تحول أوتوماتيكياً القيم المعطاة لهم للنوع الصحيح.
 
-For example, `alert` automatically converts any value to a string to show it. Mathematical operations convert values to numbers.
+على سبيل المثال، `alert` تحول أوتوماتيكياً أي قيمة إلى نص لإظهاره. المعاملات الرياضية تحول القيم إلى أرقام.
 
-There are also cases when we need to explicitly convert a value to the expected type.
+هناك أيضاً حالات نحتاج إلى تصريح تحويل القيمة إلى النوع المطلوب.
 
 ```smart header="Not talking about objects yet"
-In this chapter, we won't cover objects. For now we'll just be talking about primitives.
+في هذا الفصل، لن نغطي الكائنات. الآن سوف نتحدث عن الأنواع الأساسية.
 
-Later, after we learn about objects, in the chapter <info:object-toprimitive> we'll see how objects fit in.
+فيما بعد، بعد أن نتعلم عن الكائنات، في هذا الفصل <info:object-toprimitive> سنرى كيف تتلائم الكائنات فيه.
 ```
 
 ## String Conversion
 
-String conversion happens when we need the string form of a value.
+التحويل إلى نص يحدث عندما نحتاج الصورة النصية للقيمة.
 
-For example, `alert(value)` does it to show the value.
+على سبيل المثال، `alert(value)` تفعل ذلك لإظهار القيمة.
 
-We can also call the `String(value)` function to convert a value to a string:
+نستطيع أيضاً استدعاء دالة `String(value)` لكي نحول القيمة إلى نص:
 
 ```js run
 let value = true;
 alert(typeof value); // boolean
 
 *!*
-value = String(value); // now value is a string "true"
+value = String(value); // الأن القيمة هي نص تساوي "true"
 alert(typeof value); // string
 */!*
 ```
 
-String conversion is mostly obvious. A `false` becomes `"false"`, `null` becomes `"null"`, etc.
+التحويل إلى نص واضح جداً.  `false` تصبح `"false"`و `null` تصبح `"null"`، إلخ.
 
 ## Numeric Conversion
 
-Numeric conversion happens in mathematical functions and expressions automatically.
+التحويل إلى رقم يتم أوتوماتيكياً في المعاملات والتعبيرات الرياضية.
 
-For example, when division `/` is applied to non-numbers:
+على سبيل المثال، في حالة القسمة `/` عندما يتم تطبيقها على نوع غير رقمي:
 
 ```js run
-alert( "6" / "2" ); // 3, strings are converted to numbers
+alert( "6" / "2" ); // 3، النصوص تتحول إلى أرقام
 ```
 
-We can use the `Number(value)` function to explicitly convert a `value` to a number:
+نستطيع استخدام دالة `Number(value)` للتصريح بتحويل القيمة `value` إلى رقم:
 
 ```js run
 let str = "123";
 alert(typeof str); // string
 
-let num = Number(str); // becomes a number 123
+let num = Number(str); // تصبح رقم 123
 
 alert(typeof num); // number
 ```
 
-Explicit conversion is usually required when we read a value from a string-based source like a text form but expect a number to be entered.
+تصريح التحويل عادة يكون مطلوبا عندما نقرأ قيمة من مصدر يعتمد على النص مثل حقل إدخال في نموذج لكن نتوقع أن يتم إدخال رقم.
 
-If the string is not a valid number, the result of such a conversion is `NaN`. For instance:
+لو كان النص ليس رقما صالحا، ستكون النتيجة لمثل هذا التحويل هي `NaN`. على سبيل المثال:
 
 ```js run
 let age = Number("an arbitrary string instead of a number");
 
-alert(age); // NaN, conversion failed
+alert(age); // NaN، التحويل فشل
 ```
 
-Numeric conversion rules:
+قواعد التحويل الرقمي:
 
-| Value |  Becomes... |
+| القيمة |  تصبح... |
 |-------|-------------|
 |`undefined`|`NaN`|
 |`null`|`0`|
 |<code>true&nbsp;and&nbsp;false</code> | `1` and `0` |
-| `string` | Whitespaces from the start and end are removed. If the remaining string is empty, the result is `0`. Otherwise, the number is "read" from the string. An error gives `NaN`. |
+| `string` | المساحات البيضاء في البداية والنهاية يتم إزالتها. لو باقي النص فارغ، النتيجة هي `0`. غير ذلك، الرقم "يتم قرائته" من النص. أي خطأ يعطي`NaN`. |
 
-Examples:
+أمثلة:
 
 ```js run
 alert( Number("   123   ") ); // 123
-alert( Number("123z") );      // NaN (error reading a number at "z")
+alert( Number("123z") );      // NaN (خطأ في قراءة الرقم عند "z")
 alert( Number(true) );        // 1
 alert( Number(false) );       // 0
 ```
 
-Please note that `null` and `undefined` behave differently here: `null` becomes zero while `undefined` becomes `NaN`.
+من فضلك لاحظ أن `null` و `undefined` تسلك سلوكا مختلفا هنا: `null` تصبح صفر بينما `undefined` تصبح `NaN`.
 
-Most mathematical operators also perform such conversion, we'll see that in the next chapter.
+معظم المعاملات الرياضية أيضا تقوم بمثل هذا التحويل، سوف نرى ذلك في الفصل القادم.
 
 ## Boolean Conversion
 
-Boolean conversion is the simplest one.
+التحويل إلى قيم منطقية هو اﻷسهل.
 
-It happens in logical operations (later we'll meet condition tests and other similar things) but can also be performed explicitly with a call to `Boolean(value)`.
+إنه يحدث في معاملات منطقية (فيما بعد سنقابل إختبارات مشروطة وأشياء أخرى مشابهة) لكن أيضاً يمكن تنفيذها تصريحياً عن طريق إستدعاء  `Boolean(value)`.
 
-The conversion rule:
+قاعدة التحويل:
 
-- Values that are intuitively "empty", like `0`, an empty string, `null`, `undefined`, and `NaN`, become `false`.
-- Other values become `true`.
+- القيم التي تكون حدسية "فارغة"، مثل `0` ونص فارغ و `null` و`undefined` و `NaN` تصبح `false`.
+- كل القيم الأخرى تصبح `true`.
 
-For instance:
+على سبيل المثال:
 
 ```js run
 alert( Boolean(1) ); // true
@@ -106,45 +106,45 @@ alert( Boolean("hello") ); // true
 alert( Boolean("") ); // false
 ```
 
-````warn header="Please note: the string with zero `\"0\"` is `true`"
-Some languages (namely PHP) treat `"0"` as `false`. But in JavaScript, a non-empty string is always `true`.
+````warn header="من فضلك لاحظ: النص المكون من صفر `\"0\"` يكون `true`"
+بعض اللغات (أعني PHP) تعامل `"0"` على أنه `false`. لكن في الجافاسكربت، النص غير الفارغ دائماً `true`.
 
 ```js run
 alert( Boolean("0") ); // true
-alert( Boolean(" ") ); // spaces, also true (any non-empty string is true)
+alert( Boolean(" ") ); // المسافات، أيضاً true (أي نص غير فارغ يكون true)
 ```
 ````
 
 ## Summary
 
-The three most widely used type conversions are to string, to number, and to boolean.
+تحويلات الأنواع الثلاثة الأكثر إستخداماً هي إلى نص، رقم، قيمة منطقية.
 
-**`String Conversion`** -- Occurs when we output something. Can be performed with `String(value)`. The conversion to string is usually obvious for primitive values.
+**`التحويل للنص`** -- يحدث عندما نظهر شيء. يمكن تنفيذه عن طريق `String(value)`. التحويل إلى نص عادة واضح للقيم البسيطة.
 
-**`Numeric Conversion`** -- Occurs in math operations. Can be performed with `Number(value)`.
+**`التحويل إلى رقم`** -- يحدث في المعاملات الرياضية. يمكن تنفيذها عن طريق `Number(value)`.
 
-The conversion follows the rules:
+التحويل يتبع القواعد:
 
-| Value |  Becomes... |
+| القيمة |  تصبح... |
 |-------|-------------|
 |`undefined`|`NaN`|
 |`null`|`0`|
 |<code>true&nbsp;/&nbsp;false</code> | `1 / 0` |
-| `string` | The string is read "as is", whitespaces from both sides are ignored. An empty string becomes `0`. An error gives `NaN`. |
+| `string` | يتم قراءة النص "كما هو"،المسافات البيضاء من الجانبين يتم تجاهلها. النص الفارغ يصبح `0`. الخطأ `NaN`. |
 
-**`Boolean Conversion`** -- Occurs in logical operations. Can be performed with `Boolean(value)`.
+**`التحويلات المنطقية`** -- يحدث في المعاملات المنطقية. يتم تنفيذه عن طريق `Boolean(value)`.
 
-Follows the rules:
+يتبع القواعد الأتية:
 
-| Value |  Becomes... |
+| القيمة |  تصبح... |
 |-------|-------------|
 |`0`, `null`, `undefined`, `NaN`, `""` |`false`|
-|any other value| `true` |
+|أي قيمة أخرى| `true` |
 
 
-Most of these rules are easy to understand and memorize. The notable exceptions where people usually make mistakes are:
+معظم هذه القواعد سهل فهمها وحفظها. الإستثناءات الملحوظة عندما يفعل الناس عادة أخطاء وهي:
 
-- `undefined` is `NaN` as a number, not `0`.
-- `"0"` and space-only strings like `"   "` are true as a boolean.
+- `undefined` تكون `NaN` كرقم ليست `0`.
+- `"0"` والنصوص التي تحتوي على مسافات فقط `"   "` هي true كقيمة منطقية.
 
-Objects aren't covered here. We'll return to them later in the chapter <info:object-toprimitive> that is devoted exclusively to objects after we learn more basic things about JavaScript.
+لم يتم تغطية الكائنات هنا. سنعود إليهم لاحقاً في هذا الفصل <info:object-toprimitive> تكون مكرسة حصرياً للكائنات بعد أن تعمل أشياء أساسية أكثر عن الجافا سكربت .

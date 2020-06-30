@@ -1,9 +1,9 @@
 
-# Error handling with promises
+# التعامل مع الأخطاء في الـ `promises` 
 
-Promise chains are great at error handling. When a promise rejects, the control jumps to the closest rejection handler. That's very convenient in practice.
+سلاسل الـ `promises` رائعة في معالجة الأخطاء. عندما يرفض الوعد ، يقفز عنصر التحكم إلى أقرب معالج رفض. هذا مريح للغاية في الممارسة.
 
-For instance, in the code below the URL to `fetch` is wrong (no such site) and `.catch` handles the error:
+على سبيل المثال ، في التعليمات البرمجية أسفل عنوان URL لـ `جلب 'غير صحيح (لا يوجد مثل هذا الموقع) ويتعامل` .atch' مع الخطأ:
 
 ```js run
 *!*
@@ -13,9 +13,9 @@ fetch('https://no-such-server.blabla') // rejects
   .catch(err => alert(err)) // TypeError: failed to fetch (the text may vary)
 ```
 
-As you can see, the `.catch` doesn't have to be immediate. It may appear after one or maybe several `.then`.
+كما ترى ، لا يجب أن يكون "الصيد" فوريًا. قد تظهر بعد واحد أو ربما عدة "ثم".
 
-Or, maybe, everything is all right with the site, but the response is not valid JSON. The easiest way to catch all errors is to append `.catch` to the end of chain:
+أو ، ربما ، كل شيء على ما يرام مع الموقع ، ولكن الإجابة غير صالحة لـ JSON. أسهل طريقة للقبض على جميع الأخطاء هي إلحاق ".catch" بنهاية السلسلة:
 
 ```js run
 fetch('/article/promise-chaining/user.json')
@@ -38,13 +38,13 @@ fetch('/article/promise-chaining/user.json')
 */!*
 ```
 
-Normally, such `.catch` doesn't trigger at all. But if any of the promises above rejects (a network problem or invalid json or whatever), then it would catch it.
+عادةً ، لا يتم تشغيل ".catch" على الإطلاق. ولكن إذا رفض أي من الوعود أعلاه (مشكلة في الشبكة أو json غير صالح أو أيا كان) ، فسوف يلتقطها.
 
 ## Implicit try..catch
 
-The code of a promise executor and promise handlers has an "invisible `try..catch`" around it. If an exception happens, it gets caught and treated as a rejection.
+رمز تنفيذ الوعد ومعالجو الوعد يحتوي على "محاولة غير مرئية" غير مرئية حوله. إذا حدث استثناء ، يتم القبض عليه ومعاملته على أنه رفض.
 
-For instance, this code:
+على سبيل المثال ، هذا الكود:
 
 ```js run
 new Promise((resolve, reject) => {
@@ -54,7 +54,7 @@ new Promise((resolve, reject) => {
 }).catch(alert); // Error: Whoops!
 ```
 
-...Works exactly the same as this:
+... يعمل تمامًا مثل هذا:
 
 ```js run
 new Promise((resolve, reject) => {
@@ -64,11 +64,11 @@ new Promise((resolve, reject) => {
 }).catch(alert); // Error: Whoops!
 ```
 
-The "invisible `try..catch`" around the executor automatically catches the error and turns it into rejected promise.
+الـ `try..catch` غير المرئية حول المنفذ تقوم بالتقاط الحطأ بشكل أوتوماتيكي ويحوله إلى `rejected promise`. 
 
-This happens not only in the executor function, but in its handlers as well. If we `throw` inside a `.then` handler, that means a rejected promise, so the control jumps to the nearest error handler.
+يحدث هذا ليس فقط في وظيفة المنفذ ، ولكن في معالجاتها أيضًا. إذا قمنا "بإلقاء" داخل معالج ".then" ، فهذا يعني وعدًا مرفوضًا ، لذلك ينتقل عنصر التحكم إلى أقرب معالج أخطاء.
 
-Here's an example:
+إليك مثال:
 
 ```js run
 new Promise((resolve, reject) => {
@@ -80,7 +80,7 @@ new Promise((resolve, reject) => {
 }).catch(alert); // Error: Whoops!
 ```
 
-This happens for all errors, not just those caused by the `throw` statement. For example, a programming error:
+يحدث هذا لجميع الأخطاء ، وليس فقط تلك التي تسببها عبارة `throw`. على سبيل المثال ، خطأ في البرمجة:
 
 ```js run
 new Promise((resolve, reject) => {
@@ -92,17 +92,17 @@ new Promise((resolve, reject) => {
 }).catch(alert); // ReferenceError: blabla is not defined
 ```
 
-The final `.catch` not only catches explicit rejections, but also accidental errors in the handlers above.
+لا يكتفي "catch" النهائي برفض صريح فحسب ، بل يشتمل أيضًا على أخطاء عرضية في المعالجات أعلاه.
 
-## Rethrowing
+## إعادة رمي الخطأ
 
-As we already noticed, `.catch` at the end of the chain is similar to `try..catch`. We may have as many `.then` handlers as we want, and then use a single `.catch` at the end to handle errors in all of them.
+كما لاحظنا بالفعل ، ".catch" في نهاية السلسلة يشبه "try..catch". قد يكون لدينا العدد الذي تريده من معالجات "then`" ، ثم نستخدم ".catch" واحدًا في النهاية للتعامل مع الأخطاء في جميعها.
 
-In a regular `try..catch` we can analyze the error and maybe rethrow it if it can't be handled. The same thing is possible for promises.
+في "المحاولة .. المصيد" العادية ، يمكننا تحليل الخطأ وربما إعادة ترميمه إذا لم يكن من الممكن معالجته. نفس الشيء ممكن للوعود.
 
-If we `throw` inside `.catch`, then the control goes to the next closest error handler. And if we handle the error and finish normally, then it continues to the next closest successful `.then` handler.
+إذا قمنا `بإلقاء` داخل` .catch` ، فسينتقل عنصر التحكم إلى أقرب معالج أخطاء التالي. وإذا تعاملنا مع الخطأ وانتهينا بشكل طبيعي ، فسيستمر إلى أقرب معالج `.then` التالي.
 
-In the example below the `.catch` successfully handles the error:
+في المثال أدناه يتعامل `catch` بنجاح مع الخطأ:
 
 ```js run
 // the execution: catch -> then
@@ -117,9 +117,9 @@ new Promise((resolve, reject) => {
 }).then(() => alert("Next successful handler runs"));
 ```
 
-Here the `.catch` block finishes normally. So the next successful `.then` handler is called.
+هنا تنتهي كتلة "الصيد" بشكل طبيعي. لذلك يتم استدعاء معالج ".then" الناجح التالي.
 
-In the example below we see the other situation with `.catch`. The handler `(*)` catches the error and just can't handle it (e.g. it only knows how to handle `URIError`), so it throws it again:
+في المثال أدناه نرى الموقف الآخر مع ".catch". معالج `(*)` يمسك الخطأ ولا يمكنه التعامل معه (على سبيل المثال ، فهو يعرف فقط كيفية التعامل مع `URIError`) ، لذا فإنه يرميه مرة أخرى:
 
 ```js run
 // the execution: catch -> catch -> then
@@ -149,11 +149,11 @@ new Promise((resolve, reject) => {
 });
 ```
 
-The execution jumps from the first `.catch` `(*)` to the next one `(**)` down the chain.
+يقفز التنفيذ من أول ".catch" `(*)` إلى التالي `(**)` أسفل السلسلة.
 
-## Unhandled rejections
+## حالات الرفض التي لم تتم معالجتها
 
-What happens when an error is not handled? For instance, we forgot to append `.catch` to the end of the chain, like here:
+ماذا يحدث عندما لا يتم معالجة الخطأ؟ على سبيل المثال ، نسينا إلحاق "الصيد" بنهاية السلسلة ، كما يلي:
 
 ```js untrusted run refresh
 new Promise(function() {
@@ -164,15 +164,15 @@ new Promise(function() {
   }); // without .catch at the end!
 ```
 
-In case of an error, the promise becomes rejected, and the execution should jump to the closest rejection handler. But there is none. So the error gets "stuck". There's no code to handle it.
+Iفي حالة وجود خطأ ، يصبح الوعد مرفوضًا ، ويجب أن يقفز التنفيذ إلى أقرب معالج رفض. ولكن لا يوجد شيء. لذلك "عالق" الخطأ. لا يوجد رمز للتعامل معها.
 
-In practice, just like with regular unhandled errors in code, it means that something has gone terribly wrong.
+من الناحية العملية ، تمامًا كما هو الحال مع الأخطاء العادية التي لم تتم معالجتها في التعليمات البرمجية ، فهذا يعني أن شيئًا ما قد حدث خطأ فادحًا.
 
-What happens when a regular error occurs and is not caught by `try..catch`? The script dies with a message in the console. A similar thing happens with unhandled promise rejections.
+ماذا يحدث عند حدوث خطأ عادي ولا يتم اكتشافه بواسطة "try..catch"؟ يموت البرنامج النصي مع رسالة في وحدة التحكم. يحدث شيء مماثل مع رفض الوعد غير المعالج.
 
-The JavaScript engine tracks such rejections and generates a global error in that case. You can see it in the console if you run the example above.
+يتتبع محرك جافا سكريبت حالات الرفض هذه ويولد خطأً عامًا في هذه الحالة. يمكنك رؤيته في وحدة التحكم إذا قمت بتشغيل المثال أعلاه.
 
-In the browser we can catch such errors using the event `unhandledrejection`:
+في المتصفح يمكننا اكتشاف مثل هذه الأخطاء باستخدام الحدث `unhandledrejection`:
 
 ```js run
 *!*
@@ -188,17 +188,17 @@ new Promise(function() {
 }); // no catch to handle the error
 ```
 
-The event is the part of the [HTML standard](https://html.spec.whatwg.org/multipage/webappapis.html#unhandled-promise-rejections).
+الحدث هو جزء من [معيار HTML] (https://html.spec.whatwg.org/multipage/webappapis.html#unhandled-promise-rejections).
 
-If an error occurs, and there's no `.catch`, the `unhandledrejection` handler triggers, and gets the `event` object with the information about the error, so we can do something.
+إذا حدث خطأ ، ولم يكن هناك "التقاط" ، فسيتم تشغيل معالج "unhandledrejection" ، ويحصل على كائن "الحدث" مع معلومات حول الخطأ ، حتى نتمكن من القيام بشيء ما.
 
-Usually such errors are unrecoverable, so our best way out is to inform the user about the problem and probably report the incident to the server.
+عادة ما تكون مثل هذه الأخطاء غير قابلة للاسترداد ، لذلك أفضل طريقة للخروج هي إبلاغ المستخدم بالمشكلة وربما الإبلاغ عن الحادث إلى الخادم.
 
-In non-browser environments like Node.js there are other ways to track unhandled errors.
+في البيئات غير المستعرضة مثل Node.js ، هناك طرق أخرى لتتبع الأخطاء التي لم تتم معالجتها.
 
-## Summary
+## ملخص
 
-- `.catch` handles errors in promises of all kinds: be it a `reject()` call, or an error thrown in a handler.
-- We should place `.catch` exactly in places where we want to handle errors and know how to handle them. The handler should analyze errors (custom error classes help) and rethrow unknown ones (maybe they are programming mistakes).
-- It's ok not to use `.catch` at all, if there's no way to recover from an error.
-- In any case we should have the `unhandledrejection` event handler (for browsers, and analogs for other environments) to track unhandled errors and inform the user (and probably our server) about them, so that our app never "just dies".
+- يعالج `.catch` الأخطاء في الوعود بجميع أنواعها: سواء كان استدعاء` `رفض ()` أو خطأ تم طرحه في معالج.
+- يجب وضع ".catch" بالضبط في الأماكن التي نرغب في معالجة الأخطاء فيها ومعرفة كيفية التعامل معها. يجب أن يقوم المعالج بتحليل الأخطاء (تساعد فئات الأخطاء المخصصة) وإعادة إنشاء الأخطاء غير المعروفة (ربما تكون أخطاء برمجة).
+- لا بأس بعدم استخدام "الصيد" على الإطلاق ، إذا لم تكن هناك طريقة للتعافي من خطأ.
+- على أي حال ، يجب أن يكون لدينا معالج الأحداث `unhandledrejection` (للمتصفحات والنظير للبيئات الأخرى) لتتبع الأخطاء التي لم تتم معالجتها وإبلاغ المستخدم (وربما خادمنا) بشأنها ، حتى لا يموت تطبيقنا أبدًا.

@@ -1,26 +1,26 @@
-# Functions
+# الدوال
 
-Quite often we need to perform a similar action in many places of the script.
+أحيان كثيرة نريد تنفيذ نفس الأوامر في أماكن مختلفة من البرنامج.
 
-For example, we need to show a nice-looking message when a visitor logs in, logs out and maybe somewhere else.
+مثلًا نريد إظهار رسالة عندما يقوم المستخدم بتسجيل الدخول أو الخروج أو أماكن أخرى.
 
-Functions are the main "building blocks" of the program. They allow the code to be called many times without repetition.
+الدوال هي وحدة البناء الأساسية لأي برنامج فهي تمكننا من تنفيذ نفس الأوامر في عدة أماكن دون تكرار.
 
-We've already seen examples of built-in functions, like `alert(message)`, `prompt(message, default)` and `confirm(question)`. But we can create functions of our own as well.
+لقد رأينا من قبل العديد من الدوال المدمجة في اللغة مثل `alert(message)`, `prompt(message, default)` و `confirm(question)`. ولكن يمكننا إنشاء الدوال الخاصة بنا.
 
 ## Function Declaration
 
-To create a function we can use a *function declaration*.
+لإنشاء دالة نستخدم _function declaration_.
 
-It looks like this:
+مثل هذا:
 
 ```js
 function showMessage() {
-  alert( 'Hello everyone!' );
+    alert("مرحبًا بالجميع");
 }
 ```
 
-The `function` keyword goes first, then goes the *name of the function*, then a list of *parameters* between the parentheses (comma-separated, empty in the example above) and finally the code of the function, also named "the function body", between curly braces.
+كلمة `function` تكتب أولا ثم يكتب _اسم الدالة_ ثم قائمة _parameters_ بين القوسين (يفصل بينهم بفاصلة وهي فارغة في المثال السابق) وأخيرا الكود الذي ينفذ ويسمى "the function body" بين القوسين المعقوفين.
 
 ```js
 function name(parameters) {
@@ -28,13 +28,13 @@ function name(parameters) {
 }
 ```
 
-Our new function can be called by its name: `showMessage()`.
+يمكننا استدعاء دالتنا الجديدة عن طريق اسمها: `showMessage()`.
 
 For instance:
 
 ```js run
 function showMessage() {
-  alert( 'Hello everyone!' );
+  alert( 'مرحبًا بالجميع' );
 }
 
 *!*
@@ -43,17 +43,17 @@ showMessage();
 */!*
 ```
 
-The call `showMessage()` executes the code of the function. Here we will see the message two times.
+استدعاء `showMessage()` يقوم بتنفيذ الكود وتظهر لنا الرسالة مرتين.
 
-This example clearly demonstrates one of the main purposes of functions: to avoid code duplication.
+هذا المثال يوضح الهدف الأساسي للدوال وهو تجنب تكرار الكود.
 
-If we ever need to change the message or the way it is shown, it's enough to modify the code in one place: the function which outputs it.
+إذا أردنا تغيير الرسالة التي تعرض سيكون كافيًا تغيير الكود في مكان واحد فقط وهو الدالة التي تعرض لرسالة.
 
-## Local variables
+## المتغيرات المحلية
 
-A variable declared inside a function is only visible inside that function.
+المتغير الذي يعرف داخل دالة يكون متاح داخل هذه الدالة فقط
 
-For example:
+مثلًا:
 
 ```js run
 function showMessage() {
@@ -66,12 +66,12 @@ function showMessage() {
 
 showMessage(); // Hello, I'm JavaScript!
 
-alert( message ); // <-- Error! The variable is local to the function
+alert( message ); // <-- خطأ! المتغير متاح فقط داخل الدالة
 ```
 
-## Outer variables
+## المتغيرات الخارجية
 
-A function can access an outer variable as well, for example:
+يمكن للدالة الوصول للمتغيرات خارجها مثل:
 
 ```js run no-beautify
 let *!*userName*/!* = 'John';
@@ -84,62 +84,62 @@ function showMessage() {
 showMessage(); // Hello, John
 ```
 
-The function has full access to the outer variable. It can modify it as well.
+الدالة لديها وصول كامل للمتغيرات خارجها ويمكنها أيضًا التعديل عليهم.
 
-For instance:
+مثلًا:
 
 ```js run
 let *!*userName*/!* = 'John';
 
 function showMessage() {
-  *!*userName*/!* = "Bob"; // (1) changed the outer variable
+  *!*userName*/!* = "Bob"; // (1) تغيير قيمة المتغير الخارجي
 
   let message = 'Hello, ' + *!*userName*/!*;
   alert(message);
 }
 
-alert( userName ); // *!*John*/!* before the function call
+alert( userName ); // *!*John*/!* قبل استدعاء الدالة
 
 showMessage();
 
-alert( userName ); // *!*Bob*/!*, the value was modified by the function
+alert( userName ); // *!*Bob*/!* تم تغيير المتغير بواسطة الدالة
 ```
 
-The outer variable is only used if there's no local one.
+يتم استخدام المتغير الخارجي فقط إذا لم يوجد متغير محلي.
 
-If a same-named variable is declared inside the function then it *shadows* the outer one. For instance, in the code below the function uses the local `userName`. The outer one is ignored:
+إذا تم عمل متغير محلي بنفس الاسم فيتم استخدامه بدلًا من الخارجي فعلى سبيل المثال الدالة التالية ستستخدم المتغير المحلي `userName` وتتجاهل المتغير الخارجي:
 
 ```js run
 let userName = 'John';
 
 function showMessage() {
 *!*
-  let userName = "Bob"; // declare a local variable
+  let userName = "Bob"; // تعريف متغير محلي
 */!*
 
   let message = 'Hello, ' + userName; // *!*Bob*/!*
   alert(message);
 }
 
-// the function will create and use its own userName
+// ستقوم الدالة بعمل واستخدام userName الخاص بها
 showMessage();
 
-alert( userName ); // *!*John*/!*, unchanged, the function did not access the outer variable
+alert( userName ); // *!*John*/!*, لم يتغير, الدالة لن تصل للمتغير الخارجي
 ```
 
-```smart header="Global variables"
-Variables declared outside of any function, such as the outer `userName` in the code above, are called *global*.
+```smart header="المتغيرات العالمية"
+المتغيرات التي تعرف خارج أي دالة مثل المتغير الخارجي `userName` في المثال السابق تسمى *global*.
 
-Global variables are visible from any function (unless shadowed by locals).
+المتغيرات العالمية يمكن استخدامها بواسطة أي دالة (إذا لم يتم تعرف متغير محلي بنفس الاسم).
 
-It's a good practice to minimize the use of global variables. Modern code has few or no globals. Most variables reside in their functions. Sometimes though, they can be useful to store project-level data.
+من الأفضل التقليل من المتغيرات العالمية. ويتم تعريف المتغيرات في الدوال الخاصة بها. على الرغم من أن المتغيرات العالمية مفيدة لتخزين البيانات لاستخدامها على مستوى المشروع كله.
 ```
 
 ## Parameters
 
-We can pass arbitrary data to functions using parameters (also called *function arguments*) .
+يمكننا تمرير أي قيم إلى الدالة باستخدام parameters (أيضًا تسمى _function arguments_) .
 
-In the example below, the function has two parameters: `from` and `text`.
+في هذا المثال الدالة لديها معاملين: `from` و `text`.
 
 ```js run
 function showMessage(*!*from, text*/!*) { // arguments: from, text
@@ -152,10 +152,9 @@ showMessage('Ann', "What's up?"); // Ann: What's up? (**)
 */!*
 ```
 
-When the function is called in lines `(*)` and `(**)`, the given values are copied to local variables `from` and `text`. Then the function uses them.
+عند استدعاء الدالة في السطر `(*)` و `(**)` فإن القيم الممررة تنسخ إلى المتغيرات المحلية `from` و `text`. ثم تقوم الدالة باستخدامهم.
 
-Here's one more example: we have a variable `from` and pass it to the function. Please note: the function changes `from`, but the change is not seen outside, because a function always gets a copy of the value:
-
+هنا مثال آخر حيث لدينا المتغير `from` وقمنا بتمريره إلى الدالة. لاحظ أن الدالة قامت بتغيير قيمة `from` ولكن التغيير لا يؤثر في المتغير الممرر لأن الدالة تحصل على نسخة من القيمة:
 
 ```js run
 function showMessage(from, text) {
@@ -171,23 +170,23 @@ let from = "Ann";
 
 showMessage(from, "Hello"); // *Ann*: Hello
 
-// the value of "from" is the same, the function modified a local copy
+// قيمة "from" تظل كما هي لأن الدالة قامت بالتعديل على متغيرها المحلي
 alert( from ); // Ann
 ```
 
-## Default values
+## القيم الإفتراضية
 
-If a parameter is not provided, then its value becomes `undefined`.
+إذا لم يتم تمرير قيمة Parameter يأخذ القيمة `undefined`.
 
-For instance, the aforementioned function `showMessage(from, text)` can be called with a single argument:
+على سبيل المثال الفنكشن السابقة `showMessage(from, text)` يمكن استدعائها وتمرير قيمة واحدة فقط:
 
 ```js
 showMessage("Ann");
 ```
 
-That's not an error. Such a call would output `"Ann: undefined"`. There's no `text`, so it's assumed that `text === undefined`.
+هذا ليس خطأ ولكن سينتج `"Ann: undefined"`. لم يتم تمرير `text` لذلك يتم افتراض أن `text === undefined`.
 
-If we want to use a "default" `text` in this case, then we can specify it after `=`:
+إذا أردت تخصيص قيمة إفتراضية ل `text` يمكن وضعها بعد `=`:
 
 ```js run
 function showMessage(from, *!*text = "no text given"*/!*) {
@@ -197,28 +196,28 @@ function showMessage(from, *!*text = "no text given"*/!*) {
 showMessage("Ann"); // Ann: no text given
 ```
 
-Now if the `text` parameter is not passed, it will get the value `"no text given"`
+إذا لم يتم تمرير قيمة `text` سيتم إعطائه القيمة `"no text given"`
 
-Here `"no text given"` is a string, but it can be a more complex expression, which is only evaluated and assigned if the parameter is missing. So, this is also possible:
+هنا استخدمنا النص `"no text given"` ولكن يمكن أن تكون القيمة معقدة أكثر من:
 
 ```js run
 function showMessage(from, text = anotherFunction()) {
-  // anotherFunction() only executed if no text given
-  // its result becomes the value of text
+    // anotherFunction() سيتم تنفيذها فقط إذا لم يحدد قيمة
+    // وناتجها سيوضع كقيمة للمتغير text
 }
 ```
 
-```smart header="Evaluation of default parameters"
-In JavaScript, a default parameter is evaluated every time the function is called without the respective parameter.
+```smart header="تنفيذ القيم الإفتراضية"
+في الجافاسكربت يتم تنفيذ القيم الإفتراضية في كل مرة يتم استدعاء الدالة دون تمرير قيمة.
 
-In the example above, `anotherFunction()` is called every time `showMessage()` is called without the `text` parameter.
+في المثال السابق سيتم تنفيذ `anotherFunction()` في كل مرة يتم استدعا `showMessage()` دون تمرير قيمة `text`.
 ```
 
-### Alternative default parameters
+### بديل القيم الإفتراضية
 
-Sometimes it makes sense to set default values for parameters not in the function declaration, but at a later stage, during its execution.
+أحيانا نريدتحديد قيمة لإفتراضية ولكن ليس في تعريف الدالة بل في وقت لاحق أثناء التنفيذ.
 
-To check for an omitted parameter, we can compare it with `undefined`:
+لمعرفة المتغير الذي لم يمرر قيمته يمكننا مقارنته مع `undefined`:
 
 ```js run
 function showMessage(text) {
@@ -234,22 +233,22 @@ function showMessage(text) {
 showMessage(); // empty message
 ```
 
-...Or we could use the `||` operator:
+...أو نستخدم العامل `||`:
 
 ```js
-// if text parameter is omitted or "" is passed, set it to 'empty'
+// إذا لم يتم تمرير قيمة text أو تم تمرير "" يجعل قيمته 'empty'
 function showMessage(text) {
   text = text || 'empty';
   ...
 }
 ```
 
-Modern JavaScript engines support the [nullish coalescing operator](info:nullish-coalescing-operator) `??`, it's better when falsy values, such as `0`, are considered regular:
+محركات الجافاسكربت الحديثة تدعم [nullish coalescing operator](info:nullish-coalescing-operator) `??`وهوأفضل في التعامل مع falsy values مثل `0`:
 
 ```js run
-// if there's no "count" parameter, show "unknown"
+// إذا لم يوجد قيمة "count" يعرض "unknown"
 function showCount(count) {
-  alert(count ?? "unknown");
+    alert(count ?? "unknown");
 }
 
 showCount(0); // 0
@@ -257,11 +256,11 @@ showCount(null); // unknown
 showCount(); // unknown
 ```
 
-## Returning a value
+## إرجاع قيمة
 
-A function can return a value back into the calling code as the result.
+يمكن للدالة إرجاع قيمة كناتج لها.
 
-The simplest example would be a function that sums two values:
+أبسط مثال هو دالة تقوم بجمع رقمين:
 
 ```js run no-beautify
 function sum(a, b) {
@@ -272,9 +271,9 @@ let result = sum(1, 2);
 alert( result ); // 3
 ```
 
-The directive `return` can be in any place of the function. When the execution reaches it, the function stops, and the value is returned to the calling code (assigned to `result` above).
+كلمة `return` يمكن أن تكون في أي مكان في الكود وعند الوصول لها تتوقف الدالة وترجع القيمة المحددة إلى مكان الاستدعاء (وضعت في المتغير `result` بالأعلى).
 
-There may be many occurrences of `return` in a single function. For instance:
+يمكن حدوث أكثر من `return` في نفس الدالة:
 
 ```js run
 function checkAge(age) {
@@ -298,9 +297,9 @@ if ( checkAge(age) ) {
 }
 ```
 
-It is possible to use `return` without a value. That causes the function to exit immediately.
+يمكن استخدام `return` بدون قيمة عندما نريد إيقاف الدالة في الحال.
 
-For example:
+مثلًا:
 
 ```js
 function showMovie(age) {
@@ -315,45 +314,48 @@ function showMovie(age) {
 }
 ```
 
-In the code above, if `checkAge(age)` returns `false`, then `showMovie` won't proceed to the `alert`.
+في المثال بالأعلى إذا كانت `checkAge(age)` ترجع `false` عندها `showMovie` لن تكمل إلى `alert`.
 
-````smart header="A function with an empty `return` or without it returns `undefined`"
-If a function does not return a value, it is the same as if it returns `undefined`:
-
-```js run
-function doNothing() { /* empty */ }
-
-alert( doNothing() === undefined ); // true
-```
-
-An empty `return` is also the same as `return undefined`:
+``smart header="الدالة التي لديها `return` فارغة أو ليس لديها ترجع `undefined`"
+إذا كانت الدالة لا ترجع قيمة فكأنها ترجع `undefined`:
 
 ```js run
 function doNothing() {
-  return;
+    /* empty */
 }
 
-alert( doNothing() === undefined ); // true
+alert(doNothing() === undefined); // true
 ```
-````
 
-````warn header="Never add a newline between `return` and the value"
-For a long expression in `return`, it might be tempting to put it on a separate line, like this:
+استخدام `return` فارغة هو أيضًا مثل `return undefined`:
+
+```js run
+function doNothing() {
+    return;
+}
+
+alert(doNothing() === undefined); // true
+```
+
+`````
+
+````warn header="لا تضع سطر جديد بين `return` والقيمة"
+إذا اردنا استخدام تعبير طويل مع `return` سيكون من الأفضل وضعه في سطر جديد:
 
 ```js
 return
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
-That doesn't work, because JavaScript assumes a semicolon after `return`. That'll work the same as:
+هذا لن يعمل لأن الجافاسكربت ستفترض وجود فاصلة منقوطة بعد `return`. وهذا يطابق:
 
 ```js
 return*!*;*/!*
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
 
-So, it effectively becomes an empty return.
+وبهذا سيصبح return فارغة.
 
-If we want the returned expression to wrap across multiple lines, we should start it at the same line as `return`. Or at least put the opening parentheses there as follows:
+إذا أردنا استخدام تعبير طويل في سطر جديد يجب وضع بدايته في نفس السطر مع `return`. أو نضعه بين قوسين كالآتي:
 
 ```js
 return (
@@ -362,25 +364,25 @@ return (
   whatever * f(a) + f(b)
   )
 ```
-And it will work just as we expect it to.
-````
+وسيعمل كما هو متوقع.
+`````
 
-## Naming a function [#function-naming]
+## تسمية الدالة [#function-naming]
 
-Functions are actions. So their name is usually a verb. It should be brief, as accurate as possible and describe what the function does, so that someone reading the code gets an indication of what the function does.
+الدوال هي أفعال. لهذا ففي الغالب يكون اسمها عبارة عن فعل. يجب أن يكون مختصرًا ويوضح بقدر الإمكان ما تفعله الدالة فيمكن لأي أحد يقرأ الكود أن يعرف وظيفة الدالة بسهولة.
 
-It is a widespread practice to start a function with a verbal prefix which vaguely describes the action. There must be an agreement within the team on the meaning of the prefixes.
+من الشائع أن يبدأ اسم الدالة بكلمة توصف الفعل ويجب أن يتم الإتفاق على هذه الكلمات بين أعضاء الفريق.
 
-For instance, functions that start with `"show"` usually show something.
+على سبيل المثال فالدوال التي تبدأ بكلمة `"show"` فهي في الغالب تعرض شئ معين.
 
 Function starting with...
 
-- `"get…"` -- return a value,
-- `"calc…"` -- calculate something,
-- `"create…"` -- create something,
-- `"check…"` -- check something and return a boolean, etc.
+-   `"get…"` -- ترجع قيمة,
+-   `"calc…"` -- تحسب شئ ما,
+-   `"create…"` -- تنشئ شئ ما,
+-   `"check…"` -- تختبر قيمة ما وترجع قيمة منطقية.
 
-Examples of such names:
+أمثلة:
 
 ```js no-beautify
 showMessage(..)     // shows a message
@@ -390,54 +392,53 @@ createForm(..)      // creates a form (and usually returns it)
 checkPermission(..) // checks a permission, returns true/false
 ```
 
-With prefixes in place, a glance at a function name gives an understanding what kind of work it does and what kind of value it returns.
+استخدام هذه الكلمات يعطي فكرة عن ما تفعله الدالة وما ينتج عنها.
 
-```smart header="One function -- one action"
-A function should do exactly what is suggested by its name, no more.
+```smart header="دالة واحدة -- فعل واحد"
+يجب أن تقوم الدالة بعمل شئ واحد فقط لا أكثر يوصفه اسمها.
 
-Two independent actions usually deserve two functions, even if they are usually called together (in that case we can make a 3rd function that calls those two).
+الفعلين الغير معتمدين على بعضهما يتم وضع كل منهما في دالة منفصلة حتى لو سيتم استدعائها مع بعضهما (في هذه الحالة يمكن عمل دالة ثالثة تستدعيهما).
 
-A few examples of breaking this rule:
+أمثلة:
 
-- `getAge` -- would be bad if it shows an `alert` with the age (should only get).
-- `createForm` -- would be bad if it modifies the document, adding a form to it (should only create it and return).
-- `checkPermission` -- would be bad if it displays the `access granted/denied` message (should only perform the check and return the result).
+- `getAge` -- لن تكون جيدة إذا كانت تعرض `alert` به العمر (فقط نحصل على القيمة منها).
+- `createForm` -- لن تكون جيدة إذا كانت تقوم بتعديل الصفحة وإضافة الاستمارة لها (فقط تنشئها وترجعها).
+- `checkPermission` -- لن تكون جيدة إذا كانت تعرض رسالة `access granted/denied` message (فقط تفحص وترجع الناتج).
 
-These examples assume common meanings of prefixes. You and your team are free to agree on other meanings, but usually they're not much different. In any case, you should have a firm understanding of what a prefix means, what a prefixed function can and cannot do. All same-prefixed functions should obey the rules. And the team should share the knowledge.
+كل هذه الأمثلة تفترض المعنى المنتشر للكلمة المستخدمة. يمكنك أنت وفريقك الاتفاق على المعاني والكلمات التي تريدون ولكن لن يكون هناك أي إختلاف ففي أي حالة يجب أن يكون لديك معرفة بمعى الكلمة المستخدمة وما يمكن للدالة أن تفعله وما لا يمكنها فعله.
 ```
 
-```smart header="Ultrashort function names"
-Functions that are used *very often* sometimes have ultrashort names.
+```smart header="الاسماء القصيرة جدًا"
+الدوال التي تستخدم بكثرة غالبًا يتم إعطائها اسم قصير.
 
-For example, the [jQuery](http://jquery.com) framework defines a function with `$`. The [Lodash](http://lodash.com/) library has its core function named `_`.
+على سبيل المثال مكتبة [jQuery](http://jquery.com) تعرف دالة اسمها `$`. ومكتبة [Lodash](http://lodash.com/) لديها دالة اسمها `_`.
 
-These are exceptions. Generally functions names should be concise and descriptive.
+هذه مجرد استثناءات ففي العموم يجب أن يكون اسم الدالة معبرًا.
 ```
 
-## Functions == Comments
+## الدوال == تعليقات
 
-Functions should be short and do exactly one thing. If that thing is big, maybe it's worth it to split the function into a few smaller functions. Sometimes following this rule may not be that easy, but it's definitely a good thing.
+الدوال يجب أن تكون قصيرة وتفعل شئ واحد فقط. إذا كانت الدالة تقوم بعمليات كثيرة لتنفيذ عملها فمن الأفضل تقسيمها إلى مجموهة دوال أصغر. هذا ليس سهلًا ولكنه الأفضل.
 
-A separate function is not only easier to test and debug -- its very existence is a great comment!
+الدالة المقسمة ليست فقط أسهل في الإختبار واكتشاف الأخطاء -- ولكنها أيضًا تعتبر تعليق عظيم!
 
-For instance, compare the two functions `showPrimes(n)` below. Each one outputs [prime numbers](https://en.wikipedia.org/wiki/Prime_number) up to `n`.
+على سبيل المثال قارن الدالتين `showPrimes(n)` بالأسفل. كل منهما تعرض [أرقام أولية](https://en.wikipedia.org/wiki/Prime_number) حتى `n`.
 
-The first variant uses a label:
+الأولى تستخدم عنوان:
 
 ```js
 function showPrimes(n) {
-  nextPrime: for (let i = 2; i < n; i++) {
+    nextPrime: for (let i = 2; i < n; i++) {
+        for (let j = 2; j < i; j++) {
+            if (i % j == 0) continue nextPrime;
+        }
 
-    for (let j = 2; j < i; j++) {
-      if (i % j == 0) continue nextPrime;
+        alert(i); // a prime
     }
-
-    alert( i ); // a prime
-  }
 }
 ```
 
-The second variant uses an additional function `isPrime(n)` to test for primality:
+الثانية تستخدم دالة منفصلة اسمها `isPrime(n)` لمعرفة إذا كانت القيمة أولية:
 
 ```js
 function showPrimes(n) {
@@ -457,32 +458,32 @@ function isPrime(n) {
 }
 ```
 
-The second variant is easier to understand, isn't it? Instead of the code piece we see a name of the action (`isPrime`). Sometimes people refer to such code as *self-describing*.
+الثانية هي الأسهل في الفهم أليس كذلك ؟ فبدلًا من الأوامر نحن نرى اسم الحدثث (`isPrime`). بعض الناس يسمون هذا الكود _self-describing_.
 
-So, functions can be created even if we don't intend to reuse them. They structure the code and make it readable.
+إذا يمكن عمل الدوال حتى لو لم نكن سنستخدمها مرات عديدة فهي تجعل الكود مقروء أكثر.
 
-## Summary
+## الخلاصة
 
-A function declaration looks like this:
+تعريف الدالة يكون كالتالي:
 
 ```js
 function name(parameters, delimited, by, comma) {
-  /* code */
+    /* code */
 }
 ```
 
-- Values passed to a function as parameters are copied to its local variables.
-- A function may access outer variables. But it works only from inside out. The code outside of the function doesn't see its local variables.
-- A function can return a value. If it doesn't, then its result is `undefined`.
+-   القيم الممرة إلى الدالة يتم نسخها إلى متغيراتها المحلية.
+-   يمكن للدالة الوصول للمتغيرات خارجها ولكن لا يمكن للكود بالخارج أن يصل إلى المتغيرات المحلية داخل دالة.
+-   يمكن للدالة إرجاع قيمة وإذا لم تفعل فيكون ناتجها `undefined`.
 
-To make the code clean and easy to understand, it's recommended to use mainly local variables and parameters in the function, not outer variables.
+لجعل الكود أفضل وأسهل ينصح باستخدام المتغيرات المحلية وتجبن استخدام المتغيرات الخارجية.
 
-It is always easier to understand a function which gets parameters, works with them and returns a result than a function which gets no parameters, but modifies outer variables as a side-effect.
+من السهل فهم الدوال التي تحصل على قيم وتعمل عليها وترجع نتيجة أكثر من الدوال التي تعمل على متغيرات خارجها وتعدل عليهم.
 
-Function naming:
+تسمية الدوال:
 
-- A name should clearly describe what the function does. When we see a function call in the code, a good name instantly gives us an understanding what it does and returns.
-- A function is an action, so function names are usually verbal.
-- There exist many well-known function prefixes like `create…`, `show…`, `get…`, `check…` and so on. Use them to hint what a function does.
+-   يجب أن يكون اسم الدالةواضح ويعبر عن عملها بحيث عندما نرى استدعاء الدالة نعرف ما تقوم به وما نتيجتها.
+-   الدالة هي فعل لذا ففي الغالب اسمها يكون فعل.
+-   هناك كلمات تستخدم قبل اسم الدالة `create…`, `show…`, `get…`, `check…` وغيرها لتعطي تلميح عن ما تفعل الدالة.
 
-Functions are the main building blocks of scripts. Now we've covered the basics, so we actually can start creating and using them. But that's only the beginning of the path. We are going to return to them many times, going more deeply into their advanced features.
+الدوال هي وحدة البناء الأساسية للبرنامج. الآن عرفنا الاساسيات ويمكننا البدء بصنعها واستخدامها. ولكن هذه فقط البداية وسنرجع لها مرات العديدة غائصين في اعماقها.

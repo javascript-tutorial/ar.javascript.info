@@ -1,15 +1,15 @@
-importance: 4
+الاهميه: 4
 
 ---
 
-# Sum input numbers
+# اجمع الارقام المدخله
 
-Write the function `sumInput()` that:
+اكتب الداله `sumInput()` التي:
 
-- Asks the user for values using `prompt` and stores the values in the array.
-- Finishes asking when the user enters a non-numeric value, an empty string, or presses "Cancel".
-- Calculates and returns the sum of array items.
+- اطلب من المستخدم القيم باستخدام `prompt` وتخزين تلك القيم داخل المصفوفه.
+- قم بإنهاء الاسئله عندما يدخل المستخدم قيمه غير رقمي او نص فارغ او بضغط علي "انهاء"
+- احسب وقم بإعاده عمليه الجمع لعناصر المصفوفه.
 
-P.S. A zero `0` is a valid number, please don't stop the input on zero.
+ملاحظة. الصفر `0` هو رقم صالح ، يرجى عدم إيقاف الإدخال على الصفر.
 
 [demo]

@@ -2,9 +2,10 @@ importance: 5
 
 ---
 
-# Output a single-linked list
+# طباعة قائمة متصلة فردية
 
-Let's say we have a single-linked list (as described in the chapter <info:recursion>):
+هذه هي القائمة المتصلة كما ذكرناها في هذا الفصل <info:recursion>: 
+
 
 ```js
 let list = {
@@ -21,9 +22,10 @@ let list = {
   }
 };
 ```
+إكتب دالة `printList(list)` التي تقوم بطباعة القائمة واحداً تلو الأخر.
 
-Write a function `printList(list)` that outputs list items one-by-one.
+قم بحلها بطريقتين: 
+1. مرة بإستخدام الحلقة:
+2. مرة بإستخدام التكرار:
 
-Make two variants of the solution: using a loop and using recursion.
-
-What's better: with recursion or without it?
+ماهو الأفضل: بالتكرار أم بدون التكرار؟

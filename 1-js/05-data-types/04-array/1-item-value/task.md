@@ -1,19 +1,19 @@
-importance: 3
+الاهميه: 3
 
 ---
 
-# Is array copied?
+# هل تم نسخ المصفوفه؟
 
-What is this code going to show?
+ماالذي سوف يعرضه الكود؟
 
 ```js
-let fruits = ["Apples", "Pear", "Orange"];
+let fruits = ["البرتقال", "الكمثري", "التفاح"];
 
-// push a new value into the "copy"
+// "ادفع قيمه جديده داخل"النسخ
 let shoppingCart = fruits;
-shoppingCart.push("Banana");
+shoppingCart.push("الموز");
 
-// what's in fruits?
+//؟ fruits ماالذي داخل 
 alert( fruits.length ); // ?
 ```
 

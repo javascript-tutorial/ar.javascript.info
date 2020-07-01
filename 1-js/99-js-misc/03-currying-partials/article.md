@@ -1,32 +1,25 @@
-libs:
-  - lodash
+# تقنية Currying
 
----
+مفهوم [Currying](https://en.wikipedia.org/wiki/Currying) هو تقنية متقدمة للعمل مع الدوالّ. يستخدم في العديد من اللغات البرمجية الآخرى من بينهم جافاسكربت.
 
-# Currying
+Currying عبارة عن طريقة لتحويل الدوالّ التي تقيم الدالّة ذات الاستدعاء-أكثر من وسيط- `f (a، b، c)‎` لتصبح قابلة للاستدعاء -بوسيط واحد- هكذا `f(a)(b)(c)‎`.
 
-[Currying](https://en.wikipedia.org/wiki/Currying) is an advanced technique of working with functions. It's used not only in JavaScript, but in other languages as well.
+تحول تقنية Currying الدالّة فقط ولا تستدعها.
 
-Currying is a transformation of functions that translates a function from callable as `f(a, b, c)` into callable as `f(a)(b)(c)`.
+لنرى في البداية مثالًا، لفهم ما نتحدث عنه فهمًا أفضل، وبعدها ننتقل للتطبيقات العملية.
 
-Currying doesn't call a function. It just transforms it.
+سننشئ دالة مساعدة `curry (f)‎` والّتي ستُنفذّ تقينة Currying على الدالّة `f` التي تقبل وسيطين. بتعبير آخر، تحول الدالة `curry(f)‎` الدالّة `f(a, b)‎` ذات الوسيطين إلى دالة تعمل كوسيط واحد`f(a)(b)‎`:
 
-Let's see an example first, to better understand what we're talking about, and then practical applications.
-
-We'll create a helper function `curry(f)` that performs currying for a two-argument `f`. In other words, `curry(f)` for two-argument `f(a, b)` translates it into a function that runs as `f(a)(b)`:
-
-```js run
-*!*
-function curry(f) { // curry(f) does the currying transform
+```
+function curry(f) { // ‫الدالةcurry(f)‎ هي من ستُنفذّ تحويل currying 
   return function(a) {
     return function(b) {
       return f(a, b);
     };
   };
 }
-*/!*
 
-// usage
+// طريقة الاستخدام
 function sum(a, b) {
   return a + b;
 }
@@ -36,86 +29,85 @@ let curriedSum = curry(sum);
 alert( curriedSum(1)(2) ); // 3
 ```
 
-As you can see, the implementation is straightforward: it's just two wrappers.
+كما نرى، فإن التنفيذ بسيط: إنه مجرد مغلفين للوسطاء.
 
-- The result of `curry(func)` is a wrapper `function(a)`.
-- When it is called like `curriedSum(1)`, the argument is saved in the Lexical Environment, and a new wrapper is returned `function(b)`.
-- Then this wrapper is called with `2` as an argument, and it passes the call to the original `sum`.
+- نتيجة `curry(func)‎` هي دالة مغلّفة `function(a)‎`.
+- عندما تسمى هكذا `curriedSum(1)‎`، تُحفظ الوسطاء في البيئة اللغوية للجافاسكربت (وهي نوع مواصفات اللغة تستخدم لتعريف ارتباط المعرّفات بالمتغيّرات والدوالّ المحددة وذلك بناءً على بنية الترابط اللغوية في شيفرة ECMAScript)، وتعيد غلاف جديد `function(b)‎`.
+- ثمّ يُسمى هذا المغلّف باسم `2` نسبةً لوسطائه، ويُمرّر الاستدعاء إلى الدالّة `sum(a,b)‎` الأصليّة.
 
-More advanced implementations of currying, such as [_.curry](https://lodash.com/docs#curry) from lodash library, return a wrapper that allows a function to be called both normally and partially:
+من الأمثلة المتقدمة باستخدام تقنية currying هو [_curry](https://lodash.com/docs#curry) من مكتبة Lodash، والتي تُعيد غِلافًا الّذي يسمح باستدعاء الدالّة طبيعيًا وجزئيًا:
 
-```js run
+```
 function sum(a, b) {
   return a + b;
 }
 
-let curriedSum = _.curry(sum); // using _.curry from lodash library
+let curriedSum = _.curry(sum); // ‫استخدام ‎_.curry من مكتبة lodash
 
-alert( curriedSum(1, 2) ); // 3, still callable normally
-alert( curriedSum(1)(2) ); // 3, called partially
+alert( curriedSum(1, 2) ); // ‫النتيجة: 3، لايزال بإمكاننا استدعاؤه طبيعيًا
+alert( curriedSum(1)(2) ); // ‫النتيجة: 3، الاستدعاء الجزئي
 ```
 
-## Currying? What for?
+## لماذا نحتاج لتقنية currying؟
 
-To understand the benefits we need a worthy real-life example.
+لابد لنا من مثالٍ واقعي لفهم فوائد هذه التقنية.
 
-For instance, we have the logging function `log(date, importance, message)` that formats and outputs the information. In real projects such functions have many useful features like sending logs over the network, here we'll just use `alert`:
+مثلًا، ليكن لدينا دالّة التسجيل `log(date, importance, message)‎` والّتي ستُنسّق المعلومات وتعرضها. مثل هذه الدوالّ مفيدة جدًا في المشاريع الحقيقة مثل: إرسال السجلات عبر الشبكة، في مثالنا سنستخدم فقط `alert`:
 
-```js
+
+```
 function log(date, importance, message) {
   alert(`[${date.getHours()}:${date.getMinutes()}] [${importance}] ${message}`);
 }
 ```
+لنُنفذّ تقنية currying عليها!
 
-Let's curry it!
-
-```js
+```
 log = _.curry(log);
 ```
 
-After that `log` works normally:
+بعد ذلك ستعمل دالّة `log` وفق المطلوب:
 
-```js
+```
 log(new Date(), "DEBUG", "some debug"); // log(a, b, c)
 ```
+... ولكنها تعمل أيضًا بعد تحويلها بتقنية currying:
 
-...But also works in the curried form:
-
-```js
+```
 log(new Date())("DEBUG")("some debug"); // log(a)(b)(c)
 ```
+الآن يمكننا بسهولة إنشاء دالّة مناسبة للسجلات الحالية:
 
-Now we can easily make a convenience function for current logs:
-
-```js
-// logNow will be the partial of log with fixed first argument
+```
+// ‫logNow سيكون دالة جزئية من log مع وسيط أول ثابت
 let logNow = log(new Date());
 
-// use it
+// استخدامه
 logNow("INFO", "message"); // [HH:mm] INFO message
 ```
 
-Now `logNow` is `log` with fixed first argument, in other words "partially applied function" or "partial" for short.
+الآن `logNow` هو نفس الدالة `log` بوسيط أول ثابت، بمعنى آخر "دالّة مطبقة جزئيًا" أو "جزئية" للاختصار.
 
-We can go further and make a convenience function for current debug logs:
+يمكننا المضي قدمًا وإنشاء دالّة مناسبة لسجلات تصحيح الأخطاء الحالية:
 
-```js
+```
 let debugNow = logNow("DEBUG");
 
 debugNow("message"); // [HH:mm] DEBUG message
 ```
 
-So:
-1. We didn't lose anything after currying: `log` is still callable normally.
-2. We can easily generate partial functions such as for today's logs.
+إذا:
 
-## Advanced curry implementation
+1. لم نفقد أي شيء بعد التحويل بتقنية currying: ولا يزال يمكننا أيضًا استدعاء الدالّة `log` طبيعيًا.
+2. يمكننا بسهولة إنشاء دوالّ جزئية مثل: سجلات اليوم.
 
-In case you'd like to get in to the details, here's the "advanced" curry implementation for multi-argument functions that we could use above.
+## الاستخدام المتقدم لتقنية currying
 
-It's pretty short:
+في حالة رغبتك في الدخول في التفاصيل ، إليك طريقة الاستخدام المتقدمة لتقنية currying للدوالّ ذات الوسطاء المتعددة والّتي يمكننا استخدامها أعلاه.
 
-```js
+وهي مختصرة جدًا:
+
+```
 function curry(func) {
 
   return function curried(...args) {
@@ -131,9 +123,9 @@ function curry(func) {
 }
 ```
 
-Usage examples:
+إليك مثالًا لطريقة استخدامه:
 
-```js
+```
 function sum(a, b, c) {
   return a + b + c;
 }
@@ -145,11 +137,11 @@ alert( curriedSum(1)(2,3) ); // 6, currying of 1st arg
 alert( curriedSum(1)(2)(3) ); // 6, full currying
 ```
 
-The new `curry` may look complicated, but it's actually easy to understand.
+تبدو تقنية currying للوهلة الأولى معقدةً، ولكنها في الحقيقة سهلة الفهم جدًا.
 
-The result of `curry(func)` call is the wrapper `curried` that looks like this:
+نتيجة استدعاء `curry(func)‎` هي دالّة مُغلّفة `curried` والّتي تبدو هكذا:
 
-```js
+```
 // func is the function to transform
 function curried(...args) {
   if (args.length >= func.length) { // (1)
@@ -162,35 +154,36 @@ function curried(...args) {
 };
 ```
 
-When we run it, there are two `if` execution branches:
+عند تشغيله، هناك فرعين للتنفيذ من الجملة الشرطية `if`:
 
-1. Call now: if passed `args` count is the same as the original function has in its definition (`func.length`) or longer, then just pass the call to it.
-2. Get a partial: otherwise, `func` is not called yet. Instead, another wrapper `pass` is returned, that will re-apply `curried` providing previous arguments together with the new ones. Then on a new call, again, we'll get either a new partial (if not enough arguments) or, finally, the result.
+1. سيكون الاستدعاء الآن هكذا: إن كان عدد الوسطاء `args` المُمرّرة هو نفس العدد الدالة الأصليّة المعرّفة لدينا (`func.length`) أو أكثر، عندها نمرّر الاستدعاء له فقط.
+2. وإلا سيكون الاستدعاء جزئيًا: لم تُستدعى الدالّة `func` بعد. وإنما أعيد بدلًا منها دالّة المغلِّفة أخرى `pass`، والتي ستُعيد تطبيق الدالة `curried` مع تقديم الوسطاء السابقين مع الوسطاء الجدد. وثمّ في استدعاء الجديد سنحصل إما على دالة جزئية جديدة (إن لم يكُ عدد الوسطاء كافي) أو النتيجة النهائية.
 
-For instance, let's see what happens in the case of `sum(a, b, c)`. Three arguments, so `sum.length = 3`.
+لنرى مثلًا ما يحدث في حال الاستدعاء الدالة هكذا `sum(a, b, c)‎`. أي بثلاث وسطاء، وبذلك يكون `sum.length = 3`.
 
-For the call `curried(1)(2)(3)`:
+عند استدعاء `curried(1)(2)(3)‎`:
 
-1. The first call `curried(1)` remembers `1` in its Lexical Environment, and returns a wrapper `pass`.
-2. The wrapper `pass` is called with `(2)`: it takes previous args (`1`), concatenates them with what it got `(2)` and calls `curried(1, 2)` with them together. As the argument count is still less than 3, `curry` returns `pass`.
-3. The wrapper `pass` is called again with `(3)`,  for the next call `pass(3)` takes previous args (`1`, `2`) and adds `3` to them, making the call `curried(1, 2, 3)` -- there are `3` arguments at last, they are given to the original function.
+1. الاستدعاء الأول `curried (1)‎` تحفظ `1` في بيئته اللغوية، ويُعيد دالّة المغلف `pass`.
+2. يُستدعى المغلّف `pass` مع الوسيط المُمرّر `(2)`: إذ يأخذ الوسطاء السابقين (`1`)، ويدمجهم مع الوسيط الذي حصل عليه وهو `(2)` ويستدعي الدالّة `curried(1, 2)‎` مع استخدام جميع ما حصل عليه من وسطاء. وبما أن عدد الوسطاء لا يزال أقل من 3 ، فإن الدالّة `curry` ستُعيد الدالّة `pass`.
+3. يُستدعى المغلّف `pass` مرة أخرى مع الوسيط المُمرّر `(3)`: ومن أجل الاستدعاء التالي `pass (3)‎` سيأخذ الوسطاء السابقين (`1`,  `2`) ويضيف لهم الوسيط `3`، ليكون الاستدعاء هكذا `curried(1, 2, 3)‎`- أخيرًا لدينا ثلاث وسطاء، والّذين سيمرّروا للدالّة الأصلية.
+إذا لم تتوضح الفكرة حتى الآن ، فما عليك إلا تتبع تسلسل الاستدعاءات في عقلك أو على الورقة وستتوضح الأمور أكثر.
 
-If that's still not obvious, just trace the calls sequence in your mind or on paper.
+**ملاحظة**: تعمل مع الدوالّ ثابتة الطول فقط
 
-```smart header="Fixed-length functions only"
-The currying requires the function to have a fixed number of arguments.
+يجب أن يكون للدالّة عدد ثابت من الوسطاء لتطبيق تقنية currying.
 
-A function that uses rest parameters, such as `f(...args)`, can't be curried this way.
-```
+إن استخدمت دالّةّ ما معاملات البقية، مثل: `f(...args)‎`، فلا يمكن معالجتها بهذه التقنية.
 
-```smart header="A little more than currying"
-By definition, currying should convert `sum(a, b, c)` into `sum(a)(b)(c)`.
+**ملاحظة**: أكثر بقليل من مجرد تقنية تحويل
 
-But most implementations of currying in JavaScript are advanced, as described: they also keep the function callable in the multi-argument variant.
-```
+انطلاقًا من التعريف، يجب على تقنية currying تحويل الدالّة `sum(a, b, c)‎` إلى `sum(a)(b)(c)‎`.
 
-## Summary
+لكن غالبية تطبيقات هذه التقنية في جافاسكربت متقدمة، وكما وضحنا سابقًا: فهي تحافظ على الدالّة قابلة للاستدعاء بعدة تنويعات للوسطاء المُمرّرة.
 
-*Currying* is a transform that makes `f(a,b,c)` callable as `f(a)(b)(c)`. JavaScript implementations usually both keep the function callable normally and return the partial if the arguments count is not enough.
+## خلاصة
 
-Currying allows us to easily get partials. As we've seen in the logging example, after currying the three argument universal function `log(date, importance, message)` gives us partials when called with one argument (like `log(date)`) or two arguments (like `log(date, importance)`).  
+_تقنية Currying_ هو عملية تحويل تجعل `f(a,b,c)` قابلة للاستدعاء كـ `f(a)(b)(c)‎`. عادةً ما تحافظ تطبيقات الجافاسكربت على الدوالّ بحيث تكون قابلة للاستدعاء بالشكل الطبيعي أو الجزئي إن كان عدد الوسطاء غير كافٍ.
+
+كما تسمح لنا هذه التقنية أيضًا بالحصول على دوالّ جزئية بسهولة. كما رأينا في مثال التسجيل، بعد تنفيذ هذه التقنية على الدالّة العالمية ذات الثلاث وسطاء `log(date, importance, message)‎` فإن ذلك سيمنحنا دوالّ جزئية عند استدعاؤها باستخدام وسيط واحد (هكذا `log(date)‎`) أو وسيطين (هكذا `log(date, importance)‎`).
+
+ترجمة -وبتصرف- للفصل [Currying](https://javascript.info/currying-partials) من كتاب [The JavaScript language](https://javascript.info/js)

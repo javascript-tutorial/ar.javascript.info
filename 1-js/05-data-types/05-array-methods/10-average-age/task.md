@@ -2,20 +2,20 @@ importance: 4
 
 ---
 
-# Get average age
+# ما متوسّط الأعمار؟
 
-Write the function `getAverageAge(users)` that gets an array of objects with property `age` and returns the average age.
+اكتب دالة getAverageAge(users)‎ تأخذ مصفوفة من كائنات لها الصفة age وتُعيد متوسّط الأعمار.
 
-The formula for the average is `(age1 + age2 + ... + ageN) / N`.
+معادلة المتوسّط: ‎(age1 + age2 + ... + ageN) / N.
 
-For instance:
+مثال:
 
 ```js no-beautify
 let john = { name: "John", age: 25 };
 let pete = { name: "Pete", age: 30 };
 let mary = { name: "Mary", age: 29 };
 
-let arr = [ john, pete, mary ];
+let arr = [john, pete, mary];
 
-alert( getAverageAge(arr) ); // (25 + 30 + 29) / 3 = 28
+alert(getAverageAge(arr)); // (25 + 30 + 29) / 3 = 28
 ```

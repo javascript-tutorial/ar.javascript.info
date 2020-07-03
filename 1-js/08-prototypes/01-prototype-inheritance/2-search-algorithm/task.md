@@ -1,12 +1,13 @@
-importance: 5
+_الأهمية: 5_
 
 ---
 
-# Searching algorithm
+# خوارزمية بحث
 
-The task has two parts.
+ينقسم هذا التمرين إلى قسمين.
 
-Given the following objects:
+لديك الكائنات التالية:
+
 
 ```js
 let head = {
@@ -27,5 +28,7 @@ let pockets = {
 };
 ```
 
-1. Use `__proto__` to assign prototypes in a way that any property lookup will follow the path: `pockets` -> `bed` -> `table` -> `head`. For instance, `pockets.pen` should be `3` (found in `table`), and `bed.glasses` should be `1` (found in `head`).
-2. Answer the question: is it faster to get `glasses` as `pockets.glasses` or `head.glasses`? Benchmark if needed.
+
+1. استعمل `__proto__` لإسناد كائنات النموذج الأولي بحيث يكون البحث عن الخاصيات بهذه الطريقة: `pockets` ثمّ `bed` ثمّ `table` ثمّ `head` (من الأسفل إلى الأعلى على التتالي). فمثلًا، قيمة `pockets.pen` تكون `3` (من `table`)، وقيمة `bed.glasses` تكون `1` (من `head`).
+2. أجِب عن هذا السؤال: ما الأسرع، أن نجلب `glasses` هكذا `pockets.glasses` أم هكذا `head.glasses`؟ قِس أداء كلّ واحدة لو لزم.
+

@@ -1,14 +1,14 @@
-# Automated testing with Mocha
+# الاختبار الآلي باستخدام Mocha
 
-Automated testing will be used in further tasks, and it's also widely used in real projects.
+سيتم استخدام الاختبار الآلي في مهام قادمة ، كما أنه يستخدم على نطاق واسع في المشاريع الحقيقية.
 
-## Why we need tests?
+## لماذا نحتاج إلى الاختبارات؟
 
-When we write a function, we can usually imagine what it should do: which parameters give which results.
+عندما نكتب دالة ، يمكننا عادةً تخيل ما يجب أن تفعله: أي من المعطيات تعطي النتائج.
 
-During development, we can check the function by running it and comparing the outcome with the expected one. For instance, we can do it in the console.
+أثناء التطوير ، يمكننا التحقق من الدالة عن طريق تشغيلها ومقارنة النتيجة بالنتيجة المتوقعة. على سبيل المثال ، يمكننا القيام بذلك في وحدة التحكم. (console).
 
-If something is wrong -- then we fix the code, run again, check the result -- and so on till it works.
+إذا كان هناك شيء خاطئ - ثم نقوم بإصلاح الكود ، ونعمل مرة أخرى ، ونتحقق من النتيجة - وهكذا حتى يعمل.
 
 But such manual "re-runs" are imperfect.
 

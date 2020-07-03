@@ -181,10 +181,10 @@ Promise.allSettled(urls.map(url => fetch(url)))
 if(!Promise.allSettled) {
   Promise.allSettled = function(promises) {
     return Promise.all(promises.map(p => Promise.resolve(p).then(value => ({
-      state: 'fulfilled',
+      status: 'fulfilled',
       value
     }), reason => ({
-      state: 'rejected',
+      status: 'rejected',
       reason
     }))));
   };
@@ -193,7 +193,7 @@ if(!Promise.allSettled) {
 
 في هذا الرمز ، يأخذ `promises.map` قيم الإدخال ، ويحولها إلى وعود (فقط في حالة تمرير عدم الوعد) مع` p => Promise.resolve (p) `، ثم يضيف معالج` .then` إلى كل واحد.
 
-يحول هذا المعالج نتيجة "القيمة" الناجحة إلى "{state:" الوفاء "و value}` والخطأ "reason" إلى "{state: "رفض"، reason} `. هذا هو بالضبط تنسيق `Promise.allSettled`.
+يحول هذا المعالج نتيجة `القيمة` الناجحة إلى `{status:'fulfilled', value}` والخطأ `reason` إلى `{status:'rejected', reason}`. هذا هو بالضبط تنسيق `Promise.allSettled`.
 
 الآن يمكننا استخدام "Promise.allSettled" للحصول على نتائج * جميع * الوعود المعطاة ، حتى لو رفض بعضها.
 

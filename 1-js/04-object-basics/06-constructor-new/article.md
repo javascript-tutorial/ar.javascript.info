@@ -228,7 +228,7 @@ calculator.read();
 alert( "Sum=" + calculator.sum() );
 alert( "Mul=" + calculator.mul() );
 ```
-
+ 
 ## إنشاء مجمِّع
 الأهمية: 5
 انشِئ دالة بانية باسم `Accumulator(startingValue)‎`، إذ يجب أن يتصف هذا الكائن بأنَّه:

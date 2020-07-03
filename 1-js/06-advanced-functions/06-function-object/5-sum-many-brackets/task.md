@@ -1,10 +1,10 @@
 importance: 2
 
 ---
+# إجمع عن طريق مجموعة عشوائية من الأقواس
 
-# Sum with an arbitrary amount of brackets
+إكتب دالة `sum` التى تعمل هكذا:
 
-Write function `sum` that would work like this:
 
 ```js
 sum(1)(2) == 3; // 1 + 2
@@ -14,4 +14,4 @@ sum(6)(-1)(-2)(-3) == 0
 sum(0)(1)(2)(3)(4)(5) == 15
 ```
 
-P.S. Hint: you may need to setup custom object to primitive conversion for your function.
+تلميح: ربما تحتاج إلي كائن مخصوص للتحويل البدائي لدالتك.

@@ -18,7 +18,7 @@
 تجمع الأقواس الأحرف معًا ، لذا `النمط: (go) +` يعني `match: go` و` match: gogo` و `match: gogogo` وما إلى ذلك.
 
 ```js run
-alert( 'Gogogo now!'.match(/(go)+/i) ); // "Gogogo"
+alert( 'Gogogo now!'.match(/(go)+/ig) ); // "Gogogo"
 ```
 
 ### مثال: المجال

@@ -1,9 +1,8 @@
-
 # Observable
 
-Create a function `makeObservable(target)` that "makes the object observable" by returning a proxy.
+قم بإنشاء الدالة `makeObservable(target)` والتي تقوم بجعل الأوبجكت observable عن طريق إرجاع بروكسي.
 
-Here's how it should work:
+هنا كيف تعمل:
 
 ```js run
 function makeObservable(target) {
@@ -20,8 +19,8 @@ user.observe((key, value) => {
 user.name = "John"; // alerts: SET name=John
 ```
 
-In other words, an object returned by `makeObservable` is just like the original one, but also has the method `observe(handler)` that sets `handler` function to be called on any property change.
+بعبارات أخري، الأوبجكت الذي يتم استرجاعه بواسطة `makeObservable` هو مثل الأوبجكت الأصلي ولكن يحتوي أيضًا علي الدالة `observe(handler)` والتي تنشئ `handler` يتم استدعاؤه في كل تغير لخاصية.
 
-Whenever a property changes, `handler(key, value)` is called with the name and value of the property.
+عند تغير أي خاصية، يتم استدعاء `handler(key, value)` بإسم وقيمة الخاصية.
 
-P.S. In this task, please only take care about writing to a property. Other operations can be implemented in a similar way.
+ملاحظه: في هذا التكليف، اهتم فقط بعملية التعديل علي الخاصية. العمليات الأخري يمكن تطبيقها بنفس الطريقة.

@@ -28,14 +28,25 @@ function sayHi() {
 
   alert(phrase); // Hello
 }
+=======
+The `var` declaration is similar to `let`. Most of the time we can replace `let` by `var` or vice-versa and expect things to work:
 
-sayHi();
+```js run
+var message = "Hi";
+alert(message); // Hi
+```
+
+But internally `var` is a very different beast, that originates from very old times. It's generally not used in modern scripts, but still lurks in the old ones.
 
 alert(phrase); // ‫خطأ، phrase غير معرّف
 
 ```
 
 ولكن... ما خفي كان أعظم. إليك الفروق.
+=======
+If you don't plan on meeting such scripts you may even skip this chapter or postpone it.
+
+On the other hand, it's important to understand differences when migrating old scripts from `var` to `let`, to avoid odd errors.
 
 ## "var" has no block scope
 
@@ -99,6 +110,28 @@ alert(phrase); // ‫خطأ: phrase غير معرّف (طالِع مِعراض �
 ## تُعالج التصريحات باستعمال `‎var‎` عند بدء الدالة
 
 ُعالج التصريحات باستعمال `‎var‎` متى ما بدأت الدالة (أو بدأ السكربت، للمتغيرات العمومية).
+=======
+## "var" tolerates redeclarations
+
+If we declare the same variable with `let` twice in the same scope, that's an error:
+
+```js run
+let user;
+let user; // SyntaxError: 'user' has already been declared
+```
+
+With `var`, we can redeclare a variable any number of times. If we use `var` with an already-declared variable, it's just ignored:
+
+```js run
+var user = "Pete";
+
+var user = "John"; // this "var" does nothing (already declared)
+// ...it doesn't trigger an error
+
+alert(user); // John
+```
+
+## "var" variables can be declared below their use
 
 أي أنّ متغيرات `‎var‎` تُعرّف من بداية الدالة مهما كان مكان تعريفها (هذا لو لم يكن التعريف في دالة متداخلة أخرى).
 

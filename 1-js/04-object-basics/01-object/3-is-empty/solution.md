@@ -1,1 +1,1 @@
-Just loop over the object and `return false` immediately if there's at least one property.
+ما عليك سوى التكرار فوق الكائن و "إرجاع false" على الفور إذا كان هناك خاصية واحدة على الأقل.

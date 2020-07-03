@@ -2,13 +2,13 @@ importance: 5
 
 ---
 
-# Map to objects
+# خارطة بالكائنات
 
-You have an array of `user` objects, each one has `name`, `surname` and `id`.
+لديك مصفوفة مكونة من `user`و كل كائن من هذا يحتوى على `name` و `surname` و `id`
 
-Write the code to create another array from it, of objects with `id` and `fullName`, where `fullName` is generated from `name` and `surname`.
+اكتب الكود اللازم لانتاج مصفوفة آخرى تحتوى على كائنات بها `id` و `fullName` و يكون الـ `fullName` ناتج من دمج `name` مع `surname`.
 
-For instance:
+مثال :
 
 ```js no-beautify
 let john = { name: "John", surname: "Smith", id: 1 };
@@ -33,4 +33,4 @@ alert( usersMapped[0].id ) // 1
 alert( usersMapped[0].fullName ) // John Smith
 ```
 
-So, actually you need to map one array of objects to another. Try using `=>` here. There's a small catch.
+لذلك ، فانك بالتأكيد بحاجة لاستخدام الخرائط map فحاول استخدام `=>` للتسهيل فى الاستخدام

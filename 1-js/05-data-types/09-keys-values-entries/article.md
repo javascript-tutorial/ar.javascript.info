@@ -1,42 +1,33 @@
+# مفاتيح الكائنات وقيمها ومدخلاتها
 
-# Object.keys, values, entries
+لنأخذ راحة صغيرة بعيدًا عن بنى البيانات ولنتحدّث عن طريقة المرور على عناصرها.
 
-Let's step away from the individual data structures and talk about the iterations over them.
+رأينا في الفصل السابق التوابِع `map.keys()`‎ و `map.values()`و `map.entries()`. هذه التوابِع عامّة وقد اتّفق معشر المطوّرين على استعمالها عند التعامل مع بنى البيانات. ولو أنشأنا بنية بيانات من الصفر بيدنا، فعلينا توفير "تنفيذ" تلك التوابِع أيضًا. هي أساسًا مدعومة لكلّ من:
 
-In the previous chapter we saw methods `map.keys()`, `map.values()`, `map.entries()`.
+- `Map` الخرائط
+- `Set` الأطقم
+- `Array` المصفوفات
 
-These methods are generic, there is a common agreement to use them for data structures. If we ever create a data structure of our own, we should implement them too.
+كما وتدعم الكائنات العادية توابِع كتلك التوابِع باختلاف بسيط في صياغتها.
 
-They are supported for:
+## التوابِع keys وvalues وentries
 
-- `Map`
-- `Set`
-- `Array`
+هذه هي التوابِع المتاحة للتعامل مع الكائنات العادية:
 
-Plain objects also support similar methods, but the syntax is a bit different.
+- [Object.keys(obj)](mdn:js/Object/keys) -- يُعيد مصفوفة من المفاتيح.
+- [Object.values(obj)](mdn:js/Object/values) -- يُعيد مصفوفة من القيم.
+- [Object.entries(obj)](mdn:js/Object/entries) -- يُعيد مصفوفة من أزواج [key, value].
 
-## Object.keys, values, entries
+لاحظ رجاءً الفروق بينها وبين الخارطة مثلًا:
 
-For plain objects, the following methods are available:
+|                 | Map          | Object                                   |
+| --------------- | ------------ | ---------------------------------------- |
+| صياغة الاستدعاء | `map.keys()` | `Object.keys(obj)`, لكن ليس `obj.keys()` |
+| قيمة الإعادة    | مكرر         | مصفوفة ”حقيقية“                          |
 
-- [Object.keys(obj)](mdn:js/Object/keys) -- returns an array of keys.
-- [Object.values(obj)](mdn:js/Object/values) -- returns an array of values.
-- [Object.entries(obj)](mdn:js/Object/entries) -- returns an array of `[key, value]` pairs.
+أوّل فرق واضح جليّ: علينا استدعاء Object.keys(obj)‎ لا obj.keys()‎. ولكن لماذا؟ السبب الأساس هو مرونة الاستعمال. لا تنسَ بأنّ الكائنات هي أساس كلّ بنية بيانات معقّدة في جافاسكربت. يحدث بأنّ لدينا كائن طوّرناه ليحمل بيانات data محدّدة، وفيه التابِع data.values()‎، ولكنّا نريد أيضًا استدعاء Object.values(data)‎ عليه.
 
-Please note the distinctions (compared to map for example):
-
-|             | Map              | Object       |
-|-------------|------------------|--------------|
-| Call syntax | `map.keys()`  | `Object.keys(obj)`, but not `obj.keys()` |
-| Returns     | iterable    | "real" Array                     |
-
-The first difference is that we have to call `Object.keys(obj)`, and not `obj.keys()`.
-
-Why so? The main reason is flexibility. Remember, objects are a base of all complex structures in JavaScript. So we may have an object of our own like `data` that implements its own `data.values()` method. And we still can call `Object.values(data)` on it.
-
-The second difference is that `Object.*` methods return "real" array objects, not just an iterable. That's mainly for historical reasons.
-
-For instance:
+الفرق الثاني هو أنّ التوابِع Object.\* تُعيد كائنات مصفوفات ”فعلية“ لا مُتعدَّدات فقط. يعزو ذلك لأسباب تاريخية بحتة. خُذ هذا المثال:
 
 ```js
 let user = {
@@ -49,7 +40,7 @@ let user = {
 - `Object.values(user) = ["John", 30]`
 - `Object.entries(user) = [ ["name","John"], ["age",30] ]`
 
-Here's an example of using `Object.values` to loop over property values:
+وهذا مثال آخر عن كيف نستعمل Object.values للمرور على قيم الخاصيات:
 
 ```js run
 let user = {
@@ -63,24 +54,21 @@ for (let value of Object.values(user)) {
 }
 ```
 
-```warn header="Object.keys/values/entries ignore symbolic properties"
-Just like a `for..in` loop, these methods ignore properties that use `Symbol(...)` as keys.
+```warn header="Object.keys/values/entries تتجاهل هذه التوابِع الخاصيات الرمزية"
+كما تتجاهل حلقة for..in الخاصيات التي تستعمل Symbol(...)‎ مفاتيح لها، فهذه التوابِع أعلاه تتجاهلها أيضًا
 
-Usually that's convenient. But if we want symbolic keys too, then there's a separate method [Object.getOwnPropertySymbols](mdn:js/Object/getOwnPropertySymbols) that returns an array of only symbolic keys. Also, there exist a method [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) that returns *all* keys.
+غالبًا يكون هذا ما نريد، ولكن لو أردت المفاتيح الرمزية أيضًا، فعليك استعمال التابِع المنفصل [Object.getOwnPropertySymbols](mdn:js/Object/getOwnPropertySymbols) إذ يُعيد مصفوفة بالمفاتيح الرمزية فقط. هناك أيضًا التابِع [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) إذ يُعيد المفاتيح كلها.
 ```
 
+## تعديل محتوى الكائنات
 
-## Transforming objects
+ليس للكائنات تلك التوابِع المفيدة المُتاحة للعناصر (مثل map وfilter وغيرها). لو أردنا تطبيق هذه التوابِع على الكائنات فيجب أوّلًا استعمال Object.entries وبعدها Object.fromEntries:
 
-Objects lack many methods that exist for arrays, e.g. `map`, `filter` and others.
+1. استعمل Object.entries(obj)‎ لتأخذ مصفوفة لها أزواج ”مفتاح/قيمة“ من الكائن obj.
+2. استعمل توابِع المصفوفات على تلك المصفوفة (مثلًا map).
+3. استعمل Object.fromEntries(array)‎ على المصفوفة الناتج لتُحوّلها ثانيةً إلى كائن.
 
-If we'd like to apply them, then we can use `Object.entries` followed `Object.fromEntries`:
-
-1. Use `Object.entries(obj)` to get an array of key/value pairs from `obj`.
-2. Use array methods on that array, e.g. `map`.
-3. Use `Object.fromEntries(array)` on the resulting array to turn it back into an object.
-
-For example, we have an object with prices, and would like to double them:
+إليك مثالًا لدينا كائنًا فيه تسعير البضائع، ونريد مضاعفتها (إذ ارتفع الدولار):
 
 ```js run
 let prices = {
@@ -91,12 +79,12 @@ let prices = {
 
 *!*
 let doublePrices = Object.fromEntries(
-  // convert to array, map, and then fromEntries gives back the object
+  // ‫نحوّله إلى مصفوفة، ثمّ نستعمل الطقم، ثمّ يُعيد إلينا fromEntries الكائن المطلوب
   Object.entries(prices).map(([key, value]) => [key, value * 2])
 );
 */!*
 
 alert(doublePrices.meat); // 8
-```   
+```
 
-It may look difficult from the first sight, but becomes easy to understand after you use it once or twice. We can make powerful chains of transforms this way. 
+ربّما تراه صعبًا أوّل وهلة، ولكن لا تقلق فسيصير أسهل أكثر متى ما بدأت استعمالها مرّة واثنتان وثلاث. يمكن أن نصنع سلسلة فعّالة من التعديلات بهذه الطريقة:

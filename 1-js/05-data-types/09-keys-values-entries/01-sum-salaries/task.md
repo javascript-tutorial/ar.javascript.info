@@ -2,23 +2,18 @@ importance: 5
 
 ---
 
-# Sum the properties
+# مجموع الخاصيات
 
-There is a `salaries` object with arbitrary number of salaries. 
+أمامك كائن salaries وفيه بعض الرواتب. اكتب دالة sumSalaries(salaries) تُعيد مجموع كلّ الرواتب، باستعمال Object.values وحلقة for..of. لو كان الكائن فارغًا فيجب أن يكون الناتج صفرًا 0.
 
-Write the function `sumSalaries(salaries)` that returns the sum of all salaries using `Object.values` and the `for..of` loop.
-
-If `salaries` is empty, then the result must be `0`.
-
-For instance:
+مثال:
 
 ```js
 let salaries = {
-  "John": 100,
-  "Pete": 300,
-  "Mary": 250
+  John: 100,
+  Pete: 300,
+  Mary: 250
 };
 
-alert( sumSalaries(salaries) ); // 650
+alert(sumSalaries(salaries)); // 650
 ```
-

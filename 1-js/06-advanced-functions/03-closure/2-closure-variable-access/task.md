@@ -2,11 +2,12 @@ importance: 5
 
 ---
 
-# Which variables are available?
+# أي من المُتغيرات متاح؟
 
-The function `makeWorker` below makes another function and returns it. That new function can be called from somewhere else.
+الدالة `makeWorker` بالإسفل تصنع دالة أخري وتعيدها. هذه الدالة المُعادة يمكن مناداتها من أي مكان.
 
-Will it have access to the outer variables from its creation place, or the invocation place, or both?
+هل ستحصل علي حق الوصول إلي المتغيرات الخارجية من موقع بنائها أم من موقع مناداتها أو من الاثنين؟
+
 
 ```js
 function makeWorker() {
@@ -25,5 +26,5 @@ let work = makeWorker();
 // call it
 work(); // what will it show?
 ```
+أي قيمة سوف تظهر؟ "Pete" أم "John"؟
 
-Which value it will show? "Pete" or "John"?

@@ -1,71 +1,80 @@
+# نطاق المُتغير
 
-# Variable scope
 
-JavaScript is a very function-oriented language. It gives us a lot of freedom. A function can be created dynamically, passed as an argument to another function and called from a totally different place of code later.
+لغة جافاسكربت هي لغة داليّة التوجّه إلى أقصى حدّ، فتعطينا أقصى ما يمكن من الحريّة. يمكننا إنشاء الدوال ديناميكيًا ونسخها إلى متغيرات أخرى أو تمريرها كوسيط إلى دالة أخرى واستدعائها من مكان آخر تمامًا لاحقًا حين نريد.
 
-We already know that a function can access variables outside of it.
+كما نعلم بأنّ الدوال تستطيع الوصول إلى المتغيرات خارجها. نستعمل هذه الميزة كثيرًا.
 
-Now let's expand our knowledge to include more complex scenarios.
+دعنا الأن نوسع مداركنا لنحتوي سيناريوهات أكثر تعقيداً.
 
-```smart header="We'll talk about `let/const` variables here"
-In JavaScript, there are 3 ways to declare a variable: `let`, `const` (the modern ones), and `var` (the remnant of the past).
+سنتحدث عن المُتغيرات `let/const` هنا
 
-- In this article we'll use `let` variables in examples.
-- Variables, declared with `const`, behave the same, so this article is about `const` too.
-- The old `var` has some notable differences, they will be covered in the article <info:var>.
+```smart header="سنتحَدث عن المُتغيرات `let/const` هنا"
+
+فى الجافاسكريبت, هناك ثلاث طُرق لتعريف متغير: `let`, `const` (الأحدث), و `var` (الأقدم)
+
+- فى هذا المقال سنستخدم مُتغيرات `let` فى الأمثلة.
+- المُتغيرات, المٌعرًفة بإستخدام `const`, تتصرف بنفس الطريقة لذلك هذه المقالة عن `const` أيضاً.
+- `var` القديمة لها بعض الإختلافات الملحوظة, سيتم تغطيتها في هذا المقال <info:var>.
 ```
 
-## Code blocks
+## كُتل الكود
 
-If a variable is declared inside a code block `{...}`, it's only visible inside that block.
+إذا تم تعريف مُتغير داخل كتلة من الكود `{...}`, هذا المٌتغير يمكن رؤيته فقط داخل هذه الكتلة.
 
-For example:
+مثلاً:
+
 
 ```js run
 {
-  // do some job with local variables that should not be seen outside
+  // تعريف مُتغير محلي لا يمكن أن تتم رؤيته في الخارج
 
-  let message = "Hello"; // only visible in this block
+
+  let message = "Hello"; // مرئي فقط داخل هذه الكتلة
 
   alert(message); // Hello
 }
 
-alert(message); // Error: message is not defined
+alert(message); // خطأ: message غير مُعرًفة
 ```
 
-We can use this to isolate a piece of code that does its own task, with variables that only belong to it:
+يمكن أن نستخدم هذا فى عزل جزء من الكود للقيام بمهمة خاصةٍ به بإستخدام المُتغيرات التي تنتمي إليه فقط:
+
 
 ```js run
 {
-  // show message
+  // إظهار رسالة
   let message = "Hello";
   alert(message);
 }
 
 {
-  // show another message
+  // إظهار رسالة أخرى
   let message = "Goodbye";
   alert(message);
 }
 ```
 
-````smart header="There'd be an error without blocks"
-Please note, without separate blocks there would be an error, if we use `let` with the existing variable name:
+سيكون هناك خطاء بدون الأقواس
+
+````smart header="سيكون هناك خطاء بدون الأقواس"
+
+يرجي ملاحظة, بدون فصل الكُتل سيكون هناك خطأ عند إستخدام `let` مع إسم مُتغير موجود بالفعل::
 
 ```js run
-// show message
+// إظهار رسالة
 let message = "Hello";
 alert(message);
 
-// show another message
+// إظهار رسالة أخرى
 *!*
-let message = "Goodbye"; // Error: variable already declared
+let message = "Goodbye"; // خطأ: مُتغير موجود بالفعل
 */!*
 alert(message);
 ```
 ````
+لكلِ من `if`, `for`, `while` وهكذا كل المُتغيرات المُعرًفة بداخلها `{...}` يمكن رؤيتها فقط داخل الأقواس:
 
-For `if`, `for`, `while` and so on, variables declared in `{...}` are also only visible inside:
 
 ```js run
 if (true) {
@@ -74,38 +83,42 @@ if (true) {
   alert(phrase); // Hello!
 }
 
-alert(phrase); // Error, no such variable!
+alert(phrase); // خطأ, مُتغير غير موجود!
 ```
 
-Here, after `if` finishes, the `alert` below won't see the `phrase`, hence the error.
+هنا, بعد إنتهاء `if`, `alert` لن ترى `phrase` لذلك يوجد خطأ
 
-That's great, as it allows us to create block-local variables, specific to an `if` branch.
 
-The similar thing holds true for `for` and `while` loops:
+هذا عظيم, هذا يسمح لنا بإنشاء متغير محلي للكتلة خاص فقط بفرع `if`.
+
+
+نفس الشئ عند القيام بـ `for` و `while`:
+
 
 ```js run
 for (let i = 0; i < 3; i++) {
-  // the variable i is only visible inside this for
+  // المتغير i لا يمكن رؤيته إلا داخل الـ for
   alert(i); // 0, then 1, then 2
 }
 
-alert(i); // Error, no such variable
+alert(i); // خطأ, مُتغير غير موجود!
 ```
+لاحظ أن بصرياً `let i` تعتبر خارج الأقواس `{...}`. لكن `for` تعتبر حالة بناء خاصة لأن كل ما تم تعريفه بداخلها يعتبر داخل الأقواس.
 
-Visually, `let i` is outside of `{...}`. But the `for` construct is special here: the variable, declared inside it, is considered a part of the block.
 
-## Nested functions
+## الدوال المتداخلة
 
-A function is called "nested" when it is created inside another function.
+تسمي الدالة متداخلة عندما يتم إنشاتها داخل دالة أخري.
 
-It is easily possible to do this with JavaScript.
+هذا سهل القيام به في جافاسكريبت.
 
-We can use it to organize our code, like this:
+يمكن إستخدام هذا في تنظيم الكود الخاص بنا, مثل هذا:
+
 
 ```js
 function sayHiBye(firstName, lastName) {
 
-  // helper nested function to use below
+  // دالة متداخلة للمساعدة
   function getFullName() {
     return firstName + " " + lastName;
   }
@@ -116,11 +129,15 @@ function sayHiBye(firstName, lastName) {
 }
 ```
 
-Here the *nested* function `getFullName()` is made for convenience. It can access the outer variables and so can return the full name. Nested functions are quite common in JavaScript.
+هنا الدالة المتداخلة `getFullName()` صُنعت للإقناع. هذه الدالة يمكنها الوصول للمُتغيرات الخارجية وتُرجع الإسم بالكامل. تعتبر الدوال المتداخلة  إلى حد ما شائعة الإستخدام في الجافاسكريبت.
 
-What's much more interesting, a nested function can be returned: either as a property of a new object or as a result by itself. It can then be used somewhere else. No matter where, it still has access to the same outer variables.
+والمثير للإهتمام ايضاً أن الدالة المتداخلة يمكن إرجاعها!
+إما علي شكل خاصية لكائن أو نتيجة إذا كانت تقوم ببعض العمليات.
+أيضا يمكن إستخدامها فى أي مكان أخر ليس من المهم أين لكنها مازالت تستطيع الوصول لنفس المُتغيرات الخارجية.
 
-Below, `makeCounter` creates the "counter" function that returns the next number on each invocation:
+
+في الأسفل, `makeCounter` صَنعت "counter" و دالة أخرى تُرجع الرقم التالي مع كل نداء:
+
 
 ```js run
 function makeCounter() {
@@ -138,87 +155,100 @@ alert( counter() ); // 1
 alert( counter() ); // 2
 ```
 
-Despite being simple, slightly modified variants of that code have practical uses, for instance, as a [random number generator](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) to generate random values for automated tests.
+بالرغم من أن هذا المثال بسيط جداً إلا أنه يستخدم في الحياة العملية كمثال: [موْلد رقم عشوائي](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) لصُنع قيمة عشوائية للتجارب الاوتوماتيكية.
 
-How does this work? If we create multiple counters, will they be independent? What's going on with the variables here?
+كيف يعمل هذا؟ هل إذا صنعنا عدادات كثير سيكونوا غير معتمدين علي بعضهم؟ ماذا يحدث مع المتغيرات هنا؟
 
-Undestanding such things is great for the overall knowledge of JavaScript and beneficial for more complex scenarios. So let's go a bit in-depth.
+فهم هذه الأشياء يعد عظيماً للمعلومات الشاملة للجافاسكريبت ومفيد جداً في حالة السيناريوهات المعقدة. لذلك هيا نتعمق أكثر في أمور أكثر صعوبة وتحتاج إلي تركيز.
 
-## Lexical Environment
 
-```warn header="Here be dragons!"
-The in-depth technical explanation lies ahead.
+## البيئات المعجمية
 
-As far as I'd like to avoid low-level language details, any understanding without them would be lacking and incomplete, so get ready.
+```warn header="هنا يجب أن تكون شديد التركيز!"
+
+كل الشرح المتعمق السابق كان شرح مع تجنب الدخول في تفاصيل ذات مستوي منخفض من اللغة لكن أي فهم دون هذه التفاصيل يعتبر ناقص, لذلك كُن مستعد للأننا سنتعمق في مستويات منخفضة من اللغة
+
 ```
 
-For clarity, the explanation is split into multiple steps.
+للإيضاح, سينقسم الشرح إلي عدة خطوات
 
-### Step 1. Variables
 
-In JavaScript, every running function, code block `{...}`, and the script as a whole have an internal (hidden) associated object known as the *Lexical Environment*.
 
-The Lexical Environment object consists of two parts:
+### الخطوة الأولي: المُتغيرات
 
-1. *Environment Record* -- an object that stores all local variables as its properties (and some other information like the value of `this`).
-2. A reference to the *outer lexical environment*, the one associated with the outer code.
+في لغة جافاسكربت، تملك كلّ دالة عاملة أو كتلة شفرات `‎{...}‎` أو حتّى السكربت كلّه - تملك كائنًا داخليًا مرتبطًا بها (ولكنّه مخفي) يُدعى *بالبيئة المُعجمية* _Lexical Environment_.
 
-**A "variable" is just a property of the special internal object, `Environment Record`. "To get or change a variable" means "to get or change a property of that object".**
+تتألّف كائنات البيئات المُعجمية هذه من قسمين:
 
-In this simple code without functions, there is only one Lexical Environment:
+1. *سجلّ مُعجمي* _Environment Record_: وهو كائن يخزّن كافة المتغيرات المحلية على أنّها خاصيات له (كما وغيرها من معلومات مثل قيمة `‎this‎`).
+2. إشارة إلى *البيئة المُعجمية الخارجية* - أي المرتبطة مع الكود الخارجي للكائن المُعجمي.
+
+**ليس «المتغير» إلا خاصية لإحدى الكائنات الداخلية الخاصة: السجل المُعجمي `‎Environment Record‎`. وحين نعني «بأخذ المتغير أو تغيير قيمته» فنعني «بأخذ خاصية ذلك الكائن أو تغيير قيمتها».**
+
+إليك هذه الكود البسيط مثالًا (فيها بيئة مُعجمية واحدة فقط):
 
 ![lexical environment](lexical-environment-global.svg)
 
-This is the so-called *global* Lexical Environment, associated with the whole script.
+هذا ما نسمّيه البيئة المُعجمية العمومية (global) وهي مرتبطة بالسكربت كاملًَا.
 
-On the picture above, the rectangle means Environment Record (variable store) and the arrow means the outer reference. The global Lexical Environment has no outer reference, that's why the arrow points to `null`.
+نعني بالمستطيل (في الصورة أعلاه) السجل المُعجمي (أي مخزن المتغيرات)، ونعني بالسهم الإشارة الخارجية له. وطالما أنّ البيئة المُعجمية العمومية ليس لها إشارة خارجية، فذاك السهم يُشير إلى `‎null‎`.
 
-As the code starts executing and goes on, the Lexical Environment changes.
+عندما يتم تنفيذ الكود, تتغير البيئة المُعجمية.
 
-Here's a little bit longer code:
+هاهو مثال أطول بقليل:
+
 
 ![lexical environment](closure-variable-phrase.svg)
 
-Rectangles on the right-hand side demonstrate how the global Lexical Environment changes during the execution:
+نرى في المستطيلات على اليمين كيف تتغيّر البيئة المُعجمية العمومية أثناء تنفيذ الكود:
 
-1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
-    - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It's almost the same as if the variable didn't exist.
-2. Then `let phrase` definition appears. There's no assignment yet, so its value is `undefined`. We can use the variable since this moment.
-3. `phrase` is assigned a value.
-4. `phrase` changes the value.
+1. عندما يبدأ السكريبت بالعمل, تكون البيئة المُعجمية مجهزة بكل المُتغيرات المٌعرفة داخلها.
+    - في البداية يكونوا فى حالة تسمي **غير مُعرف**. هذه الحالة تعني أن المحرك يعرف عن المُتغيرات لكن لا يستطيع الإشارة إليهم حتي يتم تعريفهم عن طريق `let`. 
+2. بعدها يظهر التصريح `‎let phrase‎`، لكن لم تُسند للمتغيّر أيّ قيمة، لذا تخزّن البيئة `‎undefined‎`.
+3. تُسند للمتغير `‎phrase‎` قيمة.
+4. وهنا تتغيّر قيمة `‎phrase‎`.
 
-Everything looks simple for now, right?
 
-- A variable is a property of a special internal object, associated with the currently executing block/function/script.
-- Working with variables is actually working with the properties of that object.
+بسيط حتّى الآن، أم لا؟
 
-```smart header="Lexical Environment is a specification object"
-"Lexical Environment" is a specification object: it only exists "theoretically" in the [language specification](https://tc39.es/ecma262/#sec-lexical-environments) to describe how things work. We can't get this object in our code and manipulate it directly.
+- المتغير هو فعليًا خاصية لإحدى الكائنات الداخلية الخاصة، وهذا الكائن مرتبط بالكتلة أو الدالة أو السكربت الذي يجري تنفيذه حاليًا.
+- حين نعمل مع المتغيرات نكون في الواقع نعمل مع خصائص ذلك الكائن.
 
-JavaScript engines also may optimize it, discard variables that are unused to save memory and perform other internal tricks, as long as the visible behavior remains as described.
+
+```smart header="تعتبر البيئة المُعجمية من مواصفات الكائن"
+تعتبر البيئة المُعجمية من مواصفات الكائن: إنها توجد فقط بشكل نظري هنا: [مواصفات اللغة](https://tc39.es/ecma262/#sec-lexical-environments) لوصف كيف تعمل الأمور. لكن لا نستطيع أن نأتي بهذا الكائن في كودنا الخاص ونعدل عليه.
+
+محركات الجافاسكريبت أيضاً يمكن أن تحسن هذا, بالتغاضي عن المُتغيرات الغير مستخدمة لتوفير المساحة وعمل خدع داخلة, طالما كان التصرف المرئي كما تم وصفه.
+
 ```
 
-### Step 2. Function Declarations
+### الخطوة الثانية: التصريح بالدوال
 
-A function is also a value, like a variable.
+الدالة أيضاً تعتبر قيمة, مثل المُتغير.
 
-**The difference is that a Function Declaration is instantly fully initialized.**
+لكن الإختلاف أن التصريح بالدالة 
 
-When a Lexical Environment is created, a Function Declaration immediately becomes a ready-to-use function (unlike `let`, that is unusable till the declaration).
+**لكن الدوال على عكس متغيرات `‎let‎`، فليست تُهيّأ تمامًا حين تصلها عملية التنفيذ، لا، بل قبل ذلك حين تُنشأ البيئة المُعجمية.**
 
-That's why we can use a function, declared as Function Declaration, even before the declaration itself.
+وحين نتكلم عن أعلى الدوال مستوًى، فنعني ذلك لحظة بدء السكربت.
 
-For example, here's the initial state of the global Lexical Environment when we add a function:
+ولهذا السبب يمكننا استدعاء الدوال التي صرّحناها حتّى قبل أن نرى ذاك التعريف.
+
+
+نرى في الكود أدناه كيف أنّ البيئة المُعجمية تحتوي شيئًا منذ بداية التنفيذ (وليست فارغة)، وما تحتويه هي `‎say‎` إذ أنّها تصريح عن دالة. وبعدها تسجّل `‎phrase‎` المُصرّح باستعمال `‎let‎`:
 
 ![](closure-function-declaration.svg)
 
-Naturally, this behavior only applies to Function Declarations, not Function Expressions where we assign a function to a variable, such as `let say = function(name)...`.
 
-### Step 3. Inner and outer Lexical Environment
+هذا التصرف موجود فقط تصاريح الدالة Function Declarations وليس تعابير الدالة Function Expressions لأن تعابير الدالة تعامل معاملة المُتغير لأنها تخزن في متغير. مثل `let say = function(name)...`.
 
-When a function runs, at the beginning of the call, a new Lexical Environment is created automatically to store local variables and parameters of the call.
 
-For instance, for `say("John")`, it looks like this (the execution is at the line, labelled with an arrow):
+### الخطوة الثالثة: البيئات المُعجمية الداخلية والخارجية 
+
+عندما تبدأ الدالة بالعمل, في بداية لحظة مناداتها تُنشأ بيئة مُعجمية تلقائيًا ما إن تعمل الدالة وتخزّن المتغيرات المحلية ومُعاملات ذلك الاستدعاء
+
+
+فمثلًا هكذا تبدو بيئة استدعاء `‎say("John")‎` (وصل التنفيذ السطر الذي عليه سهم):
 
 <!--
     ```js
@@ -233,28 +263,28 @@ For instance, for `say("John")`, it looks like this (the execution is at the lin
 
 ![](lexical-environment-simple.svg)
 
-During the function call we have two Lexical Environments: the inner one (for the function call) and the outer one (global):
+إذًا... حين نكون داخل استدعاءً لأحد الدوال نرى لدينا بيئتين مُعجميتين: الداخلية (الخاصة باستدعاء الدالة) والخارجية (العمومية):
 
-- The inner Lexical Environment corresponds to the current execution of `say`. It has a single property: `name`, the function argument. We called `say("John")`, so the value of the `name` is `"John"`.
-- The outer Lexical Environment is the global Lexical Environment. It has the `phrase` variable and the function itself.
+- ترتبط البيئة المُعجمية الداخلية مع عملية التنفيذ الحالية للدالة `‎say‎`.  تملك خاصية واحدة فقط: `‎name‎` (وسيط الدالة). ونحن استدعينا `‎say("John")‎` بهذا تكون قيمة `‎name‎` هي `‎"John"‎`.
+- البيئة المُعجمية الخارجية وهي هنا البيئة المُعجمية العمومية. تملك متغير `‎phrase‎` والدالة ذاتها.
 
-The inner Lexical Environment has a reference to the `outer` one.
+للبيئة المُعجمية الداخلية إشارة إلى تلك «الخارجية».
 
-**When the code wants to access a variable -- the inner Lexical Environment is searched first, then the outer one, then the more outer one and so on until the global one.**
+**حين يريد الكود الوصول إلى متغير من المتغيرات، يجري البحث أولًا في البيئة المُعجمية الداخلية، وبعدها الخارجية، والخارجية أكثر وأكثر وكثر حتى نصل العمومية.**
 
-If a variable is not found anywhere, that's an error in strict mode (without `use strict`, an assignment to a non-existing variable creates a new global variable, for compatibility with old code).
+لو لم يوجد المتغير في عملية البحث تلك فسترى خطأً (لو استعملت النمط الصارم _Strict Mode_). لو لم تستعمل `‎use strict‎` فسيُنشئ الإسناد إلى متغير غير موجود (مثل `‎user = "John"‎`) متغيرًا عموميًا جديدًا باسم `‎user‎`. سبب ذلك هو التوافق مع الإصدارات السابقة.
 
-In this example the search proceeds as follows:
+لنرى عملية البحث تلك في مثالنا:
 
-- For the `name` variable, the `alert` inside `say` finds it immediately in the inner Lexical Environment.
-- When it wants to access `phrase`, then there is no `phrase` locally, so it follows the reference to the outer Lexical Environment and finds it there.
+- حين تحاول `‎alert‎` في دالة `‎say‎` الوصول إلى المتغير `‎name‎` تجده مباشرةً في البيئة المُعجمية للدالة.
+- وحين تحاول الوصول إلى متغير `‎phrase‎` ولا تجده محليًا، تتبع الإشارة في البيئة المحلية وتصل البيئة المُعجمية خارجها، وتجد المتغير فيها.
 
 ![lexical environment lookup](lexical-environment-simple-lookup.svg)
 
 
-### Step 4. Returning a function
+### الخطوة الرابعة: إعادة/إرجاع دالة 
 
-Let's return to the `makeCounter` example.
+إليك ما يجري في مثال `‎makeCounter‎` خطوةً بخطوة
 
 ```js
 function makeCounter() {
@@ -268,53 +298,62 @@ function makeCounter() {
 let counter = makeCounter();
 ```
 
-At the beginning of each `makeCounter()` call, a new Lexical Environment object is created, to store variables for this `makeCounter` run.
+تُنشأ بيئة مُعجمية لحظة استدعاء `‎makeCounter()‎` لتحمل متغيراتها ومُعاملاتها.
 
-So we have two nested Lexical Environments, just like in the example above:
+إذاً نحن نمتلك بيئتين مُعجميتين, كما هو في المثال الأعلى:
+
 
 ![](closure-makecounter.svg)
 
-What's different is that, during the execution of `makeCounter()`, a tiny nested function is created of only one line: `return count++`. We don't run it yet, only create.
+ماهذا الإختلاف!, أثناء تشغيل `makeCounter()` هناك دالة صغيرة تم صنعها بداخلها تحتوي فقط علي سطر واحد `return count++` ولم نقم بمناداتها فقط صنعناها.
 
-All functions remember the Lexical Environment in which they were made. Technically, there's no magic here: all functions have the hidden property named `[[Environment]]`, that keeps the reference to the Lexical Environment where the function was created:
+جميع الدوال تتذكر البيئة المثعجمية حيث المكان الذي صُنعوا فيه. تقنياً, لا يوجد سحر هنا: كل دالة لها خاصية مخفية تسمي `[[Environment]]`, التي تحتفظ بالبيئة المُعجمية حيث تم صنعها:
+
 
 ![](closure-makecounter-environment.svg)
 
-So, `counter.[[Environment]]` has the reference to `{count: 0}` Lexical Environment. That's how the function remembers where it was created, no matter where it's called. The `[[Environment]]` reference is set once and forever at function creation time.
+إذا `counter.[[Environment]]`  يشير إلي البيئة المعجمية `{count: 0}`. هكذا تتذكر الدالة أين تم صُنعها.
+`[[Environment]]` يتم وضع قسمته مرة واحدة فقط ولا يتم تغيرها.
+وهذه المرة عندما يتم صنع الدالة
 
-Later, when `counter()` is called, a new Lexical Environment is created for the call, and its outer Lexical Environment reference is taken from `counter.[[Environment]]`:
+
+فيما بعد عندما تتم مناداة `counter()`, تظهر بيئة مُعجمية جديدة والبيئة المعجمية الخارجية لها تؤخذ من هنا `counter.[[Environment]]`:
+
 
 ![](closure-makecounter-nested-call.svg)
 
-Now when the code inside `counter()` looks for `count` variable, it first searches its own Lexical Environment (empty, as there are no local variables there), then the Lexical Environment of the outer `makeCounter()` call, where finds it and changes.
+الأن عندما يبدأ الكود في البحث عن المتغير `count` داخل الدالة `counter()`, يبحث أولاً في البيئة المعجمية الخاصة به وإذا كانت فارفة يبحث في البيئة المعجمية الخارجية, ثم الخارج ثم الخارج حتي يجده.
 
-**A variable is updated in the Lexical Environment where it lives.**
+** المتغير تم تعديله في البيئة المعجمية حيث يعيش.**
 
-Here's the state after the execution:
+ها هي الحالة بعد التنفيذ:
+
 
 ![](closure-makecounter-nested-call-2.svg)
 
-If we call `counter()` multiple times, the `count` variable will be increased to `2`, `3` and so on, at the same place.
+إذا نادينا `counter()` مراتٍ عديدة, المتغير `count` سيزيد إلي `2`, `3` وهكذا في نفس المكان
 
-```smart header="Closure"
-There is a general programming term "closure", that developers generally should know.
 
-A [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)) is a function that remembers its outer variables and can access them. In some languages, that's not possible, or a function should be written in a special way to make it happen. But as explained above, in JavaScript, all functions are naturally closures (there is only one exception, to be covered in <info:new-function>).
+```smart header="المنغلقات"
+هناك مصطلح عام يُستعمل في البرمجة باسم «المُنغلِق» _Clousure_ ويُفترض أن يعلم به المطوّرون.
 
-That is: they automatically remember where they were created using a hidden `[[Environment]]` property, and then their code can access outer variables.
+A [المنغلقات](https://en.wikipedia.org/wiki/Closure_(computer_programming)) is a function that remembers هو دالة تتذكّر متغيراتها الخارجية كما ويمكنها أن تصل إليها. هذا الأمر -في بعض اللغات- مستحيل، أو أنّه يلزم كتابة الدالة بطريقة معيّنة ليحدث ذلك. ولكن كما شرحنا أعلاه ففي لغة جافاسكربت، كلّ الدوال مُنغلِقات بطبيعتها (وطبعًا ثمّة استثناء واحد أوحد نشرحه في فصل  <info:new-function>).
 
-When on an interview, a frontend developer gets a question about "what's a closure?", a valid answer would be a definition of the closure and an explanation that all functions in JavaScript are closures, and maybe a few more words about technical details: the `[[Environment]]` property and how Lexical Environments work.
+يعني ذلك بأنّ الدوال تتذكّر أين أُنشئت باستعمال خاصية `‎[[Environment]]‎` المخفية، كما ويمكن للدوال كافة الوصول إلى متغيراتها الخارجية.
+
+لو كنت عزيزي مطوّر الواجهات في مقابلةً وأتاك السؤال «ما هو المُنغلِق؟» فيمكنك أن تقدّم تعريفه شرحًا، كما وتُضيف بأنّ الدوال في جافاسكربت كلّها مُنغلِقات، وربما شيء من عندك تفاصيل تقنية مثل خاصية `‎[[Environment]]‎` وطريقة عمل البيئات المُعجمية.
+
 ```
 
-## Garbage collection
+## كنس المهملات
 
-Usually, a Lexical Environment is removed from memory with all the variables after the function call finishes. That's because there are no references to it. As any JavaScript object, it's only kept in memory while it's reachable.
+عادةً ما تُمسح وتُحذف البيئة المُعجمية بعدما تعمل الدالة
 
-...But if there's a nested function that is still reachable after the end of a function, then it has `[[Environment]]` property that references the lexical environment.
+...ولكن لو كانت هناك دالة متداخلة يمكن أن نصل إليها بعدما تنتهي `‎f‎` (ولديها خاصية `‎[[Environment]]‎` التي تُشير إلى البيئة المُعجمية الخارجية)، لو كانت فيمكن أن نصل إليها:
 
 In that case the Lexical Environment is still reachable even after the completion of the function, so it stays alive.
 
-For example:
+مثال:
 
 ```js
 function f() {
@@ -329,7 +368,9 @@ let g = f(); // g.[[Environment]] stores a reference to the Lexical Environment
 // of the corresponding f() call
 ```
 
-Please note that if `f()` is called many times, and resulting functions are saved, then all corresponding Lexical Environment objects will also be retained in memory. All 3 of them in the code below:
+
+لاحظ بأنّه لو استدعينا `‎f()‎` أكثر من مرة، فسوف تُحفظ الدوال الناتجة منها وتبقى كائنات البيئة المُعجمية لكلّ واحدة منها في الذاكرة. إليك ثلاثة منها في الكود أدناه:
+
 
 ```js
 function f() {
@@ -338,14 +379,16 @@ function f() {
   return function() { alert(value); };
 }
 
-// 3 functions in array, every one of them links to Lexical Environment
-// from the corresponding f() run
+
+// في المصفوفة ثلاث دوال تُشير كلّ منها إلى البيئة المُعجمية
+// ‫في عملية التنفيذ f()‎ المقابلة لكلّ واحدة
+
 let arr = [f(), f(), f()];
 ```
 
-A Lexical Environment object dies when it becomes unreachable (just like any other object). In other words, it exists only while there's at least one nested function referencing it.
+يموت كائن البيئة المُعجمية حين لا يمكن أن يصل إليه شيء (كما الحال مع أيّ كائن آخر). بعبارة أخرى فهو موجود طالما ثمّة دالة متداخلة واحدة (على الأقل) في الكود تُشير إليه.
 
-In the code below, after the nested function is removed, its enclosing Lexical Environment (and hence the `value`) is cleaned from memory:
+في الكود أسفله، بعدما تصير `‎g‎` محالة الوصول تُمسح بيئتها المُعجمية فيها (ومعها متغير `‎value‎`) من الذاكرة:
 
 ```js
 function f() {
@@ -356,22 +399,23 @@ function f() {
   }
 }
 
-let g = f(); // while g function exists, the value stays in memory
+let g = f(); // ‫طالما يمكن أن تصل func بإشارة إلى g، ستظلّ تشغل حيّزًا في الذاكرة
 
-g = null; // ...and now the memory is cleaned up
+g = null;// ...والآن لم تعد كذلك ونكون قد نظّفنا الذاكرة
 ```
 
-### Real-life optimizations
+### التحسينات على أرض الواقع
 
-As we've seen, in theory while a function is alive, all outer variables are also retained.
+كما رأينا، فنظريًا طالما الدالة «حيّة تُرزق» تبقى معها كل متغيراتها الخارجية.
 
-But in practice, JavaScript engines try to optimize that. They analyze variable usage and if it's obvious from the code that an outer variable is not used -- it is removed.
 
-**An important side effect in V8 (Chrome, Opera) is that such variable will become unavailable in debugging.**
+ولكن عمليًا تُحاول محرّكات جافاسكربت تحسين أداء ذلك. فهي تحلّل استعمال المتغيرات فلو كان واضحًا لها في الشيفرة بأنّ المتغير الخارجي لم يعد مستعملًا، تحذفه.
 
-Try running the example below in Chrome with the Developer Tools open.
+**ثمّة -في محرّك V8 (كروم وأوبرا)- تأثير مهمّ ألا وهو أنّ هذا المتغير لن يكون مُتاحًا أثناء التنقيح.**
 
-When it pauses, in the console type `alert(value)`.
+جرّب تشغيل المثال الآتي في «أدوات المطوّرين» داخل متصفّح كروم.
+
+ما إن يُلبث تنفيذ الشيفرة، اكتب `‎alert(value)‎` في الطرفية.
 
 ```js run
 function f() {
@@ -388,9 +432,9 @@ let g = f();
 g();
 ```
 
-As you could see -- there is no such variable! In theory, it should be accessible, but the engine optimized it out.
+كما رأينا، ما من متغير كهذا! يُفترض نظريًا أن نصل إليه ولكنّ المحرّك حسّن أداء الشيفرة وحذفه.
 
-That may lead to funny (if not such time-consuming) debugging issues. One of them -- we can see a same-named outer variable instead of the expected one:
+يؤدّي ذلك أحيانًا إلى مشاكل مضحكة (هذا إن لم تجلس عليها اليوم بطوله لحلّها) أثناء التنقيح. إحدى هذه المشاكل هي أن نرى المتغير الخارجي بدل الذي توقّعنا أن نراه (يحمل كلاهما نفس الاسم):
 
 ```js run global
 let value = "Surprise!";
@@ -409,6 +453,8 @@ let g = f();
 g();
 ```
 
-This feature of V8 is good to know. If you are debugging with Chrome/Opera, sooner or later you will meet it.
+من المفيد معرفة هذه الميزة في معيار V8. متى ما بدأت التنقيح في كروم أو أوبرا، فستراها شئت أم أبيت.
 
-That is not a bug in the debugger, but rather a special feature of V8. Perhaps it will be changed sometime. You always can check for it by running the examples on this page.
+هذه ليست علّة في المنقّح بل هي ميزة خاصة في معيار V8. ربما تتغير لاحقًا من يدري.
+يمكنك أن تتحقّق منها متى أردت بتجربة الأمثلة في هذه الصفحة.
+

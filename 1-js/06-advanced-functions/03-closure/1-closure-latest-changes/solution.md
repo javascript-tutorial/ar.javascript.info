@@ -1,5 +1,6 @@
-The answer is: **Pete**.
+الناتج هنا هو `‎"Pete"‎`.
 
-A function gets outer variables as they are now, it uses the most recent values.
+الدالة تحضر المتغيرات الخارجية كما هي الأن إنها تستخدم التي تم تعديلها مؤخراً.
 
-Old variable values are not saved anywhere. When a function wants a variable, it takes the current value from its own Lexical Environment or the outer one.
+القديمة لا تخزن بعد الأن لذلك الدالة تحصل علي أخر تحديث للمتغير إما عن طريق البيئة المعجمية الخاصة بها أو الخارجية
+

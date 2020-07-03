@@ -1,6 +1,7 @@
-For the second parentheses to work, the first ones must return a function.
+ليعمل القوسين الثانيين، يجب أن يُعيد الأوليين دالة.
 
-Like this:
+هكذا:
+
 
 ```js run
 function sum(a) {

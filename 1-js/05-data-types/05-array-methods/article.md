@@ -1,54 +1,54 @@
 # Array methods
 
-Arrays provide a lot of methods. To make things easier, in this chapter they are split into groups.
+تقدّم المصفوفات توابِع عديدة تُسهِّل التعامل معها. ولتبسيطها سنقسّمها إلى مجموعات بحسب الوظيفة في هذا الفصل ونشرح كل منها على حدة.
 
-## Add/remove items
+## إضافة العناصر وإزالتها
 
-We already know methods that add and remove items from the beginning or the end:
+عرفنا من الفصل الماضي بالتوابِع التي تُضيف العناصر وتُزيلها من بداية أو نهاية المصفوفة:
 
-- `arr.push(...items)` -- adds items to the end,
-- `arr.pop()` -- extracts an item from the end,
-- `arr.shift()` -- extracts an item from the beginning,
-- `arr.unshift(...items)` -- adds items to the beginning.
+- `arr.push(...items)` -- يُضيف العناصر إلى النهاية،
+- `arr.pop()` -- يستخرج عنصرًا من النهاية،
+- `arr.shift()` يستخرج عنصرًا من البداية،g,
+- `arr.unshift(...items)` -- يُضيف العناصر إلى البداية.
 
-Here are a few others.
+وهذه أخرى غيرها.
 
-### splice
+### الوصل splice
 
-How to delete an element from the array?
+كيف نحذف أحد عناصر المصفوفة؟
 
-The arrays are objects, so we can try to use `delete`:
+المصفوفات كائنات، يمكننا تجربة delete وربما تنجح:
 
 ```js run
 let arr = ["I", "go", "home"];
 
 delete arr[1]; // remove "go"
 
-alert( arr[1] ); // undefined
+alert(arr[1]); // undefined
 
 // now arr = ["I",  , "home"];
-alert( arr.length ); // 3
+alert(arr.length); // 3
 ```
 
-The element was removed, but the array still has 3 elements, we can see that `arr.length == 3`.
+أُزيل العنصر صحيح، ولكنّ ما زال في المصفوفة ثلاثة عناصر، كما نرى في arr.length == 3.
 
-That's natural, because `delete obj.key` removes a value by the `key`. It's all it does. Fine for objects. But for arrays we usually want the rest of elements to shift and occupy the freed place. We expect to have a shorter array now.
+هذا طبيعي، إذ يُزيل delete obj.key القيمة بمفتاحها key… وهذا فقط. ينفع للكائنات ربّما، لكنّا نريدها للمصفوفات أن تنتقل كل العناصر على اليمين وتأخذ الفراغ الجديد. أي أننا نتوقع أن تصغر المصفوفة الآن.
 
-So, special methods should be used.
+لهذا السبب علينا استعمال توابِع خاصّة لذلك.
 
-The [arr.splice(start)](mdn:js/Array/splice) method is a swiss army knife for arrays. It can do everything: insert, remove and replace elements.
+يمكننا تشبيه التابِع arr.splice(start)‎ بالتابِع «بتاع كُلّو» للمصفوفات (كما يُقال بالعامية). يمكنه أن يُجري ما تريد للعناصر: إدراج، إزالة، استبدال.
 
-The syntax is:
+هذه صياغته:
 
 ```js
 arr.splice(index[, deleteCount, elem1, ..., elemN])
 ```
 
-It starts from the position `index`: removes `deleteCount` elements and then inserts `elem1, ..., elemN` at their place. Returns the array of removed elements.
+يبدأ التابِع من عند العنصر ذي الفهرس `index`، فيُزيل `deleteCount` من العناصر ويُدرج العناصر `elem1, ..., elemN` المُمرّرة إليه مكانها. أخيرًا يُعيد المصفوفة بالعناصر المُزالة.
 
-This method is easy to grasp by examples.
+فهم هذا التابِع بالأمثلة أبسط.
 
-Let's start with the deletion:
+فلنبدأ أولًا بالحذف:
 
 ```js run
 let arr = ["I", "study", "JavaScript"];
@@ -60,31 +60,31 @@ arr.splice(1, 1); // from index 1 remove 1 element
 alert( arr ); // ["I", "JavaScript"]
 ```
 
-Easy, right? Starting from the index `1` it removed `1` element.
+رأيت؟ سهلة. نبدأ من العنصر ذي الفهرس 1 ونُزيل عنصرًا واحدًا (1).
 
-In the next example we remove 3 elements and replace them with the other two:
+الآن، نُزيل ثلاثة عناصر ونستبدلها بعنصرين آخرين:
 
 ```js run
 let arr = [*!*"I", "study", "JavaScript",*/!* "right", "now"];
 
-// remove 3 first elements and replace them with another
+// أزِل الثلاث عناصر الأولى وعوّضها بتلك الأخرى
 arr.splice(0, 3, "Let's", "dance");
 
 alert( arr ) // now [*!*"Let's", "dance"*/!*, "right", "now"]
 ```
 
-Here we can see that `splice` returns the array of removed elements:
+أمّا هنا فكيف يُعيد splice مصفوفةً بالعناصر المُزالة.
 
 ```js run
 let arr = [*!*"I", "study",*/!* "JavaScript", "right", "now"];
 
-// remove 2 first elements
+// أزِل أوّل عنصرين
 let removed = arr.splice(0, 2);
 
-alert( removed ); // "I", "study" <-- array of removed elements
+alert( removed ); // "I", "study" <-- قائمة بالعناصر المُزالة
 ```
 
-The `splice` method is also able to insert the elements without any removals. For that we need to set `deleteCount` to `0`:
+يمكن أن يُدرج تابِع splice العناصر دون إزالة أيّ شيء أيضًا. كيف؟ نضع deleteCount يساوي الصفر 0:
 
 ```js run
 let arr = ["I", "study", "JavaScript"];
@@ -94,11 +94,12 @@ let arr = ["I", "study", "JavaScript"];
 // then insert "complex" and "language"
 arr.splice(2, 0, "complex", "language");
 
-alert( arr ); // "I", "study", "complex", "language", "JavaScript"
+alert(arr); // "I", "study", "complex", "language", "JavaScript"
 ```
 
-````smart header="Negative indexes allowed"
-Here and in other array methods, negative indexes are allowed. They specify the position from the end of the array, like here:
+````
+الفهارس السالبة ممكنة أيضًا يمكننا هنا وفي توابِع المصفوفات الأخرى استعمال الفهارس السالبة. وظيفتها تحديد المكان بدءًا من نهاية المصفوفة، هكذا:
+
 
 ```js run
 let arr = [1, 2, 5];
@@ -112,64 +113,58 @@ alert( arr ); // 1,2,3,4,5
 ```
 ````
 
-### slice
+### القطع slice
 
-The method [arr.slice](mdn:js/Array/slice) is much simpler than similar-looking `arr.splice`.
+التابِع arr.slice أبسط بكثير من شبيهه arr.splice.
 
-The syntax is:
+صياغته هي:
 
 ```js
-arr.slice([start], [end])
+arr.slice([start], [end]);
 ```
 
-It returns a new array copying to it all items from index `start` to `end` (not including `end`). Both `start` and `end` can be negative, in that case position from array end is assumed.
+وهو يُعيد مصفوفة جديدةً بنسخ العناصر من الفهرس `start` إلى `end` (باستثناء `end`). يمكن أن تكون `start` وحتّى `end` سالبتان، بهذا يُعدّ المحرّك القيمتان أماكن بدءًا من نهاية المصفوفة.
 
-It's similar to a string method `str.slice`, but instead of substrings it makes subarrays.
+هذا التابِع يشبه تابِع السلاسل النصية `str.slice`، ولكن بدل السلاسل النصية الفرعية، يُعيد المصفوفات الفرعية. إليك المثال الآتي:
 
 For instance:
 
 ```js run
 let arr = ["t", "e", "s", "t"];
 
-alert( arr.slice(1, 3) ); // e,s (copy from 1 to 3)
+alert(arr.slice(1, 3)); // (نسخة تبدأ من 1 وتنتهي عند 3)
 
-alert( arr.slice(-2) ); // s,t (copy from -2 till the end)
+alert(arr.slice(-2)); //  ‫(نسخة تبدأ من ‎-2 وتنتهي في النهاية)
 ```
 
-We can also call it without arguments: `arr.slice()` creates a copy of `arr`. That's often used to obtain a copy for further transformations that should not affect the original array.
+يمكننا أيضًا استدعائها بلا وُسطاء: يُنشئ `arr.slice()`)‎ نسخة عن `arr`. نستعمل هذا غالبًا لأخذ نسخة وإجراء تعديلات عليها دون تعديل المصفوفة الأصلية، وتركها كما هي.
 
-### concat
+### الربط concat
 
-The method [arr.concat](mdn:js/Array/concat) creates a new array that includes values from other arrays and additional items.
+يُنشئ التابِع [arr.concat] مصفوفةً جديدة فيها القيم الموجودة في المصفوفات والعناصر الأخرى.
 
-The syntax is:
+صياغته هي:
 
 ```js
 arr.concat(arg1, arg2...)
 ```
 
-It accepts any number of arguments -- either arrays or values.
-
-The result is a new array containing items from `arr`, then `arg1`, `arg2` etc.
-
-If an argument `argN` is an array, then all its elements are copied. Otherwise, the argument itself is copied.
-
-For instance:
+وهو يقبل أيّ عدد من الوُسطاء، أكانت مصفوفات أو قيم. أمّا ناتجه هو مصفوفة جديدة تحوي العناصر من arr، ثم arg1 فَـ arg2 وهكذا دواليك. لو كان الوسيط argN نفسه مصفوفة، فستُنسخ كل عناصره، وإلّا فسيُنسخ الوسيط نفسه. لاحِظ هذا المثال:
 
 ```js run
 let arr = [1, 2];
 
-// create an array from: arr and [3,4]
-alert( arr.concat([3, 4]) ); // 1,2,3,4
+// ‫اصنع مصفوفة فيها العنصرين: arr و [3,4]
+alert(arr.concat([3, 4])); // 1,2,3,4
 
-// create an array from: arr and [3,4] and [5,6]
-alert( arr.concat([3, 4], [5, 6]) ); // 1,2,3,4,5,6
+// ‫اصنع مصفوفة فيها العناصر: arr و[3,4] و[5,6]
+alert(arr.concat([3, 4], [5, 6])); // 1,2,3,4,5,6
 
-// create an array from: arr and [3,4], then add values 5 and 6
-alert( arr.concat([3, 4], 5, 6) ); // 1,2,3,4,5,6
+// ‫اصنع مصفوفة فيها العنصرين: arr و[3,4]، بعدها أضِف القيمتين 5 و 6
+alert(arr.concat([3, 4], 5, 6)); // 1,2,3,4,5,6
 ```
 
-Normally, it only copies elements from arrays. Other objects, even if they look like arrays, are added as a whole:
+عادةً تنسخ المصفوفة عناصر المصفوفات الأخرى. بينما الكائنات الأخرى (حتّى لو كانت مثل المصفوفات) فستُضاف كتلة كاملة.
 
 ```js run
 let arr = [1, 2];
@@ -179,10 +174,10 @@ let arrayLike = {
   length: 1
 };
 
-alert( arr.concat(arrayLike) ); // 1,2,[object Object]
+alert(arr.concat(arrayLike)); // 1,2,[object Object]
 ```
 
-...But if an array-like object has a special `Symbol.isConcatSpreadable` property, then it's treated as an array by `concat`: its elements are added instead:
+… ولكن لو كان للكائن الشبيه بالمصفوفات خاصية Symbol.isConcatSpreadable، فستتعامل معه concat مثلما تتعامل مع المصفوفات: ستُضاف عناصره بدل كيانه:
 
 ```js run
 let arr = [1, 2];
@@ -199,25 +194,26 @@ let arrayLike = {
 alert( arr.concat(arrayLike) ); // 1,2,something,else
 ```
 
-## Iterate: forEach
+## التكرار: لكلّ forEach
 
-The [arr.forEach](mdn:js/Array/forEach) method allows to run a function for every element of the array.
+يتيح لنا التابِع arr.forEach تشغيل إحدى الدوال على كلّ عنصر من عناصر المصفوفة.
 
-The syntax:
+الصياغة:
+
 ```js
 arr.forEach(function(item, index, array) {
-  // ... do something with item
+  // ... استعملهما فيما تريد
 });
 ```
 
-For instance, this shows each element of the array:
+مثال على عرض كلّ عنصر من عناصر المصفوفة:
 
 ```js run
-// for each element call alert
+// ‫لكلّ عنصر، استدعِ دالة التنبيه alert
 ["Bilbo", "Gandalf", "Nazgul"].forEach(alert);
 ```
 
-And this code is more elaborate about their positions in the target array:
+بينما هذه الشيفرة تحبّ الكلام الزائد ومكانها في المصفوفة المحدّدة:
 
 ```js run
 ["Bilbo", "Gandalf", "Nazgul"].forEach((item, index, array) => {
@@ -225,74 +221,74 @@ And this code is more elaborate about their positions in the target array:
 });
 ```
 
-The result of the function (if it returns any) is thrown away and ignored.
+ناتج التابِع (لو أعادَ شيئًا أصلًا) يُهمل ويُرمى.
 
+## البحث في المصفوفات
 
-## Searching in array
+أمّا الآن لنرى التوابع التي تبحث في المصفوفة.
 
-Now let's cover methods that search in an array.
+### التوابِع indexOf و lastIndexOf و includes
 
-### indexOf/lastIndexOf and includes
+للتوابِع arr.indexOf و arr.lastIndexOf و arr.includes نفس الصياغة ووظيفتها هي ذات وظيفة تلك بنسخة النصوص النصية، الفرق أنها هنا تتعامل مع العناصر بدل المحارف:
 
-The methods [arr.indexOf](mdn:js/Array/indexOf), [arr.lastIndexOf](mdn:js/Array/lastIndexOf) and [arr.includes](mdn:js/Array/includes) have the same syntax and do essentially the same as their string counterparts, but operate on items instead of characters:
+- `arr.indexOf(item, from)` -- يبحث عن العنصر item بدءًا من الفهرس from، ويُعيد فهرسه حيث وجده. ولو لم يجده، يُعيد -1.
+- `arr.lastIndexOf(item, from)` -- نفسه، ولكن البحث يبدأ من اليمين وينتهي في اليسار..
+- `arr.includes(item, from)` -- يبحث عن العنصر item بدءًا من الفهرس from، ويُعيد true إن وجدته.
 
-- `arr.indexOf(item, from)` -- looks for `item` starting from index `from`, and returns the index where it was found, otherwise `-1`.
-- `arr.lastIndexOf(item, from)` -- same, but looks for from right to left.
-- `arr.includes(item, from)` -- looks for `item` starting from index `from`, returns `true` if found.
-
-For instance:
+مثال:
 
 ```js run
 let arr = [1, 0, false];
 
-alert( arr.indexOf(0) ); // 1
-alert( arr.indexOf(false) ); // 2
-alert( arr.indexOf(null) ); // -1
+alert(arr.indexOf(0)); // 1
+alert(arr.indexOf(false)); // 2
+alert(arr.indexOf(null)); // -1
 
-alert( arr.includes(1) ); // true
+alert(arr.includes(1)); // true
 ```
 
-Note that the methods use `===` comparison. So, if we look for `false`, it finds exactly `false` and not the zero.
+لاحظ أنّ التوابِع تستعمل الموازنة بِـ ===. لذا لو كنّا نبحث عن false، فستبحث هي عن false نفسها وليس الصفر.
 
-If we want to check for inclusion, and don't want to know the exact index, then `arr.includes` is preferred.
+لو أردت معرفة فيما كانت تحتوي المصفوفة على عنصر معيّن، ولا تريد معرفة فهرسه، فدالة arr.includes مناسبة لك.
 
-Also, a very minor difference of `includes` is that it correctly handles `NaN`, unlike `indexOf/lastIndexOf`:
+وهناك أيضًا أمر، تختلف includes عن سابقاتها indexOf/lastIndexOf بأنّها تتعامل مع NaN كما ينبغي:
 
 ```js run
 const arr = [NaN];
-alert( arr.indexOf(NaN) ); // -1 (should be 0, but === equality doesn't work for NaN)
-alert( arr.includes(NaN) );// true (correct)
+alert(arr.indexOf(NaN)); // ‫يُعيد ‎-1 (الصحيح هو 0 إلّا أنّ الموازنة === لا تعمل مع NaN)
+alert(arr.includes(NaN)); // true (الآن صحيح)
 ```
 
-### find and findIndex
+### البحث عبر find و findIndex
 
-Imagine we have an array of objects. How do we find an object with the specific condition?
+لنقل أنّ لدينا مصفوفة من الكائنات، كيف نجد الكائن حسب شرط معيّن؟
 
-Here the [arr.find(fn)](mdn:js/Array/find) method comes in handy.
+هنا يمكننا استغلال التابِع arr.find(fn).
 
-The syntax is:
+صياغته هي:
+
 ```js
 let result = arr.find(function(item, index, array) {
-  // if true is returned, item is returned and iteration is stopped
-  // for falsy scenario returns undefined
+  // ‫لو أُعيدت القيمة true، فيُعاد العنصر ويتوقّف التعداد
+  // ‫لو لم نجد ما نريد نُعيد undefinedd
 });
 ```
 
-The function is called for elements of the array, one after another:
+تُستدعى الدالة على كل عنصر من عناصر المصفوفة، واحدًا بعد الآخر:
 
-- `item` is the element.
-- `index` is its index.
-- `array` is the array itself.
+- `item` : العنصر.
+- `index` : الفهرس.
+- `array` : المصفوفة نفسها.
 
-If it returns `true`, the search is stopped, the `item` is returned. If nothing found, `undefined` is returned.
+لو أعادت true، يتوقّف البحث ويُعاد العنصر item. إن لم يوجد شيء فيُعاد undefined.
 
-For example, we have an array of users, each with the fields `id` and `name`. Let's find the one with `id == 1`:
+نرى في هذا المثال مصفوفة من المستخدمين، لكلّ مستخدم حقلان id وname. نريد الذي يتوافق مع الشرط id == 1:
 
 ```js run
 let users = [
-  {id: 1, name: "John"},
-  {id: 2, name: "Pete"},
-  {id: 3, name: "Mary"}
+  { id: 1, name: "John" },
+  { id: 2, name: "Pete" },
+  { id: 3, name: "Mary" }
 ];
 
 let user = users.find(item => item.id == 1);
@@ -300,24 +296,24 @@ let user = users.find(item => item.id == 1);
 alert(user.name); // John
 ```
 
-In real life arrays of objects is a common thing, so the `find` method is very useful.
+في الحياة العملية، يكثُر استعمال الكائنات في المصفوفات، ولهذا فالتابِع find مفيد جدًا لنا.
 
-Note that in the example we provide to `find` the function `item => item.id == 1` with one argument. That's typical, other arguments of this function are rarely used.
+يمكنك ملاحظة بأنّا في المثال مرّرنا للتابِع find الدالة item => item.id == 1 وفيها وسيط واحد. هذا طبيعي فنادرًا ما نستعمل الوُسطاء البقية في هذه الدالة
 
-The [arr.findIndex](mdn:js/Array/findIndex) method is essentially the same, but it returns the index where the element was found instead of the element itself and `-1` is returned when nothing is found.
+يتشابه التابِع [arr.findIndex](mdn:js/Array/findIndex) كثيرًا مع هذا، عدا على أنّه يُعيد فهرس العنصر الذي وجده بدل العنصر نفسه، ويُعيد ‎-1 لو لم يجد شيئًا.
 
-### filter
+### الترشيح filter
 
-The `find` method looks for a single (first) element that makes the function return `true`.
+يبحث التابِع find عن أوّل عنصر (واحد فقط) يُحقّق للدالة شرطها فتُعيد true.
 
-If there may be many, we can use [arr.filter(fn)](mdn:js/Array/filter).
+لو أردت إعادة أكثر من واحد فيمكن استعمال [arr.filter(fn)](mdn:js/Array/filter).
 
-The syntax is similar to `find`, but `filter` returns an array of all matching elements:
+تشبه صياغة `filter` التابِع `find`، الفرق هو إعادته لمصفوفة بكلّ العناصر المتطابقة:
 
 ```js
 let results = arr.filter(function(item, index, array) {
-  // if true item is pushed to results and the iteration continues
-  // returns empty array if nothing found
+  // ‫لو كانت true فتُضاف القائمة إلى مصفوفة النتائج ويتواصل التكرار
+  // يُعيد مصفوفة فارغة إن لم يجد شيئًا
 });
 ```
 
@@ -325,70 +321,65 @@ For instance:
 
 ```js run
 let users = [
-  {id: 1, name: "John"},
-  {id: 2, name: "Pete"},
-  {id: 3, name: "Mary"}
+  { id: 1, name: "John" },
+  { id: 2, name: "Pete" },
+  { id: 3, name: "Mary" }
 ];
 
-// returns array of the first two users
+// يُعيد مصفوفة تحتوي على أوّل مستخدمَين اثنين
 let someUsers = users.filter(item => item.id < 3);
 
 alert(someUsers.length); // 2
 ```
 
-## Transform an array
+## التعديل على عناصر المصفوفات
 
-Let's move on to methods that transform and reorder an array.
+لنرى الآن التوابِع التي تُعدّل المصفوفة وتُعيد ترتيبها.
 
-### map
+### الخارطة map
 
-The [arr.map](mdn:js/Array/map) method is one of the most useful and often used.
+يُعدّ التابِع [arr.map](mdn:js/Array/map) أكثرها استخدامًا وفائدةً أيضًا. ما يفعله هو استدعاء الدالة على كلّ عنصر من المصفوفة وإعادة مصفوفة بالنتائج.
 
-It calls the function for each element of the array and returns the array of results.
-
-The syntax is:
+صياغته هي:
 
 ```js
 let result = arr.map(function(item, index, array) {
-  // returns the new value instead of item
+  // يُعيد القيمة الجديدة عوض العنصر
 });
 ```
 
-For instance, here we transform each element into its length:
+مثلًا، هنا نعدّل كل عنصر فنحوّله إلى طوله:
 
 ```js run
 let lengths = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
 alert(lengths); // 5,7,6
 ```
 
-### sort(fn)
+### sort(fn)‎
 
-The call to [arr.sort()](mdn:js/Array/sort) sorts the array *in place*, changing its element order.
+نُرتّب باستدعاء [arr.sort()](mdn:js/Array/sort)‎ المصفوفة كما هي دون نسخها فنغيّر ترتيب عناصرها. هي الأخرى تُعيد المصفوفة المُرتّبة، ولكن غالبًا ما نُهمل القيمة المُعادة فالمصفوفة arr هي التي تتغيّر.
 
-It also returns the sorted array, but the returned value is usually ignored, as `arr` itself is modified.
-
-For instance:
+مثال:
 
 ```js run
-let arr = [ 1, 2, 15 ];
+let arr = [1, 2, 15];
 
-// the method reorders the content of arr
+// يعيد التابع ترتيب محتوى المصفوفة
 arr.sort();
 
-alert( arr );  // *!*1, 15, 2*/!*
+alert(arr); // *!*1, 15, 2*/!*
 ```
 
-Did you notice anything strange in the outcome?
+هل لاحظت بأنّ الناتج غريب؟ صار ‎1, 15, 2. ليس هذا ما نريد. ولكن، لماذا؟
 
-The order became `1, 15, 2`. Incorrect. But why?
+**مبدئيًا، تُرتّب العناصر وكأنها سلاسل نصية.**
 
-**The items are sorted as strings by default.**
+بالمعنى الحرفي للكلمة: تُحوّل كل العناصر إلى سلاسل نصية عند الموازنة. والترتيب المعجماتي هو المتّبع لترتيب السلاسل النصية، ‎"2" > "15"‎ صحيحة حقًا.
 
-Literally, all elements are converted to strings for comparisons. For strings, lexicographic ordering is applied and indeed `"2" > "15"`.
+علينا لاستعمال الترتيب الذي نريده تمريرَ دالة تكون وسيطًا للتابِع arr.sort()‎.
 
-To use our own sorting order, we need to supply a function as the argument of `arr.sort()`.
+على الدالة موازنة قيمتين اثنتين (أيًا كانتا) وإعادة الناتج:
 
-The function should compare two arbitrary values and return:
 ```js
 function compare(a, b) {
   if (a > b) return 1; // if the first value is greater than the second
@@ -397,7 +388,7 @@ function compare(a, b) {
 }
 ```
 
-For instance, to sort as numbers:
+مثال عن الترتيب لو كانت القيم أعدادًا:
 
 ```js run
 function compareNumeric(a, b) {
@@ -415,26 +406,26 @@ arr.sort(compareNumeric);
 alert(arr);  // *!*1, 2, 15*/!*
 ```
 
-Now it works as intended.
+الآن صارت تعمل كما نريد.
 
-Let's step aside and think what's happening. The `arr` can be array of anything, right? It may contain numbers or strings or objects or whatever. We have a set of *some items*. To sort it, we need an *ordering function* that knows how to compare its elements. The default is a string order.
+لنتوقف لحظة ونفكّر فيما يحدث تمامًا. أنتّفق بأنّ المصفوفة arr يمكن أن تحتوي أيّ شيء؟ أيّ شيء من الأعداد أو السلاسل النصية أو الكائنات أو غيرها. كلّ ما لدينا هو مجموعة من العناصر. لترتيبها نحتاج دالة ترتيب تعرف طرقة مقارنة عناصر المصفوفة. مبدئيًا، الترتيب يكون بالسلاسل النصية.
 
-The `arr.sort(fn)` method implements a generic sorting algorithm. We don't need to care how it internally works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
+يُنفِّذ التابع arr.sort(fn)‎ في طيّاته خوارزمية فرز عامّة. لسنا نكترث كيف تعمل هذه الخوارزمية خلف الكواليس (وهي غالبًا [quicksort](https://en.wikipedia.org/wiki/Quicksort) محسّنة)، بل نكترث بأنّها ستمرّ على المصفوفة، تُوازن عناصرها باستعمال الدالة المقدّمة أعلاه وتُعيد ترتيبها. نكترث بأن نقدّم دالة fn التي ستؤدّي الموازنة
 
-By the way, if we ever want to know which elements are compared -- nothing prevents from alerting them:
+بالمناسبة، لو أردت معرفة العناصر التي تُوازنها الدالة حاليًا، فلا بأس. لن يقتلك أحد لو عرضتها:
 
 ```js run
 [1, -2, 15, 2, 0, 8].sort(function(a, b) {
-  alert( a + " <> " + b );
+  alert(a + " <> " + b);
 });
 ```
 
-The algorithm may compare an element with multiple others in the process, but it tries to make as few comparisons as possible.
+يمكن أن تقارن الخوارزمية العنصر مع غيره من العناصر، ولكنّها تحاول قدر الإمكان تقليص عدد الموازنات.
 
-````smart header="A comparison function may return any number"
-Actually, a comparison function is only required to return a positive number to say "greater" and a negative number to say "less".
+````يمكن أن تُعيد دالة الموازنة أيّ عدد في الواقع، ليس على دالة الموازنة إلّا إعادة عدد موجب بدلالة «هذا أكبر من ذاك» وسالب بدلالة «هذا أصغر من ذاك».
 
-That allows to write shorter functions:
+يمكننا هكذا كتابة الدوال بأسطر أقل: That allows to write shorter functions:
+
 
 ```js run
 let arr = [ 1, 2, 15 ];
@@ -445,129 +436,123 @@ alert(arr);  // *!*1, 2, 15*/!*
 ```
 ````
 
-````smart header="Arrow functions for the best"
-Remember [arrow functions](info:arrow-functions-basics)? We can use them here for neater sorting:
+````تحيا الدوال السهمية أتذكر الدوال السهمية من فصل تعابير الدوال والدوال السهمية؟ يمكننا استعمالها أيضًا لتبسيط كود الفرز:
+
+
 
 ```js
 arr.sort( (a, b) => a - b );
 ```
 
-This works exactly the same as the longer version above.
+لا تفرق هذه عن تلك الطويلة بشيء، البتة.
+
 ````
 
-````smart header="Use `localeCompare` for strings"
-Remember [strings](info:string#correct-comparisons) comparison algorithm? It compares letters by their codes by default.
+تذكر الـ [strings](info:string#correct-comparisons) فى مقارنة الخوارزميات؟
+انها تُقارن الحروب عن طريق الكود الخاص بها .
 
-For many alphabets, it's better to use `str.localeCompare` method to correctly sort letters, such as `Ö`.
-
-For example, let's sort a few countries in German:
+بالنسبة للعديد من الحروف الأبجدية ، من الأفضل استخدام `str.localeCompare` لترتيب الحروف بشكل صحيح
+على سبيل المثال :
+دعنا نرتب القليل من البلاد بالألمانية
 
 ```js run
-let countries = ['Österreich', 'Andorra', 'Vietnam'];
+let countries = ["Österreich", "Andorra", "Vietnam"];
 
-alert( countries.sort( (a, b) => a > b ? 1 : -1) ); // Andorra, Vietnam, Österreich (wrong)
+alert(countries.sort((a, b) => (a > b ? 1 : -1))); // Andorra, Vietnam, Österreich (خطأ)
 
-alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (correct!)
+alert(countries.sort((a, b) => a.localeCompare(b))); // Andorra,Österreich,Vietnam (صحيح!)
 ```
-````
 
-### reverse
+### العكس reverse
 
-The method [arr.reverse](mdn:js/Array/reverse) reverses the order of elements in `arr`.
+يعكس التابِع [arr.reverse](mdn:js/Array/reverse) ترتيب العناصر في المصفوفة arr.
 
-For instance:
+مثال:
 
 ```js run
 let arr = [1, 2, 3, 4, 5];
 arr.reverse();
 
-alert( arr ); // 5,4,3,2,1
+alert(arr); // 5,4,3,2,1
 ```
 
-It also returns the array `arr` after the reversal.
+كما ويُعيد المصفوفة arr بعد عكسها.
 
-### split and join
+### التقسيم split والدمج join
 
-Here's the situation from real life. We are writing a messaging app, and the person enters the comma-delimited list of receivers: `John, Pete, Mary`. But for us an array of names would be much more comfortable than a single string. How to get it?
+إليك موقفًا من الحياة العملية. تحاول الآن برمجة تطبيق مراسلة، ويُدخل المستخدم قائمة المستلمين بفاصلة بين كلّ واحد: John, Pete, Mary. ولكن لنا نحن المبرمجين، فالمصفوفة التي تحتوي الأسماء أسهل بكثير من السلسلة النصية. كيف السبيل إذًا؟
 
-The [str.split(delim)](mdn:js/String/split) method does exactly that. It splits the string into an array by the given delimiter `delim`.
+هذا ما يفعله التابِع [str.split(delim)](mdn:js/String/split‎. يأخذ السلسلة النصية ويقسمها إلى مصفوفة حسب محرف القاسِم delim المقدّم.
 
-In the example below, we split by a comma followed by space:
+في المثال أعلاه نقسم حسب «فاصلة بعدها مسافة»:
 
 ```js run
-let names = 'Bilbo, Gandalf, Nazgul';
+let names = "Bilbo, Gandalf, Nazgul";
 
-let arr = names.split(', ');
+let arr = names.split(", ");
 
 for (let name of arr) {
-  alert( `A message to ${name}.` ); // A message to Bilbo  (and other names)
+  alert(`A message to ${name}.`); // A message to Bilbo  (والبقية)
 }
 ```
 
-The `split` method has an optional second numeric argument -- a limit on the array length. If it is provided, then the extra elements are ignored. In practice it is rarely used though:
+للتابِع split وسيطًا عدديًا اختياريًا أيضًا، وهو يحدّ طول المصفوفة. لو قدّمته فستُهمل العناصر الأخرى. ولكن في الواقع العملي، نادرًا ما ستفيدك هذا:
 
 ```js run
-let arr = 'Bilbo, Gandalf, Nazgul, Saruman'.split(', ', 2);
+let arr = "Bilbo, Gandalf, Nazgul, Saruman".split(", ", 2);
 
 alert(arr); // Bilbo, Gandalf
 ```
 
-````smart header="Split into letters"
-The call to `split(s)` with an empty `s` would split the string into an array of letters:
+التقسيم إلى أحرف لو ناديت split(s)‎ وتركت s فارغًا فستُسقم السلسلة النصية إلى مصفوفة من الأحرف:
 
 ```js run
 let str = "test";
 
-alert( str.split('') ); // t,e,s,t
+alert(str.split("")); // t,e,s,t
 ```
-````
 
-The call [arr.join(glue)](mdn:js/Array/join) does the reverse to `split`. It creates a string of `arr` items joined by `glue` between them.
+اذا ناديت [arr.join(glue)](mdn:js/Array/join) فانها تقوم بعمل عكسى لـ `split ، أى أنها تعيد لصق عناصر المصفوفة كما لو أنها تلصقها بمادة لاصقة
 
-For instance:
+مثال :
 
 ```js run
-let arr = ['Bilbo', 'Gandalf', 'Nazgul'];
+let arr = ["Bilbo", "Gandalf", "Nazgul"];
 
-let str = arr.join(';'); // glue the array into a string using ;
+let str = arr.join(";"); // glue the array into a string using ;
 
-alert( str ); // Bilbo;Gandalf;Nazgul
+alert(str); // Bilbo;Gandalf;Nazgul
 ```
 
-### reduce/reduceRight
+### التابِعان reduce و reduceRight
 
-When we need to iterate over an array -- we can use `forEach`, `for` or `for..of`.
+متى ما أردنا أن نمرّ على عناصر المصفوفة، استعملنا forEach أو for أو for..of. ومتى ما أردنا أن نمرّ ونُعيد بيانات كلّ عنصر، استعملنا map.
 
-When we need to iterate and return the data for each element -- we can use `map`.
+نفس الحال مع التابعين [arr.reduce](mdn:js/Array/reduce) و[arr.reduceRight](mdn:js/Array/reduceRight)، إلّا أنهما ليسا بالسهولة نفسها. يُستعمل هذان التابعان لحساب قيمة واحدة حسب عناصر المصفوفة.
 
-The methods [arr.reduce](mdn:js/Array/reduce) and [arr.reduceRight](mdn:js/Array/reduceRight) also belong to that breed, but are a little bit more intricate. They are used to calculate a single value based on the array.
-
-The syntax is:
+هذه الصياغة:
 
 ```js
-let value = arr.reduce(function(accumulator, item, index, array) {
-  // ...
-}, [initial]);
+let value = arr.reduce(
+  function(accumulator, item, index, array) {
+    // ...
+  },
+  [initial]
+);
 ```
 
-The function is applied to all array elements one after another and "carries on" its result to the next call.
+تُطبّق الدالة على كل عناصر المصفوفة واحدًا بعد الآخر، و«تنقل» النتيجة إلى النداء التالي لها:
 
-Arguments:
+وُسطاء الدالة:
 
-- `accumulator` -- is the result of the previous function call, equals `initial` the first time (if `initial` is provided).
-- `item` -- is the current array item.
-- `index` -- is its position.
-- `array` -- is the array.
+- `accumulator` -- هو نتيجة للكل الدوال السابقة و يتعبر مساويا لـ `initial` فى أول مرة .
+- `item` -- العنصر الحالي في المصفوفة.
+- `index` -- مكان العنصر.
+- `array` -- المصفوفة نفسه.
 
-As function is applied, the result of the previous function call is passed to the next one as the first argument.
+حين تُطبّق الدالة، تُمرّر إليها نتيجة النداء السابق في أوّل وسيط. أجل، معقّد قليلًا، لكن ليس كما تتخيّل لو قلنا أنّ الوسيط الأول بمثابة «ذاكرة» تخزّن النتيجة النهائية من إجراءات التنفيذ التي سبقتها. وفي آخر نداء تصير نتيجة التابِع reduce.
 
-So, the first argument is essentially the accumulator that stores the combined result of all previous executions. And at the end it becomes the result of `reduce`.
-
-Sounds complicated?
-
-The easiest way to grasp that is by example.
-
-Here we get a sum of an array in one line:
+ربّما نقدّم مثالًا لتسهيل المسألة. هنا نعرف مجموعة عناصر المصفوفة في سطر برمجي واحد:
 
 ```js run
 let arr = [1, 2, 3, 4, 5];
@@ -577,74 +562,69 @@ let result = arr.reduce((sum, current) => sum + current, 0);
 alert(result); // 15
 ```
 
-The function passed to `reduce` uses only 2 arguments, that's typically enough.
+الدالة المُمرّرة إلى reduce تستعمل وسيطين اثنين فقط، وهذا كافٍ عادةً.
 
-Let's see the details of what's going on.
+لنرى تفاصيل النداءات.
 
-1. On the first run, `sum` is the `initial` value (the last argument of `reduce`), equals `0`, and `current` is the first array element, equals `1`. So the function result is `1`.
-2. On the second run, `sum = 1`, we add the second array element (`2`) to it and return.
-3. On the 3rd run, `sum = 3` and we add one more element to it, and so on...
+1. في أوّل مرّة، قيمة sum هي قيمة initial (آخر وسيط في reduce) وتساوي 0، وcurrent هي أوّل عنصر في المصفوفة وتساوي 1. إذًا فناتج الدالة هو 1.
 
-The calculation flow:
+2. في النداء التالي، sum = 1 ونُضيف العنصر الثاني في المصفوفة (2) ونُعيد القيمة.
+
+3. في النداء الثالث، sum = 3، ونُضيف العنصر التالي في المصفوفة، وهكذا دواليك إلى آخر نداء…
+
+هذا سير العملية الحسابية:
 
 ![](reduce.svg)
 
-Or in the form of a table, where each row represents a function call on the next array element:
+وهكذا نمثّلها في جدول (كلّ صف يساوي نداء واحد للدالة على العنصر التالي في المصفوفة):
 
-|   |`sum`|`current`|result|
-|---|-----|---------|---------|
-|the first call|`0`|`1`|`1`|
-|the second call|`1`|`2`|`3`|
-|the third call|`3`|`3`|`6`|
-|the fourth call|`6`|`4`|`10`|
-|the fifth call|`10`|`5`|`15`|
+|                 | `sum` | `current` | result |
+| --------------- | ----- | --------- | ------ |
+| the first call  | `0`   | `1`       | `1`    |
+| the second call | `1`   | `2`       | `3`    |
+| the third call  | `3`   | `3`       | `6`    |
+| the fourth call | `6`   | `4`       | `10`   |
+| the fifth call  | `10`  | `5`       | `15`   |
 
-Here we can clearly see how the result of the previous call becomes the first argument of the next one.
+هكذا نرى بوضوح شديد كيف يصير ناتج النداء السابق أوّل وسيط في النداء الذي يلحقه.
 
-We also can omit the initial value:
+يمكننا أيضًا حذف القيمة الأولية:
 
 ```js run
 let arr = [1, 2, 3, 4, 5];
 
-// removed initial value from reduce (no 0)
+// ‫أزلنا القيمة الأولية من التابِع reduce (اختفت القيمة 0)
 let result = arr.reduce((sum, current) => sum + current);
 
-alert( result ); // 15
+alert(result); // 15
 ```
 
-The result is the same. That's because if there's no initial, then `reduce` takes the first element of the array as the initial value and starts the iteration from the 2nd element.
+وستكون النتيجة متطابقة، إذ أنّ reduce تأخذ أول عنصر من المصفوفة على أنّه قيمة أولية (لو لم نقدّم نحن قيمة أولية) وتبدأ العملية من العنصر الثاني.
 
-The calculation table is the same as above, minus the first row.
+جدول العملية الحسابية مُطابق للجدول أعلاه، لو حذفنا أول سطر فيه. ولكن عليك أن تحترس حين لا تقدّم تلك القيمة. لو كانت المصفوفة فارغة فنداء reduce بدون القيمة الأولية سيعطيك خطأً.
 
-But such use requires an extreme care. If the array is empty, then `reduce` call without initial value gives an error.
-
-Here's an example:
+مثال على ذلك:
 
 ```js run
 let arr = [];
 
-// Error: Reduce of empty array with no initial value
-// if the initial value existed, reduce would return it for the empty arr.
 arr.reduce((sum, current) => sum + current);
 ```
 
-So it's advised to always specify the initial value.
+الشيفرة السابقة ستطلق خطأ، إذ لا يمكن استدعاء reduce مع مصفوفة فارغة دون قيمة أولية، وتحل المشكلة بتوفير قيمة أولية، وستعاد آنذاك. لذا خُذ هذه النصيحة وحدّد قيمة أولية دومًا.
 
-The method [arr.reduceRight](mdn:js/Array/reduceRight) does the same, but goes from right to left.
-
+لا يختلف التابِع [arr.reduceRight](mdn:js/Array/reduceRight)عن هذا أعلاه إلا بأنّه يبدأ من اليمين وينتهي على اليسار.
 
 ## Array.isArray
 
-Arrays do not form a separate language type. They are based on objects.
-
-So `typeof` does not help to distinguish a plain object from an array:
+المصفوفات ليست نوعًا منفصلًا في اللغة، بل هي مبنيّة على الكائنات. لذا typeof لن تفيدك في التفريق بين الكائن العادي والمصفوفة:
 
 ```js run
 alert(typeof {}); // object
 alert(typeof []); // same
 ```
 
-...But arrays are used so often that there's a special method for that: [Array.isArray(value)](mdn:js/Array/isArray). It returns `true` if the `value` is an array, and `false` otherwise.
+…ولكن، المصفوفات تستعمل كثيرًا جدًا لدرجة تقديم تابِع خاص لهذا الغرض: Array.isArray(value)‎. يُعيد هذا التابِع true لو كانت value مصفوفة حقًا، وfalse لو لم تكن.
 
 ```js run
 alert(Array.isArray({})); // false
@@ -652,25 +632,23 @@ alert(Array.isArray({})); // false
 alert(Array.isArray([])); // true
 ```
 
-## Most methods support "thisArg"
+## تدعم أغلب التوابِع thisArg
 
-Almost all array methods that call functions -- like `find`, `filter`, `map`, with a notable exception of `sort`, accept an optional additional parameter `thisArg`.
+تقبل أغلب توابِع المصفوفات تقريبًا، التوابع التي تستدعي دوالًا (مثل find وfilter وmap، عدا sort) - تقبل المُعامل الاختياري thisArg.
 
-That parameter is not explained in the sections above, because it's rarely used. But for completeness we have to cover it.
+لم نشرح هذا المُعامل في الأقسام أعلاه إذ أنّه نادرًا ما يُستعمل. ولكن علينا الحديث عنه لألا يكون الشرح ناقصًا.
 
-Here's the full syntax of these methods:
+هذه الصياغة الكاملة لهذه التوابِع:
 
 ```js
 arr.find(func, thisArg);
 arr.filter(func, thisArg);
 arr.map(func, thisArg);
 // ...
-// thisArg is the optional last argument
+// ‫الوسيط thisArg هو آخر وسيط اختياري
 ```
 
-The value of `thisArg` parameter becomes `this` for `func`.
-
-For example, here we use a method of `army` object as a filter, and `thisArg` passes the context:
+تكون قيمة المُعامل thisArg للدالة func تساوي this. هنا مثلًا نستعمل تابِع كائن army على أنّه مرشّح، والوسيط thisArg يمرّر سياق التنفيذ وذلك لإيجاد المستخدمين الذين يعيد التابع army.canJoin القيمة true:
 
 ```js run
 let army = {
@@ -698,58 +676,59 @@ alert(soldiers[0].age); // 20
 alert(soldiers[1].age); // 23
 ```
 
-If in the example above we used `users.filter(army.canJoin)`, then `army.canJoin` would be called as a standalone function, with `this=undefined`, thus leading to an instant error.
+يمكن استبدال استدعاء `users.filter(army.canJoin)` بالتعليمة التي تُؤدّي ذات الغرض `users.filter(user => army.canJoin(user))`. نستعمل الأولى أكثر من الثانية إذ أنّ الناس تفهمها أكثر من تلك.
 
-A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(user => army.canJoin(user))`, that does the same. The former is used more often, as it's a bit easier to understand for most people.
+## ملخص
 
-## Summary
+ورقة فيها كل توابِع الدوال (غُشّ منها):
 
-A cheat sheet of array methods:
+- لإضافة العناصر وإزالتها:
 
-- To add/remove elements:
-  - `push(...items)` -- adds items to the end,
-  - `pop()` -- extracts an item from the end,
-  - `shift()` -- extracts an item from the beginning,
-  - `unshift(...items)` -- adds items to the beginning.
-  - `splice(pos, deleteCount, ...items)` -- at index `pos` delete `deleteCount` elements and insert `items`.
-  - `slice(start, end)` -- creates a new array, copies elements from position `start` till `end` (not inclusive) into it.
-  - `concat(...items)` -- returns a new array: copies all members of the current one and adds `items` to it. If any of `items` is an array, then its elements are taken.
+* `push(...items)` -- تُضيف العناصر items إلى النهاية،
+* `pop()` -- تستخرج عنصرًا من النهاية،
+* `shift()` -- تستخرج عنصرًا من البداية،
+* `unshift(...items)` -- تُضيف العناصر items إلى البداية.
+* `splice(pos, deleteCount, ...items)` --- بدءًا من العنصر ذي الفهرس pos، احذف deleteCount من العناصر وأدرِج مكانه العناصر items.
+* `slice(start, end)` -- أنشِئ مصفوفة جديدة وانسخ عناصرها بدءًا من start وحتّىend(ولكن دونend).
+* `concat(...items)` -- أعِد مصفوفة جديدة: انسخ كل عناصر المصفوفة الحالية وأضَِف إليها العناصر items. لو كانت واحدة من عناصر items مصفوفة أيضًا، فستُنسخ عناصرها بدل..
 
-- To search among elements:
-  - `indexOf/lastIndexOf(item, pos)` -- look for `item` starting from position `pos`, return the index or `-1` if not found.
-  - `includes(value)` -- returns `true` if the array has `value`, otherwise `false`.
-  - `find/filter(func)` -- filter elements through the function, return first/all values that make it return `true`.
-  - `findIndex` is like `find`, but returns the index instead of a value.
+* لتبحث عن العناصر:
 
-- To iterate over elements:
-  - `forEach(func)` -- calls `func` for every element, does not return anything.
+  - `indexOf/lastIndexOf(item, pos)` -- ابحث عن العنصر item بدءًا من العنصر ذي الفهرس pos وأعِد فهرسه أو أعِد ‎-1 لو لم تجده.
+  - `includes(value)` -- أعِد القيمة true لو كان العنصر value في المصفوفة، وإلا أعِد false.
+  - `find/filter(func)` -- رشّح العناصر عبر دالة وأعِد أوّل قيمة (أو كل القيم) التي تُعيد الدالة قيمة true لو مُرّر ذلك العنصر لها.
+  - `findIndex` يشبه `find`، ولكن يُعيد الفهرس بدل القيمة.
 
-- To transform the array:
-  - `map(func)` -- creates a new array from results of calling `func` for every element.
-  - `sort(func)` -- sorts the array in-place, then returns it.
-  - `reverse()` -- reverses the array in-place, then returns it.
-  - `split/join` -- convert a string to array and back.
-  - `reduce(func, initial)` -- calculate a single value over the array by calling `func` for each element and passing an intermediate result between the calls.
+* للمرور على عناصر المصفوفة:
 
-- Additionally:
-  - `Array.isArray(arr)` checks `arr` for being an array.
+- `forEach(func)` -- يستدعي `func` لكلّ عنصر ولا يُعيد أيّ شيء.
 
-Please note that methods `sort`, `reverse` and `splice` modify the array itself.
+* لتعديل عناصر المصفوفة:
 
-These methods are the most used ones, they cover 99% of use cases. But there are few others:
+  - `map(func)` -- أنشِئ مصفوفة جديدة من نتائج استدعاء func لكلّ من عناصر المصفوفة.
+  - `sort(func)` -- افرز المصفوفة كما هي وأعِد ناتج الفرز.
+  - `reverse()` -- اعكس عناصر المصفوفة كما هي وأعِد ناتج العكس.
+  - `split/join` -- حوّل المصفوفة إلى سلسلة نصية، والعكس أيضًا.
+  - `reduce(func, initial)`-- احسب قيمة من المصفوفة باستدعاء func على كلّ عنصر فيها وتمرير الناتج بين كلّ استدعاء وآخر.
 
-- [arr.some(fn)](mdn:js/Array/some)/[arr.every(fn)](mdn:js/Array/every) checks the array.
+* Additionally:
+  - `Array.isArray(arr)` ‎ يفحص لو كانت `arr` مصفوفة أم لا.
+    لاحظ أنّ التوابِع`sort`, `reverse` و `splice` تُعدّل المصفوفة نفسها.
 
-  The function `fn` is called on each element of the array similar to `map`. If any/all results are `true`, returns `true`, otherwise `false`.
+هذه التوابِع أعلاه هي أغلب ما تحتاج وما تريد أغلب الوقت (99.99%). ولكن هناك طبعًا غيرها: +
 
-- [arr.fill(value, start, end)](mdn:js/Array/fill) -- fills the array with repeating `value` from index `start` to `end`.
+- [arr.some(fn)](mdn:js/Array/some)/[arr.every(fn)](mdn:js/Array/every) تفحص المصفوفة.
 
-- [arr.copyWithin(target, start, end)](mdn:js/Array/copyWithin) -- copies its elements from position `start` till position `end` into *itself*, at position `target` (overwrites existing).
+تُنادى الدالة fn على كلّ عنصر من المصفوفة (مثل map). لو كانت أيًا من (أو كل) النتائج true، فيُعيد true، وإلًا يُعيد false.
 
-For the full list, see the [manual](mdn:js/Array).
+- [arr.fill(value, start, end)](mdn:js/Array/fill) -- يملأ المصفوفة بالقيمة المتكرّرة value من الفهرس start إلى الفهرس end.
 
-From the first sight it may seem that there are so many methods, quite difficult to remember. But actually that's much easier.
+- [arr.copyWithin(target, start, end)](mdn:js/Array/copyWithin) -- ينسخ العناصر من العنصر ذا الفهرس start إلى ذا الفهرس end ويلصقها داخلها عند الفهرس target (تعوّض ما هو موجود مكانها في المصفوفة).
 
-Look through the cheat sheet just to be aware of them. Then solve the tasks of this chapter to practice, so that you have experience with array methods.
+لتفاصيل أكثر تصفح [manual](mdn:js/Array).
 
-Afterwards whenever you need to do something with an array, and you don't know how -- come here, look at the cheat sheet and find the right method. Examples will help you to write it correctly. Soon you'll automatically remember the methods, without specific efforts from your side.
+قد يبدو من النظرة الأولى أن هناك العديد من الطرق ، يصعب تذكرها. ولكن في الواقع هذا أسهل بكثير.
+
+انظر من خلال ورقة الغش فقط لتكون على دراية بها. ثم حل مهام هذا الفصل للممارسة ، بحيث يكون لديك خبرة في أساليب الصفيف.
+
+بعد ذلك كلما احتجت إلى القيام بشيء مع مصفوفة ، ولا تعرف كيف - تعال هنا ، انظر إلى ورقة الغش وابحث عن الطريقة الصحيحة. ستساعدك الأمثلة على كتابتها بشكل صحيح. قريباً سوف تتذكر الأساليب تلقائيًا ، دون بذل جهود محددة من جانبك.

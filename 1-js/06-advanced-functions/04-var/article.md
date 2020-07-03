@@ -1,18 +1,34 @@
 
-# The old "var"
+# إفادة «var» القديمة
 
-```smart header="This article is for understanding old scripts"
-The information in this article is useful for understanding old scripts.
+```smart header="هذه المقالة من أجل فهم النصوص القديمة"
+المعلومات داخل هذه المقالة تساعدنا فى فهم النصوص القديمة أكثر ولا تحتوي علي أي معلومات عن كيفية كتابة كود جديد
 
-That's not how we write a new code.
 ```
 
-In the very first chapter about [variables](info:variables), we mentioned three ways of variable declaration:
+ذكرنا في أوائل الفصول حين تكلمنا عن [المتغيرات](info:variables), ذكرنا ثلاث طرائق للتصريح عنها:
 
 1. `let`
 2. `const`
 3. `var`
 
+
+تصرّف كلا الإفادتين `‎let‎` و`‎const‎` بذات الطريقة (بالمقايسة مع البيئات المُعجمية).
+
+بينما `‎var‎` فهو وحش آخر مختلف جذريًا ويعود في أصله إلى قرون سحيقة. لا نستعمله عادةً في السكربتات الحديثة ولكنّك ستجده حتمًا خلف إحدى صخور السكربتات القديمة.
+
+لو لم ترغب بالتعرّف على هذه السكربتات فيمكنك تخطّي هذا الفصل أو تأجيله لوقت لاحق. ولكن لا تنسَ احتمالية ندمك لاحقًا فيغدر بك هذا الوحش.
+
+من أول وهلة نرى بأنّ تصرّف `‎var‎` يشابه تصرّف `‎let‎`، أي أنّه يُصرّح (مثل الثاني) عن متغير:
+
+
+```js run
+function sayHi() {
+  var phrase = "Hello"; // ‫متغير محلي، استعملنا «var» بدل «let»
+
+  alert(phrase); // Hello
+}
+=======
 The `var` declaration is similar to `let`. Most of the time we can replace `let` by `var` or vice-versa and expect things to work:
 
 ```js run
@@ -22,53 +38,58 @@ alert(message); // Hi
 
 But internally `var` is a very different beast, that originates from very old times. It's generally not used in modern scripts, but still lurks in the old ones.
 
+alert(phrase); // ‫خطأ، phrase غير معرّف
+
+```
+
+ولكن... ما خفي كان أعظم. إليك الفروق.
+=======
 If you don't plan on meeting such scripts you may even skip this chapter or postpone it.
 
 On the other hand, it's important to understand differences when migrating old scripts from `var` to `let`, to avoid odd errors.
 
 ## "var" has no block scope
 
-Variables, declared with `var`, are either function-wide or global. They are visible through blocks.
+حين نصرّح عن المتغيرات باستعمال `‎var‎` نكون جعلناها معروفة للدالة كاملةً (لو كانت في دالة) أو عمومية في السكربت. يمكنك أن ترى تلك المتغيرات إن اخترقت «جدران» الكُتل.
 
-For instance:
+مثال:
 
-```js run
-if (true) {
-  var test = true; // use "var" instead of "let"
-}
-
-*!*
-alert(test); // true, the variable lives after if
-*/!*
-```
-
-As `var` ignores code blocks, we've got a global variable `test`.
-
-If we used `let test` instead of `var test`, then the variable would only be visible inside `if`:
 
 ```js run
 if (true) {
-  let test = true; // use "let"
+  var test = true; // ‫نستعمل «var» بدل «let»
 }
 
-*!*
-alert(test); // Error: test is not defined
-*/!*
+alert(test); // ‫الناتج true، أي أنّ المتغير «حيّ يُرزق» بعد إفادة if
+
 ```
 
-The same thing for loops: `var` cannot be block- or loop-local:
+
+تجاهل `‎var‎` كتل الشيفرة، وبهذا صار متغير `‎test‎` عموميًا.
+
+لو استعملنا `‎let test‎` بدل `‎var test‎` فسيكون المتغير ظاهرًا لباقي الشيفرة داخل إفادة `‎if‎` فقط لا غير:
+
+
+```js run
+if (true) {
+  let test = true; // ‫نستعمل «let»
+}
+
+alert(test); // ‫خطأ: لم يُعرّف عن test
+
+```
+يسري الأمر ذاته على الحلقات فلا يمكن أن يكون `‎var‎` محليًا حسب الكتلة أو حسب الحلقة:
 
 ```js
 for (var i = 0; i < 10; i++) {
   // ...
 }
 
-*!*
-alert(i); // 10, "i" is visible after loop, it's a global variable
-*/!*
+alert(i); // ‫10، ظهر «i» بعد الحلقة فهو متغير عمومي
+
 ```
 
-If a code block is inside a function, then `var` becomes a function-level variable:
+لو كتبت كتلة شيفرة في دالة فسيصير `‎var‎` متغيرًا على مستوى الدالة كاملةً.
 
 ```js run
 function sayHi() {
@@ -76,15 +97,20 @@ function sayHi() {
     var phrase = "Hello";
   }
 
-  alert(phrase); // works
+  alert(phrase); // يمكننا فعل هذا
 }
 
 sayHi();
-alert(phrase); // Error: phrase is not defined (Check the Developer Console)
+alert(phrase); // ‫خطأ: phrase غير معرّف (طالِع مِعراض المطوّر)
+
 ```
 
-As we can see, `var` pierces through `if`, `for` or other code blocks. That's because a long time ago in JavaScript blocks had no Lexical Environments. And `var` is a remnant of that.
+كما نرى فإفادة `‎var‎` تخترق كُتل `‎if‎` و`‎for‎` وغيرها من كُتل شيفرة. يعزو ذلك إلى أنّه في الزمن الماضي الجميل لم تكن لكُتل جافاسكربت بيئات مُعجمية. و`‎var‎` إحدى آثار ذلك الزمن.
 
+## تُعالج التصريحات باستعمال `‎var‎` عند بدء الدالة
+
+ُعالج التصريحات باستعمال `‎var‎` متى ما بدأت الدالة (أو بدأ السكربت، للمتغيرات العمومية).
+=======
 ## "var" tolerates redeclarations
 
 If we declare the same variable with `let` twice in the same scope, that's an error:
@@ -107,11 +133,10 @@ alert(user); // John
 
 ## "var" variables can be declared below their use
 
-`var` declarations are processed when the function starts (or script starts for globals).
+أي أنّ متغيرات `‎var‎` تُعرّف من بداية الدالة مهما كان مكان تعريفها (هذا لو لم يكن التعريف في دالة متداخلة أخرى).
 
-In other words, `var` variables are defined from the beginning of the function, no matter where the definition is (assuming that the definition is not in the nested function).
+يعني ذلك أنّ هذه الشيفرة:
 
-So this code:
 
 ```js run
 function sayHi() {
@@ -119,99 +144,94 @@ function sayHi() {
 
   alert(phrase);
 
-*!*
   var phrase;
-*/!*
 }
 sayHi();
-```
 
-...Is technically the same as this (moved `var phrase` above):
+```
+متطابقة تقنيًا مع هذه (بتحريك `‎var phrase‎` إلى أعلى):
 
 ```js run
 function sayHi() {
-*!*
   var phrase;
-*/!*
 
   phrase = "Hello";
 
   alert(phrase);
 }
 sayHi();
+
 ```
 
-...Or even as this (remember, code blocks are ignored):
-
+أو حتى هذه (لا تنسَ بأنّ كُتل الشيفرات مُهملة):
 ```js run
 function sayHi() {
   phrase = "Hello"; // (*)
 
-  *!*
   if (false) {
     var phrase;
   }
-  */!*
 
   alert(phrase);
 }
 sayHi();
+
 ```
+يدعو الناس هذا السلوك بسلوك «الطفو» _hoisting_ (أو الرفع) إذ أنّ متغيرات `‎var‎` «تطفو» إلى أعلى الدالة (أو ترتفع إلى أعلاها).
 
-People also call such behavior "hoisting" (raising), because all `var` are "hoisted" (raised) to the top of the function.
+أي أنّه في المثال أعلاه، الفرع `‎if (false)‎` من الإفادة لا يعمل قط ولكن هذا ليس بمهم، إذ أنّ `‎var‎` داخله سيُعالج في بداية الدالة، وحين تصل عملية التنفيذ إلى `‎(*)‎` سيكون المتغير موجودًا لا محالة.
 
-So in the example above, `if (false)` branch never executes, but that doesn't matter. The `var` inside it is processed in the beginning of the function, so at the moment of `(*)` the variable exists.
+**التصريحات تطفو صحيح، ولكنّ ليس عبارات الإسناد.**
 
-**Declarations are hoisted, but assignments are not.**
+الأفضل لو نمثّل ذلك في هذا المثال:
 
-That's best demonstrated with an example:
 
 ```js run
 function sayHi() {
   alert(phrase);  
 
-*!*
   var phrase = "Hello";
-*/!*
 }
 
 sayHi();
+
 ```
 
-The line `var phrase = "Hello"` has two actions in it:
+في السطر `‎var phrase = "Hello"‎` إجراءان اثنان:
 
-1. Variable declaration `var`
-2. Variable assignment `=`.
+1. التصريح عن المتغير باستعمال `var`
+2. إسناد قيمة للمتغير باستعمال `‎=‎`.
 
-The declaration is processed at the start of function execution ("hoisted"), but the assignment always works at the place where it appears. So the code works essentially like this:
+يتعامل المحرّك مع التصريحات متى بدء تنفيذ الدالة (إذ التصريحات تطفو)، ولكنّ عبارة الإسناد لا تعمل إلّا حيثما ظهرت، فقط. إذًا فالشيفرة تعمل بهذا النحو فعليًا:
+
 
 ```js run
 function sayHi() {
-*!*
-  var phrase; // declaration works at the start...
-*/!*
+  var phrase; // ‫بادئ ذي بدء، يعمل التصريح...
 
-  alert(phrase); // undefined
+  alert(phrase); // غير معرّف
 
-*!*
-  phrase = "Hello"; // ...assignment - when the execution reaches it.
-*/!*
+  phrase = "Hello"; // ‫...هنا.
 }
 
 sayHi();
+
 ```
 
-Because all `var` declarations are processed at the function start, we can reference them at any place. But variables are undefined until the assignments.
+يُعالج المحرّك التصريحات `‎var‎` حين تبدأ الدوال، وبهذا يمكننا الإشارة إليها أينما أردنا في الشيفرة. ولكن انتبه فالمتغيرات غير معرّفة حتى تُسند إليها قيم.
 
-In both examples above `alert` runs without an error, because the variable `phrase` exists. But its value is not yet assigned, so it shows `undefined`.
+في الأمثلة أعلاه عمل التابِع `‎alert‎` دون أيّ أخطاء إذ أن المتغير `‎phrase‎` موجود. ولكن لم تُسند فيه قيمة بعد فعرض `‎undefined‎`.
 
-### IIFE
 
-As in the past there was only `var`, and it has no block-level visibility, programmers invented a way to emulate it. What they did was called "immediately-invoked function expressions" (abbreviated as IIFE).
+### تعريف الدالة المناداة تواً (IIFE)
 
-That's not something we should use nowadays, but you can find them in old scripts.
+في الماضي كان هناك فقط `var`, وليس له مستوي كتلة, لكن المبرمجين إخترعوا طريقة لحل ذلك. التي تسمي 
 
-An IIFE looks like this:
+"**I**mmediately-**I**nvoked **f**unction **E**xpressions"
+
+هذا لا يستخدم حالياً, لكن تستطيع إيجادهم في النصوص القديمة.
+
+طريقة كتابة (IIFE):
 
 ```js run
 (function() {
@@ -222,13 +242,13 @@ An IIFE looks like this:
 
 })();
 ```
+هذا يعتبر تعريف دالة صُنعت وتمت مناداتها على الفور. لذلك يتم تنفيذ الكود ولها متغيراتها الخاصة.
 
-Here a Function Expression is created and immediately called. So the code executes right away and has its own private variables.
+يتم تغليف تعريف الدالة يتم تغليفه بداخل قوسين (function {...})`, لأن عندما تقابل جافاسكريبت `"function"` في الكود الأساسي, تفهمها علي أنها بداية تعريف دالة ولكن بدون إسم لذلك يعطينا خطأ:
 
-The Function Expression is wrapped with parenthesis `(function {...})`, because when JavaScript meets `"function"` in the main code flow, it understands it as the start of a Function Declaration. But a Function Declaration must have a name, so this kind of code will give an error:
 
 ```js run
-// Try to declare and immediately call a function
+// محاولة صنع دالة فورية التنفيذ
 function() { // <-- Error: Function statements require a function name
 
   let message = "Hello";
@@ -237,19 +257,19 @@ function() { // <-- Error: Function statements require a function name
 
 }();
 ```
-
-Even if we say: "okay, let's add a name", that won't work, as JavaScript does not allow Function Declarations to be called immediately:
+حتي لو وضعنا إسم, لن يعمل هذا, لأن جافاسكريبت لا تسمح بتعريف دالة ستتم مناداتها فورياً:
 
 ```js run
-// syntax error because of parentheses below
+// هذا خطأ بسبب الأقواس الموجودة بالأسفل
 function go() {
 
-}(); // <-- can't call Function Declaration immediately
+}();
 ```
 
-So, the parentheses around the function is a trick to show JavaScript that the function is created in the context of another expression, and hence it's a Function Expression: it needs no name and can be called immediately.
+لذلك, الأقواس حول الدالة تعتبر خدعة لجعل جافاسكريبت فهم أننا نصنع سياق أخر للتعريف, لذلك إن تعريف الدالة: لا يحتاج إلي اسم لذلك تتم مناداتها علي الفور
 
-There exist other ways besides parentheses to tell JavaScript that we mean a Function Expression:
+
+هناك أيضاً طرق أخرى:
 
 ```js run
 // Ways to create IIFE
@@ -271,15 +291,14 @@ There exist other ways besides parentheses to tell JavaScript that we mean a Fun
 }();
 ```
 
-In all the above cases we declare a Function Expression and run it immediately. Let's note again: nowadays there's no reason to write such code.
+## ملخص
 
-## Summary
+هناك فرقين جوهرين بين `‎var‎` موازنةً بِـ `‎let/const‎`:
 
-There are two main differences of `var` compared to `let/const`:
+1. ليس لمتغيرات `‎var‎` نطاقًا كتليًا وأصغر نطاق لها هو في الدوال.
+2. تُعالج التصريحات باستعمال `‎var‎` عند بدء الدالة (أو بدء السكربت، للمتغيرات العمومية).
 
-1. `var` variables have no block scope, they are visible minimum at the function level.
-2. `var` declarations are processed at function start (script start for globals).
+هناك فرق آخر صغير يتعلّق بالكائن العمومي وسنشرحه في الفصل التالي.
 
-There's one more very minor difference related to the global object, that we'll cover in the next chapter.
+بهذا، غالبًا ما يكون استعمال `‎var‎` أسوأ بكثير من `‎let‎` بعدما عرفت الفروق بينها، فالمتغيرات على مستوى الكُتل أمر رائع جدًا ولهذا السبب تمامًا أُضيفت `‎let‎` إلى معيار اللغة منذ زمن وصارت الآن الطريقة الأساسية (هي و`‎const‎`) للتصريح عن متغير.
 
-These differences make `var` worse than `let` most of the time. Block-level variables is such a great thing. That's why `let` was introduced in the standard long ago, and is now a major way (along with `const`) to declare a variable.

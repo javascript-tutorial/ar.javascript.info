@@ -1,60 +1,60 @@
 
-# Objects
+# الكائنات
 
-As we know from the chapter <info:types>, there are eight data types in JavaScript. Seven of them are called "primitive", because their values contain only a single thing (be it a string or a number or whatever).
+كما عرفنا من فصل[أنواع البيانات](info:types), هنالك ثماني أنواع للبيانات في الجافا اسكريبت.سبعة منهم يسمون "أوليةprimitive",لأن قيمهم تحتوي شيئا واحداً (لتكن سلسلة نصية أو رقم أو أي شيْ)
 
-In contrast, objects are used to store keyed collections of various data and more complex entities. In JavaScript, objects penetrate almost every aspect of the language. So we must understand them first before going in-depth anywhere else.
+في المقابل,تستخدم الكائنات لحفظ مجموعات keyed collections من مختلف البيانات و الكيانات المركبة.في الجافا اسكريبت,تدخل الكائنات تقريبا في كل جانب من جوانب اللغة. لذا يتوجب علينا فهمها قبل التعمق في أي شيئ آخر.
 
-An object can be created with figure brackets `{…}` with an optional list of *properties*. A property is a "key: value" pair, where `key` is a string (also called a "property name"), and `value` can be anything.
+يمكن إنشاء أي كائن باستخدام الأقواس المعقوصة `{…}` مع قائمة اختيارية بالخاصيات. الخاصية هي زوج من "مفتاح: قيمة" (`key: value`) إذ يكون المفتاح عبارة عن نص (يُدعى "اسم الخاصية")، والقيمة يمكن أن تكون أي شيء.
 
-We can imagine an object as a cabinet with signed files. Every piece of data is stored in its file by the key. It's easy to find a file by its name or add/remove a file.
+يمكننا تخيل الكائن كخزانة تحوي ملفات. يُخزن كل جزء من هذه البيانات في الملف الخاص به باستخدام المفتاح. يمكن إيجاد، أو إضافة، أو حذف ملف باستخدام اسمه.
 
 ![](object.svg)
 
-An empty object ("empty cabinet") can be created using one of two syntaxes:
+يمكن إنشاء كائن فارغ ("خزانة فارغة") باستخدام إحدى تركيبتين:
 
 ```js
-let user = new Object(); // "object constructor" syntax
-let user = {};  // "object literal" syntax
+let user = new Object(); // "object constructor" syntax صيغة منشئ الكائن
+let user = {};  // "object literal" syntax 
 ```
 
 ![](object-user-empty.svg)
 
-Usually, the figure brackets `{...}` are used. That declaration is called an *object literal*.
+تُستخدم الأقواس المعقوصة `{...}` عادة، وهذا النوع من التصريح يُسمى «*الصياغة المختصرة لتعريف كائن*» (*object literal*).
 
-## Literals and properties
+## القيم المُجرَّدة والخاصيات
 
-We can immediately put some properties into `{...}` as "key: value" pairs:
+يمكننا إضافة بعض الخاصيات (properties) إلى الكائن المعرَّف بالأقواس `{...}` مباشرة بشكل أزواج "مفتاح: قيمة":
 
 ```js
-let user = {     // an object
-  name: "John",  // by key "name" store value "John"
-  age: 30        // by key "age" store value 30
+let user = {     // an object كائن
+  name: "John",  // خزن القيمة "John" عبر المفتاح "name"
+  age: 30        // خزن القيمة "30" عبر المفتاح "age"
 };
 ```
 
-A property has a key (also known as "name" or "identifier") before the colon `":"` and a value to the right of it.
+لدى كل خاصية مفتاح (يُدعى أيضًا "اسم " أو "مُعَرِّف") قبل النقطتين `":"` وقيمة لهذه الخاصية بعد النقطتين.
 
-In the `user` object, there are two properties:
+يوجد خاصيتين في الكائن `user`:
 
-1. The first property has the name `"name"` and the value `"John"`.
-2. The second one has the name `"age"` and the value `30`.
+1. اسم الخاصية الأولى هو `"name"` وقيمتها هي `"John"`.  
+2. اسم الخاصية الثانية هو `"age"` وقيمتها هي `"30"`.
 
-The resulting `user` object can be imagined as a cabinet with two signed files labeled "name" and "age".
+يمكن تخيل الكائن السابق `user` كخزانة بملفين مُسَمَّيان "name" و "age".
 
 ![user object](object-user.svg)
 
-We can add, remove and read files from it any time.
+يمكننا إضافة، وحذف، وقراءة الملفات من الخزانة في أي وقت. 
 
-Property values are accessible using the dot notation:
+يمكن الوصول إلى قيم الخاصيات باستخدام الصيغة النُقَطية (dot notation):
 
 ```js
-// get property values of the object:
+//الحصول على قيم خصائص الكائن: 
 alert( user.name ); // John
 alert( user.age ); // 30
 ```
 
-The value can be of any type. Let's add a boolean one:
+يمكن للقيمة أن تكون من أي نوع، لِنُضِف قيمة من نوع بيانات منطقية (boolean):
 
 ```js
 user.isAdmin = true;
@@ -62,7 +62,7 @@ user.isAdmin = true;
 
 ![user object 2](object-user-isadmin.svg)
 
-To remove a property, we can use `delete` operator:
+يمكننا استخدام المُعامِل `delete` لحذف خاصية:
 
 ```js
 delete user.age;
@@ -70,32 +70,32 @@ delete user.age;
 
 ![user object 3](object-user-delete.svg)
 
-We can also use multiword property names, but then they must be quoted:
+يمكننا أيضا استخدام خاصيات بأسماء تحوي أكثر من كلمة، لكن يجب وضعها بين علامات الاقتباس "":
 
 ```js
 let user = {
   name: "John",
   age: 30,
-  "likes birds": true  // multiword property name must be quoted
+  "likes birds": true  // يجب أن تكون الخاصية ذات الاسم المُحتوي على أكثر من كلمة بين علامتي اقتباس
 };
 ```
 
 ![](object-user-props.svg)
 
 
-The last property in the list may end with a comma:
+يمكن إضافة فاصلة بعد آخر خاصية في القائمة:
 ```js
 let user = {
   name: "John",
   age: 30*!*,*/!*
 }
 ```
-That is called a "trailing" or "hanging" comma. Makes it easier to add/remove/move around properties, because all lines become alike.
+وهذا يسمى فاصلة "زائدة" أو "معلقة". يجعل من السهل إضافة / إزالة / نقل الخصائص ، لأن جميع الأسطر تصبح متشابهة.
 
-````smart header="Object with const can be changed"
-Please note: an object declared as `const` *can* be modified.
+````smart header="الكائن المعرف بأنه ثابت يمكنه أن يتغير"
+يرجى ملاحظة: يمكن تعديل كائن معلن على أنه ثابت.
 
-For instance:
+مثلاً:
 
 ```js run
 const user = {
@@ -109,55 +109,55 @@ user.name = "Pete"; // (*)
 alert(user.name); // Pete
 ```
 
-It might seem that the line `(*)` would cause an error, but no. The `const` fixes the value of `user`, but not its contents.
+قد يبدو أن الخط `(*)` سيسبب خطأ ، لكن لا. يُحدِّد "const" قيمة "user" ، وليس إصلاح محتوياتها.
 
-The `const` would give an error only if we try to set `user=...` as a whole.
+لن يُظهر "const" خطأ إلا إذا حاولنا تعيين "user = ...` ككل.
 
-There's another way to make constant object properties, we'll cover it later in the chapter <info:property-descriptors>.
+هناك طريقة أخرى لعمل خصائص كائن ثابتة ، وسنتناولها لاحقًا في الفصل<info:property-descriptors>.
 ````
 
-## Square brackets
+## الأقواس المربعة
 
-For multiword properties, the dot access doesn't work:
+لا تعمل طريقة الوصول إلى الخاصيات ذات الأسماء المحتوية على أكثر من كلمة باستخدام الصيغة النُقَطية:
 
 ```js run
-// this would give a syntax error
+// سيعطي هذا خطأ في الصياغة
 user.likes birds = true
 ```
 
-JavaScript doesn't understand that. It thinks that we address `user.likes`, and then gives a syntax error when comes across unexpected `birds`.
+لا تفهم الجافا اسكريبت هذه الصيغه. يعتقد أننا نتعامل مع "user.likes" ، ثم تعطي خطأ في بناء الجملة عندما يصادف "birds" غير متوقعة
 
-The dot requires the key to be a valid variable identifier. That implies: contains no spaces, doesn't start with a digit and doesn't include special characters (`$` and `_` are allowed).
+تتطلب النقطة أن يكون المفتاح معرفًا متغيرًا صالحًا. هذا يعني: أنه لا يحتوي على مسافات ، ولا يبدأ برقم ولا يتضمن أحرفًا خاصة (يُسمح بـ `$` و` _`).
 
-There's an alternative "square bracket notation" that works with any string:
+هناك بديل "رمز القوس المربع" يعمل مع أي سلسلة:
 
 ```js run
 let user = {};
 
-// set
+// تعيين قيمة
 user["likes birds"] = true;
 
-// get
+// الحصول على قيمة
 alert(user["likes birds"]); // true
 
-// delete
+// حذف
 delete user["likes birds"];
 ```
 
-Now everything is fine. Please note that the string inside the brackets is properly quoted (any type of quotes will do).
+الآن كل شيء على ما يرام. يرجى ملاحظة أن السلسلة داخل الأقواس مقتبسة بشكل صحيح (أي نوع من علامات الاقتباس ستفعل).
 
-Square brackets also provide a way to obtain the property name as the result of any expression -- as opposed to a literal string -- like from a variable as follows:
+توفر الأقواس المربعة أيضًا جلب اسم خاصية ناتجة عن قيمة أي تعبير  - على عكس السلسلة الحرفية - مثل المتغير كما يلي:
 
 ```js
 let key = "likes birds";
 
-// same as user["likes birds"] = true;
+// يشبه تماماً user["likes birds"] = true;
 user[key] = true;
 ```
 
-Here, the variable `key` may be calculated at run-time or depend on the user input. And then we use it to access the property. That gives us a great deal of flexibility.
+هنا, المتغير`key` يمكن حسابه وقت التنفيذ run-time أو اعتمادا على ما يدخله المستخدم. من ثم نستخدمها للوصول إلى الخاصية.وهذا يمنحنا قدراً كبيراً من المرونة.
 
-For instance:
+مثلاً:
 
 ```js run
 let user = {
@@ -167,11 +167,11 @@ let user = {
 
 let key = prompt("What do you want to know about the user?", "name");
 
-// access by variable
+// الوصول عن طريق المتغير
 alert( user[key] ); // John (if enter "name")
 ```
 
-The dot notation cannot be used in a similar way:
+لا يمكن استخدام رمز النقطة بطريقة مماثلة لما مضى:
 
 ```js run
 let user = {
@@ -183,40 +183,40 @@ let key = "name";
 alert( user.key ) // undefined
 ```
 
-### Computed properties
+### خصائص محسوبة (computed properties)
 
-We can use square brackets in an object literal, when creating an object. That's called *computed properties*.
+يمكننا استخدام الأقواس المربعة في كائن حرفي object literal، عند إنشاء كائن. وهذا ما يسمى * الخصائص المحسوبة computed properties*.
 
-For instance:
+مثلا:
 
 ```js run
 let fruit = prompt("Which fruit to buy?", "apple");
 
 let bag = {
 *!*
-  [fruit]: 5, // the name of the property is taken from the variable fruit
+  [fruit]: 5, // يؤخذ اسم الخاصية من المتغير fruit
 */!*
 };
 
 alert( bag.apple ); // 5 if fruit="apple"
 ```
 
-The meaning of a computed property is simple: `[fruit]` means that the property name should be taken from `fruit`.
+معنى computed property بسيط: `[fruit]` تعني أن اسم الخاصية يجب أن يؤخذ من `fruit`.
 
-So, if a visitor enters `"apple"`, `bag` will become `{apple: 5}`.
+لذا, إذا أدخل الزائر `"apple"`, `bag` ستتحول `{apple: 5}`.
 
-Essentially, that works the same as:
+يعمل الأمر السابق بالطريقة التالية ذاتها:
 ```js run
 let fruit = prompt("Which fruit to buy?", "apple");
 let bag = {};
 
-// take property name from the fruit variable
+// خذ اسم الخاصية من متغير fruit
 bag[fruit] = 5;
 ```
 
-...But looks nicer.
+...يبدو ذلك أفضل.
 
-We can use more complex expressions inside square brackets:
+يمكننا استخدام تعبيرات أكثر تعقيداً داخل الأقواس المربعة:
 
 ```js
 let fruit = 'apple';
@@ -225,15 +225,15 @@ let bag = {
 };
 ```
 
-Square brackets are much more powerful than the dot notation. They allow any property names and variables. But they are also more cumbersome to write.
+الأقواس المربعة أقوى بكثير من استخدام الصيغة النُقطية.حيث تسمح باستخدام أي أسماء خصائص و متغيرات. لكنها أيضا أكثر إرهاقاً في الكتابة.
 
-So most of the time, when property names are known and simple, the dot is used. And if we need something more complex, then we switch to square brackets.
+لذلك معظم الوقت, حينما يكون اسم خاصية معروفا أو بسيطا, تستخدم الصيغة النُقطية . وإذا أردنا شيئاً أكثر تعقيدا, ننتقل إلى استخدام الأقواس المربعة.
 
-## Property value shorthand
+## اختصار قيمة الخاصية(Property value shorthand)
 
-In real code we often use existing variables as values for property names.
+في الكود الحقيقي ، غالبًا ما نستخدم المتغيرات الموجودة كقيم لأسماء الخصائص.
 
-For instance:
+مثلاً:
 
 ```js run
 function makeUser(name, age) {
@@ -248,23 +248,23 @@ let user = makeUser("John", 30);
 alert(user.name); // John
 ```
 
-In the example above, properties have the same names as variables. The use-case of making a property from a variable is so common, that there's a special *property value shorthand* to make it shorter.
+في المثال السابق, تمتلك الخصائص نفس أسماء المتغيرات. حالة عمل خاصية من متغير هي أمر شائع جدا, that ذلك أنه من المميز وجود *اختصار قيمة الخاصية* لجعلها مختصرة .
 
-Instead of `name:name` we can just write `name`, like this:
+بدلاً من `name:name` يمكننا فقط كتابة `name`, كهذا المثال:
 
 ```js
 function makeUser(name, age) {
 *!*
   return {
-    name, // same as name: name
-    age,  // same as age: age
+    name, // تماماً مثل name: name
+    age,  // تماماً مثل age: age
     // ...
   };
 */!*
 }
 ```
 
-We can use both normal properties and shorthands in the same object:
+يمكننا استخدام كل من الخصائص العادية و والاختصارات كليهما في نفس الكائن object :
 
 ```js
 let user = {
@@ -274,14 +274,14 @@ let user = {
 ```
 
 
-## Property names limitations
+## قيود أسماء الخصائص Property names limitations
 
-As we already know, a variable cannot have a name equal to one of language-reserved words like "for", "let", "return" etc.
+كما نعلم, لا يمكن للمتغير أن يمتلك اسماً يساوي واحداً من الكلمات المحفوظة للغة language-reserved words مثل "for", "let", "return" إلخ.
 
-But for an object property, there's no such restriction:
+لكن بالنسبة لخاصية في كائن, لا توجد مثل هذه القيود:
 
 ```js run
-// these properties are all right
+// كل هذه الخصائص صحيحة
 let obj = {
   for: 1,
   let: 2,
@@ -291,23 +291,24 @@ let obj = {
 alert( obj.for + obj.let + obj.return );  // 6
 ```
 
-In short, there are no limitations on property names. They can be any strings or symbols (a special type for identifiers, to be covered later).
 
-Other types are automatically converted to strings.
+باختصار, ليس هناك أي قيود لأسماء الخصائص property names. يمكن أن يكونوا أي حرف أو رمز (نوع مميز من identifiers, سيتم الحديث عنه لاحقاً).
 
-For instance, a number `0` becomes a string `"0"` when used as a property key:
+الأنواع الأخرى تتحول تلقائياً لسلاسل نصية strings.
+
+مثلاً, رقم `0` يتحول إلى حرف `"0"` عند استخدامه كاسم خاصية property key:
 
 ```js run
 let obj = {
   0: "test" // same as "0": "test"
 };
 
-// both alerts access the same property (the number 0 is converted to string "0")
+// كليهما يسمحان بالوصول إلى الخاصية (رقم 0 يتحول إلى حرف "0")
 alert( obj["0"] ); // test
 alert( obj[0] ); // test (same property)
 ```
 
-There's a minor gotcha with a special property named `__proto__`. We can't set it to a non-object value:
+There's a minor gotcha with a special property named `__proto__`. لا يمكننا استخدام الاسم على أنَّه قيمة لغير كائن:
 
 ```js run
 let obj = {};
@@ -315,11 +316,11 @@ obj.__proto__ = 5; // assign a number
 alert(obj.__proto__); // [object Object] - the value is an object, didn't work as intended
 ```
 
-As we see from the code, the assignment to a primitive `5` is ignored.
+كما نرى من الكود , إعطاء قيمة أولية  primitive `5` يتم تجاهلها.
 
-We'll cover the special nature of `__proto__` in [subsequent chapters](info:prototype-inheritance), and suggest the [ways to fix](info:prototype-methods) such behavior.
+سوف نغطي طبيعة `__proto__` في [subsequent chapters](info:prototype-inheritance), واقتراح [ways to fix](info:prototype-methods) مثل هذا السلوك.
 
-## Property existence test, "in" operator
+## فحص الكينونة, "in" معامل
 
 A notable feature of objects in JavaScript, compared to many other languages, is that it's possible to access any property. There will be no error if the property doesn't exist!
 

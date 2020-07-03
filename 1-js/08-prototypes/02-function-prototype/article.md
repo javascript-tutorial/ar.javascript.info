@@ -1,20 +1,17 @@
-# F.prototype
+# الوراثة النموذجية -2-
 
-Remember, new objects can be created with a constructor function, like `new F()`.
+لا تنسَ بأنّك يمكنك إنشاء كائنات جديدة من خلال دالّة الباني (مثل `new F()‎ ‫`).
 
-If `F.prototype` is an object, then the `new` operator uses it to set `[[Prototype]]` for the new object.
+لو كان `F.prototype` كائن جافاسكربت، فإن المعامِل `new` سيضبط الخاصية `[[Prototype]]` لهذا الكائن الجديد.
 
-```smart
-JavaScript had prototypal inheritance from the beginning. It was one of the core features of the language.
+من بداية تضمين لغة جافاسكربت للوراثة النموذجية جعلتها من المميزات الأساسية في اللغة.
+ولكن في الماضي لم يكن هنالك القدرة للوصول المباشر للوراثة النموذجية والطريقة الوحيدة الّتي حلّت محلها هي خاصية `"prototype"` في دالّة الباني. سنشرح في هذا الدرس كيفية استخدامها لأنه مازال العديد من الشيفرات البرمجية القديمة تستخدمها.
 
-But in the old times, there was no direct access to it. The only thing that worked reliably was a `"prototype"` property of the constructor function, described in this chapter. So there are many scripts that still use it.
+لاحظ بأنّ `F.prototype` هنا تعني وجود خاصية عادية باسم `"prototype"` للكائن `F`. ربما تفكّر وكأنها النموذج الأولي لهذا الكائن، ولكن لا... فهنا نعني حرفيًا أنها خاصية عادية لها هذا الاسم.
+
+إليك مثالًا:
+
 ```
-
-Please note that `F.prototype` here means a regular property named `"prototype"` on `F`. It sounds something similar to the term "prototype", but here we really mean a regular property with this name.
-
-Here's the example:
-
-```js run
 let animal = {
   eats: true
 };
@@ -23,76 +20,72 @@ function Rabbit(name) {
   this.name = name;
 }
 
-*!*
-Rabbit.prototype = animal;
-*/!*
+Rabbit.prototype = animal; // هنا
 
 let rabbit = new Rabbit("White Rabbit"); //  rabbit.__proto__ == animal
 
 alert( rabbit.eats ); // true
 ```
 
-Setting `Rabbit.prototype = animal` literally states the following: "When a `new Rabbit` is created, assign its `[[Prototype]]` to `animal`".
+تعني التعليمة `Rabbit.prototype = animal` حرفيًا الآتي: "ما إن يُنشأ كائن `new Rabbit`، أسنِد خاصية `[[Prototype]]` له لتكون للكائن `animal`".
 
-That's the resulting picture:
+إليك الصورة الناتجة:
 
-![](proto-constructor-animal-rabbit.svg)
+[proto-constructor-animal-rabbit.png]
 
-On the picture, `"prototype"` is a horizontal arrow, meaning a regular property, and `[[Prototype]]` is vertical, meaning the inheritance of `rabbit` from `animal`.
+في الصورة نرى `"prototype"` في سهم أفقي (أي أنّها خاصية عادية) بينما `[[Prototype]]` في سهم رأسي (أي أنّها توضّح وراثة كائن `rabbit` للكائن `animal`).
 
-```smart header="`F.prototype` only used at `new F` time"
-`F.prototype` property is only used when `new F` is called, it assigns `[[Prototype]]` of the new object.
+إن الخاصية `F.prototype` تستخدم عند الإنشاء فقط أي عندما تستدعى تعليمة `new F` وتُسند للكائن القيمة المناسبة للخاصية `[[Prototype]]`.
+في حال تغيرت الخاصية `F.prototype` مثلًا (`F.prototype = <another object>‎`)، عندها ستحصل الكائنات المنشأة بعد هذا التغيير على القيمة الجديدة للخاصية `[[Prototype]]` (أي الكائن الجديد)،
+ولكن الكائنات القديمة مازالت تحتفظ بالقيمة القديمة.
 
-If, after the creation, `F.prototype` property changes (`F.prototype = <another object>`), then new objects created by `new F` will have another object as `[[Prototype]]`, but already existing objects keep the old one.
+## القيمة الإفتراضية للخاصية prototype في الباني
+
+لكلّ دالة خاصية `"prototype"` حتّى لو لم نقدّمها نحن.
+
+إن القيمة الإفتراضية للخاصية `"prototype"` تُشير إلى نفس الدالّة.
+
+هكذا تمامًا:
+
 ```
-
-## Default F.prototype, constructor property
-
-Every function has the `"prototype"` property even if we don't supply it.
-
-The default `"prototype"` is an object with the only property `constructor` that points back to the function itself.
-
-Like this:
-
-```js
 function Rabbit() {}
 
-/* default prototype
+/* كائن‫ prototype
 Rabbit.prototype = { constructor: Rabbit };
 */
 ```
 
-![](function-prototype-constructor.svg)
+[function-prototype-constructor.png]
 
-We can check it:
+يمكننا فحص ذلك أيضًا:
 
-```js run
+```
 function Rabbit() {}
-// by default:
+// مبدئيًا:
 // Rabbit.prototype = { constructor: Rabbit }
 
 alert( Rabbit.prototype.constructor == Rabbit ); // true
 ```
 
-Naturally, if we do nothing, the `constructor` property is available to all rabbits through  `[[Prototype]]`:
+طبيعيًا، إن لم نعدل أي شيء، ستكون خاصية `constructor` مُتاحة لكلّ كائنات `rabbit` من خلال كائن `[[Prototype]]`:
 
-```js run
+```
 function Rabbit() {}
-// by default:
+// مبدئيًا:
 // Rabbit.prototype = { constructor: Rabbit }
 
-let rabbit = new Rabbit(); // inherits from {constructor: Rabbit}
+let rabbit = new Rabbit(); // ترث من‫ {constructor: Rabbit}
 
-alert(rabbit.constructor == Rabbit); // true (from prototype)
+alert(rabbit.constructor == Rabbit); // ‫ true من prototype‎ 
 ```
 
-![](rabbit-prototype-constructor.svg)
+[rabbit-prototype-constructor.png]
 
-We can use `constructor` property to create a new object using the same constructor as the existing one.
+يمكننا استعمال الخاصية `constructor` لإنشاء كائن جديد باستعمال نفس الباني الّذي أنشأ الكائن الموجود حاليًا.
 
-Like here:
+هكذا:
 
-```js run
+```
 function Rabbit(name) {
   this.name = name;
   alert(name);
@@ -100,76 +93,228 @@ function Rabbit(name) {
 
 let rabbit = new Rabbit("White Rabbit");
 
-*!*
+// انظر
 let rabbit2 = new rabbit.constructor("Black Rabbit");
-*/!*
 ```
 
-That's handy when we have an object, don't know which constructor was used for it (e.g. it comes from a 3rd party library), and we need to create another one of the same kind.
+يُفيدنا هذا حين نكون أمام كائن ولكن لا نعرف الباني الحقيقي الّذي بناه (ربما أتى من مكتبة خارجية)، وأردنا إنشاء كائن آخر مثله.
 
-But probably the most important thing about `"constructor"` is that...
+ولكن الأمر الأهم الّذي يتعلّق بِـ `"constructor"` هو أنّ **لغة جافاسكربت نفسها لا تتأكّد من صحّة قيمة خاصية `"constructor"`.**
 
-**...JavaScript itself does not ensure the right `"constructor"` value.**
+نعم كما قرأت، الخاصية موجودة في `"prototype"` للدوالّ، وهذا كلّ ما في الأمر. إذ ستعتمد لغة جافاسكربت علينا فيما سيحدث لاحقًا.
 
-Yes, it exists in the default `"prototype"` for functions, but that's all. What happens with it later -- is totally on us.
+فمثلًا لو أردنا استبدال القيمة الإفتراضية للخاصية prototype، فلن يملك الكائن أيّ خاصية `"constructor"`.
 
-In particular, if we replace the default prototype as a whole, then there will be no `"constructor"` in it.
+مثال:
 
-For instance:
-
-```js run
+```
 function Rabbit() {}
 Rabbit.prototype = {
   jumps: true
 };
 
 let rabbit = new Rabbit();
-*!*
+// لاحظ
 alert(rabbit.constructor === Rabbit); // false
-*/!*
 ```
 
-So, to keep the right `"constructor"` we can choose to add/remove properties to the default `"prototype"` instead of overwriting it as a whole:
+ولهذا لنُبقي على خاصية `"constructor"` الصحيحة يمكننا إضافة الخاصيات وإزالتها من كائن `"prototype"` الإفتراضي بدل الطريقة السابقة. هكذا:
 
-```js
+```
 function Rabbit() {}
 
-// Not overwrite Rabbit.prototype totally
-// just add to it
+// بدل الكتابة على كلّ ‫Rabbit.prototype
+// نُضيف ما نريد إليه
 Rabbit.prototype.jumps = true
-// the default Rabbit.prototype.constructor is preserved
+// هكذا تبقى خاصية‫ Rabbit.prototype.constructor الإفتراضية محفوظة
 ```
 
-Or, alternatively, recreate the `constructor` property manually:
+أو يمكننا (لو أردنا) إعادة إنشاء الخاصية `constructor` يدويًا:
 
-```js
+```
 Rabbit.prototype = {
   jumps: true,
-*!*
-  constructor: Rabbit
-*/!*
+  constructor: Rabbit // هنا
 };
 
-// now constructor is also correct, because we added it
+// الآن سيكون المُنشِئ صحيحًا إذ أنّا من أضفناه
 ```
 
 
-## Summary
+## خلاصة
 
-In this chapter we briefly described the way of setting a `[[Prototype]]` for objects created via a constructor function. Later we'll see more advanced programming patterns that rely on it.
+شرحنا في هذا الفصل سريعًا طريقة ضبط كائن `[[Prototype]]` للكائنات الّتي أنشأتها بدالّة الباني. سنرى لاحقًا أنماط متقدّمة في البرمجة تعتمد على هذا الطريقة.
 
-Everything is quite simple, just a few notes to make things clear:
+ما أخذناه بسيط، ولكن بعض الأمور نوضّحها ثانيةً للتأكّد:
 
-- The `F.prototype` property (don't mistake it for `[[Prototype]]`) sets `[[Prototype]]` of new objects when `new F()` is called.
-- The value of `F.prototype` should be either an object or `null`: other values won't work.
--  The `"prototype"` property only has such a special effect when set on a constructor function, and invoked with `new`.
+- تضبط الخاصية `F.prototype` (لا تظنّها كائن `[[Prototype]]`) لكائنٍ ما الخاصية `[[Prototype]]` لكلّ الكائنات الجديدة متى استدعيت `new F()‎`.
+- يجب أن تكون قيمة `F.prototype` إمّا كائنًا أو `null`، ولن تعمل أيّة قيم أخرى.
+- هذا التأثير للخاصية `"prototype"` موجود فقط حين يُضبط في دالة الباني وحين يُنفّذ بتعليمة `new`.
 
-On regular objects the `prototype` is nothing special:
-```js
+في الكائنات العادية ليست بخاصية خاصة جدًا:
+```
 let user = {
   name: "John",
-  prototype: "Bla-bla" // no magic at all
+  prototype: "Bla-bla" // نزعنا السحر
 };
 ```
 
-By default all functions have `F.prototype = { constructor: F }`, so we can get the constructor of an object by accessing its `"constructor"` property.
+لكلّ الدوالّ مبدئيًا `F.prototype = { constructor: F }‎`، فيمكننا أن نأخذ باني معين من كائن ما بالدخول إلى الخاصية `"constructor"` الخاصة به.
+
+## تمارين
+### تغيير الخاصية ”prototype“
+_الأهمية: 5_
+
+أنشأنا في الشيفرة أدناه كائنًا جديدًا `new Rabbit` وحاولنا بعدها تعديل الخاصية prototype لهذا الكائن.
+
+بادئ ذي بدء، كانت الشيفرة:
+
+```
+function Rabbit() {}
+Rabbit.prototype = {
+  eats: true
+};
+
+let rabbit = new Rabbit();
+
+alert( rabbit.eats ); // true
+```
+
+
+1. وأضفنا سلسلة نصية أخرى (عليها علامة). ماذا سيعرض التابِع `alert`؟
+
+    ```
+    function Rabbit() {}
+    Rabbit.prototype = {
+      eats: true
+    };
+
+    let rabbit = new Rabbit();
+
+    Rabbit.prototype = {}; // (*)
+
+    alert( rabbit.eats ); // ?
+    ```
+
+2. وماذا لو... كانت الشيفرة كهذه (استبدلنا سطرًا فيها)؟
+
+    ```
+    function Rabbit() {}
+    Rabbit.prototype = {
+      eats: true
+    };
+
+    let rabbit = new Rabbit();
+
+    Rabbit.prototype.eats = false; // (*)
+
+    alert( rabbit.eats ); // ?
+    ```
+
+3. وماذا عن هذه (استبدلنا سطرًا أيضًا)؟
+
+    ```
+    function Rabbit() {}
+    Rabbit.prototype = {
+      eats: true
+    };
+
+    let rabbit = new Rabbit();
+
+    delete rabbit.eats; // (*)
+
+    alert( rabbit.eats ); // ?
+    ```
+
+4. وهذه... أيضًا:
+
+    ```
+    function Rabbit() {}
+    Rabbit.prototype = {
+      eats: true
+    };
+
+    let rabbit = new Rabbit();
+
+    delete Rabbit.prototype.eats; // (*)
+
+    alert( rabbit.eats ); // ?
+    ```
+#### الحل
+الإجابات:
+
+1. `true`.
+
+    عملية الإسناد على `Rabbit.prototype` تضع الخاصية `[[Prototype]]` للكائنات الجديدة، ولكنّها لا تعدّل على الكائنات الموجودة مسبقًا.
+
+2. `false`.
+    عملية الإسناد تكون من خلال الخاصية `Rabbit.prototype`، إن الخاصية المشار إليها هنا `Rabbit.prototype` ليست مكررًا، وإنما بقيت يُشار إليها من خلال `Rabbit.prototype` و الخاصية `[[Prototype]]` للكائن `rabbit`.
+
+    لذا حين نغيّر المحتوى في الطريقة الأولى سنرى النتائج في الطريقة الثانية.
+
+3. `true`.
+    كلّ عمليات الحذف تطبق مباشرة على الكائن. تحاول هذه التعليمة `delete rabbit.eats` حذف الخاصية المخصصة للكائن `rabbit` ولكنها ليست لها. لذا العملية لن يكون لها أي تأثير.
+
+
+4. `undefined`.
+
+    حُذفت الخاصية `eats` من كائن prototype وما عادت موجودة بعد الآن.
+
+### إنشاء كائن جديد من خلال نفس باني لكائنٍ آخر
+_الأهمية: 5_
+
+تخيّل بأنّ لدينا الكائن الفريد `obj` وأنشأته بدالة الباني، ولكننا... لا نعرف أيّ دالة هذه، ولكن مع ذلك نريد استعمال نفس الباني لإنشاء كائن جديد آخر.
+
+أيمكن لهذه الشيفرة إنجاز المهمة؟
+
+```
+let obj2 = new obj.constructor();
+```
+
+اكتب مثالين باستخدام بانيين للكائن `obj`، واحدًا يعمل مع الشيفرة أعلاه، وواحدًا لا يعمل له.
+#### الحل
+يمكن أن نستعمل هذه الطريقة لو كنّا متأكدين مئة بالمئة بأنّ خاصية `"constructor"` تحمل القيمة الصحيحة.
+
+فمثلًا لو لم نعدّل على `"prototype"` المبدئية فستعمل هذه الشيفرة بلا ريب:
+
+```
+function User(name) {
+  this.name = name;
+}
+
+let user = new User('John');
+let user2 = new user.constructor('Pete');
+
+alert( user2.name ); // Pete (عملت!)
+```
+
+نفذت الشيفرة تنفيذًا صحيحًا إذ أنّ `User.prototype.constructor == User`.
+
+ولكن... لو أتى أحدهم مثلًا وكتب على `User.prototype` ونسي إعادة إنشاء `constructor` لتُشير إلى كائن المستخدم `User`، فلن تعمل الشيفرة.
+
+مثال:
+
+```
+function User(name) {
+  this.name = name;
+}
+User.prototype = {}; // (*)
+
+let user = new User('John');
+let user2 = new user.constructor('Pete');
+
+alert( user2.name ); // undefined
+```
+
+لمَ قيمة `user2.name` هي `undefined`؟
+
+إليك طريقة عمل تعليمة `new user.constructor('Pete')‎`:
+
+1. أولًا، تبحث عن المُنشِئ `constructor` داخل `user`، ولا تجده.
+2. ثمّ تتبع سلسلة prototype وتجد prototype الكائن `user` هو `User.prototype`، وأيضًا لا تجده.
+3. قيمة `User.prototype` ما هي إلّا كائنًا فارغًا `{}`، و قيمة الخاصية prototype لهذا الكائن هي `Object.prototype`، وهنا وجدنا `Object.prototype.constructor == Object` بذلك استعملناه.
+
+وفي نهاية الأمر، لدينا التعليمة `let user2 = new Object('Pete')‎` إذ أنّ الباني الخاص بالكائن `Object` يتجاهل الوسطاء وينشىء دائمًا كائنًا فارغًا. بطريقة مشابهة جدًا للتعليمة `let user2 = {}‎` والّتي أنشأت لنا الكائن `user2` في نهاية الأمر.
+
+ترجمة -وبتصرف- للفصل [F.prototype](https://javascript.info/function-prototype) من كتاب [The JavaScript language](https://javascript.info/js)
+

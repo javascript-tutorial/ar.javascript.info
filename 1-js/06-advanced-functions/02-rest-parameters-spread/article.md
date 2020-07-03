@@ -241,6 +241,8 @@ alert( Array.from(str) ); // H,e,l,l,o
 تتذكر عندما تحدثنا عن `Object.assign()` [في الماضي](https://javascript.info/object#cloning-and-merging-object-assign)?
 
 يمكن أن تقوم بالمثل عن طريق `...`.
+=======
+Remember when we talked about `Object.assign()` [in the past](info:object-copy#cloning-and-merging-object-assign)?
 
 
 ```js run

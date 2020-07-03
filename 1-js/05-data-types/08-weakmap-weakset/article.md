@@ -1,184 +1,161 @@
-# WeakMap and WeakSet
+﻿
+# النوع WeakMap والنوع WeakSet: الخرائط والأطقم ضعيفة الإشارة
 
-As we know from the chapter <info:garbage-collection>, JavaScript engine stores a value in memory while it is reachable (and can potentially be used).
+كما عرفنا من فصل «كنس المهملات»، فمُحرّك جافاسكربت يخُزّن القيمة في الذاكرة طالما يمكن أن يصل لها شيء (أي يمكن استعمالها لاحقًا). هكذا:
 
-For instance:
-```js
+```
 let john = { name: "John" };
 
-// the object can be accessed, john is the reference to it
+// ‫يمكننا الوصول إلى الكائن، فـ john هو الإشارة إليه
 
-// overwrite the reference
+// عوّض تلك الإِشارة
 john = null;
 
-*!*
-// the object will be removed from memory
-*/!*
+// سيُزال الكائن من الذاكرة
 ```
 
-Usually, properties of an object or elements of an array or another data structure are considered reachable and kept in memory while that data structure is in memory.
+عادةً ما تكون خاصيات الكائن أو عناصر المصفوفة أو أية بنية بيانات أخرى - عادةً ما تُعدّ "مُتاحة لباقي الشيفرة" ويُبقيها المحرّك في الذاكرة طالما بنية البيانات نفسها في الذاكرة.
 
-For instance, if we put an object into an array, then while the array is alive, the object will be alive as well, even if there are no other references to it.
+لنفترض أنّا وضعنا كائنًا في مصفوفة، طالما المصفوفة موجودة ومُشار إليها، فسيكون الكائن موجودًا هو الآخر حتّى لو لم يكن هناك ما يُشير إليه. مثلما في هذه الشيفرة:
 
-Like this:
-
-```js
+```
 let john = { name: "John" };
 
 let array = [ john ];
 
-john = null; // overwrite the reference
+john = null; // عوّض الإشارة
 
-*!*
-// john is stored inside the array, so it won't be garbage-collected
-// we can get it as array[0]
-*/!*
+// ‫الكائن john مخزّن داخل مصفوفة ولن يُكنس باعتباره مهملات
+// ‫إذ يمكننا أخذه بهذه: array[0]‎
 ```
 
-Similar to that, if we use an object as the key in a regular `Map`, then while the `Map` exists, that object exists as well. It occupies memory and may not be garbage collected.
+وبنفس المفهوم، لو استعملنا كائنًا ليكون مفتاحًا في خارطة `Map` عادية، فسيبقى هذا الكائن موجدًا طالما الخارطة تلك موجودة، ويشغل الذاكرة مانعًا عملية كنس المهملات من تحريرها. إليك هذا المثال:
 
-For instance:
-
-```js
+```
 let john = { name: "John" };
 
 let map = new Map();
 map.set(john, "...");
 
-john = null; // overwrite the reference
+john = null; // عوّض الإشارة
 
-*!*
-// john is stored inside the map,
-// we can get it by using map.keys()
-*/!*
+// ‫الكائن john مخزّن داخل خارطة
+// ‫ويمكننا أخذه بهذه: map.keys()‎
 ```
 
-`WeakMap` is fundamentally different in this aspect. It doesn't prevent garbage-collection of key objects.
-
-Let's see what it means on examples.
+على العكس فالخارطة ضعيفة الإشارة `WeakMap` مختلفة جذريًا عن هذا، فلا تمنع كنس مهملات أيٍّ من مفاتيحها الكائنات. لنأخذ بعض الأمثلة لتُدرك القصد هنا.
 
 ## WeakMap
 
-The first difference from `Map` is that `WeakMap` keys must be objects, not primitive values:
+أولى اختلافات الخارطة ضعيفة الإشارة `WeakMap` عن تلك العادية `Map` هي أنّها تُلزم مفاتيحها بأن تكون كائنات لا أنواع أولية:
 
-```js run
+```
 let weakMap = new WeakMap();
 
 let obj = {};
 
-weakMap.set(obj, "ok"); // works fine (object key)
+weakMap.set(obj, "ok"); // لا مشاكل (المفتاح كائن)
 
-*!*
-// can't use a string as the key
-weakMap.set("test", "Whoops"); // Error, because "test" is not an object
-*/!*
+// لا يمكن استعمال السلسلة النصية مفتاحًا
+weakMap.set("test", "Whoops"); // ‫خطأ، لأنّ ”test“ ليس كائنًا
 ```
 
-Now, if we use an object as the key in it, and there are no other references to that object -- it will be removed from memory (and from the map) automatically.
+بعد ذلك لو استعملنا أحد الكائنات ليكون مفتاحًا فيها، ولم يكن هناك ما يُشير إلى هذا الكائن، فسيُزال الكائن من الذاكرة (والخارطة) تلقائيا.
 
-```js
+```
 let john = { name: "John" };
 
 let weakMap = new WeakMap();
 weakMap.set(john, "...");
 
-john = null; // overwrite the reference
+john = null; // عوّض الإشارة
 
-// john is removed from memory!
+// ‫أُزيل الكائن john من الذاكرة!
 ```
 
-Compare it with the regular `Map` example above. Now if `john` only exists as the key of `WeakMap` -- it will be automatically deleted from the map (and memory).
+وازِن هذه الشيفرة بشيفرة الخارطة `Map` أعلاه. الآن حتى لو لم يكن `john` موجودًا إلا مفتاحًا لِـ `WeakMap`، فسيُحذف تلقائيًا من الخارطة (ومن الذاكرة).
 
-`WeakMap` does not support iteration and methods `keys()`, `values()`, `entries()`, so there's no way to get all keys or values from it.
+لا تدعم الخارطة ضعيفة الإشارة `WeakMap` التكرار (iteration) ولا التوابِع `keys()‎` أو `values()‎` أو `entries()‎`، ولهذا لا نقدر على أخذ كلّ المفاتيح أو القيم التي فيها. بل أنّ للخارطة `WeakMap` التوابِع الآتية:
 
-`WeakMap` has only the following methods:
+- `weakMap.get(key)‎`
+- `weakMap.set(key, value)‎`
+- `weakMap.delete(key)‎`
+- `weakMap.has(key)‎`
 
-- `weakMap.get(key)`
-- `weakMap.set(key, value)`
-- `weakMap.delete(key)`
-- `weakMap.has(key)`
+تفكّر بسبب وجود هذا التقييد؟ الجواب هو: أسباب تقنية. عُدّ الكائن الآن قد فقد كلّ إشارة له (مثلما حصل مع الكائن `john` في الشيفرة أعلاه)، بهذا ستُكنس مهملاته تلقائيًا، ولكن... *وقت حدوث هذا الكنس* غير موضّح تقنيًا. الواقع أنّ محرّك جافاسكربت يُحدّد ذلك: هو يُحدّد متى يمسح الذاكرة، الآن حالًا أو بعد قليل حتّى تحدث عمليات حذف أخرى. لذا فعدد العناصر الحالي داخل `WeakMap` غير معلوم تقنيًا، ربما يكون المحرّك حذفها كلها أو لم يحذفها، أو حذف بعضها، لا نعلم. لهذا السبب لا تدعم اللغة التوابِع التي تحاول الوصول إلى كلّ القيم والعناصر.
 
-Why such a limitation? That's for technical reasons. If an object has lost all other references (like `john` in the code above), then it is to be garbage-collected automatically. But technically it's not exactly specified *when the cleanup happens*.
+الآن بعدما عرفناها، في أيّ حالات نستعمل هذه البنية من البيانات؟
 
-The JavaScript engine decides that. It may choose to perform the memory cleanup immediately or to wait and do the cleaning later when more deletions happen. So, technically the current element count of a `WeakMap` is not known. The engine may have cleaned it up or not, or did it partially. For that reason, methods that access all keys/values are not supported.
+## استعمالاتها: بيانات إضافية
 
-Now where do we need such data structure?
+المجال الرئيسي لتطبيقات `WeakMap` هي *تخزين البيانات الإضافية*.
 
-## Use case: additional data
+لو كنّا نتعامل مع كائن ”ينتمي“ إلى شيفرة أخرى (وحتّى مكتبة من طرف ثالث) وأردنا تخزين بيانات معيّنة لترتبط بها، وهذه البيانات لا تكون موجودة إلا لو كان الكائن موجودًا، فَـ `WeakMap` هي ما نريد تمامًا: نضع البيانات في خارطة بإشارة ضعيفة `WeakMap` (مستعملين الكائن مفتاحًا لها). متى ما كُنس الكائن باعتباره مهملات، ستختفي تلك البيانات معه أيضًا.
 
-The main area of application for `WeakMap` is an *additional data storage*.
-
-If we're working with an object that "belongs" to another code, maybe even a third-party library, and would like to store some data associated with it, that should only exist while the object is alive - then `WeakMap` is exactly what's needed.
-
-We put the data to a `WeakMap`, using the object as the key, and when the object is garbage collected, that data will automatically disappear as well.
-
-```js
+```
 weakMap.set(john, "secret documents");
-// if john dies, secret documents will be destroyed automatically
+// ‫إن مات john فستُدمّر تلك المستندات فائقة السرية تلقائيًا
 ```
 
-Let's look at an example.
+لنرى مثالًا يوضّح الصورة. عُدّ بأنّ لدينا شيفرة تسجّل عدد زيارات المستخدمين - تسجّلها في خارطة، حيث كائن المستخدم هو مفتاحها وعدد زياراته هي القيمة. لا نريد أن نُسجّل عدد زياراته فيما لو غادر المستخدم (أي أنّ عملية كنس المهملات كنست ذاك الكائن).
 
-For instance, we have code that keeps a visit count for users. The information is stored in a map: a user object is the key and the visit count is the value. When a user leaves (its object gets garbage collected), we don't want to store their visit count anymore.
+إليك مثالًا آخر عن دالة عَدّ باستعمال `Map`:
 
-Here's an example of a counting function with `Map`:
-
-```js
+```
 // 📁 visitsCount.js
-let visitsCountMap = new Map(); // map: user => visits count
+let visitsCountMap = new Map(); // خارطة: المستخدم => عدد زياراته
 
-// increase the visits count
+// تزيد عدد الزيارات
 function countUser(user) {
   let count = visitsCountMap.get(user) || 0;
   visitsCountMap.set(user, count + 1);
 }
 ```
 
-And here's another part of the code, maybe another file using it:
+وهذا الجزء الثاني من الشيفرة (يمكن أن يستعمل هذا الملف ذاك):
 
-```js
+```
 // 📁 main.js
 let john = { name: "John" };
 
-countUser(john); // count his visits
+countUser(john); // عُدّ الزوّار
+countUser(john);
 
-// later john leaves us
+// ‫بعدها يغادر john الحفلة
 john = null;
 ```
 
-Now `john` object should be garbage collected, but remains in memory, as it's a key in `visitsCountMap`.
+هكذا ”يُفترض“ أن يُكنس الكائن `john` باعتباره مهملات، لكنّه سيبقى في الذاكرة إذ تستعمله الخارطة `visitsCountMap` مفتاحًا فيها.
 
-We need to clean `visitsCountMap` when we remove users, otherwise it will grow in memory indefinitely. Such cleaning can become a tedious task in complex architectures.
+علينا مسح `visitsCountMap` حين نُزيل المستخدمين وإلا فسيزيد حجمها في الذاكرة إلى آباد الآبدين. لو كانت بنية البرمجية معقّدة، فستكون عملية المسح هذه مرهقة جدًا وغير عملية. لهذا يمكننا تجنّب التعب واستعمال `WeakMap` بدل العادية:
 
-We can avoid it by switching to `WeakMap` instead:
-
-```js
+```
 // 📁 visitsCount.js
-let visitsCountMap = new WeakMap(); // weakmap: user => visits count
+let visitsCountMap = new WeakMap(); // خارطة بإشارة ضعيفة: المستخدم => عدد زياراته
 
-// increase the visits count
+// تزيد عدد الزيارات
 function countUser(user) {
   let count = visitsCountMap.get(user) || 0;
   visitsCountMap.set(user, count + 1);
 }
 ```
 
-Now we don't have to clean `visitsCountMap`. After `john` object becomes unreachable by all means except as a key of `WeakMap`, it gets removed from memory, along with the information by that key from `WeakMap`.
+هكذا لا نمسح `visitsCountMap` يدويًا بل نترك للمحرّك القرار: لو لم يكن هناك ما يُشير إلى الكائن `john` عدا مفتاح `WeakMap`، سيحرّره من الذاكرة مع المعلومات التي في ذلك المفتاح داخل الخارطة ضعيفة الإشارة `WeakMap`.
 
-## Use case: caching
+## استعمالاتها: الخبيئة
 
-Another common example is caching: when a function result should be remembered ("cached"), so that future calls on the same object reuse it.
+يكثُر أيضًا استعمال الخرائط للخبيئة، أي حين علينا تذكّر ناتج الدالة (تخبئته ”cached“) كي يستعمل أيّ استدعاء لاحِق على هذا العنصر تلك الخبيئة.
 
-We can use `Map` to store results, like this:
+يمكن أن نستعمل الخارطة `Map` لتخزين النتائج:
 
-```js run
+```
 // 📁 cache.js
 let cache = new Map();
 
-// calculate and remember the result
+// نحسب النتيجة ونتذكرها
 function process(obj) {
   if (!cache.has(obj)) {
-    let result = /* calculations of the result for */ obj;
+    let result = /* حسابات الكائن هذا */ obj;
 
     cache.set(obj, result);
   }
@@ -186,38 +163,36 @@ function process(obj) {
   return cache.get(obj);
 }
 
-*!*
-// Now we use process() in another file:
-*/!*
+// الآن نستعمل ‫process()‎ في ملف آخر:
 
 // 📁 main.js
-let obj = {/* let's say we have an object */};
+let obj = {/* فلنفترض وجود هذا الكائن*/};
 
-let result1 = process(obj); // calculated
+let result1 = process(obj); // حسبنا القيمة
 
-// ...later, from another place of the code...
-let result2 = process(obj); // remembered result taken from cache
+// ‫...بعدها، في مكان آخر من الشيفرة...
+let result2 = process(obj); // تُأخذ النتيجة تلك من الخبيئة
 
-// ...later, when the object is not needed any more:
+// ‫...بعدها، لو لم نرد الكائن بعد الآن:
 obj = null;
 
-alert(cache.size); // 1 (Ouch! The object is still in cache, taking memory!)
+alert(cache.size); // 1 (لاا! ما زال الكائن في الخبيئة ويستهلك الذاكرة)
 ```
 
-For multiple calls of `process(obj)` with the same object, it only calculates the result the first time, and then just takes it from `cache`. The downside is that we need to clean `cache` when the object is not needed any more.
+لو استدعينا `process(obj)‎` أكثر من مرّة بتمرير نفس الكائن، فستحسب الشيفرة النتيجة أوّل مرة فقط، وفي المرات القادمة تأخذها من الكائن `cache`. مشكلة هذه الطريقة هي ضرورة مسح `cache` متى ما انتفت حاجتنا من الكائن.
 
-If we replace `Map` with `WeakMap`, then this problem disappears: the cached result will be removed from memory automatically after the object gets garbage collected.
+لكن، لو استبدلنا `Map` وعوّضناها بِـ `WeakMap` فستختفي المشكلة تمامًا، وتُزال النتيجة المُخبّأة من الذاكرة _تلقائيًا_ متى ما كُنس الكائن على أنّه مهملات.
 
-```js run
+```
 // 📁 cache.js
 *!*
 let cache = new WeakMap();
 */!*
 
-// calculate and remember the result
+// نحسب النتيجة ونتذكرها
 function process(obj) {
   if (!cache.has(obj)) {
-    let result = /* calculate the result for */ obj;
+    let result = /* حسابات الكائن هذا */ obj;
 
     cache.set(obj, result);
   }
@@ -226,63 +201,164 @@ function process(obj) {
 }
 
 // 📁 main.js
-let obj = {/* some object */};
+let obj = {/* كائن من الكائنات */};
 
 let result1 = process(obj);
 let result2 = process(obj);
 
-// ...later, when the object is not needed any more:
+// ‫...بعدها، لو لم نرد الكائن بعد الآن:
 obj = null;
 
-// Can't get cache.size, as it's a WeakMap,
-// but it's 0 or soon be 0
-// When obj gets garbage collected, cached data will be removed as well
 ```
+هنا، ‫لا يمكن أن نعرف cache.size إذ أنها خارطة بإشارة ضعيفة، ولكن الحجم صفر، أو سيكون صفر قريبًا؛ فما أن تبدأ عملية كنس المهملات على الكائن، ستُزال البيانات المُخبّأة هي الأخرى.
 
 ## WeakSet
 
-`WeakSet` behaves similarly:
+حتّى الأطقم ضعيفة الإشارة `WeakSet` تسلك ذات السلوك:
 
-- It is analogous to `Set`, but we may only add objects to `WeakSet` (not primitives).
-- An object exists in the set while it is reachable from somewhere else.
-- Like `Set`, it supports `add`, `has` and `delete`, but not `size`, `keys()` and no iterations.
+- تشبه الأطقم العادية `Set` ولكن لا يمكننا إلّا إضافة الكائنات إلى `WeakSet` (وليس الأنواع الأولية).
+- يبقى الكائن موجودًا في الطقم طالما هناك ما يصل إليه.
+- ويدعم -كما تدعم `Set`- التوابِع `add` و`has` و`delete`، ولكن لا تدعم `size` أو `keys()‎` أو التعداد.
 
-Being "weak", it also serves as an additional storage. But not for an arbitrary data, but rather for "yes/no" facts. A membership in `WeakSet` may mean something about the object.
+هي الأخرى تخدمنا نحن المطورون في تخزين البيانات الإضافية (إذ أنّ الإشارة إليها ”ضعيفة“)، ولكنها ليست لأيّ بيانات كانت، بل فقط التي تُعطي إجابة ”نعم/لا“. لو كان الكائن موجودًا داخل طقم بإشارة ضعيفة، فلا بدّ أنّه موجود لداعٍ.
 
-For instance, we can add users to `WeakSet` to keep track of those who visited our site:
+يمكننا مثلًا إضافة المستخدمين إلى طقم بإشارة ضعيفة `WeakSet` لنسجّل من زار موقعنا:
 
-```js run
+```
 let visitedSet = new WeakSet();
 
 let john = { name: "John" };
 let pete = { name: "Pete" };
 let mary = { name: "Mary" };
 
-visitedSet.add(john); // John visited us
-visitedSet.add(pete); // Then Pete
-visitedSet.add(john); // John again
+visitedSet.add(john); // زارنا ‫John
+visitedSet.add(pete); // وبعده ‫Pete
+visitedSet.add(john); // وعاد ‫John
 
-// visitedSet has 2 users now
+// ت‫حتوي visitedSet الآن على مستخدمين اثنين
 
-// check if John visited?
+// ه‫ل زارنا John؟
 alert(visitedSet.has(john)); // true
 
-// check if Mary visited?
+// ‫هل زارتنا Mary؟
 alert(visitedSet.has(mary)); // false
 
 john = null;
 
-// visitedSet will be cleaned automatically
+// ستُنظّف ‫visitedSet تلقائيًا
 ```
 
-The most notable limitation of `WeakMap` and `WeakSet` is the absence of iterations, and inability to get all current content. That may appear inconvenient, but does not prevent `WeakMap/WeakSet` from doing their main job -- be an "additional" storage of data for objects which are stored/managed at another place.
+التقييد الأهم في هذه الأنواع `WeakSet` و`WeakMap` هي عدم موجود المُكرَّرات واستحالة أخذ محتواها كله. لربّما ترى ذلك غباءً، إلّا أنّه لا يمنع هذه الأنواع من إجراء مهامها التي صُنعت لها: مخزن "إضافي" من البيانات للكائنات المخزّنة (أو المُدارة) في مكان آخر.
 
-## Summary
+## خلاصة
 
-`WeakMap` is `Map`-like collection that allows only objects as keys and removes them together with associated value once they become inaccessible by other means.
+الخارطة ضعيفة الإشارة هي تجميعة تشبه الخرائط العادية، ولا تتيح إلا استعمال الكائنات مفاتيحٍ فيها، كما وتُزيلها هي والقيمة المرتبطة بها ما إن تنعدم الإشارة إليها.
 
-`WeakSet` is `Set`-like collection that stores only objects and removes them once they become inaccessible by other means.
+الطقم ضعيفة الإشارة هي تجميعة تشبه الأطقم العادية، ولا تخزّن إلا الكائنات فيها، كما وتُزيلها ما إن تنعدم الإشارة إليها.
 
-Both of them do not support methods and properties that refer to all keys or their count. Only individual operations are allowed.
+كِلا النوعان لا يدعمان التوابِع والخاصيات التي تُشير إلى كل المفاتيح فيهما، أو حتى عددها. المسموح فقط هو العمليات على العناصر فيها عنصرًا بعنصر.
 
-`WeakMap` and `WeakSet` are used as "secondary" data structures in addition to the "main" object storage. Once the object is removed from the main storage, if it is only found as the key of `WeakMap` or in a `WeakSet`, it will be cleaned up automatically.
+يُستعمل هذان النوعان `WeakMap` و`WeakSet` على أنّهما بنى بيانات ”ثانوية“ إلى جانب تلك ”الأساسية“ لتخزين العناصر. لو أُزيل الكائن من التخزين الأساسي، ولم يوجد له أي إشارة إلا مفتاحًا في `WeakMap` أو عنصرًا في `WeakSet`، مسحهُ المحرّك تلقائيًا.
+
+## تمارين
+### تخزين رايات ”غير مقروءة“
+_الأهمية: 5_
+
+لديك مصفوفة من الرسائل:
+
+```
+let messages = [
+  {text: "Hello", from: "John"},
+  {text: "How goes?", from: "John"},
+  {text: "See you soon", from: "Alice"}
+];
+```
+
+ويمكن للشيفرة عندك الوصول إليها، إلّا أنّ شيفرة أحدهم تُدير تلك الرسائل، فتُضيف رسائل جديدة وتُزيل قديمة، ولا تعرف متى يحدث هذا بالضبط.
+
+السؤال هو: أيّ بنية من بنى البيانات تستعمل لتخزّن هذه المعلومة لكلّ رسالة: ”هل قُرأت؟“. يجب أن تكون البنية التي اخترتها مناسبة لتردّ على سؤال ”هل قُرأت؟“ لكلّ كائن رسالة.
+
+ملاحظة: حين تُزال رسالة من مصفوفة `messages`، يجب أن تختفي من بنية البيانات لديك هي الأخرى.
+
+ملاحظة أخرى: يجب ألّا نُعدّل كائنات الرسائل ولا نُضيف خاصيات من عندنا إليها؛ فيمكن أن يؤدّي هذا إلى عواقب وخيمة إذ لسنا من نديرها بل أحد آخر.
+
+#### الحل
+لنجرّب تخزين الرسائل المقروءة في طقم بإشارة ضعيفة `WeakSet`:
+
+```
+let messages = [
+  {text: "Hello", from: "John"},
+  {text: "How goes?", from: "John"},
+  {text: "See you soon", from: "Alice"}
+];
+
+let readMessages = new WeakSet();
+
+// قرأ المستخدم رسالتين اثنتين
+readMessages.add(messages[0]);
+readMessages.add(messages[1]);
+// في ‫readMessages الآن عنصرين
+
+// ‫...هيًا نُعيد قراءة أول رسالة!
+readMessages.add(messages[0]);
+// ما زالت في ‫readMessages عنصرين فريدين
+
+// ‫الجواب: هل قُرئتmessage [0]‎؟
+alert("Read message 0: " + readMessages.has(messages[0])); // نعم ‫true
+
+messages.shift();
+// الآن في ‫readMessages عنصر واحد (تقنيًا فستُنظّف الذاكرة فيما بعد)
+```
+
+يتيح لنا الطقم ضعيفة الإشارة تخزينَ مجموعة من الرسائل والتأكّد من وجود كلّ منها بسهولة تامة. كما وأنّها تمسح نفسها بنفسها. للأسف بهذا نُضحّي بميزة التكرار، فلا يمكن أن نجلب ”كلّ الرسائل المقروءة“ منها مباشرةً، ولكن... يمكننا المرور على عناصر كل الرسائل في `messages` وترشيح تلك التي في الطقم لدينا.
+
+يمكن أن يكون الحل الآخر هو إضافة خاصية مثل `message.isRead=true` إلى الرسالة بعد قراءتها. ولكننّا لسنا من نُدير هذه الكائنات بل أحد آخر، ولهذا لا يُوصى بذلك بصفة عامة. ولكن، يمكننا استعمال خاصيّة رمزية فنتجنّب أي مشكلة أو تعارض.
+
+هكذا:
+```
+// الخاصية الرمزية معروفة في الشيفرة لدينا، فقط
+let isRead = Symbol("isRead");
+messages[0][isRead] = true;
+```
+
+"لربما" الآن لن تعرف شيفرة الطرف الثالث بخاصيتنا الجديدة.
+
+صحيح أن الرموز تتيح لنا تقليل احتمال حدوث المشاكل، إلّا أنّ استعمال `WeakSet` أفضل بعين بنية البرمجية.
+
+### تخزين تواريخ القراءة
+_الأهمية: 5_
+
+لديك مصفوفة من الرسائل تشبه تلك في التمرين السابق، والفكرة هنا متشابهة قليلًا.
+
+```
+let messages = [
+  {text: "Hello", from: "John"},
+  {text: "How goes?", from: "John"},
+  {text: "See you soon", from: "Alice"}
+];
+```
+
+السؤال: أيّ بنية بيانات تستعمل لتخزين هذه المعلومة: " متى قُرئت هذه الرسالة؟".
+
+كان عليك (في التمرين السابق) تخزين معلومة "نعم/لا" فقط، أمّا الآن فعليك تخزين التاريخ، ويجب أن يبقى في الذاكرة إلى أن تُكنس الرسالة على أنّها مهملات.
+
+ملاحظة: تُخزّن التواريخ كائنات بصنف `Date` المضمّن في اللغة، وسنتكلم عنه لاحقًا.
+
+#### الحل
+
+يمكن أن نستعمل الخارطة ضعيفة الإشارة لتخزين التاريخ:
+```
+let messages = [
+  {text: "Hello", from: "John"},
+  {text: "How goes?", from: "John"},
+  {text: "See you soon", from: "Alice"}
+];
+
+let readMap = new WeakMap();
+
+readMap.set(messages[0], new Date(2017, 1, 1));
+// سنرى أمر كائن التاريخ لاحقًا
+```
+
+ترجمة -وبتصرف- للفصل [WeakMap and WeakSet](https://javascript.info/weakmap-weakset ) من كتاب [The JavaScript language](https://javascript.info/js)
+

@@ -1,230 +1,262 @@
-# Constructor, operator "new"
+# الباني والعامل "new"
+نُنشِئ الكائنات باستخدام الصيغة الاعتيادية المختصرة `{...}`. لكننا نحتاج لإنشاء العديد من الكائنات المتشابهة غالبًا، مثل العديد من
+المستخدمين، أو عناصر لقائمة وهكذا. يمكن القيام بذلك باستخدام الدوال البانية (constructor functions) لكائن والمُعامِل
+`"new"`.
+## الدالة البانية
+تقنيًا، الدوال البانية هي دوال عادية، لكن يوجد فكرتين متفق عليها:
+1. أنها تبدأ بأحرف كبيرة.
+2. يجب تنفيذها مع المُعامِل `"new"` فقط.
+إليك المثال التالي:
 
-The regular `{...}` syntax allows to create one object. But often we need to create many similar objects, like multiple users or menu items and so on.
-
-That can be done using constructor functions and the `"new"` operator.
-
-## Constructor function
-
-Constructor functions technically are regular functions. There are two conventions though:
-
-1. They are named with capital letter first.
-2. They should be executed only with `"new"` operator.
-
-For instance:
-
-```js run
+```
 function User(name) {
-  this.name = name;
-  this.isAdmin = false;
+this.name = name;
+this.isAdmin = false;
 }
-
-*!*
 let user = new User("Jack");
-*/!*
-
 alert(user.name); // Jack
 alert(user.isAdmin); // false
 ```
 
-When a function is executed with `new`, it does the following steps:
+عند تنفيذ دالة مع الُعامِل `new`، تُنَفَّذ الخطوات التالية:
+1. يُنشَأ كائن فارغ ويُسنَد إلى `this`.
+2. يُنَفَّذ محتوى الدالة. تقوم غالبًا بتعديل `this`، وإضافة خاصيات إليه.
+3. تُرجَع قيمة `this`.
+بمعنى آخر، تقوم `new User(...)‎` بشيء يشبه ما يلي:
 
-1. A new empty object is created and assigned to `this`.
-2. The function body executes. Usually it modifies `this`, adds new properties to it.
-3. The value of `this` is returned.
-
-In other words, `new User(...)` does something like:
-
-```js
+```
 function User(name) {
-*!*
-  // this = {};  (implicitly)
-*/!*
-
-  // add properties to this
-  this.name = name;
-  this.isAdmin = false;
-
-*!*
-  // return this;  (implicitly)
-*/!*
+// this = {}; (implicitly)
+// this إضافة خاصيات إلى
+this.name = name;
+this.isAdmin = false;
+// this; (implicitly) إرجاع
 }
 ```
 
-So `let user = new User("Jack")` gives the same result as:
+إذًا، تُعطي `let user = new User("Jack")‎` النتيجة التالية ذاتها:
 
-```js
+```
 let user = {
-  name: "Jack",
-  isAdmin: false
+name: "Jack",
+
+isAdmin: false
 };
 ```
+الآن، إن أردنا إنشاء مستخدمين آخرين، يمكننا استدعاء `new User("Ann")‎`، و `new User("Alice‎")‎` وهكذا. تعدُّ هذه
+الطريقة في بناء الكائنات أقصر من الطريقة الاعتيادية عبر الأقواس فقط، وأيضًا أسهل للقراءة. هذا هو الغرض الرئيسي للبانيات،
+وهي تطبيق شيفرة قابلة لإعادة الاستخدام لإنشاء الكائنات.
+لاحظ أنَّه يمكن استخدام أي دالة لتكون دالة بانية تقنيًا. يعني أنه يمكن تنفيذ أي دالة مع `new`، وستُنَفَّذ باستخدام الخوارزمية أعلاه.
+استخدام الأحرف الكبيرة في البداية هو اتفاق شائع لتمييز الدالة البانية من غيرها وأنَّه يجب استدعاؤها مع `new`.
+### `**new function() { … }‎**`
+إن كان لدينا العديد من الأسطر البرمجية، وجميعها عن إنشاء كائن واحد مُعَقَّد، فبإمكاننا تضمينها في دالة بانية، هكذا:
 
-Now if we want to create other users, we can call `new User("Ann")`, `new User("Alice")` and so on. Much shorter than using literals every time, and also easy to read.
-
-That's the main purpose of constructors -- to implement reusable object creation code.
-
-Let's note once again -- technically, any function can be used as a constructor. That is: any function can be run with `new`, and it will execute the algorithm above. The "capital letter first" is a common agreement, to make it clear that a function is to be run with `new`.
-
-````smart header="new function() { ... }"
-If we have many lines of code all about creation of a single complex object, we can wrap them in constructor function, like this:
-
-```js
+```
 let user = new function() {
-  this.name = "John";
-  this.isAdmin = false;
-
-  // ...other code for user creation
-  // maybe complex logic and statements
-  // local variables etc
+this.name = "John";
+this.isAdmin = false;
+// ...شيفرة إضافية لإنشاء مستخدم
+// ربما منطق معقد أو أي جمل
+// متغيرات محلية وهكذا..
 };
 ```
+لا يمكن استدعاء المُنشِئ مجددًا، لأنه غير محفوظ في أي مكان، يُنشَأ ويُستدعى فقط. لذا فإن الخدعة تهدف لتضمين الشيفرة التي
+تُنشِئ كائنًا واحدًا، دون إعادة الاستخدام وتكرار العملية مستقبلًا.
+## وضع اختبار الباني: `new.target`
+**ميزة متقدمة**: تُستخدم الصيغة في هذا الجزء نادرًا، ويمكنك تخطيها إلا إن كنت تُريد الإلمام بكل شيء.
+يمكننا فحص ما إن كانت الدالة قد استدعيت باستخدام `new` أو دونه من داخل الدالة، وذلك باستخدام الخاصية الخاصة
+`new.target`.
+تكون الخاصية فارغة في الاستدعاءات العادية، وتساوي الدالة البانية إذا استُدعِيَت باستخدام `new`:
 
-The constructor can't be called again, because it is not saved anywhere, just created and called. So this trick aims to encapsulate the code that constructs the single object, without future reuse.
-````
-
-## Constructor mode test: new.target
-
-```smart header="Advanced stuff"
-The syntax from this section is rarely used, skip it unless you want to know everything.
 ```
-
-Inside a function, we can check whether it was called with `new` or without it, using a special `new.target` property.
-
-It is empty for regular calls and equals the function if called with `new`:
-
-```js run
 function User() {
-  alert(new.target);
+alert(new.target);
 }
-
-// without "new":
-*!*
+// "new" بدون:
 User(); // undefined
-*/!*
-
-// with "new":
-*!*
+// باستخدام "new":
 new User(); // function User { ... }
-*/!*
 ```
 
-That can be used inside the function to know whether it was called with `new`, "in constructor mode", or without it, "in regular mode".
+يمكن استخدام ذلك بداخل الدالة لمعرفة إن استُدعِيَت مع `new`، "في وضع بناء كائن"، أو بدونه "في الوضع العادي".
+يمكننا أيضًا جعل كلًا من الاستدعاء العادي و `new` ينفِّذان الأمر ذاته -بناء كائن- هكذا:
 
-We can also make both `new` and regular calls to do the same, like this:
-
-```js run
+```
 function User(name) {
-  if (!new.target) { // if you run me without new
-    return new User(name); // ...I will add new for you
-  }
-
-  this.name = name;
+if (!new.target) { // new إن كنت تعمل بدون
+return new User(name); // new ...سأضيف
 }
-
-let john = User("John"); // redirects call to new User
+this.name = name;
+}
+let john = User("John"); // new User تُوَجِّه الاستدعاء إلى
 alert(john.name); // John
 ```
+يستخدم هذا الاسلوب في بعض المكتبات أحيانًا لجعل الصيغة أكثر مرونة حتى يتمكن الأشخاص من استدعاء الدالة مع `new` أو
+بدونه، وتظل تعمل.
+ربما ليس من الجيد استخدام ذلك في كل مكان، لأن حذف `new` يجعل ما يحدث أقل وضوحًا. لكن مع `new`، يعلم الجميع أن
+كائنًا جديدًا قد أُنشِئ.
+## ما تُرجِعه الدوال البانية
+لا تملك الدوال البانية عادةً التعليمة `return`. فَمُهِمَتُهَا هي كتابة الأمور المهمة إلى `this`، وتصبح تلقائيًا هي النتيجة. لكن إن
+كان هناك التعليمة `return` فإن القاعدة بسيطة:
+- إن استُدعِيَت `return` مع كائن، يُرجَع الكائن بدلًا من `this`.
+- إن استُدعِيَت `return` مع متغير أولي، يُتَجاهَل.
+بمعنىً آخر، `return` مع كائن يُرجَع الكائن، وفي الحالات الأخرى تُرجَع `this`. مثلًا، يعاد في المثال التالي الكائن المرفق بعد
+`return` ويهمل الكائن المسنَد إلى `this`:
 
-This approach is sometimes used in libraries to make the syntax more flexible. So that people may call the function with or without `new`, and it still works.
-
-Probably not a good thing to use everywhere though, because omitting `new` makes it a bit less obvious what's going on. With `new` we all know that the new object is being created.
-
-## Return from constructors
-
-Usually, constructors do not have a `return` statement. Their task is to write all necessary stuff into `this`, and it automatically becomes the result.
-
-But if there is a `return` statement, then the rule is simple:
-
-- If `return` is called with an object, then the object is returned instead of `this`.
-- If `return` is called with a primitive, it's ignored.
-
-In other words, `return` with an object returns that object, in all other cases `this` is returned.
-
-For instance, here `return` overrides `this` by returning an object:
-
-```js run
+```
 function BigUser() {
-
-  this.name = "John";
-
-  return { name: "Godzilla" };  // <-- returns this object
+this.name = "John";
+return { name: "Godzilla" }; // <-- تُرجِع هذا الكائن
 }
-
-alert( new BigUser().name );  // Godzilla, got that object
+alert( new BigUser().name ); // Godzilla, حصلنا على الكائن
 ```
 
-And here's an example with an empty `return` (or we could place a primitive after it, doesn't matter):
+وهنا مثال على استعمال `return` فارغة (أو يمكننا وضع متغير أولي بعدها، لا فرق):
 
-```js run
+```
+
 function SmallUser() {
-
-  this.name = "John";
-
-  return; // <-- returns this
+this.name = "John";
+return; // ← this تُرجِع
 }
-
-alert( new SmallUser().name );  // John
+alert( new SmallUser().name ); // John
 ```
+لا تحوي الدوال البانية غالبًا على تعليمة الإعادة `return`. نذكر هنا هذا التصرف الخاص عند إرجاع الكائنات بغرض شمول
+جميع النواحي.
+### **حذف الاقواس**
+بالمناسبة، يمكننا حذف أقواس `new` في حال غياب المعاملات مُعامِلات:
 
-Usually constructors don't have a `return` statement. Here we mention the special behavior with returning objects mainly for the sake of completeness.
-
-````smart header="Omitting parentheses"
-By the way, we can omit parentheses after `new`, if it has no arguments:
-
-```js
-let user = new User; // <-- no parentheses
-// same as
+```
+let user = new User; // <-- لا يوجد أقوس
+// الغرض ذاته
 let user = new User();
 ```
 
-Omitting parentheses here is not considered a "good style", but the syntax is permitted by specification.
-````
+لا يُعد حذف الأقواس أسلوبًا جيدَا، لكن الصيغة مسموح بها من خلال المواصفات.
+## الدوال في الباني
+استخدام الدوال البانية لإنشاء الكائنات يُعطي مرونة كبيرة. قد تحوي الدالة البانية على مُعامِلات ترشد في بناء الكائن ووضعه، إذ
+يمكننا إضافة خاصيات ودوال إلى `this` بالطبع. مثلًا، تُنشِئ `new User(name)‎` في الأسفل كائنًا بالاسم المُعطَى `name`
+والدالة `sayHi`:
 
-## Methods in constructor
-
-Using constructor functions to create objects gives a great deal of flexibility. The constructor function may have parameters that define how to construct the object, and what to put in it.
-
-Of course, we can add to `this` not only properties, but methods as well.
-
-For instance, `new User(name)` below creates an object with the given `name` and the method `sayHi`:
-
-```js run
+```
 function User(name) {
-  this.name = name;
-
-  this.sayHi = function() {
-    alert( "My name is: " + this.name );
-  };
+this.name = name;
+this.sayHi = function() {
+alert( "My name is: " + this.name );
+};
 }
-
-*!*
 let john = new User("John");
-
 john.sayHi(); // My name is: John
-*/!*
-
 /*
 john = {
-   name: "John",
-   sayHi: function() { ... }
+name: "John",
+sayHi: function() { ... }
 }
 */
+
 ```
 
-To create complex objects, there's a more advanced syntax, [classes](info:classes), that we'll cover later.
+لإنشاء كائنات أكثر تعقيدًا، يوجد صيغة أكثر تقدمًا، الفئات، والتي سنغطيها لاحقًا.
+## الخلاصة
+- الدوال البانية، أو باختصار البانيات، هي دوال عادية، لكن يوجد اتفاق متعارف عليه ببدء اسمها بحرف كبير.
+- يجب استدعاء الدوال البانية باستخدام `new` فقط. يتضمن هذا الاستدعاء إنشاء كائن فارغ وإسناده إلى `this` وبدء العملية ثم
+إرجاع هذا الكائن في نهاية المطاف.
+يمكننا استخدام الدوال البانية لإنشاء كائنات متعددة متشابهة.
+تزود JavaScript دوالًا بانية للعديد من الأنواع (الكائنات) المدمجة في اللغة: مثل النوع `Date` للتواريخ، و `Set`
+للمجموعات وغيرها من الكائنات التي نخطط لدراستها.
+### **عودة قريبة**
+غطينا الأساسيات فقط عن الكائنات وبانياتها في هذا الفصل. هذه الأساسيات مهمة تمهيدًا لتعلم المزيد عن أنواع البيانات والدوال في
+الفصل التالي.
+بعد تعلم ذلك، سنعود للكائنات ونغطيها بعمق في فصل الخصائص، والوراثة، والأصناف.
+## تمارين
+### دالتين - كائن واحد
+الأهمية: 2
+هل يمكن إنشاء الدالة `A` و `B` هكذا `new A()==new B()‎`؟
 
-## Summary
-
-- Constructor functions or, briefly, constructors, are regular functions, but there's a common agreement to name them with capital letter first.
-- Constructor functions should only be called using `new`. Such a call implies a creation of empty `this` at the start and returning the populated one at the end.
-
-We can use constructor functions to make multiple similar objects.
-
-JavaScript provides constructor functions for many built-in language objects: like `Date` for dates, `Set` for sets and others that we plan to study.
-
-```smart header="Objects, we'll be back!"
-In this chapter we only cover the basics about objects and constructors. They are essential for learning more about data types and functions in the next chapters.
-
-After we learn that, we return to objects and cover them in-depth in the chapters <info:prototypes> and <info:classes>.
 ```
+function A() { ... }
+function B() { ... }
+let a = new A;
+let b = new B;
+alert( a == b ); // true
+```
+
+إن كان ممكنًا، وضح ذلك بمثال برمجي.
+**الحل**
+نعم يمكن ذلك.
+إن كان هناك دالة تُرجِع كائنًا فإن `new` تُرجِعه بدلًا من `this`. لذا فمن الممكن، مثلًا، إرجاع الكائن المعرف خارجيًا `obj`:
+```
+let obj = {};
+function A() { return obj; }
+function B() { return obj; }
+
+alert( new A() == new B() ); // true
+```
+
+## إنشاء حاسبة جديدة
+الأهمية: 5
+إنشِئ دالة بانية باسم `Calculator` تنشئ كائنًا بثلاث دوال:
+- `read()‎` تطلب قيمتين باستخدام سطر الأوامر وتحفظها في خاصيات الكائن.
+- `sum()‎` تُرجِع مجموع الخاصيتين.
+- `mul()‎` تُرجِع حاصل ضرب الخاصيتين.
+مثلًا:
+
+```
+let calculator = new Calculator();
+calculator.read();
+alert( "Sum=" + calculator.sum() );
+alert( "Mul=" + calculator.mul() );
+```
+
+**الحل**
+
+```
+function Calculator() {
+this.read = function() {
+this.a = +prompt('a?', 0);
+this.b = +prompt('b?', 0);
+};
+this.sum = function() {
+return this.a + this.b;
+};
+this.mul = function() {
+return this.a * this.b;
+};
+}
+let calculator = new Calculator();
+calculator.read();
+alert( "Sum=" + calculator.sum() );
+alert( "Mul=" + calculator.mul() );
+```
+
+## إنشاء مجمِّع
+الأهمية: 5
+انشِئ دالة بانية باسم `Accumulator(startingValue)‎`، إذ يجب أن يتصف هذا الكائن بأنَّه:
+- يخزن القيمة الحالية في الخاصية `value`. تُعَيَّن قيمة البدء عبر المعامل `startingValue` المعطى من الدالة البانية.
+- يجب أن تستخدم الدالة `read()` الدالة `prompt` لقراءة رقم جديد وإضافته إلى `value`.
+بمعنى آخر، الخاصية `value` هي مجموع القيم المدخلة بواسطة المستخدم بالإضافة إلى القيمة الأولية `startingValue`.
+هنا مثال على ما يجب أن يُنَفَّذ:
+
+```
+let accumulator = new Accumulator(1); // القيمة الأولية 1
+accumulator.read(); // يضيف قيمة مدخلة بواسطة المستخدم
+accumulator.read(); // يضيف قيمة مدخلة بواسطة المستخدم
+alert(accumulator.value); // يعرض مجموع القيم
+```
+
+**الحل**
+
+```
+function Accumulator(startingValue) {
+this.value = startingValue;
+this.read = function() {
+this.value += +prompt('How much to add', 0);
+};
+}
+let accumulator = new Accumulator(1);
+accumulator.read();
+accumulator.read();
+alert(accumulator.value);
+```
+ترجمة -وبتصرف- للفصل [Constructor, operator "new"](https://javascript.info/constructor-new) من
+كتاب [The JavaScript Language](https://javascript.info/js)

@@ -1,14 +1,14 @@
-# Error on reading non-existant property
+# خطأ عند قراءة خاصية غير موجودة
 
-Usually, an attempt to read a non-existant property returns `undefined`.
+عادة، عند محاولة قراءة خاصية غير موجودة فإنها تُرجع `undefined`.
 
-Create a proxy that throws an error for an attempt to read of a non-existant property instead.
+قم بإنشاء بروكسي يقوم بإظهار خطأ عند محاولة قراءة خاصية غير موجودة بدلًا من ذلك.
 
-That can help to detect programming mistakes early.
+هذا يساعد علي استكشاف الأخطاء البرمجية بشكل أسرع.
 
-Write a function `wrap(target)` that takes an object `target` and return a proxy that adds this functionality aspect.
+قم بإنشاء دالة `wrap(target)` والتي تستقبل كائن `target` وتقوم بإرجاع بروكسي يضيف هذه الوظيفة.
 
-That's how it should work:
+هذا كيفية فعله:
 
 ```js
 let user = {

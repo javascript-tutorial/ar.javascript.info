@@ -1,109 +1,109 @@
-# Proxy and Reflect
+# الوسيط Proxy و الـReflect
 
-A `Proxy` object wraps another object and intercepts operations, like reading/writing properties and others, optionally handling them on its own, or transparently allowing the object to handle them.
+الكائن `Proxy` يُحيط كائن آخر و يتوسط العمليات التى تُجري على هذا الكائن، مثل القراءة أو التعديل على الخصائص وغيرها والتعامل معهم بشكل اختياري أو تجعل الكائن الأساسي يتعامل معهم دون تدخل.
 
-Proxies are used in many libraries and some browser frameworks. We'll see many practical applications in this article.
+إن الـProxies مُستخدمة فى كثير من المكتبات وبعض أطر العمل. سنرى الكثير من التطبيقات العملية فى هذا المقال.
 
-## Proxy
+## الوسيط Proxy
 
-The syntax:
+الشكل:
 
 ```js
-let proxy = new Proxy(target, handler)
+let proxy = new Proxy(target, handler);
 ```
 
-- `target` -- is an object to wrap, can be anything, including functions.
-- `handler` -- proxy configuration: an object with "traps", methods that intercept operations. - e.g. `get` trap for reading a property of `target`, `set` trap for writing a property into `target`, and so on.
+- `target` -- هو الكائن الذي يتم إحاطته ويمكن أن يكون أى شيئ حتي الدوال (functions).
+- `handler` -- إعدادت الـproxy: هو كائن يحتوي علي "traps" والتي هي عبارة عن دوال تعمل فى العمليات. مثلًا الـ `get` trap لقراءة خاصية من الـobject `target` وكذلك `set` trap لتعديل\إضافة خاصية للـobject `target` وهكذا.
 
-For operations on `proxy`, if there's a corresponding trap in `handler`, then it runs, and the proxy has a chance to handle it, otherwise the operation is performed on `target`.
+بالنسبة للعمليات فى الـ `proxy`، فإنه إذا كان هناك trap فى الـobject `handler` وثم بعد ذلك تعمل وبعد ذلك يكون لديها الفرصة للتعامل معه وإذا لم يوجد trap فإن العملية تُجري علي `target`.
 
-As a starting example, let's create a proxy without any traps:
+كمثال مبدأى، هيا ننشئ proxy بدون traps:
 
 ```js run
 let target = {};
-let proxy = new Proxy(target, {}); // empty handler
+let proxy = new Proxy(target, {}); // handler فارغ
 
-proxy.test = 5; // writing to proxy (1)
-alert(target.test); // 5, the property appeared in target!
+proxy.test = 5; // التعديل علي البروكسي (1)
+alert(target.test); // 5, ظهور الخاصية فى الكائن الأصلي!
 
-alert(proxy.test); // 5, we can read it from proxy too (2)
+alert(proxy.test); // 5, ويمكننا قرائته من البروكسي أيضًا (2)
 
-for(let key in proxy) alert(key); // test, iteration works (3)
+for (let key in proxy) alert(key); // test, التكرار يعمل (3)
 ```
 
-As there are no traps, all operations on `proxy` are forwarded to `target`.
+وبما أنه لا توجد traps فإن كل العمليات التي التي تُجرى على الـ `proxy` يتم تحويلها إلى الـ `target`.
 
-1. A writing operation `proxy.test=` sets the value on `target`.
-2. A reading operation `proxy.test` returns the value from `target`.
-3. Iteration over `proxy` returns values from `target`.
+1. عملية التعديل `proxy.test=` تُعدل القيمة فى الـ`target`.
+2. عملية القراءة `proxy.test` تقوم بإرجاع القيمة من `target`.
+3. التكرار على الـ`proxy` يقوم بإرجاع القيم من `target`.
 
-As we can see, without any traps, `proxy` is a transparent wrapper around `target`.
+كما نري فإن الـ`proxy` بدون traps هو محيط شفاف حول `target`. أى أنه لا يفعل أى شيئ فى المنتصف.
 
-![](proxy.svg)  
+![](proxy.svg)
 
-`Proxy` is a special "exotic object". It doesn't have own properties. With an empty `handler` it transparently forwards operations to `target`.
+`Proxy`إن الـ كائن من نوع خاص لا يحتوي علي أى خصائص وعندما يكون `handler` فارغًا فإنه يحوّل كل العمليات إلى `target`.
 
-To activate more capabilities, let's add traps.
+للحصول علي قدرات أكثر هيا نضيف traps.
 
-What can we intercept with them?
+ماذا يمكننا أن نتدخّل (intercept) بهم؟
 
-For most operations on objects, there's a so-called "internal method" in the JavaScript specification that describes how it works at the lowest level. For instance `[[Get]]`, the internal method to read a property, `[[Set]]`, the internal method to write a property, and so on. These methods are only used in the specification, we can't call them directly by name.
+لأغلب العمليات علي الـobjects توجد دوال تسمي "الدوال الداخلية" "internal method" فى مصدر الجافاسكريبت والتي تصف كيفية عملها عند أقل مستوي. علي سبيل المثال الدالة `[[Get]]` هي دالة داخلية لقراءة خاصية والدالة `[[Set]]` هي دالة داخلية لإضافة\تعديل خاصية وهكذا. هذه الدوال تستخدم فقط داخليًا ولا يمكننا استعمالهم بشكل مباشر.
 
-Proxy traps intercept invocations of these methods. They are listed in the [Proxy specification](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots) and in the table below.
+تتدخّل الـ Proxy traps فى استدعاء هذه الدوال. وهم موجودون بالتفصيل في [المصدر](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots) وفي الجدول أدناه.
 
-For every internal method, there's a trap in this table: the name of the method that we can add to the `handler` parameter of `new Proxy` to intercept the operation:
+لكل دالة داخلية يوجد trap في هذا الجدول: اسم الدالة التي يمكننا إضافتها للمتغير الذي يسمي `handler` والذي نضيفه للـ `new Proxy` للتدخل فى العملية:
 
-| Internal Method | Handler Method | Triggers when... |
-|-----------------|----------------|-------------|
-| `[[Get]]` | `get` | reading a property |
-| `[[Set]]` | `set` | writing to a property |
-| `[[HasProperty]]` | `has` | `in` operator |
-| `[[Delete]]` | `deleteProperty` | `delete` operator |
-| `[[Call]]` | `apply` | function call |
-| `[[Construct]]` | `construct` | `new` operator |
-| `[[GetPrototypeOf]]` | `getPrototypeOf` | [Object.getPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf) |
-| `[[SetPrototypeOf]]` | `setPrototypeOf` | [Object.setPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf) |
-| `[[IsExtensible]]` | `isExtensible` | [Object.isExtensible](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible) |
-| `[[PreventExtensions]]` | `preventExtensions` | [Object.preventExtensions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions) |
-| `[[DefineOwnProperty]]` | `defineProperty` | [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty), [Object.defineProperties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties) |
-| `[[GetOwnProperty]]` | `getOwnPropertyDescriptor` | [Object.getOwnPropertyDescriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor), `for..in`, `Object.keys/values/entries` |
-| `[[OwnPropertyKeys]]` | `ownKeys` | [Object.getOwnPropertyNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object/keys/values/entries` |
+| الدالة الداخلية         | الدالة العاملة             | تعمل عند...                                                                                                                                                                                                                                                                                                                       |
+| ----------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `[[Get]]`               | `get`                      | قراءة خاصية                                                                                                                                                                                                                                                                                                                       |
+| `[[Set]]`               | `set`                      | التعديل علي خاصية                                                                                                                                                                                                                                                                                                                 |
+| `[[HasProperty]]`       | `has`                      | `in` المعامل                                                                                                                                                                                                                                                                                                                      |
+| `[[Delete]]`            | `deleteProperty`           | `delete` المعامل                                                                                                                                                                                                                                                                                                                  |
+| `[[Call]]`              | `apply`                    | استدعاء دالة                                                                                                                                                                                                                                                                                                                      |
+| `[[Construct]]`         | `construct`                | `new` المعامل                                                                                                                                                                                                                                                                                                                     |
+| `[[GetPrototypeOf]]`    | `getPrototypeOf`           | [Object.getPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)                                                                                                                                                                                                   |
+| `[[SetPrototypeOf]]`    | `setPrototypeOf`           | [Object.setPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)                                                                                                                                                                                                   |
+| `[[IsExtensible]]`      | `isExtensible`             | [Object.isExtensible](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible)                                                                                                                                                                                                       |
+| `[[PreventExtensions]]` | `preventExtensions`        | [Object.preventExtensions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions)                                                                                                                                                                                             |
+| `[[DefineOwnProperty]]` | `defineProperty`           | [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty), [Object.defineProperties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties)                                                              |
+| `[[GetOwnProperty]]`    | `getOwnPropertyDescriptor` | [Object.getOwnPropertyDescriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor), `for..in`, `Object.keys/values/entries`                                                                                                                                      |
+| `[[OwnPropertyKeys]]`   | `ownKeys`                  | [Object.getOwnPropertyNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object/keys/values/entries` |
 
-```warn header="Invariants"
-JavaScript enforces some invariants -- conditions that must be fulfilled by internal methods and traps.
+```warn header="بعض الثوابت"
+تفرض الجافاسكريبت بعض الثوابت -- شروط يجب أن تتحقق بالmethods و الtraps.
 
-Most of them are for return values:
-- `[[Set]]` must return `true` if the value was written successfully, otherwise `false`.
-- `[[Delete]]` must return `true` if the value was deleted successfully, otherwise `false`.
-- ...and so on, we'll see more in examples below.
+أغلبهم لإرجاع قيم:
+- الدالة `[[Set]]` يجب أن تقوم بإرجاع `true` إذا كُتبت القيمة بشكل صحيح أو تقوم بإرجاع `false` إذا لم تكن كذلك.
+- الدالة `[[Delete]]` يجب أن اقةم بإرجاع `true` إذا تم حذف القيمة بشكل صحيح وإلا تقوم بإرجاع `false`.
+- ...وهكذا، وسنري المزيد في الأمثلة القادمة.
 
-There are some other invariants, like:
-- `[[GetPrototypeOf]]`, applied to the proxy object must return the same value as `[[GetPrototypeOf]]` applied to the proxy object's target object. In other words, reading prototype of a proxy must always return the prototype of the target object.
+هناك المزيد من الثوابت، مثلًا:
+- الدالة `[[GetPrototypeOf]]` الموجودة في البروكسي، يجب أن تُرجع نفس القيمة التي تُرجعها الدالة `[[GetPrototypeOf]]` الموجودة في الأوبجكت المستهدف (target). أو يمكننا القول بطريقة أخري، أن استرجاع القيم من الprototype الخاص بالبروكسي يجب دائما أن تُرجع الprototype الخاص بالأوبجكت المستهدف (target).
 
-Traps can intercept these operations, but they must follow these rules.
+تستطيع الtraps أن تعترض طريق هذه العمليات، ولكن يجب أن يتبعو هذه القواعد.
 
-Invariants ensure correct and consistent behavior of language features. The full invariants list is in [the specification](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots). You probably won't violate them if you're not doing something weird.
+تضمن الثوابت صحة وتناسق سلوك مزايا اللغة. وللإطلاع علي القائمة الكاملة للثوابت فهي موجودة في [المصدر](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots). لا تقلق، لن تقوم بمخالفة هذه الثوابت مالم تكن تقوم بعمل غريب.
 ```
 
-Let's see how that works in practical examples.
+هيا نري كيف يتم تطبيق ذلك في أمثلة عملية.
 
-## Default value with "get" trap
+## إرجاع قيمة افتراضية بالtrap "get"
 
-The most common traps are for reading/writing properties.
+أكثر الtraps استعمالًا التي تسترجع أو تعدل الخصائص (properties).
 
-To intercept reading, the `handler` should have a method `get(target, property, receiver)`.
+لاعتراض طريق عملية الإسترجاع، يجب أن يحتوي ال`handler` علي الدالة `get(target, property, receiver)`.
 
-It triggers when a property is read, with following arguments:
+يتم تشغيلها عندما تكون الخاصية للإسترجاع بالمتغيرات التالية:
 
-- `target` -- is the target object, the one passed as the first argument to `new Proxy`,
-- `property` -- property name,
-- `receiver` -- if the target property is a getter, then `receiver` is the object that's going to be used as `this` in its call. Usually that's the `proxy` object itself (or an object that inherits from it, if we inherit from proxy). Right now we don't need this argument, so it will be explained in more detail later.
+- `target` -- هو الأوبجكت المستهدف والذي يتم تمريره كمتغير أول لل`new Proxy`,
+- `property` -- اسم الخاصية,
+- `receiver` -- إذا كانت الخاصية للإسترجاع getter فإن ال`receiver` هو الأوبجكت الذي سيتم استخدامه كقيمة ل`this` عند استرجاعها. وعادة مايكون البروكسي نفسه (أو أوبجكت يرث منه). والآن لا نريد هذا المتغير، ولذلك سيتم شرحه لاحقًا بالتفصيل.
 
-Let's use `get` to implement default values for an object.
+هيا نستخدم `get` لتطبيق القيمة الإفتراضية لأوبجكت.
 
-We'll make a numeric array that returns `0` for nonexistent values.
+سنقوم بإنشاء array تحتوي علي أرقام والتي تقوم بإرجاع `0` للقيم الغير موجودة.
 
-Usually when one tries to get a non-existing array item, they get `undefined`, but we'll wrap a regular array into the proxy that traps reading and returns `0` if there's no such property:
+عادة، عندما يحاول أحد أن يسترجع قيمة غير موجودة في الarray فإنه يحصل علي `undefined`, ولكننا سنحيط الarray العادية ببروكسي والذي سيعترض عملية الاسترجاع ويقوم بإرجاع `0` إذا لم توجد الخاصية:
 
 ```js run
 let numbers = [0, 1, 2];
@@ -113,97 +113,97 @@ numbers = new Proxy(numbers, {
     if (prop in target) {
       return target[prop];
     } else {
-      return 0; // default value
+      return 0; // القيمة الإفتراضية
     }
   }
 });
 
 *!*
 alert( numbers[1] ); // 1
-alert( numbers[123] ); // 0 (no such item)
+alert( numbers[123] ); // 0 (لا يوجد عنصر كهذا)
 */!*
 ```
 
-As we can see, it's quite easy to do with a `get` trap.
+كما نري، فأن هذا يمكن تحقيقه بسهوله باستخدام الtrap `get`.
 
-We can use `Proxy` to implement any logic for "default" values.
+يمكننا استخدام `Proxy` لتطبيق أي طريقة للقيم الإفتراضية.
 
-Imagine we have a dictionary, with phrases and their translations:
+تخيل أن لدينا قاموسًا، بالجمل وترجماتها:
 
 ```js run
 let dictionary = {
-  'Hello': 'Hola',
-  'Bye': 'Adiós'
+  Hello: "مرحبًا",
+  Bye: "إلي اللقاء",
 };
 
-alert( dictionary['Hello'] ); // Hola
-alert( dictionary['Welcome'] ); // undefined
+alert(dictionary["Hello"]); // مرحبًا
+alert(dictionary["Welcome"]); // undefined
 ```
 
-Right now, if there's no phrase, reading from `dictionary` returns `undefined`. But in practice, leaving a phrase untranslated is usually better than `undefined`. So let's make it return an untranslated phrase in that case instead of `undefined`.
+حاليًا، ليست هناك جملة، فعند الإسترجاع من القاموس تقوم بإرجاع `undefined`. ولكن في التطبيق العملي، فإن ترك الجملة غير مترجمة أفضل من `undefined`. ولذلك سنجعلها تقوم بإرجاع الجملة غير مترجمة بدلًا من `undefined`.
 
-To achieve that, we'll wrap `dictionary` in a proxy that intercepts reading operations:
+لتحقيق ذلك، سنحيط ال`dictionary` ببروكسي والذي سيقوم باعتراض طريق استرجاع الخصائص:
 
 ```js run
 let dictionary = {
-  'Hello': 'Hola',
-  'Bye': 'Adiós'
+  'Hello': 'مرحبًا',
+  'Bye': 'إلي اللقاء'
 };
 
 dictionary = new Proxy(dictionary, {
 *!*
-  get(target, phrase) { // intercept reading a property from dictionary
+  get(target, phrase) { // تعترض طريق استرجاع الخصائص من القاموس
 */!*
-    if (phrase in target) { // if we have it in the dictionary
-      return target[phrase]; // return the translation
+    if (phrase in target) { // إذا كانت لدينا بالفعل
+      return target[phrase]; // قم بإرجاع الترجمة
     } else {
-      // otherwise, return the non-translated phrase
+      // وإلا فلتقم بإرجاع الجملة كما هي
       return phrase;
     }
   }
 });
 
-// Look up arbitrary phrases in the dictionary!
-// At worst, they're not translated.
+// قم باكتشاف الجمل الاعتباطية!
+// في أسوأ الحالت لن يتم ترجمتهم.
 alert( dictionary['Hello'] ); // Hola
 *!*
-alert( dictionary['Welcome to Proxy']); // Welcome to Proxy (no translation)
+alert( dictionary['Welcome to Proxy']); // Welcome to Proxy (لا توجد ترجمة)
 */!*
 ```
 
 ````smart
-Please note how the proxy overwrites the variable:
+لاحظ كيف يستبدل البروكسي المتغير:
 
 ```js
 dictionary = new Proxy(dictionary, ...);
 ```
 
-The proxy should totally replace the target object everywhere. No one should ever reference the target object after it got proxied. Otherwise it's easy to mess up.
+يجب أن يقوم المتغير باستبدال الأوبجكت المستهدف\المستقبل بشكل تام. يجب ألا يستطيع أحد استدعاء الأوبجكت المستقبل بعد أن تمت إحاطته ببروكسي. وإلا سيكون من السهل أن تفسد كل شيئ.
 ````
 
-## Validation with "set" trap
+## التحقق من القيم باستخدام الtrap "set"
 
-Let's say we want an array exclusively for numbers. If a value of another type is added, there should be an error.
+دعنا نقول أننا نريد array للأرقام فقط. وإذا تمت إضافة قيمة من نوع آخر، يجب أن يكون هناك خطأ.
 
-The `set` trap triggers when a property is written.
+تعمل الtrap `set` عند التعديل علي خاصية.
 
 `set(target, property, value, receiver)`:
 
-- `target` -- is the target object, the one passed as the first argument to `new Proxy`,
-- `property` -- property name,
-- `value` -- property value,
-- `receiver` -- similar to `get` trap, matters only for setter properties.
+- `target` -- هو الأوبجكت المستقبل، هو الذي يتم تمريره كمتغير أول لـ`new Proxy`,
+- `property` -- إسم الخاصية,
+- `value` -- قيمة الخاصية,
+- `receiver` -- شبيه بالJtrap `get`، ولكن مفيد فقط للخصائص التي يتم التعديل عليها.
 
-The `set` trap should return `true` if setting is successful, and `false` otherwise (triggers `TypeError`).
+يجب أن يقوم الtrap `set` بإرجاع `true` إذا نجح التعديل، وإلا يقوم بإرجاع `false` (يقوم بتشغيل `TypeError`).
 
-Let's use it to validate new values:
+هيا نستخدمه للتحقق من القيم الجديدة:
 
 ```js run
 let numbers = [];
 
 numbers = new Proxy(numbers, { // (*)
 *!*
-  set(target, prop, val) { // to intercept property writing
+  set(target, prop, val) { // لاعتراض عملية التعديل
 */!*
     if (typeof val == 'number') {
       target[prop] = val;
@@ -214,44 +214,45 @@ numbers = new Proxy(numbers, { // (*)
   }
 });
 
-numbers.push(1); // added successfully
-numbers.push(2); // added successfully
+numbers.push(1); // تمت إضافته بنجاح
+numbers.push(2); // تمت إضافته بنجاح
 alert("Length is: " + numbers.length); // 2
 
 *!*
 numbers.push("test"); // TypeError ('set' on proxy returned false)
 */!*
 
-alert("This line is never reached (error in the line above)");
+alert("لن يتم الوصول إلي هذا السطر أبدا، فهناك خطأ فى السطر الأعلي");
 ```
 
-Please note: the built-in functionality of arrays is still working! Values are added by `push`. The `length` property auto-increases when values are added. Our proxy doesn't break anything.
+لاحظ أن: الوظيفة الأساسية للarray ما زالت تعمل كما هي! تُضاف القيم باستخدام `push`. وتزداد الخاصية `length` تلقائيًا عند إضافة قيم جديدة. لا يعدل البروكسي أي شيئ.
 
-We don't have to override value-adding array methods like `push` and `unshift`, and so on, to add checks in there, because internally they use the `[[Set]]` operation that's intercepted by the proxy.
+لسنا مضطرين لاستبدال الدوال المسؤولة عن إضافة قيم للarray مثل `push` و `unshift`, وهكذا, لإضافة تحققات هناك, لأنهم ضمنيًا يستخدمون الدالة `[[Set]]` والتي يتم اعتراضها بالبروكسي.
 
-So the code is clean and concise.
+وهكذا يكون الكود نظيف ومتناسق.
 
-```warn header="Don't forget to return `true`"
-As said above, there are invariants to be held.
+```warn header="لا تنسي أن تُرجع `true`"
+كما قيل بالأعلي، هناك ثوابت يجب الإلتزام بها.
 
-For `set`, it must return `true` for a successful write.
+ففي الدالة `set`، يجب أن تقوم بإرجاع `true` في التعديل الناجح.
 
-If we forget to do it or return any falsy value, the operation triggers `TypeError`.
-```
+إذا نسينا أن نفعل ذلك أو قمنا بإرجاع أى قيمة غير حقيقية (falsy)، يتقوم العملية بتفعيل الخطأ `TypeError`.
 
-## Iteration with "ownKeys" and "getOwnPropertyDescriptor"
+````
 
-`Object.keys`, `for..in` loop and most other methods that iterate over object properties use `[[OwnPropertyKeys]]` internal method (intercepted by `ownKeys` trap) to get a list of properties.
+## التكرار باستخدام "ownKeys" و "getOwnPropertyDescriptor"
 
-Such methods differ in details:
-- `Object.getOwnPropertyNames(obj)` returns non-symbol keys.
-- `Object.getOwnPropertySymbols(obj)` returns symbol keys.
-- `Object.keys/values()` returns non-symbol keys/values with `enumerable` flag (property flags were explained in the article <info:property-descriptors>).
-- `for..in` loops over non-symbol keys with `enumerable` flag, and also prototype keys.
+التكرارات `Object.keys`, `for..in` وأغلب الدوال الأخري اللتي تقوم بالتكرار علي خصائص الأوبجكت تستخدم ضمنيًا الدالة `[[OwnPropertyKeys]]` (والتي يتم اعتراضها عن طريق الtrap`ownKeys`) لاسترجاع قائمة من الخصائص.
 
-...But all of them start with that list.
+دوال كهذه تختلف فى التفاصيل:
+- تقوم الدالة `Object.getOwnPropertyNames(obj)` بإرجاع الخصائص التي ليست من نوع الرمز (symbol).
+- تقوم الدالة `Object.getOwnPropertySymbols(obj)` بإرجاع الخصائص من نوع الرمز.
+- تقوم الدالة `Object.keys/values()` بإرجاع الخصائص والقيم التي ليست من نوع الرمز والتي تحتوى علي المعرٌف `enumerable` (تم شرح المعرفات في المقال <info:property-descriptors>).
+- التكرارات `for..in` تقوم بالتكرار علي الخصائص التي ليست من نوع الرمز والمحتوية علي المعرف `enumerable` وأيضًا الخصائص الموجودة فى الprototype.
 
-In the example below we use `ownKeys` trap to make `for..in` loop over `user`, and also `Object.keys` and `Object.values`, to skip properties starting with an underscore `_`:
+...ولكن جميعهم يبدأون بهذه القائمة.
+
+في المثال أدناه استخدمنا الtrap `ownKeys` لجعل التكرار `for..in` علي الأوبجكت `user`، وكذلك `Object.keys` و `Object.values`، لتخطي الخصائص اللتي تبدأ بـ `_`:
 
 ```js run
 let user = {
@@ -274,11 +275,11 @@ for(let key in user) alert(key); // name, then: age
 // same effect on these methods:
 alert( Object.keys(user) ); // name,age
 alert( Object.values(user) ); // John,30
-```
+````
 
-So far, it works.
+إنها تعمل الآن.
 
-Although, if we return a key that doesn't exist in the object, `Object.keys` won't list it:
+علي الرغم من ذلك، إذا قمنا بإرجاع خاصية ليست موجودة في الأوبجكت فإن `Object.keys` لن تعرضه:
 
 ```js run
 let user = { };
@@ -291,62 +292,64 @@ user = new Proxy(user, {
   }
 });
 
-alert( Object.keys(user) ); // <empty>
+alert( Object.keys(user) ); // <فارغ>
 ```
 
-Why? The reason is simple: `Object.keys` returns only properties with the `enumerable` flag. To check for it, it calls the internal method `[[GetOwnProperty]]` for every property to get [its descriptor](info:property-descriptors). And here, as there's no property, its descriptor is empty, no `enumerable` flag, so it's skipped.
+لماذا؟ السبب بسيط: تقوم `Object.keys` بإرجاع الخصائص المحتويه علي المعرف `enumerable` فقط. للتحقق من ذلك، هي تقوم باستدعاء الدالة `[[GetOwnProperty]]` لكل خاصية لاسترجاع [المعرف الخاص بها](info:property-descriptors). وهنا، بما أنه لا يوجد خصائص، فإن معرفها فارغ، ولا يوجد المعرف `enumerable` فيتم تخطيها.
 
-For `Object.keys` to return a property, we need it to either exist in the object, with the `enumerable` flag, or we can intercept calls to `[[GetOwnProperty]]` (the trap `getOwnPropertyDescriptor` does it), and return a descriptor with `enumerable: true`.
+لجعل `Object.keys` تقوم بإرجاع خاصية، نحتاج إلي أن تكون موجودة في الأوبجكت ومحتوية علي المعرف `enumerable`، أو يمكننا اعتراض استدعاء الدالة `[[GetOwnProperty]]` (يقوم بهذا الtrap `getOwnPropertyDescriptor`)، ويقوم بإرجاع واصف (descriptor) والراية `enumerable`: true.
 
-Here's an example of that:
+هنا مثال علي ذلك:
 
 ```js run
-let user = { };
+let user = {};
 
 user = new Proxy(user, {
-  ownKeys(target) { // called once to get a list of properties
-    return ['a', 'b', 'c'];
+  ownKeys(target) {
+    // يتم استدعاؤها مرة لإرجاع قائمة
+    return ["a", "b", "c"];
   },
 
-  getOwnPropertyDescriptor(target, prop) { // called for every property
+  getOwnPropertyDescriptor(target, prop) {
+    // يتم استدعاؤها لكل خاصية
     return {
       enumerable: true,
-      configurable: true
+      configurable: true,
       /* ...other flags, probable "value:..." */
     };
-  }
-
+  },
 });
 
-alert( Object.keys(user) ); // a, b, c
+alert(Object.keys(user)); // a, b, c
 ```
 
-Let's note once again: we only need to intercept `[[GetOwnProperty]]` if the property is absent in the object.
+هيا نسجل ذلك مرة أخري: نحتاج لاعتراض `[[GetOwnProperty]]` فقط إذا كانت الخاصية غير موجودة في الأوبجكت.
 
-## Protected properties with "deleteProperty" and other traps
+## الخصائص المحمية باستخدام "deleteProperty" وغيره من الtraps
 
-There's a widespread convention that properties and methods prefixed by an underscore `_` are internal. They shouldn't be accessed from outside the object.
+هناك شئ شائع متفق عليه وهو أن الخصائص التي تبدأ بـ`_` هي ضمنية ولا يجب أن يتم الوصول إليها من خارج الأوبجكت.
 
-Technically that's possible though:
+وهذا ممكن تقنيًا:
 
 ```js run
 let user = {
   name: "John",
-  _password: "secret"
+  _password: "secret",
 };
 
-alert(user._password); // secret  
+alert(user._password); // secret
 ```
 
-Let's use proxies to prevent any access to properties starting with `_`.
+هيا نستخدم الproxies لمنع أي وصول إلي الخسائص البادئة بـ `_`.
 
-We'll need the traps:
-- `get` to throw an error when reading such property,
-- `set` to throw an error when writing,
-- `deleteProperty` to throw an error when deleting,
-- `ownKeys` to exclude properties starting with `_` from `for..in` and methods like `Object.keys`.
+سنحتاج إلي الtraps:
 
-Here's the code:
+- `get` لإطهار خطأ عند استرجاع خاصية كهذه,
+- `set` لإظهار خطأ عند التعديل,
+- `deleteProperty` لإظهار خطأ عند الحذف,
+- `ownKeys` لاستثناء الخصائص البادئة بـ `_` من التكرار `for..in` والدوال الأخري مثل `Object.keys`.
+
+إليك الكود:
 
 ```js run
 let user = {
@@ -365,7 +368,7 @@ user = new Proxy(user, {
     return (typeof value === 'function') ? value.bind(target) : value; // (*)
   },
 *!*
-  set(target, prop, val) { // to intercept property writing
+  set(target, prop, val) { // لاعتراض التعديل علي الخاصية
 */!*
     if (prop.startsWith('_')) {
       throw new Error("Access denied");
@@ -375,8 +378,8 @@ user = new Proxy(user, {
     }
   },
 *!*
-  deleteProperty(target, prop) { // to intercept property deletion
-*/!*  
+  deleteProperty(target, prop) { // لاعتراض حذف الخاصية
+*/!*
     if (prop.startsWith('_')) {
       throw new Error("Access denied");
     } else {
@@ -385,32 +388,32 @@ user = new Proxy(user, {
     }
   },
 *!*
-  ownKeys(target) { // to intercept property list
+  ownKeys(target) { // لاعتراض عرض الخصائص في قائمة
 */!*
     return Object.keys(target).filter(key => !key.startsWith('_'));
   }
 });
 
-// "get" doesn't allow to read _password
+// "get" لا تسمح بإرجاع _password
 try {
   alert(user._password); // Error: Access denied
 } catch(e) { alert(e.message); }
 
-// "set" doesn't allow to write _password
+// "set" لا تسمح بتعديل _password
 try {
   user._password = "test"; // Error: Access denied
 } catch(e) { alert(e.message); }
 
-// "deleteProperty" doesn't allow to delete _password
+// "deleteProperty" لا تسمج بحذف _password
 try {
   delete user._password; // Error: Access denied
 } catch(e) { alert(e.message); }
 
-// "ownKeys" filters out _password
+// "ownKeys" تستثني _password
 for(let key in user) alert(key); // name
 ```
 
-Please note the important detail in the `get` trap, in the line `(*)`:
+لاحظ التفصيلة المهمه في الtrap `get` في السطر `(*)`:
 
 ```js
 get(target, prop) {
@@ -422,60 +425,59 @@ get(target, prop) {
 }
 ```
 
-Why do we need a function to call `value.bind(target)`?
+لماذا نحتاج إلي دالة لاستدعاء `value.bind(target)`؟
 
-The reason is that object methods, such as `user.checkPassword()`, must be able to access `_password`:
+والسبب أن دوال أﻷوبجكت، مثل `user.checkPassword()`، يجب أن تقدر علي الوصول إلى `_password`:
 
 ```js
 user = {
   // ...
   checkPassword(value) {
-    // object method must be able to read _password
+    // دالة الأوبجكت يجب أن تقدر علي الوصول إلي _password
     return value === this._password;
-  }
-}
+  },
+};
 ```
 
+استدعاء `user.checkPassword()` يقوم بإرجاع `user` المُحاط ببروكسي كقيمة لـ `this` (الأوبجكت قبل علامة النقطة هو قيمة `this`)، ولذلك فعندما تحاول الوصول إلي `this._password` ينشط الـtrap `get` (تعمل مع كل استدعاء لخاصية) وتظهر خطأًا.
 
-A call to `user.checkPassword()` call gets proxied `user` as `this` (the object before dot becomes `this`), so when it tries to access `this._password`, the `get` trap activates (it triggers on any property read) and throws an error.
+ولذلك نقوم بربط سياق دوال الأوبجكت بالأوبجكت الأصلي، `target`، في لاسطر `(*)`. وبعد ذلك فإن استدعائهم في المستقبل سيسختدم `target` كقيمة لـ `this`، بدون trap.
 
-So we bind the context of object methods to the original object, `target`, in the line `(*)`. Then their future calls will use `target` as `this`, without any traps.
+هذا الحل عادة ما يعمل، ولكنه ليس مثاليًا، فإن دالة كهذه يمكنها أن ترجع الأوبجكت غير محاط ببروكسي في أي مكان آخر وهكذا سيفسد كل شيئ: أين الأوبجكت الأصلي؟ وأين المحاط ببروكسي؟
 
-That solution usually works, but isn't ideal, as a method may pass the unproxied object somewhere else, and then we'll get messed up: where's the original object, and where's the proxied one?
+إلي جانب ذلك، فإن أوبجكت كهذا يمكن إحاطته ببروكسي أكثر من مره (كل بروكسي يمكن أن يضيف تعديلات غير منتهية للأوبجكت)، وإذا قمنا بتمرير أوبجكت غير محاط لأوبجكت، فإنه يمكن أن يكون هناك نتائج غير متوقعه.
 
-Besides, an object may be proxied multiple times (multiple proxies may add different "tweaks" to the object), and if we pass an unwrapped object to a method, there may be unexpected consequences.
+ولذلك فإن بروكسي كهذا لا يجب أن يتم استخدامه في كل مكان.
 
-So, such a proxy shouldn't be used everywhere.
+```smart header="الخصائص الخاصه في الكلاس"
+محركات الجافاسكريبت الحديثة تدعم الخصائص الخاصة (private properties) في الكلاس، مسبوقة بالعلامة `#`, تم شرحهم في المقال <info:private-protected-properties-methods>. لا نحتاج إلي بروكسي.
 
-```smart header="Private properties of a class"
-Modern JavaScript engines natively support private properties in classes, prefixed with `#`. They are described in the article <info:private-protected-properties-methods>. No proxies required.
-
-Such properties have their own issues though. In particular, they are not inherited.
+خصائص كهذه لها مشاكلها الخاصة. تحديدًا، لا يمكن توارثها.
 ```
 
-## "In range" with "has" trap
+## "In range" مع الtrap "has"
 
-Let's see more examples.
+هيا نري أمثلة أخري.
 
-We have a range object:
+لدينا الأوبجكت range:
 
 ```js
 let range = {
   start: 1,
-  end: 10
+  end: 10,
 };
 ```
 
-We'd like to use the `in` operator to check that a number is in `range`.
+نود أن نستعمل `in` للتحقق من وجود هذا الرقم في الـ`range`.
 
-The `has` trap intercepts `in` calls.
+الtrap `has` الذي يعترض اسدعاء `in`.
 
 `has(target, property)`
 
-- `target` -- is the target object, passed as the first argument to `new Proxy`,
-- `property` -- property name
+- `target` -- هو الأوبجكت المستهدف، يتم تمريره كمتغير أول لـ `new Proxy`,
+- `property` -- اسم الخاصية
 
-Here's the demo:
+هنا التطبيق:
 
 ```js run
 let range = {
@@ -497,28 +499,29 @@ alert(50 in range); // false
 */!*
 ```
 
-Nice syntactic sugar, isn't it? And very simple to implement.
+مصطلح بديل لطيف، أليس كذلك؟ وسهل تطبيقه.
 
-## Wrapping functions: "apply" [#proxy-apply]
+## الدوال المُحاطة: "apply" [#proxy-apply]
 
-We can wrap a proxy around a function as well.
+يمكن أن نحيط دالة ببروكسي أيضًا.
 
-The `apply(target, thisArg, args)` trap handles calling a proxy as function:
+الtrap `apply(target, thisArg, args)` يتعامل مع استدعاء البروكسي كدالة:
 
-- `target` is the target object (function is an object in JavaScript),
-- `thisArg` is the value of `this`.
-- `args` is a list of arguments.
+- `target` هو الأوبجكت المستهدف (الدوال ماهي إلا أوبجكت في الجافاسكريبت
+- `thisArg` هو قيمة `this`.
+- `args` هو قائمة من المتغيرات.
 
-For example, let's recall `delay(f, ms)` decorator, that we did in the article <info:call-apply-decorators>.
+علي سبيل المثال هيا نعيد استذكار `delay(f, ms)`، والتي قمنا بإنشائها في المقال <info:call-apply-decorators>.
 
-In that article we did it without proxies. A call to `delay(f, ms)` returned a function that forwards all calls to `f` after `ms` milliseconds.
+في هذا المقال أنشأناها بدون بروكسي. فإن استدعاء `delay(f, ms)` قام بإرجاع دالة تفوض كل الإستدعاءات إلي `f` بعد `ms` مللي ثانيه.
 
-Here's the previous, function-based implementation:
+هنا الكود السابق، من غير بروكسي:
 
 ```js run
 function delay(f, ms) {
-  // return a wrapper that passes the call to f after the timeout
-  return function() { // (*)
+  // تُرجع غلاف يقوم بتمرير الاستدعاء ﻹلي f بعد انتهاء الوقت
+  return function () {
+    // (*)
     setTimeout(() => f.apply(this, arguments), ms);
   };
 }
@@ -527,15 +530,15 @@ function sayHi(user) {
   alert(`Hello, ${user}!`);
 }
 
-// after this wrapping, calls to sayHi will be delayed for 3 seconds
+// بعد هذه الإحاطه فإن استدعاء الدالة سيتأخر ل 3 ثواني
 sayHi = delay(sayHi, 3000);
 
 sayHi("John"); // Hello, John! (after 3 seconds)
 ```
 
-As we've seen already, that mostly works. The wrapper function `(*)` performs the call after the timeout.
+هذا يعمل كما رأينا بالفعل. الدالة المُحيطة `(*)` تقوم بالإستدعاء بعد انتهاء الوقت.
 
-But a wrapper function does not forward property read/write operations or anything else. After the wrapping, the access is lost to properties of the original functions, such as `name`, `length` and others:
+ولكن لا تقوم الدالة المحيطه بتمرير قراءة أو تعديل خاصية أو أي شيء آخر. بعد الإحاطه، تتم خسارة الوصول إلي الخاصائص الخاصة بالدالة الأصليه، مثل `name`, `length` وغيرهم:
 
 ```js run
 function delay(f, ms) {
@@ -559,9 +562,9 @@ alert(sayHi.length); // 0 (in the wrapper declaration, there are zero arguments)
 */!*
 ```
 
-`Proxy` is much more powerful, as it forwards everything to the target object.
+إن ال `Proxy` أقوي بكثير لأنه يقوم بتمرير كل شيئ إلي الأوبجكت المستهدف.
 
-Let's use `Proxy` instead of a wrapping function:
+هيا نستخدم بروكسي بلًا من الدالة المحيطة:
 
 ```js run
 function delay(f, ms) {
@@ -585,47 +588,47 @@ alert(sayHi.length); // 1 (*) proxy forwards "get length" operation to the targe
 sayHi("John"); // Hello, John! (after 3 seconds)
 ```
 
-The result is the same, but now not only calls, but all operations on the proxy are forwarded to the original function. So `sayHi.length` is returned correctly after the wrapping in the line `(*)`.
+النتيجة مماثله، ولكن الآن ليست الاستدعاءات فقط مايتم تمريرها ولكن الكل العمليات أيضًا. ولذلك فإن `sayHi.length` يتم استرجاعها بشكل صحيح بعد الإحاطه في السطر `(*)`.
 
-We've got a "richer" wrapper.
+لدينا غلاف أقوي.
 
-Other traps exist: the full list is in the beginning of this article. Their usage pattern is similar to the above.
+هناك traps أخري: القائمة الكاملة موجودة في بداية المقال. وطريقة استخدامهم مشابهة لما سبق.
 
-## Reflect
+## الأوبجكت Reflect
 
-`Reflect` is a built-in object that simplifies creation of `Proxy`.
+الأوبجكت `Reflect` هو أوبجكت موجود في اللغة والذي يقوم بتبسيط إنشاء `Proxy`.
 
-It was said previously that internal methods, such as `[[Get]]`, `[[Set]]` and others are specification-only, they can't be called directly.
+لقد قيل سابقًا أن الدوال الضمنية مثل `[[Get]]`, `[[Set]]` وغيرهم هم دوال مصدرية فقط، لا يمكن استدعاؤهم بشكل مباشر.
 
-The `Reflect` object makes that somewhat possible. Its methods are minimal wrappers around the internal methods.
+الكائن `Reflect` يجعل ذلك بسيطا نوعا ما. الدوال الخاصة به هي غلاف مباشر للدوال الضمنية.
 
-Here are examples of operations and `Reflect` calls that do the same:
+هنا أمثلة لبعض العمليات وكذلك استدعاءات ال `Reflect` والتي تقوم بعمل نفس الشيئ:
 
-| Operation |  `Reflect` call | Internal method |
-|-----------------|----------------|-------------|
-| `obj[prop]` | `Reflect.get(obj, prop)` | `[[Get]]` |
-| `obj[prop] = value` | `Reflect.set(obj, prop, value)` | `[[Set]]` |
-| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[Delete]]` |
-| `new F(value)` | `Reflect.construct(F, value)` | `[[Construct]]` |
-| ... | ... | ... |
+| Operation           | `Reflect` call                      | Internal method |
+| ------------------- | ----------------------------------- | --------------- |
+| `obj[prop]`         | `Reflect.get(obj, prop)`            | `[[Get]]`       |
+| `obj[prop] = value` | `Reflect.set(obj, prop, value)`     | `[[Set]]`       |
+| `delete obj[prop]`  | `Reflect.deleteProperty(obj, prop)` | `[[Delete]]`    |
+| `new F(value)`      | `Reflect.construct(F, value)`       | `[[Construct]]` |
+| ...                 | ...                                 | ...             |
 
-For example:
+علي سبيل المثال:
 
 ```js run
 let user = {};
 
-Reflect.set(user, 'name', 'John');
+Reflect.set(user, "name", "John");
 
 alert(user.name); // John
 ```
 
-In particular, `Reflect` allows us to call operators (`new`, `delete`...) as functions (`Reflect.construct`, `Reflect.deleteProperty`, ...). That's an interesting capability, but here another thing is important.
+بالتحديد، يسمح لنا ال`Reflect` باستدعاء العمليات (`new`, `delete`...) كدوال (`Reflect.construct`, `Reflect.deleteProperty`, ...). وهذه ميزة جيدة ومثيرة، ولكن هنا شيئ آخر مهم.
 
-**For every internal method, trappable by `Proxy`, there's a corresponding method in `Reflect`, with the same name and arguments as the `Proxy` trap.**
+**لكل خاصية ضمنية، تم اعتراضها ببروكسي، دالة في ال `Reflect`، بنفس الإسم والمتغيرات الخاصة بالtrap.**
 
-So we can use `Reflect` to forward an operation to the original object.
+لذلك يمكننا استخدام `Reflect` لتمرير عملية إلي الكائن الأصلي.
 
-In this example, both traps `get` and `set` transparently (as if they didn't exist) forward reading/writing operations to the object, showing a message:
+في هذا المثال، كلا من `get` و `set` يقومان بتمرير القراءة والتعديل إلي الأوبجكت بشكل شفاف، ويظهران رسالة:
 
 ```js run
 let user = {
@@ -651,22 +654,22 @@ let name = user.name; // shows "GET name"
 user.name = "Pete"; // shows "SET name=Pete"
 ```
 
-Here:
+هنا:
 
-- `Reflect.get` reads an object property.
-- `Reflect.set` writes an object property and returns `true` if successful, `false` otherwise.
+- `Reflect.get` تقرأ خاصية لأوبجكت.
+- `Reflect.set` تقوم بتعديل خاصية لأوبجت وتُرجع `true` في حالة النجاح و `false` في غير ذلك.
 
-That is, everything's simple: if a trap wants to forward the call to the object, it's enough to call `Reflect.<method>` with the same arguments.
+وهكذا كل شيئ بسيط: إذا أراد trap أن يمرر استدعاءًا لأوبجكت فإنه من الكافي استدعاء `Reflect.<method>` بنفس الخصائص.
 
-In most cases we can do the same without `Reflect`, for instance, reading a property `Reflect.get(target, prop, receiver)` can be replaced by `target[prop]`. There are important nuances though.
+في أغلب الحالات يمكننا فعل نفس الشيئ بدون `Reflect`، علي سبيل المثال، قراءة خاصية بـ `Reflect.get(target, prop, receiver)` يمكن استبداله بـ `target[prop]`. ولكن مع ذلك هناك فروق مهمه.
 
-### Proxying a getter
+### إحاطة الـgetter أو الجالب ببروكسي
 
-Let's see an example that demonstrates why `Reflect.get` is better. And we'll also see why `get/set` have the third argument `receiver`, that we didn't use before.
+هيا نري مثالًا يوضح لماذا `Reflect.get` أفضل. وسنري أيضًا لماذا `get/set` لديهم المتغير الرابع `receiver` الذي لم نستخدمه من فيل.
 
-We have an object `user` with `_name` property and a getter for it.
+لدينا الأوبجكت `user` الذي يحتوي علي الخاصية `_name` وجالب لها.
 
-Here's a proxy around it:
+هنا بروكسي حولها:
 
 ```js run
 let user = {
@@ -687,11 +690,11 @@ let userProxy = new Proxy(user, {
 alert(userProxy.name); // Guest
 ```
 
-The `get` trap is "transparent" here, it returns the original property, and doesn't do anything else. That's enough for our example.
+الtrap `get` شفاف هنا، حيث تقوم بإرجاع الخاصية الأصلية ولا تفعل أي شيئ آخر. وهذا طافٍ لمثالنا.
 
-Everything seems to be all right. But let's make the example a little bit more complex.
+كل شيئ يبدو كأنه صحيح. ولكن هيا ننشئ مثالًا أكثر تعقيدًا.
 
-After inheriting another object `admin` from `user`, we can observe the incorrect behavior:
+بعد وراثة أوبجكت آخر `admin` من `user`، يمكننا مشاهدة السلوك الخاطئ:
 
 ```js run
 let user = {
@@ -718,27 +721,27 @@ alert(admin.name); // outputs: Guest (?!?)
 */!*
 ```
 
-Reading `admin.name` should return `"Admin"`, not `"Guest"`!
+استرجاع `admin.name` يجب أن ينتج "Admin"`, وليس`"Guest"`!
 
-What's the matter? Maybe we did something wrong with the inheritance?
+ماذا حدث؟ من الممكن أننا فعلنا شيئًا خاطئًا مع الوراثة؟
 
-But if we remove the proxy, then everything will work as expected.
+ولكن إذا قمنا بإزالة البروكسي، سيعمل كل شيئ كما هو متوقع.
 
-The problem is actually in the proxy, in the line `(*)`.
+المشكلة تحديدًا في البروكسي في السطر `(*)`.
 
-1. When we read `admin.name`, as `admin` object doesn't have such own property, the search goes to its prototype.
-2. The prototype is `userProxy`.
-3. When reading `name` property from the proxy, its `get` trap triggers and returns it from the original object as `target[prop]` in the line `(*)`.
+1. عند قراءة `admin.name` فإن الأوبجكت `admin` ليس لديه خاصية كهذه فيذهب البحث إلي الـprototype المتصل به.
+2. الprototype هو `userProxy`.
+3. عند قراءة الخاصية `name` من البروكسي، فإن الtrap `get` يُشغل ويُرجع قيمتها من الأوبجكت ألأصلي كما `target[prop]` في السطر `(*)`.
 
-    A call to `target[prop]`, when `prop` is a getter, runs its code in the context `this=target`. So the result is `this._name` from the original object `target`, that is: from `user`.
+   استدعاء `target[prop]`، عندما تكون `prop` جالبة، تقوم بتشغيل الكود في سياق `this=target`. لذلك تكون النتيجة `this._name` من الكائن الأصلي `target` والذي هو `user`.
 
-To fix such situations, we need `receiver`, the third argument of `get` trap. It keeps the correct `this` to be passed to a getter. In our case that's `admin`.
+لإصلاح ذلك، نحتاج إلي `receiver`، المتغير الثالث للtrap `get`. هي تحافظ علي القيمة الصحيحة لـ `this` وتمريرها لجالب. في حالتنا هو `admin`.
 
-How to pass the context for a getter? For a regular function we could use `call/apply`, but that's a getter, it's not "called", just accessed.
+كيف تمرر سياق لجالب؟ في الدوال العادية يمكننا استخدام `call/apply` ولكن هذا جالب ولا يتم استدعاؤه، فقط الوصول إليه إليه.
 
-`Reflect.get` can do that. Everything will work right if we use it.
+تستطيع `Reflect.get` أن تفعل ذلك. كل شيئ يمكنه أن يعمل بشكل صحيح إذا استخدمناه.
 
-Here's the corrected variant:
+هنا الكود المصحح:
 
 ```js run
 let user = {
@@ -767,9 +770,9 @@ alert(admin.name); // Admin
 */!*
 ```
 
-Now `receiver` that keeps a reference to the correct `this` (that is `admin`), is passed to the getter using `Reflect.get` in the line `(*)`.
+والآن فإن `receiver` الذي يحافظ علي القيمة الصحيحه `this`، يتم تمريره للجالب باستخدام `Reflect.get` في السطر `(*)`.
 
-We can rewrite the trap even shorter:
+يمكننا كتابة الtrap بشكل أقصر:
 
 ```js
 get(target, prop, receiver) {
@@ -777,26 +780,25 @@ get(target, prop, receiver) {
 }
 ```
 
+استدعاءات `Reflect` مسماة بنفس أسماء الtraps وتستقبل نفس المتغيرات. تم إنشائهم بهذه الطريقة.
 
-`Reflect` calls are named exactly the same way as traps and accept the same arguments. They were specifically designed this way.
+لذلك فإن `return Reflect...` يعطينا طريقة آمنو لتمرير العمليات دون أن نقلق إن كنا نسينا شيئًا.
 
-So, `return Reflect...` provides a safe no-brainer to forward the operation and make sure we don't forget anything related to that.
+## حدود البروكسي
 
-## Proxy limitations
+إن البروكسي هو طريقة فريدة لتعديل سلوك الكائنات الموجودة علي أدني مستوي. ومع ذلك هو ليس أفضل شيئ. هناك حدود.
 
-Proxies provide a unique way to alter or tweak the behavior of the existing objects at the lowest level. Still, it's not perfect. There are limitations.
+### الأوبجكتس الموجود بالفعل: Internal slots
 
-### Built-in objects: Internal slots
+الكثير من الكائنات الموجودة بالفعل مثل `Map`, `Set`, `Date`, `Promise` وغيرهم يستخدمون مايسمي "internal slots".
 
-Many built-in objects, for example `Map`, `Set`, `Date`, `Promise` and others make use of so-called "internal slots".
+هي عبارة عن خصائص، ولكن محفوظة ويتم استخدامها ضمنيًا فقط. علي سبيل المثال، يخزن الـ `Map` العناصر في فتحة داخلية (internal slot) تسمي `[[MapData]]`. الدوال الموجودة في اللغة تصل إليهم مباشرة وليس عن طريق `[[Get]]/[[Set]]`. ولذلك فإن البروكسي لا يستطيع اعتراضهم.
 
-These are like properties, but reserved for internal, specification-only purposes. For instance, `Map` stores items in the internal slot `[[MapData]]`. Built-in methods access them directly, not via `[[Get]]/[[Set]]` internal methods. So `Proxy` can't intercept that.
+لماذا نهتم؟ إنهم أشياء مضمنة علي كل الأحوال!
 
-Why care? They're internal anyway!
+حسنًا، هنا المشكله، بعد أن يتم إحاطة أوبجكت كهذا ببروكسي فإن البروكسي لا يملك هذه الـ internal slots ولذلك فإن الدوال الضمنية ستفشل.
 
-Well, here's the issue. After a built-in object like that gets proxied, the proxy doesn't have these internal slots, so built-in methods will fail.
-
-For example:
+علي سبيل المثال:
 
 ```js run
 let map = new Map();
@@ -804,13 +806,13 @@ let map = new Map();
 let proxy = new Proxy(map, {});
 
 *!*
-proxy.set('test', 1); // Error
+proxy.set('test', 1); // خطأ
 */!*
 ```
 
-Internally, a `Map` stores all data in its `[[MapData]]` internal slot. The proxy doesn't have such a slot. The [built-in method `Map.prototype.set`](https://tc39.es/ecma262/#sec-map.prototype.set) method tries to access the internal property `this.[[MapData]]`, but because `this=proxy`, can't find it in `proxy` and just fails.
+ضمنيًا، يخزن الـ `Map` كل البيانات في `[[MapData]]`. والبروكسي ليس لديه فتحة (slot) كهذه. والدالة [`Map.prototype.set`](https://tc39.es/ecma262/#sec-map.prototype.set) تحاول أن تصل إلي الخاصية الداخلية `this.[[MapData]]` ولكن بما أن `this=proxy` فإنها لا تجدها بداخل البروكسي وتفشل.
 
-Fortunately, there's a way to fix it:
+لحسن الحظ، هناك طريقة لإصلاح ذلك:
 
 ```js run
 let map = new Map();
@@ -828,21 +830,22 @@ proxy.set('test', 1);
 alert(proxy.get('test')); // 1 (works!)
 ```
 
-Now it works fine, because `get` trap binds function properties, such as `map.set`, to the target object (`map`) itself.
+والآن هي تعمل جيدًا، لأن الtrap `get` يربط خصائص الدالة ، مثل `map.set`، بالأوبجكت المستهدف.
 
-Unlike the previous example, the value of `this` inside `proxy.set(...)` will be not `proxy`, but the original `map`. So when the internal implementation of `set` tries to access `this.[[MapData]]` internal slot, it succeeds.
+علي عكس المثال السابق، فإن قيمة `this` بداخل `proxy.set(...)` لن تكون بروكسي ولكن فقط ال`map` الأصلي. لذلك عندما تحاول الدالة `set` أن تصل إلي `this.[[MapData]]` فإنها تنجح.
 
-```smart header="`Array` has no internal slots"
-A notable exception: built-in `Array` doesn't use internal slots. That's for historical reasons, as it appeared so long ago.
+```smart header="`Array` لا تحتوي علي internal slots"
+استثناء ملحوظ: الـ `Array` لا تستخدم الـ internal slots. وهذا لأسباب متأصلة وتاريخية، لأنها ظهرت منذ زمن طويل.
 
-So there's no such problem when proxying an array.
-```
+لذلك لا توجد مشكلة كهذه عند إحاطة المصفوفة ببروكسي.
 
-### Private fields
+````
 
-The similar thing happens with private class fields.
+### الخصائص الخاصة Private fields
 
-For example, `getName()` method accesses the private `#name` property and breaks after proxying:
+الشيئ المشابه يحدث مع الخصائص الخاصة بالكلاس.
+
+علي سبيل المثال، الدالة `getName()` تصل إلي الخاصية الخاصة `#name` وتقف بعد الإحاطة:
 
 ```js run
 class User {
@@ -858,15 +861,15 @@ let user = new User();
 user = new Proxy(user, {});
 
 *!*
-alert(user.getName()); // Error
+alert(user.getName()); // خطأ
 */!*
-```
+````
 
-The reason is that private fields are implemented using internal slots. JavaScript does not use `[[Get]]/[[Set]]` when accessing them.
+السبب في ذلك أن الخصائص الداخلية يتم إنشاؤها بالـ internal slots. ولا تستخدم الجافاسكريبت `[[Get]]/[[Set]]` عند الوصول إليهم.
 
-In the call `getName()` the value of `this` is the proxied `user`, and it doesn't have the slot with private fields.
+عند استدعاء `getName()` فإن قيمة `this` يتم إحاطتها بالأوبجكت `user`، وهي لا تملك فتحة (slot) مع الخصائص الخاصة.
 
-Once again, the solution with binding the method makes it work:
+مرة أخري، فإن الحل بالربط يجعلها تعمل:
 
 ```js run
 class User {
@@ -882,20 +885,20 @@ let user = new User();
 user = new Proxy(user, {
   get(target, prop, receiver) {
     let value = Reflect.get(...arguments);
-    return typeof value == 'function' ? value.bind(target) : value;
-  }
+    return typeof value == "function" ? value.bind(target) : value;
+  },
 });
 
 alert(user.getName()); // Guest
 ```
 
-That said, the solution has drawbacks, as explained previously: it exposes the original object to the method, potentially allowing it to be passed further and breaking other proxied functionality.
+كما قيل، فإن الحل له عيوب، كما تم التوضيح سابقًا: فإنه يقوم بتعريض الكائن الأصلي للدالة ويسمح بتمريره وإنهاء الكائنات بروكسي الأخري.
 
-### Proxy != target
+### البروكسي ليس هو الأوبجكت المستهدف
 
-The proxy and the original object are different objects. That's natural, right?
+إن البروكسي والكائن الأصلي مختلفان. هذا طبيعي، صحيح؟
 
-So if we use the original object as a key, and then proxy it, then the proxy can't be found:
+لذلك إذا استخدمنا الأوبدجكت الأصلي كخاصية، ثم إحاطته ببروكسي، فإن البروكسي لا يمكن إيجاده:
 
 ```js run
 let allUsers = new Set();
@@ -918,54 +921,53 @@ alert(allUsers.has(user)); // false
 */!*
 ```
 
-As we can see, after proxying we can't find `user` in the set `allUsers`, because the proxy is a different object.
+كما نري، فإنه بعد الإحاطة لا نستطيع أن نجد `user` في المجموعه `allUsers`، لأن البروكسي هو كائن مختلف.
 
-```warn header="Proxies can't intercept a strict equality test `===`"
-Proxies can intercept many operators, such as `new` (with `construct`), `in` (with `has`), `delete` (with `deleteProperty`) and so on.
+```warn header="البروكسي لا يستطيع أن يعترض اختبار المساواة `===`"
+البروكسي يمكنه اعتراض الكثير من العمليات، مثل `new` باستخدام `construct` و كذلك `in` باستخدام `has` وهكذا.
 
-But there's no way to intercept a strict equality test for objects. An object is strictly equal to itself only, and no other value.
+ولكن ليست هناك طريقة لاعتراض اختبار المساواة `===` للأوبجكتس. فإن الأوبجكت مساوٍ تماما لنفسه فقط وليس أي قيمة أخري.
 
-So all operations and built-in classes that compare objects for equality will differentiate between the object and the proxy. No transparent replacement here.
-```
+لذلك فإن كل العمليات والكلاسز المبنيو في اللغة والتي تقارن الكائنات للمساواة ستقوم بالتفريق بين الأوبجكت والبروكسي. لا يوجد استبدال هنا.
 
-## Revocable proxies
+````
 
-A *revocable* proxy is a proxy that can be disabled.
+## البروكسي القابل للإلغاء
 
-Let's say we have a resource, and would like to close access to it any moment.
+دعنا نقول أن لدينا مصدر، ونريد أن نمنع الوصول إليه في أى وقت.
 
-What we can do is to wrap it into a revocable proxy, without any traps. Such a proxy will forward operations to object, and we can disable it at any moment.
+مانستطيع فعله هو أن نحيطه ببروكسي قابل للإلغاء، بدون أي trap. هذا البروكسي سيقوم بتمرير العمليات إلي الأوبجكت ويمكننا أن نمنع الوصول إليه في أى وقت.
 
-The syntax is:
+الشكل:
 
 ```js
 let {proxy, revoke} = Proxy.revocable(target, handler)
-```
+````
 
-The call returns an object with the `proxy` and `revoke` function to disable it.
+الإستدعاء يقوم بإرجاع أوبجكت يحتوي علي `proxy` ودالة `revoke` لإبطاله.
 
-Here's an example:
+هاك مثالًا:
 
 ```js run
 let object = {
-  data: "Valuable data"
+  data: "Valuable data",
 };
 
-let {proxy, revoke} = Proxy.revocable(object, {});
+let { proxy, revoke } = Proxy.revocable(object, {});
 
-// pass the proxy somewhere instead of object...
-alert(proxy.data); // Valuable data
+// تمرير اليروكسي إلى مكان آخر بلًا من الأوبجكت...
+alert(proxy.data); // بيانات قيمة
 
-// later in our code
+// فيما بعد
 revoke();
 
-// the proxy isn't working any more (revoked)
-alert(proxy.data); // Error
+// لا يعمل البروكسي الآن (تم الإلغاء)
+alert(proxy.data); // خطأ
 ```
 
-A call to `revoke()` removes all internal references to the target object from the proxy, so they are no more connected. The target object can be garbage-collected after that.
+استدعاء `revoke()` يمسح كل المراجع الداخلية للأوبجكت المستهدف من البروكسي، ولذلك فإنهما ليسا متصلان بعد الآن. الأوبجكت المستهدف يمكن أن يتم تنظيفه بعد ذلك.
 
-We can also store `revoke` in a `WeakMap`, to be able to easily find it by a proxy object:
+يمكننا أيضًا أن نخزن الدالة `revoke` في `WeakMap`، لنكون قادرين علي إيجاده بواسطة بروكسي:
 
 ```js run
 *!*
@@ -984,25 +986,25 @@ revokes.set(proxy, revoke);
 revoke = revokes.get(proxy);
 revoke();
 
-alert(proxy.data); // Error (revoked)
+alert(proxy.data); // خطأ (تم إلغاؤه)
 ```
 
-The benefit of such an approach is that we don't have to carry `revoke` around. We can get it from the map by `proxy` when needed.
+الفائدة من نهج كهذا هو أننا لسنا مضطرين لأن نحمل الدالة `revoke`. يمكننا الحصول عليها من الmap بواسطة `proxy` عند الحاجه.
 
-We use `WeakMap` instead of `Map` here because it won't block garbage collection. If a proxy object becomes "unreachable" (e.g. no variable references it any more), `WeakMap` allows it to be wiped from memory together with its `revoke` that we won't need any more.
+نستخدم `WeakMap` بدلًل من `Map`هنا لأننا لا نريد أن نمنع عملية التنظيف (garbage collection). إذا أصبح الأوبجكت "لا يمكن الوصول إليه" (علي سبيل المثال لا توجد أي متغيرات تصل إليها)، تسمح له الـ `WeakMap` أن يتم مسحه من الذاكرة مع دالة `revoke` الخاصة به فليس هناك حاجة لها بعد الآن.
 
-## References
+## المراجع
 
-- Specification: [Proxy](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots).
+- المصدر: [Proxy](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots).
 - MDN: [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
 
-## Summary
+## الملخص
 
-`Proxy` is a wrapper around an object, that forwards operations on it to the object, optionally trapping some of them.
+إن الـ `Proxy` هو غلاف حول الأوبجكت، والذي يقوم بتمرير العمليات إلي الأوبجكت، ويقوم باعتراض بعضهم بشكل اختياري.
 
-It can wrap any kind of object, including classes and functions.
+يمكنه أن يحيط أي أوبجكت، بما فيه الكلاس والدالة.
 
-The syntax is:
+الشكل:
 
 ```js
 let proxy = new Proxy(target, {
@@ -1010,23 +1012,24 @@ let proxy = new Proxy(target, {
 });
 ```
 
-...Then we should use `proxy` everywhere instead of `target`. A proxy doesn't have its own properties or methods. It traps an operation if the trap is provided, otherwise forwards it to `target` object.
+...بعد ذلك يجب أن نستخدم `proxy` في كل مكان بدلًا من `target`. إن البروكسي لا يحتوي علي خصائص أو دوال خاصة به. هو يقوم باعتراض العمليه إذا وجد trap وإلا فإنه يمرر العمليه إلي الأوبجكت المستهدف.
 
-We can trap:
-- Reading (`get`), writing (`set`), deleting (`deleteProperty`) a property (even a non-existing one).
-- Calling a function (`apply` trap).
-- The `new` operator (`construct` trap).
-- Many other operations (the full list is at the beginning of the article and in the [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)).
+يمكننا أن نعترض:
 
-That allows us to create "virtual" properties and methods, implement default values, observable objects, function decorators and so much more.
+- قراءة (`get`), تعديل (`set`), حذف (`deleteProperty`) خاصية (حتي إذا لم تكن موجودة).
+- استدعاء دالة (`apply`).
+- المعامل `new` (`construct` trap).
+- وغيره الكثير من العمليات (القامة الكاملة موجودة في بداية المقال وفي [المصدر](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)).
 
-We can also wrap an object multiple times in different proxies, decorating it with various aspects of functionality.
+هذا يسمح لنا أن ننشئ خواص ودوال افتراضية واسترجاع قيم افتراضية وأوبجكت ملحوظ والكثير.
 
-The [Reflect](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect) API is designed to complement [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). For any `Proxy` trap, there's a `Reflect` call with same arguments. We should use those to forward calls to target objects.
+يمكننا أيضًا أن نعترض أوبجكت مرات عدة ببروكسي مختلف، وتعليمها بطرق مختلفة.
 
-Proxies have some limitations:
+[الكائن Reflect](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect) تم إنشاؤه ليكمل الـ [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). لكل trap في `Proxy`, يوجد استدعاء لـ `Reflect` بنفس المتغيرات. يجب أن نستخدمها لتمرير القيم إلي الأوبجكت المستهدف.
 
-- Built-in objects have "internal slots", access to those can't be proxied. See the workaround above.
-- The same holds true for private class fields, as they are internally implemented using slots. So proxied method calls must have the target object as `this` to access them.
-- Object equality tests `===` can't be intercepted.
-- Performance: benchmarks depend on an engine, but generally accessing a property using a simplest proxy takes a few times longer. In practice that only matters for some "bottleneck" objects though.
+البروكسي له حدود:
+
+- الأوبجكت المبنية بالفعل تمتلك "internal slots"، والوصول إليها لا مككن إحاطته ببروكسي. أنظر إلي الحل أعلاه.
+- ومثله أيضًا الخصائص الخاصة في الكلاس، حيث أنهم يتم إنشاؤهم داخليا باستخدام فتحات (slots). ولذلك فإن الدوال المغلفة يجب أن تحتوي علي الأوبجكت المستهدف كقيمة لـ `this` للوصول إليهم بنجاح.
+- اختبار التساوي `===` لا يمكن اعتراضه.
+- السرعة: هذا يعتمد علي الإنجن ولكن بشكل عام فإن الوصول إلي خاصية ببروطسي بسيط يستغرق وقتًا أطول.

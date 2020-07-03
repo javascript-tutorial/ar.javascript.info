@@ -1,7 +1,7 @@
-The solution consists of two parts:
+يتكون الحل من جزئين:
 
-1. Whenever `.observe(handler)` is called, we need to remember the handler somewhere, to be able to call it later. We can store handlers right in the object, using our symbol as the property key.
-2. We need a proxy with `set` trap to call handlers in case of any change.
+1. عند استدعاء `.observe(handler)` في أى وقت، نحتاج إلي أن نتذكر الـ handler فس أي مكان، لنكون قادرين علي استدعاءه لاحقًا. يمكن تخزين الـhandler في الأوبجكت باستخدام الرمز كاسم للخاصية.
+2. نحتاج إلي بروكسي يحتوي علي الtrap `set` لاستدعاء الhandlers في حالة التغيير.
 
 ```js run
 let handlers = Symbol('handlers');

@@ -1,20 +1,23 @@
-# Rest parameters and spread syntax
+# المُعاملات «البقية» ومُعامل التوزيع
 
-Many JavaScript built-in functions support an arbitrary number of arguments.
+تتوقّع العديد من دوال جافاسكربت المضمّنة في اللغة عددًا من الوُسطاء لا ينتهي.
 
-For instance:
+مثال:
 
-- `Math.max(arg1, arg2, ..., argN)` -- returns the greatest of the arguments.
-- `Object.assign(dest, src1, ..., srcN)` -- copies properties from `src1..N` into `dest`.
-- ...and so on.
+- `‎Math.max(arg1, arg2, ..., argN)‎` -- يُعيد أكبر وسيط من الوُسطاء.
+- `‎Object.assign(dest, src1, ..., srcN)‎` -- ينسخ الخصائص من `‎src1..N‎` إلى `‎dest‎`.
+- ...وهكذا.
 
-In this chapter we'll learn how to do the same. And also, how to pass arrays to such functions as parameters.
 
-## Rest parameters `...`
+سنتعلّم في هذا الفصل كيف نفعل ذلك أيضًا. كما وكيف نمرّر المصفوفات إلى هذه الدوال على أنّها مُعاملات.
 
-A function can be called with any number of arguments, no matter how it is defined.
+## المُعاملات «البقية» `...`
 
-Like here:
+يمكن أن ننادي الدالة بأيّ عدد من الوُسطاء كيفما كانت معرّفة الدالة.
+
+هكذا:
+
+
 ```js run
 function sum(a, b) {
   return a + b;
@@ -23,14 +26,14 @@ function sum(a, b) {
 alert( sum(1, 2, 3, 4, 5) );
 ```
 
-There will be no error because of "excessive" arguments. But of course in the result only the first two will be counted.
+لن ترى أيّ خطأ بسبب تلك الوُسطاء «الزائدة». ولكن طبعًا فالنتيجة لن تأخذ بالحسبان إلا أوّل اثنين.
 
-The rest of the parameters can be included in the function definition by using three dots `...` followed by the name of the array that will contain them. The dots literally mean "gather the remaining parameters into an array".
+يمكن تضمين بقية المُعاملات في تعريف الدالة باستعمال الثلاث نقاط `‎...‎` ثمّ اسم المصفوفة التي ستحتويهم. تعني تلك النقط حرفيًا «اجمع المُعاملات الباقية في مصفوفة».
 
-For instance, to gather all arguments into array `args`:
+فمثلًا لجمع كلّ الوُسطاء في المصفوفة `‎args‎`:
 
 ```js run
-function sumAll(...args) { // args is the name for the array
+function sumAll(...args) { // ‫اسم المصفوفة هو args
   let sum = 0;
 
   for (let arg of args) sum += arg;
@@ -43,41 +46,44 @@ alert( sumAll(1, 2) ); // 3
 alert( sumAll(1, 2, 3) ); // 6
 ```
 
-We can choose to get the first parameters as variables, and gather only the rest.
+يمكن لو أردنا أن نأخذ المُعاملات الأولى في متغيّرات ونجمع البقية فقط.
 
-Here the first two arguments go into variables and the rest go into `titles` array:
+هنا نأخذ الوسيطين الأوليين في متغيرات والباقي نرميه في المصفوفة `‎titles‎`:
 
 ```js run
 function showName(firstName, lastName, ...titles) {
   alert( firstName + ' ' + lastName ); // Julius Caesar
 
-  // the rest go into titles array
-  // i.e. titles = ["Consul", "Imperator"]
+  // ‫الباقي نضعه في مصفوفة الأسماء titles
+  // ‫مثلًا titles = ["Consul", "Imperator"]‎
   alert( titles[0] ); // Consul
   alert( titles[1] ); // Imperator
   alert( titles.length ); // 2
 }
 
 showName("Julius", "Caesar", "Consul", "Imperator");
+
 ```
 
-````warn header="The rest parameters must be at the end"
-The rest parameters gather all remaining arguments, so the following does not make sense and causes an error:
+````warn header="يجب أن تُترك المُعاملات البقية إلى النهاية"
+تجمع المُعاملات البقية كلّ الوُسطاء التي بقيت. وبهذا فالآتي ليس منطقيًا وسيتسبّب بخطأ:
 
 ```js
-function f(arg1, ...rest, arg2) { // arg2 after ...rest ?!
-  // error
+function f(arg1, ...rest, arg2) { // ‫الوسيط arg2 بعد ...البقية؟!
+  // خطأ
 }
+
 ```
 
-The `...rest` must always be last.
+يجب أن يكون `‎...rest‎` الأخير دومًا.
 ````
 
-## The "arguments" variable
+## متغيّر الوُسطاء arguments
 
-There is also a special array-like object named `arguments` that contains all arguments by their index.
+هناك كائن آخر شبيه بالمصفوفات يُدعى `‎arguments‎` ويحتوي على كلّ الوُسطاء حسب ترتيب فهارسها.
 
-For instance:
+مثال:
+
 
 ```js run
 function showName() {
@@ -85,29 +91,29 @@ function showName() {
   alert( arguments[0] );
   alert( arguments[1] );
 
-  // it's iterable
+  // المصفوفة مُتعدَّدة
   // for(let arg of arguments) alert(arg);
 }
 
-// shows: 2, Julius, Caesar
+// ‫تعرض: 2, Julius, Caesar
 showName("Julius", "Caesar");
 
-// shows: 1, Ilya, undefined (no second argument)
+// ‫تعرض: 1, Ilya, undefined (ما من مُعطى ثانٍ)
 showName("Ilya");
+
 ```
 
-In old times, rest parameters did not exist in the language, and using `arguments` was the only way to get all arguments of the function. And it still works, we can find it in the old code.
+قديمًا لم تكن المُعاملات البقية موجودة في اللغة ولم يكن لدينا سوى استعمال `‎arguments‎` لنجلب كلّ مُعاملات الدالة. وما زالت تعمل الطريقة إلى يومنا هذا ويمكن أن تراها في الشيفرات القديمة.
 
-But the downside is that although `arguments` is both array-like and iterable, it's not an array. It does not support array methods, so we can't call `arguments.map(...)` for example.
+ولكن السلبية هنا هي أنّ `‎arguments‎` ليست مصفوفة (على الرغم من أنّها شبيهة بالمصفوفات ومُتعدّدة). بهذا لا تدعم توابِع المصفوفات فلا ينفع أن نستدعي عليها `‎arguments.map(...)‎` مثلًا.
 
-Also, it always contains all arguments. We can't capture them partially, like we did with rest parameters.
+كما وأنّها تحتوي على كل الوُسطاء دومًا. لا يمكن أن نأخذ منها ما نريد كما نفعل مع المُعاملات البقية.
 
-So when we need these features, then rest parameters are preferred.
+لهذا متى ما احتجنا إلى ميزة كهذه، فالأفضل استعمال المُعاملات البقية بدلًا من `‎arguments‎`.
 
-````smart header="Arrow functions do not have `\"arguments\"`"
-If we access the `arguments` object from an arrow function, it takes them from the outer "normal" function.
+**ليس للدوال السهمية `‎"arguments"‎`**
+لو حاولت الوصول إلى كائن الوُسطاء `‎arguments‎` من داخل الدالة السهمية، فستستلم الناتج من الدالة «الطبيعية» الخارجية. إليك مثالًا:
 
-Here's an example:
 
 ```js run
 function f() {
@@ -117,59 +123,63 @@ function f() {
 
 f(1); // 1
 ```
-
-As we remember, arrow functions don't have their own `this`. Now we know they don't have the special `arguments` object either.
-````
+كما نذكر فليس للدوال السهمية قيمة `‎this‎` تخصّها، أمّا الآن صرنا نعلم بأنّ ليس لها كائن `‎arguments‎` أيضًا.
 
 
-## Spread syntax [#spread-syntax]
+## مُعامل التوزيع [#spread-syntax]
 
-We've just seen how to get an array from the list of parameters.
+رأينا كيف نأخذ مصفوفة من قائمة من المُعطيات.
 
-But sometimes we need to do exactly the reverse.
+ولكن ماذا لو أردنا العكس من ذلك؟
 
-For instance, there's a built-in function [Math.max](mdn:js/Math/max) that returns the greatest number from a list:
+فمثلًا لنقل أردنا استعمال الدالة المبنية في اللغة Math.max والتي تُعيد أكبر عدد من القائمة:
+
 
 ```js run
 alert( Math.max(3, 5, 1) ); // 5
 ```
 
-Now let's say we have an array `[3, 5, 1]`. How do we call `Math.max` with it?
 
-Passing it "as is" won't work, because `Math.max` expects a list of numeric arguments, not a single array:
+لنقل أنّ لدينا المصفوفة `‎[3, 5, 1]‎`. كيف نستدعي `‎Math.max‎` عليها؟
+
+لا ينفع تمريرها «كما هي» لأنّ `‎Math.max‎` يتوقّع قائمةً بالوُسطاء العددية لا مصفوفة واحدة:
+
 
 ```js run
 let arr = [3, 5, 1];
 
-*!*
 alert( Math.max(arr) ); // NaN
-*/!*
+
 ```
 
-And surely we can't manually list items in the code `Math.max(arr[0], arr[1], arr[2])`, because we may be unsure how many there are. As our script executes, there could be a lot, or there could be none. And that would get ugly.
+وطبعًا لا يمكن أن نفكّ عناصر القائمة يدويًا في الشيفرة `‎Math.max(arr[0], arr[1], arr[2])‎` لأنّنا في حالات لا نعرف كم من عنصر هناك أصلًا. وما إن يتنفّذ السكربت يمكن أن يكون فيه أكبر مما كتبناه أو حتّى لا شيء أصلًا، وسنحصد لاحقًا ما جنته هذه الشيفرة.
 
-*Spread syntax* to the rescue! It looks similar to rest parameters, also using `...`, but does quite the opposite.
+عاش مُنقذنا *مُعامل التوزيع*! عاش عاش عاش! من بعيد نراه مشابهًا تمامًا للمُعاملات البقية، كما ويستعمل `‎...‎`، إلّا أنّ وظيفته هي العكس تمامًا.
 
-When `...arr` is used in the function call, it "expands" an iterable object `arr` into the list of arguments.
+فحين نستعمل `‎‎...arr‎` في استدعاء الدالة، «يتوسّع» الكائن المُتعدَّد `‎...arr‎` إلى قائمة من الوُسطاء.
 
-For `Math.max`:
+فمثلًا نعود إلى `‎Math.max‎`:
+
 
 ```js run
 let arr = [3, 5, 1];
 
-alert( Math.max(...arr) ); // 5 (spread turns array into a list of arguments)
+// ‫5 (يحوّل التوزيع المصفوفة إلى قائمة من الوُسطاء)
+alert( Math.max(...arr) ); 
+
 ```
 
-We also can pass multiple iterables this way:
+يمكن أيضًا أن نمرّر أكثر من مُتعدَّد واحد بهذه الطريقة:
 
 ```js run
 let arr1 = [1, -2, 3, 4];
 let arr2 = [8, 3, -8, 1];
 
 alert( Math.max(...arr1, ...arr2) ); // 8
+
 ```
 
-We can even combine the spread syntax with normal values:
+أو حتّى ندمج مُعامل التوزيع مع القيم العادية:
 
 
 ```js run
@@ -177,113 +187,118 @@ let arr1 = [1, -2, 3, 4];
 let arr2 = [8, 3, -8, 1];
 
 alert( Math.max(1, ...arr1, 2, ...arr2, 25) ); // 25
+
 ```
 
-Also, the spread syntax can be used to merge arrays:
+كما يمكن أن نستعمل مُعامل التوزيعة لدمج المصفوفات:
 
 ```js run
 let arr = [3, 5, 1];
 let arr2 = [8, 9, 15];
 
-*!*
 let merged = [0, ...arr, 2, ...arr2];
-*/!*
 
-alert(merged); // 0,3,5,1,2,8,9,15 (0, then arr, then 2, then arr2)
+alert(merged); // ‫0,3,5,1,2,8,9,15 (0 ثمّ arr ثمّ 2 ثمّ arr2)
+
 ```
+استعملنا في الأمثلة أعلاه مصفوفة لنشرح مُعامل التوزيع، إلّا أنّ المُتعدَّدات أيًا كانت تنفع أيضًا.
 
-In the examples above we used an array to demonstrate the spread syntax, but any iterable will do.
+فمثلًا نستعمل هنا مُعامل التوزيع لنحوّل السلسلة النصية إلى مصفوفة محارف:
 
-For instance, here we use the spread syntax to turn the string into array of characters:
 
 ```js run
 let str = "Hello";
 
 alert( [...str] ); // H,e,l,l,o
+
 ```
 
-The spread syntax internally uses iterators to gather elements, the same way as `for..of` does.
+يستعمل مُعامل التوزيع هذا داخليًا المُعدِّدات لجمع العناصر، كما تفعل حلقة `‎for..of‎`.
 
-So, for a string, `for..of` returns characters and `...str` becomes `"H","e","l","l","o"`. The list of characters is passed to array initializer `[...str]`.
+لذا لو استلمت `‎for..of‎` سلسلةً نصيّة فتُعيد لنا المحارف وتصير `‎‎...str‎` بالقيمة `‎"H","e","l","l","o"‎`. وهكذا تُمرّر قائمة المحارف إلى مُهيّئ المصفوفة `‎[...str]‎`.
 
-For this particular task we could also use `Array.from`, because it converts an iterable (like a string) into an array:
+يمكننا أيضًا لهذه المهمة استعمال `‎Array.from‎` إذ أنّه يحوّل المُتعدَّد (مثل السلاسل النصية) إلى مصفوفة:
+
 
 ```js run
 let str = "Hello";
 
-// Array.from converts an iterable into an array
+// ‫يُحوّل Array.from المُتعدَّد إلى مصفوفة
 alert( Array.from(str) ); // H,e,l,l,o
 ```
 
-The result is the same as `[...str]`.
+ناتجه هو ذات ناتج `‎[‎...str]‎`.
 
-But there's a subtle difference between `Array.from(obj)` and `[...obj]`:
+ولكن... هناك فرق ضئيل بين `‎Array.from(obj)‎` و`‎[...obj]‎`:
 
-- `Array.from` operates on both array-likes and iterables.
-- The spread syntax works only with iterables.
+- يعمل `‎Array.from‎` على الشبيهات بالمصفوفات والمُتعدَّدات.
+- ويعمل مُعامل التوزيع على المُتعدَّدات فقط لا غير.
 
-So, for the task of turning something into an array, `Array.from` tends to be more universal.
+لذا لو أردت تحويل شيء إلى مصفوفة فالتابِع `‎Array.from‎` أكثر استعمالًا وشيوعًا.
 
+## الحصول علي نسخة من المصفوفة/الكائن
 
-## Get a new copy of an array/object
+تتذكر عندما تحدثنا عن `Object.assign()` [في الماضي](https://javascript.info/object#cloning-and-merging-object-assign)?
 
-Remember when we talked about `Object.assign()` [in the past](https://javascript.info/object#cloning-and-merging-object-assign)?
+يمكن أن تقوم بالمثل عن طريق `...`.
 
-It is possible to do the same thing with the spread syntax.
 
 ```js run
 let arr = [1, 2, 3];
-let arrCopy = [...arr]; // spread the array into a list of parameters
-                        // then put the result into a new array
+let arrCopy = [...arr]; // ننشر المصفوفة إلي قائمة من المعاملات
+                        // ثم نضع الناتج في مصفوفة جديدة
 
-// do the arrays have the same contents?
-alert(JSON.stringify(arr) === JSON.stringify(arrCopy)); // true
+// هل المصفوفات تمتلك نفس القيمة؟
+alert(JSON.stringify(arr) === JSON.stringify(arrCopy)); // صحيح
 
-// are the arrays equal?
-alert(arr === arrCopy); // false (not same reference)
+// هل متساويين؟
+alert(arr === arrCopy); // خطأ (ليس نفس المرجع)
 
-// modifying our initial array does not modify the copy:
+// تعديل مصفوفتنا الأولى لا يتم تعديله في النسخة:
+
 arr.push(4);
 alert(arr); // 1, 2, 3, 4
 alert(arrCopy); // 1, 2, 3
 ```
+لاحظ أنه من الممكن أن نقوم بنفس الشئ لصنع نسخة من الكائن أيضاً:
 
-Note that it is possible to do the same thing to make a copy of an object:
 
 ```js run
 let obj = { a: 1, b: 2, c: 3 };
-let objCopy = { ...obj }; // spread the object into a list of parameters
-                          // then return the result in a new object
+let objCopy = { ...obj }; // ننشر الكائن إلي قائمة من المعاملات
+                        // ثم نضع الناتج في كائن جديد
 
-// do the objects have the same contents?
-alert(JSON.stringify(obj) === JSON.stringify(objCopy)); // true
+// هل الكائنات تمتلك نفس القيمة؟
+alert(JSON.stringify(obj) === JSON.stringify(objCopy)); // صحيح
 
-// are the objects equal?
-alert(obj === objCopy); // false (not same reference)
+// هل متساويين؟
+alert(obj === objCopy); // خطأ (ليس نفس المرجع)
 
-// modifying our initial object does not modify the copy:
+// تعديل الكائن الأول لا يعدل في النسخة 
 obj.d = 4;
 alert(JSON.stringify(obj)); // {"a":1,"b":2,"c":3,"d":4}
 alert(JSON.stringify(objCopy)); // {"a":1,"b":2,"c":3}
 ```
 
-This way of copying an object is much shorter than `let objCopy = Object.assign({}, obj);` or for an array `let arrCopy = Object.assign([], arr);` so we prefer to use it whenever we can.
+هذه الطريقة أقصر بكثير من `let objCopy = Object.assign({}, obj);`
 
 
-## Summary
+## ملخص
 
-When we see `"..."` in the code, it is either rest parameters or the spread syntax.
+متى رأينا `‎"..."‎` في الشيفرة نعرف أنّه إمّا المُعاملات البقية وأمّا مُعامل التوزيع.
 
-There's an easy way to distinguish between them:
+إليك طريقة بسيطة للتفريق بينهما:
 
-- When `...` is at the end of function parameters, it's "rest parameters" and gathers the rest of the list of arguments into an array.
-- When `...` occurs in a function call or alike, it's called a "spread syntax" and expands an array into a list.
+- حين ترى `‎...‎` موجودة في نهاية مُعاملات الدالة فهي «المُعاملات البقية» وستجمع بقية قائمة الوُسطاء في مصفوفة.
+- وحين ترى `‎...‎` في استدعاء دالة أو ما شابهه فهو «مُعامل توزيع» يوسّع المصفوفة إلى قائمة.
 
-Use patterns:
+طُرق الاستعمال:
 
-- Rest parameters are used to create functions that accept any number of arguments.
-- The spread syntax is used to pass an array to functions that normally require a list of many arguments.
+- تُستعمل المُعاملات البقية لإنشاء دوال تقبل أيّ عدد كان من الوُسطاء.
+- يُستعمل مُعامل التوزيع لتمرير مصفوفة إلى دوال تطلب (عادةً) قائمة طويلة من الوُسطاء.
 
-Together they help to travel between a list and an array of parameters with ease.
+كلا الميزتين تساعدك في التنقل بين القائمة ومصفوفة المُعاملات بسهولة ويُسر.
 
-All arguments of a function call are also available in "old-style" `arguments`: array-like iterable object.
+يمكنك أيضًا أن ترى كل وُسطاء استدعاء الدالة «بالطريقة القديمة» `‎arguments‎` وهو كائن مُتعدَّد شبيه بالمصفوفات.
+
+

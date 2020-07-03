@@ -2,9 +2,9 @@ importance: 2
 
 ---
 
-# Syntax check
+# فحص بناء الجملة
 
-What is the result of this code?
+ما هي نتيجة هذه الشيفرة?
 
 
 ```js no-beautify
@@ -16,4 +16,4 @@ let user = {
 (user.go)()
 ```
 
-P.S. There's a pitfall :)
+ملاحظة. هناك مأزق :)

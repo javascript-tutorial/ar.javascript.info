@@ -210,6 +210,12 @@ alert( counter() ); // 2
 
 
 بسيط حتّى الآن، أم لا؟
+=======
+1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
+    - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It's almost the same as if the variable didn't exist.
+2. Then `let phrase` definition appears. There's no assignment yet, so its value is `undefined`. We can use the variable from this point forward.
+3. `phrase` is assigned a value.
+4. `phrase` changes the value.
 
 - المتغير هو فعليًا خاصية لإحدى الكائنات الداخلية الخاصة، وهذا الكائن مرتبط بالكتلة أو الدالة أو السكربت الذي يجري تنفيذه حاليًا.
 - حين نعمل مع المتغيرات نكون في الواقع نعمل مع خصائص ذلك الكائن.
@@ -323,6 +329,8 @@ let counter = makeCounter();
 ![](closure-makecounter-nested-call.svg)
 
 الأن عندما يبدأ الكود في البحث عن المتغير `count` داخل الدالة `counter()`, يبحث أولاً في البيئة المعجمية الخاصة به وإذا كانت فارفة يبحث في البيئة المعجمية الخارجية, ثم الخارج ثم الخارج حتي يجده.
+=======
+Now when the code inside `counter()` looks for `count` variable, it first searches its own Lexical Environment (empty, as there are no local variables there), then the Lexical Environment of the outer `makeCounter()` call, where it finds and changes it.
 
 ** المتغير تم تعديله في البيئة المعجمية حيث يعيش.**
 

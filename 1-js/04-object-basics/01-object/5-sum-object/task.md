@@ -2,18 +2,18 @@ importance: 5
 
 ---
 
-# Sum object properties
+# جمع خصائص الكائن
 
-We have an object storing salaries of our team:
+لدينا كائن يقوم بتخزين رواتب فريقنا:
 
 ```js
 let salaries = {
   John: 100,
   Ann: 160,
   Pete: 130
-}
+};
 ```
 
-Write the code to sum all salaries and store in the variable `sum`. Should be `390` in the example above.
+اكتب الرمز لتجميع جميع الرواتب وتخزينها في المتغير `sum`. يجب أن يكون `390` في المثال أعلاه.
 
-If `salaries` is empty, then the result must be `0`.
+إذا كانت `salaries` فارغة ، فيجب أن تكون النتيجة "0".

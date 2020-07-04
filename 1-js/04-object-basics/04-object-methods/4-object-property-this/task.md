@@ -1,10 +1,10 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Using "this" in object literal
+# استخدام `this` في الكائن معرَّف باختصار عبر الأقواس
 
-Here the function `makeUser` returns an object.
+تُرجِع الدالة `makeUser` كائنًا هنا. ما النتيجة من الدخول إلى `ref` الخاص بها؟ ولماذا؟
 
 What is the result of accessing its `ref`? Why?
 
@@ -18,6 +18,6 @@ function makeUser() {
 
 let user = makeUser();
 
-alert( user.ref.name ); // What's the result?
+alert( user.ref.name ); // ما النتيجة؟
 ```
 

@@ -1,10 +1,10 @@
 # Dynamic imports
 
-Export and import statements that we covered in previous chapters are called "static". The syntax is very simple and strict.
+بيانات التصدير والاستيراد التي تناولناها في الفصول السابقة تسمى "ثابتة". النحو بسيط للغاية وصارم.
 
-First, we can't dynamically generate any parameters of `import`.
+أولاً ، لا يمكننا إنشاء أي  لـ "استيراد" ديناميكيًا.
 
-The module path must be a primitive string, can't be a function call. This won't work:
+يجب أن يكون مسار الوحدة النمطية سلسلة أولية ، ولا يمكن أن يكون استدعاء دالة. هذا لن يعمل:
 
 ```js
 import ... from *!*getModuleName()*/!*; // Error, only from "string" is allowed
@@ -22,15 +22,15 @@ if(...) {
 }
 ```
 
-That's because `import`/`export` aim to provide a backbone for the code structure. That's a good thing, as code structure can be analyzed, modules can be gathered and bundled into one file by special tools, unused exports can be removed ("tree-shaken"). That's possible only because the structure of imports/exports is simple and fixed.
+وذلك لأن `الاستيراد` /` التصدير` يهدف إلى توفير العمود الفقري لبنية الكود. هذا شيء جيد ، حيث يمكن تحليل بنية الكود ، ويمكن تجميع الوحدات وتجميعها في ملف واحد بواسطة أدوات خاصة ، ويمكن إزالة عمليات التصدير غير المستخدمة ("اهتزاز الشجرة"). هذا ممكن فقط لأن هيكل الواردات / الصادرات بسيط وثابت.
 
-But how can we import a module dynamically, on-demand?
+ولكن كيف يمكننا استيراد وحدة نمطية ديناميكيًا حسب الطلب؟
 
 ## The import() expression
 
-The `import(module)` expression loads the module and returns a promise that resolves into a module object that contains all its exports. It can be called from any place in the code.
+يقوم التعبير "import (module)" بتحميل الوحدة النمطية وإرجاع الوعد الذي يتم حله في كائن الوحدة النمطية الذي يحتوي على كافة عمليات التصدير الخاصة به. يمكن استدعاؤها من أي مكان في التعليمات البرمجية.
 
-We can use it dynamically in any place of the code, for instance:
+يمكننا استخدامه ديناميكيًا في أي مكان من الرمز ، على سبيل المثال:
 
 ```js
 let modulePath = prompt("Which module to load?");
@@ -40,9 +40,9 @@ import(modulePath)
   .catch(err => <loading error, e.g. if no such module>)
 ```
 
-Or, we could use `let module = await import(modulePath)` if inside an async function.
+أو يمكننا استخدام `let module = انتظار الاستيراد (modulePath)` إذا كان داخل دالة غير متزامنة.
 
-For instance, if we have the following module `say.js`:
+على سبيل المثال ، إذا كان لدينا الوحدة التالية `say.js`:
 
 ```js
 // 📁 say.js
@@ -55,7 +55,7 @@ export function bye() {
 }
 ```
 
-...Then dynamic import can be like this:
+... ثم يمكن أن يكون الاستيراد الديناميكي مثل هذا:
 
 ```js
 let {hi, bye} = await import('./say.js');
@@ -64,7 +64,7 @@ hi();
 bye();
 ```
 
-Or, if `say.js` has the default export:
+أو ، إذا كان `say.js` يحتوي على التصدير الافتراضي:
 
 ```js
 // 📁 say.js
@@ -73,7 +73,7 @@ export default function() {
 }
 ```
 
-...Then, in order to access it, we can use `default` property of the module object:
+... ثم ، للوصول إليه ، يمكننا استخدام خاصية "افتراضي" لكائن الوحدة:
 
 ```js
 let obj = await import('./say.js');
@@ -83,16 +83,16 @@ let say = obj.default;
 say();
 ```
 
-Here's the full example:
+هنا المثال كاملا:
 
 [codetabs src="say" current="index.html"]
 
 ```smart
-Dynamic imports work in regular scripts, they don't require `script type="module"`.
+تعمل عمليات الاستيراد الديناميكية في النصوص العادية ، ولا تتطلب ذلك `script type="module"`.
 ```
 
 ```smart
-Although `import()` looks like a function call, it's a special syntax that just happens to use parentheses (similar to `super()`).
+على الرغم من أن `` import () `يشبه استدعاء دالة ، إلا أنها بناء جملة خاص يحدث فقط لاستخدام الأقواس (على غرار` super () `).
 
-So we can't copy `import` to a variable or use `call/apply` with it. It's not a function.
+لذلك لا يمكننا نسخ "استيراد" إلى متغير أو استخدام "استدعاء / تطبيق" معه. إنها ليست وظيفة.
 ```

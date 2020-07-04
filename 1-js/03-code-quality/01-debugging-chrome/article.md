@@ -1,196 +1,204 @@
-# Debugging in Chrome
+# تصحيح الأخطاء في كروم
 
-Before writing more complex code, let's talk about debugging.
+قبل كتابة أي كود معقد , فلنتحدث قليلا عن تصحيح الأخطاء.
 
-[Debugging](https://en.wikipedia.org/wiki/Debugging) is the process of finding and fixing errors within a script. All modern browsers and most other environments support debugging tools -- a special UI in developer tools that makes debugging much easier. It also allows to trace the code step by step to see what exactly is going on.
+[(Debugging) تصحيح الأخطاء](https://en.wikipedia.org/wiki/Debugging) هي عملية البحث و تصحيح الأخطاء في الكود. كل المتصفحات الحديثة و معظم بيئات العمل تدعم تصحيح الأخطاء -- تجعل أدوات مطور واجهة المستخدم الخاصة عملية تصحيح الأخطاء أسهل , فهي تسمح ايضا بتتبع الكود خطوة بخطوة لمعرفة حقيقة ما يجري.
 
-We'll be using Chrome here, because it has enough features, most other browsers have a similar process.
 
-## The "Sources" panel
+هنا سنستخدم جوجل كروم, لأن بها من الخواص الكثير و معظم المتصفحات لها عمليات مشابهة.
 
-Your Chrome version may look a little bit different, but it still should be obvious what's there.
+## لوحة "المصادر"
 
-- Open the [example page](debugging/index.html) in Chrome.
-- Turn on developer tools with `key:F12` (Mac: `key:Cmd+Opt+I`).
-- Select the `Sources` panel.
+قد يبدو  اصدار متصفح كروم الخاص بك مختلف قليلا ,لكن سيظل كل شئ بداخله واضح.
 
-Here's what you should see if you are doing it for the first time:
+- افتح [صفحة المثال](debugging/index.html) في كروم.
+- قم بتشغيل أدوات المطور باستخدام  `key:F12` أو   (Mac : `key:Cmd+Opt+I`).
+- اختر لوحة المصادر `Sources` 
+
+هذا هو ما ستراه اذا كنت تفتح الصفحة للوهلة الأولي:
 
 ![](chrome-open-sources.svg)
 
-The toggler button <span class="devtools" style="background-position:-172px -98px"></span> opens the tab with files.
+زر التبديل <span class="devtools" style="background-position:-172px -98px"></span> يفتح التبويب محتويا الملفات.
 
-Let's click it and select `hello.js` in the tree view. Here's what should show up:
+فلنضغط عليه و نختار `hello.js` في العرض الشجري . هذا هو ما سيظهر:
 
 ![](chrome-tabs.svg)
 
 The Sources panel has 3 parts:
+لوحة المصادر بها ثلاثة أقسام:
 
-1. The **File Navigator** pane lists HTML, JavaScript, CSS and other files, including images that are attached to the page. Chrome extensions may appear here too.
-2. The **Code Editor** pane shows the source code.
-3. The **JavaScript Debugging** pane is for debugging, we'll explore it soon.
+1. لوحة **مستكشف الملفات** و التي يظهر بها كل ملفات ال HTML, JavaScript, CSS و الملفات الأخري متضمنة الصور الملحقة بالصفحة. اضافات كروم قد تظهر هنا أيضا.
+2. لوحة **محرر الكود** و التي يظهر بها كود الصفحة.
+3. لوحة **مصحح أخطاء JavaScript** لتصحيح الأخطاء, و سيتم شرحها بعد قليل.
 
-Now you could click the same toggler <span class="devtools" style="background-position:-172px -122px"></span> again to hide the resources list and give the code some space.
+الآن بامكاننا الضغط علي نفس الزر <span class="devtools" style="background-position:-172px -98px"></span> لاخفاء قائمة المصادر و اعطاء الكود بعض المساحة.
 
-## Console
+## وحدة التحكم (Console)
 
-If we press `key:Esc`, then a console opens below. We can type commands there and press `key:Enter` to execute.
+اذا ضغطنا علي زر `key:Esc`, هنا ستظهر لوحة التحكم بالأسفل حيث يمكننا طباعة الأوامر و ضغط `key:Enter` لتنفيذها.
 
-After a statement is executed, its result is shown below.
+بعد ان يتم تنفيذ الأمر, الناتج يظهر اسفله.
 
-For example, here `1+2` results in `3`, and `hello("debugger")` returns nothing, so the result is `undefined`:
+كمثال, هنا  `1+2` ينتج عنها  `3` و `hello("debugger")` لا ينتج عنها شئ, لذا فالناتج يكون `undefined`.
 
 ![](chrome-sources-console.svg)
 
-## Breakpoints
+##  نقاط التوقف (Breakpoints)
 
-Let's examine what's going on within the code of the [example page](debugging/index.html). In `hello.js`, click at line number `4`. Yes, right on the `4` digit, not on the code.
+فلنري ما يحدث في أكواد [صفحة المثال](debugging/index.html). في `hello.js`, قم بالضغط علي السطر `4`, نعم, علي الرقم `4`ليس علي الكود نفسه
 
-Congratulations! You've set a breakpoint. Please also click on the number for line `8`.
+مبروك! لقد وضعت نقطة توقف, فلتضع اخري علي السطر رقم `8`>
 
-It should look like this (blue is where you should click):
+من المفترض ان تبدو هكذا (الأزرق هو المكان الذي يفترض عليك الضغط عليه) :
 
 ![](chrome-sources-breakpoint.svg)
 
-A *breakpoint* is a point of code where the debugger will automatically pause the JavaScript execution.
+*نقطة التوقف* هي  نقطة في الكود يتوقف عندها تنفيذ كود ال JavaScript بشكل تلقائي.
 
-While the code is paused, we can examine current variables, execute commands in the console etc. In other words, we can debug it.
+في حين أن الكود في حالة توقف مؤقت, يمكننا تصفح المتغيرات الحالية, تنفيذ أوامر في وحدة التحكم,...الخ. بصيغة أخري ,نستطيع تصحيح الأخطاء فيه.
 
-We can always find a list of breakpoints in the right panel. That's useful when we have many breakpoints in various files. It allows us to:
-- Quickly jump to the breakpoint in the code (by clicking on it in the right panel).
-- Temporarily disable the breakpoint by unchecking it.
-- Remove the breakpoint by right-clicking and selecting Remove.
-- ...And so on.
+يمكننا دائمًا العثور على قائمة بنقاط التوقف في اللوحة اليمنى. هذا مفيد عندما يكون لدينا العديد من نقاط التوقف في ملفات مختلفة.فهو يتيح لنا:
+- الانتقال بسرعة إلى نقطة التوقف في الكود (بالضغط عليها في اللوحة اليمنى).
+- تعطيل نقطة التوقف مؤقتًا بإلغاء تحديدها.
+- قم بإزالة نقطة التوقف بالنقر بزر الماوس الأيمن واختيار إزالة.
+- ...و هكذا.
 
-```smart header="Conditional breakpoints"
-*Right click* on the line number allows to create a *conditional* breakpoint. It only triggers when the given expression is truthy.
+```smart header="نقاط التوقف المشروطة"
+ *النقر بزر الماوس الأيمن* على رقم السطر يسمح بإنشاء نقطة توقف *مشروطة*. يتم تشغيلها فقط عندما يكون الشرط المعطى محقق.
 
-That's handy when we need to stop only for a certain variable value or for certain function parameters.
+يكون هذا مفيدا عند الحاجة للتوقف فقط تبعا لمتغير معين أو معاملات دالة معينة.
 ```
 
-## Debugger command
+## أمر مصحح الخطأ(Debugger)
 
-We can also pause the code by using the `debugger` command in it, like this:
+يمكننا أيضًا إيقاف الكود مؤقتًا باستخدام الأمر `debugger` الموجود فيه ، كالتالي:
 
 ```js
 function hello(name) {
   let phrase = `Hello, ${name}!`;
 
 *!*
-  debugger;  // <-- the debugger stops here
+  debugger;  // <-- يتوقف مصحح الأخطاء هنا
 */!*
 
   say(phrase);
 }
 ```
+هذا الأمر مريح للغاية عندما نكون في محرر أكواد ولا نريد التبديل إلى المتصفح والبحث عن النص في أدوات المطور لتعيين نقطة التوقف.
 
-That's very convenient when we are in a code editor and don't want to switch to the browser and look up the script in developer tools to set the breakpoint.
+## انتظر قليلا وانظر حولك
 
+في مثالنا ، `hello()` يتم النداء عليها عند تحميل الصفحة, لذا اسهل طريقة لتفعيل مصحح الأخطاء (بعد وضع نقطة التوقف) هي اعادة تحميل الصفحة. لذا نضغط `key:F5` (Windows, Linux) أو `key:Cmd+R` (Mac).
 
-## Pause and look around
-
-In our example, `hello()` is called during the page load, so the easiest way to activate the debugger (after we've set the breakpoints) is to reload the page. So let's press `key:F5` (Windows, Linux) or `key:Cmd+R` (Mac).
-
-As the breakpoint is set, the execution pauses at the 4th line:
+عند تعيين نقطة التوقف ، يتوقف التنفيذ مؤقتًا عند السطر الرابع:
 
 ![](chrome-sources-debugger-pause.svg)
 
-Please open the informational dropdowns to the right (labeled with arrows). They allow you to examine the current code state:
+من فضلك افتح القوائم المنسدلة للمعلومات على اليمين (الموضح بالأسهم)و التي تسمح لك بفحص حالة الكود الحالية:
 
-1. **`Watch` -- shows current values for any expressions.**
+1. **`Watch` -- يعرض القيم الحالية لأي تعبيرات.**
 
-    You can click the plus `+` and input an expression. The debugger will show its value at any moment, automatically recalculating it in the process of execution.
+    يمكننا النقر فوق علامة زائد `+` وإدخال تعبير. سيظهر مصحح الأخطاء قيمته في أي لحظة ، ويعيد حسابه تلقائيًا في عملية التنفيذ.
 
-2. **`Call Stack` -- shows the nested calls chain.**
+2. **`Call Stack` -- يعرض سلسلة من الاستدعاءات المترابطة.**
 
-    At the current moment the debugger is inside `hello()` call, called by a script in `index.html` (no function there, so it's called "anonymous").
+    في الوقت الحالي ، يكون المصحح داخل استدعاء `hello ()` ، والذي يتم استدعاؤه بواسطة النص  في `index.html` (لا توجد دالة هناك ، لذلك يطلق عليه" مجهول ").
 
-    If you click on a stack item (e.g. "anonymous"), the debugger jumps to the corresponding code, and all its variables can be examined as well.
-3. **`Scope` -- current variables.**
+    إذا قمت بالنقر فوق عنصر من المجموعة (على سبيل المثال "مجهول") ، ينتقل مصحح الأخطاء إلى الكود المقابل ، ويمكن فحص جميع متغيراته أيضًا.
 
-    `Local` shows local function variables. You can also see their values highlighted right over the source.
+3. **`Scope` -- المتغيرات الحالية.**
 
-    `Global` has global variables (out of any functions).
+    `Local` يظهر المتغيرات المحلية للدوال. يمكنك أيضًا رؤية قيمهم مظللة مباشرة فوق المصدر.
 
-    There's also `this` keyword there that we didn't study yet, but we'll do that soon.
+    `Global` له متغيرات عامة (من أي دوال).
 
-## Tracing the execution
+    هنالك ايضا كلمة `this` و التي لم نطلع عليها بعد, و لكننا سنفعل قريبا.
 
-Now it's time to *trace* the script.
+## تتبع التنفيذ
 
-There are buttons for it at the top of the right panel. Let's engage them.
+حان الوقت الآن *لتتبع* النص.
+
+توجد أزرار لها في أعلى اللوحة اليمنى. فلندرسهم.
 <!-- https://github.com/ChromeDevTools/devtools-frontend/blob/master/front_end/Images/src/largeIcons.svg -->
-<span class="devtools" style="background-position:-146px -168px"></span> -- "Resume": continue the execution, hotkey `key:F8`.
-: Resumes the execution. If there are no additional breakpoints, then the execution just continues and the debugger loses control.
+<span class="devtools" style="background-position:-146px -168px"></span> -- "إكمال": الاستمرار في التنفيذ, زره السريع `key:F8`.
+: استئناف التنفيذ. إذا لم تكن هناك نقاط توقف إضافية ، فسيستمر التنفيذ فقط ويفقد المصحح السيطرة.
 
-    Here's what we can see after a click on it:
+    إليك ما يمكننا رؤيته بعد النقر عليه:
 
     ![](chrome-sources-debugger-trace-1.svg)
 
-    The execution has resumed, reached another breakpoint inside `say()` and paused there. Take a look at the "Call Stack" at the right. It has increased by one more call. We're inside `say()` now.
+    تم استئناف التنفيذ ، ووصل إلى نقطة توقف أخرى داخل `say ()` وتوقف هناك. ألق نظرة على "Call Stack" على اليمين. وقد زادت بنداء واحد آخر. نحن داخل `say ()` الآن.
 
-<span class="devtools" style="background-position:-200px -190px"></span> -- "Step": run the next command, hotkey `key:F9`.
-: Run the next statement. If we click it now, `alert` will be shown.
+<span class="devtools" style="background-position:-200px -190px"></span> -- "خطوة": تقوم بتشغيل الأمر التالي, زره السريع `key:F9`.
+: تشغيل العبارة التالية. إذا نقرنا عليه الآن ،سيظهر `alert`.
 
-    Clicking this again and again will step through all script statements one by one.
+    سيؤدي النقر عليه مرة أخرى تلو الأخرى إلى استعراض كافة عبارات النص واحدًا تلو الآخر.
 
-<span class="devtools" style="background-position:-62px -192px"></span> -- "Step over": run the next command, but *don't go into a function*, hotkey `key:F10`.
-: Similar to the previous the "Step" command, but behaves differently if the next statement is a function call. That is: not a built-in, like `alert`, but a function of our own.
+<span class="devtools" style="background-position:-62px -192px"></span> -- "خطوة للأمام":  تقوم بتشغيل الأمر التالي, لكن *لا تدخل بداخل الدالة*, زره السريع `key:F10`.
 
-    The "Step" command goes into it and pauses the execution at its first line, while "Step over" executes the nested function call invisibly, skipping the function internals.
+: يشبه الأمر "خطوة" السابق ، ولكنه يتصرف بشكل مختلف إذا كانت العبارة التالية هي استدعاء دالة. اذا لم تكن دالة مدمجة ، مثل `alert`، ولكنها دالة من انشاءنا.
 
-    The execution is then paused immediately after that function.
+    ينتقل الأمر "خطوة" إليه ويوقف التنفيذ عند السطر الأول مؤقتًا ، بينما يقوم "خطوة للأمام" باستدعاء الدالة المتداخلة بشكل غير مرئي ، مع تخطي الدوال الداخلية.
 
-    That's good if we're not interested to see what happens inside the function call.
+    يتم إيقاف التنفيذ بعد ذلك مباشرة بعد هذه الدالة.
 
-<span class="devtools" style="background-position:-4px -194px"></span> -- "Step into", hotkey `key:F11`.
-: That's similar to "Step", but behaves differently in case of asynchronous function calls. If you're only starting to learn JavaScript, then you can ignore the difference, as we don't have asynchronous calls yet.
+    هذا أمر جيد إذا لم نرغب في معرفة ما يحدث داخل استدعاء الدالة.
 
-    For the future, just note that "Step" command ignores async actions, such as `setTimeout` (scheduled function call), that execute later. The "Step into" goes into their code, waiting for them if necessary. See [DevTools manual](https://developers.google.com/web/updates/2018/01/devtools#async) for more details.
+<span class="devtools" style="background-position:-4px -194px"></span> -- "خطوة للداخل", زره السريع `key:F11`.
 
-<span class="devtools" style="background-position:-32px -194px"></span> -- "Step out": continue the execution till the end of the current function, hotkey `key:Shift+F11`.
-: Continue the execution and stop it at the very last line of the current function. That's handy when we accidentally entered a nested call using <span class="devtools" style="background-position:-200px -190px"></span>, but it does not interest us, and we want to continue to its end as soon as possible.
+:  مشابه لـ "خطوة" ، ولكنه يتصرف بشكل مختلف في حالة نداءات دوال غير متزامنة. إذا كنت تبدأ فقط في تعلم JavaScript ، فيمكنك تجاهل الاختلاف ، حيث لا تتوفر لدينا نداءات غير متزامنة حتى الآن.
 
-<span class="devtools" style="background-position:-61px -74px"></span> -- enable/disable all breakpoints.
-: That button does not move the execution. Just a mass on/off for breakpoints.
+للمعرفة مستقبلا ، لاحظ فقط أن الأمر "خطوة" يتجاهل الإجراءات غير المتزامنة ، مثل `setTimeout` (نداء الدوال المجدولة) ، التي يتم تنفيذها لاحقًا. تدخل "الخطوة للداخل" في الكود الخاص بهم ،و تنتظرهم إذا لزم الأمر.
 
-<span class="devtools" style="background-position:-90px -146px"></span> -- enable/disable automatic pause in case of an error.
-: When enabled, and the developer tools is open, a script error automatically pauses the execution. Then we can analyze variables to see what went wrong. So if our script dies with an error, we can open debugger, enable this option and reload the page to see where it dies and what's the context at that moment.
+لمزيد من التفاصيل , اتطلع علي  [DevTools manual](https://developers.google.com/web/updates/2018/01/devtools#async).
 
-```smart header="Continue to here"
-Right click on a line of code opens the context menu with a great option called "Continue to here".
+<span class="devtools" style="background-position:-32px -194px"></span> -- "خطوة للخارج": تابع التنفيذ حتى نهاية الدالة الحالية ، زره السريع `key:Shift+F11`.
+: يستمر في التنفيذ ويوقفه في السطر الأخير من الدالة الحالية. يكون هذا مفيدا عند الدخول الي نداءات متداخلة عن طريق الخطأ  <span class="devtools" style="background-position:-200px -190px"></span>,لكنها لا تهمنا ، ونريد أن نستمر حتى نهايتها في أقرب وقت ممكن.
 
-That's handy when we want to move multiple steps forward to the line, but we're too lazy to set a breakpoint.
+<span class="devtools" style="background-position:-61px -74px"></span> -- تفعيل / تعطيل جميع نقاط التوقف.
+: هذا الزر لا ينقل التنفيذ. مجرد ايقاف/تفعيل كلي لكل نقاط التوقف.
+
+<span class="devtools" style="background-position:-90px -146px"></span> -- تفعيل / تعطيل الإيقاف المؤقت التلقائي في حالة حدوث خطأ.
+
+: عند تفعيله ، وفتح أدوات المطورين ، يؤدي خطأ النص إلى إيقاف التنفيذ تلقائيًا. ثم يمكننا تحليل المتغيرات لمعرفة الخطأ الذي حدث. لذلك إذا توقف النص بسبب وجود خطأ ، فيمكننا فتح المصحح وتمكين هذا الخيار وإعادة تحميل الصفحة لمعرفة مكان المشكلة وما هو السياق(context) في هذه اللحظة.
+
+```smart header="متابعة الي هنا (Continue to here)"
+
+انقر بزر الماوس الأيمن على سطر الكود فتفتح قائمة السياق مع خيار رائع يسمى "متابعة إلى هنا".
+
+و هو مفيد عندما نريد لبتحرك خطوات متعددة إلى الأمام نحو الخط ، لكننا كسالى جدًا في وضع نقطة توقف.
 ```
 
-## Logging
+## التسجيل (Logging)
 
-To output something to console from our code, there's `console.log` function.
+To output something to console from our code, there's `console.log` .
+لإخراج شيء ما إلى وحدة التحكم من الكودالخاص بنا ، هناك دالة `console.log`.
 
-For instance, this outputs values from `0` to `4` to console:
+على سبيل المثال ، ينتج عن هذا القيم من `0` إلى` 4` إلى وحدة التحكم:
 
 ```js run
-// open console to see
+// افتح وحدة التحكم لترى
 for (let i = 0; i < 5; i++) {
   console.log("value,", i);
 }
 ```
 
-Regular users don't see that output, it is in the console. To see it, either open the Console panel of developer tools or press `key:Esc` while in another panel: that opens the console at the bottom.
+لا يرى المستخدمون العاديون هذا المخرج ، فهو موجود في وحدة التحكم. لمشاهدته ، إما أن تفتح لوحة وحدة التحكم في أدوات المطورين أو اضغط على "المفتاح: Esc" أثناء وجودك في لوحة أخرى: تفتح وحدة التحكم في الأسفل.
 
-If we have enough logging in our code, then we can see what's going on from the records, without the debugger.
+إذا كان لدينا ما يكفي من التسجيل في الكود الخاص بنا ، فيمكننا أن نرى ما يحدث من السجلات ، دون استخدام مصحح الأخطاء.
 
-## Summary
+## الملخص
 
-As we can see, there are three main ways to pause a script:
-1. A breakpoint.
-2. The `debugger` statements.
-3. An error (if dev tools are open and the button <span class="devtools" style="background-position:-90px -146px"></span> is "on").
+كما نرى ، هناك ثلاث طرق رئيسية لإيقاف النص مؤقتًا:
+1. نقطة توقف.
+2. عبارة أمر مصحح الخطأ `debugger`.
+3. خطأ (اذا كانت ادوات المطور مفتوحة و زر  <span class="devtools" style="background-position:-90px -146px"></span> مفعل اي قيمته "on").
 
-When paused, we can debug - examine variables and trace the code to see where the execution goes wrong.
+عند الإيقاف المؤقت ، يمكننا تصحيح الأخطاء - فحص المتغيرات وتتبع الكود لمعرفة المكان الذي يذهب فيه التنفيذ بشكل خاطئ.
 
-There are many more options in developer tools than covered here. The full manual is at <https://developers.google.com/web/tools/chrome-devtools>.
+هناك العديد من الخيارات في أدوات المطورين أكثر من تلك المغطاة هنا. الدليل الكامل في <https://developers.google.com/web/tools/chrome-devtools>.
 
-The information from this chapter is enough to begin debugging, but later, especially if you do a lot of browser stuff, please go there and look through more advanced capabilities of developer tools.
+المعلومات الواردة في هذا الفصل كافية لبدء تصحيح الأخطاء ، ولكن لاحقًا ، خاصة إذا كنت تقوم بالعديد من المهام الخاصة بالمتصفح ، فالرجاء الانتقال إلى هناك والبحث في الإمكانات الأكثر تقدمًا لأدوات المطورين.
 
-Oh, and also you can click at various places of dev tools and just see what's showing up. That's probably the fastest route to learn dev tools. Don't forget about the right click and context menus!
+يمكن أيضًا يمكنك النقر على أماكن مختلفة من أدوات التطوير ومعرفة ما يظهر. ربما هذا هو أسرع طريق لتعلم أدوات المطورين. لا تنس النقر بزر الماوس الأيمن وقوائم السياق!

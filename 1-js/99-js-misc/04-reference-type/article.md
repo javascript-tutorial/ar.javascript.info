@@ -1,15 +1,15 @@
 
-# Reference Type
+# النوع المرجعي
 
-```warn header="In-depth language feature"
-This article covers an advanced topic, to understand certain edge-cases better.
+```warn header="خصائص متقدمه فى اللغه"
+هذه المقالة تقوم بتغطية موضوع متقدم, لفهم بعض الحالات بشكل أفضل.
 
-It's not important. Many experienced developers live fine without knowing it. Read on if you're  want to know how things work under the hood.
+إنها ليست مهمة. يعيش العديد من المطورين ذوي الخبرة بشكل جيد دون معرفة ذلك. تابع القراءة إذا كنت تريد معرفة كيفية عمل الأشياء خلف الكواليس.
 ```
 
-A dynamically evaluated method call can lose `this`.
+قد تفقد استدعاء تابع تم تقييمه بشكل ديناميكي `this`.
 
-For instance:
+علي سبيل المثال:
 
 ```js run
 let user = {
@@ -18,42 +18,42 @@ let user = {
   bye() { alert("Bye"); }
 };
 
-user.hi(); // works
+user.hi(); // تعمل
 
-// now let's call user.hi or user.bye depending on the name
+// الآن دعونا نقوم بتشغيل user.hi أو user.bye بناءً علي الإسم
 *!*
 (user.name == "John" ? user.hi : user.bye)(); // Error!
 */!*
 ```
 
-On the last line there is a conditional operator that chooses either `user.hi` or `user.bye`. In this case the result is `user.hi`.
+على السطر الأخير يوجد عامل شرطي يختار إما `user.hi` أو `user.bye`. فى هذه الحالة تكون النتيجة `user.hi`.
 
-Then the method is immediately called with parentheses `()`. But it doesn't work correctly!
+ثم يتم استدعاء التابع على الفور بين قوسين `()`. و لكنه لم يعمل بشكل صحيح!
 
-As you can see, the call results in an error, because the value of `"this"` inside the call becomes `undefined`.
+كما ترى, تشغيل التابع أحدث خطأ, بسبب أن نتيجة `"this"` داخل تشغيل التابع أنتج `undefined`.
 
-This works (object dot method):
+هذا يعمل (كائن نقطة تابع):
 ```js
 user.hi();
 ```
 
-This doesn't (evaluated method):
+هذا لا يعمل:
 ```js
-(user.name == "John" ? user.hi : user.bye)(); // Error!
+(user.name == "John" ? user.hi : user.bye)(); // خطأ!
 ```
 
-Why? If we want to understand why it happens, let's get under the hood of how `obj.method()` call works.
+لماذ ؟ إذا كنا نريد ان نفهم لماذا يحدث هذا, دعونا نري خلف الكواليس كيف يعمل `()obj.method`.
 
-## Reference type explained
+## تفسير النوع المرجعي
 
-Looking closely, we may notice two operations in `obj.method()` statement:
+عند التدقيق, ربما نلاحظ وجود عمليتين علي عبارة `()obj.method`:
 
-1. First, the dot `'.'` retrieves the property `obj.method`.
-2. Then parentheses `()` execute it.
+1. اولاً, النقطة `'.'` تجب الخاصية `obj.method`.
+2. ثانياً الأقواس `()` تقوم بتشغيلها.
 
-So, how does the information about `this` get passed from the first part to the second one?
+لذا, كيف يمكن للمعلومات الخاصة بـ `this` ان تمر من الجزء الأول الى الجزء الثاني?
 
-If we put these operations on separate lines, then `this` will be lost for sure:
+إذا وضعنا هذه العمليات على خطوط منفصلة, اذا `this` سوف نقوم بفقدها بالتأكيد:
 
 ```js run
 let user = {
@@ -62,53 +62,53 @@ let user = {
 }
 
 *!*
-// split getting and calling the method in two lines
+// تقسيم الحصول على واستدعاء التابع في سطرين
 let hi = user.hi;
-hi(); // Error, because this is undefined
+hi(); // خطأ, لأن this غير معرفة
 */!*
 ```
 
-Here `hi = user.hi` puts the function into the variable, and then on the last line it is completely standalone, and so there's no `this`.
+هنا `hi = user.hi` يضع التابع في المتغير, ثم في السطر الأخير يكون مستقلاً تماماً, و في هذه الحالة لا يوجد `this`.
 
-**To make `user.hi()` calls work, JavaScript uses a trick -- the dot `'.'` returns not a function, but a value of the special [Reference Type](https://tc39.github.io/ecma262/#sec-reference-specification-type).**
+**لجعل `()user.hi` تعمل, جافاسكريبت تستخدم خدعة -- النقطة `'.'` لا تيعد تابع, و لكن قيمه من المميز [Reference Type](https://tc39.github.io/ecma262/#sec-reference-specification-type).**
 
-The Reference Type is a "specification type". We can't explicitly use it, but it is used internally by the language.
+النوع المرجعي هو "نوع المواصفات". لا يمكننا استخدامها صراحة, و لكن يتم استخدامها داخلياً بواسطة اللغه.
 
-The value of Reference Type is a three-value combination `(base, name, strict)`, where:
+قيمة النوع المرجعي هي مزيج من ثلاث قيم `(base, name, strict)`, حيث:
 
-- `base` is the object.
-- `name` is the property name.
-- `strict` is true if `use strict` is in effect.
+- `base` الكائن.
+- `name` إسم الخاصية.
+- `strict` تكون صحيحة اذا `use strict` تعمل.
 
-The result of a property access `user.hi` is not a function, but a value of Reference Type. For `user.hi` in strict mode it is:
+النتيجة من إستخدام `user.hi` لا يكون تابع, و لكن قيمة من النوع المرجعي. `user.hi` في الوضع الصارم تكون:
 
 ```js
-// Reference Type value
+// قيمة النوع المرجعي
 (user, "hi", true)
 ```
 
-When parentheses `()` are called on the Reference Type, they receive the full information about the object and its method, and can set the right `this` (`=user` in this case).
+حيث الأقواس `()` تسمى النوع المرجعي, يتلقون المعلومات الكاملة حول الكائن و توابعه, و يمكن وضع القيمه الصحيحة لـ `this` (`=user` في هذه الحالة).
 
-Reference type is a special "intermediary" internal type, with the purpose to pass information from dot `.` to calling parentheses `()`.
+النوع المرجعي هو نوع داخلي خاص "وسيط", بغرض تمرير المعلومات من النقطة `.` الي طلب الأقواس `()`.
 
-Any other operation like assignment `hi = user.hi` discards the reference type as a whole, takes the value of `user.hi` (a function) and passes it on. So any further operation "loses" `this`.
+اى عملية اخري مثل `hi = user.hi` تتجاهل النوع المرجعي بالكامل, تأخذ القيمة من `user.hi` (التابع) و تقوم بتمريره. اذا اى من العمليات المستقبلية "تفقد" `this`.
 
-So, as the result, the value of `this` is only passed the right way if the function is called directly using a dot `obj.method()` or square brackets `obj['method']()` syntax (they do the same here). Later in this tutorial, we will learn various ways to solve this problem such as [func.bind()](/bind#solution-2-bind).
+لذا, قيمة `this` يتم تمريرها بالطريقة الصحيحة فقط إذا تم استدعاء التابع مباشرةً باستخدام نقطة `obj.method()` أو الاقواس المربعة `obj['method']()` (يقومون بنفس الوظيفه هنا). لاحقًا في هذا البرنامج التعليمي ، سنتعلم طرقًا مختلفة لحل هذه المشكلة مثل [func.bind()](/bind#solution-2-bind).
 
-## Summary
+## الملخص
 
-Reference Type is an internal type of the language.
+النوع المرجعي هو نوع داخلي من اللغة.
 
-Reading a property, such as with dot `.` in `obj.method()` returns not exactly the property value, but a special "reference type" value that stores both the property value and the object it was taken from.
+قراءة خاصية ، كما هو الحال مع النقطة `.` في `obj.method()` لا يعيد قيمة الخاصية بالضبط, و لكن "النوع المرجعي" كلاً من قيمة الخاصية والكائن الذي تم أخذها منه.
 
-That's for the subsequent method call `()` to get the object and set `this` to it.
+هذا لاستدعاء الطريقة اللاحقة `()` للوصل الى الكائن و وضع قيمة `this` بها.
 
-For all other operations, the reference type automatically becomes the property value (a function in our case).
+بالنسبة لجميع العمليات الأخرى ، يصبح النوع المرجعي تلقائيًا قيمة الخاصية (تابع في حالتنا).
 
-The whole mechanics is hidden from our eyes. It only matters in subtle cases, such as when a method is obtained dynamically from the object, using an expression.
-
-
+جميع آليات العمل مختفيه. لا يهم إلا في الحالات الدقيقة, مثل عندما يتم الحصول على طريقة ديناميكيًا من الكائن ، باستخدام تعبير.
 
 
 
- result of dot `.` isn't actually a method, but a value of `` needs a way to pass the information about `obj`
+
+
+ نتيجة النقطة `.` ليست في الواقع طريقة ، ولكنها قيمة `` يحتاج إلى طريقة لتمرير المعلومات حول `obj`

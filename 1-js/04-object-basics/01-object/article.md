@@ -322,77 +322,78 @@ alert(obj.__proto__); // [object Object] - the value is an object, didn't work a
 
 ## فحص الكينونة, "in" معامل
 
-A notable feature of objects in JavaScript, compared to many other languages, is that it's possible to access any property. There will be no error if the property doesn't exist!
+ميزة ملحوظة للكائنات في الجافا اسكريبت ، مقارنة بالعديد من اللغات الأخرى ، هي أنه من الممكن الوصول إلى أي خاصية. لن يكون هناك خطأ إذا كانت الخاصية غير موجودة!
 
-Reading a non-existing property just returns `undefined`. So we can easily test whether the property exists:
+
+قراءة خاصية غير موجودة تُرجع فقط "غير محدد". لذا يمكننا بسهولة اختبار ما إذا كانت الخاصية موجودة:
 
 ```js run
 let user = {};
 
-alert( user.noSuchProperty === undefined ); // true means "no such property"
+alert( user.noSuchProperty === undefined ); // "تحقق هذه الموازنة يشير إلى "عدم وجود الخاصية
 ```
 
-There's also a special operator `"in"` for that.
+يوجد أيضا مُعامل خاصة `"in"` لفحص تواجد أي خاصية.
 
 The syntax is:
 ```js
 "key" in object
 ```
 
-For instance:
+مثلاً:
 
 ```js run
 let user = { name: "John", age: 30 };
 
-alert( "age" in user ); // true, user.age exists
-alert( "blabla" in user ); // false, user.blabla doesn't exist
+alert( "age" in user ); // true, user.age موجود
+alert( "blabla" in user ); // false, user.blabla غير موجود
 ```
 
-Please note that on the left side of `in` there must be a *property name*. That's usually a quoted string.
+يرجى ملاحظة أنه في الجهة اليسرى من `in` يجب أن يكون هناك *اسم خاصية*. يكون عادة نصًا بين علامتي تنصيص.
 
-If we omit quotes, that means a variable, it should contain the actual name to be tested. For instance:
+إذا حذفنا علامات التنصيص ، فهذا يعني متغيرًا ، يجب أن يحتوي على الاسم الفعلي المراد اختباره. على سبيل المثال:
 
 ```js run
 let user = { age: 30 };
 
 let key = "age";
-alert( *!*key*/!* in user ); // true, property "age" exists
+alert( *!*key*/!* in user ); // true, خاصية "age" موجودة
 ```
 
-Why does the `in` operator exist? Isn't it enough to compare against `undefined`?
+لماذا يوجد المعامل `in`? أليس من الكافي المقارنة مقابل `undefined`?
 
-Well, most of the time the comparison with `undefined` works fine. But there's a special case when it fails, but `"in"` works correctly.
+حسناً, في معظم الأحيان المقارنة ب `undefined` تكون جيدة. ولكن هناك حالة خاصة عندما تفشل, لكن `"in"` تعمل بشكل صحيح.
 
-It's when an object property exists, but stores `undefined`:
+يحدث ذلك عند وجود خاصية  داخل كائن ، ولكنها تخزن قيمة `undefined`:
 
 ```js run
 let obj = {
   test: undefined
 };
 
-alert( obj.test ); // it's undefined, so - no such property?
+alert( obj.test ); // تعطي undefined, لذلك - ألا توجد هذه الخاصية؟
 
-alert( "test" in obj ); // true, the property does exist!
+alert( "test" in obj ); // true, الخاصية موجودة بالفعل!
 ```
+ 
+في الكود السابق, الخاصية `obj.test` موجودة بالفعل. لذا معامل `in`يعمل بشكل صحيح.
 
-In the code above, the property `obj.test` technically exists. So the `in` operator works right.
-
-Situations like this happen very rarely, because `undefined` should not be explicitly assigned. We mostly use `null` for "unknown" or "empty" values. So the `in` operator is an exotic guest in the code.
+مواقف كهذه تحدث نادراً, لأن `undefined` لا ينبغي تعيينها بشكل ذاتي. عادة ما نستخدم `null` ل "unknown" أو "empty" قيم . لذا معامل `in` يعتبر ضيفاً غريباً في الكود.
 
 
 ## The "for..in" loop
 
-To walk over all keys of an object, there exists a special form of the loop: `for..in`. This is a completely different thing from the `for(;;)` construct that we studied before.
+للمرور على كل مفاتيح الكائن, يوجد شكل خاص آخر للحلقة loop: `for..in`. هذه الحلقة مختلفة تمامًا عما درسناه سابقًا، أي الحلقة `for(;;)`.
 
-The syntax:
+طريقة الكتابة في الكود:
 
 ```js
 for (key in object) {
-  // executes the body for each key among object properties
+  //يتنفذ ما بداخل الحلقة لكل مفتاح ضمن خاصيات الكائن 
 }
 ```
 
-For instance, let's output all properties of `user`:
+مثلاً, لنطبع جميع خاصيات الكائن `user`:
 
 ```js run
 let user = {
@@ -402,20 +403,20 @@ let user = {
 };
 
 for (let key in user) {
-  // keys
+  // المفاتيح
   alert( key );  // name, age, isAdmin
-  // values for the keys
+  // قيم المفاتيح
   alert( user[key] ); // John, 30, true
 }
 ```
 
-Note that all "for" constructs allow us to declare the looping variable inside the loop, like `let key` here.
+لاحظ أن جميع تراكيب "for" تتيح لنا تعريف متغير التكرار بِداخل الحلقة، مثل `let key` في المثال السابق,.
 
-Also, we could use another variable name here instead of `key`. For instance, `"for (let prop in obj)"` is also widely used.
+أيضاً, يمكننا استخدام اسم متغير آخر بدلا من `key`. مثلا, `"for (let prop in obj)"` مستخدم أيضاَ بكثرة.
 
-### Ordered like an object
+### الترتيب مثل الكائنات
 
-Are objects ordered? In other words, if we loop over an object, do we get all properties in the same order they were added? Can we rely on this?
+هل الكائنات مرتبة? بمعنى آخر, إن تنقلنا في حلقة خلال كائن, هل نحصل على جميع الخاصيات بنفس الترتيب الذي أُضيفت به؟ وهل يمكننا الاعتماد على هذا؟
 
 The short answer is: "ordered in a special fashion": integer properties are sorted, others appear in creation order. The details follow.
 

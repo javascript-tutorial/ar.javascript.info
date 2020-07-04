@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Army of functions
+### جيش من الدوال
 
-The following code creates an array of `shooters`.
+تصنع الشيفرة الآتية مصفوفة من مُطلقي النار `‎shooters‎`.
 
-Every function is meant to output its number. But something is wrong...
+يفترض أن تكتب لنا كلّ دالة رقم هويّتها، ولكن ثمّة خطب فيها...
 
 ```js run
 function makeArmy() {
@@ -14,8 +14,8 @@ function makeArmy() {
 
   let i = 0;
   while (i < 10) {
-    let shooter = function() { // shooter function
-      alert( i ); // should show its number
+    let shooter = function() { // دالة مُطلق النارn
+      alert( i ); // المفترض أن ترينا رقمها
     };
     shooters.push(shooter);
     i++;
@@ -26,10 +26,11 @@ function makeArmy() {
 
 let army = makeArmy();
 
-army[0](); // the shooter number 0 shows 10
-army[5](); // and number 5 also outputs 10...
-// ... all shooters show 10 instead of their 0, 1, 2, 3...
+army[0](); // مُطلق النار بالهويّة 0 يقول أنّه 10
+army[5](); // ‫مُطلق النار بالهويّة 5 يقول أنّه 10...
+// ... كلّ مُطلقي النار يقولون 10 بدل هويّاتهم 0 فَـ 1 فَـ 2 فَـ 3...
+
 ```
 
-Why do all of the shooters show the same value? Fix the code so that they work as intended.
+لماذا هويّة كلّ مُطلق نار نفس البقية؟ أصلِح الشيفرة لتعمل كما ينبغي أن تعمل.
 

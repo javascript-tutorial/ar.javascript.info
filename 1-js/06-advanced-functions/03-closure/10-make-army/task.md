@@ -6,7 +6,7 @@ importance: 5
 
 تصنع الشيفرة الآتية مصفوفة من مُطلقي النار `‎shooters‎`.
 
-يفترض أن تكتب لنا كلّ دالة رقم هويّتها، ولكن ثمّة خطب فيها...
+يفترض أن تكتب لنا كلّ دالة رقم هويّتها، ولكن ثمّة خطب ما ...
 
 ```js run
 function makeArmy() {
@@ -14,7 +14,7 @@ function makeArmy() {
 
   let i = 0;
   while (i < 10) {
-    let shooter = function() { // دالة مُطلق النارn
+    let shooter = function() { // دالة مُطلق النار
       alert( i ); // المفترض أن ترينا رقمها
     };
     shooters.push(shooter);

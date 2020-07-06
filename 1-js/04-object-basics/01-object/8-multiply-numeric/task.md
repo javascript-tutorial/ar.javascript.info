@@ -2,11 +2,13 @@ importance: 3
 
 ---
 
-# Multiply numeric properties by 2
+# ضرب الخصائص الرقمية في 2
 
-Create a function `multiplyNumeric(obj)` that multiplies all numeric properties of `obj` by `2`.
+أنشئ دالة `multiplyNumeric (obj)` تضرب جميع الخصائص الرقمية لـ `obj` بـ`2`.
 
-For instance:
+على سبيل المثال:
+
+إذا كانت "الرواتب" فارغة ، فيجب أن تكون النتيجة "0".
 
 ```js
 // before the call
@@ -26,8 +28,6 @@ menu = {
 };
 ```
 
-Please note that `multiplyNumeric` does not need to return anything. It should modify the object in-place.
+يرجى ملاحظة أن `multiplyNumeric` لا تحتاج إلى إرجاع أي شيء. يجب تعديل الكائن في مكانه.
 
-P.S. Use `typeof` to check for a number here.
-
-
+ملاحظة. استخدم `typeof` للتحقق من وجود رقم هنا. s في 2

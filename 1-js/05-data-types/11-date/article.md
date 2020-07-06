@@ -1,296 +1,290 @@
-# Date and time
+﻿
+# النوع Date: التاريخ والوقت
 
-Let's meet a new built-in object: [Date](mdn:js/Date). It stores the date, time and provides methods for date/time management.
 
-For instance, we can use it to store creation/modification times, to measure time, or just to print out the current date.
 
-## Creation
+حان وقت الحديث عن كائن آخر مضمّن في اللغة: التاريخ [`Date`](https://wiki.hsoub.com/JavaScript/Date). يخزّن هذا الكائن التاريخ والوقت ويقدّم توابِع تُدير أختام التاريخ والوقت. يمكننا مثلًا استعماله لتخزين أوقات الإنشاء/التعديل أو حساب الوقت أو طباعة التاريخ الحالي في الطرفية.
 
-To create a new `Date` object call `new Date()` with one of the following arguments:
+## الإنشاء
+
+استدعِ `new Date()‎` بتمرير واحدًا من الوُسطاء الآتية فتصنع كائن `Date` جديد:
 
 `new Date()`
-: Without arguments -- create a `Date` object for the current date and time:
+: بلا وُسطاء: يُنشئ كائن `Date` بالتاريخ والوقت الحاليين
 
-    ```js run
+```
     let now = new Date();
-    alert( now ); // shows current date/time
-    ```
+    alert( now ); // نعرض التاريخ والوقت الحاليين
+```
 
-`new Date(milliseconds)`
-: Create a `Date` object with the time equal to number of milliseconds (1/1000 of a second) passed after the Jan 1st of 1970 UTC+0.
+إليك كيفية إنشاء كائن `Date`:
+*`new Date(milliseconds)‎`*
+يُنشئ كائن `Date` إذ تساوي قيمته عدد المليثوان الممرّرة (المليثانية هي 1/1000 من الثاني) حسابًا من بعد الأول من يناير عام ١٩٧٠ بتوقيت UTC+0.
 
-    ```js run
-    // 0 means 01.01.1970 UTC+0
+```
+    // UTC+0
+    // 01.01.1970 نعني بـ 0 التاريخ
     let Jan01_1970 = new Date(0);
     alert( Jan01_1970 );
 
-    // now add 24 hours, get 02.01.1970 UTC+0
+    // نضيف الآن 24 ساعة لنحصل على  02.01.1970 
     let Jan02_1970 = new Date(24 * 3600 * 1000);
     alert( Jan02_1970 );
-    ```
-
-    An integer number representing the number of milliseconds that has passed since the beginning of 1970 is called a *timestamp*.
-
-    It's a lightweight numeric representation of a date. We can always create a date from a timestamp using `new Date(timestamp)` and convert the existing `Date` object to a timestamp using the `date.getTime()` method (see below).
-
-    Dates before 01.01.1970 have negative timestamps, e.g.:
-    ```js run
-    // 31 Dec 1969
-    let Dec31_1969 = new Date(-24 * 3600 * 1000);
-    alert( Dec31_1969 );
-    ```
-
-`new Date(datestring)`
-: If there is a single argument, and it's a string, then it is parsed automatically. The algorithm is the same as `Date.parse` uses, we'll cover it later.
-
-    ```js run
-    let date = new Date("2017-01-26");
-    alert(date);
-    // The time is not set, so it's assumed to be midnight GMT and
-    // is adjusted according to the timezone the code is run in
-    // So the result could be
-    // Thu Jan 26 2017 11:00:00 GMT+1100 (Australian Eastern Daylight Time)
-    // or
-    // Wed Jan 25 2017 16:00:00 GMT-0800 (Pacific Standard Time)
-    ```
-
-`new Date(year, month, date, hours, minutes, seconds, ms)`
-: Create the date with the given components in the local time zone. Only the first two arguments are obligatory.
-
-    - The `year` must have 4 digits: `2013` is okay, `98` is not.
-    - The `month` count starts with `0` (Jan), up to `11` (Dec).
-    - The `date` parameter is actually the day of month, if absent then `1` is assumed.
-    - If `hours/minutes/seconds/ms` is absent, they are assumed to be equal `0`.
-
-    For instance:
-
-    ```js
-    new Date(2011, 0, 1, 0, 0, 0, 0); // 1 Jan 2011, 00:00:00
-    new Date(2011, 0, 1); // the same, hours etc are 0 by default
-    ```
-
-    The minimal precision is 1 ms (1/1000 sec):
-
-    ```js run
-    let date = new Date(2011, 0, 1, 2, 3, 4, 567);
-    alert( date ); // 1.01.2011, 02:03:04.567
-    ```
-
-## Access date components
-
-There are methods to access the year, month and so on from the `Date` object:
-
-[getFullYear()](mdn:js/Date/getFullYear)
-: Get the year (4 digits)
-
-[getMonth()](mdn:js/Date/getMonth)
-: Get the month, **from 0 to 11**.
-
-[getDate()](mdn:js/Date/getDate)
-: Get the day of month, from 1 to 31, the name of the method does look a little bit strange.
-
-[getHours()](mdn:js/Date/getHours), [getMinutes()](mdn:js/Date/getMinutes), [getSeconds()](mdn:js/Date/getSeconds), [getMilliseconds()](mdn:js/Date/getMilliseconds)
-: Get the corresponding time components.
-
-```warn header="Not `getYear()`, but `getFullYear()`"
-Many JavaScript engines implement a non-standard method `getYear()`. This method is deprecated. It returns 2-digit year sometimes. Please never use it. There is `getFullYear()` for the year.
 ```
 
-Additionally, we can get a day of week:
 
-[getDay()](mdn:js/Date/getDay)
-: Get the day of week, from `0` (Sunday) to `6` (Saturday). The first day is always Sunday, in some countries that's not so, but can't be changed.
+يُسمّى العدد الصحيح الذي يمثّل عدد المليثوان التي مرّت من بداية عام 1970 *بالختم الزمني* (بصمة وقت). وهو يمثّل التاريخ بنحوٍ عددي خفيف (lightweight). يمكننا إنشاء التواريخ من الأختام الزمنية باستعمال `new Date(timestamp)‎` وتحويل كائن التاريخ `Date` الموجود إلى ختم زمني باستعمال التابِع `date.getTime()‎` (طالع أسفله).
 
-**All the methods above return the components relative to the local time zone.**
+والتواريخ قبل الأول من يناير 1970 أختامها سالبة:
+```
+    // ‫31 ديسمبر 1969
+    let Dec31_1969 = new Date(-24 * 3600 * 1000);
+    alert( Dec31_1969 );
+```
 
-There are also their UTC-counterparts, that return day, month, year and so on for the time zone UTC+0: [getUTCFullYear()](mdn:js/Date/getUTCFullYear), [getUTCMonth()](mdn:js/Date/getUTCMonth), [getUTCDay()](mdn:js/Date/getUTCDay). Just insert the `"UTC"` right after `"get"`.
+*`new Date(datestring)‎`*
+لو كان هناك وسيط واحد وكان سلسلة نصيّة، فسيحلّله المحرّك تلقائيًا. الخوازرمية هنا هي ذات التي يستعملها `Date.parse`. لا تقلق، سنتكلم عنه لاحقًا.
 
-If your local time zone is shifted relative to UTC, then the code below shows different hours:
+```
+    let date = new Date("2017-01-26");
+    alert(date);
+```
+نجد في هذا المثال أن الوقت غير محدد لذا يكون بتوقيت GMT منتصف الليل، ويحدد وفقًا للمنطقة الزمنية التي تنفذ الشيفرة ضمنها، فالنتيجة يمكن أن تكون Thu Jan 26 2017 11:00:00 للبلدان ذات المنطقة الزمنية GMT+1100 أو يمكن أن تكون Wed Jan 25 2017 16:00:00 للبلدان الواقعة في المنطقة الزمنية GMT-0800.
 
-```js run
-// current date
+*`new Date(year, month, date, hours, minutes, seconds, ms)‎`*
+يُنشئ تاريخًا بالمكوّنات الممرّرة حسب المنطقة الزمنية المحلية. أوّل وسيطين إلزاميين أما البقية اختيارية.
+
+
+يجب أن يكون العام `year` بأربع خانات: `2013` صح، `98` خطأ.
+يبدأ الشهر `month` بالرقم `0` (يناير) وينتهي بالعدد `11` (ديسمبر).
+مُعامل التاريخ `date` هو رقم اليوم من الشهر. لو لم يكن موجودًا فسيعدّه الكائن `1`.
+لو لم تكن مُعاملات الساعة والدقيقة والثانية والمليثانية `hours/minutes/seconds/ms` موجودة، فسيعدّها الكائن `0`.
+
+
+مثال:
+
+```
+    new Date(2011, 0, 1, 0, 0, 0, 0); // 1 Jan 2011, 00:00:00
+    new Date(2011, 0, 1); // نفس تلك. الساعات والدقائق وغيرها 0 مبدئيًا
+```
+
+
+    أدنى دقّة للتاريخ هي مليثانية واحدة (واحد من ألف من الثانية):
+
+```
+    let date = new Date(2011, 0, 1, 2, 3, 4, 567);
+    alert( date ); // 1.01.2011, 02:03:04.567
+```
+
+
+## الوصول إلى مكوّنات التاريخ
+
+
+إليك التوابِع التي تتيح لك الوصول إلى العام والشهر وغيرها داخل كائن `Date`:
+
+- [getFullYear()‎](https://wiki.hsoub.com/JavaScript/Date/getFullYear): يجلب العام (٤ خانات)
+
+- [getMonth()‎](https://wiki.hsoub.com/JavaScript/Date/getMonth): يجلب الشهر، **من 0 إلى 11**.
+
+- [getDate()‎](https://wiki.hsoub.com/JavaScript/Date/getDate): يجلب رقم اليوم من الشهر، من 1 إلى 31. قد يبدو الاسم غريبًا قليلًا لك.
+
+- التوابع [getHours()‎](https://wiki.hsoub.com/JavaScript/Date/getHours) و[getMinutes()‎](https://wiki.hsoub.com/JavaScript/Date/getMinutes) و[getSeconds()‎](https://wiki.hsoub.com/JavaScript/Date/getSeconds) و[getMilliseconds()‎](https://wiki.hsoub.com/JavaScript/Date/getMilliseconds)
+: تجلب مكوّنات الوقت حسب كل تابِع. (الساعة/الدقيقة/الثانية/المليثانية)
+
+**إياك بـ `getYear()‎` بل `getFullYear()‎`**
+تقدّم الكثير من محرّكات جافاسكربت التابِع غير القياسي `getYear()‎`. هذا التابِع أصبح بائدًا، فهو يُعيد العام بخانتين أحيانًا. من فضلك لا تستعمله أبدًا، بل `getFullYear()‎` لتجلب العام.
+
+كما يمكن أيضًا جلب رقم اليوم من الشهر:
+
+*[getDay()‎](https://wiki.hsoub.com/JavaScript/Date/getDay)*
+يجلب رقم اليوم من الأسبوع، بدءًا بِـ `0` (الأحد) وحتى `6` (السبت). أوّل يوم هو الأحد دومًا. صحيح أنّ في بعض الدول هذا غير صحيح، لكن لا يمكن تغيير القيمة إطلاقًا.
+
+
+**تُعيد كلّ التوابِع أعلاه المكوّنات حسب المنطقة الزمنية المحلية.**
+
+
+توجد أيضًا مثيلاتها بنظام UTC حيث تُعيد اليوم والشهر والعام وغيرها في المنطقة الزمنية UTF+0:‏ [getUTCFullYear()‎](https://wiki.hsoub.com/JavaScript/Date/getUTCFullYear) و[getUTCMonth()‎](https://wiki.hsoub.com/JavaScript/Date/getUTCMonth) و[getUTCDay()‎](https://wiki.hsoub.com/JavaScript/Date/getUTCDay). ضع كلمة `"UTC"` بعد `"get"` وستجد المثيل المناسب.
+
+
+لو كانت منطقتك الزمنية المحلية بعيدة عن UTC، فستعرض الشيفرة أدناه الساعات مختلفة عن بعضها البعض:
+
+```
+// التاريخ الحالي
 let date = new Date();
 
-// the hour in your current time zone
+// الساعة حسب المنطقة الزمنية التي أنت فيها
 alert( date.getHours() );
 
-// the hour in UTC+0 time zone (London time without daylight savings)
+// ‫الساعة حسب المنطقة الزمنية بتوقيت UTC+0 (أي توقيت لندن بدون التوقيت الصيفي)
 alert( date.getUTCHours() );
 ```
 
-Besides the given methods, there are two special ones that do not have a UTC-variant:
 
-[getTime()](mdn:js/Date/getTime)
-: Returns the timestamp for the date -- a number of milliseconds passed from the January 1st of 1970 UTC+0.
+هناك (إضافةً إلى هذه التوابِع) تابِعان آخران مختلفان قليلًا ليس لهما نُسخ بتوقيت UTC:
 
-[getTimezoneOffset()](mdn:js/Date/getTimezoneOffset)
-: Returns the difference between UTC and the local time zone, in minutes:
+*[getTime()‎](https://wiki.hsoub.com/JavaScript/Date/getTime)*
+يُعيد ختم التاريخ الزمني، أي عدد المليثوان التي مرّت منذ الأول من يناير عام 1970 بتوقيت UTC+0.
 
-    ```js run
-    // if you are in timezone UTC-1, outputs 60
-    // if you are in timezone UTC+3, outputs -180
+*[getTimezoneOffset()‎](https://wiki.hsoub.com/JavaScript/Date/getTimezoneOffset)*
+يُعيد الفرق بين المنطقة الزمنية الحالية وتوقيت UTC (بالدقيقة):
+
+```
+    // ‫لو كانت منطقتك الزمنية UTC-1، فالناتج 60
+    // لو كانت منطقتك الزمنية ‫UTC+3، فالناتج ‎-180
     alert( new Date().getTimezoneOffset() );
 
-    ```
+```
 
-## Setting date components
 
-The following methods allow to set date/time components:
+## ضبط مكوّنات التاريخ
 
-- [`setFullYear(year, [month], [date])`](mdn:js/Date/setFullYear)
-- [`setMonth(month, [date])`](mdn:js/Date/setMonth)
-- [`setDate(date)`](mdn:js/Date/setDate)
-- [`setHours(hour, [min], [sec], [ms])`](mdn:js/Date/setHours)
-- [`setMinutes(min, [sec], [ms])`](mdn:js/Date/setMinutes)
-- [`setSeconds(sec, [ms])`](mdn:js/Date/setSeconds)
-- [`setMilliseconds(ms)`](mdn:js/Date/setMilliseconds)
-- [`setTime(milliseconds)`](mdn:js/Date/setTime) (sets the whole date by milliseconds since 01.01.1970 UTC)
+تتيح لك التوابِع الآتية ضبط مكوّنات التاريخ والوقت:
 
-Every one of them except `setTime()` has a UTC-variant, for instance: `setUTCHours()`.
+- العام: [`setFullYear(year, [month], [date])‎`](https://wiki.hsoub.com/JavaScript/Date/setFullYear)
+- الشهر: [`setMonth(month, [date])‎`](https://wiki.hsoub.com/JavaScript/Date/setMonth)
+- التاريخ: [`setDate(date)‎`](https://wiki.hsoub.com/JavaScript/Date/setDate)
+- الساعة: [`setHours(hour, [min], [sec], [ms])‎`](https://wiki.hsoub.com/JavaScript/Date/setHours)
+- الدقيقة: [`setMinutes(min, [sec], [ms])‎`](https://wiki.hsoub.com/JavaScript/Date/setMinutes)
+- الثانية: [`setSeconds(sec, [ms])‎`](https://wiki.hsoub.com/JavaScript/Date/setSeconds)
+- المليثانية: [`setMilliseconds(ms)‎`](https://wiki.hsoub.com/JavaScript/Date/setMilliseconds)
+- الوقت بالمليثانية: [`setTime(milliseconds)‎`](https://wiki.hsoub.com/JavaScript/Date/setTime) (تضبط التاريخ كلّه حسب عدد المليثوان منذ 01.01.1970 UTC)
 
-As we can see, some methods can set multiple components at once, for example `setHours`. The components that are not mentioned are not modified.
 
-For instance:
+لدى كلّ تابع منها نسخة بتوقيت UTC (عدا `setTime()‎`). مثال: `setUTCHours()‎`.
 
-```js run
+كما رأيت فيمكن لبعض التوابِع ضبط عدّة مكوّنات في آن واحد مثل `setHours`. المكوّنات التي لا تُمرّر لا تُعدّل.
+
+مثال:
+
+```
 let today = new Date();
 
 today.setHours(0);
-alert(today); // still today, but the hour is changed to 0
+alert(today); // ما زال اليوم نفسه، ولكن الساعة تغيّرت إلى 0
 
 today.setHours(0, 0, 0, 0);
-alert(today); // still today, now 00:00:00 sharp.
+alert(today); // ما زال اليوم نفسه، ولكنّا عند 00:00:00 تمامًا.
 ```
 
-## Autocorrection
 
-The *autocorrection* is a very handy feature of `Date` objects. We can set out-of-range values, and it will auto-adjust itself.
+## التصحيح التلقائي
 
-For instance:
 
-```js run
-let date = new Date(2013, 0, *!*32*/!*); // 32 Jan 2013 ?!?
-alert(date); // ...is 1st Feb 2013!
+ميزة *التصحيح التلقائي* في كائنات التواريخ `Date` مفيدة جدًا لنا، إذ يمكن أن نضع قيم تاريخ لامنطقية (مثل الخمسون من هذا الشهر) وسيُعدّلها الكائن بنفسه.
+
+مثال:
+
+```
+let date = new Date(2013, 0, 32); // ‫الثاني والثلاثين من يناير 2013؟!
+alert(date); // ‫...آه، تقصد الأول من فبراير 2013!
 ```
 
-Out-of-range date components are distributed automatically.
+تترتّب المكوّنات اللامنطقية تلقائيًا. فمثلًا لو أضفت على التاريخ ”28 فبراير 2016“ يومين اثنين، فيمكن أن يكون ”الثاني من مارس“ أو ”الأول من مارس“ لو كانت السنة كبيسة. بدل أن نفكّر بهذا الحساب، نُضيف يومين ونترك الباقي على كائن `Date`:
 
-Let's say we need to increase the date "28 Feb 2016" by 2 days. It may be "2 Mar" or "1 Mar" in case of a leap-year. We don't need to think about it. Just add 2 days. The `Date` object will do the rest:
-
-```js run
+```
 let date = new Date(2016, 1, 28);
-*!*
 date.setDate(date.getDate() + 2);
-*/!*
 
-alert( date ); // 1 Mar 2016
+alert( date ); // ‫1 مارس 2016
 ```
 
-That feature is often used to get the date after the given period of time. For instance, let's get the date for "70 seconds after now":
 
-```js run
+غالبًا ما تُستعمل هذه الميزة لنجلب التاريخ بعد فترة محدّدة من الزمن. فلنقل مثلًا نريد تاريخ ”70 ثانية من الآن“:
+
+```
 let date = new Date();
 date.setSeconds(date.getSeconds() + 70);
 
-alert( date ); // shows the correct date
+alert( date ); // يعرض التاريخ الصحيح
 ```
+يمكننا أيضًا ضبط القيمة لتكون صفرًا أو حتّى بالسالب. مثال:
 
-We can also set zero or even negative values. For example:
+```
+let date = new Date(2016, 0, 2); // ‫2 يناير 2016
 
-```js run
-let date = new Date(2016, 0, 2); // 2 Jan 2016
-
-date.setDate(1); // set day 1 of month
+date.setDate(1); // نضبط التاريخ على أول يوم من الشهر
 alert( date );
 
-date.setDate(0); // min day is 1, so the last day of the previous month is assumed
-alert( date ); // 31 Dec 2015
+date.setDate(0); // أقل يوم ممكن هو 1، إذًا فيعدّ الكائن أنّ 0 هو آخر يوم من الشهر الماضي
+alert( date ); // ‫31 ديسمبر 2015
 ```
 
-## Date to number, date diff
 
-When a `Date` object is converted to number, it becomes the timestamp same as `date.getTime()`:
+## تحويل التاريخ إلى عدد، والفرق بين تاريخين
 
-```js run
+حين يتحوّل كائن `Date` إلى عدد يصير ختمًا زمنيًا مطابقًا لختم `date.getTime()‎`:
+
+```
 let date = new Date();
-alert(+date); // the number of milliseconds, same as date.getTime()
+alert(+date); // ‫عدد المليثوان، نفس ناتج date.getTime()‎
 ```
 
-The important side effect: dates can be subtracted, the result is their difference in ms.
 
-That can be used for time measurements:
+تأثير هذا المهم والخطير هو أنّك تستطيع طرح التواريخ من بعض، والناتج سيكون الفرق بينهما بالمليثانية. يمكن استعمال الطرح لحساب الأوقات:
 
-```js run
-let start = new Date(); // start measuring time
+```
+let start = new Date(); // نبدأ قياس الوقت
 
-// do the job
+// إلى العمل
 for (let i = 0; i < 100000; i++) {
   let doSomething = i * i * i;
 }
 
-let end = new Date(); // end measuring time
+let end = new Date(); // ننتهي من قياس الوقت
 
 alert( `The loop took ${end - start} ms` );
 ```
 
-## Date.now()
+## التاريخ الآن
 
-If we only want to measure time, we don't need the `Date` object.
+لو أردنا قياس الوقت فقط فلا نحتاج كائن `Date`، بل هناك تابِعًا خاصًا باسم `Date.now()‎` يُعيد لنا الختم الزمني الحالي.
 
-There's a special method `Date.now()` that returns the current timestamp.
+يُكافئ هذا التابِع الجملةَ `new Date().getTime()‎` إلّا أنّه لا يُنشئ كائن `Date` يتوسّط العملية، ولهذا هو أسرع ولا يزيد الضغط على عملية كنس المهملات. غالبًا ما يُستعمل التابِع لأنّه أسهل أو لأنّ الأداء في تلك الحالة مهم، مثلما في الألعاب بلغة جافاسكربت أو التطبيقات المتخصّصة الأخرى.
 
-It is semantically equivalent to `new Date().getTime()`, but it doesn't create an intermediate `Date` object. So it's faster and doesn't put pressure on garbage collection.
+ولهذا قد يكون الأفضل كتابة الشيفرة أدناه بدل تلك:
 
-It is used mostly for convenience or when performance matters, like in games in JavaScript or other specialized applications.
+```
+let start = Date.now(); // ‫تبدأ المليثوان من تاريخ 1 يناير 1970
 
-So this is probably better:
-
-```js run
-*!*
-let start = Date.now(); // milliseconds count from 1 Jan 1970
-*/!*
-
-// do the job
+// إلى العمل
 for (let i = 0; i < 100000; i++) {
   let doSomething = i * i * i;
 }
 
 *!*
-let end = Date.now(); // done
+let end = Date.now(); // انتهينا
 */!*
 
-alert( `The loop took ${end - start} ms` ); // subtract numbers, not dates
+alert( `The loop took ${end - start} ms` ); // نطرح الأعداد لا التواريخ
 ```
 
-## Benchmarking
+## قياس الأداء
 
-If we want a reliable benchmark of CPU-hungry function, we should be careful.
+لو أردنا قياس أداء دالة شرهة في استعمال المعالج، فعلينا أن نكون حذرين، هذا لو أردنا التعويل على القياس.
 
-For instance, let's measure two functions that calculate the difference between two dates: which one is faster?
+فلنقيس مثلًا دالتين اثنتين تحسبان الفرق بين تاريخين: أيهما أسرع؟ نُطلق على قياسات الأداء هذه... قياسات أداء ”Benchmark“.
 
-Such performance measurements are often called "benchmarks".
-
-```js
-// we have date1 and date2, which function faster returns their difference in ms?
+```
+// ‫أمامنا date1 وdate2، أيّ دالة ستُعيد الفرق بينهما (بالمليثانية) أسرع من الأخرى؟‫ هذه...
 function diffSubtract(date1, date2) {
   return date2 - date1;
 }
 
-// or
+// ‫أم هذه...
 function diffGetTime(date1, date2) {
   return date2.getTime() - date1.getTime();
 }
 ```
 
-These two do exactly the same thing, but one of them uses an explicit `date.getTime()` to get the date in ms, and the other one relies on a date-to-number transform. Their result is always the same.
+وظيفة الدالتين متطابقة تمامًا، إلّا أن الثانية تستعمل التابِع `date.getTime()‎` الصريح لتجلب التاريخ بالمليثانية، بينما الأخرى تعتمد على تحويل التاريخ إلى عدد. الناتج متطابق دومًا.
 
-So, which one is faster?
+إذًا بهذه المعطيات، أيّ الدالتين أسرع؟
 
-The first idea may be to run them many times in a row and measure the time difference. For our case, functions are very simple, so we have to do it at least 100000 times.
+أوّل فكرة تخطر على البال هو تشغيل كلّ واحدة مرات عديدة متتابعة وقياس فرق الوقت. الدوال (في حالتنا هذه) بسيطة جدًا، ولهذا علينا تشغيل كلّ واحدة مئة ألف مرة على الأقل.
 
-Let's measure:
+هيًا نقيس الأداء:
 
-```js run
+```
 function diffSubtract(date1, date2) {
   return date2 - date1;
 }
@@ -312,21 +306,13 @@ alert( 'Time of diffSubtract: ' + bench(diffSubtract) + 'ms' );
 alert( 'Time of diffGetTime: ' + bench(diffGetTime) + 'ms' );
 ```
 
-Wow! Using `getTime()` is so much faster! That's because there's no type conversion, it is much easier for engines to optimize.
+عجبًا! استعمال التابِع `getTime()‎` أسرع بكثير! يعزو ذلك بسبب انعدام وجود تحويل للنوع (type conversion)، وهذا يسهّل على المحرّكات تحسين الأداء.
 
-Okay, we have something. But that's not a good benchmark yet.
+جميل، وصلنا إلى شيء، ولكنّ هذا القياس ليس قياسًا طيبًا بعد. تخيّل أنّ المعالج كان ينفّذ أمرًا ما بالتوازي مع تشغيل `bench(diffSubtract)‎` وكان يستهلك الموارد، وما إن شغّلنا `bench(diffGetTime)‎` كان ذلك الأمر قد اكتمل. هذا التخيّل هو تخيّل طبيعي لأمر واقعيّ جدًا حيث اليوم أنظمة التشغيل متعدّدة المهام. بهذا يكون لمرة القياس الأولى موارد معالجة أقل من المرة الثانية، ما قد يؤدّي إلى نتائج قياس خطأ.
 
-Imagine that at the time of running `bench(diffSubtract)` CPU was doing something in parallel, and it was taking resources. And by the time of running `bench(diffGetTime)` that work has finished.
+**إن أردنا التعويل على قياس الأداء، علينا إعادة تشغيل كل قياسات الأداء الموجودة أكثر من مرّة.** هكذا مثلًا:
 
-A pretty real scenario for a modern multi-process OS.
-
-As a result, the first benchmark will have less CPU resources than the second. That may lead to wrong results.
-
-**For more reliable benchmarking, the whole pack of benchmarks should be rerun multiple times.**
-
-For example, like this:
-
-```js run
+```
 function diffSubtract(date1, date2) {
   return date2 - date1;
 }
@@ -347,87 +333,414 @@ function bench(f) {
 let time1 = 0;
 let time2 = 0;
 
-*!*
-// run bench(upperSlice) and bench(upperLoop) each 10 times alternating
+// ‫نشغّل bench(upperSlice)‎ وbench(upperLoop)‎ عشر مرات مرّة بمرّة
 for (let i = 0; i < 10; i++) {
   time1 += bench(diffSubtract);
   time2 += bench(diffGetTime);
 }
-*/!*
 
 alert( 'Total time for diffSubtract: ' + time1 );
 alert( 'Total time for diffGetTime: ' + time2 );
 ```
 
-Modern JavaScript engines start applying advanced optimizations only to "hot code" that executes many times (no need to optimize rarely executed things). So, in the example above, first executions are not well-optimized. We may want to add a heat-up run:
+لا تبدأ محرّكات جافاسكربت الحديثة بتطبيق التحسينات المتقدّمة إلّا على ”الشيفرات الحرجة“ التي تتنفّذ أكثر من مرّة (لا داعٍ بتحسين شيفرة نادرة التنفيذ). بهذا في المثال الأول، قد لا تكون مرات التنفيذ الأولى محسّنة كما يجب، وربما علينا إضافة تحمية سريعة:
 
-```js
-// added for "heating up" prior to the main loop
+```
+// أضفناه لـ”تحمية“ المحرّك قبل الحلقة الأساس
 bench(diffSubtract);
 bench(diffGetTime);
 
-// now benchmark
+// الآن نقيس
 for (let i = 0; i < 10; i++) {
   time1 += bench(diffSubtract);
   time2 += bench(diffGetTime);
 }
 ```
 
-```warn header="Be careful doing microbenchmarking"
-Modern JavaScript engines perform many optimizations. They may tweak results of "artificial tests" compared to "normal usage", especially when we benchmark something very small, such as how an operator works, or a built-in function. So if you seriously want to understand performance, then please study how the JavaScript engine works. And then you probably won't need microbenchmarks at all.
+**الزم الحذر متى ما أجريت قياسات أداء على المستوى الذرّي**.
 
-The great pack of articles about V8 can be found at <http://mrale.ph>.
+تُنفّذ محرّكات جافاسكربت الحديثة عددًا كبيرًا من التحسينات، وقد تُغيّر نتائج ”الاختبارات الصناعية“ موازنةً ”بالاستعمال الطبيعي لها“، خصوصًا حين نقيس أداء ما هو صغير للغاية مثل طريقة عمل مُعامل رياضي، أو دالة مضمّنة في اللغة نفسها. لهذا، لو كنت تريد حقًا فهم الأداء كما يجب، فمن فضلك تعلّم طريقة عمل محرّك جافاسكربت. حينها ربّما لن تحتاج هذه القياسات على المستوى الذرّي، أبدًا.
+
+يمكنك أن تقرأ بعض المقالات الرائعة حول V8 هنا [http://mrale.ph](mrale.ph).
+
+## تحليل سلسلة نصية باستعمال Date.parse
+
+يمكن أن يقرأ التابِع [Date.parse(str)](https://wiki.hsoub.com/JavaScript/Date/parse) تاريخًا من سلسلة نصية. يجب أن يكون تنسيق تلك السلسلة هكذا: `YYYY-MM-DDTHH:mm:ss.sssZ`، إذ تعني:
+
+- `YYYY-MM-DD` -- التاريخ: اليوم-الشهر-العام.
+- يُستعمل المحرف `"T"` فاصِلًا.
+- `HH:mm:ss.sss` -- الوقت: المليثانية والثانية والدقيقة والساعة.
+- يمثّل الجزء الاختياري `'Z'` المنطقة الزمنية حسب التنسيق `+-hh:mm`. لو وضعت `Z` فقط فذلك يعني UTC+0.
+
+يمكنك أيضًا استعمال تنسيقات أقصر مثل `YYYY-MM-DD` أو `YYYY-MM` أو حتّى `YYYY`.
+
+باستدعاء `Date.parse(str)` فالسلسلة النصية تُحلّل حسب التنسيق فيها ويُعيد التابِع الختم الزمني (رقم المليثوان منذ الأول من يناير 1970 بتوقيت UTC+0). لو كان التنسيق غير صحيح فيُعيد `NaN`.
+
+إليك مثالًا:
+
 ```
-
-## Date.parse from a string
-
-The method [Date.parse(str)](mdn:js/Date/parse) can read a date from a string.
-
-The string format should be: `YYYY-MM-DDTHH:mm:ss.sssZ`, where:
-
-- `YYYY-MM-DD` -- is the date: year-month-day.
-- The character `"T"` is used as the delimiter.
-- `HH:mm:ss.sss` -- is the time: hours, minutes, seconds and milliseconds.
-- The optional `'Z'` part denotes the time zone in the format `+-hh:mm`. A single letter `Z` that would mean UTC+0.
-
-Shorter variants are also possible, like `YYYY-MM-DD` or `YYYY-MM` or even `YYYY`.
-
-The call to `Date.parse(str)` parses the string in the given format and returns the timestamp (number of milliseconds from 1 Jan 1970 UTC+0). If the format is invalid, returns `NaN`.
-
-For instance:
-
-```js run
 let ms = Date.parse('2012-01-26T13:51:50.417-07:00');
 
-alert(ms); // 1327611110417  (timestamp)
+alert(ms); // ‫1327611110417 (ختم زمني)
 ```
 
-We can instantly create a `new Date` object from the timestamp:
+يمكننا إنشاء كائن `new Date` مباشرةً من الختم الزمني:
 
-```js run
+```
 let date = new Date( Date.parse('2012-01-26T13:51:50.417-07:00') );
 
 alert(date);  
 ```
 
-## Summary
+## ملخص
 
-- Date and time in JavaScript are represented with the [Date](mdn:js/Date) object. We can't create "only date" or "only time": `Date` objects always carry both.
-- Months are counted from zero (yes, January is a zero month).
-- Days of week in `getDay()` are also counted from zero (that's Sunday).
-- `Date` auto-corrects itself when out-of-range components are set. Good for adding/subtracting days/months/hours.
-- Dates can be subtracted, giving their difference in milliseconds. That's because a `Date` becomes the timestamp when converted to a number.
-- Use `Date.now()` to get the current timestamp fast.
+- يُمثّل التاريخ والوقت في جافاسكربت بكائن [Date](https://wiki.hsoub.com/JavaScript/Date). لا يمكننا إنشاء ”تاريخ فقط“ أو ”وقتًا فقط“، فعلى كائنات التاريخ `Date` احتواء الاثنين معًا.
+- تُعدّ الأشهر بدءًا بالصفر (يناير هو الشهر صفر، نعم).
+- يُعدّ رقم اليوم من الأسبوع في `getDay()‎` من الصفر أيضًا (وهو يوم الأحد).
+- يصحّح كائن التاريخ نفسه تلقائيًا حين تُضبط مكوّناته بقيم لا منطقية. يفيدنا لجمع/طرح الأيام والأشهر والأعوام.
+- يمكن طرح التواريخ ومعرفة الفرق بينها بالمليثانية، ذلك لأنّ كائن التاريخ يتحوّل إلى ختم زمني حين يتحوّل إلى عدد.
+- استعمل `Date.now()` لو أردت جلب الختم الزمني الحالي بسرعة.
 
-Note that unlike many other systems, timestamps in JavaScript are in milliseconds, not in seconds.
+لاحظ بأنّ الأختام الزمنية في جافاسكربت هي بالمليثانية، على العكس من أنظمة عديدة أخرى.
 
-Sometimes we need more precise time measurements. JavaScript itself does not have a way to measure time in microseconds (1 millionth of a second), but most environments provide it. For instance, browser has [performance.now()](mdn:api/Performance/now) that gives the number of milliseconds from the start of page loading with microsecond precision (3 digits after the point):
+نجد نفسنا بين الحين والآخر قياسات وقت دقيقة. للأسف فلا توفّر جافاسكربت نفسها طريقة لحساب الوقت بالنانوثانية (1 على مليون من الثانية)، ولكن أغلب بيئاتها توفّر ذلك. فمثلًا تملك المتصفّحات التابِع [performance.now()‎](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) إذ يُعيد عدد المليثوان منذ بدأ تحميل الصفحة بقدّة تصل إلى المايكروثانية (ثلاث خانات بعد الفاصلة):
 
-```js run
+```
 alert(`Loading started ${performance.now()}ms ago`);
-// Something like: "Loading started 34731.26000000001ms ago"
-// .26 is microseconds (260 microseconds)
-// more than 3 digits after the decimal point are precision errors, but only the first 3 are correct
+// ت‫ظهر هكذا: "Loading started 34731.26000000001ms ago"
+```
+تعني ”‎.26“ هنا المايكروثوان (260 مايكروثانية)، فلو زِدت على ثلاث خانات بعد الفاصلة فستجد أخطاءً في دقّة الحساب. أوّل ثلاثة هي الصحيحة فقط.
+
+تملك لغة Node.js أيضًا وحدة `microtime` وأخرى غيرها. يمكن (تقنيًا) لأيّ جهاز أو بيئة أن تعطينا دقّة وقت أعلى، `Date` لا تقدّم ذلك لا أكثر.
+
+## تمارين
+### إنشاء تاريخ
+_الأهمية: 5_
+
+أنشِئ كائن `Date` لهذا التاريخ: 20 فبراير 2012، 3:12 صباحًا. المنطقة الزمنية هي المحلية. اعرض التاريخ باستعمال `alert`.
+
+#### الحل
+يستعمل مُنشِئ `new Date` المنطقة الزمنية الحالية. عليك ألا تنسى بأنّ الأشهر تبدأ من الصفر.
+
+إذًا ففبراير هو الشهر رقم 1.
+
+```
+let d = new Date(2012, 1, 20, 3, 12);
+alert( d );
 ```
 
-Node.js has `microtime` module and other ways. Technically, almost any device and environment allows to get more precision, it's just not in `Date`.
+### اعرض اسم اليوم من الأسبوع
+_الأهمية: 5_
+
+اكتب دالة `getWeekDay(date)` تعرض اسم اليوم من الأسبوع بالتنسيق الإنكليزي القصير: 'MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'.
+
+مثال:
+
+```
+let date = new Date(2012, 0, 3);  // ‫3 يناير 2012
+alert( getWeekDay(date) );        // ي‫جب أن يطبع "TU"
+```
+
+#### الحل
+يُعيد التابِع `date.getDay()‎` رقم اليوم من الأسبوع، بدءًا من يوم الأحد.
+
+لنصنع مصفوفة فيها أيام الأسبوع لنعرف اليوم الصحيح من رقمه:
+
+```
+function getWeekDay(date) {
+  let days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+
+  return days[date.getDay()];
+}
+
+let date = new Date(2014, 0, 3); // ‫3 يناير 2014
+alert( getWeekDay(date) ); // FR
+```
+
+### اليوم من الأسبوع في أوروبا
+
+_الأهمية: 4_
+
+في الدول الأوروبية، يبدأ الأسبوع بيوم الإثنين (رقم 1) وثمّ الثلاثاء (رقم 2) وحتّى الأحد (رقم 7). اكتب دالة `getLocalDay(date)` تُعيد يوم الأسبوع ”الأوروبي“ من التاريخ `date`.
+
+```
+let date = new Date(2012, 0, 3);  // ‫3 يناير 2012
+alert( getLocalDay(date) );       // يكون يوم ثلاثاء، يجب أن تعرض 2
+```
+
+#### الحل
+
+```
+function getLocalDay(date) {
+
+  let day = date.getDay();
+
+  if (day == 0) { 
+    // يوم الأحد 0 في أوروبا هو الأخير (7)‏
+    day = 7;
+  }
+
+  return day;
+}
+```
+
+### ما هو التاريخ الذي كان قبل كذا يوم؟
+_الأهمية: 4_
+
+أنشِئ دالة `getDateAgo(date, days)` تُعيد بتمرير التاريخ `date` اسم اليوم من الشهر قبل فترة `days` يوم.
+
+مثال: لو كان اليوم العشرون من الشهر، فتُعيد `getDateAgo(new Date(),1 )‎` التاسع عشر و`getDateAgo(new Date(), 2)‎` الثامن عشر.
+
+يجب أن نعوّل بأن تعمل الدالة في حال `days=356` وأكثر حتّى:
+
+```
+let date = new Date(2015, 0, 2);
+
+alert( getDateAgo(date, 1) ); // ‫1، (1 يناير 2015)
+alert( getDateAgo(date, 2) ); // ‫31، (31 ديسمبر 2014)
+alert( getDateAgo(date, 365) ); // ‫2، (2 يناير 2014)
+```
+
+ملاحظة: يجب ألّا تُعدّل الدالة التاريخ `date` المُمرّر.
+
+#### الحل
+الفكرة بسيطة، أن نطرح عدد الأيام من التاريخ `date`:
+
+```
+function getDateAgo(date, days) {
+  date.setDate(date.getDate() - days);
+  return date.getDate();
+}
+```
+
+ولكن... يجب ألّا تُعدّل الدالة على `date`. هذا مهم إذ أنّ الشيفرة خارج الدالة التي تُعطينا التاريخ لا تريد منّا تغييره. لننفّذ ذلك، علينا نسخ التاريخ هكذا أولًا:
+
+```
+function getDateAgo(date, days) {
+  let dateCopy = new Date(date);
+
+  dateCopy.setDate(date.getDate() - days);
+  return dateCopy.getDate();
+}
+
+let date = new Date(2015, 0, 2);
+
+alert( getDateAgo(date, 1) ); // ‫1، (1 يناير 2015)
+alert( getDateAgo(date, 2) ); // ‫31، (31 ديسمبر 2014)
+alert( getDateAgo(date, 365) ); // ‫2، (2 يناير 2014)
+```
+
+### آخر يوم من الشهر كذا؟
+_الأهمية: 5_
+
+اكتب دالة `getLastDayOfMonth(year, month)` تُعيد آخر يوم من الشهر. أحيانًا يكون الثلاثين، أو الحادي والثلاثين أو الثامن/التاسع عشر من فبراير.
+
+المُعاملات:
+
+- `year` -- العام بأربع خانات، مثلًا 2012.
+- `month` -- الشهر من 0 إلى 11.
+
+مثال: `getLastDayOfMonth(2012, 1) = 29` (سنة كبيسة، فبراير).
+
+#### الحل
+
+فلنصنع تاريخًا باستعمال الشهر التالي، ولكنّ نمرّر الصفر ليكون رقم اليوم:
+```
+function getLastDayOfMonth(year, month) {
+  let date = new Date(year, month + 1, 0);
+  return date.getDate();
+}
+
+alert( getLastDayOfMonth(2012, 0) ); // 31
+alert( getLastDayOfMonth(2012, 1) ); // 29
+alert( getLastDayOfMonth(2013, 1) ); // 28
+```
+
+عادةً ما تبدأ التواريخ بالواحد، لكن يمكننا (تقنيًا) تمرير أيّ عدد وسيُعدّل التاريخ نفسه. لذا حين نمرّر 0 نعني بذلك ”يومًا واحد قبل الأول من الشهر“، أي ”اليوم الأخير من الشهر الماضي“.
+
+### كم من ثانية مضت اليوم؟
+_الأهمية: 5_
+
+اكتب دالة `getSecondsToday()‎` تُعيد عدد الثواني منذ بداية هذا اليوم. فمثلًا لو كانت الساعة الآن `10:00 am`، وبدون التوقيت الصيفي، فستعطينا الدالة:
+
+```
+getSecondsToday() == 36000 // (3600 * 10)
+```
+
+يجب أن تعمل الدالة مهما كان اليوم. أيّ ألا تحتوي على قيمة داخلها بتاريخ ”اليوم“... اليوم.
+
+#### الحل
+لنعرف عدد الثواني يمكننا توليد تاريخًا باستعمال اليوم الحالي والساعة 00:00:00، وثمّ نطرح منها ”الوقت والتاريخ الآن“. سيكون الفرق حينها بعدد المليثوان منذ بداية هذا اليوم، فنقسمه على 1000 لنعرف الثواني فقط:
+
+```
+function getSecondsToday() {
+  let now = new Date();
+
+  // أنشِئ كائنًا باستعمال اليوم والشهر والسنة حاليًا
+  let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  let diff = now - today; // الفرق بالمليثانية
+  return Math.round(diff / 1000); // نحوّله إلى ثوان
+}
+
+alert( getSecondsToday() );
+```
+
+الحل الآخر هو جلب الساعة والدقيقة والثانية وتحويلها إلى عدد الثواني:
+
+```
+function getSecondsToday() {
+  let d = new Date();
+  return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+}
+```
+
+## كم من ثانية بقت حتّى الغد؟
+_الأهمية: 5_
+
+أنشِئ دالة `getSecondsToTomorrow()‎` تُعيد عدد الثواني حتّى يحلّ الغد. فمثلًا لو كان الوقت الآن `23:00`، تُعيد لنا:
+
+```
+getSecondsToTomorrow() == 3600
+```
+
+ملاحظة: يجب أن تعمل الدالة مهما كان اليوم، وألا تعتبر ”اليوم“ هذا اليوم.
+
+#### الحل
+لنعرف عدد المليثوان حتّى قدوم الغد، يمكننا أن نطرح من ”الغد 00:00:00“ التاريخ اليوم. أوّلًا، نولّد هذا ”الغد“ وثمّ ننفّذ الطرح:
+
+```
+function getSecondsToTomorrow() {
+  let now = new Date();
+
+  // تاريخ الغد
+  let tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);
+
+  let diff = tomorrow - now; // الفرق بالمليثانية
+  return Math.round(diff / 1000); // نحوّله إلى ثوان
+}
+```
+
+حل بديل:
+
+```
+function getSecondsToTomorrow() {
+  let now = new Date();
+  let hour = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+  let totalSecondsToday = (hour * 60 + minutes) * 60 + seconds;
+  let totalSecondsInADay = 86400;
+
+  return totalSecondsInADay - totalSecondsToday;
+}
+```
+
+لاحظ أنّ هناك دولًا كثيرة تستعمل التوقيت الصيفي، لذا ستجد هناك أيام فيها 23 أو 25 ساعة. يمكن أن نتعامل مع هذه الأيام بنحوٍ منفصل.
+
+### تنسيق التاريخ نسبيًا
+_الأهمية: 4_
+
+اكتب دالة `formatDate(date)` تُنسّق التاريخ `date` حسب الآتي:
+
+- لو مرّت أقلّ من ثانية من `date`، فتُعيد `"right now"`.
+- وإلّا، لو مرّت أقلّ من دقيقة من `date`، فتُعيد `"n sec. ago"`.
+- وإلّا، لو أقل من ساعة، فتُعيد `"m min. ago"`.
+- وإلّا، فتُعيد التاريخ كاملًا بالتنسيق `"DD.MM.YY HH:mm"`، أي (شَكلًا): `الدقيقة:الساعة العام:الشهر:اليوم` (كلها بخانتين). مثل: `31.12.16 10:00`.
+
+أمثلة:
+
+```
+alert( formatDate(new Date(new Date - 1)) ); // "right now"
+
+alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 sec. ago"
+
+alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 min. ago"
+
+// ‫تاريخ الأمس، مثلًا ‎31.12.16, 20:00
+alert( formatDate(new Date(new Date - 86400 * 1000)) );
+```
+
+#### الحل
+لنجلب الوقت المنقضي منذ `date` وحتّى الآن، سنطرح التاريخين.
+
+```
+function formatDate(date) {
+  let diff = new Date() - date; // الفرق بالمليثانية
+
+  if (diff < 1000) { // أقل من ثانية واحدة
+    return 'right now';
+  }
+
+  let sec = Math.floor(diff / 1000); // نحوّل الفرق إلى ثوان
+
+  if (sec < 60) {
+    return sec + ' sec. ago';
+  }
+
+  let min = Math.floor(diff / 60000); // نحوّل الفرق إلى دقائق
+  if (min < 60) {
+    return min + ' min. ago';
+  }
+
+  // ننسّق التاريخ
+  // ونُضيف أصفارًا لو كان اليوم/الشهر/الساعة/الدقيقة بخانة واحدة
+  let d = date;
+  d = [
+    '0' + d.getDate(),
+    '0' + (d.getMonth() + 1),
+    '' + d.getFullYear(),
+    '0' + d.getHours(),
+    '0' + d.getMinutes()
+  ].map(component => component.slice(-2)); // نأخذ الخانتين الأخيرتين من كلّ مكوّن
+
+  // ندمج المكوّنات في تاريخ
+  return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
+}
+
+alert( formatDate(new Date(new Date - 1)) ); // "right now"
+
+alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 sec. ago"
+
+alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 min. ago"
+
+// ‫تاريخ الأمس، مثلًا ‎31.12.16, 20:00
+alert( formatDate(new Date(new Date - 86400 * 1000)) );
+```
+
+حل بديل:
+
+```
+function formatDate(date) {
+  let dayOfMonth = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let hour = date.getHours();
+  let minutes = date.getMinutes();
+  let diffMs = new Date() - date;
+  let diffSec = Math.round(diffMs / 1000);
+  let diffMin = diffSec / 60;
+  let diffHour = diffMin / 60;
+
+  // التنسيق
+  year = year.toString().slice(-2);
+  month = month < 10 ? '0' + month : month;
+  dayOfMonth = dayOfMonth < 10 ? '0' + dayOfMonth : dayOfMonth;
+
+  if (diffSec < 1) {
+    return 'right now';  
+  } else if (diffMin < 1) {
+    return `${diffSec} sec. ago`
+  } else if (diffHour < 1) {
+    return `${diffMin} min. ago`
+  } else {
+    return `${dayOfMonth}.${month}.${year} ${hour}:${minutes}`
+  }
+}
+```
+
+لاحظ بأنّ هذه الطريقة سيّئة لو أردت دعم اللغات دعمًا صحيحًا (في العربية هناك ثانية واحدة وثانيتين وثلاث ثوان وخمسون ثانية وهكذا).
+
+
+ترجمة -وبتصرف- للفصل [Date and time](https://javascript.info/date) من كتاب [The JavaScript language](https://javascript.info/js)
+

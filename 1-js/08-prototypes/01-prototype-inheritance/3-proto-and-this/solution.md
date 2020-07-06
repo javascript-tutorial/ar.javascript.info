@@ -1,7 +1,8 @@
-**The answer: `rabbit`.**
+**الإجابة هي: الكائن `rabbit`.**
 
-That's because `this` is an object before the dot, so `rabbit.eat()` modifies `rabbit`.
+لأنّ قيمة `this` هي الكائن قبل النقطة، بذلك يُعدّل `rabbit.eat()‎`.
 
-Property lookup and execution are two different things.
+عملية البحث عن الخاصيات تختلف تمامًا عن عملية تنفيذ تلك الخاصيات.
 
-The method `rabbit.eat` is first found in the prototype, then executed with `this=rabbit`.
+نجد التابِع `rabbit.eat` سيُستدعى أولًا من كائن النموذج الأولي، وبعدها نُنفّذه على أنّ `this=rabbit`.
+

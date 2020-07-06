@@ -1,22 +1,24 @@
-# Prototypal inheritance
+# الوراثة النموذجية (Prototypal inheritance)
 
-In programming, we often want to take something and extend it.
+أثناء البرمجة، نرى دائما مواقف حيث تريد أخذ شيء وتوسعته أكثر.
 
-For instance, we have a `user` object with its properties and methods, and want to make `admin` and `guest` as slightly modified variants of it. We'd like to reuse what we have in `user`, not copy/reimplement its methods, just build a new object on top of it.
+فمثلًا لدينا كائن مستخدم `user` له خاصيات وتوابِع، وأردنا إنشاء نسخ عنه (مدراء `admin` وضيوف `guest`) لكن معدّلة قليلًا. سيكون رائعًا لو أعدنا استعمال الموجود في كائن المستخدم بدل نسخه أو إعادة كتابة توابِعه، سيكون رائعًا لو صنعنا كائنًا جديدًا فوق كائن `user`.
 
-*Prototypal inheritance* is a language feature that helps in that.
+*الوراثة النموذجية* (تدعى أيضًا الوراثة عبر كائن النموذج الأولي prototype)* هي الميزة الّتي تساعدنا في تحقيق هذا الأمر.
 
-## [[Prototype]]
 
-In JavaScript, objects have a special hidden property `[[Prototype]]` (as named in the specification), that is either `null` or references another object. That object is called "a prototype":
+## الخاصية [[Prototype]]
 
-![prototype](object-prototype-empty.svg)
+لكائنات جافاسكربت خاصية مخفية أخرى باسم `[[Prototype]]` (هذا اسمها في المواصفات القياسية للغة جافاسكربت)، وهي إمّا أن تكون `null` أو أن تشير إلى كائن آخر. نسمّي هذا الكائن بِـ”prototype“ (نموذج أولي).
 
-The prototype is a little bit "magical". When we want to read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, such thing is called "prototypal inheritance". Many cool language features and programming techniques are based on it.
+[object-prototype-empty.png]
 
-The property `[[Prototype]]` is internal and hidden, but there are many ways to set it.
+إن كائن النموذج الأولي ”سحريٌ“ إن صحّ القول، فحين نريد قراءة خاصية من كائن `object` ولا يجدها محرّك جافاسكربت، يأخذها تلقائيًا من كائن النموذج الأولي لذاك الكائن. يُسمّى هذا في علم البرمجة ”بالوراثة النموذجية“ (‏Prototypal inheritance)، وهناك العديد من المزايا الرائعة في اللغة وفي التقنيات البرمجية مبنية عليها.
 
-One of them is to use the special name `__proto__`, like this:
+الخاصية `[[Prototype]]` هي خاصية داخلية ومخفية، إلّا أنّ هناك طُرق عديدة لنراها.
+‎  
+إحداها استعمال `__proto__` هكذا:
+
 
 ```js run
 let animal = {
@@ -31,17 +33,16 @@ rabbit.__proto__ = animal;
 */!*
 ```
 
-```smart header="`__proto__` is a historical getter/setter for `[[Prototype]]`"
-Please note that `__proto__` is *not the same* as `[[Prototype]]`. It's a getter/setter for it.
 
-It exists for historical reasons. In modern language it is replaced with functions `Object.getPrototypeOf/Object.setPrototypeOf` that also get/set the prototype. We'll study the reasons for that and these functions later.
+**`__proto__` هو الجالب والضابط القديم للخاصية `[[Prototype]]`**
+كانت تستخدم قديمًا، ولكن في اللغة الحديثة استبدلت بالدالتين `Object.getPrototypeOf/Object.setPrototypeOf` وهي أيضًا تعمل عمل الجالب والضابط للنموذج الأولي (سندرس هذه الدوالّ لاحقًا في هذا الدرس).
 
-By the specification, `__proto__` must only be supported by browsers, but in fact all environments including server-side support it. For now, as `__proto__` notation is a little bit more intuitively obvious, we'll use it in the examples.
-```
+إن المتصفحات هي الوحيدة الّتي تدعم `__proto__` وفقًا للمواصفات القياسية للغة، ولكن في الواقع جميع البيئات تدعمها حتى بيئات الخادم وذلك لأنها سهلة وواضحة. وهي الّتي سنستخدمها في الأمثلة.
 
-If we look for a property in `rabbit`, and it's missing, JavaScript automatically takes it from `animal`.
+فمثلاً لو بحثنا الآن عن خاصية ما في كائن `rabbit` ولم تكُ موجودة، ستأخذها لغة جافاسكربت تلقائيًا من كائن `animal`.
 
-For instance:
+مثال على ذلك:
+
 
 ```js
 let animal = {
@@ -55,24 +56,24 @@ let rabbit = {
 rabbit.__proto__ = animal; // (*)
 */!*
 
-// we can find both properties in rabbit now:
+// الآن كلتا الخاصيتين في الأرنب:
 *!*
 alert( rabbit.eats ); // true (**)
 */!*
 alert( rabbit.jumps ); // true
 ```
+هنا نضبط (في السطر `(*)`) كائن `animal` ليكون النموذج الأولي (Prototype) للكائن `rabbit`.
 
-Here the line `(*)` sets `animal` to be a prototype of `rabbit`.
+بعدها متى ما حاولت التعليمة `alert` قراءة الخاصية `rabbit.eats` (انظر `(**)`)، ولم يجدها في كائن `rabbit` ستتبع لغة جافاسكربت الخاصية `[[Prototype]]` لمعرفة ما هو كائن النموذج الأولي لكائن `rabbit`، وسيجده كائن `animal` (البحث من أسفل إلى أعلى):
 
-Then, when `alert` tries to read property `rabbit.eats` `(**)`, it's not in `rabbit`, so JavaScript follows the `[[Prototype]]` reference and finds it in `animal` (look from the bottom up):
+[proto-animal-rabbit.png]
 
-![](proto-animal-rabbit.svg)
+يمكن أن نقول هنا بأنّ الكائن `animal` هو النموذج الأولي للكائن `rabbit`، أو كائن `rabbit` هو نسخة نموذجية من الكائن `animal`.
 
-Here we can say that "`animal` is the prototype of `rabbit`" or "`rabbit` prototypically inherits from `animal`".
+وبهذا لو كان للكائن `animal` خاصيات وتوابِع كثيرة مفيدة، تصير مباشرةً موجودة عند كائن `rabbit`. نسمّي هذه الخاصيات بأنّها ”موروثة“.
 
-So if `animal` has a lot of useful properties and methods, then they become automatically available in `rabbit`. Such properties are called "inherited".
+لو كان للكائن `animal` تابِعًا فيمكننا استدعائه في كائن `rabbit`:
 
-If we have a method in `animal`, it can be called on `rabbit`:
 
 ```js run
 let animal = {
@@ -89,17 +90,19 @@ let rabbit = {
   __proto__: animal
 };
 
-// walk is taken from the prototype
+// نأخذ ‫ walk من كائن النموذج الأولي
 *!*
 rabbit.walk(); // Animal walk
 */!*
 ```
 
-The method is automatically taken from the prototype, like this:
+يُؤخذ التابِع تلقائيًا من كائن النموذج الأولي، هكذا:
 
-![](proto-animal-rabbit-walk.svg)
+[proto-animal-rabbit-walk.png]
 
-The prototype chain can be longer:
+يمكن أيضًا أن تكون سلسلة الوراثة النموذجية (النموذج الأولي) أطول:
+
+
 
 ```js run
 let animal = {
@@ -123,33 +126,33 @@ let longEar = {
 */!*
 };
 
-// walk is taken from the prototype chain
+// نأخذ الدالّة ‫walk من سلسلة الوراثة النموذجية
 longEar.walk(); // Animal walk
 alert(longEar.jumps); // true (from rabbit)
 ```
 
 ![](proto-animal-rabbit-chain.svg)
 
-There are only two limitations:
+ولكن، هناك مُحددان للوراثة النموذجية وهما:
 
-1. The references can't go in circles. JavaScript will throw an error if we try to assign `__proto__` in a circle.
-2. The value of `__proto__` can be either an object or `null`. Other types are ignored.
+1. لا يمكن أن تكون سلسلة الوراثة النموذجية دائرية (على شكل حلقة). ما إن تُسند `__proto__` بطريقة دائرية فسترمي لغة جافاسكربت خطأً.
+2. يمكن أن تكون قيمة `__proto__` إمّا كائنًا أو `null`، وتتجاهل لغة جافاسكربت الأنواع الأخرى.
 
-Also it may be obvious, but still: there can be only one `[[Prototype]]`. An object may not inherit from two others.
+ومن الواضح جليًا أيضًا أي كائن سيرث كائن `[[Prototype]]` واحد وواحد فقط، لا يمكن للكائن وراثة كائنين.
 
-## Writing doesn't use prototype
 
-The prototype is only used for reading properties.
+## كائن النموذج الأولي للقراءة فقط
 
-Write/delete operations work directly with the object.
+لا يمكننا تعديل أو حذف خصائص أو دوالّ من كائن النموذج الأولي وإنما هو للقراءة فقط. وأيّة عمليات كتابة أو حذف تكون مباشرةً على الكائن نفسه وليس على كائن النموذج الأولي.
 
-In the example below, we assign its own `walk` method to `rabbit`:
+في المثال أسفله نُسند التابِع `walk` إلى الكائن `rabbit`:
+
 
 ```js run
 let animal = {
   eats: true,
   walk() {
-    /* this method won't be used by rabbit */  
+    /* لن يستعمل الكائن‫ `rabbit` هذا التابِع */  
   }
 };
 
@@ -166,13 +169,13 @@ rabbit.walk = function() {
 rabbit.walk(); // Rabbit! Bounce-bounce!
 ```
 
-From now on, `rabbit.walk()` call finds the method immediately in the object and executes it, without using the prototype:
+من الآن فصاعدًا فستجد استدعاء التابع `rabbit.walk()‎` سيكون من داخل كائن `rabbit` مباشرةً وتُنفّذه دون استعمال كائن النموذج الأولي:
 
 ![](proto-animal-rabbit-walk-2.svg)
 
-Accessor properties are an exception, as assignment is handled by a setter function. So writing to such a property is actually the same as calling a function.
+ولكن خاصيات الوصول استثناء للقاعدة، إذ يجري الإسناد على يد دالة الضابِط، أي أنّك بالكتابة في هذه الخاصية في الكائن الجديد ولكنّك استدعيت دالة الضابط الخاصة بكائن النموذج الأولي لإسناد هذه القيمة.
 
-For that reason `admin.fullName` works correctly in the code below:
+لهذا السبب نرى الخاصية `admin.fullName` في الشيفرة أسفله تعمل كما ينبغي لها:
 
 ```js run
 let user = {
@@ -195,30 +198,32 @@ let admin = {
 
 alert(admin.fullName); // John Smith (*)
 
-// setter triggers!
+// عمل الضابِط!
 admin.fullName = "Alice Cooper"; // (**)
 ```
 
-Here in the line `(*)` the property `admin.fullName` has a getter in the prototype `user`, so it is called. And in the line `(**)` the property has a setter in the prototype, so it is called.
+هنا في السطر `(*)` نرى أن `admin.fullName` استدعت الجالِب داخل الكائن `user`، ولهذا استُدعيت الخاصية. وفي السطر `(**)` نرى عملية إسناد للخاصية `admin.fullName` ولهذا استدعيَ الضابِط داخل الكائن `user`.
 
-## The value of "this"
 
-An interesting question may arise in the example above: what's the value of `this` inside `set fullName(value)`? Where are the properties `this.name` and `this.surname` written: into `user` or `admin`?
+## ماذا عن "this"؟
 
-The answer is simple: `this` is not affected by prototypes at all.
+بعدما تتمعّن في المثال أعلاه، يمكن أن تتساءل ما قيمة `this` داخل `set fullName(value)‎`؟ أين كُتبت القيم الجديدة `this.name` و `this.surname`؟ داخل الكائن `user` أم داخل الكائن `admin`؟
 
-**No matter where the method is found: in an object or its prototype. In a method call, `this` is always the object before the dot.**
+جواب هذا السؤال المحيّر بسيط: لا تؤثّر كائنات النموذج الأولي على قيمة `this`.
 
-So, the setter call `admin.fullName=` uses `admin` as `this`, not `user`.
+**أينما كان التابِع موجودًا أكان في الكائن أو في كائن النموذج الأولي، سيكون تأثير `this` على الكائن الّذي قبل النقطة (الكائن المستدعى من خلاله هذه الخاصية) دائمًا وأبدًا.**
 
-That is actually a super-important thing, because we may have a big object with many methods, and have objects that inherit from it. And when the inheriting objects run the inherited methods, they will modify only their own states, not the state of the big object.
+لهذا فالضابِط الّذي يستدعي `admin.fullName=‎` يستعمل كائن `admin` عوضًا عن `this` وليس الكائن `user`.
 
-For instance, here `animal` represents a "method storage", and `rabbit` makes use of it.
+في الواقع فهذا أمر مهما جدًا جدًا إذ أنّ لديك ربما كائنًا ضخمًا فيه توابِع كثيرة جدًا، وهناك كائنات أخرى ترثه، وما إن تشغّل تلك الكائنات الموروثة التوابِعَ الموروثة، ستعدّل حالتها هي -أي الكائنات- وليس حالة الكائن الضخم ذاك.
 
-The call `rabbit.sleep()` sets `this.isSleeping` on the `rabbit` object:
+فمثلًا هنا، يمثّل كائن `animal` ”مخزّنَ توابِع“ وكائن `rabbit` يستغلّ هذا المخزن.
+
+فاستدعاء `rabbit.sleep()‎` يضبط `this.isSleeping` على كائن `rabbit`:
+
 
 ```js run
-// animal has methods
+// للحيوان توابِع
 let animal = {
   walk() {
     if (!this.isSleeping) {
@@ -235,26 +240,27 @@ let rabbit = {
   __proto__: animal
 };
 
-// modifies rabbit.isSleeping
+// يعدّل rabbit.isSleeping
 rabbit.sleep();
 
 alert(rabbit.isSleeping); // true
-alert(animal.isSleeping); // undefined (no such property in the prototype)
+alert(animal.isSleeping); // غير معرّف (لا يوجد خاصية معرفة في كائن النموذج الأولي بهذا الأسم)‫ 
 ```
 
-The resulting picture:
+الصورة الناتجة:
 
 ![](proto-animal-rabbit-walk-3.svg)
 
-If we had other objects, like `bird`, `snake`, etc., inheriting from `animal`, they would also gain access to methods of `animal`. But `this` in each method call would be the corresponding object, evaluated at the call-time (before dot), not `animal`. So when we write data into `this`, it is stored into these objects.
+لو كانت هناك كائنات أخرى (مثل الطيور `bird` والأفاعي `snake` وغيرها) ترث الكائن`animal`، فسيمكنها الوصول إلى توابِع الكائن `animal`، إلّا أنّ قيمة `this` في كلّ استدعاء للتوابِع سيكون على الكائن الّذي استُدعيت منه، وستعرِفه لغة جافاسكربت أثناء الاستدعاء (أي سيكون الكائن الّذي قبل النقطة) ولن يكون `animal`. لذا متى كتبنا البيانات من خلال `this`، فستُخزّن في تلك الكائنات الّتي استدعيت عليها `this`.
 
-As a result, methods are shared, but the object state is not.
+وبهذا نخلص إلى أنّ التوابِع مشتركة، ولكن حالة الكائن ليست مشتركة.
 
-## for..in loop
+## حلقة for..in
 
-The `for..in` loop iterates over inherited properties too.
+كما أنّ حلقة `for..in` تَمرُّ على الخاصيات الموروثة هي الأخرى.
 
-For instance:
+مثال:
+
 
 ```js run
 let animal = {
@@ -267,19 +273,20 @@ let rabbit = {
 };
 
 *!*
-// Object.keys only returns own keys
+// يُعيد التابع ‫Object.keys خصائص الكائن نفسه فقط
 alert(Object.keys(rabbit)); // jumps
 */!*
 
 *!*
-// for..in loops over both own and inherited keys
+// تدور حلقة‫ for..in على خصائص الكائن نفسه والخصائص الموروثة معًا
 for(let prop in rabbit) alert(prop); // jumps, then eats
 */!*
 ```
 
-If that's not what we want, and we'd like to exclude inherited properties, there's a built-in method [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty): it returns `true` if `obj` has its own (not inherited) property named `key`.
+لو لم تكن هذه النتيجة ما نريد (أي نريد استثناء الخاصيات الموروثة)، فيمكن استعمال التابِع [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty) المضمّن في اللغة: إذ يُعيد `true` لو كان للكائن `obj` نفسه (وليس للموروث منه) خاصية بالاسم `key`.
 
-So we can filter out inherited properties (or do something else with them):
+بهذا يمكننا ترشيح الخاصيات الموروثة (ونتعامل معها على حدة):
+
 
 ```js run
 let animal = {
@@ -295,35 +302,33 @@ for(let prop in rabbit) {
   let isOwn = rabbit.hasOwnProperty(prop);
 
   if (isOwn) {
-    alert(`Our: ${prop}`); // Our: jumps
+    alert(`Our: ${prop}`);  // تخصّنا:‫ jumps
   } else {
-    alert(`Inherited: ${prop}`); // Inherited: eats
+    alert(`Inherited: ${prop}`);  // ورثناها: ‫eats
   }
 }
 ```
 
-Here we have the following inheritance chain: `rabbit` inherits from `animal`, that inherits from `Object.prototype` (because `animal` is a literal object `{...}`, so it's by default), and then `null` above it:
+هنا نرى سلسلة الوراثة الآتية: يرث كائن `rabbit` كائنَ `animal`، والّذي يرثه هكذا `Object.prototype` (إذ أنّه كائن مجرّد `{...}`، وهذا السلوك المبدئي)، وبعدها يرث `null`:
 
 ![](rabbit-animal-object.svg)
 
-Note, there's one funny thing. Where is the method `rabbit.hasOwnProperty` coming from? We did not define it. Looking at the chain we can see that the method is provided by `Object.prototype.hasOwnProperty`. In other words, it's inherited.
+ملاحظة لطيفة في هذا السياق وهي: من أين أتى التابِع `rabbit.hasOwnProperty`؟ لم نعرّفه يدويًا! لو تتبّعناه في السلسلة لرأينا بأنّ كائن النموذج الأولي `Object.prototype.hasOwnProperty` هو من قدّم التابِع، أي بعبارة أخرى، ورث كائن `rabbit` هذا التابِع من كائن النموذج الأولي.
 
-...But why does `hasOwnProperty` not appear in the `for..in` loop like `eats` and `jumps` do, if `for..in` lists inherited properties?
+ولكن لحظة... لماذا لم يظهر تابع `hasOwnProperty` في حلقة `for..in` كما ظهرت `eats` و `jumps` طالما تُظهر حلقات `for..in` الخاصيات الموروثة؟
 
-The answer is simple: it's not enumerable. Just like all other properties of `Object.prototype`, it has `enumerable:false` flag. And `for..in` only lists enumerable properties. That's why it and the rest of the `Object.prototype` properties are not listed.
+الإجابة هنا بسيطة أيضًا: لإنه مُنع من قابلية العدّ (من خلال إسناده لقيمة الراية `enumerable:false`). في النهاية هي مِثل غيرها من الخاصيات في `Object.prototype`- تملك الراية `enumerable:false`، وحلقة `for..in` لا تمرّ إلّا على الخاصيات القابلة للعدّ. لهذا السبب لم نراها لا هي ولا خاصيات `Object.prototype` الأخرى.
 
-```smart header="Almost all other key/value-getting methods ignore inherited properties"
-Almost all other key/value-getting methods, such as `Object.keys`, `Object.values` and so on ignore inherited properties.
+**كلّ التوابِع الّتي تجلب المفتاح/القيمة تُهمل الخاصيات الموروثة، تقريبًا مثل تابِع `Object.keys` أو تابِع `Object.values` وما شابههم. إذ إنهم يتعاملون مع خصائص الكائن نفسه ولا يأخذون بعين الاعتبار الخصائص الموروثة**
 
-They only operate on the object itself. Properties from the prototype are *not* taken into account.
-```
 
-## Summary
 
-- In JavaScript, all objects have a hidden `[[Prototype]]` property that's either another object or `null`.
-- We can use `obj.__proto__` to access it (a historical getter/setter, there are other ways, to be covered soon).
-- The object referenced by `[[Prototype]]` is called a "prototype".
-- If we want to read a property of `obj` or call a method, and it doesn't exist, then JavaScript tries to find it in the prototype.
-- Write/delete operations act directly on the object, they don't use the prototype (assuming it's a data property, not a setter).
-- If we call `obj.method()`, and the `method` is taken from the prototype, `this` still references `obj`. So methods always work with the current object even if they are inherited.
-- The `for..in` loop iterates over both its own and its inherited properties. All other key/value-getting methods only operate on the object itself.
+## الملخص
+- لكلّ كائنات جافاسكربت خاصية `[[Prototype]]` مخفية قيمتها إمّا أحد الكائنات أو `null`.
+- يمكننا استعمال `obj.__proto__‎` للوصول إلى هذه الخاصية (وهي خاصية جالِب/ضابِطة). هناك طرق أخرى سنراها لاحقًا.
+- الكائن الّذي تُشير إليه الخاصية `[[Prototype]]` يسمّى كائن النموذج الأولي.
+- لو أردنا قراءة خاصية داخل كائن ما `obj` أو استدعاء تابِع، ولم تكن موجودة/يكن موجودًا، فسيحاول محرّك جافاسكربت البحث عنه/عنها في كائن النموذج الأولي.
+- عمليات الكتابة والحذف تتطبّق مباشرة على الكائن المُستدعي ولا تستعمل كائن النموذج الأولي (إذ يعدّ أنّها خاصية بيانات وليست ضابِطًا).
+- لو استدعينا التابِع `‎obj.method()‎‏` وأخذ المحرّك التابِع `method` من كائن النموذج الأولي، فلن تتغير إشارة `this` وسيُشير إلى `obj`، أي أنّ التوابِع تعمل على الكائن الحالي حتّى لو كانت التوابِع نفسها موروثة.
+- تمرّ حلقة `for..in` على خاصيات الكائن والخاصيات الموروثة، بينما لا تعمل توابِع جلب المفاتيح/القيم إلّا على الكائن نفسه.
+

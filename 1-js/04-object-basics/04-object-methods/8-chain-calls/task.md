@@ -1,10 +1,10 @@
-importance: 2
+الأهمية: 2
 
 ---
 
-# Chaining
+# التسلسل
 
-There's a `ladder` object that allows to go up and down:
+لدينا الكائن `ladder` (سُلَّم) الذي يتيح الصعود والنزول:
 
 ```js
 let ladder = {
@@ -21,7 +21,7 @@ let ladder = {
 };
 ```
 
-Now, if we need to make several calls in sequence, can do it like this:
+الآن، إن أردنا القيام بعدة استدعاءات متتالية، يمكننا القيام بما يلي:
 
 ```js
 ladder.up();
@@ -30,10 +30,10 @@ ladder.down();
 ladder.showStep(); // 1
 ```
 
-Modify the code of `up`, `down` and `showStep` to make the calls chainable, like this:
+عَدِّل الشيفرة الخاصة بالدوال `up`، و `down`، و `showStep` لجعل الاستدعاءات متسلسلة كما يلي:
 
 ```js
 ladder.up().up().down().showStep(); // 1
 ```
 
-Such approach is widely used across JavaScript libraries.
+يُستخدم هذا النمط بنطاق واسع في مكتبات JavaScript

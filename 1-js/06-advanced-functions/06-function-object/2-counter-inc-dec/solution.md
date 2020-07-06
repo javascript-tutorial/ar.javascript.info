@@ -1,2 +1,3 @@
 
-The solution uses `count` in the local variable, but addition methods are written right into the `counter`. They share the same outer lexical environment and also can access the current `count`.
+الحل يستخدم `count` في المتغير المحلي, لكن الوظائف الإضافية تمت كتابتها بجانب `counter`.
+إنهم يتشاركون نفس الحسد اللغوي ويمكنهم أيضاً الوصول إلى القيمة الحالية `count`.

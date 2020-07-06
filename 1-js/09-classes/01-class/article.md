@@ -330,11 +330,7 @@ alert(user.name); // John
 alert(User.prototype.name); // undefined
 ```
 
-<<<<<<< HEAD
 من الناحية الفنية ، تتم معالجتها بعد أن يقوم المنشئ بعمله ، ويمكننا استخدامه بالنسبة لهم التعبيرات المعقدة واستدعاءات الوظائف:
-=======
-We can also assign values using more complex expressions and function calls:
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ```js run
 class User {
@@ -347,14 +343,9 @@ let user = new User();
 alert(user.name); // John
 ```
 
-<<<<<<< HEAD
 ### عمل طرق مرتبطة بحقول class
 
 كما هو موضح في الفصل <info: bind> ، فإن وظائف JavaScript لها ديناميكية `this`. يعتمد ذلك على سياق المكالمة.
-=======
-
-### Making bound methods with class fields
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 لذلك إذا تم تمرير طريقة كائن واستدعاؤها في سياق آخر ، فلن يكون `هذا` مرجعاً إلى كائنه بعد الآن.
 
@@ -383,38 +374,10 @@ setTimeout(button.click, 1000); // undefined
 
 هناك طريقتان لإصلاحها ، كما هو موضح في الفصل <info: bind>:
 
-<<<<<<< HEAD
 1. قم بتمرير دالة مجمعة ، مثل `setTimeout (() => button.click ()، 1000)`.
 2. ربط طريقة الاعتراض ، على سبيل المثال في المنشئ:
 
-```js run
-class Button {
-  constructor(value) {
-    this.value = value;
-*!*
-    this.click = this.click.bind(this);
-*/!*
-  }
-
-  click() {
-    alert(this.value);
-  }
-}
-
-let button = new Button("hello");
-
-*!*
-setTimeout(button.click, 1000); // hello
-*/!*
-```
-
 توفر حقول class بنية أكثر أناقة للحل الأخير:
-=======
-1. Pass a wrapper-function, such as `setTimeout(() => button.click(), 1000)`.
-2. Bind the method to object, e.g. in the constructor.
-
-Class fields provide another, quite elegant syntax:
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ```js run
 class Button {
@@ -433,15 +396,9 @@ let button = new Button("hello");
 setTimeout(button.click, 1000); // hello
 ```
 
-<<<<<<< HEAD
 ينشئ حقل الفئة `click = () => {...}` وظيفة مستقلة على كل كائن `Button` ، مع` this` مرتبطًا بالكائن. ثم يمكننا تمرير "button.click" في أي مكان ، وسيتم استدعاؤها باستخدام `this` الصحيح.
 
 هذا مفيد بشكل خاص في بيئة المتصفح ، عندما نحتاج إلى إعداد طريقة كمستمع للأحداث.
-=======
-The class field `click = () => {...}` is created on a per-object basis, there's a separate function for each `Button` object, with `this` inside it referencing that object. We can pass `button.click` around anywhere, and the value of `this` will always be correct.
-
-That's especially useful in browser environment, for event listeners.
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ## ملخص
 

@@ -28,11 +28,7 @@ DOM التعديل هو مفتاح إنشاء صفحات "حية".
 */!*
 ```
 
-<<<<<<< HEAD
 كان هذا مثال HTML. الآن دعنا ننشئ نفس `div` باستخدام JavaScript (على افتراض أن الأنماط موجودة في HTML أو ملف CSS خارجي).
-=======
-That was the HTML example. Now let's create the same `div` with JavaScript (assuming that the styles are in the HTML/CSS already).
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ## إنشاء عنصر
 
@@ -52,17 +48,11 @@ That was the HTML example. Now let's create the same `div` with JavaScript (assu
     let textNode = document.createTextNode('Here I am');
     ```
 
-<<<<<<< HEAD
+في حالتنا، تكون الرسالة `div` مع فئة` تنبيه 'و HTML فيها:
+
 ### إنشاء الرسالة
 
-في حالتنا ، تكون الرسالة `div` مع فئة` تنبيه 'و HTML فيها:
-=======
-Most of the time we need to create element nodes, such as the `div` for the message.
-
-### Creating the message
-
-Creating the message div takes 3 steps:
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
+في حالتنا، إنشاء `div` الرسالة ينطلب 3 مراحل:
 
 ```js
 // 1. Create <div> element
@@ -75,73 +65,21 @@ div.className = "alert";
 div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
 ```
 
-<<<<<<< HEAD
-لقد أنشأنا العنصر ، ولكن حتى الآن إنه متغير فقط. لا يمكننا رؤية العنصر على الصفحة ، لأنه ليس جزءًا من المستند حتى الآن.
-=======
-We've created the element. But as of now it's only in a variable named `div`, not in the page yet. So we can't see it.
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
+لقد أنشأنا العنصر ، ولكن حتى الآن إنه متغير فقط. لا يمكننا رؤية العنصر على الصفحة ، لأنه ليس جزءًا من المستند حتى الآن
 
 ## طرق الإدراج
 
-<<<<<<< HEAD
-لعرض "div" ، نحتاج إلى إدراجه في مكان ما في "المستند". على سبيل المثال ، في `document.body`.
-=======
-To make the `div` show up, we need to insert it somewhere into `document`. For instance, into `<body>` element, referenced by `document.body`.
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
+لعرض "div" ، نحتاج إلى إدراجه في مكان ما في "المستند". على سبيل المثال ، في `document.body`. هناك طريقة خاصة `append` لذلك:` document.body.append (div) `.
 
-هناك طريقة خاصة `append` لذلك:` document.body.append (div) `.
-
-إليك الكود الكامل:
-
-```html run height="80"
-<style>
-.alert {
-  padding: 15px;
-  border: 1px solid #d6e9c6;
-  border-radius: 4px;
-  color: #3c763d;
-  background-color: #dff0d8;
-}
-</style>
-
-<script>
-  let div = document.createElement('div');
-  div.className = "alert";
-  div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
-
-*!*
-  document.body.append(div);
-*/!*
-</script>
-```
-
-<<<<<<< HEAD
 توفر هذه المجموعة من الطرق المزيد من الطرق لإدراج:
 
 - `node.append (... nodes or strings)` - إلحاق عقد أو سلاسل في نهاية `node` ،
 - `node.prepend (... العقد أو السلاسل)` - إدراج العقد أو السلاسل في بداية `العقدة` ،
 - `node.before (... nodes or strings)` –- أدخل العقد أو السلاسل قبل `node` ،
-- `العقدة بعد (... العقد أو السلاسل)` - - إدراج العقد أو السلاسل بعد `العقدة` ،
+- `node.after(...nodes or strings)` - إدراج العقد أو السلاسل بعد `العقدة` ،
 - `node.replaceWith (... العقد أو السلاسل)` - - يستبدل `العقدة` بالعقد أو السلاسل المعطاة.
 
 فيما يلي مثال على استخدام هذه الأساليب لإضافة عناصر إلى قائمة والنص قبلها / بعدها:
-=======
-Here we called `append` on `document.body`, but we can call `append` method on any other element, to put another element into it. For instance, we can append something to `<div>` by calling `div.append(anotherElement)`.
-
-Here are more insertion methods, they specify different places where to insert:
-
-- `node.append(...nodes or strings)` -- append nodes or strings *at the end* of `node`,
-- `node.prepend(...nodes or strings)` -- insert nodes or strings *at the beginning* of `node`,
-- `node.before(...nodes or strings)` –- insert nodes or strings *before* `node`,
-- `node.after(...nodes or strings)` –- insert nodes or strings *after* `node`,
-- `node.replaceWith(...nodes or strings)` –- replaces `node` with the given nodes or strings.
-
-Arguments of these methods are an arbitrary list of DOM nodes to insert, or text strings (that become text nodes automatically).
-
-Let's see them in action.
-
-Here's an example of using these methods to add items to a list and the text before/after it:
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ```html autorun
 <ol id="ol">
@@ -164,11 +102,7 @@ Here's an example of using these methods to add items to a list and the text bef
 </script>
 ```
 
-<<<<<<< HEAD
 هذه صورة بصرية عن الأساليب التي تفعلها:
-=======
-Here's a visual picture of what the methods do:
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ![](before-prepend-append-after.svg)
 
@@ -186,11 +120,7 @@ before
 after
 ```
 
-<<<<<<< HEAD
 يمكن لهذه الطرق إدراج قوائم متعددة للعقد والقطع النصية في مكالمة واحدة.
-=======
-As said, these methods can insert multiple nodes and text pieces in a single call.
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 على سبيل المثال ، هنا يتم إدراج سلسلة وعنصر:
 
@@ -201,11 +131,7 @@ As said, these methods can insert multiple nodes and text pieces in a single cal
 </script>
 ```
 
-<<<<<<< HEAD
-يتم إدراج كل النص * كنص *.
-=======
-Please note: the text is inserted "as text", not "as HTML", with proper escaping of characters such as `<`, `>`.
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
+يتم إدراج كل النص * كنص *. 
 
 إذن HTML النهائي هو:
 
@@ -221,11 +147,7 @@ Please note: the text is inserted "as text", not "as HTML", with proper escaping
 
 لذلك ، لا يمكن استخدام هذه الطرق إلا لإدراج عقد DOM أو أجزاء نصية.
 
-<<<<<<< HEAD
-ولكن ماذا لو أردنا إدراج HTML "كـ html" ، مع عمل جميع العلامات والأشياء ، مثل `elem.innerHTML`؟
-=======
-But what if we'd like to insert an HTML string "as html", with all tags and stuff working, in the same manner as `elem.innerHTML` does it?
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
+ولكن ماذا لو أردنا إدراج HTML "كـ html" ، مع عمل جميع العلامات والأشياء ، مثل `elem.innerHTML`?
 
 ## insertAdjacentHTML / Text / Element
 

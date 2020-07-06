@@ -232,13 +232,9 @@ let rabbit = new Rabbit("White Rabbit", 10); // Error: this is not defined.
 
 عفوًا! لدينا خطأ. الآن لا يمكننا إنشاء الأرانب. ماذا حصل؟
 
-<<<<<<< HEAD
-الإجابة المختصرة هي: يجب على منشئو الفصول الموروثة استدعاء `super (...)` و (!) قبل ذلك باستخدام `this`.
-=======
-The short answer is:
+الاجابة السريعة:
 
-- **Constructors in inheriting classes must call `super(...)`, and (!) do it before using `this`.**
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
+- **الإجابة المختصرة هي: يجب على منشئو الفصول الموروثة استدعاء `super (...)` و (!) قبل ذلك باستخدام `this`.**
 
 ...لكن لماذا؟ ماذا يجري هنا؟ في الواقع ، يبدو الشرط غريبًا.
 
@@ -251,11 +247,7 @@ The short answer is:
 - عندما يتم تنفيذ وظيفة عادية باستخدام `new` ، فإنها تنشئ كائنًا فارغًا وتعينه بـ` this`.
 - ولكن عندما يعمل منشئ مشتق ، فإنه لا يفعل ذلك. وتتوقع من المُنشئ الأصلي أن يقوم بهذه المهمة.
 
-<<<<<<< HEAD
 لذا يجب على المُنشئ المشتق استدعاء `super` من أجل تنفيذ مُنشئه الأصلي (غير المُشتق) ، وإلا فلن يتم إنشاء كائن` this`. وسنحصل على خطأ.
-=======
-So a derived constructor must call `super` in order to execute its parent (base) constructor, otherwise the object for `this` won't be created. And we'll get an error.
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 لكي يعمل مُنشئ "الأرنب" ، يجب الاتصال بـ "super ()` قبل استخدام `this` ، كما يلي:
 
@@ -289,11 +281,6 @@ alert(rabbit.name); // White Rabbit
 alert(rabbit.earLength); // 10
 */!*
 ```
-
-
-<<<<<<< HEAD
-## Super: الأجزاء الداخلية ، [[HomeObject]]
-=======
 
 ### Overriding class fields: a tricky note
 
@@ -389,9 +376,7 @@ Luckily, this behavior only reveals itself if an overridden field is used in the
 
 If it becomes a problem, one can fix it by using methods or getters/setters instead of fields.
 
-
-## Super: internals, [[HomeObject]]
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
+## Super: الأجزاء الداخلية ، [[HomeObject]]
 
 ```warn header="معلومات متقدمة"
 إذا كنت تقرأ البرنامج التعليمي لأول مرة - فقد يتم تخطي هذا القسم.

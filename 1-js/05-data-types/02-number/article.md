@@ -114,20 +114,12 @@ alert( 123456..toString(36) ); // 2n9c
 
 يختصر الجدول في الأسفل الاختلافات بين هذه التوابع:
 
-<<<<<<< HEAD
 |      | `Math.floor` | `Math.ceil` | `Math.round` | `Math.trunc` |
 | ---- | ---------- | --------- | ---------- | ---------- |
 | 3.1  | 3          | 4         | 3          | 3          |
 | 3.6  | 3          | 4         | 4          | 3          |
 | -1.1 | -2         | -1        | -1         | -1         |
 | -1.6 | -2         | -1        | -2         | -1         |
-=======
-    For example, to round the number to the 2nd digit after the decimal, we can multiply the number by `100` (or a bigger power of 10), call the rounding function and then divide it back.
-    ```js run
-    let num = 1.23456;
->>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
-
-
 
 تُعَطِّي هذه التوابع جميع الاحتمالات الممكنة للتعامل مع الجزء العشري للعدد، لكن ماذا إن كنا نريد تقريب العدد إلى خانة محدَّدة بعد الفاصلة العشرية؟
 

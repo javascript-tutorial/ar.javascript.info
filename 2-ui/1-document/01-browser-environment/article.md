@@ -113,3 +113,4 @@ When you'd like to read about a property or a method, the Mozilla manual at <htt
 To find something, it's often convenient to use an internet search "WHATWG [term]" or "MDN [term]", e.g <https://google.com?q=whatwg+localstorage>, <https://google.com?q=mdn+localstorage>.
 
 Now we'll get down to learning DOM, because the document plays the central role in the UI.
+

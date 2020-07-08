@@ -1,13 +1,15 @@
-The result is: **error**.
 
-Try running it:
+الناتج: **خطأ**.
+
+جرب الكود للتأكد:
+
 
 ```js run
 let x = 1;
 
 function func() {
 *!*
-  console.log(x); // ReferenceError: Cannot access 'x' before initialization
+  console.log(x); // ReferenceError: لا نستطيع الوصول لـ 'x' قبل إعطائها قيمة
 */!*
   let x = 2;
 }
@@ -15,26 +17,26 @@ function func() {
 func();
 ```
 
-In this example we can observe the peculiar difference between a "non-existing" and "unitialized" variable.
+في هذا المثال نستشف الفرق بين **غير موجود** و **غير معرف بقيمة**
 
-As you may have read in the article [](info:closure), a variable starts in the "uninitialized" state from the moment when the execution enters a code block (or a function). And it stays uninitalized until the corresponding `let` statement.
+كما قرأت في هذه المقالة [](info:closure), المتغير أولاً يكون في حالة **غير معرف بقيمة** عند اللحظة الذي يتم فيها تشغيل الكتلة كلها التي تحتوي علي المتغير. وتظل هكذا حتي جملة `let`.
 
-In other words, a variable technically exists, but can't be used before `let`.
+أو بطريقة أخرى, المُتغير تقنياً موجود, لكن ا تستطيع الوصول له قبل `let`.
 
-The code above demonstrates it.
+الكود فى الأعلي وضح ذلك.
+
 
 ```js
 function func() {
 *!*
-  // the local variable x is known to the engine from the beginning of the function,
-  // but "unitialized" (unusable) until let ("dead zone")
-  // hence the error
+// المتغير المحلي X يعتبر معروف للمحرك من البداية, لكن **غير معرف بقيمة** تظل حتي let
+  // لذلك هناك خطأ
 */!*
 
-  console.log(x); // ReferenceError: Cannot access 'x' before initialization
+  console.log(x); // ReferenceError: لا نستطيع الوصول لـ 'x' قبل إعطائها قيمة
 
   let x = 2;
 }
 ```
+هذه المنطقة من المتغيرات المؤقتة الغير  مستخدمة من بداية الكود حتي `let` تسمي **بالمنطقة الميتة**
 
-This zone of temporary unusability of a variable (from the beginning of the code block till `let`) is sometimes called the "dead zone".

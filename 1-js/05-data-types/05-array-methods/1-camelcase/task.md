@@ -2,18 +2,20 @@ importance: 5
 
 ---
 
-# Translate border-left-width to borderLeftWidth
+# Tحوّل «border-left-width» إلى «borderLeftWidth»
 
-Write the function `camelize(str)` that changes dash-separated words like "my-short-string" into camel-cased "myShortString".
+اكتب دالة camelize(str)‎ تغيّر الكلمات المقسومة بِشَرطات مثل «my-short-string» إلى عبارات بتنسيق «سنام الجمل»: «myShortString».
 
-That is: removes all dashes, each word after dash becomes uppercased.
+بعبارة أخرى: أزِل كلّ الشرطات وحوّل أوّل حرف من كلّ كلمة بعدها إلى الحالة الكبيرة.
 
-Examples:
+أمثلة:
+
+:
 
 ```js
-camelize("background-color") == 'backgroundColor';
-camelize("list-style-image") == 'listStyleImage';
-camelize("-webkit-transition") == 'WebkitTransition';
+camelize("background-color") == "backgroundColor";
+camelize("list-style-image") == "listStyleImage";
+camelize("-webkit-transition") == "WebkitTransition";
 ```
 
-P.S. Hint: use `split` to split the string into an array, transform it and `join` back.
+تلميح: استعمل split لتقسيم السلسلة النصية إلى مصفوفة، ثمّ عدّل عناصرها وأعِد ربطها بتابِع join.

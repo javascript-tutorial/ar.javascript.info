@@ -1,1 +1,1 @@
-# Classes
+# الأصناف (Classes)

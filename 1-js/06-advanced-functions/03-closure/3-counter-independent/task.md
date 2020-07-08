@@ -1,12 +1,12 @@
-importance: 5
+_الأهمية: 5_
 
 ---
 
-# Are counters independent?
+### هل العدّادات مستقلة عن بعضها البعض؟
 
-Here we make two counters: `counter` and `counter2` using the same `makeCounter` function.
+صنعنا هنا عدّادين اثنين `‎counter‎` و `‎counter2‎` باستعمال ذات الدالة `‎makeCounter‎`.
 
-Are they independent? What is the second counter going to show? `0,1` or `2,3` or something else?
+هل هما مستقلان عن بعضهما البعض؟ ما الذي سيعرضه العدّاد الثاني؟ `‎0,1‎` أم `‎2,3‎` أم ماذا؟
 
 ```js
 function makeCounter() {

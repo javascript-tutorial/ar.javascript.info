@@ -2,35 +2,36 @@ importance: 5
 
 ---
 
-# Create an extendable calculator
+# أنشِئ آلة حاسبة يمكن توسعتها لاحقًا
 
-Create a constructor function `Calculator` that creates "extendable" calculator objects.
+أنشِئ دالة إنشاء باني «constructor»‏ Calculator تُنشئ كائنات من نوع «آلة حاسبة» يمكن لنا «توسعتها».
 
-The task consists of two parts.
+تنقسم هذه المهمة إلى جزئين اثنين:
 
-1. First, implement the method `calculate(str)` that takes a string like `"1 + 2"` in the format "NUMBER operator NUMBER" (space-delimited) and returns the result. Should understand plus `+` and minus `-`.
+1. أولًا، نفّذ تابِع calculate(str)‎ يأخذ سلسلة نصية (مثل "1 + 2") بالتنسيق «عدد مُعامل عدد» (أي مقسومة بمسافات) ويُعيد الناتج. يجب أن يفهم التابِع الجمع + والطرح -.
 
-    Usage example:
+مثال عن الاستعمال:
 
     ```js
     let calc = new Calculator;
 
     alert( calc.calculate("3 + 7") ); // 10
     ```
-2. Then add the method `addMethod(name, func)` that teaches the calculator a new operation. It takes the operator `name` and the two-argument function `func(a,b)` that implements it.
 
-    For instance, let's add the multiplication `*`, division `/` and power `**`:
+2. بعدها أضِف تابِع addMethod(name, func)‎ يُعلّم الآلة الحاسبة عمليّة جديدة. يأخذ التابِع المُعامل name ودالة func(a,b)‎ بوسيطين تُنفّذ هذه العملية.
 
-    ```js
-    let powerCalc = new Calculator;
-    powerCalc.addMethod("*", (a, b) => a * b);
-    powerCalc.addMethod("/", (a, b) => a / b);
-    powerCalc.addMethod("**", (a, b) => a ** b);
+كمثال على ذلك سنُضيف عمليات الضرب \* والقسمة / والأُسّ \*\*:
 
-    let result = powerCalc.calculate("2 ** 3");
-    alert( result ); // 8
-    ```
+```js
+let powerCalc = new Calculator();
+powerCalc.addMethod("*", (a, b) => a * b);
+powerCalc.addMethod("/", (a, b) => a / b);
+powerCalc.addMethod("**", (a, b) => a ** b);
 
-- No parentheses or complex expressions in this task.
-- The numbers and the operator are delimited with exactly one space.
-- There may be error handling if you'd like to add it.
+let result = powerCalc.calculate("2 ** 3");
+alert(result); // 8
+```
+
+- في هذه المهمة ليس هناك أقواس رياضية أو تعابير معقّدة.
+- تفصل الأعداد والمُعامل مسافة واحدة فقط.
+- يمكنك التعامل مع الأخطاء لو أردت.

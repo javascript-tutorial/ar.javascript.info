@@ -1,6 +1,4 @@
-That's because `i` would never equal `10`.
-
-Run it to see the *real* values of `i`:
+ذلك لأن `i` لن  يساوي `10` أبدًا. نفذ الشيفرة التالية لرؤية قيم `i`:
 
 ```js run
 let i = 0;
@@ -10,8 +8,4 @@ while (i < 11) {
 }
 ```
 
-None of them is exactly `10`.
-
-Such things happen because of the precision losses when adding fractions like `0.2`.
-
-Conclusion: evade equality checks when working with decimal fractions.
+لا توجد قيمة تساوي `10` تمامًا. تحدث مثل هذه الأمور بسبب ضياع الدقة عند إضافة الأجزاء مثل `0.2`. الخلاصة، تجنب التحقق من المساواة عند التعامل مع الأجزاء العشرية.

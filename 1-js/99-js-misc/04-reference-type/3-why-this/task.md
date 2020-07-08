@@ -2,11 +2,11 @@ importance: 3
 
 ---
 
-# Explain the value of "this"
+# تفسير القيمة الخاصه بـ "this"
 
-In the code below we intend to call `obj.go()` method 4 times in a row.
+في الشيفرة بالأسفل نريد تنفيذ `obj.go()` 4 مرات.
 
-But calls `(1)` and `(2)` works differently from `(3)` and `(4)`. Why?
+لكن تنفيذ `(1)` و `(2)` يكون مختلف عن تنفيذ `(3)` 4 `(4)`. لماذا?
 
 ```js run no-beautify
 let obj, method;

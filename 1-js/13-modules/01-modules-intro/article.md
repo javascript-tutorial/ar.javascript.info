@@ -1,4 +1,3 @@
-
 # مقدّمة إلى الوِحدات
 
 سنرى سريعًا بينما تطبيقنا يكبُر حجمًا وتعقيدًا بأنّ علينا تقسيمه إلى ملفات متعدّدة، أو ”وِحدات“ (module). عادةً ما تحتوي الوِحدة على صنف أو مكتبة فيها دوالّ.
@@ -57,6 +56,9 @@ sayHi('John'); // Hello, John!
 
 يجلب المتصفّح الوِحدة تلقائيًا ويقيم الشيفرة البرمجية بداخلها (ويستورد جميع الوحدات المتعلقة بها إن لزم الأمر)، وثمّ يشغلها.
 
+```warn header="Modules work only via HTTP(s), not in local files"
+If you try to open a web-page locally, via `file://` protocol, you'll find that `import/export` directives don't work. Use a local web-server, such as [static-server](https://www.npmjs.com/package/static-server#getting-started) or use the "live server" capability of your editor, such as VS Code [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to test modules.
+```
 
 ## ميزات الوِحدات الأساسية
 =======

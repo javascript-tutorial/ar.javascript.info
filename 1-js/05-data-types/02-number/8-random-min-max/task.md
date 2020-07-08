@@ -1,14 +1,13 @@
-importance: 2
+الأهمية: 2
 
 ---
 
-# A random number from min to max
+#  رقم عشوائي من العدد الأدنى إلى الأقصى
 
-The built-in function `Math.random()` creates a random value from `0` to `1` (not including `1`).
+تُنشِئ الدالة `Math.random()‎` المُضَمَنَة في اللغة قيمة عشوائية بين `0` و `1` (ليس بما في ذلك `1`). اكتب الدالة `random(min, max)‎` لتوليد عدد عشري عشوائي من `min` إلى `max` (بما لا يتضمن `max`).
 
-Write the function `random(min, max)` to generate a random floating-point number from `min` to `max` (not including `max`).
+أمثلة عن عملها:
 
-Examples of its work:
 
 ```js
 alert( random(1, 5) ); // 1.2345623452

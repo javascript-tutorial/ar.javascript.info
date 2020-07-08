@@ -1,10 +1,10 @@
 importance: 4
 
 ---
+# هل المتغير مَرئي؟
 
-# Is variable visible?
+ماذا سيكون الناتج من هذا الكود؟
 
-What will be the result of this code?
 
 ```js
 let x = 1;
@@ -17,5 +17,5 @@ function func() {
 
 func();
 ```
+ملحوظة: هناك خدعة في هذه المهمة. الحل ليس واضحاً  بما فيه الكفاية.
 
-P.S. There's a pitfall in this task. The solution is not obvious.

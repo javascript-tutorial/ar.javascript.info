@@ -1,6 +1,6 @@
-**Error**!
+**خطأ**!
 
-Try it:
+حاول هذا:
 
 ```js run
 let user = {
@@ -8,22 +8,22 @@ let user = {
   go: function() { alert(this.name) }
 }
 
-(user.go)() // error!
+(user.go)() // خطأ!
 ```
 
-The error message in most browsers does not give us much of a clue about what went wrong.
+لا تعطينا رسالة الخطأ في معظم المتصفحات الكثير من الأدلة حول الخطأ الذي حدث.
 
-**The error appears because a semicolon is missing after `user = {...}`.**
+**يظهر الخطأ لأن فاصلة منقوطة مفقودة بعد `user = {...}`.**
 
-JavaScript does not auto-insert a semicolon before a bracket `(user.go)()`, so it reads the code like:
+لا تقوم جافاسكريبت بإدراج فاصلة منقوطة تلقائيًا قبل قوس `()(user.go)`, إنها تقوم بقراءة الشيفرة هكذا:
 
 ```js no-beautify
 let user = { go:... }(user.go)()
 ```
 
-Then we can also see that such a joint expression is syntactically a call of the object `{ go: ... }` as a function with the argument `(user.go)`. And that also happens on the same line with `let user`, so the `user` object has not yet even been defined, hence the error.
+ثم يمكننا أن نرى أيضًا أن هذا التعبير المشترك هو عبارة عن استدعاء للكائن `{ go: ... }` كتابع مع متغير `(user.go)`. وهذا يحدث أيضًا على نفس السطر مع `let user`, لذلك `user` لم يتم حتى الآن تعريف الكائن ، ومن هنا كان الخطأ.
 
-If we insert the semicolon, all is fine:
+إذا أدخلنا الفاصلة المنقوطة ، فكل شيء على ما يرام:
 
 ```js run
 let user = {
@@ -34,4 +34,5 @@ let user = {
 (user.go)() // John
 ```
 
-Please note that parentheses around `(user.go)` do nothing here. Usually they setup the order of operations, but here the dot `.` works first anyway, so there's no effect. Only the semicolon thing matters.
+يرجى ملاحظة أن الأقواس حول `(user.go)` لا تفعل شيئ هنا.عادة ما يقومون بإعداد ترتيب العمليات ، ولكن هنا النقطة
+ `.` تعمل أولاً على أي حال, لذلك ليس هناك تأثير. فقط الشيء الفاصلة المنقوطة هو المهم.

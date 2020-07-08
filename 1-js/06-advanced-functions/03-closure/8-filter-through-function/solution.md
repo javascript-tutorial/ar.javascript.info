@@ -1,5 +1,5 @@
 
-# Filter inBetween
+# 1. المرشّح `inBetween`
 
 ```js run
 function inBetween(a, b) {
@@ -12,7 +12,7 @@ let arr = [1, 2, 3, 4, 5, 6, 7];
 alert( arr.filter(inBetween(3, 6)) ); // 3,4,5,6
 ```
 
-# Filter inArray
+# 2. المرشّح `inArray`
 
 ```js run demo
 function inArray(arr) {

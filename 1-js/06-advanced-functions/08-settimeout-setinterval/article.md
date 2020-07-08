@@ -21,10 +21,11 @@ let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)
 المتغيرات:
 
 `func|code`
-: ما يجب تنفيذه أكان دالة أو سلسلة نصية فيها شيفرة. عادةً هي دالة ولكن كعادة الأسباب التاريخية (أيضًا) يمكن تمرير سلسلة نصية فيها شيفرة، ولكنّ ذلك ليس بالأمر المستحسن.
+: ما يجب تنفيذه أكان دالة أو سلسلة نصية فيها شيفرة. 
+عادةً, هي دالة ولكن كعادة الأسباب التاريخية (أيضًا) يمكن تمرير سلسلة نصية فيها شيفرة، ولكنّ ذلك ليس بالأمر المستحسن.
 
 `delay`
-: التأخير قبل بدء التنفيذ بالمليثانية (1000 مليثانية = ثانية واحدة). مبدئيًا يساوي 0.
+: The delay before run, in milliseconds (1000 ms = 1 second), by default 0.
 
 `arg1`, `arg2`...
 : وُسطاء الدالة (ليست مدعومة في IE9-‎)
@@ -53,15 +54,15 @@ setTimeout(sayHi, 1000, "Hello", "John"); // Hello, John
 */!*
 ```
 
-لو كان المُعامل الأول سلسلة نصية فستصنع جافاسكربت دالة منها.
+If the first argument is a string, then JavaScript creates a function from it.
 
-أي أنّ هذا سيعمل:
+So, this will also work:
 
 ```js run no-beautify
 setTimeout("alert('Hello')", 1000);
 ```
 
-ولكن استعمال السلاسل النصية غير مستحسن. استعمل الدوال السهمية بدلًا عنها:
+But using strings is not recommended, use arrow functions instead of them, like this:
 
 ```js run no-beautify
 setTimeout(() => alert('Hello'), 1000);
@@ -77,17 +78,18 @@ setTimeout(sayHi(), 1000);
 لن يعمل ذلك إذ يتوقّع ‎setTimeout‎ إشارة إلى الدالة، بينما هنا ‎sayHi()‎ يشغّل الدالة وناتج التنفيذ هو الذي يُمرّر إلى ‎setTimeout‎. في حالتنا ناتج ‎sayHi()‎ ليس معرّفًا ‎undefined‎ (إذ لا تُعيد الدالة شيئًا)، ويعني ذلك أنّ عملنا ذهب سدًى ولم نُجدول أي شيء.
 ````
 
-الإلغاء باستعمال clearTimeout
+### الإلغاء بإستعمال دالة clearTimeout 
+
 نستلمُ حين نستدعي ‎setTimeout‎ «هويّةَ المؤقّت» ‎timerId‎ ويمكن استعمالها لإلغاء عملية التنفيذ.
 
-صياغة الإلغاء:
+The syntax to cancel:
 
 ```js
 let timerId = setTimeout(...);
 clearTimeout(timerId);
 ```
 
-في الشيفرة أسفله نُجدول الدالة ثمّ نُلغيها (غيّرنا الخطّة العبقرية)، بهذا لا يحدث شيء:
+In the code below, we schedule the function and then cancel it (changed our mind). As a result, nothing happens:
 
 ```js run no-beautify
 let timerId = setTimeout(() => alert("never happens"), 1000);
@@ -99,9 +101,10 @@ alert(timerId); // same identifier (doesn't become null after canceling)
 
 يمكن أن نرى من ناتج التابِع ‎alert‎ أنّ هويّة المؤقّت (في المتصفّحات) هي عدد. يمكن أن تكون في البيئات الأخرى أيّ شيء آخر. فمثلًا في Node.js نستلم كائن مؤقّت فيه توابِع أخرى.
 
-نُعيد بأن ليس هناك مواصفة عالمية متّفق عليها لهذه التوابِع، فما من مشكلة في هذا.
+Again, there is no universal specification for these methods, so that's fine.
 
 يمكنك مراجعة مواصفة HTML5 للمؤقّتات (داخل المتصفّحات) في فصل المؤقّتات.
+
 ## setInterval
 
 صياغة الدالة ‎`setInterval`‎ هي ذات `‎`setTimeout‎:
@@ -115,6 +118,8 @@ let timerId = setInterval(func|code, [delay], [arg1], [arg2], ...)
 يمكن أن نستدعي ‎clearInterval(timerId)‎ لنُوقف الاستدعاءات اللاحقة.
 
 سيعرض المثال الآتي الرسالة كلّ ثانيتين اثنتين، وبعد خمس ثوان يتوقّف ناتجها:
+
+
 ```js run
 // repeat with the interval of 2 seconds
 let timerId = setInterval(() => alert('tick'), 2000);
@@ -125,13 +130,11 @@ setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
 
 ```smart header="الوقت لا يتوقّف حين تظهر مُنبثقة ‎"
 تُواصل عقارب ساعة المؤقّت الداخلي (في أغلب المتصفّحات بما فيها كروم وفَيَرفُكس) بالمضيّ حتّى حين عرض ‎alert/confirm/prompt‎.
-
-لذا متى ما شغّلت الشيفرة أعلاه ولم تصرف نافذة ‎alert‎ بسرعة، فسترى نافذة ‎alert‎ الثانية بعد ذلك مباشرةً، بذلك تكون الفترة الفعلية بين التنبيهين أقلّ من ثانيتين.
 ```
 
 ## Nested setTimeout
 
-لو أردنا تشغيل أمر كلّ فترة، فهناك طريقتين اثنتين.
+There are two ways of running something regularly.
 
 الأولى هي ‎setInterval‎. والثانية هي ‎setTimeout‎ متداخلة هكذا:
 
@@ -155,6 +158,7 @@ let timerId = setTimeout(function tick() {
 فمثلًا علينا كتابة خدمة تُرسل طلب بيانات إلى الخادوم كلّ خمس ثوان، ولكن لو كان الخادوم مُثقلًا بالعمليات فيجب أن تزداد الفترة إلى 10 فَـ 20 فَـ 40 ثانية وهكذا…
 
 إليك فكرة عن الشيفرة:
+
 ```js
 let delay = 5000;
 
@@ -172,11 +176,12 @@ let timerId = setTimeout(function request() {
 ```
 
 
-ولو كانت الدوال التي نُجدولها ثقيلة على المعالج فيمكن أن نقيس الزمن الذي أخذتها عملية التنفيذ الحالية ونؤجّل أو نقدّم الاستدعاء التالي.
+And if the functions that we're scheduling are CPU-hungry, then we can measure the time taken by the execution and plan the next call sooner or later.
 
-يتيح لنا تداخل التوابِع ‎setTimeout‎ بضبط الفترة بين عمليات التنفيذ بدقّة أعلى ممّا تقدّمه ‎setInterval‎.
+**يتيح لنا تداخل التوابِع ‎setTimeout‎ بضبط الفترة بين عمليات التنفيذ بدقّة أعلى ممّا تقدّمه ‎setInterval‎.**
 
 لنرى الفرق بين الشيفرتين أسفله. الأولى تستعمل ‎setInterval‎:
+
 ```js
 let i = 1;
 setInterval(function() {
@@ -198,7 +203,7 @@ setTimeout(function run() {
 
 ![](setinterval-interval.svg)
 
-هل لاحظت ذلك؟
+Did you notice?
 
 التأخير الفعلي بين استدعاءات ‎func‎ التي ينفّذها ‎setInterval‎ أقل مما هي عليه في الشيفرة!
 
@@ -214,9 +219,9 @@ setTimeout(function run() {
 
 ![](settimeout-interval.svg)
 
-تضمن ‎setTimeout‎ المتداخلة لنا التأخير الثابت (100 مليثانية في حالتنا).
+**تضمن ‎setTimeout‎ المتداخلة لنا التأخير الثابت (100 مليثانية في حالتنا).**
 
-ذلك لأنّ الاستدعاء التالي لا يُجدول إلا بعد انتهاء السابق.
+That's because a new call is planned at the end of the previous one.
 
 
 ````smart header="كنس المهملات وردود نداء الدالتين setInterval و setTimeout"
@@ -227,6 +232,8 @@ setTimeout(function run() {
 setTimeout(function() {...}, 100);
 ```
 
+For `setInterval` the function stays in memory until `clearInterval` is called.
+
 ولكن هناك تأثير جانبي لذلك كالعادة، فالدوال تُشير إلى بيئتها المُعجمية الخارجية. لذا طالما «تعيش»، تعيش معها المتغيرات الخارجية أيضًا، وهي أحيانًا كبيرة تأخذ ذاكرة أكبر من الدالة ذاتها. لذا، متى ما لم ترد تلك الدالة المُجدولة فالأفضل أن تُلغيها حتّى لو كانت صغيرة جدًا.
 ````
 
@@ -234,11 +241,13 @@ setTimeout(function() {...}, 100);
 
 إليك الحالة الخاصة: ‎setTimeout(func, 0)‎ أو ‎setTimeout(func)‎.
 
+
 يُجدول هذا التابِع ليحدث تنفيذ ‎func‎ بأسرع ما يمكن، إلّا أن المُجدول لن يشغّلها إلا بعد انتهاء السكربت الذي يعمل حاليًا.
 
-أي أنّ الدالة تُجدول لأن تعمل «مباشرةً بعد» السكربت الحالي.
+So the function is scheduled to run "right after" the current script.
 
-فمثلًا تكتب هذه الشيفرة "Hello" ثم مباشرة "World":
+على سبيل المثال, هذا تكون نتيجته "Hello", ثم فوراً "World":
+
 
 ```js run
 setTimeout(() => alert("World"));
@@ -246,12 +255,12 @@ setTimeout(() => alert("World"));
 alert("Hello");
 ```
 
-عني السطر الأوّل «ضع الاستدعاء في التقويم بعد 0 مليثانية»، إلّا أنّ المُجدول لا «يفحص تقويمه» إلّا بعد انتهاء السكربت الحالي، بهذا تصير ‎"Hello"‎ أولًا وبعدها تأتي ‎"World"‎.
+عني السطر الأوّل «ضع الاستدعاء في التقويم بعد 0 مليثانية»، إلّا أنّ المُجدول لا «يفحص تقويمه» إلّا بعد انتهاء السكربت الحالي، بهذا تصير `‎"Hello"‎` أولًا وبعدها تأتي ‎"World"‎.
 
 كما أنّ هناك استعمالات متقدّمة خصّيصًا للمتصفّحات للمهلة بالتأخير صفر هذه، وسنشرحها في الفصل «حلقة الأحداث: المهام على المستويين الجُسيمي والذرّي». 
 
 ````smart header="في الواقع، فالتأخير الصفر هذا ليس صفرًا (في المتصفّحات)"
-تحدّ المتصفّحات من التأخير بين تشغيل المؤقّتات المتداخلة. تقول مواصفة HTML5: «بعد المؤقّتات المتداخلة الخمسة الأولى، تُجبر الفترة لتكون أربع مليثوان على الأقل.».
+تحدّ المتصفّحات من التأخير بين تشغيل المؤقّتات المتداخلة. تقول مواصفة [HTML5 standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers) HTML5: «بعد المؤقّتات المتداخلة الخمسة الأولى، تُجبر الفترة لتكون أربع مليثوان على الأقل.».
 
 لنرى ما يعني ذلك بهذا المثال أسفله. يُعيد استدعاء ‎setTimeout‎ جدولة نفسه بمدّة تأخير تساوي صفر، ويتذكّر كل استدعاء الوقت الفعلي بينه وبين آخر استدعاء في مصفوفة ‎times‎. ولكن، ما هي التأخيرات الفعلية؟ لنرى بأعيننا:
 

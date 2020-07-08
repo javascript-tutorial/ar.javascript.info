@@ -1,12 +1,12 @@
-importance: 2
+الأهمية: 2
 
 ---
 
-# A random integer from min to max
+#  قيمة صحيحة عشوائية من min إلى max
 
-Create a function `randomInteger(min, max)` that generates a random *integer* number from `min` to `max` including both `min` and `max` as possible values.
+أنشِئ دالة `randomInteger(min, max)‎` تقوم بتوليد قيمة صحيحة عشوائية من `min` إلى `max` بما في ذلك `min` و `max`.
 
-Any number from the interval `min..max` must appear with the same probability.
+يجب أن يظهر كل رقم من الفترة `min..max` بفرص متساوية. مثال على طريقة العمل:
 
 
 Examples of its work:
@@ -16,5 +16,7 @@ alert( randomInteger(1, 5) ); // 1
 alert( randomInteger(1, 5) ); // 3
 alert( randomInteger(1, 5) ); // 5
 ```
+  يمكنك استخدام حل [المثال السابق](info:task/random-min-max) كأساس لهذه المهمة.
 
-You can use the solution of the [previous task](info:task/random-min-max) as the base.
+
+  

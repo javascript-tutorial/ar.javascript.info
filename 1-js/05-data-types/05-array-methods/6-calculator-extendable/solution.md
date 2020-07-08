@@ -1,3 +1,4 @@
+- يرجى ملاحظة كيفية تخزين الطرق. تتم إضافتها ببساطة إلى خاصية `this.methods`.
+- يتم إجراء جميع الاختبارات والتحويلات الرقمية بطريقة `حساب '. يمكن توسيعه في المستقبل لدعم التعبيرات الأكثر تعقيدًا. في هذه المهمة نفترض أن`id` فريد. قد لا يكون هناك عنصران للصفيف بنفس "المعرف".
 
-- Please note how methods are stored. They are simply added to `this.methods` property.
-- All tests and numeric conversions are done in the `calculate` method. In future it may be extended to support more complex expressions.
+يُرجى استخدام طريقة الصفيف `.reduce` في الحل.

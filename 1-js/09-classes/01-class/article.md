@@ -377,27 +377,6 @@ setTimeout(button.click, 1000); // undefined
 1. قم بتمرير دالة مجمعة ، مثل `setTimeout (() => button.click ()، 1000)`.
 2. ربط طريقة الاعتراض ، على سبيل المثال في المنشئ:
 
-```js run
-class Button {
-  constructor(value) {
-    this.value = value;
-*!*
-    this.click = this.click.bind(this);
-*/!*
-  }
-
-  click() {
-    alert(this.value);
-  }
-}
-
-let button = new Button("hello");
-
-*!*
-setTimeout(button.click, 1000); // hello
-*/!*
-```
-
 توفر حقول class بنية أكثر أناقة للحل الأخير:
 
 ```js run

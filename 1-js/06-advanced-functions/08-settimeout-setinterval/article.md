@@ -24,7 +24,6 @@ let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)
 : ما يجب تنفيذه أكان دالة أو سلسلة نصية فيها شيفرة. 
 عادةً, هي دالة ولكن كعادة الأسباب التاريخية (أيضًا) يمكن تمرير سلسلة نصية فيها شيفرة، ولكنّ ذلك ليس بالأمر المستحسن.
 
-
 `delay`
 : The delay before run, in milliseconds (1000 ms = 1 second), by default 0.
 

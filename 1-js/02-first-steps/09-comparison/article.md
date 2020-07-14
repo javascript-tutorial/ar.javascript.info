@@ -1,20 +1,13 @@
-#المقارنات 
+# المقارنات 
 
 نحن نعرف الكثير من معاملات المقارنة من الرياضيات 
 
 : وفي لغة الجافسكريبت تكتب كما يلي 
 
-<<<<<<< HEAD
 - أكبر/أصغر من: <code>a &gt; b</code>, <code>a &lt; b</code>.
 - أكبر/أصغر من او يساوي: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
 - يساوي: `a == b` ، يرجى ملاحظة أن علامة المساواة المزدوجة` = `تعني اختبار المساواة ، في حين أن كلمة واحدة` a = b` تعني  تعيين أو مساواة .
 - لا تساوي. في الرياضيات يكون الترميز <code>&ne;</code> ،لكن في JavaScript تكتب هكذا <code>a != b</code>.
-=======
-- Greater/less than: <code>a &gt; b</code>, <code>a &lt; b</code>.
-- Greater/less than or equals: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
-- Equals: `a == b`, please note the double equality sign `==` means the equality test, while a single one `a = b` means an assignment.
-- Not equals. In maths the notation is <code>&ne;</code>, but in JavaScript it's written as <code>a != b</code>.
->>>>>>> c3a11c85e54153ebb137b5541b1d1f751c804439
 
 في هذه المقالة سنتعلم المزيد عن الأنواع المختلفة من المقارنات ، وكيف تجعلها JavaScript، بما في ذلك الخصائص المهمة.
 

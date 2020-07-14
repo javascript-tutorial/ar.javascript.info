@@ -418,9 +418,9 @@ for (let key in user) {
 
 هل الكائنات مرتبة؟ بمعنى آخر، إن تنقلنا في حلقة خلال كائن، هل نحصل على جميع الخاصيات بنفس الترتيب الذي أُضيفت به؟ وهل يمكننا الاعتماد على هذا؟
 
-The short answer is: "ordered in a special fashion": integer properties are sorted, others appear in creation order. The details follow.
+الإجابة باختصار هي: "مرتب بطريقة خاصة": الخاصيات الرقمية يُعاد ترتيبها، تظهر باقي الخاصيات بترتيب الإنشاء ذاته كما في التفاصيل التالية.
 
-As an example, let's consider an object with the phone codes:
+مثال, لنر كائناً خصائصه رموز الهاتف:
 
 ```js run
 let codes = {
@@ -438,29 +438,29 @@ for (let code in codes) {
 */!*
 ```
 
-The object may be used to suggest a list of options to the user. If we're making a site mainly for German audience then we probably want `49` to be the first.
+قد يستخد الكائن لاقتراح قائمة من الخيارات للمستخدم. إن كنا نقوم بعمل الموقع بشكل رئيسي للزوار الألمان فإننا نريد أن يظهر `49` في أول القائمة.
 
-But if we run the code, we see a totally different picture:
+لكن إذا قمنا بتشغيل الكود, فإننا نرى صورة مختلفة تماماً:
 
-- USA (1) goes first
-- then Switzerland (41) and so on.
+- USA (1) تظهر أولاً
+- ثم Switzerland (41) وهكذا.
 
-The phone codes go in the ascending sorted order, because they are integers. So we see `1, 41, 44, 49`.
+تستخدم رموز الهاتف بشكل تصاعدي , لأنها أرقام. لذلك `1, 41, 44, 49`.
 
-````smart header="Integer properties? What's that?"
-The "integer property" term here means a string that can be converted to-and-from an integer without a change.
+````smart header="خصائص عددية؟ ما هذا؟"
+"الخصائص الرقمية integer property" مصطلح يعني هنا نصًا يمكن تحويله من وإلى عدد دون أن يتغير.
 
-So, "49" is an integer property name, because when it's transformed to an integer number and back, it's still the same. But "+49" and "1.2" are not:
+لذا, "49" هو اسم خاصية عددي, لأنه عند تحويله إلى عدد وإرجاعه لنص, يبقى كما هو. لكن "+49" و "1.2" are ليسا كذلك:
 
 ```js run
-// Math.trunc is a built-in function that removes the decimal part
-alert( String(Math.trunc(Number("49"))) ); // "49", same, integer property
-alert( String(Math.trunc(Number("+49"))) ); // "49", not same "+49" ⇒ not integer property
-alert( String(Math.trunc(Number("1.2"))) ); // "1", not same "1.2" ⇒ not integer property
+// هي دالة تحذف الجزء العشري Math.trunc
+alert( String(Math.trunc(Number("49"))) ); // "49", الخاصية العددية ذاتها
+alert( String(Math.trunc(Number("+49"))) ); // "49" مختلفة عن "49+" => إذًا ليست خاصية عددية
+alert( String(Math.trunc(Number("1.2"))) ); // "1" مختلفة عن "1.2" => إذًا ليست خاصية عددية
 ```
 ````
 
-...On the other hand, if the keys are non-integer, then they are listed in the creation order, for instance:
+...في المقابل، إن كانت المفاتيح غير عددية، فتُعرَض بالترتيب الذي أُنشِئت به,مثلا:
 
 ```js run
 let user = {
@@ -470,16 +470,16 @@ let user = {
 user.age = 25; // add one more
 
 *!*
-// non-integer properties are listed in the creation order
+// تُعرض الخاصيات الغير رقمية بترتيب الإنشاء
 */!*
 for (let prop in user) {
   alert( prop ); // name, surname, age
 }
 ```
 
-So, to fix the issue with the phone codes, we can "cheat" by making the codes non-integer. Adding a plus `"+"` sign before each code is enough.
+لذا, لإصلاح هذه المشكلة مع رموز الهاتف, يمكننا "التحايل" بجعلها غير عددية. وضع علامة `"+"` قبل كل رمز يعتبر كافياً.
 
-Like this:
+كما يلي:
 
 ```js run
 let codes = {
@@ -495,34 +495,34 @@ for (let code in codes) {
 }
 ```
 
-Now it works as intended.
+والآن تعمل وفق المطلوب.
 
-## Summary
+## الملخص
 
-Objects are associative arrays with several special features.
+الكائنات عبارة عن مصفوفات ترابطية بميزات خاصة عديدة.
 
-They store properties (key-value pairs), where:
-- Property keys must be strings or symbols (usually strings).
-- Values can be of any type.
+تحفظ الخصائص ب (key-value pairs), حيث:
+- مفاتيح الخواص يجب أن تكون نصاً أو رمزاً (عادة ما تكون نصاً).
+- القيم يمكن أن تكون من أي نوع.
 
-To access a property, we can use:
-- The dot notation: `obj.property`.
-- Square brackets notation `obj["property"]`. Square brackets allow to take the key from a variable, like `obj[varWithKey]`.
+للوصول إلى خاصية, يمكننا استخدام:
+- رمز النقطة: `obj.property`.
+- رمز الأقواس المربعة `obj["property"]`. تسمح الأقواس المربعة بأخذ المفتاح من متغير, مثل `obj[varWithKey]`.
 
-Additional operators:
-- To delete a property: `delete obj.prop`.
-- To check if a property with the given key exists: `"key" in obj`.
-- To iterate over an object: `for (let key in obj)` loop.
+معاملات إضافية Additional operators:
+- لحذف خاصية: `delete obj.prop`.
+- للتأكد من وجود خاصية تحمل المفتاح المعطى: `"key" in obj`.
+- للتنقل خلال كائن: `for (let key in obj)` loop.
 
-What we've studied in this chapter is called a "plain object", or just `Object`.
+ما درسناه في هذا الفصل يسمى "plain object", أو `Object`.
 
-There are many other kinds of objects in JavaScript:
+هنالك أنواع عديدة من الكائنات في الجافا اسكريبت:
 
-- `Array` to store ordered data collections,
-- `Date` to store the information about the date and time,
-- `Error` to store the information about an error.
-- ...And so on.
+- `Array` مصفوفة لتخزين مجموعة البيانات المرتبة,
+- `Date` تاريخ لتخزين معلومات عن الوقت والتاريخ,
+- `Error` خطأ لتخزين معلومات عن خطأ ما.
+- ...وما إلى ذلك.
 
-They have their special features that we'll study later. Sometimes people say something like "Array type" or "Date type", but formally they are not types of their own, but belong to a single "object" data type. And they extend it in various ways.
+لدى هذه الأنواع ميزاتها الخاصة التي سيتم دراستها لاحقًا. يقول بعض الأشخاص أحيانًا شيئًا مثل "نوع مصفوفة" أو "نوع تاريخ", لكن هذه الأنواع ليست أنواعًا مستقلة بحد ذاته, لكنها تنتمي "object" نوع البانات"كائن".  وتتفرع عنه بأشكال مختلفة.
 
-Objects in JavaScript are very powerful. Here we've just scratched the surface of a topic that is really huge. We'll be closely working with objects and learning more about them in further parts of the tutorial.
+تعد الكائنات في جافا اسكريبت قوية جدا. هنا قمنا بعرض سطح موضوع ضخم حقًا. سنتعامل مع الكائنات لاحقًا بصورة أقرب وسَنتعلم أكثر عنها في فصول أخرى.

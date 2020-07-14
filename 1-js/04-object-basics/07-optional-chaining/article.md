@@ -40,12 +40,7 @@ alert( user && user.address && user.address.street ); // يظهر لنا undefin
 
 يؤدي التسلسل الاختياري `.?` إلى إيقاف تقييم الكود البرمجي وإرجاع `undefined` إذا كانت قيمة الجزء الموجود قبل (أيسر) التركيب `.?` هي `null` أو `undfined`.
 
-<<<<<<< HEAD
 وللإيجاز، سنقول ضمن هذه المقالة أن شيئاً ما "موجود" إذا لم تكن قيمته `null` ولم تكن `undefined` كذلك.
-
-=======
-**Further in this article, for brevity, we'll be saying that something "exists" if it's not `null` and not `undefined`.**
->>>>>>> c3a11c85e54153ebb137b5541b1d1f751c804439
 
 وأما الطريقة الآمنة للوصول لـِ `user.address.street` هي:
 
@@ -64,17 +59,13 @@ alert( user?.address ); // undefined
 alert( user?.address.street ); // undefined
 ```
 
-<<<<<<< HEAD
 يرجى ملاحظة أن التركيب أو الشقّ `.?` يعمل بشكل صحيح حيث يتم وضعه بالضبط، وليس بعد ذلك المكان الذي تم وضعه فيه.
 
-في السطرين الأخيرين، سيتوقف تقييم الكود البرمجي بشكل فوري بعد الشقّ `.?user` ولا يستمر أبداً للخصائص التي تليه. ولكن إذا كان الغرض `user` موجوداً بالفعل، فيجب أن تكون الخصائص الوسيطة موجودة ونقصد بالخصائص الوسيطة `user.address` مثلاً.
-=======
-Please note: the `?.` syntax makes optional the value before it, but not any further.
+في السطرين الأخيرين، سيتوقف تقييم الكود البرمجي بشكل فوري بعد الشقّ `.?user` ولا يستمر أبداً للخصائص التي تليه.
 
-In the example above, `user?.` allows only `user` to be `null/undefined`.
+يقوم التسلسل الاختياري فقط باختبار القيم `null/undefined`، ولا يتداخل مع ميكانيكية أي من اللغات الأخرى.
 
-On the other hand, if `user` does exist, then it must have `user.address` property, otherwise `user?.address.street` gives an error at the second dot.
->>>>>>> c3a11c85e54153ebb137b5541b1d1f751c804439
+ولكن إذا كان الغرض `user` موجوداً بالفعل، فيجب أن تكون الخصائص الوسيطة موجودة ونقصد بالخصائص الوسيطة `user.address` مثلاً.
 
 ```warn header="لا تفرط في استخدام تركيب التسلسل الاختياري"
 يجب أن نستخدم التركيب `.?` فقط عندما يكون هناك غرض، كائن أو خاصية غير موجودة بالأصل.
@@ -84,23 +75,14 @@ On the other hand, if `user` does exist, then it must have `user.address` proper
 وبالتالي، إذا كان غرض المستخدم `user` غير معرف بسبب خطأ ما، فسوف نعرف عن هذا الخطأ ونصلحه. وإلا ستتسبب هذه الطريقة بإسكات الأخطاء البرمجية وقد لا يكون ذلك مناسباً، بل سيصبح من الصعب تصحيح هذه الأخطاء وكشفها.
 ```
 
-<<<<<<< HEAD
 ````warn header="المتحول الواقع قبل التركيب `.?` يجب أن يكون معرّفاً"
 إذا لم يتمّ تعريف المتحول `user`، سيؤدي التعبير `user?.anything` إلى حصول خطأ:
-=======
-````warn header="The variable before `?.` must be declared"
-If there's no variable `user` at all, then `user?.anything` triggers an error:
->>>>>>> c3a11c85e54153ebb137b5541b1d1f751c804439
 
 ```js run
 // ReferenceError: user is not defined
 user?.address;
 ```
-<<<<<<< HEAD
-يقوم التسلسل الاختياري فقط باختبار القيم `null/undefined`، ولا يتداخل مع ميكانيكية أي من اللغات الأخرى.
-=======
-There must be `let/const/var user`. The optional chaining works only for declared variables. 
->>>>>>> c3a11c85e54153ebb137b5541b1d1f751c804439
+
 ````
 
 ## اختصار الطرق (Short-circuiting)

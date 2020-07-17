@@ -1,22 +1,22 @@
 
-Here's the explanations.
+هنا يكون التفسير.
 
-1. That's a regular object method call.
+1. هذا هو استدعاء طريقة الكائن المعتاد.
 
-2. The same, parentheses do not change the order of operations here, the dot is first anyway.
+2. نفس الشيء ، الأقواس لا تغير ترتيب العمليات هنا ، النقطة أولاً على أي حال.
 
-3. Here we have a more complex call `(expression).method()`. The call works as if it were split into two lines:
+3. هنا لدينا تنفيذ اكثر تعقيداً `(expression).method()`. التنفيذ يعمل كما لو كان مقسوم الى سطرين:
 
     ```js no-beautify
-    f = obj.go; // calculate the expression
-    f();        // call what we have
+    f = obj.go; // حساب المصطلح
+    f();        // تنفيذ ما لدينا
     ```
 
-    Here `f()` is executed as a function, without `this`.
+    هنا `f()` يتم تنفيذها كـ تابع, بدون `this`.
 
-4. The similar thing as `(3)`, to the left of the dot `.` we have an expression.
+4. نفس الشيئ في `(3)`, ايسر النقطة `.` لدينا مصطلح.
 
-To explain the behavior of `(3)` and `(4)` we need to recall that property accessors (dot or square brackets) return a value of the Reference Type.  
+لتفسير سلوك `(3)` و `(4)` نريد إعادة تنفيذ مدخلات الخاصية (نقطة او اقواس مربعة) تعيد قيمة النوع المرجعي.  
 
-Any operation on it except a method call (like assignment `=` or `||`) turns it into an ordinary value, which does not carry the information allowing to set `this`.
+اى عملية عليها عدا تنفيذ التابع (مثل `=` or `||`) يحولها إلى قيمة عادية ، لا تحمل المعلومات التي تسمح بتعيينها `this`.
 

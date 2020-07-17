@@ -48,54 +48,35 @@ DOM التعديل هو مفتاح إنشاء صفحات "حية".
     let textNode = document.createTextNode('Here I am');
     ```
 
+في حالتنا، تكون الرسالة `div` مع فئة` تنبيه 'و HTML فيها:
+
 ### إنشاء الرسالة
 
-في حالتنا ، تكون الرسالة `div` مع فئة` تنبيه 'و HTML فيها:
+في حالتنا، إنشاء `div` الرسالة ينطلب 3 مراحل:
 
 ```js
+// 1. Create <div> element
 let div = document.createElement('div');
+
+// 2. Set its class to "alert"
 div.className = "alert";
+
+// Fill it with the content
 div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
 ```
 
-لقد أنشأنا العنصر ، ولكن حتى الآن إنه متغير فقط. لا يمكننا رؤية العنصر على الصفحة ، لأنه ليس جزءًا من المستند حتى الآن.
+لقد أنشأنا العنصر ، ولكن حتى الآن إنه متغير فقط. لا يمكننا رؤية العنصر على الصفحة ، لأنه ليس جزءًا من المستند حتى الآن
 
 ## طرق الإدراج
 
-لعرض "div" ، نحتاج إلى إدراجه في مكان ما في "المستند". على سبيل المثال ، في `document.body`.
-
-هناك طريقة خاصة `append` لذلك:` document.body.append (div) `.
-
-إليك الكود الكامل:
-
-```html run height="80"
-<style>
-.alert {
-  padding: 15px;
-  border: 1px solid #d6e9c6;
-  border-radius: 4px;
-  color: #3c763d;
-  background-color: #dff0d8;
-}
-</style>
-
-<script>
-  let div = document.createElement('div');
-  div.className = "alert";
-  div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
-
-*!*
-  document.body.append(div);
-*/!*
-</script>
-```
+لعرض "div" ، نحتاج إلى إدراجه في مكان ما في "المستند". على سبيل المثال ، في `document.body`. هناك طريقة خاصة `append` لذلك:` document.body.append (div) `.
 
 توفر هذه المجموعة من الطرق المزيد من الطرق لإدراج:
 
 - `node.append (... nodes or strings)` - إلحاق عقد أو سلاسل في نهاية `node` ،
 - `node.prepend (... العقد أو السلاسل)` - إدراج العقد أو السلاسل في بداية `العقدة` ،
 - `node.before (... nodes or strings)` –- أدخل العقد أو السلاسل قبل `node` ،
-- `العقدة بعد (... العقد أو السلاسل)` - - إدراج العقد أو السلاسل بعد `العقدة` ،
+- `node.after(...nodes or strings)` - إدراج العقد أو السلاسل بعد `العقدة` ،
 - `node.replaceWith (... العقد أو السلاسل)` - - يستبدل `العقدة` بالعقد أو السلاسل المعطاة.
 
 فيما يلي مثال على استخدام هذه الأساليب لإضافة عناصر إلى قائمة والنص قبلها / بعدها:
@@ -150,7 +131,7 @@ after
 </script>
 ```
 
-يتم إدراج كل النص * كنص *.
+يتم إدراج كل النص * كنص *. 
 
 إذن HTML النهائي هو:
 
@@ -166,7 +147,7 @@ after
 
 لذلك ، لا يمكن استخدام هذه الطرق إلا لإدراج عقد DOM أو أجزاء نصية.
 
-ولكن ماذا لو أردنا إدراج HTML "كـ html" ، مع عمل جميع العلامات والأشياء ، مثل `elem.innerHTML`؟
+ولكن ماذا لو أردنا إدراج HTML "كـ html" ، مع عمل جميع العلامات والأشياء ، مثل `elem.innerHTML`?
 
 ## insertAdjacentHTML / Text / Element
 

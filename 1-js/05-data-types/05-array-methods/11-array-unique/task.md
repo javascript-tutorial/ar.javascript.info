@@ -2,22 +2,28 @@ importance: 4
 
 ---
 
-# Filter unique array members
+# ترشيح العناصر الفريدة في المصفوفة
 
-Let `arr` be an array.
+لمّا أنّ arr مصفوفة، أنشِئ دالة unique(arr)‎ تُعيد مصفوفة فيها عناصر arr غير مكرّرة.
 
-Create a function `unique(arr)` that should return an array with unique items of `arr`.
-
-For instance:
+مثال:
 
 ```js
 function unique(arr) {
   /* your code */
 }
 
-let strings = ["Hare", "Krishna", "Hare", "Krishna",
-  "Krishna", "Krishna", "Hare", "Hare", ":-O"
+let strings = [
+  "Hare",
+  "Krishna",
+  "Hare",
+  "Krishna",
+  "Krishna",
+  "Krishna",
+  "Hare",
+  "Hare",
+  ":-O"
 ];
 
-alert( unique(strings) ); // Hare, Krishna, :-O
+alert(unique(strings)); // Hare, Krishna, :-O
 ```

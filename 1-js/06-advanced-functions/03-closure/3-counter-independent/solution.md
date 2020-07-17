@@ -1,5 +1,6 @@
-The answer: **0,1.**
+الإجابة هي: **0,1**.
 
-Functions `counter` and `counter2` are created by different invocations of `makeCounter`.
+صنعنا الدالتين `‎counter‎` و `‎counter2‎` باستدعاءين `‎makeCounter‎` مختلفين تمامًا.
 
-So they have independent outer Lexical Environments, each one has its own `count`.
+لذا فلكلّ منهما بيئات مُعجمية خارجية مستقلة عن بعضها، ولكلّ منهما متغير `‎count‎` مستقل عن الثاني.
+

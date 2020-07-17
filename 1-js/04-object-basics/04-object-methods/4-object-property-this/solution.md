@@ -1,6 +1,6 @@
-**Answer: an error.**
+**Aالإجابة: ظهور خطأ.**
 
-Try it:
+جربها:
 ```js run
 function makeUser() {
   return {
@@ -11,29 +11,21 @@ function makeUser() {
 
 let user = makeUser();
 
-alert( user.ref.name ); // Error: Cannot read property 'name' of undefined
+alert( user.ref.name ); //  ِلِقيمة غير معرفة 'name' خطأ: لا يمكن قراءة الخاصية
 ```
 
-That's because rules that set `this` do not look at object definition. Only the moment of call matters.
+ذلك لأن القواعد التي تعين `this` لا تنظر إلى تعريف الكائن. ما يهم هو وقت الاستدعاء. قيمة `this` هنا بداخل `makeUser()‎` هي `undefined`، لأنها استُدعيَت كدالة منفصلة، وليس كدالة بصياغة النقطة.
 
-Here the value of `this` inside `makeUser()` is `undefined`, because it is called as a function, not as a method with "dot" syntax.
-
-The value of `this` is one for the whole function, code blocks and object literals do not affect it.
-
-So `ref: this` actually takes current `this` of the function.
-
-We can rewrite the function and return the same `this` with `undefined` value: 
-
-```js run
+قيمة `this` هي واحدة للدالة ككل، ولا تؤثر عليها أجزاء الشيفرة ولا حتى الكائنات. لذا فإن `ref: this` تأخذ `this` الحالي للدالة 
+```js runذ
 function makeUser(){
   return this; // this time there's no object literal
 }
 
 alert( makeUser().name ); // Error: Cannot read property 'name' of undefined
 ```
-As you can see the result of `alert( makeUser().name )` is the same as the result of `alert( user.ref.name )` from the previous example.
-
-Here's the opposite case:
+كما ترى فإن نتيجة `alert( makeUser().name )` هي نفسها نتيجة `alert( user.ref.name )` من المثال السابق
+هنا حالة معاكسة تمامًا:
 
 ```js run
 function makeUser() {
@@ -52,4 +44,4 @@ let user = makeUser();
 alert( user.ref().name ); // John
 ```
 
-Now it works, because `user.ref()` is a method. And the value of `this` is set to the object before dot `.`.
+أصبحت تعمل هنا لأن `user.ref()‎` هي دالة، وقيمة `this` تعَيَّن للكائن الذي قبل النقطة `'.'`

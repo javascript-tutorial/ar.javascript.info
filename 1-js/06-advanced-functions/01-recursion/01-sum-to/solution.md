@@ -1,4 +1,4 @@
-The solution using a loop:
+الحل بإستخدام الحلقة: 
 
 ```js run
 function sumTo(n) {
@@ -12,7 +12,7 @@ function sumTo(n) {
 alert( sumTo(100) );
 ```
 
-The solution using recursion:
+الحل بإستخدام التكرار: 
 
 ```js run
 function sumTo(n) {
@@ -22,8 +22,8 @@ function sumTo(n) {
 
 alert( sumTo(100) );
 ```
+الحل بإستخدام هذه المعادلة: `sumTo(n) = n*(n+1)/2`:
 
-The solution using the formula: `sumTo(n) = n*(n+1)/2`:
 
 ```js run
 function sumTo(n) {
@@ -33,8 +33,8 @@ function sumTo(n) {
 alert( sumTo(100) );
 ```
 
-P.S. Naturally, the formula is the fastest solution. It uses only 3 operations for any number `n`. The math helps!
+1. منطقياً حل المعادلة هو أسرع حل لأننا نستخدم ثلاث عمليات فقط لأي رقم `n`.‘إذا الرياضة تساعد
 
-The loop variant is the second in terms of speed. In both the recursive and the loop variant we sum the same numbers. But the recursion involves nested calls and execution stack management. That also takes resources, so it's slower.
+الدالة المتكررة تأتي في المرتبة الاخيرة في السرعة ببساطة لأنها نفذت الكثير من النداءات و ذلك تطلب الكثير من سياقات التنفيذ و كومة سياقات التنفيذ لذلك فإنها الأبطأ
 
-P.P.S. Some engines support the "tail call" optimization: if a recursive call is the very last one in the function (like in `sumTo` above), then the outer function will not need to resume the execution, so the engine doesn't need to remember its execution context. That removes the burden on memory, so counting `sumTo(100000)` becomes possible. But if the JavaScript engine does not support tail call optimization (most of them don't), there will be an error: maximum stack size exceeded, because there's usually a limitation on the total stack size.
+2. يعض المحركات تدعم تحسين "tail call": أذا كان النداء المتكرر هو الأخير في الدالة (مثلما في`sumTo` ) إذا فالدالة الخارجية لن تحتاج إلي مواصلة التنفيذ وبالتالي فإن المحرك لا يحتاج إلي تذكر سياق التنفيذ. ذلك يزبل العبء عن الذاكرة لذلك العد إلي `sumTo(100000)` ممكناً. لكن محرك جافاسكريبت لا يدعم هذا التحسين أو المعظم لا يدعم, لذلك سيكون هناك خطأ: لقد تخطيت الحجم الأقصي لكومة سياق التنفيذ.

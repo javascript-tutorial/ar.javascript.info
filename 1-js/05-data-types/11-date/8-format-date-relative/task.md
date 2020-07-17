@@ -1,25 +1,25 @@
-importance: 4
+الأهمية: 4
 
 ---
 
-# Format the relative date
+# تنسيق التاريخ بشكل نسبي
 
-Write a function `formatDate(date)` that should format `date` as follows:
+قم بكتابة دالة `formateDate(date)` والتي تقوم بتنسيق تاريخ معين `date` على النحو التالي:
 
-- If since `date` passed less than 1 second, then `"right now"`.
-- Otherwise, if since `date` passed less than 1 minute, then `"n sec. ago"`.
-- Otherwise, if less than an hour, then `"m min. ago"`.
-- Otherwise, the full date in the format `"DD.MM.YY HH:mm"`. That is: `"day.month.year hours:minutes"`, all in 2-digit format, e.g. `31.12.16 10:00`.
+- إذا لم يمر من التاريخ `date` أكثر من ثانية، يظهر لنا `"الآن"`.
+- وإلا، إذا لم يمر من التاريخ `date` أكثر من دقيقة، يظهر لنا `"منذ n ثانية"`. 
+- وإلا، إذا لم يمر من التاريخ `date` أكثر من ساعة، يظهر لنا `"منذ m دقيقة"`.
+- وإلا، يظهر لنا التاريخ بشكل كامل في التنسيق `"DD.MM.YY HH:mm"`. والذي هو: `"day.month.year hours:minutes"`، جميعها بتنسيق رقمين، مثلاً `31.12.16 10:00`.
 
-For instance:
+على سبيل المثال:
 
 ```js
-alert( formatDate(new Date(new Date - 1)) ); // "right now"
+alert( formatDate(new Date(new Date - 1)) ); // "الآن"
 
-alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 sec. ago"
+alert( formatDate(new Date(new Date - 30 * 1000)) ); // "منذ 30 ثانية"
 
-alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 min. ago"
+alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "منذ 5 دقيقة"
 
-// yesterday's date like 31.12.16 20:00
+// تاريخ البارحة كـ 31.12.16 20:00
 alert( formatDate(new Date(new Date - 86400 * 1000)) );
 ```

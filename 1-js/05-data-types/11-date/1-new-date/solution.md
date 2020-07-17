@@ -1,6 +1,6 @@
-The `new Date` constructor uses the local time zone. So the only important thing to remember is that months start from zero.
+يقوم الباني `new Date` باستخدام المنطقة الزمنية المحلية. لذا فإن الشيء المهم الوحيد الذي يجب تذكره الآن هو أن الأشهر تبدأ من الصفر وليس من الواحد.
 
-So February has number 1.
+لذلك يتم تمثيل شهر شباط (فبراير) بالرقم 1.
 
 ```js run
 let d = new Date(2012, 1, 20, 3, 12);

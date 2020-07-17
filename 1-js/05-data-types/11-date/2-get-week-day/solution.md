@@ -1,6 +1,6 @@
-The method `date.getDay()` returns the number of the weekday, starting from sunday.
+تقوم الطريقة `()date.getDay` بإرجاع رقم يوم الأسبوع المقابل، بدءاً من يوم الأحد.
 
-Let's make an array of weekdays, so that we can get the proper day name by its number:
+لنقم بإنشاء مصفوفة من أيام الأسبوع، حتى نتمكن من الحصول على اسم اليوم المقابل من خلال رقمه:
 
 ```js run demo
 function getWeekDay(date) {

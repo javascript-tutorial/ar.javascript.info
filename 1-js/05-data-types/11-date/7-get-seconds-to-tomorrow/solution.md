@@ -1,20 +1,20 @@
-To get the number of milliseconds till tomorrow, we can from "tomorrow 00:00:00" substract the current date.
+للحصول على عدد المللي ثانية حتى الغد، يمكننا من "الغد 00:00:00" طرح التاريخ الحالي.
 
-First, we generate that "tomorrow", and then do it:
+أولاً، لنقم بإنشاء غرض الغد من التاريخ، ثم نقوم بعملية الطرح السابقة:
 
 ```js run
 function getSecondsToTomorrow() {
   let now = new Date();
-
-  // tomorrow date
+  
+  // غرض تاريخ الغد
   let tomorrow = new Date(now.getFullYear(), now.getMonth(), *!*now.getDate()+1*/!*);
 
-  let diff = tomorrow - now; // difference in ms
-  return Math.round(diff / 1000); // convert to seconds
+  let diff = tomorrow - now; // الفرق من مرتبة المللي ثانية
+  return Math.round(diff / 1000); // التحويل لمرتبة الثواني
 }
 ```
 
-Alternative solution:
+حل بديل:
 
 ```js run
 function getSecondsToTomorrow() {
@@ -29,4 +29,4 @@ function getSecondsToTomorrow() {
 }
 ```
 
-Please note that many countries have Daylight Savings Time (DST), so there may be days with 23 or 25 hours. We may want to treat such days separately.
+يرجى ملاحظة أن العديد من البلدان لديها التوقيت الصيفي (DST)، لذلك قد يكون هناك أيام بِ 23 أو 25 ساعة. لذلك، يجب معاملة هذه الأيام بشكل منفصل.

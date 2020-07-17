@@ -742,5 +742,5 @@ function formatDate(date) {
 لاحظ بأنّ هذه الطريقة سيّئة لو أردت دعم اللغات دعمًا صحيحًا (في العربية هناك ثانية واحدة وثانيتين وثلاث ثوان وخمسون ثانية وهكذا).
 
 
-ترجمة -وبتصرف- للفصل [Date and time](https://javascript.info/date) من كتاب [The JavaScript language](https://javascript.info/js)
+ترجمة -وبتصرف- للفصل [Date and time](https://javascript.info/date) من كتاب [The JavaScript language](https://javascript.info/js).
 

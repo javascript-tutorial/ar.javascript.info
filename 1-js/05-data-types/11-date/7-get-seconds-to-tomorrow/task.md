@@ -1,15 +1,15 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# How many seconds till tomorrow?
+# كم بقي عدد من الثواني حتى الغد؟
 
-Create a function `getSecondsToTomorrow()` that returns the number of seconds till tomorrow.
+قم بإنشاء دالة `()getSecondsToTomorrow` والتي تقوم بإرجاع عدد الثواني المتبقية حتى الغد.
 
-For instance, if now is `23:00`, then:
+على سبيل المثال، إذا كانت الوقت الحالي هو `23:00`، فعندئذٍ:
 
 ```js
 getSecondsToTomorrow() == 3600
 ```
 
-P.S. The function should work at any day, the "today" is not hardcoded.
+ملاحظة: يجب أن تعمل الدالة عند أي يوم، أي أن اليوم "today" لا يحمل أي قيمة ثابتة.

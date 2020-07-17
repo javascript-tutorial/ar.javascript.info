@@ -1,14 +1,14 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Last day of month?
+# اليوم الأخير من الشهر؟
 
-Write a function `getLastDayOfMonth(year, month)` that returns the last day of month. Sometimes it is 30th, 31st or even 28/29th for Feb.
+قم بكتابة دالة `getLastDayOfMonth(year, month)` تقوم برد اليوم الأخير من الشهر. أحياناً تكون القيمة 30، 31 أو حتى 28/29 في حال كان الشهر هو شباط.
 
-Parameters:
+الوسطاء:
 
-- `year` -- four-digits year, for instance 2012.
-- `month` -- month, from 0 to 11.
+- `year` -- أربعة أرقام لتمثيل السنة، على سبيل المثال 2012.
+- `month` -- الشهر، من 0 وحتى 11.
 
-For instance, `getLastDayOfMonth(2012, 1) = 29` (leap year, Feb).
+على سبيل المثال، `getLastDayOfMonth(2012, 1) = 29` (سنة كبيسة، شباط/فبراير).

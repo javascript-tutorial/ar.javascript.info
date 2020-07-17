@@ -1,14 +1,14 @@
-importance: 4
+الأهمية: 4
 
 ---
 
-# Which day of month was many days ago?
+# أي يومٍ من الشهر كان قبل عدة أيام؟
 
-Create a function `getDateAgo(date, days)` to return the day of month `days` ago from the `date`.
+قم بإنشاء دالة `getDateAgo(date, days)` تقوم بإرجاع يوم الشهر `days` المنصرم من التاريخ `date`.
 
-For instance, if today is 20th, then `getDateAgo(new Date(), 1)` should be 19th and `getDateAgo(new Date(), 2)` should be 18th.
+على سبيل المثال، إذا كان اليوم الحالي هو 20، فيجب أن يرد الاستدعاء `getDateAgo(new Date(), 1)` القيمة 19 ويرد الاستدعاء `getDateAgo(new Date(), 2)` القيمة 18.
 
-Should work reliably for `days=365` or more:
+يجب أن يعمل التابع بشكل فعال في حال كانت القيمة `days=365` أو أكثر:
 
 ```js
 let date = new Date(2015, 0, 2);
@@ -18,4 +18,4 @@ alert( getDateAgo(date, 2) ); // 31, (31 Dec 2014)
 alert( getDateAgo(date, 365) ); // 2, (2 Jan 2014)
 ```
 
-P.S. The function should not modify the given `date`.
+ملاحظة: يجب أن لا يقوم التابع بتعديل قيمة الغرض `date` الممرر.

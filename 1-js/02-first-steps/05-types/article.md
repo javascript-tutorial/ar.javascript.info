@@ -67,7 +67,11 @@ n = 12.345;
 
 ## BigInt
 
+<<<<<<< HEAD
 في الجافا سكربت، النوع "رقم"  لا يمثل الأعداد الصحيحة أكبر من <code>(2<sup>53</sup>-1)</code> ( `9007199254740991`)، أو أقل من <code>-(-2<sup>53</sup>-1)</code> للأرقام السالبة. إنها قيود فنية ناتجة عن تمثيلهم الداخلي.
+=======
+In JavaScript, the "number" type cannot represent integer values larger than <code>(2<sup>53</sup>-1)</code> (that's `9007199254740991`), or less than <code>-(2<sup>53</sup>-1)</code> for negatives. It's a technical limitation caused by their internal representation.
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 لمعظم الأغراض هذا يكفي، لكن في بعض الأحيان نحتاج لأرقام كبيرة حقاً ، على سبيل المثال. للتشفير أو الطوابع الزمنية الدقيقة للميكرو ثانية.
 

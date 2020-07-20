@@ -4,7 +4,11 @@
 
 ## alert
 
+<<<<<<< HEAD
 هذه رأيناها بالفعل. إنها تظهر رسالة وتنتظر من المستخدم أن يضغط على "OK".
+=======
+This one we've seen already. It shows a message and waits for the user to press "OK".
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 على سبيل المثال:
 

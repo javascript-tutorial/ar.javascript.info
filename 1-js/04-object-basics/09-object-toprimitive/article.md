@@ -48,7 +48,11 @@
 
 `"التصرف الإفتراضي"`
 
+<<<<<<< HEAD
 : يحدث فى حالات نادرة عندما تكون العمليه الحسابيه غير متأكَّد من النوع المناسب معها.
+=======
+    For instance, binary plus `+` can work both with strings (concatenates them) and numbers (adds them), so both strings and numbers would do. So if a binary plus gets an object as an argument, it uses the `"default"` hint to convert it.
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 على سبيل المثال، العلامه `+` يمكن أن تعمل مع النصوص (حيث تقوم بالإضافه) أو الأرقام (حيث تقوم بالجمع)، ولذلك فإنه يمكن التحويل إلى نصوص أو أرقام. ولذلك إذا استقبلت علامة ال `+` كائنا فإنها تستخدم `"التصرف الإفتراضي"`.
 

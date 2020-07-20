@@ -188,7 +188,12 @@ for (let key in user) {
 }
 ```
 
+<<<<<<< HEAD
 كما تقدّم لنا مكتبات جافاسكربت دوال للربط الجماعي لتسهيل الأمور، مثل [`‎_.bindAll(obj)‎`](http://lodash.com/docs#bindAll) في المكتبة lodash.
+=======
+JavaScript libraries also provide functions for convenient mass binding , e.g. [_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll) in lodash.
+````
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 ## الدوال الجزئية
 

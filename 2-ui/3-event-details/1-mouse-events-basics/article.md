@@ -25,6 +25,10 @@
 : يعمل بعد النقر مرتين على نفس العنصر خلال فترة زمنية قصيرة. نادرا ما يستخدم في الوقت الحاضر.
 
 `contextmenu`
+<<<<<<< HEAD
+=======
+: Triggers when the right mouse button is pressed. There are other ways to open a context menu, e.g. using a special keyboard key, it triggers in that case also, so it's not exactly the mouse event.
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 يعمل عندما يتم الضغط على زر الفأرة الأيمن. وهناك طرق أخرى لفتح قائمة السياق ، على سبيل المثال باستخدام مفتاح معين من لوحة المفاتيح ، ويمكن أيضًا استخدامه في هذه الحالة ، لذا فهو ليس بالضبط حدث للماوس .
 
@@ -38,8 +42,12 @@
 
 على سبيل المثال , عند النقر على الزر الايسر فإن أول حدث يتم تشغيله  `mousedown`, عند الضغط على الزر, ثم `mouseup` وبالتالي أيضا `click` عند تحرير النقر.
 
+<<<<<<< HEAD
 في الحالات التي يبدأ فيها إجراء واحد أحداثًا متعددة ، فإنه يتم إصلاح ترتيبها. بمعنى ، أنه يقوم  باستدعاء الأحداث بالترتيب
  `mousedown` -> `mouseup` -> `click`. 
+=======
+In cases when a single action initiates multiple events, their order is fixed. That is, the handlers are called in the order `mousedown` -> `mouseup` -> `click`.
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 ```online
 لمعاينة الأحداث بوضوح أنقر فوق الزر أدناه. جرب النقر مرتين أيضاً.
@@ -56,7 +64,11 @@
 
 تحتوي دائما الأحداث المتعلقة بالنقر على خاصية `button`, والتي تسمح لك بأستخدام زر الماوس.
 
+<<<<<<< HEAD
 وعادة لا نستخدم هذه الخاصية لكل من هذين الحدثين  `click` و `contextmenu` , وذلك لأن الأول يحدث فقط عند النقر بزر الماوس الأيسر ، والأخير - فقط عند النقر بزر الماوس الأيمن.
+=======
+We usually don't use it for `click` and `contextmenu` events, because the former happens only on left-click, and the latter -- only on right-click.
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 من ناحية أخرى فإن, `mousedown` و `mouseup` قد تحتاج معالجتها إلى `event.button`, وذلك لأن هذه الأحداث من الممكن أن تعمل على أى زر لذا فإن  `button` يتيح لك التمييز بين  "زر الماوس الأيمن" و "زر الماوس الأيسر".
 

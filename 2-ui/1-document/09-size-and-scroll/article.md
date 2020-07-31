@@ -254,7 +254,7 @@ alert( getComputedStyle(elem).width ); // show CSS width for elem
 ```online
 إذا كان المستعرض الخاص بك يحتفظ بمساحة شريط التمرير (معظم المستعرضات لنظام Windows) ، فيمكنك اختباره أدناه.
 
-[iframe src = "cssWidthScroll" حدود الرابط = 1]
+[iframe src="cssWidthScroll" link border="1"]
 
 يحتوي العنصر الذي يحتوي على نص على CSS `width: 300px`.
 

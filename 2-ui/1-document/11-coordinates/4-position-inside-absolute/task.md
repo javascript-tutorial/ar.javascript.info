@@ -24,6 +24,6 @@ positionAt(blockquote, "top-in", note);
 
 النتائج:
 
-[iframe src = "solution" height = "310" border = "1" link]
+[iframe src="solution" height="310" border="1" link]
 
 كرمز المصدر ، خذ حل المهمة <info:task/position-at-absolute>.

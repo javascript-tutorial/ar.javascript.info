@@ -30,13 +30,13 @@ alert( document.documentElement.clientWidth ); // window width minus the scrollb
 ```
 
 في معظم الحالات ، نحتاج إلى عرض النافذة * المتوفرة *: لرسم شيء ما أو وضعه. هذا هو: داخل أشرطة التمرير إذا كان هناك أي. لذا يجب علينا استخدام `documentElement.clientHeight / Width`.
-`` ``
+````
 
-`` `warn header =" "DOCTYPE` مهم"
+````warn header=" "DOCTYPE` مهم"
 يرجى ملاحظة: قد تعمل خصائص الهندسة عالية المستوى بشكل مختلف قليلاً عندما لا يكون هناك <! DOCTYPE HTML> `في HTML. الأشياء الغريبة ممكنة.
 
 في HTML الحديثة يجب أن نكتب دائمًا "DOCTYPE".
-``
+````
 
 ## عرض / ارتفاع الوثيقة
 

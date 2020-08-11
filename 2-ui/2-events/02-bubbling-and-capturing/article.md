@@ -140,7 +140,7 @@
 
 ```js
 elem.addEventListener(..., {capture: true})
-// or, just "true" is an alias to {capture: true}
+//  {capture: true} هو اسم مستعار لـ "true" أو فقط 
 elem.addEventListener(..., true)
 ```
 

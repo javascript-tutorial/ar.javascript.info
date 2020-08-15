@@ -1,99 +1,105 @@
 
-# Escaping, special characters
+# التخطى, الرموز الخاصة
 
-As we've seen, a backslash `pattern:\` is used to denote character classes, e.g. `pattern:\d`. So it's a special character in regexps (just like in regular strings).
+كما رأينا, الشرطة المائلة للخلف `pattern:\` تستخدم للدلالة على فئات الرموز,على سبيل المثال `pattern:d\`. لذلك فهى رمز خاص فى المصطلحات العادية (تمام كما هو الحال فى النصوص العادية).
 
-There are other special characters as well, that have special meaning in a regexp. They are used to do more powerful searches. Here's a full list of them: `pattern:[ \ ^ $ . | ? * + ( )`.
+هناك رموز خاصة أخرى كذلك, التى لها معنى خاص فى المصطلحات العادية. يتم استخدامها لإجراء عمليات بحث أكثر قوة .
+فيما يلى قائمة كاملة بها: `pattern:[\ ^ $ . | ? * + ( )`.
 
-Don't try to remember the list -- soon we'll deal with each of them separately and you'll know them by heart automatically.
+لا تحاول تذكر القائمة -- قريبا سنتعامل مع كل منهم على حدة وستعرفهم عن ظهر قلب تلقائيًا
 
-## Escaping
+## التخطى
 
-Let's say we want to find literally a dot. Not "any character", but just a dot.
+لنفترض أننا نريد إيجاد نقطة حرفيا. ليس "اى حرف"
+لكن مجرد نقطة.
 
-To use a special character as a regular one, prepend it with a backslash: `pattern:\.`.
+لاستخدام رمز خاص كرمز عادى, ضع قبلها شرطة مائلة للخلف: `pattern:.\`.
 
-That's also called "escaping a character".
+هذا يسمى أيضا "تخطى الرموز".
 
-For example:
+فمثلا:
 ```js run
-alert( "Chapter 5.1".match(/\d\.\d/) ); // 5.1 (match!)
-alert( "Chapter 511".match(/\d\.\d/) ); // null (looking for a real dot \.)
+alert( "الفصل 5.1".match(/\d\.\d/) ); // 5.1 (تطابق!)
+alert( "الفصل 511".match(/\d\.\d/) ); // null (البحث عن نقطة حقيقية \.)
 ```
 
-Parentheses are also special characters, so if we want them, we should use `pattern:\(`. The example below looks for a string `"g()"`:
+الأقواس أيضا رموز خاصة, لذلك إذا أردناهم, يجب استخدام `pattern:)\`. المثال أدناه يبحث عن `"()g"`:
 
 ```js run
 alert( "function g()".match(/g\(\)/) ); // "g()"
 ```
 
-If we're looking for a backslash `\`, it's a special character in both regular strings and regexps, so we should double it.
+إذا كنا نبحث عن الشرطة المائلة للخلف `\`,إنها رمز خاص فى كلتا النصوص العادية و المصطلحات العادية, لذلك يجب أن نضاعفها.
 
 ```js run
 alert( "1\\2".match(/\\/) ); // '\'
 ```
 
-## A slash
+## الشرطة المائلة
 
-A slash symbol `'/'` is not a special character, but in JavaScript it is used to open and close the regexp: `pattern:/...pattern.../`, so we should escape it too.
+رمز الشرطة المائلة `'/'` ليس رمز خاص ولكن فى الجافا سكريبت يتم استخدامه لفتح وإغلاق المصطلح العام: `pattern:/...نمط.../`,لذلك يجب تخطيها أيضا.
 
-Here's what a search for a slash `'/'` looks like:
+هذا ما يبدو عليه البحث عن الشرطة المائلة `'/'`:
 
 ```js run
 alert( "/".match(/\//) ); // '/'
 ```
 
-On the other hand, if we're not using `pattern:/.../`, but create a regexp using `new RegExp`, then we don't need to escape it:
+من ناحية أخرى 
+إذا كنا لا نستخدم `pattern:/.../`, ولكن قمنا بإنشاء مصطلع عام باستخدام `new RegExp`, فلا داعى لتخطيها:
 
 ```js run
-alert( "/".match(new RegExp("/")) ); // finds /
+alert( "/".match(new RegExp("/")) ); // وجدت /
 ```
 
 ## new RegExp
 
-If we are creating a regular expression with `new RegExp`, then we don't have to escape `/`, but need to do some other escaping.
+إذا كنا بصدد إنشاء تعبير عادي باستخدام `new RegExp`, كذلك لا يمكن تخطى `/`,
+ولكن بحاجة الى استخدام تخطى أخر.
 
-For instance, consider this:
+
+فمثلا, ضع فى اعتبارك هذا:
 
 ```js run
 let regexp = new RegExp("\d\.\d");
 
-alert( "Chapter 5.1".match(regexp) ); // null
+alert( "الفصل 5.1".match(regexp) ); // null
 ```
 
-The similar search in one of previous examples worked with `pattern:/\d\.\d/`, but `new RegExp("\d\.\d")` doesn't work, why?
+البحث المماثل في أحد الأمثلة السابقة يعمل مع `pattern:/\d\.\d/`, ولكن `new RegExp("\d\.\d")` لا يعمل , لماذا؟
 
-The reason is that backslashes are "consumed" by a string. As we may recall, regular strings have their own special characters, such as `\n`, and a backslash is used for escaping.
+السبب هوا أن الشرط المائلة "تستهلك" بواسطة النص, كما قد نتذكر, النصوص العادية لديها رموز خاصة بها, مثل `n\`, والشرطة المائلة للخلف تستخدم فى التخطى.
 
-Here's how "\d\.\d" is preceived:
+
+إليك كيف ينظر الى "\d\.\d" : 
 
 ```js run
 alert("\d\.\d"); // d.d
 ```
 
-String quotes "consume" backslashes and interpret them on their own, for instance:
+النصوص الاقتباسية "تستهلك" الشرط المائلة للخلف وتفسرهم لأنفسهم, فمثلا:
 
-- `\n` -- becomes a newline character,
-- `\u1234` -- becomes the Unicode character with such code,
-- ...And when there's no special meaning: like `pattern:\d` or `\z`, then the backslash is simply removed.
+- `n\` -- يضع سطر جديد,
+- `u1234\` -- يصبح رمز اليونيكود بالرقم المحدد,
+- ... وعندما لا يكون هناك معنى خاص: مثل `pattern:d\` أو `z\`, عندئذ يتم إزالة الشرطة المائلة للخلف ببساطة.
 
-So `new RegExp` gets a string without backslashes. That's why the search doesn't work!
+لذلك `new RegExp` تحصل على النصوص بلا شرط مائلة للخلف. لهذا السبب لا يعمل البحث
 
-To fix it, we need to double backslashes, because string quotes turn `\\` into `\`:
+ولإصلاحها ، نحتاج إلى مضاعفة الشرط المائلة للخلف, لأن النصوص المقتبسة تحول `\\` الى `\`:
 
 ```js run
 *!*
 let regStr = "\\d\\.\\d";
 */!*
-alert(regStr); // \d\.\d (correct now)
+alert(regStr); // \d\.\d (صحيحة)
 
 let regexp = new RegExp(regStr);
 
-alert( "Chapter 5.1".match(regexp) ); // 5.1
+alert( "الفصل 5.1".match(regexp) ); // 5.1
 ```
 
-## Summary
+## الملخص
 
-- To search for special characters `pattern:[ \ ^ $ . | ? * + ( )` literally, we need to prepend them with a backslash `\` ("escape them").
-- We also need to escape `/` if we're inside `pattern:/.../` (but not inside `new RegExp`).
-- When passing a string `new RegExp`, we need to double backslashes `\\`, cause string quotes consume one of them.
+-  للبحث عن الرموز الخاصة `pattern:[ \ ^ $ . | ? * + ( )` حرفيا, نحن بحاجة الى إرفاقهم  بشرطة مائلة للخلف `\` "(تخطيهم)"
+- نحن بحاجة أيضا الى تخطى `/` إذا كانت داخل `pattern:/.../` (ولكن ليست بداخل `new RegExp`)
+- عندما نمرر نصا الى `new RegExp`, نحن بحاجة الى مضاعفة الشرط المائلة للخلف `\\`, لأن النصوص المقتبسة تستهلك واحدة منهم.

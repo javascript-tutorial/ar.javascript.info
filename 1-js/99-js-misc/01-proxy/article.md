@@ -843,7 +843,11 @@ alert(proxy.get('test')); // 1 (works!)
 
 ### الخصائص الخاصة Private fields
 
+<<<<<<< HEAD
 الشيئ المشابه يحدث مع الخصائص الخاصة بالكلاس.
+=======
+A similar thing happens with private class fields.
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
 
 علي سبيل المثال، الدالة `getName()` تصل إلي الخاصية الخاصة `#name` وتقف بعد الإحاطة:
 
@@ -965,7 +969,11 @@ revoke();
 alert(proxy.data); // خطأ
 ```
 
+<<<<<<< HEAD
 استدعاء `revoke()` يمسح كل المراجع الداخلية للأوبجكت المستهدف من البروكسي، ولذلك فإنهما ليسا متصلان بعد الآن. الأوبجكت المستهدف يمكن أن يتم تنظيفه بعد ذلك.
+=======
+A call to `revoke()` removes all internal references to the target object from the proxy, so they are no longer connected. The target object can be garbage-collected after that.
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
 
 يمكننا أيضًا أن نخزن الدالة `revoke` في `WeakMap`، لنكون قادرين علي إيجاده بواسطة بروكسي:
 

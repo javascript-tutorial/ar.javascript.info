@@ -154,8 +154,13 @@ let eventMixin = {
    *  this.trigger('select', data1, data2);
    */
   trigger(eventName, ...args) {
+<<<<<<< HEAD
     if (!this._eventHandlers || !this._eventHandlers[eventName]) {
       return; // لا يوجد handlers لإسم الحدث هذا
+=======
+    if (!this._eventHandlers?.[eventName]) {
+      return; // no handlers for that event name
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
     }
 
     // طلب الـ handlers

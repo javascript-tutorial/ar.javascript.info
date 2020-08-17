@@ -50,7 +50,11 @@ alert(Number(bigint) + number); // 3
 ````smart header="لا يتم دعم ميزة الزائد الأحادي (+) على `bigints`"
 يعد عامل تشغيل الزائد الأحادي `+value` طريقة معروفة لتحويل `value` إلى رقم.
 
+<<<<<<< HEAD
 لا يتم دعم عامل التشغيل هذا عند العمل مع أرقام `BigInt`:
+=======
+In order to avoid confusion, it's not supported on bigints:
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
 ```js run
 let bigint = 1n;
 

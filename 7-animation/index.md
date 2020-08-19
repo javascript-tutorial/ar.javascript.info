@@ -1,3 +1,3 @@
-# Animation
+# الرسوم المتحركة 
 
-CSS and JavaScript animations.
+الرسوم المتحركة باستخدام CSS and JavaScript .

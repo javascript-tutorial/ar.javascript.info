@@ -1,11 +1,25 @@
 # نطاق المُتغير
 
+<<<<<<< HEAD
 
 لغة جافاسكربت هي لغة داليّة التوجّه إلى أقصى حدّ، فتعطينا أقصى ما يمكن من الحريّة. يمكننا إنشاء الدوال ديناميكيًا ونسخها إلى متغيرات أخرى أو تمريرها كوسيط إلى دالة أخرى واستدعائها من مكان آخر تمامًا لاحقًا حين نريد.
 
 كما نعلم بأنّ الدوال تستطيع الوصول إلى المتغيرات خارجها. نستعمل هذه الميزة كثيرًا.
 
 دعنا الأن نوسع مداركنا لنحتوي سيناريوهات أكثر تعقيداً.
+=======
+# Variable scope, closure
+
+JavaScript is a very function-oriented language. It gives us a lot of freedom. A function can be created at any moment, passed as an argument to another function, and then called from a totally different place of code later.
+
+We already know that a function can access variables outside of it ("outer" variables).
+
+But what happens if outer variables change since a function is created? Will the function get newer values or the old ones?
+
+And what if a function is passed along as a parameter and called from another place of code, will it get access to outer variables at the new place?
+
+Let's expand our knowledge to understand these scenarios and more complex ones.
+>>>>>>> b85413d0bdd6f4f468fcadeacb4c4056e3671ce1
 
 سنتحدث عن المُتغيرات `let/const` هنا
 

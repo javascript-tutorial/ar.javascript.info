@@ -1,53 +1,53 @@
-# Styles and classes
+# الأنماط والفصول
 
-Before we get into JavaScript's ways of dealing with styles and classes -- here's an important rule. Hopefully it's obvious enough, but we still have to mention it.
+قبل أن نبدأ في طرق JavaScript للتعامل مع الأنماط والفئات - إليك قاعدة مهمة. آمل أن يكون الأمر واضحًا بما فيه الكفاية ، ولكن لا يزال يتعين علينا ذكره.
 
-There are generally two ways to style an element:
+بشكل عام ، هناك طريقتان لتصميم عنصر ما:
 
-1. Create a class in CSS and add it: `<div class="...">`
-2. Write properties directly into `style`: `<div style="...">`.
+1. قم بإنشاء فصل دراسي في CSS وإضافته:`<div class="...">`
+2. اكتب الخصائص مباشرة في `style`: `<div style="...">`.
 
-JavaScript can modify both classes and `style` properties.
+يمكن لـ JavaScript تعديل كل من الفئات و `style`.
 
-We should always prefer CSS classes to `style`. The latter should only be used if classes "can't handle it".
+يجب أن نفضل دائمًا فئات CSS على `style`. يجب استخدام الأخير فقط إذا كانت الفئات "لا يمكنها التعامل معه".
 
-For example, `style` is acceptable if we calculate coordinates of an element dynamically and want to set them from JavaScript, like this:
+فمثلا، `style` يكون مقبولًا إذا قمنا بحساب إحداثيات عنصر ديناميكيًا وأردنا تعيينها من JavaScript ، مثل هذا:
 
 ```js
-let top = /* complex calculations */;
-let left = /* complex calculations */;
+let top = /* حسابات معقدة */;
+let left = /* حسابات معقدة */;
 
-elem.style.left = left; // e.g '123px', calculated at run-time
+elem.style.left = left; // e.g '123px', محسوبة في وقت التشغيل
 elem.style.top = top; // e.g '456px'
 ```
 
-For other cases, like making the text red, adding a background icon -- describe that in CSS and then add the class (JavaScript can do that). That's more flexible and easier to support.
+بالنسبة للحالات الأخرى ، مثل جعل النص أحمر ، إضافة رمز خلفية - صف ذلك في CSS ثم أضف الفئة (يمكن أن تفعل JavaScript ذلك). هذا أكثر مرونة وأسهل للدعم.
 
-## className and classList
+## className و classList
 
-Changing a class is one of the most often used actions in scripts.
+يعد تغيير الصف أحد الإجراءات الأكثر استخدامًا في البرامج النصية.
 
-In the ancient time, there was a limitation in JavaScript: a reserved word like `"class"` could not be an object property. That limitation does not exist now, but at that time it was impossible to have a `"class"` property, like `elem.class`.
+في الماضي ، كان هناك قيود في JavaScript: الكلمة المحجوزة مثل `"class"` لا يمكن أن تكون خاصية كائن. هذا القيد غير موجود الآن ، ولكن في ذلك الوقت كان من المستحيل امتلاك خاصية `"class"` ، مثل `elem.class`.
 
-So for classes the similar-looking property `"className"` was introduced: the `elem.className` corresponds to the `"class"` attribute.
+لذلك بالنسبة للفصول ، تم تقديم خاصية `"className"` ذات المظهر المشابه: يتوافق `elem.className` مع سمة `"class"`.
 
-For instance:
+على سبيل المثال:
 
 ```html run
 <body class="main page">
   <script>
-    alert(document.body.className); // main page
+    alert(document.body.className); // الصفحة الرئيسية
   </script>
 </body>
 ```
 
-If we assign something to `elem.className`, it replaces the whole string of classes. Sometimes that's what we need, but often we want to add/remove a single class.
+إذا قمنا بتعيين شيء لـ `elem.className` ، فسيتم استبدال السلسلة الكاملة من الفئات. في بعض الأحيان هذا ما نحتاجه ، ولكن غالبًا ما نريد إضافة / إزالة فصل واحد.
 
-There's another property for that: `elem.classList`.
+هناك خاصية أخرى لذلك: `elem.classList`.
 
-The `elem.classList` is a special object with methods to `add/remove/toggle` a single class.
+إن `elem.classList` هو كائن خاص مع طرق ل`إضافة / إزالة / تبديل` فئة واحدة.
 
-For instance:
+على سبيل المثال:
 
 ```html run
 <body class="main page">
@@ -57,36 +57,36 @@ For instance:
     document.body.classList.add('article');
 */!*
 
-    alert(document.body.className); // main page article
+    alert(document.body.className); // مقال الصفحة الرئيسية
   </script>
 </body>
 ```
 
-So we can operate both on the full class string using `className` or on individual classes using `classList`. What we choose depends on our needs.
+حتى نتمكن من العمل على كل من سلسلة الفئة الكاملة باستخدام `className` أو على فئات فردية باستخدام `classList`. ما نختاره يعتمد على احتياجاتنا.
 
-Methods of `classList`:
+طرق `classList`:
 
-- `elem.classList.add/remove("class")` -- adds/removes the class.
-- `elem.classList.toggle("class")` -- adds the class if it doesn't exist, otherwise removes it.
-- `elem.classList.contains("class")` -- checks for the given class, returns `true/false`.
+- `elem.classList.add/remove("class")` -- يضيف / يزيل الصف
+- `elem.classList.toggle("class")` -- يضيف الفصل إذا لم يكن موجودًا ،
+- `elem.classList.contains("class")` --التحقق من صنف معين ، إرجاع `true / false`.
 
-Besides, `classList` is iterable, so we can list all classes with `for..of`, like this:
+إلى جانب ذلك ، `classList` قابلة للتكرار ، لذا يمكننا سرد جميع الفئات `for..of` ، على النحو التالي:
 
 ```html run
 <body class="main page">
   <script>
     for (let name of document.body.classList) {
-      alert(name); // main, and then page
+      alert(name); //الصفحة الرئيسية ثم الصفحة
     }
   </script>
 </body>
 ```
 
-## Element style
+## نمط العنصرنمط العنصر
 
-The property `elem.style` is an object that corresponds to what's written in the `"style"` attribute. Setting `elem.style.width="100px"` works the same as if we had in the attribute `style` a string `width:100px`.
+الخاصية `elem.style` هى كائن يتوافق مع ما هو مكتوب فى سمة النمط `"style"`. يعمل `elem.style.width="100px"` إعداد بالطريقة نفسها كما لو كان لدينا سمة  `style` سلسلة `width:100px`.
 
-For multi-word property the camelCase is used:
+بالنسبة للملكية المتعددة الكلمات ، يتم استخدام camelCase:
 
 ```js no-beautify
 background-color  => elem.style.backgroundColor
@@ -94,16 +94,17 @@ z-index           => elem.style.zIndex
 border-left-width => elem.style.borderLeftWidth
 ```
 
-For instance:
+على سبيل المثال:
 
 ```js run
 document.body.style.backgroundColor = prompt('background color?', 'green');
 ```
 
-````smart header="Prefixed properties"
-Browser-prefixed properties like `-moz-border-radius`, `-webkit-border-radius` also follow the same rule: a dash means upper case.
+````smart header="خصائص مسبقة"
+خصائص المتصفح المسبوقة مثل
+ `-moz-border-radius`, `-webkit-border-radius` تتبع أيضًا نفس القاعدة: الشرطة تعني الأحرف الكبيرة.
 
-For instance:
+على سبيل المثال:
 
 ```js
 button.style.MozBorderRadius = '5px';
@@ -111,33 +112,34 @@ button.style.WebkitBorderRadius = '5px';
 ```
 ````
 
-## Resetting the style property
+## إعادة تعيين خاصية النمط
 
-Sometimes we want to assign a style property, and later remove it.
+نرغب أحيانًا في تعيين خاصية نمط وإزالتها لاحقًا.
 
-For instance, to hide an element, we can set `elem.style.display = "none"`.
+على سبيل المثال ، لإخفاء عنصر ، يمكننا تعيين `elem.style.display = "none"`.
 
-Then later we may want to remove the `style.display` as if it were not set. Instead of `delete elem.style.display` we should assign an empty string to it: `elem.style.display = ""`.
+قد نرغب فى إزالة  `style.display` كما لو لم يتم تعيينه. بدلا من `delete elem.style.display`يجب علينا تعيين سلسلة فارغة لها: `elem.style.display = ""`.
 
 ```js run
-// if we run this code, the <body> will blink
-document.body.style.display = "none"; // hide
+// إذا قمنا بتشغيل هذا الرمز ، فسوف يرمش <body>
+document.body.style.display = "none"; // إخفاء
 
-setTimeout(() => document.body.style.display = "", 1000); // back to normal
+setTimeout(() => document.body.style.display = "", 1000); // العودة الى الوضع الطبيعى
 ```
 
-If we set `style.display` to an empty string, then the browser applies CSS classes and its built-in styles normally, as if there were no such `style.display` property at all.
+إذا وضعنا `style.display` إلى سلسلة فارغة ، ثم يطبق المتصفح فئات CSS وأنماطه المضمنة بشكل طبيعي ، كما لو لم تكن هناك خاصية `style.display` على الإطلاق.
 
-````smart header="Full rewrite with `style.cssText`"
-Normally, we use `style.*` to assign individual style properties. We can't set the full style like `div.style="color: red; width: 100px"`, because `div.style` is an object, and it's read-only.
+````smart header="إعادة كتابة كاملة مع `style.cssText`"
+عادة نستخدم `style.*` لتعيين خصائص النمط الفردية. لا يمكننا تعيين النمط الكامل مثل `div.style="color: red; width: 100px"`, لان  `div.style` هو كائن ، وهو للقراءة فقط.
 
-To set the full style as a string, there's a special property `style.cssText`:
+لتعيين النمط الكامل كسلسلة ، هناك خاصية خاصة
+ `style.cssText`:
 
 ```html run
 <div id="div">Button</div>
 
 <script>
-  // we can set special style flags like "important" here
+  // يمكننا تعيين علامات نمط خاص مثل "important" هنا
   div.style.cssText=`color: red !important;
     background-color: yellow;
     width: 100px;
@@ -148,27 +150,29 @@ To set the full style as a string, there's a special property `style.cssText`:
 </script>
 ```
 
-This property is rarely used, because such assignment removes all existing styles: it does not add, but replaces them. May occasionally delete something needed. But we can safely use it for new elements, when we know we won't delete an existing style.
+نادرًا ما يتم استخدام هذه الخاصية ، لأن هذه المهمة تزيل جميع الأنماط الموجودة: فهي لا تضيفها ، ولكنها تحل محلها. قد يحذف أحيانًا شيئًا مطلوبًا. ولكن يمكننا استخدامه بأمان للعناصر الجديدة ، عندما نعلم أننا لن نحذف نمطًا موجودًا.
 
-The same can be accomplished by setting an attribute: `div.setAttribute('style', 'color: red...')`.
+يمكن تحقيق الشيء نفسه عن طريق تعيين سمة:
+ `div.setAttribute('style', 'color: red...')`.
 ````
 
-## Mind the units
+## احذر الوحدات
 
-Don't forget to add CSS units to values.
+لا تنس إضافة وحدات CSS إلى القيم.
 
-For instance, we should not set `elem.style.top` to `10`, but rather to `10px`. Otherwise it wouldn't work:
+على سبيل المثال ، لا ينبغي لنا أن نضع `elem.style.top` إلى `10`، بل بالأحرى `10px`. . وإلا فلن يعمل:
 
 ```html run height=100
 <body>
   <script>
   *!*
-    // doesn't work!
+    //لا يعمل!
     document.body.style.margin = 20;
-    alert(document.body.style.margin); // '' (empty string, the assignment is ignored)
+    alert(document.body.style.margin); // '' (سلسلة فارغة ، يتم تجاهل المهمة)
   */!*
 
-    // now add the CSS unit (px) - and it works
+    // أضف الآن وحدة CSS (px) - وهي تعمل
+
     document.body.style.margin = '20px';
     alert(document.body.style.margin); // 20px
 
@@ -178,19 +182,19 @@ For instance, we should not set `elem.style.top` to `10`, but rather to `10px`. 
 </body>
 ```
 
-Please note: the browser "unpacks" the property `style.margin` in the last lines and infers `style.marginLeft` and `style.marginTop` from it.
+يرجى ملاحظة: المتصفح "يفكك" خاصية `style.margin` في السطور الأخيرة ويدخل `style.marginLeft` و `style.marginTop` منه.
 
-## Computed styles: getComputedStyle
+## الأنماط المحسوبة: getComputedStyle
 
-So, modifying a style is easy. But how to *read* it?
+لذا ، يعد تعديل النمط أمرًا سهلاً. لكن كيف تقرأه؟
 
-For instance, we want to know the size, margins, the color of an element. How to do it?
+على سبيل المثال ، نريد أن نعرف حجم العنصر وهوامشه ولونه. كيف افعلها؟
 
-**The `style` property operates only on the value of the `"style"` attribute, without any CSS cascade.**
+**تعمل خاصية `style` فقط على قيمة `"style"`، بدون أي شلال CSS.**
 
-So we can't read anything that comes from CSS classes using `elem.style`.
+لذلك لا يمكننا قراءة أي شيء يأتي من فئات CSS باستخدام `elem.style`.
 
-For instance, here `style` doesn't see the margin:
+على سبيل المثال ، `style` هنا لا يرى الهامش:
 
 ```html run height=60 no-beautify
 <head>
@@ -201,14 +205,14 @@ For instance, here `style` doesn't see the margin:
   The red text
   <script>
 *!*
-    alert(document.body.style.color); // empty
-    alert(document.body.style.marginTop); // empty
+    alert(document.body.style.color); // فارغة
+    alert(document.body.style.marginTop); // فارغة
 */!*
   </script>
 </body>
 ```
 
-...But what if we need, say, to increase the margin by `20px`? We would want the current value of it.
+... ولكن ماذا لو احتجنا ، على سبيل المثال ، إلى زيادة الهامش بمقدار `20px`؟ نريد القيمة الحالية لها.
 
 There's another method for that: `getComputedStyle`.
 
@@ -219,14 +223,15 @@ getComputedStyle(element, [pseudo])
 ```
 
 element
-: Element to read the value for.
+: عنصر لقراءة القيمة لـ.
 
 pseudo
-: A pseudo-element if required, for instance `::before`. An empty string or no argument means the element itself.
+:عنصر زائف إذا لزم الأمر ، على سبيل المثال `:: before`. سلسلة فارغة أو لا وسيطة تعني العنصر نفسه.
 
-The result is an object with styles, like `elem.style`, but now with respect to all CSS classes.
 
-For instance:
+والنتيجة كائن يحتوي على أنماط ، مثل `elem.style` ، ولكن الآن فيما يتعلق بجميع فئات CSS.
+
+على سبيل المثال:
 
 ```html run height=100
 <head>
@@ -237,7 +242,8 @@ For instance:
   <script>
     let computedStyle = getComputedStyle(document.body);
 
-    // now we can read the margin and the color from it
+    // الآن يمكننا قراءة الهامش واللون منه
+
 
     alert( computedStyle.marginTop ); // 5px
     alert( computedStyle.color ); // rgb(255, 0, 0)
@@ -246,23 +252,25 @@ For instance:
 </body>
 ```
 
-```smart header="Computed and resolved values"
-There are two concepts in [CSS](https://drafts.csswg.org/cssom/#resolved-values):
+```smart header="القيم المحسوبة والمحلولة"
+هناك مفهومان في [CSS](https://drafts.csswg.org/cssom/#resolved-values):
 
-1. A *computed* style value is the value after all CSS rules and CSS inheritance is applied, as the result of the CSS cascade. It can look like `height:1em` or `font-size:125%`.
-2. A *resolved* style value is the one finally applied to the element. Values like `1em` or `125%` are relative. The browser takes the computed value and makes all units fixed and absolute, for instance: `height:20px` or `font-size:16px`. For geometry properties resolved values may have a floating point, like `width:50.5px`.
+1. قيمة النمط *المحسوب* هي القيمة بعد تطبيق جميع قواعد CSS ووراثة CSS ، نتيجة سلسلة CSS المتتالية. يمكن أن تبدو
+ `height:1em` أو `font-size:125%`.
+2. قيمة النمط التي تم `حلها` هي القيمة التي تم تطبيقها أخيرًا على العنصر. مثل القيم `1em` أو `125%` نسبي. يأخذ المتصفح القيمة المحسوبة ويجعل جميع الوحدات ثابتة ومطلقة ، على سبيل المثال: `height:20px` أو `font-size:16px`. . بالنسبة للخصائص الهندسية ، قد تحتوي القيم التي تم حلها على نقطة عائمة ، مثل`width:50.5px`.
 
-A long time ago `getComputedStyle` was created to get computed values, but it turned out that resolved values are much more convenient, and the standard changed.
+منذ وقت طويل تم إنشاء `getComputedStyle` للحصول على قيم محسوبة ، ولكن اتضح أن القيم التي تم حلها أكثر ملاءمة ، وتغير المعيار.
 
-So nowadays `getComputedStyle` actually returns the resolved value of the property, usually in `px` for geometry.
+لذا في الوقت الحاضر ، تُعيد `getComputedStyle` في الواقع القيمة التي تم حلها للخاصية ، عادةً بالبكسل للهندسة.
 ```
 
-````warn header="`getComputedStyle` requires the full property name"
-We should always ask for the exact property that we want, like `paddingLeft` or `marginTop` or `borderTopWidth`. Otherwise the correct result is not guaranteed.
+````warn header="`getComputedStyle` يتطلب اسم الخاصية بالكامل"
+يجب أن نسأل دائمًا عن العقار المحدد الذي نريده ، مثل `paddingLeft` أو `marginTop` أو `borderTopWidth`. وإلا فإن النتيجة الصحيحة ليست مضمونة.
 
-For instance, if there are properties `paddingLeft/paddingTop`, then what should we get for `getComputedStyle(elem).padding`? Nothing, or maybe a "generated" value from known paddings? There's no standard rule here.
+على سبيل المثال ، إذا كانت هناك خصائص `paddingLeft / paddingTop` ، فماذا يجب أن نحصل عليه للحصول على `padComputedStyle (elem) .padding`؟ لا شيء ، أو ربما قيمة "مولدة" من الحشوات المعروفة؟ لا توجد قاعدة قياسية هنا.
 
-There are other inconsistencies. As an example, some browsers (Chrome) show `10px` in the document below, and some of them (Firefox) --  do not:
+هناك تناقضات أخرى. كمثال ، بعض المتصفحات (Chrome) تظهر `10px` في الوثيقة أدناه ، وبعضها
+ (Firefox) --  لا:
 
 ```html run
 <style>
@@ -272,32 +280,32 @@ There are other inconsistencies. As an example, some browsers (Chrome) show `10p
 </style>
 <script>
   let style = getComputedStyle(document.body);
-  alert(style.margin); // empty string in Firefox
+  alert(style.margin); // سلسلة فارغة في Firefox
 </script>
 ```
 ````
 
-```smart header="Styles applied to `:visited` links are hidden!"
-Visited links may be colored using `:visited` CSS pseudoclass.
+```smart header="تم تطبيق الأنماط على `:visited` الروابط مخفية!"
+قد يتم تلوين الروابط التي تمت زيارتها باستخدام `:visited` CSS صنف مستعار.
 
-But `getComputedStyle` does not give access to that color, because otherwise an arbitrary page could find out whether the user visited a link by creating it on the page and checking the styles.
+لكن `getComputedStyle` لا يمنح الوصول إلى هذا اللون ، لأنه بخلاف ذلك يمكن للصفحة العشوائية معرفة ما إذا كان المستخدم قد زار رابطًا عن طريق إنشائه على الصفحة والتحقق من الأنماط.
 
-JavaScript may not see the styles applied by `:visited`. And also, there's a limitation in CSS that forbids applying geometry-changing styles in `:visited`. That's to guarantee that there's no side way for an evil page to test if a link was visited and hence to break the privacy.
+قد لا ترى JavaScript الأنماط المطبقة بواسطة  `:visited`. وأيضًا ، هناك قيود في CSS تمنع تطبيق أنماط تغيير الهندسة فى `:visited`. وذلك لضمان عدم وجود طريقة جانبية لصفحة شريرة لاختبار ما إذا كان قد تم زيارة رابط وبالتالي كسر الخصوصية.
 ```
 
-## Summary
+## ملخص
 
-To manage classes, there are two DOM properties:
+لإدارة الفئات ، هناك خاصيتين DOM
+- `className` -- قيمة السلسلة ، جيد لإدارة مجموعة كاملة من الفئات.
+- `classList` -- الكائن بالطرق`add/remove/toggle/contains`، جيد للفئات الفردية.
 
-- `className` -- the string value, good to manage the whole set of classes.
-- `classList` -- the object with methods `add/remove/toggle/contains`, good for individual classes.
+لتغيير الأنماط:
 
-To change the styles:
+- خاصية `style` هى كائن له أنماطcamelCased. القراءة والكتابة لها نفس معنى تعديل الخصائص الفردية في سمة `"style"`. لمعرفة كيفية تنفيذ  `important` وأشياء نادرة أخرى - هناك قائمة بالأساليب على [MDN](mdn:api/CSSStyleDeclaration).
 
-- The `style` property is an object with camelCased styles. Reading and writing to it has the same meaning as modifying individual properties in the `"style"` attribute. To see how to apply `important` and other rare stuff -- there's a list of methods at [MDN](mdn:api/CSSStyleDeclaration).
+- تتوافق الخاصية `style.cssText` مع السمة `"style"` بأكملها ، وهي السلسلة الكاملة من الأنماط.
 
-- The `style.cssText` property corresponds to the whole `"style"` attribute, the full string of styles.
+لقراءة الأنماط التي تم حلها (فيما يتعلق بجميع الفئات ، بعد تطبيق جميع CSS وحساب القيم النهائية
+):
 
-To read the resolved styles (with respect to all classes, after all CSS is applied and final values are calculated):
-
-- The `getComputedStyle(elem, [pseudo])` returns the style-like object with them. Read-only.
+- تُرجع `getComputedStyle (elem، [pseudo]) `الكائن الشبيه بالنمط معهم. يقرأ فقط.

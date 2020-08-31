@@ -187,8 +187,12 @@ alert( fruits );
 
 المصفوفه هي نوع خاص من الكائن. الأقواس المربعة تستخدم للتحكم في الخاصيه `arr[0]` في الواقع تأتي من بناء الكائن. هذا في الاساس نفس `obj[key]`, عندما تكون `arr` كائن, بينما الارقام تستخدم كمفاتيح.
 
+<<<<<<< HEAD
 إنها تمد الكائنات التي توفر وسائل خاصة للعمل مع مجموعات البيانات المطلوبة وكذلك خاصية `length '. ولكن في جوهرها لا يزال كائن.
 تذكر,لا يوجد سوى 7 أنواع أساسية في جافا سكريبت. المصفوفه عباره عن كائن لذالك هي تتصرف مثله.
+=======
+Remember, there are only eight basic data types in JavaScript (see the [Data types](https://javascript.info/types) chapter for more info). Array is an object and thus behaves like an object.
+>>>>>>> f830bc5d9454d85829e011d914f215eb5896579a
 
 على سبيل المثال, يتم نسخه حسب المرجع:
 

@@ -71,7 +71,11 @@ alert(height ?? 100); // 0
 
 ## الأولوية
 
+<<<<<<< HEAD
 أولوية العامل `??` هي قليلة: `7` وتساوي [MDN جدول](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table).
+=======
+The precedence of the `??` operator is rather low: `5` in the [MDN table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table).
+>>>>>>> f830bc5d9454d85829e011d914f215eb5896579a
 
 هذا أقل من معظم المعاملات وأكبر بقليل من `=` و `?`.
 

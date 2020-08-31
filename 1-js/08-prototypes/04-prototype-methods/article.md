@@ -6,7 +6,13 @@
 
 الدوال الحديثة هي:
 
+<<<<<<< HEAD
 - [Object.create(proto[, descriptors])](mdn:js/Object/create) -- تقوم بإنشاء كائن فارغ ويحتوي على الخاصية `proto` كـ `[[Prototype]]` وبعض واصفات الخصائص الإختيارية (property descriptors).
+=======
+The modern methods are:
+
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with given `proto` as `[[Prototype]]` and optional property descriptors.
+>>>>>>> f830bc5d9454d85829e011d914f215eb5896579a
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj`.
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- تقوم بإرجاع الخاصية `[[Prototype]]` من الكائن `obj`.
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- تجعل الخاصية `[[Prototype]]` من الكائن `obj` تشير إلى `proto`.
@@ -176,10 +182,16 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 
 الدوال الحديثة لإنشاء نموذج و الوصول إليه هي:
 
+<<<<<<< HEAD
 - [Object.create(proto[, descriptors])](mdn:js/Object/create) -- تقوم بإنشاء كائن فارغ ويحتوي على الخاصية `proto` كـ `[[Prototype]]` وبعض واصفات الخصائص الإختيارية (property descriptors).
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj`.
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- تقوم بإرجاع الخاصية `[[Prototype]]` من الكائن `obj`.
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- تجعل الخاصية `[[Prototype]]` من الكائن `obj` تشير إلى `proto`.
+=======
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with a given `proto` as `[[Prototype]]` (can be `null`) and optional property descriptors.
+- [Object.getPrototypeOf(obj)](mdn:js/Object.getPrototypeOf) -- returns the `[[Prototype]]` of `obj` (same as `__proto__` getter).
+- [Object.setPrototypeOf(obj, proto)](mdn:js/Object.setPrototypeOf) -- sets the `[[Prototype]]` of `obj` to `proto` (same as `__proto__` setter).
+>>>>>>> f830bc5d9454d85829e011d914f215eb5896579a
 
 و `__proto__` الموجودة بالفعل والتي تقوم بجلب أو تعديل الخصائص ليست آمنة للإستخدام إذا كنا نريد أن ننشئ خصائص بأسماء يعطيها المستخدم للكائن وذلك لأن المستخدم يمكن أن يُدخل اسم الخاصية كـ `"__proto__"` وسيكون هناك خطأًا وبآثار ونتائج غير متوقعة.
 

@@ -67,7 +67,11 @@ n = 12.345;
 
 ## BigInt
 
+<<<<<<< HEAD
 في الجافا سكربت، النوع "رقم"  لا يمثل الأعداد الصحيحة أكبر من <code>(2<sup>53</sup>-1)</code> ( `9007199254740991`)، أو أقل من <code>-(-2<sup>53</sup>-1)</code> للأرقام السالبة. إنها قيود فنية ناتجة عن تمثيلهم الداخلي.
+=======
+In JavaScript, the "number" type cannot represent integer values larger than <code>(2<sup>53</sup>-1)</code> (that's `9007199254740991`), or less than <code>-(2<sup>53</sup>-1)</code> for negatives. It's a technical limitation caused by their internal representation.
+>>>>>>> f830bc5d9454d85829e011d914f215eb5896579a
 
 لمعظم الأغراض هذا يكفي، لكن في بعض الأحيان نحتاج لأرقام كبيرة حقاً ، على سبيل المثال. للتشفير أو الطوابع الزمنية الدقيقة للميكرو ثانية.
 
@@ -82,8 +86,13 @@ const bigInt = 1234567890123456789012345678901234567890n;
 
 بما أن أرقام من نوع `BigInt` نحتاجها نادراً ، لن يتم تغطيتها هنا ، لكن سيفرد لها فصل مخصص  <info:bigint>. اقرأه عندما تحتاج لمثل هذه الأرقام الكبيرة.
 
+<<<<<<< HEAD
 ```smart header="مشاكل توافقية"
 الأن `BigInt` متوافق مع الفايرفوكس والكروم ،لكن ليست متوافقة مع  سفاري/انترنت اكسبلورر/ايدج.
+=======
+```smart header="Compatibility issues"
+Right now `BigInt` is supported in Firefox/Chrome/Edge, but not in Safari/IE.
+>>>>>>> f830bc5d9454d85829e011d914f215eb5896579a
 ```
 
 ## String

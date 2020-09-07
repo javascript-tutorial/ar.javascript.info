@@ -25,6 +25,10 @@
 : يعمل بعد النقر مرتين على نفس العنصر خلال فترة زمنية قصيرة. نادرا ما يستخدم في الوقت الحاضر.
 
 `contextmenu`
+<<<<<<< HEAD
+=======
+: Triggers when the right mouse button is pressed. There are other ways to open a context menu, e.g. using a special keyboard key, it triggers in that case also, so it's not exactly the mouse event.
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
 
 يعمل عندما يتم الضغط على زر الفأرة الأيمن. وهناك طرق أخرى لفتح قائمة السياق ، على سبيل المثال باستخدام مفتاح معين من لوحة المفاتيح ، ويمكن أيضًا استخدامه في هذه الحالة ، لذا فهو ليس بالضبط حدث للماوس .
 
@@ -38,8 +42,12 @@
 
 على سبيل المثال , عند النقر على الزر الايسر فإن أول حدث يتم تشغيله  `mousedown`, عند الضغط على الزر, ثم `mouseup` وبالتالي أيضا `click` عند تحرير النقر.
 
+<<<<<<< HEAD
 في الحالات التي يبدأ فيها إجراء واحد أحداثًا متعددة ، فإنه يتم إصلاح ترتيبها. بمعنى ، أنه يقوم  باستدعاء الأحداث بالترتيب
  `mousedown` -> `mouseup` -> `click`. 
+=======
+In cases when a single action initiates multiple events, their order is fixed. That is, the handlers are called in the order `mousedown` -> `mouseup` -> `click`.
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
 
 ```online
 لمعاينة الأحداث بوضوح أنقر فوق الزر أدناه. جرب النقر مرتين أيضاً.
@@ -56,7 +64,11 @@
 
 تحتوي دائما الأحداث المتعلقة بالنقر على خاصية `button`, والتي تسمح لك بأستخدام زر الماوس.
 
+<<<<<<< HEAD
 وعادة لا نستخدم هذه الخاصية لكل من هذين الحدثين  `click` و `contextmenu` , وذلك لأن الأول يحدث فقط عند النقر بزر الماوس الأيسر ، والأخير - فقط عند النقر بزر الماوس الأيمن.
+=======
+We usually don't use it for `click` and `contextmenu` events, because the former happens only on left-click, and the latter -- only on right-click.
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
 
 من ناحية أخرى فإن, `mousedown` و `mouseup` قد تحتاج معالجتها إلى `event.button`, وذلك لأن هذه الأحداث من الممكن أن تعمل على أى زر لذا فإن  `button` يتيح لك التمييز بين  "زر الماوس الأيمن" و "زر الماوس الأيسر".
 
@@ -64,11 +76,19 @@
 
 | حالة الزر | `event.button` |
 |--------------|----------------|
+<<<<<<< HEAD
 | الزر الأيسر (أساسي) | 0 |
 | الزر الأوسط (مساعد) | 1 |
 | الزر الايمن (ثانوي) | 2 |
 | X1 زر (خلف) | 3 |
 | X2 زر (أمام) | 4 |
+=======
+| Left button (primary) | 0 |
+| Middle button (auxiliary) | 1 |
+| Right button (secondary) | 2 |
+| X1 button (back) | 3 |
+| X2 button (forward) | 4 |
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
 
 تحتوي معظم أجهزة الماوس على الزرين الأيسر والأيمن فقط ، لذا فإن القيم المحتملة هي "0" أو "2". وكذلك الأجهزة التي تعمل باللمس أيضًا تولد أحداثًا مماثلة عندما ينقر عليها .
 
@@ -162,7 +182,11 @@
 
 النقر المزدوج بزر الماوس له تأثير جانبي قد يكون غير ملائم في بعض الواجهات: فهو يحدد النص.
 
+<<<<<<< HEAD
 على سبيل المثال, يؤدي النقر المزدوج على النص أدناه إلى تحديده بالإضافة إلى معالجنا:
+=======
+For instance, double-clicking on the text below selects it in addition to our handler:
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
 
 ```html autorun height=50
 <span ondblclick="alert('dblclick')">أنقر مرتين علي</span>

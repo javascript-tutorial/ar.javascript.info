@@ -225,8 +225,13 @@ alert(1 && 2 && 3); // 3, آخر قيمة
 
 `````
 
+<<<<<<< HEAD
 ````warn header="لا تستبدل `if` ب || أو &&"
 بعض الناس يستخدمون AND `&&` كإختصار ل `if`.
+=======
+````warn header="Don't replace `if` with || or &&"
+Sometimes, people use the AND `&&` operator as a "shorter way to write `if`".
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
 
 مثلًا:
 

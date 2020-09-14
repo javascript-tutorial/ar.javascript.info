@@ -60,11 +60,19 @@ alert('Full document height, with scrolled out part: ' + scrollHeight);
 
 ## احصل على التمرير الحالي [# page-roll]
 
+<<<<<<< HEAD
 عناصر DOM لها حالة التمرير الحالية في `elem.scrollLeft / rollTop`.
 
 بالنسبة إلى تمرير المستند ، يعمل المستند document.documentElement.scrollLeft / Top` في معظم المتصفحات ، باستثناء المتصفحات القديمة التي تستند إلى WebKit ، مثل Safari (الخطأ [5991] (https://bugs.webkit.org/show_bug.cgi؟id=5991) ) ، حيث يجب أن نستخدم `document.body` بدلاً من` document.documentElement`.
 
 لحسن الحظ ، ليس علينا أن نتذكر هذه الخصائص على الإطلاق ، لأن التمرير متاح في الخصائص الخاصة `window.pageXOffset/pageYOffset`:
+=======
+DOM elements have their current scroll state in their `scrollLeft/scrollTop` properties.
+
+For document scroll, `document.documentElement.scrollLeft/Top` works in most browsers, except older WebKit-based ones, like Safari (bug [5991](https://bugs.webkit.org/show_bug.cgi?id=5991)), where we should use `document.body` instead of `document.documentElement`.
+
+Luckily, we don't have to remember these peculiarities at all, because the scroll is available in the special properties, `window.pageXOffset/pageYOffset`:
+>>>>>>> ff152b126ec70a9de919bfdc1913215539d37187
 
 ```js run
 alert('Current scroll from the top: ' + window.pageYOffset);

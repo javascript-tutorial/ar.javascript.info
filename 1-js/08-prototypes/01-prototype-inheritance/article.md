@@ -200,6 +200,9 @@ alert(admin.fullName); // John Smith (*)
 
 // عمل الضابِط!
 admin.fullName = "Alice Cooper"; // (**)
+
+alert(admin.fullName); // Alice Cooper , state of admin modified
+alert(user.fullName); // John Smith , state of user protected
 ```
 
 هنا في السطر `(*)` نرى أن `admin.fullName` استدعت الجالِب داخل الكائن `user`، ولهذا استُدعيت الخاصية. وفي السطر `(**)` نرى عملية إسناد للخاصية `admin.fullName` ولهذا استدعيَ الضابِط داخل الكائن `user`.

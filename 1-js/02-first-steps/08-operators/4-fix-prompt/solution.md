@@ -8,7 +8,12 @@ let b = "2"; // prompt("Second number?", 2);
 alert(a + b); // 12
 ```
 
+<<<<<<< HEAD
 ما يجب علينا فعله هو تحويل السلاسل إلى أرقام قبل `+`. على سبيل المثال ، استخدام `Number ()` أو إلحاقها بـ `+`.
+=======
+What we should do is to convert strings to numbers before `+`. For example, using `Number()` or
+prepending them with `+`.
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
 
 على سبيل المثال ، قبل "prompt" مباشرةً:
 

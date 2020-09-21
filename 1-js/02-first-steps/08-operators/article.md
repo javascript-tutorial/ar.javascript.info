@@ -437,7 +437,13 @@ counter++;
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
+<<<<<<< HEAD
 نادرًا ما يتم استخدام عوامل التشغيل هذه ، عندما نحتاج إلى التلاعب بالأرقام على أدنى مستوى (أحادي البتات). لن نحتاج إلى هؤلاء المشغلين في أي وقت قريب ، لأن تطوير الويب لا يستخدمهم كثيرًا ، ولكن في بعض المجالات الخاصة ، مثل التشفير ، فهي مفيدة. يمكنك قراءة مقالة [عوامل تشغيل Bitwise] (https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) مقالة حول MDN عند الحاجة. 
+=======
+These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Bitwise) chapter on MDN when a need arises.
+
+## Comma
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
 
 ## الفاصلة 
 

@@ -1,11 +1,25 @@
 # نطاق المُتغير
 
+<<<<<<< HEAD
 
 لغة جافاسكربت هي لغة داليّة التوجّه إلى أقصى حدّ، فتعطينا أقصى ما يمكن من الحريّة. يمكننا إنشاء الدوال ديناميكيًا ونسخها إلى متغيرات أخرى أو تمريرها كوسيط إلى دالة أخرى واستدعائها من مكان آخر تمامًا لاحقًا حين نريد.
 
 كما نعلم بأنّ الدوال تستطيع الوصول إلى المتغيرات خارجها. نستعمل هذه الميزة كثيرًا.
 
 دعنا الأن نوسع مداركنا لنحتوي سيناريوهات أكثر تعقيداً.
+=======
+# Variable scope, closure
+
+JavaScript is a very function-oriented language. It gives us a lot of freedom. A function can be created at any moment, passed as an argument to another function, and then called from a totally different place of code later.
+
+We already know that a function can access variables outside of it ("outer" variables).
+
+But what happens if outer variables change since a function is created? Will the function get newer values or the old ones?
+
+And what if a function is passed along as a parameter and called from another place of code, will it get access to outer variables at the new place?
+
+Let's expand our knowledge to understand these scenarios and more complex ones.
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
 
 سنتحدث عن المُتغيرات `let/const` هنا
 
@@ -357,7 +371,11 @@ A [المنغلقات](https://en.wikipedia.org/wiki/Closure_(computer_programmi
 
 عادةً ما تُمسح وتُحذف البيئة المُعجمية بعدما تعمل الدالة
 
+<<<<<<< HEAD
 ...ولكن لو كانت هناك دالة متداخلة يمكن أن نصل إليها بعدما تنتهي `‎f‎` (ولديها خاصية `‎[[Environment]]‎` التي تُشير إلى البيئة المُعجمية الخارجية)، لو كانت فيمكن أن نصل إليها:
+=======
+However, if there's a nested function that is still reachable after the end of a function, then it has `[[Environment]]` property that references the lexical environment.
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
 
 In that case the Lexical Environment is still reachable even after the completion of the function, so it stays alive.
 
@@ -376,9 +394,13 @@ let g = f(); // g.[[Environment]] stores a reference to the Lexical Environment
 // of the corresponding f() call
 ```
 
+<<<<<<< HEAD
 
 لاحظ بأنّه لو استدعينا `‎f()‎` أكثر من مرة، فسوف تُحفظ الدوال الناتجة منها وتبقى كائنات البيئة المُعجمية لكلّ واحدة منها في الذاكرة. إليك ثلاثة منها في الكود أدناه:
 
+=======
+Please note that if `f()` is called many times, and resulting functions are saved, then all corresponding Lexical Environment objects will also be retained in memory. In the code below, all 3 of them:
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
 
 ```js
 function f() {
@@ -466,3 +488,7 @@ g();
 هذه ليست علّة في المنقّح بل هي ميزة خاصة في معيار V8. ربما تتغير لاحقًا من يدري.
 يمكنك أن تتحقّق منها متى أردت بتجربة الأمثلة في هذه الصفحة.
 
+<<<<<<< HEAD
+=======
+That is not a bug in the debugger, but rather a special feature of V8. Perhaps it will be changed sometime. You can always check for it by running the examples on this page.
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3

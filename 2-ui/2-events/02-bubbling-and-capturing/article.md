@@ -204,9 +204,15 @@ elem.addEventListener("click", e => alert(2));
 
 عندما يحدث حدث ما -- يكون العنصر الأكثر تداخل حيث يحدث يسمي "العنصر المستهدف" (`event.target`).
 
+<<<<<<< HEAD
 - ثم ينتقل الحدث لأسفل من جذر المستند إلى `event.target`, مناديا علي المعالجات التي تم تعيينها مع `addEventListener(..., true)` بطريقة ما (`true`  اختصار لـ `{capture: true}`).
 - ثم يتم استدعاء المعالجات على العنصر الهدف نفسه.
 - ثم يتم قذف الحدث لأعلي من`event.target` الي الجذر, مناديا علي المعالجات التي تم تعيينه باستخدام `on<event>` و`addEventListener` مع او بدون القيمة الثالثة الممرة  `false/{capture:false}`.
+=======
+- Then the event moves down from the document root to `event.target`, calling handlers assigned with `addEventListener(..., true)` on the way (`true` is a shorthand for `{capture: true}`).
+- Then handlers are called on the target element itself.
+- Then the event bubbles up from `event.target` to the root, calling handlers assigned using `on<event>` and `addEventListener` without the 3rd argument or with the 3rd argument `false/{capture:false}`.
+>>>>>>> f489145731a45df6e369a3c063e52250f3f0061d
 
 يمكن لكل معالج الوصول إلى خصائص كائن "الحدث":
 
@@ -220,6 +226,10 @@ elem.addEventListener("click", e => alert(2));
 
 في العالم الحقيقي، حين يقع حادث ما, فالسلطات المحلية ترد أولاً. فهم يعرفون المنطقة التي حدث فيا جيدا. ثم سلطات أعلى مستوى إذا لزم الأمر.
 
+<<<<<<< HEAD
 نفس الشيء بالنسبة لمعالجات الأحداث. الكود الذي يقوم بتعيين المعالج على عنصر معين يعرف الحد الأقصى من التفاصيل حول العنصر وما يفعله. قد يكون معالج على  `<td>`  معين مناسبا  بالضبط ل `<td>`,فهو يعرف كل شيء عنه, لذا فلابد وأن تحظى بالفرصة أولاً. ثم يعرف الوالد المباشر أيضاً السياق,  ولكن أقل قليلاً, وهكذا حتى العنصر العلوي الذي يعالج المفاهيم العامة ويدير العنصر الأخير.
+=======
+The same for event handlers. The code that set the handler on a particular element knows maximum details about the element and what it does. A handler on a particular `<td>` may be suited for that exactly `<td>`, it knows everything about it, so it should get the chance first. Then its immediate parent also knows about the context, but a little bit less, and so on till the very top element that handles general concepts and runs the last one.
+>>>>>>> f489145731a45df6e369a3c063e52250f3f0061d
 
 وضع التدفق والالتقاط الأساس لـ "تفويض الحدث" -- نمط قوي للغاية للتعامل مع الأحداث ندرسه الفصل التالي.

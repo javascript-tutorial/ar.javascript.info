@@ -70,7 +70,11 @@ f();
 
 دعونا نؤكد: `` انتظارًا '' يجعل جافا سكريبت تنتظر حتى يستقر الوعد ، ثم استمر في النتيجة. هذا لا يكلف أي موارد وحدة المعالجة المركزية ، لأن المحرك يمكنه القيام بمهام أخرى في الوقت نفسه: تنفيذ البرامج النصية الأخرى ، والتعامل مع الأحداث ، وما إلى ذلك.
 
+<<<<<<< HEAD
 إنها مجرد بنية أكثر أناقة للحصول على نتيجة الوعد من "الوعد. ثم" ، أسهل للقراءة والكتابة.
+=======
+Let's emphasize: `await` literally suspends the function execution until the promise settles, and then resumes it with the promise result. That doesn't cost any CPU resources, because the JavaScript engine can do other jobs in the meantime: execute other scripts, handle events, etc.
+>>>>>>> f489145731a45df6e369a3c063e52250f3f0061d
 
 ```` warn header="لا يمكن استخدام` انتظار 'في الوظائف العادية "
 إذا حاولنا استخدام `` انتظار '' في وظيفة غير متزامنة ، فسيكون هناك خطأ في بناء الجملة:
@@ -85,7 +89,11 @@ function f() {
 }
 ```
 
+<<<<<<< HEAD
 سنحصل على هذا الخطأ إذا لم نضع `async` قبل دالة. كما ذكر ، يعمل `` انتظار '' فقط داخل `وظيفة غير متزامنة`.
+=======
+We may get this error if we forget to put `async` before a function. As said, `await` only works inside an `async` function.
+>>>>>>> f489145731a45df6e369a3c063e52250f3f0061d
 ````
 
 لنأخذ مثال `showAvatar ()` من الفصل <info: prom-chaining> ونعيد كتابته باستخدام `async / await`:
@@ -142,6 +150,12 @@ But we can wrap it into an anonymous async function, like this:
 })();
 ```
 ````
+<<<<<<< HEAD
+=======
+
+````smart header="`await` accepts \"thenables\""
+Like `promise.then`, `await` allows us to use thenable objects (those with a callable `then` method). The idea is that a third-party object may not be a promise, but promise-compatible: if it supports `.then`, that's enough to use it with `await`.
+>>>>>>> f489145731a45df6e369a3c063e52250f3f0061d
 
 ````smart header="` `في انتظار` يقبل \" ثماني \ ""
 مثل "prom.then`" ، يتيح لنا "await" استخدام العناصر القابلة للاستعمال (تلك التي تستخدم طريقة `ثم` القابلة للاستدعاء). الفكرة هي أن كائن طرف ثالث قد لا يكون وعدًا ، ولكنه متوافق مع الوعد: إذا كان يدعم `.then` ، فهذا يكفي لاستخدامه مع` `بانتظار ''.

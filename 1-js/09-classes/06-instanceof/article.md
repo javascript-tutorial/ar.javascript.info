@@ -197,8 +197,13 @@ alert( {}.toString.call(user) ); // [object User]
 لأغلب الكائنات الخاصّة بالبيئات خاصية مثل هذه. إليك بعض الأمثلة من المتصفّحات مثلًا:
 
 ```js run
+<<<<<<< HEAD
 // تابِع ‫toStringTag للكائنات والأصناف الخاصّة بالمتصفّحات:
 alert( window[Symbol.toStringTag]); // window
+=======
+// toStringTag for the environment-specific object and class:
+alert( window[Symbol.toStringTag]); // Window
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 alert( XMLHttpRequest.prototype[Symbol.toStringTag] ); // XMLHttpRequest
 
 alert( {}.toString.call(window) ); // [object Window]

@@ -2,9 +2,15 @@
 
 دورة حياة صفحه HTML لها ثلاثة احداث مهمة :
 
+<<<<<<< HEAD
 - `DOMContentLoaded` -- يتم تحميل المتصفح بالكامل HTML, ويتم انشاء ال DOM, لكن الموارد الخارجية مثل `<img>` وملفات التصميم ربما لم يتم تحميلها.  
 - `load` -- لا يتم تحمل HTML فقط , لكن ايضأ جميع الموارد الخارجية: الصور, ملفات التصميم الخ.
 - `beforeunload/unload` -- المستخدم يغادر الصفحه.
+=======
+- `DOMContentLoaded` -- the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures `<img>` and stylesheets may not yet have loaded.  
+- `load` -- not only HTML is loaded, but also all the external resources: images, styles etc.
+- `beforeunload/unload` -- the user is leaving the page.
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 قد يكون كل حدث مفيد:
 
@@ -33,7 +39,7 @@ document.addEventListener("DOMContentLoaded", ready);
   function ready() {
     alert('DOM is ready');
 
-    // image is not yet loaded (unless was cached), so the size is 0x0
+    // image is not yet loaded (unless it was cached), so the size is 0x0
     alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
   }
 
@@ -211,7 +217,7 @@ window.onbeforeunload = function() {
 function work() { /*...*/ }
 
 if (document.readyState == 'loading') {
-  // loading yet, wait for the event
+  // still loading, wait for the event
   document.addEventListener('DOMContentLoaded', work);
 } else {
   // DOM is ready!

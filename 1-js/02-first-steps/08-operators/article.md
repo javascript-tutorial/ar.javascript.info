@@ -188,7 +188,11 @@ alert( +apples + +oranges ); // 5
 هناك العديد من العوامل في JavaScript. لكل عامل رقم أسبقية مطابق. يتم تنفيذ واحد مع العدد الأكبر أولاً. إذا كانت الأسبقية هي نفسها ، فسيكون أمر التنفيذ من اليسار إلى اليمين.
 
 
+<<<<<<< HEAD
 إليك مقتطف من [جدول الأسبقية] (https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence) (لست بحاجة إلى تذكر ذلك ، ولكن لاحظ أن عوامل التشغيل الأحادية أعلى من الخيارات الثنائية المقابلة) منها):
+=======
+Here's an extract from the [precedence table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) (you don't need to remember this, but note that unary operators are higher than corresponding binary ones):
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 | الأسبقية | الاسم | تسجيل |
 | ------------ | ------ | ------ |
@@ -437,7 +441,13 @@ counter++;
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
+<<<<<<< HEAD
 نادرًا ما يتم استخدام عوامل التشغيل هذه ، عندما نحتاج إلى التلاعب بالأرقام على أدنى مستوى (أحادي البتات). لن نحتاج إلى هؤلاء المشغلين في أي وقت قريب ، لأن تطوير الويب لا يستخدمهم كثيرًا ، ولكن في بعض المجالات الخاصة ، مثل التشفير ، فهي مفيدة. يمكنك قراءة مقالة [عوامل تشغيل Bitwise] (https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) مقالة حول MDN عند الحاجة. 
+=======
+These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Bitwise) chapter on MDN when a need arises.
+
+## Comma
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 ## الفاصلة 
 

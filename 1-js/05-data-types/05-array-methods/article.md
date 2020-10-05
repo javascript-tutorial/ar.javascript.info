@@ -36,15 +36,23 @@ alert(arr.length); // 3
 
 لهذا السبب علينا استعمال توابِع خاصّة لذلك.
 
+<<<<<<< HEAD
 يمكننا تشبيه التابِع arr.splice(start)‎ بالتابِع «بتاع كُلّو» للمصفوفات (كما يُقال بالعامية). يمكنه أن يُجري ما تريد للعناصر: إدراج، إزالة، استبدال.
+=======
+The [arr.splice](mdn:js/Array/splice) method is a swiss army knife for arrays. It can do everything: insert, remove and replace elements.
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 هذه صياغته:
 
 ```js
-arr.splice(index[, deleteCount, elem1, ..., elemN])
+arr.splice(start[, deleteCount, elem1, ..., elemN])
 ```
 
+<<<<<<< HEAD
 يبدأ التابِع من عند العنصر ذي الفهرس `index`، فيُزيل `deleteCount` من العناصر ويُدرج العناصر `elem1, ..., elemN` المُمرّرة إليه مكانها. أخيرًا يُعيد المصفوفة بالعناصر المُزالة.
+=======
+It modified `arr` starting from the index `start`: removes `deleteCount` elements and then inserts `elem1, ..., elemN` at their place. Returns the array of removed elements.
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 فهم هذا التابِع بالأمثلة أبسط.
 
@@ -694,10 +702,21 @@ alert(soldiers[1].age); // 23
 
 * لتبحث عن العناصر:
 
+<<<<<<< HEAD
   - `indexOf/lastIndexOf(item, pos)` -- ابحث عن العنصر item بدءًا من العنصر ذي الفهرس pos وأعِد فهرسه أو أعِد ‎-1 لو لم تجده.
   - `includes(value)` -- أعِد القيمة true لو كان العنصر value في المصفوفة، وإلا أعِد false.
   - `find/filter(func)` -- رشّح العناصر عبر دالة وأعِد أوّل قيمة (أو كل القيم) التي تُعيد الدالة قيمة true لو مُرّر ذلك العنصر لها.
   - `findIndex` يشبه `find`، ولكن يُعيد الفهرس بدل القيمة.
+=======
+- To add/remove elements:
+  - `push(...items)` -- adds items to the end,
+  - `pop()` -- extracts an item from the end,
+  - `shift()` -- extracts an item from the beginning,
+  - `unshift(...items)` -- adds items to the beginning.
+  - `splice(pos, deleteCount, ...items)` -- at index `pos` delete `deleteCount` elements and insert `items`.
+  - `slice(start, end)` -- creates a new array, copies elements from index `start` till `end` (not inclusive) into it.
+  - `concat(...items)` -- returns a new array: copies all members of the current one and adds `items` to it. If any of `items` is an array, then its elements are taken.
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 * للمرور على عناصر المصفوفة:
 
@@ -721,7 +740,20 @@ alert(soldiers[1].age); // 23
 
 تُنادى الدالة fn على كلّ عنصر من المصفوفة (مثل map). لو كانت أيًا من (أو كل) النتائج true، فيُعيد true، وإلًا يُعيد false.
 
+<<<<<<< HEAD
 - [arr.fill(value, start, end)](mdn:js/Array/fill) -- يملأ المصفوفة بالقيمة المتكرّرة value من الفهرس start إلى الفهرس end.
+=======
+  We can use `every` to compare arrays:
+  ```js run
+  function arraysEqual(arr1, arr2) {
+    return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
+  }
+
+  alert( arraysEqual([1, 2], [1, 2])); // true
+  ```
+
+- [arr.fill(value, start, end)](mdn:js/Array/fill) -- fills the array with repeating `value` from index `start` to `end`.
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 - [arr.copyWithin(target, start, end)](mdn:js/Array/copyWithin) -- ينسخ العناصر من العنصر ذا الفهرس start إلى ذا الفهرس end ويلصقها داخلها عند الفهرس target (تعوّض ما هو موجود مكانها في المصفوفة).
 

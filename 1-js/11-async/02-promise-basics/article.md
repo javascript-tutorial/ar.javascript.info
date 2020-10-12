@@ -174,6 +174,7 @@ new Promise((resolve, reject) => {
 new Promise((resolve, reject) => {
 setTimeout(() => resolve("result"), 2000)
 })
+<<<<<<< HEAD
 .finally(() => alert("Promise ready"))
 .then(result => alert(result)); // <-- ‫‎.then ستعالج الناتج
 ```
@@ -193,12 +194,67 @@ throw new Error("error");
 ستنفذّ مباشرةً:
 ```
 // يصبح الوعد منجزًا ومتحققًا بعد الإنشاء مباشرةً
+=======
+*!*
+  // runs when the promise is settled, doesn't matter successfully or not
+  .finally(() => stop loading indicator)
+  // so the loading indicator is always stopped before we process the result/error
+*/!*
+  .then(result => show result, err => show error)
+```
+
+That said, `finally(f)` isn't exactly an alias of `then(f,f)` though. There are few subtle differences:
+
+1. A `finally` handler has no arguments. In `finally` we don't know whether the promise is successful or not. That's all right, as our task is usually to perform "general" finalizing procedures.
+2. A `finally` handler passes through results and errors to the next handler.
+
+    For instance, here the result is passed through `finally` to `then`:
+    ```js run
+    new Promise((resolve, reject) => {
+      setTimeout(() => resolve("result"), 2000)
+    })
+      .finally(() => alert("Promise ready"))
+      .then(result => alert(result)); // <-- .then handles the result
+    ```
+
+    And here there's an error in the promise, passed through `finally` to `catch`:
+
+    ```js run
+    new Promise((resolve, reject) => {
+      throw new Error("error");
+    })
+      .finally(() => alert("Promise ready"))
+      .catch(err => alert(err));  // <-- .catch handles the error object
+    ```
+
+That's very convenient, because `finally` is not meant to process a promise result. So it passes it through.
+
+We'll talk more about promise chaining and result-passing between handlers in the next chapter.
+
+
+````smart header="We can attach handlers to settled promises"
+If a promise is pending, `.then/catch/finally` handlers wait for it. Otherwise, if a promise has already settled, they just run:
+
+```js run
+// the promise becomes resolved immediately upon creation
+>>>>>>> 0599d07b3c13ee25f583fc091cead3c17a7e7779
 let promise = new Promise(resolve => resolve("done!"));
 promise.then(alert); // done! (تظهر الآن)
 ```
 
+<<<<<<< HEAD
 الآن لنرى أمثلة عملية على فائدة الوعود في كتابة الشيفرات غير المتزامنة.
 ## تحميل السكربتات: الدالة loadScript
+=======
+Note that this makes promises more powerful than the real life "subscription list" scenario. If the singer has already released their song and then a person signs up on the subscription list, they probably won't receive that song. Subscriptions in real life must be done prior to the event.
+
+Promises are more flexible. We can add handlers any time: if the result is already there, they just execute.
+````
+
+Next, let's see more practical examples of how promises can help us write asynchronous code.
+
+## Example: loadScript [#loadscript]
+>>>>>>> 0599d07b3c13ee25f583fc091cead3c17a7e7779
 
 أمامنا من الفصل الماضي الدالة `loadScript` لتحميل السكربتات.
 إليك الدالة بطريقة ردود النداء، لنتذكّرها لا أكثر ولا أقل:

@@ -323,12 +323,21 @@ alert(str.slice(1, 3)); // قطعة من كل شكل!
 
 إن الكائنات التى يمكن استخدامها فى التكرار `for..of` تدعى _متكررات_.
 
+<<<<<<< HEAD
 - فعليًا، يجب أن تحتوى المتكررات على دالة تسمى `Symbol.iterator`.
   - إن نتيجة استدعاء `obj[Symbol.iterator]` يسمى _متكررًا_. وهى تقوم بالتعامل مع عملية التكرار.
   - إن المتكرر يجب أن يحتزى على دالة تسمي `next()` والتى تقوم بإرجاع كائن على الشكل `{done: Boolean, value: any}`, وإذا كانت `done:true` فهذا يعني توقف التكرار، غير ذلك فإن الخاصية `value` تحتوى على القيمة التالية.
 - إن الدالة `Symbol.iterator` يتم استدعاؤها تلقائيًا عن طريق `for..of`، ولكن يمكننا أيضًا أن نفعله مباشرةً.
 - إن المتكررات الموجودة بالفعل مثل النصوص والمصفوفات تقوم أيضًا باستدعاء الدالة `Symbol.iterator`.
 - النص المتكرر يدعم الأشكال.
+=======
+- Technically, iterables must implement the method named `Symbol.iterator`.
+    - The result of `obj[Symbol.iterator]()` is called an *iterator*. It handles the further iteration process.
+    - An iterator must have the method named `next()` that returns an object `{done: Boolean, value: any}`, here `done:true` denotes the end of the iteration process, otherwise the `value` is the next value.
+- The `Symbol.iterator` method is called automatically by `for..of`, but we also can do it directly.
+- Built-in iterables like strings or arrays, also implement `Symbol.iterator`.
+- String iterator knows about surrogate pairs.
+>>>>>>> 0599d07b3c13ee25f583fc091cead3c17a7e7779
 
 إن الكائنات التى تحتوى على `indexes` & `length` تسمي _أشباه المصفوفات_. هذه الكائنات يمكنها ان تحتوى أيضًا على خصائص ودوالٍ أخرى ولكنها لا تحتوى على دوال المصفوفات مثل `push` & `pop`.
 
@@ -336,4 +345,4 @@ alert(str.slice(1, 3)); // قطعة من كل شكل!
 
 إن الدالة `Array.from(obj[, mapFn, thisArg])` تصنع مصفوفة حقيقية من متكرر أو شبيهٍ بالمصفوفة، وبالتالى يمكننا استخدام دوال المصفوفات عليهم. حيث أن المتغيرات `mapFn` & `thisArg` تتيح لنا أن ننفذ دالة على كل عنصر قبل إضافته للمصفوفة.
 
-`Array.from(obj[, mapFn, thisArg])` makes a real `Array` of an iterable or array-like `obj`, and we can then use array methods on it. The optional arguments `mapFn` and `thisArg` allow us to apply a function to each item.
+`Array.from(obj[, mapFn, thisArg])` makes a real `Array` from an iterable or array-like `obj`, and we can then use array methods on it. The optional arguments `mapFn` and `thisArg` allow us to apply a function to each item.

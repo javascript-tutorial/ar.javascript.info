@@ -9,7 +9,12 @@ do {
 
 حلقة `do..while` تكرر طالما الشرطين محققين:
 
+<<<<<<< HEAD
 1. شرط `num <= 100` -- أن القيمة لا تزال أقل من أو تساوي `100`.
 2. والشرط `&& num` يكون false عندما `num` تكون `null` أو نص فارغ. وهنا تتوقف حلقة `while`.
+=======
+1. The check for `num <= 100` -- that is, the entered value is still not greater than `100`.
+2. The check `&& num` is false when `num` is `null` or an empty string. Then the `while` loop stops too.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 لاحظ أن إذا كان `num` يساوي `null` يكون الشرط `num <= 100` يساوي `true` لذلك لن تتوقف عملية الإدخال إذا قام المستخدم بإلغائها فكلا الشرطين مطلوب.

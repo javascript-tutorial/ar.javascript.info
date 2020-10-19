@@ -364,7 +364,15 @@ try {
 2. في `catch(err) {...}` نقوم بتحليل كائن الخطأ `err`.
 3. إذا لم نكن نعرف كيف نتعامل معها ، فنفعل `throw err`.
 
+<<<<<<< HEAD
 عادة ، يمكننا التحقق من نوع الخطأ باستخدام العامل `instanceof`:
+=======
+1. Catch gets all errors.
+2. In the `catch(err) {...}` block we analyze the error object `err`.
+3. If we don't know how to handle it, we do `throw err`.
+
+Usually, we can check the error type using the `instanceof` operator:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js run
 try {

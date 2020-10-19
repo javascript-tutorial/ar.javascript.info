@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 # خطأ عند قراءة خاصية غير موجودة
 
 عادة، عند محاولة قراءة خاصية غير موجودة فإنها تُرجع `undefined`.
 
 قم بإنشاء بروكسي يقوم بإظهار خطأ عند محاولة قراءة خاصية غير موجودة بدلًا من ذلك.
+=======
+# Error on reading non-existent property
+
+Usually, an attempt to read a non-existent property returns `undefined`.
+
+Create a proxy that throws an error for an attempt to read of a non-existent property instead.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 هذا يساعد علي استكشاف الأخطاء البرمجية بشكل أسرع.
 

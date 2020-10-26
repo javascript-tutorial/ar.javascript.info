@@ -111,7 +111,11 @@ alert( 'I*!*\'*/!*m the Walrus!' ); // *!*I'm*/!* the Walrus!
 
 يجب إلحاق علامة الاقتباس الداخلية بالشرطة المائلة الخلفية `‎\'‎`، وإلا فستُعتَبر نهاية السلسلة النصية. لاحظ أن الشرطة المائلة الخلفية `\` تعمل من أجل تصحيح قراءة السلسلة النصية بواسطة JavaScript. ومن ثم تختفي، لذا فإن النص في الذاكرة لا يحتوي على `\`. يمكننا رؤية ذلك بوضوح باستخدام `alert` على المثال السابق.
 
+<<<<<<< HEAD
 يجب استخدام محرف التهريب في حالة استخدام علامة الاقتباس المحيطة بالنص نفسها، لذا فإن الحل الأمثل هو استخدام علامات اقتباس مزدوجة أو فواصل عليا مائلة في مثل هذه الحالة:
+=======
+Of course, only the quotes that are the same as the enclosing ones need to be escaped. So, as a more elegant solution, we could switch to double quotes or backticks instead:
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 ```js run
 alert( `I'm the Walrus!` ); // I'm the Walrus!
@@ -296,7 +300,15 @@ if (str.indexOf("Widget") != -1) {
 }
 ```
 
+<<<<<<< HEAD
 #### خدعة NOT على مستوى البِت
+=======
+#### The bitwise NOT trick
+
+One of the old tricks used here is the [bitwise NOT](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_NOT) `~` operator. It converts the number to a 32-bit integer (removes the decimal part if exists) and then reverses all bits in its binary representation.
+
+In practice, that means a simple thing: for 32-bit integers `~n` equals `-(n+1)`.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 إحدى الخدع القديمة هي [لعامل الثنائي ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_NOT) `~` الذي تعمل على مستوى البِت. فهو يُحَوِّل العدد إلى عدد صحيح بصيغة 32-بِت (يحذف الجزء العشري إن وجد) ثم يُحوِّل جميع  البتات إلى تمثيلها الثنائي. عمليًا، يعني ذلك شيئًا بسيطًا: بالنسبة للأعداد الصحيحة بصيغة 32-بِت `‎~n` تساوي `‎-(n+1)‎`. مثلًا:
 
@@ -326,7 +338,11 @@ if (~str.indexOf("Widget")) {
 
 تذكر أن الشرط `if (~str.indexOf(...))‎` يعمل بالصيغة «إن وُجِد».
 
+<<<<<<< HEAD
 حتى نكون دقيقين، عندما تُحَوَّل الأرقام إلى صيغة 32-بِت باستخدام المعامل `~` يوجد أعداد أخرى تُعطي القيمة `0`، أصغر هذه الأعداد هي `‎~4294967295 == 0`. ما يجعل هذا الفحص صحيحًا في حال النصوص القصيرة فقط.
+=======
+To be precise though, as big numbers are truncated to 32 bits by `~` operator, there exist other numbers that give `0`, the smallest is `~4294967295=0`. That makes such check correct only if a string is not that long.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 لا نجد هذه الخدعة حاليًا سوى في الشيفرات القديمة، وذلك لأن JavaScript وفرت التابع `‎.includes` (ستجدها في الأسفل).
 

@@ -396,15 +396,20 @@ elem.innerHTML = elem.innerHTML + "..."
 <div id="elem2"></div>
 
 <script>
-  let name = prompt("What's your name?", "<b>Winnie-the-pooh!</b>");
+  let name = prompt("What's your name?", "<b>Winnie-the-Pooh!</b>");
 
   elem1.innerHTML = name;
   elem2.textContent = name;
 </script>
 ```
 
+<<<<<<< HEAD
 1. يحصل الاسم الأول "<div>" على الاسم "بتنسيق HTML": تصبح جميع العلامات علامات ، لذلك نرى الاسم الغامق.
 2. الثانية `<div>` تحصل على الاسم "كنص" ، لذلك نرى حرفياً "<b> Winnie-the-pooh! </b>`.
+=======
+1. The first `<div>` gets the name "as HTML": all tags become tags, so we see the bold name.
+2. The second `<div>` gets the name "as text", so we literally see `<b>Winnie-the-Pooh!</b>`.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 في معظم الحالات ، نتوقع النص من مستخدم ونريد معاملته كنص. لا نريد HTML غير متوقع في موقعنا. يؤدي التعيين إلى `textContent` ذلك بالضبط.
 
@@ -412,7 +417,11 @@ elem.innerHTML = elem.innerHTML + "..."
 
 تحدد السمة "مخفي" وخاصية DOM ما إذا كان العنصر مرئيًا أم لا.
 
+<<<<<<< HEAD
 يمكننا استخدامه في HTML أو تخصيصه باستخدام JavaScript ، مثل هذا:
+=======
+We can use it in HTML or assign it using JavaScript, like this:
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 ```html run height="80"
 <div>Both divs below are hidden</div>

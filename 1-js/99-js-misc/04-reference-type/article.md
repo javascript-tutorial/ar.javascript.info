@@ -105,6 +105,7 @@ hi(); // خطأ, لأن this غير معرفة
 
 بالنسبة لجميع العمليات الأخرى ، يصبح النوع المرجعي تلقائيًا قيمة الخاصية (تابع في حالتنا).
 
+<<<<<<< HEAD
 جميع آليات العمل مختفيه. لا يهم إلا في الحالات الدقيقة, مثل عندما يتم الحصول على طريقة ديناميكيًا من الكائن ، باستخدام تعبير.
 
 
@@ -112,3 +113,6 @@ hi(); // خطأ, لأن this غير معرفة
 
 
  نتيجة النقطة `.` ليست في الواقع طريقة ، ولكنها قيمة `` يحتاج إلى طريقة لتمرير المعلومات حول `obj`
+=======
+The whole mechanics is hidden from our eyes. It only matters in subtle cases, such as when a method is obtained dynamically from the object, using an expression.
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d

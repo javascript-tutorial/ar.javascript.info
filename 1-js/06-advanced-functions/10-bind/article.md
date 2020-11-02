@@ -152,8 +152,13 @@ sayHi(); // Hello, John!
 
 setTimeout(sayHi, 1000); // Hello, John!
 
+<<<<<<< HEAD
 // ‫حتّى لو تغيّرت قيمة user خلال تلك الثانية
 // ‫فما زالت تستعمل sayHi القيمة التي ربطناها قبلًا
+=======
+// even if the value of user changes within 1 second
+// sayHi uses the pre-bound value which is reference to the old user object
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 user = {
   sayHi() { alert("Another user in setTimeout!"); }
 };
@@ -188,7 +193,12 @@ for (let key in user) {
 }
 ```
 
+<<<<<<< HEAD
 كما تقدّم لنا مكتبات جافاسكربت دوال للربط الجماعي لتسهيل الأمور، مثل [`‎_.bindAll(obj)‎`](http://lodash.com/docs#bindAll) في المكتبة lodash.
+=======
+JavaScript libraries also provide functions for convenient mass binding , e.g. [_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll) in lodash.
+````
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 ## الدوال الجزئية
 

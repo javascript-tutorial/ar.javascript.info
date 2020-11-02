@@ -22,8 +22,13 @@
 
 2. الثاني, تعدد الأشكال.
 
+<<<<<<< HEAD
    قد تتضمن ميزات اللغة الجديدة وظائف مضمنة جديدة وتركيبات بناء جملة.
    المترجم يقوم بإعادة بناء الكود, تحويل بناء الجملة إلى التركيبات القديمة. و لكن بالنسبة للدوال المُضمنه الجديدة, نريد تنفيذهم. جافاسكريبت هى لغه ديناميكيه للغايه, الـ سكريبتات يمكن ان تقول بـ إضافة/تعديل أي دوال, بحيث يتصرفون وفقًا للمعايير الحديثة.
+=======
+    New language features may include not only syntax constructs, but also built-in functions.
+    The transpiler rewrites the code, transforming syntax constructs into older ones. But as for new built-in functions, we need to implement them. JavaScript is a highly dynamic language, scripts may add/modify any functions, so that they behave according to the modern standard.
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
    الـ سكريبت الذي يقوم بـ تعديل/إضافة الدوال الجديده يسمى "polyfill". إنه "يملأ" الفجوة و يضيف كل الدوال المفقودة.
 

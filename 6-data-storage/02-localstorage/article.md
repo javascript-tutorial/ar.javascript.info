@@ -216,13 +216,13 @@ Also, `event.storageArea` contains the storage object -- the event is the same f
 
 **That allows different windows from the same origin to exchange messages.**
 
-Modern browsers also support [Broadcast channel API](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API), the special API for same-origin inter-window communication, it's more full featured, but less supported. There are libraries that polyfill that API, based on `localStorage`, that make it available everywhere.
+Modern browsers also support [Broadcast channel API](mdn:/api/Broadcast_Channel_API), the special API for same-origin inter-window communication, it's more full featured, but less supported. There are libraries that polyfill that API, based on `localStorage`, that make it available everywhere.
 
 ## Summary
 
 Web storage objects `localStorage` and `sessionStorage` allow to store key/value in the browser.
 - Both `key` and `value` must be strings.
-- The limit is 2mb+, depends on the browser.
+- The limit is 5mb+, depends on the browser.
 - They do not expire.
 - The data is bound to the origin (domain/port/protocol).
 

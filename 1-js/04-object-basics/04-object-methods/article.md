@@ -31,7 +31,17 @@ user.sayHi = function() {
 user.sayHi(); // Hello!
 ```
 
+<<<<<<< HEAD
 استخدمنا هنا تعبير الدالة لإنشاء دالة تابع للكائن `user` وربطناها بالخاصية `user.sayHi` ثم استدعينا الدالة. هكذا أصبح بإمكان المستخدم التحدث! الآن أصبح لدى الكائن `user` الدالة `sayHi`.
+=======
+Here we've just used a Function Expression to create a function and assign it to the property `user.sayHi` of the object.
+
+Then we can call it as `user.sayHi()`. The user can now speak!
+
+A function that is a property of an object is called its *method*.
+
+So, here we've got a method `sayHi` of the object `user`.
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 يمكننا أيضًا استخدام دالة معرفة مسبقًا بدلًا من ذلك كما يلي:
 
@@ -146,12 +156,22 @@ let user = {
 let admin = user;
 user = null; // تغيير المحتوى لتوضيح الأمر
 
+<<<<<<< HEAD
 admin.sayHi(); //  يُرجِع خطأ sayHi() استخدام الاسم القديم بِداخل
+=======
+*!*
+admin.sayHi(); // TypeError: Cannot read property 'name' of null
+*/!*
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 ```
 
 إن استخدمنا `this.name` بدلًا من `user.name` بداخل `alert`، فستعمل الشيفرة عملًا صحيحًا.
 
+<<<<<<< HEAD
 ## "this" غير محدودة النطاق
+=======
+In JavaScript, keyword `this` behaves unlike most other programming languages. It can be used in any function, even if it's not a method of an object.
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 الكلمة `this` في JavaScript تتصرف تصرفًا مختلفًا عن باقي اللغات البرمجية. فيمكن استخدامها في أي دالة. انظر إلى المثال التالي، إذ لا يوجد خطأ في الصياغة
 

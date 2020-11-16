@@ -5,7 +5,11 @@
 
 2. نفس الشيء ، الأقواس لا تغير ترتيب العمليات هنا ، النقطة أولاً على أي حال.
 
+<<<<<<< HEAD
 3. هنا لدينا تنفيذ اكثر تعقيداً `(expression).method()`. التنفيذ يعمل كما لو كان مقسوم الى سطرين:
+=======
+3. Here we have a more complex call `(expression)()`. The call works as if it were split into two lines:
+>>>>>>> 99e59ba611ab11319ef9d0d66734b0bea2c3f058
 
     ```js no-beautify
     f = obj.go; // حساب المصطلح
@@ -14,7 +18,11 @@
 
     هنا `f()` يتم تنفيذها كـ تابع, بدون `this`.
 
+<<<<<<< HEAD
 4. نفس الشيئ في `(3)`, ايسر النقطة `.` لدينا مصطلح.
+=======
+4. The similar thing as `(3)`, to the left of the parentheses `()` we have an expression.
+>>>>>>> 99e59ba611ab11319ef9d0d66734b0bea2c3f058
 
 لتفسير سلوك `(3)` و `(4)` نريد إعادة تنفيذ مدخلات الخاصية (نقطة او اقواس مربعة) تعيد قيمة النوع المرجعي.  
 

@@ -11,7 +11,11 @@
 
 لكائنات جافاسكربت خاصية مخفية أخرى باسم `[[Prototype]]` (هذا اسمها في المواصفات القياسية للغة جافاسكربت)، وهي إمّا أن تكون `null` أو أن تشير إلى كائن آخر. نسمّي هذا الكائن بِـ”prototype“ (نموذج أولي).
 
+<<<<<<< HEAD
 [object-prototype-empty.png]
+=======
+When we  read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, such thing is called "prototypal inheritance". And soon we'll study many examples of such inheritance, as well as cooler language features built upon it.
+>>>>>>> 99e59ba611ab11319ef9d0d66734b0bea2c3f058
 
 إن كائن النموذج الأولي ”سحريٌ“ إن صحّ القول، فحين نريد قراءة خاصية من كائن `object` ولا يجدها محرّك جافاسكربت، يأخذها تلقائيًا من كائن النموذج الأولي لذاك الكائن. يُسمّى هذا في علم البرمجة ”بالوراثة النموذجية“ (‏Prototypal inheritance)، وهناك العديد من المزايا الرائعة في اللغة وفي التقنيات البرمجية مبنية عليها.
 
@@ -29,10 +33,11 @@ let rabbit = {
 };
 
 *!*
-rabbit.__proto__ = animal;
+rabbit.__proto__ = animal; // sets rabbit.[[Prototype]] = animal
 */!*
 ```
 
+<<<<<<< HEAD
 
 **`__proto__` هو الجالب والضابط القديم للخاصية `[[Prototype]]`**
 كانت تستخدم قديمًا، ولكن في اللغة الحديثة استبدلت بالدالتين `Object.getPrototypeOf/Object.setPrototypeOf` وهي أيضًا تعمل عمل الجالب والضابط للنموذج الأولي (سندرس هذه الدوالّ لاحقًا في هذا الدرس).
@@ -42,6 +47,9 @@ rabbit.__proto__ = animal;
 فمثلاً لو بحثنا الآن عن خاصية ما في كائن `rabbit` ولم تكُ موجودة، ستأخذها لغة جافاسكربت تلقائيًا من كائن `animal`.
 
 مثال على ذلك:
+=======
+Now if we read a property from `rabbit`, and it's missing, JavaScript will automatically take it from `animal`.
+>>>>>>> 99e59ba611ab11319ef9d0d66734b0bea2c3f058
 
 
 ```js
@@ -133,15 +141,38 @@ alert(longEar.jumps); // true (from rabbit)
 
 ![](proto-animal-rabbit-chain.svg)
 
+<<<<<<< HEAD
 ولكن، هناك مُحددان للوراثة النموذجية وهما:
 
 1. لا يمكن أن تكون سلسلة الوراثة النموذجية دائرية (على شكل حلقة). ما إن تُسند `__proto__` بطريقة دائرية فسترمي لغة جافاسكربت خطأً.
 2. يمكن أن تكون قيمة `__proto__` إمّا كائنًا أو `null`، وتتجاهل لغة جافاسكربت الأنواع الأخرى.
+=======
+Now if we read something from `longEar`, and it's missing, JavaScript will look for it in `rabbit`, and then in `animal`.
+
+There are only two limitations:
+>>>>>>> 99e59ba611ab11319ef9d0d66734b0bea2c3f058
 
 ومن الواضح جليًا أيضًا أي كائن سيرث كائن `[[Prototype]]` واحد وواحد فقط، لا يمكن للكائن وراثة كائنين.
 
 
+<<<<<<< HEAD
 ## كائن النموذج الأولي للقراءة فقط
+=======
+
+```smart header="`__proto__` is a historical getter/setter for `[[Prototype]]`"
+It's a common mistake of novice developers not to know the difference between these two. 
+
+Please note that `__proto__` is *not the same* as the internal `[[Prototype]]` property. It's a getter/setter for `[[Prototype]]`. Later we'll see situations where it matters,  for now let's just keep it in mind, as we build our understanding of JavaScript language.
+
+The `__proto__` property is a bit outdated. It exists for historical reasons, modern JavaScript suggests that we should use `Object.getPrototypeOf/Object.setPrototypeOf` functions instead that get/set the prototype. We'll also cover these functions later. 
+
+By the specification, `__proto__` must only be supported by browsers. In fact though, all environments including server-side support `__proto__`, so we're quite safe using it.
+
+As the `__proto__` notation is a bit more intuitively obvious, we use it in the examples.
+```
+
+## Writing doesn't use prototype
+>>>>>>> 99e59ba611ab11319ef9d0d66734b0bea2c3f058
 
 لا يمكننا تعديل أو حذف خصائص أو دوالّ من كائن النموذج الأولي وإنما هو للقراءة فقط. وأيّة عمليات كتابة أو حذف تكون مباشرةً على الكائن نفسه وليس على كائن النموذج الأولي.
 
@@ -200,6 +231,9 @@ alert(admin.fullName); // John Smith (*)
 
 // عمل الضابِط!
 admin.fullName = "Alice Cooper"; // (**)
+
+alert(admin.fullName); // Alice Cooper, state of admin modified
+alert(user.fullName); // John Smith, state of user protected
 ```
 
 هنا في السطر `(*)` نرى أن `admin.fullName` استدعت الجالِب داخل الكائن `user`، ولهذا استُدعيت الخاصية. وفي السطر `(**)` نرى عملية إسناد للخاصية `admin.fullName` ولهذا استدعيَ الضابِط داخل الكائن `user`.

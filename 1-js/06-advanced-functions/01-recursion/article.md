@@ -132,7 +132,11 @@ function pow(x, n) {
   </li>
 </ul>
 
+<<<<<<< HEAD
 بعد ذلك سيتم تنفيذ الدالة, الشرط `n == 1` سيعتبر خطأً لذلك سيتوجه التنفيذ إلي الفرع الاخر من `if`: 
+=======
+That's when the function starts to execute. The condition `n == 1` is falsy, so the flow continues into the second branch of `if`:
+>>>>>>> 99e59ba611ab11319ef9d0d66734b0bea2c3f058
 
 ```js run
 function pow(x, n) {
@@ -188,7 +192,11 @@ alert( pow(2, 3) );
 عندما ننتهي من الدالة الداخلية -- يكون من السهل إستعادة السياق السابق لأنه يحتفظ بالمتغيرات الخاصة بالدالة و المكان المحدد التي توقفت فيه.
 
 ```smart
+<<<<<<< HEAD
 في الصور نحن نستخدم كلمة "line", لأنه في المثال الذي نناقشه هناك دالة واحدة تمت مناداتها في هذا السطر, لكن في العام السطر الواحد يمكن ان يكون به عدة دوال أخرى مثل `pow(…) + pow(…) + somethingElse(…)`.
+=======
+Here in the picture we use the word "line", as in our example there's only one subcall in line, but generally a single line of code may contain multiple subcalls, like `pow(…) + pow(…) + somethingElse(…)`.
+>>>>>>> 99e59ba611ab11319ef9d0d66734b0bea2c3f058
 
 لذلك يجب علينا أن نكون أكثر دقة و نقول أن الدالة الخارجية تعود لأستكمال التنفيذ مباشرةً بعد الانتهاء من الدالة الداخلية.
 ```

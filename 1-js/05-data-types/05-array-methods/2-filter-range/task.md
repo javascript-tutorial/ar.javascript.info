@@ -4,7 +4,11 @@ importance: 4
 
 # نطاق ترشيح
 
+<<<<<<< HEAD
 اكتب دالة filterRange(arr, a, b)‎ تأخذ المصفوفة arr، وتبحث في عناصرها بين a وb وتُعيد مصفوفة بها. يجب ألّا تُعدّل الدالة المصفوفة، بل إعادة مصفوفة جديدة.
+=======
+Write a function `filterRange(arr, a, b)` that gets an array `arr`, looks for elements with values higher or equal to `a` and lower or equal to `b` and return a result as an array.
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 مثال:
 

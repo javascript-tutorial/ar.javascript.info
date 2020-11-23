@@ -146,7 +146,11 @@ user.id = "Their id value";
 // Boom! overwritten by another script!
 ```
 
+<<<<<<< HEAD
 ### إستخدام الرموز بداخل الكائنات (objects)
+=======
+### Symbols in an object literal
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 إذا كنا نريد أن نضع رمزا بداخل كائن كخاصيه, فإننا نحتاج أن نضع حول الرمز أقواس مربعه `[]`
 
@@ -158,7 +162,7 @@ let id = Symbol("id");
 let user = {
   name: "John",
 *!*
-  [id]: 123 // not "id: 123"
+  [id]: 123 // not "id": 123
 */!*
 };
 ```

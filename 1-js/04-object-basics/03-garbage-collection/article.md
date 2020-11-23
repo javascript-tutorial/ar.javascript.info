@@ -25,6 +25,10 @@
 
     علي سبيل المثال, اذا كان هناك كائن مخزن في متغير محلي, و الكائن به خاصية مرجه لكائن اخر, يمكن اعتبار هذا الكائن انه يمكن الوصول اليه, و يمكن الوصول ايضا الي كل مراجع هذا الكائن, كما يتم شرحه في المثال التالي.
 
+<<<<<<< HEAD
+=======
+    For instance, if there's an object in a global variable, and that object has a property referencing another object, *that* object is considered reachable. And those that it references are also reachable. Detailed examples to follow.
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 تحدث عملية خلفية في محرك ال JavaScript يسمي ب جامع القمامة [garbage collector](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)) يتم خلالها مراقبة كل الكائنات و ازالة الكائنات التي لا يمكن الوصول اليها.
 

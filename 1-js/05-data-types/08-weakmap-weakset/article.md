@@ -25,8 +25,16 @@ let array = [ john ];
 
 john = null; // عوّض الإشارة
 
+<<<<<<< HEAD
 // ‫الكائن john مخزّن داخل مصفوفة ولن يُكنس باعتباره مهملات
 // ‫إذ يمكننا أخذه بهذه: array[0]‎
+=======
+*!*
+// the object previously referenced by john is stored inside the array 
+// therefore it won't be garbage-collected
+// we can get it as array[0]
+*/!*
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 ```
 
 وبنفس المفهوم، لو استعملنا كائنًا ليكون مفتاحًا في خارطة `Map` عادية، فسيبقى هذا الكائن موجدًا طالما الخارطة تلك موجودة، ويشغل الذاكرة مانعًا عملية كنس المهملات من تحريرها. إليك هذا المثال:

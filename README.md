@@ -1,6 +1,10 @@
 # The Modern JavaScript Tutorial in Arabic
 
+<<<<<<< HEAD
 This repository hosts the translation of <https://javascript.info> in Arabic.
+=======
+This repository hosts the English content of the Modern JavaScript Tutorial, published in [https://javascript.info](https://javascript.info).
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 
 **That's how you can contribute:**
@@ -102,7 +106,13 @@ document.querySelector('.hola').innerHTML = text;
 
 Please note, that sometimes code is followed by pictures, and if you translate text `Hello` -> `Hola` in the code, you need to translate text in picturess as well.
 
+<<<<<<< HEAD
 In that case it's probably easier not to translate such text. See more about translating images later.
+=======
+  - `index.md` stands for a chapter
+  - `article.md` stands for an article
+  - `task.md` stands for a task (solution must be provided in `solution.md` file as well)
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 
 ### External Links

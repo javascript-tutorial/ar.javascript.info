@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # نسخ الكائنات والإشارات
 
 واحد من أكبر الإختلافات بين الكائنات والقيم primitives هو أنها تخزن وتنسخ عن طريق الإشارة إليها.
@@ -5,6 +6,17 @@
 القيم Primitive: strings, numbers, booleans -- تخزن وتنسخ كقيمة كاملة.
 
 على سبيل المثال:
+=======
+# Object references and copying
+
+One of the fundamental differences of objects versus primitives is that objects are stored and copied "by reference", as opposed to primitive values: strings, numbers, booleans, etc -- that are always copied "as a whole value".
+
+That's easy to understand if we look a bit "under a cover" of what happens when we copy a value.
+
+Let's start with a primitive, such as a string.
+
+Here we put a copy of `message` into `phrase`:
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 ```js
 let message = "Hello!";
@@ -15,11 +27,21 @@ let phrase = message;
 
 ![](variable-copy-value.svg)
 
+<<<<<<< HEAD
 الكائنات ليست كذلك.
 
 **المتغير لا يحمل الكائن نفسه بل يحمل "عنوانه في الذاكرة" وبكلمات أخرى يحمل "مؤشر له".**
 
 هذه صورة الكائن:
+=======
+Quite an obvious result, right?
+
+Objects are not like that.
+
+**A variable assigned to an object stores not the object itself, but its "address in memory", in other words "a reference" to it.**
+
+Let's look at an example of such variable:
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 ```js
 let user = {
@@ -27,9 +49,21 @@ let user = {
 };
 ```
 
+And here's how it's actually stored in memory:
+
 ![](variable-contains-reference.svg)
 
+<<<<<<< HEAD
 هنا يتم تخزين الكائن في مكان ما في الذاكرة والمتغير `user` لديه مؤشر لذلك المكان.
+=======
+The object is stored somewhere in memory (at the right of the picture), while the `user` variable (at the left) has a "reference" to it.
+
+We may think of an object variable, such as `user`, as of a sheet of paper with the address.
+
+When we perform actions with the object, e.g. take a property `user.name`, JavaScript engine looks into that address and performs the operation on the actual object.
+
+Now here's why it's important.
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 **عندما يتم نسخ الكائن -- يتم نسخ المؤشر ولا يتم تكرار الكائن.**
 
@@ -45,7 +79,13 @@ let admin = user; // ينسخ المؤشر
 
 ![](variable-copy-reference.svg)
 
+<<<<<<< HEAD
 يمكننا استخدام أي متغير لنصل للكائن ونعدل فيه:
+=======
+As you can see, there's still one object, now with two variables that reference it.
+
+We can use any variable to access the object and modify its contents:
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 ```js run
 let user = { name: 'John' };
@@ -59,15 +99,25 @@ admin.name = 'Pete'; // تم تغييرها بواسطة المؤشر "admin"
 alert(*!*user.name*/!*); // 'Pete', التغيرات مرئية بواسطة مؤشر "user"
 ```
 
+<<<<<<< HEAD
 المثال بالأعلى يوضح أن لدينا كائن واحد فقط. فإذا كان لدينا متغيرين واستخدمنا احدهما للوصول للكائن (`admin`) فعندما نستخدم اللآخر (`user`) يمكن رؤية التغيرات.
+=======
+It's just as if we had a cabinet with two keys and used one of them (`admin`) to get into it. Then, if we later use another key (`user`) we can see changes.
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 ## المقارنة بالمؤشرات
 
+<<<<<<< HEAD
 العامل `==` والعامل `===` هما نفس الشئ مع الكائنات.
 
 **الكائنان يكونان متساويان فقط إذا كانا يشيران لنفس الكائن.**
 
 هنا المتغيران يشيران لنفس الكائن لذا هما متساويان:
+=======
+Two objects are equal only if they are the same object.
+
+For instance, here `a` and `b` reference the same object, thus they are equal:
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 ```js run
 let a = {};
@@ -77,7 +127,11 @@ alert(a == b); // true, كلاهما يشيران لنفس الكائن
 alert(a === b); // true
 ```
 
+<<<<<<< HEAD
 وهنا كائنان منفصلان غير متساويان حتى ولو كانا فارغين:
+=======
+And here two independent objects are not equal, even though they look alike (both are empty):
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 ```js run
 let a = {};
@@ -86,7 +140,11 @@ let b = {}; // كائنان منفصلان
 alert(a == b); // false
 ```
 
+<<<<<<< HEAD
 مقارنة مثل `obj1 > obj2` أو مقارنة كائن مع قيمة primitive `obj == 5` يتم تحويل الكائنات إلى primitives. سنتكلم لاحقًا عن طريقة التحويل ولكن في الحقيقة هذه المقارنات نادرًا ما تحدث وفي الغالب تكون خطأ برمجي.
+=======
+For comparisons like `obj1 > obj2` or for a comparison against a primitive `obj == 5`, objects are converted to primitives. We'll study how object conversions work very soon, but to tell the truth, such comparisons are needed very rarely, usually they appear as a result of a programming mistake.
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 ## نسخ ودمج, Object.assign
 
@@ -217,11 +275,41 @@ alert(clone.sizes.width); // 51, يجعل التغيير مئي في المكا�
 
 لإصلاح ذلك يجب استخدام حلقة نسخ تفصل كل `user[key]` وإذا كان كائن يتم إيضًا نسخ بنيته وهذا يسمى النسخ العميق "deep cloning".
 
+<<<<<<< HEAD
 هناك خوارزمية لذلك تتعامل مع ما رأيناه في الأعلى أو أكثر تعقيدًا وتسمى [Structured cloning algorithm](https://html.spec.whatwg.org/multipage/structured-data.html#safe-passing-of-structured-data).
 
 يمكننا كتابتها باستخدام الغستدعاء الذاتي Recursion أو لا نعيد اختراع العدلة ونستخدم الدالة الجاهزة مثل [\_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep) من مكتبة [lodash](https://lodash.com).
 
 ## ملخص
+=======
+We can use recursion to implement it. Or, not to reinvent the wheel, take an existing implementation, for instance [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep) from the JavaScript library [lodash](https://lodash.com).
+
+```smart header="Const objects can be modified"
+An important "side effect" of storing objects as references is that an object declared as `const` *can* be modified.
+
+For instance:
+
+```js run
+const user = {
+  name: "John"
+};
+
+*!*
+user.name = "Pete"; // (*)
+*/!*
+
+alert(user.name); // Pete
+```
+
+It might seem that the line `(*)` would cause an error, but no. The value of `user` is constant, it must always reference the same object. But properties of that object are free to change.
+
+In other words, the `const user` gives an error only if we try to set `user=...` as a whole, and that's all.
+
+That said, if we really need to make constant object properties, it's also possible, but using totally different methods, we'll mention that in the chapter <info:property-descriptors>.
+```
+
+## Summary
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 الكائنات توضع وتنسخ بالمؤشرات أو بمعنى آخر أن المتغير لا يحمل القيمة نفسها ولكنه يحمل مؤشر لها أي عنوان هذه القيمة في الذاكرة. لذلك نسخ هذا المتغير أو تمريره لدالة لا ينسخ القيمة نفسها بل المؤشر.
 

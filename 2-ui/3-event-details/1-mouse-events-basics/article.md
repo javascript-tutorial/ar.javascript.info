@@ -25,6 +25,10 @@
 : يعمل بعد النقر مرتين على نفس العنصر خلال فترة زمنية قصيرة. نادرا ما يستخدم في الوقت الحاضر.
 
 `contextmenu`
+<<<<<<< HEAD
+=======
+: Triggers when the right mouse button is pressed. There are other ways to open a context menu, e.g. using a special keyboard key, it triggers in that case also, so it's not exactly the mouse event.
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 يعمل عندما يتم الضغط على زر الفأرة الأيمن. وهناك طرق أخرى لفتح قائمة السياق ، على سبيل المثال باستخدام مفتاح معين من لوحة المفاتيح ، ويمكن أيضًا استخدامه في هذه الحالة ، لذا فهو ليس بالضبط حدث للماوس .
 
@@ -38,8 +42,12 @@
 
 على سبيل المثال , عند النقر على الزر الايسر فإن أول حدث يتم تشغيله  `mousedown`, عند الضغط على الزر, ثم `mouseup` وبالتالي أيضا `click` عند تحرير النقر.
 
+<<<<<<< HEAD
 في الحالات التي يبدأ فيها إجراء واحد أحداثًا متعددة ، فإنه يتم إصلاح ترتيبها. بمعنى ، أنه يقوم  باستدعاء الأحداث بالترتيب
  `mousedown` -> `mouseup` -> `click`. 
+=======
+In cases when a single action initiates multiple events, their order is fixed. That is, the handlers are called in the order `mousedown` -> `mouseup` -> `click`.
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 ```online
 لمعاينة الأحداث بوضوح أنقر فوق الزر أدناه. جرب النقر مرتين أيضاً.
@@ -56,23 +64,41 @@
 
 تحتوي دائما الأحداث المتعلقة بالنقر على خاصية `button`, والتي تسمح لك بأستخدام زر الماوس.
 
+<<<<<<< HEAD
 وعادة لا نستخدم هذه الخاصية لكل من هذين الحدثين  `click` و `contextmenu` , وذلك لأن الأول يحدث فقط عند النقر بزر الماوس الأيسر ، والأخير - فقط عند النقر بزر الماوس الأيمن.
 
 من ناحية أخرى فإن, `mousedown` و `mouseup` قد تحتاج معالجتها إلى `event.button`, وذلك لأن هذه الأحداث من الممكن أن تعمل على أى زر لذا فإن  `button` يتيح لك التمييز بين  "زر الماوس الأيمن" و "زر الماوس الأيسر".
+=======
+We usually don't use it for `click` and `contextmenu` events, because the former happens only on left-click, and the latter -- only on right-click.
+
+From the other hand, `mousedown` and `mouseup` handlers may need `event.button`, because these events trigger on any button, so `button` allows to distinguish between "right-mousedown" and "left-mousedown".
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 القيم المحتملة لـ `event.button` هي:
 
 | حالة الزر | `event.button` |
 |--------------|----------------|
+<<<<<<< HEAD
 | الزر الأيسر (أساسي) | 0 |
 | الزر الأوسط (مساعد) | 1 |
 | الزر الايمن (ثانوي) | 2 |
 | X1 زر (خلف) | 3 |
 | X2 زر (أمام) | 4 |
+=======
+| Left button (primary) | 0 |
+| Middle button (auxiliary) | 1 |
+| Right button (secondary) | 2 |
+| X1 button (back) | 3 |
+| X2 button (forward) | 4 |
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 تحتوي معظم أجهزة الماوس على الزرين الأيسر والأيمن فقط ، لذا فإن القيم المحتملة هي "0" أو "2". وكذلك الأجهزة التي تعمل باللمس أيضًا تولد أحداثًا مماثلة عندما ينقر عليها .
 
+<<<<<<< HEAD
 هناك أيضًا خاصية `event.buttons` تحتوي على جميع الأزرار المضغوطة حاليًا كعدد صحيح ، بت واحد لكل زر. في الواقع ، نادرًا ما يتم استخدامها, يمكنك الرجوع الى مزيد من التفاصيل على  [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)اذا  احتجت اليها في أي وقت.
+=======
+Also there's `event.buttons` property that has all currently pressed buttons as an integer, one bit per button. In practice this property is very rarely used, you can find details at [MDN](mdn:/api/MouseEvent/buttons) if you ever need it.
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 ```warn header="عفا عليها الزمن `event.which`"
 في الأكواد القديمة قد تجد استخدام خاصية `event.which` وهي  تعتبر طريقة قديمة غير قياسية للحصول على زر ، مع القيم المحتملة :
@@ -162,7 +188,11 @@
 
 النقر المزدوج بزر الماوس له تأثير جانبي قد يكون غير ملائم في بعض الواجهات: فهو يحدد النص.
 
+<<<<<<< HEAD
 على سبيل المثال, يؤدي النقر المزدوج على النص أدناه إلى تحديده بالإضافة إلى معالجنا:
+=======
+For instance, double-clicking on the text below selects it in addition to our handler:
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 ```html autorun height=50
 <span ondblclick="alert('dblclick')">أنقر مرتين علي</span>

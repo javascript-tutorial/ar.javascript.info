@@ -107,9 +107,15 @@ alert(JSON.stringify([1, 2, 3])); // [1,2,3]
 
 وهى:
 
+<<<<<<< HEAD
 - الخصائص التى هي عباره عن دوال (Functions).
 - الخصائص من نوع الرمز (Symbol).
 - الخصائص التى قيمتها `undefined`.
+=======
+- Function properties (methods).
+- Symbolic keys and values.
+- Properties that store `undefined`.
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 ```js run
 let user = {
@@ -281,6 +287,7 @@ name:         John
 name:         Alice
 place:        [object Object]
 number:       23
+occupiedBy: [object Object]
 */
 ```
 
@@ -337,7 +344,13 @@ alert(JSON.stringify(user, null, 2));
 ```
 يُستخدم المتغير `space` لوحده من أجل الطباعة بشكل منظم.
 
+<<<<<<< HEAD
 ## دالة "toJson" مخصصه
+=======
+The third argument can also be a string. In this case, the string is used for indentation instead of a number of spaces.
+
+The `space` parameter is used solely for logging and nice-output purposes.
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 كما أنه توجد دالة `toString` للتحويل إلى نص، يمكن لأى كائن أن يحتوى علي دالة `toJSON` للتحويل إلى جيسون. وتستدعيها الدالة `JSON.stringify` تلقائيًا إذا كانت موجودة.
 

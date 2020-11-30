@@ -17,9 +17,13 @@ function func() {
 func();
 ```
 
+<<<<<<< HEAD
 في هذا المثال نستشف الفرق بين **غير موجود** و **غير معرف بقيمة**
 
 كما قرأت في هذه المقالة [](info:closure), المتغير أولاً يكون في حالة **غير معرف بقيمة** عند اللحظة الذي يتم فيها تشغيل الكتلة كلها التي تحتوي علي المتغير. وتظل هكذا حتي جملة `let`.
+=======
+In this example we can observe the peculiar difference between a "non-existing" and "uninitialized" variable.
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 أو بطريقة أخرى, المُتغير تقنياً موجود, لكن ا تستطيع الوصول له قبل `let`.
 

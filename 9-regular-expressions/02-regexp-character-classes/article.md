@@ -119,7 +119,11 @@ alert( "CS-4".match(regexp) ); // CS-4
 alert( "CS 4".match(regexp) ); // CS 4 (المسافة تعتبر أيضاً حرف)
 ```
 
+<<<<<<< HEAD
 يرجى ملاحظة أن النقطة تعني "أي حرف" ، ولكن ليس "عدم وجود حرف". يجب أن يكون هناك حرف لمطابقته:
+=======
+Please note that a dot means "any character", but not the "absence of a character". There must be a character to match it:
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 ```js run
 alert( "CS4".match(/CS.4/) ); // الناتج يكون null لان لا يجود أي حرف موضع النقطة.

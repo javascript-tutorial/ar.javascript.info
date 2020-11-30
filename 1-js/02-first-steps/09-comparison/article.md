@@ -9,9 +9,15 @@
 - يساوي: `a == b` ، يرجى ملاحظة أن علامة المساواة المزدوجة` = `تعني اختبار المساواة ، في حين أن كلمة واحدة` a = b` تعني  تعيين أو مساواة .
 - لا تساوي. في الرياضيات يكون الترميز <code>&ne;</code> ،لكن في JavaScript تكتب هكذا <code>a != b</code>.
 
+<<<<<<< HEAD
 في هذه المقالة سنتعلم المزيد عن الأنواع المختلفة من المقارنات ، وكيف تجعلها JavaScript، بما في ذلك الخصائص المهمة.
 
 في النهاية ستجد وصفة جيدة لتجنب المشاكل المتعلقة بـ "مراوغات JavaScript".
+=======
+In this article we'll learn more about different types of comparisons, how JavaScript makes them, including important peculiarities.
+
+At the end you'll find a good recipe to avoid "JavaScript quirks"-related issues.
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 ## Boolean هي النتيجة
 
@@ -57,7 +63,13 @@ alert( 'Bee' > 'Be' ); // true
 4. كرر حتى نهاية أي سلسلة.
 5. إذا انتهى كلا السلاسل بنفس الطول ، فإنهما متساويان. خلاف ذلك ، فإن السلسلة الأطول أكبر.
 
+<<<<<<< HEAD
 في الأمثلة أعلاه ، تصل المقارنة "Z"> "A" إلى نتيجة في الخطوة الأولى بينما تتم مقارنة السلاسل "" Glow "و" Glee "حرفًا بحرف:
+=======
+In the first example above, the comparison `'Z' > 'A'` gets to a result at the first step.
+
+The second comparison `'Glow'` and `'Glee'` needs more steps as strings are compared character-by-character:
+>>>>>>> e1a3f634a47c119cf1ec7420c49fc0fc7172c0b5
 
 1. "G" هو نفسه "G".
 2- "l` هي نفس" l`.

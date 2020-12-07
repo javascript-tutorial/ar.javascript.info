@@ -1,10 +1,17 @@
 ﻿# النوع Map (الخرائط) والنوع Set (الأطقم)
 
 
+<<<<<<< HEAD
 تعلّمنا حتّى الآن بنى البيانات المعقّدة هذه:
 
 - الكائنات `Object`: لتخزين التجميعات ذات المفاتيح.
 - المصفوفات `Array`: لتخزين التجميعات المرتّبة.
+=======
+Till now, we've learned about the following complex data structures:
+
+- Objects are used for storing keyed collections.
+- Arrays are used for storing ordered collections.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 ولكن في الحياة الواقعية، هذا لا يكفي. ولهذا تقدّم لك اللغة نوعيين آخرين: الخارطة `Map` والطقم `Set`.
 
@@ -40,7 +47,17 @@ alert( map.get('1') ); // 'str1'
 alert( map.size ); // 3
 ```
 
+<<<<<<< HEAD
 كما ترى، فالمفاتيح لا تُحوّل إلى سلاسل نصية (على العكس من الكائنات). يمكنك أن تضع أيّ نوع من المفاتيح تريد.
+=======
+As we can see, unlike objects, keys are not converted to strings. Any type of key is possible.
+
+```smart header="`map[key]` isn't the right way to use a `Map`"
+Although `map[key]` also works, e.g. we can set `map[key] = 2`, this is treating `map` as a plain JavaScript object, so it implies all corresponding limitations (only string/symbol keys and so on).
+
+So we should use `map` methods: `set`, `get` and so on.
+```
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 **يمكن أن تستعمل الخارطة الكائناتَ نفسها مفاتيح.**
 
@@ -58,21 +75,40 @@ visitsCountMap.set(john, 123);
 alert( visitsCountMap.get(john) ); // 123
 ```
 
+<<<<<<< HEAD
 يُعدّ استعمال الكائنات على أنّها مفاتيح أحدُ أهمّ صفات `Map`. لو أردت المفاتيح سلاسل نصية، فالكائنات `Object` تكفيك وزيادة، لكن لو أردت المفاتيح كائنات، فسيخونك `Object` للأسف. لنرى:
+=======
+Using objects as keys is one of the most notable and important `Map` features. The same does not count for `Object`. String as a key in `Object` is fine, but we can't use another `Object` as a key in `Object`.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 ```
 let john = { name: "John" };
+let ben = { name: "Ben" };
 
 let visitsCountObj = {}; // نحاول استعمال كائن
 
+<<<<<<< HEAD
 visitsCountObj[john] = 123; // ‫ونحاول استعمال كائن john مفتاحًا فيه
 
 // ‫وهذا ما وجدناه مكتوبًا!
 alert( visitsCountObj["[object Object]"] ); // 123
+=======
+visitsCountObj[ben] = 234; // try to use ben object as the key
+visitsCountObj[john] = 123; // try to use john object as the key, ben object will get replaced
+
+*!*
+// That's what got written!
+alert( visitsCountObj["[object Object]"] ); // 123 
+*/!*
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 ```
 المتغيّر `visitsCountObj` من نوع ”كائن“، ولهذا يحوّل كلّ المفاتيح (مثل `john`) إلى سلاسل نصية. وبهذا قدّم لنا المفتاح بالسلسلة النصية `"[object Object]"`. ليس ما نريد قطعًا.
 
+<<<<<<< HEAD
 **كيف تُوازن الخارطة `Map` المفاتيح**
+=======
+As `visitsCountObj` is an object, it converts all `Object` keys, such as `john` and `ben` above, to same string `"[object Object]"`. Definitely not what we want.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 تستعمل `Map` الخوارزمية [SameValueZero](https://tc39.github.io/ecma262/#sec-samevaluezero) لتختبر تساوي المفتاح مع الآخر. تتشابه هذه الخوارزمية تقريبًا مع المساواة الصارمة `===` بفارق أنّ `NaN` تساوي `NaN` في نظرها. يعني ذلك بأنك تستطيع استعمال `NaN` كمفتاح هو الآخر.
 
@@ -416,7 +452,17 @@ let sorted = arr[i] // PAN
 map.set(sorted, word);
 ```
 
+<<<<<<< HEAD
 لو قابلنا بينما نمرّ على الكلمات كلمةً لها نفس الشكل حين تُرتّب أحرفها، فستعوّض القيمة السابقة التي لها نفس المفتاح في الخارطة. هكذا لن تزيد الكلمات لكلّ شكل على واحد، دومًا.
+=======
+- `new Map([iterable])` -- creates the map, with optional `iterable` (e.g. array) of `[key,value]` pairs for initialization.
+- `map.set(key, value)` -- stores the value by the key, returns the map itself.
+- `map.get(key)` -- returns the value by the key, `undefined` if `key` doesn't exist in map.
+- `map.has(key)` -- returns `true` if the `key` exists, `false` otherwise.
+- `map.delete(key)` -- removes the value by the key, returns `true` if `key` existed at the moment of the call, otherwise `false`.
+- `map.clear()` -- removes everything from the map.
+- `map.size` -- returns the current element count.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 وفي النهاية يأخذ `Array.from(map.values())‎` متُعدَّدا يمرّ على قيم الخارطة (لا نريد مفاتيحها في ناتج الدالة) فيُعيد المصفوفة نفسها.
 

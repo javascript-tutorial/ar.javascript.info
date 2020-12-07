@@ -4,7 +4,11 @@
 
 ## alert
 
+<<<<<<< HEAD
 هذه رأيناها بالفعل. إنها تظهر رسالة وتنتظر من المستخدم أن يضغط على "OK".
+=======
+This one we've seen already. It shows a message and waits for the user to press "OK".
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 على سبيل المثال:
 
@@ -31,7 +35,11 @@ result = prompt(title, [default]);
 : معامل ثاني إختياري، القيمة الأولية لحقل الإدخال.
 
 ```smart header="The square brackets in syntax `[...]`"
+<<<<<<< HEAD
 الأقواس المربعة حول `default` في الكود أعلاه يوضح أن المعامل إختياري، ليس مطلوب.
+=======
+The square brackets around `default` in the syntax above denote that the parameter is optional, not required.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 ```
 
 الزائر يستطيع كتابة أي شئ في حقل الإدخال ويضغط أوك. ثم نحصل على النص في `النتيجة`. أو يستطيع إلغاء الإدخال بالضغط على إلغاء  أو الضغط على زرار `key:Esc` ، عندها سنحصل على  `null` ك`result`.

@@ -1,120 +1,124 @@
-# An Introduction to JavaScript
+# مقدّمة للجافاسكربت
 
-Let's see what's so special about JavaScript, what we can achieve with it, and which other technologies play well with it.
+دعونا نرى ما يميز الجافاسكريبت ، وما يمكننا تحقيقه بها ، وأي التقنيات الأخرى التي تعمل بشكل جيد معها.
 
-## What is JavaScript?
+## ماهي الجافاسكربت؟
 
-*JavaScript* was initially created to "make web pages alive".
+*الجافاسكربت* تم إنشائها في بادئ الأمر "لجعل الصفحات الإلكترونية حية".
 
-The programs in this language are called *scripts*. They can be written right in a web page's HTML and run automatically as the page loads.
+البرامج في هذه اللغة تسمّي *سكريبتات*. يمكن كتابتها مباشرة في الصفحات الإلكترونية HTML و  سوف يتم تفعيلها آليا عند تحميل الصفحة.
 
-Scripts are provided and executed as plain text. They don't need special preparation or compilation to run.
+تتوفر السكريبتات وتنفذ كنص عادي. لا تحتاج الى تحضير خاص أو تحويل برمجي لتشتغل.
 
-In this aspect, JavaScript is very different from another language called [Java](https://en.wikipedia.org/wiki/Java_(programming_language)).
+في هذا الجانب ، تختلف الجافاسكربت اختلافًا كبيرًا عن لغة أخرى تسمى [جافا](https://ar.wikipedia.org/wiki/جافا_(لغة_برمجة))
 
-```smart header="Why is it called <u>Java</u>Script?"
-When JavaScript was created, it initially had another name: "LiveScript". But Java was very popular at that time, so it was decided that positioning a new language as a "younger brother" of Java would help.
+```smart header="لماذا تم تسميتها<u>جافا</u>سكريبت؟" 
+عندما تم إنشاء جافا سكريبت، كانت تحمل اسما اخر  "لايفسكربت".
 
-But as it evolved, JavaScript became a fully independent language with its own specification called [ECMAScript](http://en.wikipedia.org/wiki/ECMAScript), and now it has no relation to Java at all.
+ولكن كان لجافا شعبية كبيره في ذلك الوقت، لذلك تقرّر أن وضع لغة جديدة كـ "الأخ الأصغر" لجافا سيساعد.
+ولكن مع تطورها ، أصبحت الجافاسكريبت لغة مستقلة تمامًا مع مواصفاتها الخاصة التي تسمى [إكماسكربت](http://ar.wikipedia.org/wiki/إي_سي_إم_ايه_سكريبت) ، والآن لا علاقة لها بجافا على الإطلاق.
+``` 
+اليوم، يمكن تنفيذ جافاسكريبت ليس فقط في المتصفح، ولكن أيضًا على الخادم، أو فعليًا على أي جهاز به برنامج خاص يسمى [محرك جافاسكريبت](https://ar.wikipedia.org/wiki/محرك_جافا_سكريبت).
+
+يحتوي المتصفح على محرك مثبت يسمى أحيانًا "آلة جافاسكريبت الافتراضية".
+
+المحركات المختلفة لها "أسماء رمزية" مختلفة. على سبيل المثال:
+
+- [في8](https://ar.wikipedia.org/wiki/كروم_في_8) -- في كروم و اوبرا.
+- [سبايدر مونكي](https://ar.wikipedia.org/wiki/سبايدر_مونكي_(محرك_جافا_سكريبت)) -- في فايرفوكس.
+- ...هناك أسماء رمزية أخرى مثل  "تريدانت" و "تشاكرا" لاصدارات مختلفه من انترنت اكسبلورر، "تشاكرا كور" لمايكروسوفت إيدج،  "نيترو" و "سكيرلفيش" لسفاري، إلخ. 
+
+من الجيد تذكر المصطلحات الواردة أعلاه لأنها مستخدمة في مقالات المطورين على الإنترنت. سنستخدمهم أيضًا. على سبيل المثال ، إذا كانت "الميزة إكس مدعومة بواسطة في8" ، فمن المحتمل أنها تعمل في كروم و أوبرا.
+
+```smart header="كيف تعمل المحركات؟"
+
+المحركات معقدة. ولكن الأساسيات بسيطه .
+
+١. يقرأ ("يحلّل") المحرك (المثبت إذا كان متصفحًا) السكريبت.
+
+٢. ثم يحول ("يترجم") السكربت الى لغة  الآلة.
+
+٣. وبعد ذلك يتم تشغيل رموز الآلة، بسرعة كبيرة.
+
+يطبق المحرك التحسينات في كل خطوة من العملية. حتى أنه يراقب النص المترجم أثناء تشغيله ، ويحلل البيانات التي تتدفق من خلاله ، ويزيد من تحسين رموز الآلة بناءً على تلك المعرفة.
 ```
 
-Today, JavaScript can execute not only in the browser, but also on the server, or actually on any device that has a special program called [the JavaScript engine](https://en.wikipedia.org/wiki/JavaScript_engine).
+## ما الذي يمكن أن يفعله الجافاسكريبت في المتصفح؟
 
-The browser has an embedded engine sometimes called a "JavaScript virtual machine".
+الجافاسكريبت الحديثة هي لغة برمجة "آمنة". لا توفر وصولاً منخفض المستوى إلى الذاكرة أو وحدة المعالجة المركزية، لأنه تم إنشاؤها في البداية للمتصفحات التي لا تتطلب ذلك.
 
-Different engines have different "codenames". For example:
+تعتمد قدرات جافا سكريبت بشكل كبير على البيئة التي تعمل بها. على سبيل المثال ، يدعم [نود.جي إس](https://ar.wikipedia.org/wiki/نود.جي_إس) 
+الوظائف التي تسمح لجافا سكريبت بقراءة / كتابة ملفات عشوائية ، وتنفيذ طلبات الشبكة، إلخ.
 
-- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome and Opera.
-- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
-- ...There are other codenames like "Trident" and "Chakra" for different versions of IE, "ChakraCore" for Microsoft Edge, "Nitro" and "SquirrelFish" for Safari, etc.
+يمكن للجافاسكريبت في المتصفح القيام بكل ما يتعلق بمعالجة صفحات الويب والتفاعل مع المستخدم وخادم الويب.
 
-The terms above are good to remember because they are used in developer articles on the internet. We'll use them too. For instance, if "a feature X is supported by V8", then it probably works in Chrome and Opera.
+على سبيل المثال ، يمكن للجافاسكريبت في المتصفح:
 
-```smart header="How do engines work?"
+- إضافة HTML جديد إلى الصفحة ، وتغيير المحتوى الحالي ، وتعديل التصاميم.
+- الرد على تفاعلات المستخدم ، والتشغيل على نقرات الفأرة ، وحركات المؤشر ، والضغط على المفاتيح.
+- إرسال الطلبات عبر الشبكة إلى الخوادم المنعزلة ،تنزيل الملفات وتحميلها (ما يسمى بـتقنيات [أجاكس](https://ar.wikipedia.org/wiki/أجاكس) و [كوميت](https://en.wikipedia.org/wiki/Comet_(programming)).
+- الحصول على ملفات تعريف الارتباط وتعيينها ، وطرح الأسئلة على الزائر ، وإظهار الرسائل.
+- تذكر البيانات الموجودة على جانب العميل ("التخزين المحلي").
 
-Engines are complicated. But the basics are easy.
+## ما الذي لا يمكن للجافاسكريبت في المتصفح فعله؟
 
-1. The engine (embedded if it's a browser) reads ("parses") the script.
-2. Then it converts ("compiles") the script to the machine language.
-3. And then the machine code runs, pretty fast.
+إمكانيات الجافاسكريبت في المتصفح محدودة من أجل سلامة المستخدم. الهدف هو منع صفحة ويب شريرة من الوصول إلى المعلومات الخاصة أو الإضرار ببيانات المستخدم.
 
-The engine applies optimizations at each step of the process. It even watches the compiled script as it runs, analyzes the data that flows through it, and further optimizes the machine code based on that knowledge.
-```
+من أمثلة هذه القيود:
 
-## What can in-browser JavaScript do?
+- الجافاسكريبت على صفحة الويب قد لا تقرأ/تكتب ملفات عشوائية على القرص الصلب أو تنسخها أو تنفذ برامج. ليس لديها وصول مباشر إلى وظائف نظام التشغيل.
 
-Modern JavaScript is a "safe" programming language. It does not provide low-level access to memory or CPU, because it was initially created for browsers which do not require it.
+    تسمح المتصفحات الحديثة له بالعمل مع الملفات ، ولكن الوصول محدود ويتم توفيره فقط إذا قام المستخدم بإجراءات معينة ، مثل "إسقاط" ملف في نافذة المتصفح أو تحديده عبر علامة `<input>`.
 
-JavaScript's capabilities greatly depend on the environment it's running in. For instance, [Node.js](https://wikipedia.org/wiki/Node.js) supports functions that allow JavaScript to read/write arbitrary files, perform network requests, etc.
+    هناك طرق للتفاعل مع الكاميرا / الميكروفون والأجهزة الأخرى ، لكنها تتطلب إذنًا صريحًا من المستخدم. لذلك قد لا تعمل الصفحة التي تم تمكين الجافاسكريبت فيها بشكل خفي على تمكين كاميرا الويب ومراقبة المناطق المحيطة وإرسال المعلومات إلى [آن آس أيه](https://ar.wikipedia.org/wiki/وكالة_الأمن_القومي_الأمريكية)
+-بشكل عام لا تعرف علامات التبويب / النوافذ المختلفة حول بعضها البعض. في بعض الأحيان يفعلون ذلك، على سبيل المثال عندما تستخدم إحدى النوافذ الجافاسكريبت لفتح النافذة الأخرى. ولكن حتى في هذه الحالة ، قد لا تتمكن الجافاسكريبت في إحدى الصفحات من الوصول إلى الصفحة الأخرى إذا كانت تأتي من مواقع مختلفة (من مجال أو بروتوكول أو منفذ مختلف).
 
-In-browser JavaScript can do everything related to webpage manipulation, interaction with the user, and the webserver.
-
-For instance, in-browser JavaScript is able to:
-
-- Add new HTML to the page, change the existing content, modify styles.
-- React to user actions, run on mouse clicks, pointer movements, key presses.
-- Send requests over the network to remote servers, download and upload files (so-called [AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)) and [COMET](https://en.wikipedia.org/wiki/Comet_(programming)) technologies).
-- Get and set cookies, ask questions to the visitor, show messages.
-- Remember the data on the client-side ("local storage").
-
-## What CAN'T in-browser JavaScript do?
-
-JavaScript's abilities in the browser are limited for the sake of the user's safety. The aim is to prevent an evil webpage from accessing private information or harming the user's data.
-
-Examples of such restrictions include:
-
-- JavaScript on a webpage may not read/write arbitrary files on the hard disk, copy them or execute programs. It has no direct access to OS functions.
-
-    Modern browsers allow it to work with files, but the access is limited and only provided if the user does certain actions, like "dropping" a file into a browser window or selecting it via an `<input>` tag.
-
-    There are ways to interact with camera/microphone and other devices, but they require a user's explicit permission. So a JavaScript-enabled page may not sneakily enable a web-camera, observe the surroundings and send the information to the [NSA](https://en.wikipedia.org/wiki/National_Security_Agency).
-- Different tabs/windows generally do not know about each other. Sometimes they do, for example when one window uses JavaScript to open the other one. But even in this case, JavaScript from one page may not access the other if they come from different sites (from a different domain, protocol or port).
-
-    This is called the "Same Origin Policy". To work around that, *both pages* must agree for data exchange and contain a special JavaScript code that handles it. We'll cover that in the tutorial.
-
-    This limitation is, again, for the user's safety. A page from `http://anysite.com` which a user has opened must not be able to access another browser tab with the URL `http://gmail.com` and steal information from there.
-- JavaScript can easily communicate over the net to the server where the current page came from. But its ability to receive data from other sites/domains is crippled. Though possible, it requires explicit agreement (expressed in HTTP headers) from the remote side. Once again, that's a safety limitation.
+    وهذا ما يسمى "سياسة المصدر الأوحد". للتغلب على ذلك ، يجب أن توافق *الصفحتان* على تبادل البيانات وتحتوي على كود جافاسكريبت خاص يتعامل معه. سنغطي ذلك في البرنامج التعليمي.
+    
+هذا القيد ، مرة أخرى ، لسلامة المستخدم. يجب ألا تتمكن صفحة من `http://anysite.com` فتحها المستخدم من الوصول إلى نافذة متصفح أخرى بعنوان `http://gmail.com` وسرقة المعلومات من هناك.
+- يمكن لـ جافاسكريبت الاتصال بسهولة عبر الشبكة بالخادم الذي جاءت منه الصفحة الحالية. لكن قدرته على تلقي البيانات من المواقع / المجالات الأخرى معطلة. على الرغم من إمكانية ذلك، إلا أنه يتطلب موافقة صريحة (معبرًا عنها في رؤوس HTTP) عن بعد. مرة أخرى ، هذا قيد أمان.
 
 ![](limitations.svg)
 
-Such limits do not exist if JavaScript is used outside of the browser, for example on a server. Modern browsers also allow plugin/extensions which may ask for extended permissions.
+لا توجد مثل هذه الحدود إذا تم استخدام الجافاسكريبت خارج المتصفح ، على سبيل المثال على الخادم. تسمح المتصفحات الحديثة أيضًا الإضافات التي قد تطلب تصريحات ممتدة.
 
-## What makes JavaScript unique?
+## ما الذي يجعل الجافاسكريبت فريدًا؟
 
-There are at least *three* great things about JavaScript:
+هناك على الأقل *ثلاثة* أشياء رائعة حول الجافاسكريبت:
 
 ```compare
-+ Full integration with HTML/CSS.
-+ Simple things are done simply.
-+ Support by all major browsers and enabled by default.
++ تكامل تام مع HTML / CSS.
++ الأشياء البسيطة تتم ببساطة.
++ مدعوم من قبل جميع المتصفحات الرائدة وتمكينه تلقائيا.
 ```
-JavaScript is the only browser technology that combines these three things.
 
-That's what makes JavaScript unique. That's why it's the most widespread tool for creating browser interfaces.
+الجافاسكريبت هي تقنية المتصفح الوحيدة التي تجمع بين هذه الأشياء الثلاثة.
 
-That said, JavaScript also allows to create servers, mobile applications, etc.
+هذا ما يجعل الجافاسكريبت فريدًا. هذا هو السبب في أنها الأداة الأكثر انتشارًا لإنشاء واجهات المتصفح.
 
-## Languages "over" JavaScript
+ومع ذلك، تسمح الجافاسكريبت أيضًا بإنشاء خوادم وتطبيقات الجوال، إلخ.
 
-The syntax of JavaScript does not suit everyone's needs. Different people want different features.
+## لغات "فوق" الجافاسكريبت
 
-That's to be expected, because projects and requirements are different for everyone.
+لا تتناسب القواعد اللغوية للجافاسكريبت مع احتياجات الجميع. الناس المختلفون يريدون ميزات مختلفة.
 
-So recently a plethora of new languages appeared, which are *transpiled* (converted) to JavaScript before they run in the browser.
+هذا أمر متوقع ، لأن المشاريع والمتطلبات تختلف من شخص لآخر.
 
-Modern tools make the transpilation very fast and transparent, actually allowing developers to code in another language and auto-converting it "under the hood".
+ظهرت في الآونة الأخيرة عدد كبير من اللغات الجديدة ، والتي *تم تحويلها* إلى الجافاسكريبت قبل تشغيلها في المتصفح.
 
-Examples of such languages:
+الأدوات الحديثة تجعل الترجمة سريعة وشفافة للغاية ، مما يسمح للمطورين في الواقع بالتشفير بلغة أخرى وتحويلها تلقائيًا "خلف الكواليس".
 
-- [CoffeeScript](http://coffeescript.org/) is a "syntactic sugar" for JavaScript. It introduces shorter syntax, allowing us to write clearer and more precise code. Usually, Ruby devs like it.
-- [TypeScript](http://www.typescriptlang.org/) is concentrated on adding "strict data typing" to simplify the development and support of complex systems. It is developed by Microsoft.
-- [Flow](http://flow.org/) also adds data typing, but in a different way. Developed by Facebook.
-- [Dart](https://www.dartlang.org/) is a standalone language that has its own engine that runs in non-browser environments (like mobile apps), but also can be transpiled to JavaScript. Developed by Google.
+أمثلة على هذه اللغات:
 
-There are more. Of course, even if we use one of transpiled languages, we should also know JavaScript to really understand what we're doing.
+- [كوفي سكريبت](http://coffeescript.org/) هو "سكر نحوي" لجافا سكريبت. إنه يقدم بناء جمل أقصر ، مما يسمح لنا بكتابة كود أكثر وضوحًا ودقة. عادة ،مطورو الروبي يحبونها.
+- يركز [تايب سكريبت](http://www.typescriptlang.org/) على إضافة "كتابة بيانات صارمة" لتبسيط تطوير ودعم الأنظمة المعقدة. تم تطويره بواسطة ميكروسوفت.
+- يضيف [فلاو](http://flow.org/) أيضًا كتابة البيانات ، ولكن بطريقة مختلفة. تم تطويره بواسطة فايسبوك.
+- [دارت](https://www.dartlang.org/) هي لغة قائمة بذاتها لها محركها الخاص الذي يعمل في بيئات غير المتصفح (مثل تطبيقات الهاتف المحمول) ، ولكن يمكن أيضًا تحويلها إلى جافاسكريبت. من تطوير جوجل.
 
-## Summary
+هناك أكثر. بالطبع ، حتى لو استخدمنا إحدى اللغات المترجمة ، يجب أن نعرف أيضًا جافاسكريبت لفهم ما نقوم به حقًا.
 
-- JavaScript was initially created as a browser-only language, but is now used in many other environments as well.
-- Today, JavaScript has a unique position as the most widely-adopted browser language with full integration with HTML/CSS.
-- There are many languages that get "transpiled" to JavaScript and provide certain features. It is recommended to take a look at them, at least briefly, after mastering JavaScript.
+## ملخص
+
+- تم إنشاء الجافاسكريبت في البداية كلغة للمتصفح فقط ، ولكنها تُستخدم الآن في العديد من البيئات الأخرى أيضًا.
+- تتمتع جافاسكريبت اليوم بمكانة فريدة باعتبارها لغة المتصفح الأكثر استخدامًا مع تكاملها التام مع HTML / CSS.
+- هناك العديد من اللغات التي يتم "تحويلها" إلى الجافاسكريبت وتوفر ميزات معينة. يوصى بإلقاء نظرة عليهم ، على الأقل لفترة وجيزة ، بعد إتقان الجافاسكريبت.

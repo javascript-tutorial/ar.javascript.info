@@ -31,7 +31,11 @@
 
     ![](bezier4-e.svg) ![](bezier3-e.svg)
 
+<<<<<<< HEAD
 بسبب هذه الخاصية الأخيرة ، يمكن تحسين اختبارات التقاطع في رسومات الكمبيوتر. إذا لم تتقاطع الأغلفة المحدبة ، فإن المنحنيات لا تتقاطع أيضًا. لذا ، فإن التحقق من تقاطع الأغلفة المحدبة أولاً يمكن أن يعطي نتيجة سريعة جدًا "لا يوجد تقاطع". يعد فحص التقاطع أو الأغلفة المحدبة أسهل بكثير ، لأنها مستطيلات ومثلثات وما إلى ذلك (انظر الصورة أعلاه) ، وهي أشكال أبسط بكثير من المنحنى.
+=======
+Because of that last property, in computer graphics it's possible to optimize intersection tests. If convex hulls do not intersect, then curves do not either. So checking for the convex hulls intersection first can give a very fast "no intersection" result. Checking the intersection of convex hulls is much easier, because they are rectangles, triangles and so on (see the picture above), much simpler figures than the curve.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 **تظهر القيمة الرئيسية لمنحنيات بيزير للرسم عن طريق تحريك النقاط التي يتغير بها المنحنى بشكل بديهي*.**
 

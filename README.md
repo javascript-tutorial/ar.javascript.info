@@ -1,6 +1,10 @@
 # The Modern JavaScript Tutorial in Arabic
 
+<<<<<<< HEAD
 This repository hosts the translation of <https://javascript.info> in Arabic.
+=======
+This repository hosts the English content of the Modern JavaScript Tutorial, published in [https://javascript.info](https://javascript.info).
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 
 **That's how you can contribute:**
@@ -23,7 +27,13 @@ If maintainers do not respond, or if you'd like to become a maintainer, write us
 
 Your name and the contribution size will appear in the "About project" page when the translation gets published.
 
+<<<<<<< HEAD
 P.S. The full list of languages can be found at <https://javascript.info/translate>.
+=======
+**You can edit the text in any editor.** The tutorial uses enhanced "markdown" format, easy to grasp. And if you want to see how it looks on-site, there's a server to run the tutorial locally at <https://github.com/javascript-tutorial/server>.
+
+The list of contributors is available at <https://javascript.info/about#contributors>.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 ## Structure
 
@@ -102,7 +112,13 @@ document.querySelector('.hola').innerHTML = text;
 
 Please note, that sometimes code is followed by pictures, and if you translate text `Hello` -> `Hola` in the code, you need to translate text in picturess as well.
 
+<<<<<<< HEAD
 In that case it's probably easier not to translate such text. See more about translating images later.
+=======
+  - `index.md` stands for a chapter
+  - `article.md` stands for an article
+  - `task.md` stands for a task (solution must be provided in `solution.md` file as well)
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 
 ### External Links
@@ -132,6 +148,7 @@ Some files, usually tasks, have YAML metadata at the top, delimited by `---`:
 ```md
 importance: 5
 
+<<<<<<< HEAD
 ---
 ...
 ```
@@ -168,3 +185,8 @@ image.svg:        # image file
 You can run the tutorial server locally to see how the translation looks.
 
 The server and install instructions are at <https://github.com/javascript-tutorial/server>. 
+=======
+---  
+♥  
+Ilya Kantor @iliakan
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557

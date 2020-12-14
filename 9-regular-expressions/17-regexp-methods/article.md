@@ -20,7 +20,7 @@ Regular Expressions  تعني سلسلة من الرموز والأحرف الت
     alert( result.length ); // 2
 
     // Additional information:
-    alert( result.index );  // 0 (match position)
+    alert( result.index );  // 7 (match position)
     alert( result.input );  // I love JavaScript (source string)
     ```
 
@@ -142,7 +142,11 @@ alert('12-34-56'.replace("-", ":")) // 12:34-56
 alert( '12-34-56'.replace( *!*/-/g*/!*, ":" ) )  // 12:34:56
 ```
 
+<<<<<<< HEAD
 الُمدخَل الثاني هو سلسلة بديلة. يمكننا استخدام حرف خاص فيه:
+=======
+The second argument is a replacement string. We can use special characters in it:
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 | الرموز | الإجراء في سلسلة الاستبدال |
 |--------|--------|
@@ -230,6 +234,23 @@ alert(result); // Smith, John
 ```
 
 يمنحنا استخدام دالة الطاقة البديلة القصوى ، لأنها تحصل على جميع المعلومات حول المباراة ، ولديها إمكانية الوصول إلى المتغيرات الخارجية ويمكنها القيام بكل شيء.
+
+## str.replaceAll(str|regexp, str|func)
+
+This method is essentially the same as `str.replace`, with two major differences:
+
+1. If the first argument is a string, it replaces *all occurences* of the string, while `replace` replaces only the *first occurence*.
+2. If the first argument is a regular expression without the `g` flag, there'll be an error. With `g` flag, it works the same as `replace`.
+
+The main use case for `replaceAll` is replacing all occurences of a string.
+
+Like this:
+
+```js run
+// replace all dashes by a colon
+alert('12-34-56'.replaceAll("-", ":")) // 12:34:56
+```
+
 
 ## regexp.exec(str)
 

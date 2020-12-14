@@ -36,15 +36,23 @@ alert(arr.length); // 3
 
 لهذا السبب علينا استعمال توابِع خاصّة لذلك.
 
+<<<<<<< HEAD
 يمكننا تشبيه التابِع arr.splice(start)‎ بالتابِع «بتاع كُلّو» للمصفوفات (كما يُقال بالعامية). يمكنه أن يُجري ما تريد للعناصر: إدراج، إزالة، استبدال.
+=======
+The [arr.splice](mdn:js/Array/splice) method is a swiss army knife for arrays. It can do everything: insert, remove and replace elements.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 هذه صياغته:
 
 ```js
-arr.splice(index[, deleteCount, elem1, ..., elemN])
+arr.splice(start[, deleteCount, elem1, ..., elemN])
 ```
 
+<<<<<<< HEAD
 يبدأ التابِع من عند العنصر ذي الفهرس `index`، فيُزيل `deleteCount` من العناصر ويُدرج العناصر `elem1, ..., elemN` المُمرّرة إليه مكانها. أخيرًا يُعيد المصفوفة بالعناصر المُزالة.
+=======
+It modifies `arr` starting from the index `start`: removes `deleteCount` elements and then inserts `elem1, ..., elemN` at their place. Returns the array of removed elements.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 فهم هذا التابِع بالأمثلة أبسط.
 
@@ -410,13 +418,22 @@ alert(arr);  // *!*1, 2, 15*/!*
 
 لنتوقف لحظة ونفكّر فيما يحدث تمامًا. أنتّفق بأنّ المصفوفة arr يمكن أن تحتوي أيّ شيء؟ أيّ شيء من الأعداد أو السلاسل النصية أو الكائنات أو غيرها. كلّ ما لدينا هو مجموعة من العناصر. لترتيبها نحتاج دالة ترتيب تعرف طرقة مقارنة عناصر المصفوفة. مبدئيًا، الترتيب يكون بالسلاسل النصية.
 
+<<<<<<< HEAD
 يُنفِّذ التابع arr.sort(fn)‎ في طيّاته خوارزمية فرز عامّة. لسنا نكترث كيف تعمل هذه الخوارزمية خلف الكواليس (وهي غالبًا [quicksort](https://en.wikipedia.org/wiki/Quicksort) محسّنة)، بل نكترث بأنّها ستمرّ على المصفوفة، تُوازن عناصرها باستعمال الدالة المقدّمة أعلاه وتُعيد ترتيبها. نكترث بأن نقدّم دالة fn التي ستؤدّي الموازنة
+=======
+The `arr.sort(fn)` method implements a generic sorting algorithm. We don't need to care how it internally works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) or [Timsort](https://en.wikipedia.org/wiki/Timsort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 بالمناسبة، لو أردت معرفة العناصر التي تُوازنها الدالة حاليًا، فلا بأس. لن يقتلك أحد لو عرضتها:
 
 ```js run
 [1, -2, 15, 2, 0, 8].sort(function(a, b) {
+<<<<<<< HEAD
   alert(a + " <> " + b);
+=======
+  alert( a + " <> " + b );
+  return a - b;
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 });
 ```
 
@@ -682,7 +699,11 @@ alert(soldiers[1].age); // 23
 
 ورقة فيها كل توابِع الدوال (غُشّ منها):
 
+<<<<<<< HEAD
 - لإضافة العناصر وإزالتها:
+=======
+A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(user => army.canJoin(user))`, that does the same. The latter is used more often, as it's a bit easier to understand for most people.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 * `push(...items)` -- تُضيف العناصر items إلى النهاية،
 * `pop()` -- تستخرج عنصرًا من النهاية،
@@ -694,16 +715,36 @@ alert(soldiers[1].age); // 23
 
 * لتبحث عن العناصر:
 
+<<<<<<< HEAD
   - `indexOf/lastIndexOf(item, pos)` -- ابحث عن العنصر item بدءًا من العنصر ذي الفهرس pos وأعِد فهرسه أو أعِد ‎-1 لو لم تجده.
   - `includes(value)` -- أعِد القيمة true لو كان العنصر value في المصفوفة، وإلا أعِد false.
   - `find/filter(func)` -- رشّح العناصر عبر دالة وأعِد أوّل قيمة (أو كل القيم) التي تُعيد الدالة قيمة true لو مُرّر ذلك العنصر لها.
   - `findIndex` يشبه `find`، ولكن يُعيد الفهرس بدل القيمة.
+=======
+- To add/remove elements:
+  - `push(...items)` -- adds items to the end,
+  - `pop()` -- extracts an item from the end,
+  - `shift()` -- extracts an item from the beginning,
+  - `unshift(...items)` -- adds items to the beginning.
+  - `splice(pos, deleteCount, ...items)` -- at index `pos` deletes `deleteCount` elements and inserts `items`.
+  - `slice(start, end)` -- creates a new array, copies elements from index `start` till `end` (not inclusive) into it.
+  - `concat(...items)` -- returns a new array: copies all members of the current one and adds `items` to it. If any of `items` is an array, then its elements are taken.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 * للمرور على عناصر المصفوفة:
 
 - `forEach(func)` -- يستدعي `func` لكلّ عنصر ولا يُعيد أيّ شيء.
 
+<<<<<<< HEAD
 * لتعديل عناصر المصفوفة:
+=======
+- To transform the array:
+  - `map(func)` -- creates a new array from results of calling `func` for every element.
+  - `sort(func)` -- sorts the array in-place, then returns it.
+  - `reverse()` -- reverses the array in-place, then returns it.
+  - `split/join` -- convert a string to array and back.
+  - `reduce/reduceRight(func, initial)` -- calculate a single value over the array by calling `func` for each element and passing an intermediate result between the calls.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
   - `map(func)` -- أنشِئ مصفوفة جديدة من نتائج استدعاء func لكلّ من عناصر المصفوفة.
   - `sort(func)` -- افرز المصفوفة كما هي وأعِد ناتج الفرز.
@@ -717,15 +758,40 @@ alert(soldiers[1].age); // 23
 
 هذه التوابِع أعلاه هي أغلب ما تحتاج وما تريد أغلب الوقت (99.99%). ولكن هناك طبعًا غيرها: +
 
+<<<<<<< HEAD
 - [arr.some(fn)](mdn:js/Array/some)/[arr.every(fn)](mdn:js/Array/every) تفحص المصفوفة.
+=======
+- [arr.some(fn)](mdn:js/Array/some)/[arr.every(fn)](mdn:js/Array/every) check the array.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 تُنادى الدالة fn على كلّ عنصر من المصفوفة (مثل map). لو كانت أيًا من (أو كل) النتائج true، فيُعيد true، وإلًا يُعيد false.
 
+<<<<<<< HEAD
 - [arr.fill(value, start, end)](mdn:js/Array/fill) -- يملأ المصفوفة بالقيمة المتكرّرة value من الفهرس start إلى الفهرس end.
+=======
+  These methods behave sort of like `||` and `&&` operators: if `fn` returns a truthy value, `arr.some()` immediately returns `true` and stops iterating over the rest of items; if `fn` returns a falsy value, `arr.every()` immediately returns `false` and stops iterating over the rest of items as well.
+
+  We can use `every` to compare arrays:
+  ```js run
+  function arraysEqual(arr1, arr2) {
+    return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
+  }
+
+  alert( arraysEqual([1, 2], [1, 2])); // true
+  ```
+
+- [arr.fill(value, start, end)](mdn:js/Array/fill) -- fills the array with repeating `value` from index `start` to `end`.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 - [arr.copyWithin(target, start, end)](mdn:js/Array/copyWithin) -- ينسخ العناصر من العنصر ذا الفهرس start إلى ذا الفهرس end ويلصقها داخلها عند الفهرس target (تعوّض ما هو موجود مكانها في المصفوفة).
 
+<<<<<<< HEAD
 لتفاصيل أكثر تصفح [manual](mdn:js/Array) .
+=======
+- [arr.flat(depth)](mdn:js/Array/flat)/[arr.flatMap(fn)](mdn:js/Array/flatMap) create a new flat array from a multidimensional array.
+
+For the full list, see the [manual](mdn:js/Array).
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 قد يبدو من النظرة الأولى أن هناك العديد من الطرق ، يصعب تذكرها. ولكن في الواقع هذا أسهل بكثير.
 

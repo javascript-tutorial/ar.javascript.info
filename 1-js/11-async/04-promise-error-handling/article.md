@@ -122,7 +122,7 @@ new Promise((resolve, reject) => {
 في المثال أدناه نرى الموقف الآخر مع ".catch". معالج `(*)` يمسك الخطأ ولا يمكنه التعامل معه (على سبيل المثال ، فهو يعرف فقط كيفية التعامل مع `URIError`) ، لذا فإنه يرميه مرة أخرى:
 
 ```js run
-// the execution: catch -> catch -> then
+// the execution: catch -> catch
 new Promise((resolve, reject) => {
 
   throw new Error("Whoops!");

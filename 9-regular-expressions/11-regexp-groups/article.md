@@ -249,8 +249,13 @@ alert( tag1.input ); // <h1> <h2>
 
 لذلك ، سيتم العثور على العديد من النتائج حسب الحاجة ، وليس أكثر.
 
+<<<<<<< HEAD
 على سبيل المثال من المحتمل أن يكون هناك 100 تطابق في النص ، ولكن في حلقة "for..of` وجدنا 5 منها ، ثم قررنا أنها كافية وقمنا بعمل" استراحة ". ثم لن يقضي المحرك وقتًا في العثور على 95 مباراة أخرى.
 ``
+=======
+E.g. there are potentially 100 matches in the text, but in a `for..of` loop we found 5 of them, then decided it's enough and made a `break`. Then the engine won't spend time finding other 95 matches.
+```
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 ## المجموعات المسماة
 

@@ -50,9 +50,13 @@ On the other hand, it's important to understand differences when migrating old s
 
 ## "var" has no block scope
 
+<<<<<<< HEAD
 حين نصرّح عن المتغيرات باستعمال `‎var‎` نكون جعلناها معروفة للدالة كاملةً (لو كانت في دالة) أو عمومية في السكربت. يمكنك أن ترى تلك المتغيرات إن اخترقت «جدران» الكُتل.
 
 مثال:
+=======
+Variables, declared with `var`, are either function-scoped or global-scoped. They are visible through blocks.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 
 ```js run
@@ -82,11 +86,19 @@ alert(test); // ‫خطأ: لم يُعرّف عن test
 
 ```js
 for (var i = 0; i < 10; i++) {
+  var one = 1;
   // ...
 }
 
+<<<<<<< HEAD
 alert(i); // ‫10، ظهر «i» بعد الحلقة فهو متغير عمومي
 
+=======
+*!*
+alert(i);   // 10, "i" is visible after loop, it's a global variable
+alert(one); // 1, "one" is visible after loop, it's a global variable
+*/!*
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 ```
 
 لو كتبت كتلة شيفرة في دالة فسيصير `‎var‎` متغيرًا على مستوى الدالة كاملةً.
@@ -101,11 +113,18 @@ function sayHi() {
 }
 
 sayHi();
+<<<<<<< HEAD
 alert(phrase); // ‫خطأ: phrase غير معرّف (طالِع مِعراض المطوّر)
 
 ```
 
 كما نرى فإفادة `‎var‎` تخترق كُتل `‎if‎` و`‎for‎` وغيرها من كُتل شيفرة. يعزو ذلك إلى أنّه في الزمن الماضي الجميل لم تكن لكُتل جافاسكربت بيئات مُعجمية. و`‎var‎` إحدى آثار ذلك الزمن.
+=======
+alert(phrase); // Error: phrase is not defined
+```
+
+As we can see, `var` pierces through `if`, `for` or other code blocks. That's because a long time ago in JavaScript, blocks had no Lexical Environments, and `var` is a remnant of that.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 ## تُعالج التصريحات باستعمال `‎var‎` عند بدء الدالة
 
@@ -222,10 +241,18 @@ sayHi();
 
 في الأمثلة أعلاه عمل التابِع `‎alert‎` دون أيّ أخطاء إذ أن المتغير `‎phrase‎` موجود. ولكن لم تُسند فيه قيمة بعد فعرض `‎undefined‎`.
 
+<<<<<<< HEAD
 
 ### تعريف الدالة المناداة تواً (IIFE)
 
 في الماضي كان هناك فقط `var`, وليس له مستوي كتلة, لكن المبرمجين إخترعوا طريقة لحل ذلك. التي تسمي 
+=======
+In both examples above, `alert` runs without an error, because the variable `phrase` exists. But its value is not yet assigned, so it shows `undefined`.
+
+## IIFE
+
+In the past, as there was only `var`, and it has no block-level visibility, programmers invented a way to emulate it. What they did was called "immediately-invoked function expressions" (abbreviated as IIFE).
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 "**I**mmediately-**I**nvoked **f**unction **E**xpressions"
 
@@ -236,7 +263,7 @@ sayHi();
 ```js run
 (function() {
 
-  let message = "Hello";
+  var message = "Hello";
 
   alert(message); // Hello
 
@@ -244,14 +271,23 @@ sayHi();
 ```
 هذا يعتبر تعريف دالة صُنعت وتمت مناداتها على الفور. لذلك يتم تنفيذ الكود ولها متغيراتها الخاصة.
 
+<<<<<<< HEAD
 يتم تغليف تعريف الدالة يتم تغليفه بداخل قوسين (function {...})`, لأن عندما تقابل جافاسكريبت `"function"` في الكود الأساسي, تفهمها علي أنها بداية تعريف دالة ولكن بدون إسم لذلك يعطينا خطأ:
 
 
 ```js run
 // محاولة صنع دالة فورية التنفيذ
+=======
+Here, a Function Expression is created and immediately called. So the code executes right away and has its own private variables.
+
+The Function Expression is wrapped with parenthesis `(function {...})`, because when JavaScript engine encounters `"function"` in the main code, it understands it as the start of a Function Declaration. But a Function Declaration must have a name, so this kind of code will give an error:
+
+```js run
+// Tries to declare and immediately call a function
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 function() { // <-- Error: Function statements require a function name
 
-  let message = "Hello";
+  var message = "Hello";
 
   alert(message); // Hello
 
@@ -298,7 +334,12 @@ function go() {
 1. ليس لمتغيرات `‎var‎` نطاقًا كتليًا وأصغر نطاق لها هو في الدوال.
 2. تُعالج التصريحات باستعمال `‎var‎` عند بدء الدالة (أو بدء السكربت، للمتغيرات العمومية).
 
+<<<<<<< HEAD
 هناك فرق آخر صغير يتعلّق بالكائن العمومي وسنشرحه في الفصل التالي.
+=======
+1. `var` variables have no block scope, their visibility is scoped to current function, or global, if declared outside function.
+2. `var` declarations are processed at function start (script start for globals).
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 بهذا، غالبًا ما يكون استعمال `‎var‎` أسوأ بكثير من `‎let‎` بعدما عرفت الفروق بينها، فالمتغيرات على مستوى الكُتل أمر رائع جدًا ولهذا السبب تمامًا أُضيفت `‎let‎` إلى معيار اللغة منذ زمن وصارت الآن الطريقة الأساسية (هي و`‎const‎`) للتصريح عن متغير.
 

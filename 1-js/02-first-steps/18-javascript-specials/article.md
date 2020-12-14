@@ -143,8 +143,13 @@ alert( "Tea wanted: " + isTeaWanted ); // true
 الإسناد
 : الإسناد البسيط هو من الشكل: `a = b` أما الإسناد المركّب فهو من الشكل `a *= 2`.
 
+<<<<<<< HEAD
 عوامل البِتّات (Bitwise)
 : تقوم عوامل الـ Bitwise بالعمل مع الأعداد الصحيحة من فئة 32-بِت على الأقل، فهي تعمل على مستوى البِت، وللاطلاع عليها يمكن مراجعة [التوثيق](mdn:/JavaScript/Reference/Operators/Bitwise_Operators) عند الحاجة.
+=======
+Bitwise
+: Bitwise operators work with 32-bit integers at the lowest, bit-level: see the [docs](mdn:/JavaScript/Guide/Expressions_and_Operators#Bitwise) when they are needed.
+>>>>>>> 23e85b3c33762347e26276ed869e491e959dd557
 
 العوامل الشرطية
 : والعامل الشرطي هو العامل الوحيد الذي يأخذ ثلاث معاملات: `cond ? resultA : resultB`. فإذا كان الشرط `cond` صحيحاً، سيتمّ إرجاع `resultA` وإلا سيتم إرجاع `resultB`.

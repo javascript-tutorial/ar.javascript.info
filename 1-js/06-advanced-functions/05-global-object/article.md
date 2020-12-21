@@ -5,7 +5,11 @@
 
 في المتصفّحات تُدعى بالنافذة `‎window‎` وفي Node.js تُدعى بالعموميات `‎global‎` وفي باقي البيئات تُدعى بأيّ اسم مناسب يراه مطوّروها.
 
+<<<<<<< HEAD
 أُضيف حديثًا الكائن `‎globalThis‎` إلى اللغة ليكون اسم قياسيًا للكائن العمومي على أن تدعمه كلّ البيئات. ولكن بعض المتصفّحات (وبالخصوص عدا Chromium Edge) لا تدعم هذا الكائن بعد، ولكن يمكنك «ترقيعه تعدّديًا» بسهولة تامة.
+=======
+Recently, `globalThis` was added to the language, as a standardized name for a global object, that should be supported across all environments. It's supported in all major browsers.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f
 
 سنستعمل هنا `‎window‎` على فرضية بأنّ البيئة هي المتصفّح نفسه. لو كنت ستشغّل السكربت الذي تكتبه في بيئات أخرى فربما تستعمل `‎globalThis‎` بدل النافذة تلك.
 
@@ -27,7 +31,13 @@ alert(window.gVar); // ‫5 (تصير خاصية من خاصيات الكائن 
 
 ```
 
+<<<<<<< HEAD
 ولكن أرجوك ألا تعتمد على هذا الأمر! هذا السلوك موجود للتوافقية لا غير. تستعمل السكربتات الحديثة [وحداتَ جافاسكربت](info:modules) حيث لا يحدث هكذا أمر.
+=======
+The same effect have function declarations (statements with `function` keyword in the main code flow, not function expressions).
+
+Please don't rely on that! This behavior exists for compatibility reasons. Modern scripts use [JavaScript modules](info:modules) where such thing doesn't happen.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f
 
 لن يحدث هذا لو استعملنا `‎let‎` هنا:
 
@@ -87,8 +97,15 @@ if (!window.Promise) {
         المصفوفات `‎Array‎` والقيم المخصّصة للبيئة مثل `‎window.innerHeight‎` (ارتفاع نافذة المتصفّح).
 - للكائن العمومي اسم عام في المواصفة: `‎globalThis‎`.
 
+<<<<<<< HEAD
         ولكن... دومًا ما نُشير إليه بالأسماء «الأثرية» حسب كل بيئة مثل `‎window‎` (في المتصفحات) و`‎global‎` (في Node.js)
         ، إذ أنّ `‎globalThis‎` هو مُقترح جديد على اللغة وليس مدعومًا في المتصفّحات عدة Chromium Edge (ولكن يمكننا ترقيعه تعدّديًا).
 - علينا ألا نخزّن القيم في الكائن العمومي إلّا لو كانت حقًا وفعلًا عمومية للمشروع الذي نعمل عليه. كما ويجب أن يبقى عددها بأقل ما يمكن.
 - حين نطوّر لاستعمال الشيفرات في المتصفّحات (لو لم نستعمل الوحدات، [وحدات](info:modules))، تصير الدوال العمومية والمتغيرات باستعمال `‎var‎` خاصيات للكائن العمومي.
 - علينا استعمال خاصيات الكائن العمومي مباشرةً (مثل `‎window.x‎`) لتكون الشيفرة سهلة الصيانة مستقبلًا وأسهل فهمًا.
+=======
+    ...But more often is referred by "old-school" environment-specific names, such as `window` (browser) and `global` (Node.js).
+- We should store values in the global object only if they're truly global for our project. And keep their number at minimum.
+- In-browser, unless we're using [modules](info:modules), global functions and variables declared with `var` become a property of the global object.
+- To make our code future-proof and easier to understand, we should access properties of the global object directly, as `window.x`.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f

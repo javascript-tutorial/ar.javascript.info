@@ -364,7 +364,24 @@ alert( parseInt('2n9c', 36) ); // 123456
     alert( Math.pow(2, 10) ); // 2 in power 10 = 1024
     ```
 
+<<<<<<< HEAD
 يوجد المزيد من الدوال والثوابت في الكائن `Math`، بما فيها علم المُثَلَّثات، والتي يمكنك ايجادها في [توثيق الكائن Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math).
+=======
+There are more functions and constants in `Math` object, including trigonometry, which you can find in the [docs for the Math object](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math).
+
+## Summary
+
+To write numbers with many zeroes:
+
+- Append `"e"` with the zeroes count to the number. Like: `123e6` is the same as `123` with 6 zeroes `123000000`.
+- A negative number after `"e"` causes the number to be divided by 1 with given zeroes. E.g. `123e-6` means `0.000123` (`123` millionths).
+
+For different numeral systems:
+
+- Can write numbers directly in hex (`0x`), octal (`0o`) and binary (`0b`) systems.
+- `parseInt(str, base)` parses the string `str` into an integer in numeral system with given `base`, `2 ≤ base ≤ 36`.
+- `num.toString(base)` converts a number to a string in the numeral system with the given `base`.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f
 
 ## الملخص
 

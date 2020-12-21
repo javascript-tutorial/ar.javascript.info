@@ -67,7 +67,11 @@ n = 12.345;
 
 ## BigInt
 
+<<<<<<< HEAD
 في الجافا سكربت، النوع "رقم"  لا يمثل الأعداد الصحيحة أكبر من <code>(2<sup>53</sup>-1)</code> ( `9007199254740991`)، أو أقل من <code>-(-2<sup>53</sup>-1)</code> للأرقام السالبة. إنها قيود فنية ناتجة عن تمثيلهم الداخلي.
+=======
+In JavaScript, the "number" type cannot represent integer values larger than <code>(2<sup>53</sup>-1)</code> (that's `9007199254740991`), or less than <code>-(2<sup>53</sup>-1)</code> for negatives. It's a technical limitation caused by their internal representation.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f
 
 لمعظم الأغراض هذا يكفي، لكن في بعض الأحيان نحتاج لأرقام كبيرة حقاً ، على سبيل المثال. للتشفير أو الطوابع الزمنية الدقيقة للميكرو ثانية.
 
@@ -82,9 +86,17 @@ const bigInt = 1234567890123456789012345678901234567890n;
 
 بما أن أرقام من نوع `BigInt` نحتاجها نادراً ، لن يتم تغطيتها هنا ، لكن سيفرد لها فصل مخصص  <info:bigint>. اقرأه عندما تحتاج لمثل هذه الأرقام الكبيرة.
 
+<<<<<<< HEAD
 ```smart header="مشاكل توافقية"
 الأن `BigInt` متوافق مع الفايرفوكس والكروم ،لكن ليست متوافقة مع  سفاري/انترنت اكسبلورر/ايدج.
+=======
+
+```smart header="Compatibility issues"
+Right now, `BigInt` is supported in Firefox/Chrome/Edge/Safari, but not in IE.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f
 ```
+
+You can check [*MDN* BigInt compatibility table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt#Browser_compatibility) to know which versions of a browser are supported.
 
 ## String
 
@@ -128,7 +140,11 @@ alert( "the result is ${1 + 2}" ); // the result is ${1 + 2} (علامات ال�
 ```smart header="لا يوجد نوع *character* ."
 في بعض اللغات، يوجد نوع خاص "character" يعبر عن الحرف الواحد. For example,على سبيل المثال، في لغة سي وجافا يدعى "char".
 
+<<<<<<< HEAD
 في الجافا سكربت، لا يوجد مثل هذا النوع. يوجد نوع واحد فقط: `string`. النص قد يتكون من حرف واحد أو أكثر.
+=======
+In JavaScript, there is no such type. There's only one type: `string`. A string may consist of zero characters (be empty), one character or many of them.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f
 ```
 
 ## Boolean (logical type)
@@ -256,6 +272,7 @@ typeof alert // "function"  (3)
 
 يوجد 8 أنواع للبيانات في جافا سكربت.
 
+<<<<<<< HEAD
 - `number` للأرقام من أي نوع: صحيح أو عشري، الأعداد الصحيحة محدودة بy ±2<sup>53</sup>.
 - `bigint` هو عدد صحيح طوله كبير.
 - `string` للنصوص. النص قد يحتوي على حرف أو أكثر، لا يوجد نوع منفصل للحرف الواحد.
@@ -264,6 +281,16 @@ typeof alert // "function"  (3)
 - `undefined` للقيم غير المعينة -- نوع قائم بذاته له قيمة واحدة فقط `undefined`.
 - `object` من أجل هياكل بيانات معقدة.
 - `symbol` من أجل معرفات فريدة.
+=======
+- `number` for numbers of any kind: integer or floating-point, integers are limited by <code>±(2<sup>53</sup>-1)</code>.
+- `bigint` is for integer numbers of arbitrary length.
+- `string` for strings. A string may have zero or more characters, there's no separate single-character type.
+- `boolean` for `true`/`false`.
+- `null` for unknown values -- a standalone type that has a single value `null`.
+- `undefined` for unassigned values -- a standalone type that has a single value `undefined`.
+- `object` for more complex data structures.
+- `symbol` for unique identifiers.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f
 
 معامل `typeof` يسمح لنا بمعرفة نوع البيانات الموجودة بداخل المتغيرة.
 

@@ -93,7 +93,11 @@ getFunc()(); // *!*"test"*/!*, from the Lexical Environment of getFunc
 
 مثلاً اذاً كانت دالة تحتوي علي `let userName` الـ -- *minifier* -- يحولها إلى `let a` (أو أي شئ أخر إذا كان هذا الأسم غير متاح), ويقوم بهذا في كل مكان تم ذكر فيه هذا المتغير وهو شئ آمن لأن المتغير يعتبر محلي داخل الدالة ولا يستطيع أي شئ خارج الدالة الوصول إليه, وداخل الدالة يغير الـ -- *minifier* -- كل مرة ذكر فيها الأسم. *minifier* يعتبر ذكي لأنه يحلل تركيب الكود لكي لايعطل شئ وليس فقط القيام بالتبديل.
 
+<<<<<<< HEAD
 لذلك إن استطاعت الدالة الجديدة `new Function` الوصول إلى المتغيرات الخارجية, الـ*minifier* لن يستطيع إيجاد إسم  `userName` وتغيره.
+=======
+For instance, if a function has `let userName`, minifier replaces it with `let a` (or another letter if this one is occupied), and does it everywhere. That's usually a safe thing to do, because the variable is local, nothing outside the function can access it. And inside the function, minifier replaces every mention of it. Minifiers are smart, they analyze the code structure, so they don't break anything. They're not just a dumb find-and-replace.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f
 
 إذا استطاعت الدالة الجديدة `new Function` الوصول للمتغبرات الخارجية ستكون هذه مشكلة كبير قد تعطل البرنامج لهذا السبب هي زُودت بخاصية عدم الوصول إلى المتغيرات الخارجية الذي ذكرناه بالأعلي 
 

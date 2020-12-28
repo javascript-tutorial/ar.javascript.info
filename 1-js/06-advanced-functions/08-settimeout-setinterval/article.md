@@ -128,8 +128,15 @@ let timerId = setInterval(() => alert('tick'), 2000);
 setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
 ```
 
+<<<<<<< HEAD
 ```smart header="الوقت لا يتوقّف حين تظهر مُنبثقة ‎"
 تُواصل عقارب ساعة المؤقّت الداخلي (في أغلب المتصفّحات بما فيها كروم وفَيَرفُكس) بالمضيّ حتّى حين عرض ‎alert/confirm/prompt‎.
+=======
+```smart header="Time goes on while `alert` is shown"
+In most browsers, including Chrome and Firefox the internal timer continues "ticking" while showing `alert/confirm/prompt`.
+
+So if you run the code above and don't dismiss the `alert` window for some time, then the next `alert` will be shown immediately as you do it. The actual interval between alerts will be shorter than 2 seconds.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 ```
 
 ## Nested setTimeout
@@ -285,16 +292,28 @@ setTimeout(function run() {
 
 سبب وجود هذا الحدّ هو من العصور الحجرية (متعوّدة دايمًا) وتعتمد شيفرات كثيرة على هذا السلوك.
 
+<<<<<<< HEAD
 بينما مع نسخة الخواديم من جافاسكربت فهذا الحدّ ليس له وجود، وهناك أيضًا طُرق أخرى لبدء المهام التزامنية مباشرةً، مثل setImmediate للغة Node.js، هذا قلنا بأنّ هذا يخصّ المتصفّحات فقط.
+=======
+For server-side JavaScript, that limitation does not exist, and there exist other ways to schedule an immediate asynchronous job, like [setImmediate](https://nodejs.org/api/timers.html#timers_setimmediate_callback_args) for Node.js. So this note is browser-specific.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 ````
 
 ## ملخص
 
+<<<<<<< HEAD
 - يتيح لنا التابِعان ‎setTimeout(func, delay, ...args)‎ و‎setInterval(func, delay, ...args)‎ تشيل الدالة ‎func‎ مرّة أو كلّ فترة حسب كذا مليثانية (‎delay‎).
 - لإلغاء التنفيذ علينا استدعاء ‎clearTimeout/clearInterval‎ بالقيمة التي أعاداها ‎setTimeout/setInterval‎.
 يُعدّ استدعاء الدوال ‎setTimeout‎ تداخليًا خيارًا أفضل من ‎setInterval‎ إذ يُتيح لنا ضبط الوقت بين كلّ عملية استدعاء بدقّة.
 - الجدولة بضبط التأخير على الصفر باستعمال ‎setTimeout(func, 0)‎ (كما واستعمال ‎setTimeout(func)‎) يكون حين نريدها «بأقصى سرعة ممكنة، متى انتهى السكربت الحالي».
 - يَحدّ المتصفّح من أدنى تأخير بعد استدعاء ‎setTimeout‎ أو ‎setInterval‎ المتداخل الخامس (أو أكثر) - يَحدّه إلى 4 مليثوان، وهذا لأسباب تاريخية
+=======
+- Methods `setTimeout(func, delay, ...args)` and `setInterval(func, delay, ...args)` allow us to run the `func` once/regularly after `delay` milliseconds.
+- To cancel the execution, we should call `clearTimeout/clearInterval` with the value returned by `setTimeout/setInterval`.
+- Nested `setTimeout` calls are a more flexible alternative to `setInterval`, allowing us to set the time *between* executions more precisely.
+- Zero delay scheduling with `setTimeout(func, 0)` (the same as `setTimeout(func)`) is used to schedule the call "as soon as possible, but after the current script is complete".
+- The browser limits the minimal delay for five or more nested calls of `setTimeout` or for `setInterval` (after 5th call) to 4ms. That's for historical reasons.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 لاحظ بأنّ توابِع الجدولة لا تضمن التأخير كما هو حرفيًا.
 

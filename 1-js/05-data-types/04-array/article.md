@@ -187,8 +187,12 @@ alert( fruits );
 
 المصفوفه هي نوع خاص من الكائن. الأقواس المربعة تستخدم للتحكم في الخاصيه `arr[0]` في الواقع تأتي من بناء الكائن. هذا في الاساس نفس `obj[key]`, عندما تكون `arr` كائن, بينما الارقام تستخدم كمفاتيح.
 
+<<<<<<< HEAD
 إنها تمد الكائنات التي توفر وسائل خاصة للعمل مع مجموعات البيانات المطلوبة وكذلك خاصية `length '. ولكن في جوهرها لا يزال كائن.
 تذكر,لا يوجد سوى 7 أنواع أساسية في جافا سكريبت. المصفوفه عباره عن كائن لذالك هي تتصرف مثله.
+=======
+Remember, there are only eight basic data types in JavaScript (see the [Data types](info:types) chapter for more info). Array is an object and thus behaves like an object.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 على سبيل المثال, يتم نسخه حسب المرجع:
 
@@ -203,7 +207,11 @@ arr.push("الكمثري"); // تعديل المصفوفه حسب المرجع
 alert( fruits ); // الموز ، الكمثرى - 2 من العناصر الآن
 ```
 
+<<<<<<< HEAD
 ...ولكن ما يجعل المصفوفات مميزة حقًا هو بنيتها الداخليه. يحاول المحرك تخزين عناصره في منطقة الذاكرة المجاورة, واحد تلو الآخر, تمامًا كما هو موضح في الرسوم التوضيحية في هذا الفصل ، وهناك تحسينات أخرى أيضًا ، لجعل المصفوفات تعمل بسرعة كبيرة.
+=======
+...But what makes arrays really special is their internal representation. The engine tries to store its elements in the contiguous memory area, one after another, just as depicted on the illustrations in this chapter, and there are other optimizations as well, to make arrays work really fast.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 لكن جميعها تنكسر إذا توقفنا عن العمل مع مصفوفة كما هو الحال مع "مجموعة مرتبة" وبدأنا في العمل معها كما لو كانت كائنًا عاديًا.
 
@@ -421,7 +429,58 @@ alert( "1" + 1 ); // "11"
 alert( "1,2" + 1 ); // "1,21"
 ```
 
+<<<<<<< HEAD
 ## الملخص
+=======
+## Don't compare arrays with ==
+
+Arrays in JavaScript, unlike some other programming languages, shouldn't be compared with operator `==`.
+
+This operator has no special treatment for arrays, it works with them as with any objects.
+
+Let's recall the rules:
+
+- Two objects are equal `==` only if they're references to the same object.
+- If one of arguments of `==` is an object, and the other one is a primitive, then the object gets converted to primitive, as explained in the chapter <info:object-toprimitive>.
+- ...With an exception of `null` and `undefined` that equal `==` each other and nothing else.
+
+The strict comparison `===` is even simpler, as it doesn't convert types. 
+
+So, if we compare arrays with `==`, they are never the same, unless we compare two variables that reference exactly the same array.
+
+For example:
+```js run
+alert( [] == [] ); // false
+alert( [0] == [0] ); // false
+```
+
+These arrays are technically different objects. So they aren't equal. The `==` operator doesn't do item-by-item comparison.
+
+Comparison with primitives may give seemingly strange results as well:
+
+```js run
+alert( 0 == [] ); // true
+
+alert('0' == [] ); // false
+```
+
+Here, in both cases, we compare a primitive with an array object. So the array `[]` gets converted to primitive for the purpose of comparison and becomes an empty string `''`. 
+
+Then the comparison process goes on with the primitives, as described in the chapter <info:type-conversions>:
+
+```js run
+// after [] was converted to ''
+alert( 0 == '' ); // true, as '' becomes converted to number 0
+
+alert('0' == '' ); // false, no type conversion, different strings
+```
+
+So, how to compare arrays?
+
+That's simple: don't use the `==` operator. Instead, compare them item-by-item in a loop or using iteration methods explained in the next chapter.
+
+## Summary
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 المصفوفات هو نوع خاص من الكائنات ، مناسب لتخزين وإدارة عناصر البيانات المطلوبة.
 
@@ -452,4 +511,12 @@ alert( "1,2" + 1 ); // "1,21"
   - `for (let item of arr)` -- البنية الحديثة للعناصر فقط ،
   - `for (let i in arr)` -- لم يستعمل أبدا.
 
+<<<<<<< HEAD
 سنعود إلى المصفوفات ودراسة المزيد من الطرق لإضافة العناصر وإزالتها واستخراجها وفرز المصفوفات في الفصل <info:array-methods>.
+=======
+To compare arrays, don't use the `==` operator (as well as `>`, `<` and others), as they have no special treatment for arrays. They handle them as any objects, and it's not what we usually want.
+
+Instead you can use `for..of` loop to compare arrays item-by-item.
+
+We will continue with arrays and study more methods to add, remove, extract elements and sort arrays in the next chapter <info:array-methods>.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293

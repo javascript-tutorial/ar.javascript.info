@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # العامل الشرطي: if, '?'
+=======
+# Conditional branching: if, '?'
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 أحيانًا نريد تنفيذ أوامر مختلفة إعتمادًا على حالات مختلفة.
 
@@ -68,9 +72,13 @@ if (cond) {
 
 ## عبارة "else"
 
+<<<<<<< HEAD
 عبارة `if` قد تحتوي على جزء "else" إختياري. يتم تنفيذها عندما يكون الشرط false.
 
 على سبيل المثال:
+=======
+The `if` statement may contain an optional "else" block. It executes when the condition is falsy.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 ```js run
 let year = prompt("في أي عام تم نشر تخصيصات  ECMAScript-2015?", "");

@@ -51,7 +51,7 @@ setTimeout(() => document.body.style.background = '', 3000); // لإزالة ا�
 <div class="domtree"></div>
 
 <script>
-let node1 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n    "},{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"About elk"}]},{"name":"#text","nodeType":3,"content":"\n  "}]},{"name":"#text","nodeType":3,"content":"\n  "},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elk."}]}]}
+let node1 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  "},{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"About elk"}]},{"name":"#text","nodeType":3,"content":"\n"}]},{"name":"#text","nodeType":3,"content":"\n"},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elk.\n\n\n"}]}]}
 
 drawHtmlTree(node1, 'div.domtree', 690, 320);
 </script>
@@ -142,8 +142,13 @@ let node4 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,
 drawHtmlTree(node4, 'div.domtree', 690, 360);
 </script>
 
+<<<<<<< HEAD
 ````warn header="الجدأول دائما ما تحتوي على `<tbody>`"
 تُشكل الجدأول "حالة خاصة" مُثيرة للإهتمام. وفقا لمواصفات نموذج كائن المستند، ينبغي أن يكون لدى الجدأول علامة `<tbody>`، ولكنها قد تكون محذوفة من HTML (الرسمي). ويقوم المتصفح لاحقا بإنشاء `<tbody>` تلقائيا في نموذج كائن المستند.
+=======
+````warn header="Tables always have `<tbody>`"
+An interesting "special case" is tables. By DOM specification they must have `<tbody>` tag, but HTML text may omit it. Then the browser creates `<tbody>` in the DOM automatically.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 ملف HTML:
 
@@ -160,7 +165,11 @@ let node5 = {"name":"TABLE","nodeType":1,"children":[{"name":"TBODY","nodeType":
 drawHtmlTree(node5,  'div.domtree', 600, 200);
 </script>
 
+<<<<<<< HEAD
 أترى؟ لقد وُجدت علامة `<tbody>` من العدم. يجب أن تضع هذا في الاعتبار أثناء العمل مع الجدأول لتجنب المفاجآت.
+=======
+You see? The `<tbody>` appeared out of nowhere. We should keep this in mind while working with tables to avoid surprises.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 ````
 
 ## أنواع العقد الأخرى
@@ -188,7 +197,11 @@ drawHtmlTree(node5,  'div.domtree', 600, 200);
 <div class="domtree"></div>
 
 <script>
+<<<<<<< HEAD
 let node6 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  حقائق عن الظباء.\n    "},{"name":"OL","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n      "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"الظبي ذكي."}]},{"name":"#text","nodeType":3,"content":"\n      "},{"name":"#comment","nodeType":8,"content":"تعليق"},{"name":"#text","nodeType":3,"content":"\n      "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"...وحيوان ماكر!"}]},{"name":"#text","nodeType":3,"content":"\n    "}]},{"name":"#text","nodeType":3,"content":"\n  \n"}]}]};
+=======
+let node6 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elk.\n  "},{"name":"OL","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n    "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"An elk is a smart"}]},{"name":"#text","nodeType":3,"content":"\n    "},{"name":"#comment","nodeType":8,"content":"comment"},{"name":"#text","nodeType":3,"content":"\n    "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"...and cunning animal!"}]},{"name":"#text","nodeType":3,"content":"\n  "}]},{"name":"#text","nodeType":3,"content":"\n\n\n"}]}]};
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 drawHtmlTree(node6, 'div.domtree', 690, 500);
 </script>
@@ -199,7 +212,11 @@ drawHtmlTree(node6, 'div.domtree', 690, 500);
 
 **كل شيء في HTML، حتى التعليقات، تصبح جزءا من نموذج كائن المستند.**
 
+<<<<<<< HEAD
 حتى تعليمة `<!DOCTYPE...>` في بداية HTML هي أيضا عقدة من نموذج كائن المستند. فهي توجد في شجرة نموذج كائن المستند قبل `<html>` مباشرة. لن نتعامل مع تلك العقدة، حتى أنها لا تُرسم على الرسوم البيانية لهذا السبب، ولكنها موجودة.
+=======
+Even the `<!DOCTYPE...>` directive at the very beginning of HTML is also a DOM node. It's in the DOM tree right before `<html>`. Few people know about that. We are not going to touch that node, we even don't draw it on diagrams, but it's there.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 كائن `المستند`، والذي يُمثل المستند بأكمله، يُكون عقدة من نموذج كائن المستند أيضا.
 

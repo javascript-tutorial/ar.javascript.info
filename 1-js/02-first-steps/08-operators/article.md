@@ -107,8 +107,17 @@ alert(2 + 2 + '1' ); // "41" and not "221"
 
 هنا العوامل الحسابية تعمل بعد الأخرى.  عامل الإضافة الأول "+" يقوم بجمع الرقمين فيصبح ناتجهمها  "4" ثم يقوم عامل الإضافة الثاني "+" بدمج "4" و "1" في كلمة واحدة فتصبح الناتج النهائي مثل  `4 + '1' = 41`.
 
+<<<<<<< HEAD
 عامل الإضافة الثنائي "+" هو العامل الوحيد الذي يدعم الكلمات بهذه الطريقة 
 العوامل الحسابية الأخرى تعمل فقط مع الأرقام ودائما ما تحول المعاملات إلى أرقام 
+=======
+```js run
+alert('1' + 2 + 2); // "122" and not "14"
+```
+Here, the first operand is a string, the compiler treats the other two operands as strings too. The `2` gets concatenated to `'1'`, so it's like `'1' + 2 = "12"` and `"12" + 2 = "122"`.
+
+The binary `+` is the only operator that supports strings in such a way. Other arithmetic operators work only with numbers and always convert their operands to numbers.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 هنا شرح مبسط لعملية الطرح والقسمة: 
 
@@ -188,7 +197,11 @@ alert( +apples + +oranges ); // 5
 هناك العديد من العوامل في JavaScript. لكل عامل رقم أسبقية مطابق. يتم تنفيذ واحد مع العدد الأكبر أولاً. إذا كانت الأسبقية هي نفسها ، فسيكون أمر التنفيذ من اليسار إلى اليمين.
 
 
+<<<<<<< HEAD
 إليك مقتطف من [جدول الأسبقية] (https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence) (لست بحاجة إلى تذكر ذلك ، ولكن لاحظ أن عوامل التشغيل الأحادية أعلى من الخيارات الثنائية المقابلة) منها):
+=======
+Here's an extract from the [precedence table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) (you don't need to remember this, but note that unary operators are higher than corresponding binary ones):
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 | الأسبقية | الاسم | تسجيل |
 | ------------ | ------ | ------ |
@@ -437,7 +450,13 @@ counter++;
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
+<<<<<<< HEAD
 نادرًا ما يتم استخدام عوامل التشغيل هذه ، عندما نحتاج إلى التلاعب بالأرقام على أدنى مستوى (أحادي البتات). لن نحتاج إلى هؤلاء المشغلين في أي وقت قريب ، لأن تطوير الويب لا يستخدمهم كثيرًا ، ولكن في بعض المجالات الخاصة ، مثل التشفير ، فهي مفيدة. يمكنك قراءة مقالة [عوامل تشغيل Bitwise] (https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) مقالة حول MDN عند الحاجة. 
+=======
+These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Bitwise) chapter on MDN when a need arises.
+
+## Comma
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 ## الفاصلة 
 

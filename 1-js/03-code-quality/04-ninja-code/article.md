@@ -1,8 +1,13 @@
 # كود النينجا
 
 
+<<<<<<< HEAD
 ```quote author="كونفوشيوس"
 التعلم بدون تفكير هو فقدان العمل. الفكر بدون تعلم محفوف بالمخاطر.
+=======
+```quote author="Confucius (Analects)"
+Learning without thought is labor lost; thought without learning is perilous.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 ```
 
 استخدم النينجا المبرمج من الماضي هذه الحيل لشحذ عقل صانعي الكود.
@@ -104,8 +109,13 @@ i = i ? i < 0 ? Math.max(0, len + i) : i : 0;
 
 ## المرادفات الذكية
 
+<<<<<<< HEAD
 ```quote author="كونفوشيوس"
 أصعب شيء على الإطلاق هو العثور على قطة سوداء في غرفة مظلمة ، خاصة إذا لم يكن هناك قطة.
+=======
+```quote author="Laozi (Tao Te Ching)"
+The Tao that can be told is not the eternal Tao. The name that can be named is not the eternal name.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 ```
 
 استخدام *أسماء مشابهة* للأشياء *نفسها* يجعل الحياة أكثر إثارة ويظهر إبداعك للجمهور.

@@ -1,6 +1,10 @@
 # مقدّمة للجافاسكربت
 
+<<<<<<< HEAD
 دعونا نرى ما يميز الجافاسكريبت ، وما يمكننا تحقيقه بها ، وأي التقنيات الأخرى التي تعمل بشكل جيد معها.
+=======
+Let's see what's so special about JavaScript, what we can achieve with it, and what other technologies play well with it.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 ## ماهي الجافاسكربت؟
 
@@ -28,7 +32,13 @@
 - [سبايدر مونكي](https://ar.wikipedia.org/wiki/سبايدر_مونكي_(محرك_جافا_سكريبت)) -- في فايرفوكس.
 - ...هناك أسماء رمزية أخرى مثل  "تريدانت" و "تشاكرا" لاصدارات مختلفه من انترنت اكسبلورر، "تشاكرا كور" لمايكروسوفت إيدج،  "نيترو" و "سكيرلفيش" لسفاري، إلخ. 
 
+<<<<<<< HEAD
 من الجيد تذكر المصطلحات الواردة أعلاه لأنها مستخدمة في مقالات المطورين على الإنترنت. سنستخدمهم أيضًا. على سبيل المثال ، إذا كانت "الميزة إكس مدعومة بواسطة في8" ، فمن المحتمل أنها تعمل في كروم و أوبرا.
+=======
+- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome and Opera.
+- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
+- ...There are other codenames like "Chakra" for IE, "ChakraCore" for Microsoft Edge, "Nitro" and "SquirrelFish" for Safari, etc.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 ```smart header="كيف تعمل المحركات؟"
 
@@ -110,15 +120,30 @@
 
 أمثلة على هذه اللغات:
 
+<<<<<<< HEAD
 - [كوفي سكريبت](http://coffeescript.org/) هو "سكر نحوي" لجافا سكريبت. إنه يقدم بناء جمل أقصر ، مما يسمح لنا بكتابة كود أكثر وضوحًا ودقة. عادة ،مطورو الروبي يحبونها.
 - يركز [تايب سكريبت](http://www.typescriptlang.org/) على إضافة "كتابة بيانات صارمة" لتبسيط تطوير ودعم الأنظمة المعقدة. تم تطويره بواسطة ميكروسوفت.
 - يضيف [فلاو](http://flow.org/) أيضًا كتابة البيانات ، ولكن بطريقة مختلفة. تم تطويره بواسطة فايسبوك.
 - [دارت](https://www.dartlang.org/) هي لغة قائمة بذاتها لها محركها الخاص الذي يعمل في بيئات غير المتصفح (مثل تطبيقات الهاتف المحمول) ، ولكن يمكن أيضًا تحويلها إلى جافاسكريبت. من تطوير جوجل.
+=======
+- [CoffeeScript](http://coffeescript.org/) is a "syntactic sugar" for JavaScript. It introduces shorter syntax, allowing us to write clearer and more precise code. Usually, Ruby devs like it.
+- [TypeScript](http://www.typescriptlang.org/) is concentrated on adding "strict data typing" to simplify the development and support of complex systems. It is developed by Microsoft.
+- [Flow](http://flow.org/) also adds data typing, but in a different way. Developed by Facebook.
+- [Dart](https://www.dartlang.org/) is a standalone language that has its own engine that runs in non-browser environments (like mobile apps), but also can be transpiled to JavaScript. Developed by Google.
+- [Brython](https://brython.info/) is a Python transpiler to JavaScript that enables the writing of applications in pure Python without JavaScript.
+- [Kotlin](https://kotlinlang.org/docs/js-overview.html) is a modern, concise and safe programming language that can target the browser or Node.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 هناك أكثر. بالطبع ، حتى لو استخدمنا إحدى اللغات المترجمة ، يجب أن نعرف أيضًا جافاسكريبت لفهم ما نقوم به حقًا.
 
 ## ملخص
 
+<<<<<<< HEAD
 - تم إنشاء الجافاسكريبت في البداية كلغة للمتصفح فقط ، ولكنها تُستخدم الآن في العديد من البيئات الأخرى أيضًا.
 - تتمتع جافاسكريبت اليوم بمكانة فريدة باعتبارها لغة المتصفح الأكثر استخدامًا مع تكاملها التام مع HTML / CSS.
 - هناك العديد من اللغات التي يتم "تحويلها" إلى الجافاسكريبت وتوفر ميزات معينة. يوصى بإلقاء نظرة عليهم ، على الأقل لفترة وجيزة ، بعد إتقان الجافاسكريبت.
+=======
+- JavaScript was initially created as a browser-only language, but it is now used in many other environments as well.
+- Today, JavaScript has a unique position as the most widely-adopted browser language with full integration in HTML/CSS.
+- There are many languages that get "transpiled" to JavaScript and provide certain features. It is recommended to take a look at them, at least briefly, after mastering JavaScript.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5

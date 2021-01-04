@@ -20,7 +20,11 @@ alert( str.match(regexp) ); // 'HTML', 'CSS', 'JavaScript'
 
 لقد رأينا بالفعل شيئًا مشابهًا - الأقواس المربعة. تسمح بالاختيار بين عدة أحرف ، على سبيل المثال `pattern: gr [ae] y` يطابق` match: gre` أو `match: grey`.
 
+<<<<<<< HEAD
 تسمح الأقواس المربعة باستخدام الأحرف أو مجموعات الأحرف فقط. يسمح التناوب بأي تعبيرات. نمط regexp `: A | B | C` يعني أحد التعبيرات` A` أو `B` أو` C`.
+=======
+Square brackets allow only characters or character classes. Alternation allows any expressions. A regexp `pattern:A|B|C` means one of expressions `A`, `B` or `C`.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 على سبيل المثال:
 
@@ -33,7 +37,11 @@ alert( str.match(regexp) ); // 'HTML', 'CSS', 'JavaScript'
 
 ## مثال: regexp للوقت
 
+<<<<<<< HEAD
 في المقالات السابقة ، كانت هناك مهمة لبناء regexp لوقت البحث في شكل `hh: mm` ، على سبيل المثال` 12: 00`. لكن `` النمط البسيط: \ d \ d: \ d \ d` غامض للغاية. يقبل `25: 99` كوقت (حيث تتطابق 99 ثانية مع النمط ، لكن ذلك الوقت غير صالح).
+=======
+In previous articles there was a task to build a regexp for searching time in the form `hh:mm`, for instance `12:00`. But a simple `pattern:\d\d:\d\d` is too vague. It accepts `25:99` as the time (as 99 minutes match the pattern, but that time is invalid).
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 كيف يمكننا صنع نمط أفضل؟
 
@@ -47,7 +55,11 @@ alert( str.match(regexp) ); // 'HTML', 'CSS', 'JavaScript'
 
 بعد ذلك ، يجب أن تكون الدقائق من `00` إلى` 59`. في لغة التعبير العادي التي يمكن كتابتها كـ `pattern: [0-5] \ d`: الرقم الأول` 0-5` ، ثم أي رقم.
 
+<<<<<<< HEAD
 إذا صقنا الدقائق والثواني معًا ، نحصل على النمط: `pattern: [01] \ d | 2 [0-3]: [0-5] \ d`.
+=======
+If we glue hours and minutes together, we get the pattern: `pattern:[01]\d|2[0-3]:[0-5]\d`.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 لقد انتهينا تقريبًا ، ولكن هناك مشكلة. يحدث "النمط البديل": | `الآن بين` النمط: [01] \ d` و "النمط: 2 [0-3]: [0-5] \ d`.
 

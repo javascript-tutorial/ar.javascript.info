@@ -227,17 +227,40 @@ Math.PI = 3; // خطأ
 3. منع تغيير راية قابلية التعديل `writable: false` الي `true` (و لكن العكس ممكن).
 4. منع تغيير ضابط وجالب واصف الوصول `get/set` (ولكن يمكن إسناد قيم إليه).
 
+<<<<<<< HEAD
 هنا سوف نحدد الخاصية `user.name` ثابتة للأبد:
+=======
+**The idea of "configurable: false" is to prevent changes of property flags and its deletion, while allowing to change its value.**
+
+Here `user.name` is non-configurable, but we can still change it (as it's writable):
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 ```js run
-let user = { };
+let user = {
+  name: "John"
+};
 
 Object.defineProperty(user, "name", {
-  value: "John",
+  configurable: false
+});
+
+user.name = "Pete"; // works fine
+delete user.name; // Error
+```
+
+And here we make `user.name` a "forever sealed" constant:
+
+```js run
+let user = {
+  name: "John"
+};
+
+Object.defineProperty(user, "name", {
   writable: false,
   configurable: false
 });
 
+<<<<<<< HEAD
 *!*
 // لن يمكن تغيير user.name او الرايات الخاصه بها
 // كل ذلك لن يعمل:
@@ -253,6 +276,15 @@ Object.defineProperty(user, "name", {writable: true}); // خطأ
 
 الفكره وراء `configurable: false` لمنع تغيير رايات الخاصية او حذفها, ليس لتغيير قيمتها.
 ```
+=======
+// won't be able to change user.name or its flags
+// all this won't work:
+user.name = "Pete";
+delete user.name;
+Object.defineProperty(user, "name", { value: "Pete" });
+```
+
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 ## Object.defineProperties
 

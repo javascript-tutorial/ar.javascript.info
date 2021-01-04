@@ -6,7 +6,11 @@
 let ourPlanetName = "Earth";
 ```
 
+<<<<<<< HEAD
 ملاحظة, نحن نستطيع كتابة أسم قصير مثل `planet`, ولكن قد لا يكون واضحًا ما يشير إليه الكوكب. من الجيد أن تكون أكثر تطولًا. علي الاقل يكون اسم المتغير ليس طويل للغاية.
+=======
+Note, we could use a shorter name `planet`, but it might not be obvious what planet it refers to. It's nice to be more verbose. At least until the variable isNotTooLong.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 ## أسم الزائر الحالي
 

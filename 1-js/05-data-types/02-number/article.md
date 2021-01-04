@@ -341,7 +341,11 @@ alert( parseInt('2n9c', 36) ); // 123456
 تحتوي JavaScript على الكائن المُدمَج [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) الذي يحتوي على مكتبة صغيرة بالدوال والثوابت الرياضية. إليك بعض الأمثلة:
 
 `Math.random()`
+<<<<<<< HEAD
 : تُرجِع عددًا عشوائيًا من 0 إلى 1 (لا تتضمن 1)
+=======
+: Returns a random number from 0 to 1 (not including 1).
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
     ```js run
     alert( Math.random() ); // 0.1234567894322
@@ -358,13 +362,34 @@ alert( parseInt('2n9c', 36) ); // 123456
     ```
 
 `Math.pow(n, power)`
+<<<<<<< HEAD
 :  تُرجع العدد `n` مرفوعًا إلى الأُس المُعطى:
+=======
+: Returns `n` raised to the given power.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
     ```js run
     alert( Math.pow(2, 10) ); // 2 in power 10 = 1024
     ```
 
+<<<<<<< HEAD
 يوجد المزيد من الدوال والثوابت في الكائن `Math`، بما فيها علم المُثَلَّثات، والتي يمكنك ايجادها في [توثيق الكائن Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math).
+=======
+There are more functions and constants in `Math` object, including trigonometry, which you can find in the [docs for the Math object](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math).
+
+## Summary
+
+To write numbers with many zeroes:
+
+- Append `"e"` with the zeroes count to the number. Like: `123e6` is the same as `123` with 6 zeroes `123000000`.
+- A negative number after `"e"` causes the number to be divided by 1 with given zeroes. E.g. `123e-6` means `0.000123` (`123` millionths).
+
+For different numeral systems:
+
+- Can write numbers directly in hex (`0x`), octal (`0o`) and binary (`0b`) systems.
+- `parseInt(str, base)` parses the string `str` into an integer in numeral system with given `base`, `2 ≤ base ≤ 36`.
+- `num.toString(base)` converts a number to a string in the numeral system with the given `base`.
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 
 ## الملخص
 

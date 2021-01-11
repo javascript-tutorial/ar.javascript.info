@@ -93,7 +93,11 @@ hi(); // خطأ, لأن this غير معرفة
 
 اى عملية اخري مثل `hi = user.hi` تتجاهل النوع المرجعي بالكامل, تأخذ القيمة من `user.hi` (التابع) و تقوم بتمريره. اذا اى من العمليات المستقبلية "تفقد" `this`.
 
+<<<<<<< HEAD
 لذا, قيمة `this` يتم تمريرها بالطريقة الصحيحة فقط إذا تم استدعاء التابع مباشرةً باستخدام نقطة `obj.method()` أو الاقواس المربعة `obj['method']()` (يقومون بنفس الوظيفه هنا). لاحقًا في هذا البرنامج التعليمي ، سنتعلم طرقًا مختلفة لحل هذه المشكلة مثل [func.bind()](/bind#solution-2-bind).
+=======
+So, as the result, the value of `this` is only passed the right way if the function is called directly using a dot `obj.method()` or square brackets `obj['method']()` syntax (they do the same here). There are various ways to solve this problem such as [func.bind()](/bind#solution-2-bind).
+>>>>>>> 468e3552884851fcef331fbdfd58096652964b5f
 
 ## الملخص
 
@@ -105,6 +109,7 @@ hi(); // خطأ, لأن this غير معرفة
 
 بالنسبة لجميع العمليات الأخرى ، يصبح النوع المرجعي تلقائيًا قيمة الخاصية (تابع في حالتنا).
 
+<<<<<<< HEAD
 جميع آليات العمل مختفيه. لا يهم إلا في الحالات الدقيقة, مثل عندما يتم الحصول على طريقة ديناميكيًا من الكائن ، باستخدام تعبير.
 
 
@@ -112,3 +117,6 @@ hi(); // خطأ, لأن this غير معرفة
 
 
  نتيجة النقطة `.` ليست في الواقع طريقة ، ولكنها قيمة `` يحتاج إلى طريقة لتمرير المعلومات حول `obj`
+=======
+The whole mechanics is hidden from our eyes. It only matters in subtle cases, such as when a method is obtained dynamically from the object, using an expression.
+>>>>>>> 468e3552884851fcef331fbdfd58096652964b5f

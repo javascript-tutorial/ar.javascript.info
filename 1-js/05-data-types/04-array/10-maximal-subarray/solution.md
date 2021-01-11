@@ -57,8 +57,12 @@ alert( getMaxSubSum([1, 2, 3]) ); // 6
 alert( getMaxSubSum([100, -9, 2, -3, 5]) ); // 100
 ```
 
+<<<<<<< HEAD
 الحل له تعقيد زمني [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation). بمعنى آخر ، إذا قمنا بزيادة حجم المصفوفه مرتين ، فستعمل الخوارزمية لفترة أطول 4 مرات.
 بالنسبة للمصفوفات الكبيرة (1000 أو 10000 أو أكثر من العناصر) ، يمكن أن تؤدي هذه الخوارزميات إلى بطء خطير.
+=======
+The solution has a time complexity of [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation). In other words, if we increase the array size 2 times, the algorithm will work 4 times longer.
+>>>>>>> 468e3552884851fcef331fbdfd58096652964b5f
 
 # الحل الأسرع
 

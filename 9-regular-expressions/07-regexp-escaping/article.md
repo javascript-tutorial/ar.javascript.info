@@ -100,6 +100,12 @@ alert( "الفصل 5.1".match(regexp) ); // 5.1
 
 ## الملخص
 
+<<<<<<< HEAD
 -  للبحث عن الرموز الخاصة `pattern:[ \ ^ $ . | ? * + ( )` حرفيا, نحن بحاجة الى إرفاقهم  بشرطة مائلة للخلف `\` "(تخطيهم)"
 - نحن بحاجة أيضا الى تخطى `/` إذا كانت داخل `pattern:/.../` (ولكن ليست بداخل `new RegExp`)
 - عندما نمرر نصا الى `new RegExp`, نحن بحاجة الى مضاعفة الشرط المائلة للخلف `\\`, لأن النصوص المقتبسة تستهلك واحدة منهم.
+=======
+- To search for special characters `pattern:[ \ ^ $ . | ? * + ( )` literally, we need to prepend them with a backslash `\` ("escape them").
+- We also need to escape `/` if we're inside `pattern:/.../` (but not inside `new RegExp`).
+- When passing a string to `new RegExp`, we need to double backslashes `\\`, cause string quotes consume one of them.
+>>>>>>> 3a0b3f4e31d4c4bbe90ed4c9c6e676a888ad8311

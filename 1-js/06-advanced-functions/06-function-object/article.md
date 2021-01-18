@@ -362,7 +362,11 @@ welcome(); // Hello, Guest (nested call works)
 
 أيضاً, الدالة يمكن أن تحمل خواص أخري. الكثير من المكتبات المعروفة للجافاسكريبت تجعل إستخدام كبير من هذه الخاصية.
 
+<<<<<<< HEAD
 هم يصنعوا دالة أساسية ويلحق بها دوال أخرى مساعدة لها. مثلاً مكتبة الـ [jQuery](https://jquery.com) تصنع دالة تُسمي `$`. مكتبة [lodash](https://lodash.com) تصنع دالة `_`, ثم تضيف `_.clone` و `_.keyBy` و خواص أخرى لها. يمكنك أن تعرف أكثر عن هذه المكتبة من هنا [docs](https://lodash.com/docs). هم يفعلون ذلك في الواقع لتقليل تلوث الفراغ الشامل, لذلك المكتبة الواحدة تعطي فقط متغير عالمي. ذلك يقلل إحتمالية تداخل الأسماء.
+=======
+They create a "main" function and attach many other "helper" functions to it. For instance, the [jQuery](https://jquery.com) library creates a function named `$`. The [lodash](https://lodash.com) library creates a function `_`, and then adds `_.clone`, `_.keyBy` and other properties to it (see the [docs](https://lodash.com/docs) when you want to learn more about them). Actually, they do it to lessen their pollution of the global space, so that a single library gives only one global variable. That reduces the possibility of naming conflicts.
+>>>>>>> 3a0b3f4e31d4c4bbe90ed4c9c6e676a888ad8311
 
 لذلك الدالة يمكنها القيام بواجب رائع من نفسها ويمكن أن تحمل الكثير من الخواص الأخري في داخلها.
 

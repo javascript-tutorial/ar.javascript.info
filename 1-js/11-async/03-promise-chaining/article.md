@@ -209,8 +209,17 @@ fetch('/article/promise-chaining/user.json')
 الآن لنصنع شيئًا بهذا المستخدم الذي حمّلناه.
 يمكننا مثلًا إجراء طلبات أكثر من غِت‎هَب وتحميل ملف المستخدم الشخصي وعرض صورته:
 
+<<<<<<< HEAD
 ```
 // ‫أنشئ طلب لـِuser.json
+=======
+Now let's do something with the loaded user.
+
+For instance, we can make one more request to GitHub, load the user profile and show the avatar:
+
+```js run
+// Make a request for user.json
+>>>>>>> 3a0b3f4e31d4c4bbe90ed4c9c6e676a888ad8311
 fetch('/article/promise-chaining/user.json')
 // ‫حمله وكأنه ملف json
 .then(response => response.json())

@@ -9,7 +9,11 @@
 
 ## الوسم "script"
 
+<<<<<<< HEAD
 يمكن وضع برامج الجافاسكريبت في أي جزء في مستند HTML باستخدام وسم `<script>`.
+=======
+JavaScript programs can be inserted almost anywhere into an HTML document using the `<script>` tag.
+>>>>>>> 3a0b3f4e31d4c4bbe90ed4c9c6e676a888ad8311
 
 على سبيل المثال:
 

@@ -147,7 +147,7 @@ function curried(...args) {
   if (args.length >= func.length) { // (1)
     return func.apply(this, args);
   } else {
-    return function pass(...args2) { // (2)
+    return function(...args2) { // (2)
       return curried.apply(this, args.concat(args2));
     }
   }
@@ -156,6 +156,7 @@ function curried(...args) {
 
 عند تشغيله، هناك فرعين للتنفيذ من الجملة الشرطية `if`:
 
+<<<<<<< HEAD
 1. سيكون الاستدعاء الآن هكذا: إن كان عدد الوسطاء `args` المُمرّرة هو نفس العدد الدالة الأصليّة المعرّفة لدينا (`func.length`) أو أكثر، عندها نمرّر الاستدعاء له فقط.
 2. وإلا سيكون الاستدعاء جزئيًا: لم تُستدعى الدالّة `func` بعد. وإنما أعيد بدلًا منها دالّة المغلِّفة أخرى `pass`، والتي ستُعيد تطبيق الدالة `curried` مع تقديم الوسطاء السابقين مع الوسطاء الجدد. وثمّ في استدعاء الجديد سنحصل إما على دالة جزئية جديدة (إن لم يكُ عدد الوسطاء كافيا) أو النتيجة النهائية.
 
@@ -169,6 +170,12 @@ function curried(...args) {
 إذا لم تتوضح الفكرة حتى الآن، فما عليك إلا تتبع تسلسل الاستدعاءات في عقلك أو على الورقة وستتوضح الأمور أكثر.
 
 **ملاحظة**: تعمل مع الدوالّ ثابتة الطول فقط
+=======
+1. If passed `args` count is the same or more than the original function has in its definition (`func.length`) , then just pass the call to it using `func.apply`. 
+2. Otherwise, get a partial: we don't call `func` just yet. Instead, another wrapper is returned, that will re-apply `curried` providing previous arguments together with the new ones. 
+
+Then, if we call it, again, we'll get either a new partial (if not enough arguments) or, finally, the result.
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 يجب أن يكون للدالّة عدد ثابت من الوسطاء لتطبيق تقنية currying.
 

@@ -23,7 +23,11 @@ alert("code finished"); // this alert shows first
 
 ## طابور المهام الصغيرة
 
+<<<<<<< HEAD
 المهام عير المتزامنة بحاجة إلى إدارة سليمة. لذلك ، يحدد معيار ECMA قائمة انتظار داخلية `PromiseJobs` ، والتي يشار إليها غالبًا باسم" قائمة انتظار المهام المصغرة "(مصطلح ES8).
+=======
+Asynchronous tasks need proper management. For that, the ECMA standard specifies an internal queue `PromiseJobs`, more often referred to as the "microtask queue" (V8 term).
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 كما هو مذكور في [المواصفات] (https://tc39.github.io/ecma262/#sec-jobs-and-job-queues):
 
@@ -102,7 +106,11 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 
 ## ملخص
 
+<<<<<<< HEAD
 معالجة الوعد دائمًا غير متزامنة ، حيث تمر جميع إجراءات الوعد من خلال قائمة انتظار "وظائف الوعد" الداخلية ، والتي تسمى أيضًا "قائمة انتظار المهام المصغرة" (مصطلح ES8).
+=======
+Promise handling is always asynchronous, as all promise actions pass through the internal "promise jobs" queue, also called "microtask queue" (V8 term).
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 لذلك يتم دائمًا استدعاء معالجات `.then / catch / أخيرا` بعد انتهاء الكود الحالي.
 

@@ -105,7 +105,16 @@ alert( 2 + '1' ); // "21"
 alert(2 + 2 + '1' ); // "41" and not "221"
 ```
 
+<<<<<<< HEAD
 هنا العوامل الحسابية تعمل بعد الأخرى.  عامل الإضافة الأول "+" يقوم بجمع الرقمين فيصبح ناتجهمها  "4" ثم يقوم عامل الإضافة الثاني "+" بدمج "4" و "1" في كلمة واحدة فتصبح الناتج النهائي مثل  `4 + '1' = 41`.
+=======
+Here, operators work one after another. The first `+` sums two numbers, so it returns `4`, then the next `+` adds the string `1` to it, so it's like `4 + '1' = '41'`.
+
+```js run
+alert('1' + 2 + 2); // "122" and not "14"
+```
+Here, the first operand is a string, the compiler treats the other two operands as strings too. The `2` gets concatenated to `'1'`, so it's like `'1' + 2 = "12"` and `"12" + 2 = "122"`.
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 عامل الإضافة الثنائي "+" هو العامل الوحيد الذي يدعم الكلمات بهذه الطريقة 
 العوامل الحسابية الأخرى تعمل فقط مع الأرقام ودائما ما تحول المعاملات إلى أرقام 
@@ -188,7 +197,11 @@ alert( +apples + +oranges ); // 5
 هناك العديد من العوامل في JavaScript. لكل عامل رقم أسبقية مطابق. يتم تنفيذ واحد مع العدد الأكبر أولاً. إذا كانت الأسبقية هي نفسها ، فسيكون أمر التنفيذ من اليسار إلى اليمين.
 
 
+<<<<<<< HEAD
 إليك مقتطف من [جدول الأسبقية] (https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence) (لست بحاجة إلى تذكر ذلك ، ولكن لاحظ أن عوامل التشغيل الأحادية أعلى من الخيارات الثنائية المقابلة) منها):
+=======
+Here's an extract from the [precedence table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) (you don't need to remember this, but note that unary operators are higher than corresponding binary ones):
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 | الأسبقية | الاسم | تسجيل |
 | ------------ | ------ | ------ |
@@ -224,7 +237,11 @@ alert( x ); // 5
 
 ترجع معظم عوامل التشغيل في JavaScript قيمة. هذا واضح لـ `+` و` -` ، ولكنه ينطبق أيضًا على `=`.
 
+<<<<<<< HEAD
 تؤدي المكالمة `x = value` إلى كتابة` value` في `x` * ثم إرجاعها *.
+=======
+All operators in JavaScript return a value. That's obvious for `+` and `-`, but also true for `=`.
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 في ما يلي عرض توضيحي يستخدم مهمة كجزء من تعبير أكثر تعقيدًا:
 
@@ -437,7 +454,13 @@ counter++;
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
+<<<<<<< HEAD
 نادرًا ما يتم استخدام عوامل التشغيل هذه ، عندما نحتاج إلى التلاعب بالأرقام على أدنى مستوى (أحادي البتات). لن نحتاج إلى هؤلاء المشغلين في أي وقت قريب ، لأن تطوير الويب لا يستخدمهم كثيرًا ، ولكن في بعض المجالات الخاصة ، مثل التشفير ، فهي مفيدة. يمكنك قراءة مقالة [عوامل تشغيل Bitwise] (https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) مقالة حول MDN عند الحاجة. 
+=======
+These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Bitwise) chapter on MDN when a need arises.
+
+## Comma
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 ## الفاصلة 
 

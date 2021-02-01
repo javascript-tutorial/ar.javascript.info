@@ -145,7 +145,12 @@ function hello(name) {
 
     هذا أمر جيد إذا لم نرغب في معرفة ما يحدث داخل استدعاء الدالة.
 
+<<<<<<< HEAD
 <span class="devtools" style="background-position:-4px -194px"></span> -- "خطوة للداخل", زره السريع `key:F11`.
+=======
+<span class="devtools" style="background-position:-62px -192px"></span> -- "Step over": run the next command, but *don't go into a function*, hotkey `key:F10`.
+: Similar to the previous "Step" command, but behaves differently if the next statement is a function call. That is: not a built-in, like `alert`, but a function of our own.
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 :  مشابه لـ "خطوة" ، ولكنه يتصرف بشكل مختلف في حالة نداءات دوال غير متزامنة. إذا كنت تبدأ فقط في تعلم JavaScript ، فيمكنك تجاهل الاختلاف ، حيث لا تتوفر لدينا نداءات غير متزامنة حتى الآن.
 

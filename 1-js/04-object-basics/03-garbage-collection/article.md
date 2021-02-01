@@ -19,12 +19,23 @@
     - المتغيرات العامة
     - (هنالك المزيد, بعضهم داخلي)
 
+<<<<<<< HEAD
     هذه القيم تسمي ب *الجذور (roots)*.
+=======
+    - The currently executing function, its local variables and parameters.
+    - Other functions on the current chain of nested calls, their local variables and parameters.
+    - Global variables.
+    - (there are some other, internal ones as well)
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 2. أي قيمة اخري يمكن اعتبارها قابلة للوصول اليها اذا ما كان يمكن الوصول اليها بالفعل  من جذر عن طريق مرجع(reference) او مجموعة من المراجع. 
 
     علي سبيل المثال, اذا كان هناك كائن مخزن في متغير محلي, و الكائن به خاصية مرجه لكائن اخر, يمكن اعتبار هذا الكائن انه يمكن الوصول اليه, و يمكن الوصول ايضا الي كل مراجع هذا الكائن, كما يتم شرحه في المثال التالي.
 
+<<<<<<< HEAD
+=======
+    For instance, if there's an object in a global variable, and that object has a property referencing another object, *that* object is considered reachable. And those that it references are also reachable. Detailed examples to follow.
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 تحدث عملية خلفية في محرك ال JavaScript يسمي ب جامع القمامة [garbage collector](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)) يتم خلالها مراقبة كل الكائنات و ازالة الكائنات التي لا يمكن الوصول اليها.
 

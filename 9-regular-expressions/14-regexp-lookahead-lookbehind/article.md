@@ -1,6 +1,10 @@
 # Lookahead و lookbehind
 
+<<<<<<< HEAD
 في بعض الأحيان نحتاج إلى العثور فقط على تلك المطابقات لنمط يتبعه أو يسبقه نمط آخر.
+=======
+Sometimes we need to find only those matches for a pattern that are followed or preceded by another pattern.
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 هناك صيغة خاصة لذلك ، تسمى "lookahead" و "lookbehind" ، يشار إليها معًا باسم "lookaround".
 
@@ -58,7 +62,7 @@ alert( str.match(/\d+(?=\s)(?=.*30)/) ); // 1
 ```js run
 let str = "2 turkeys cost 60€";
 
-alert( str.match(/\d+(?!€)/) ); // 2 (the price is skipped)
+alert( str.match(/\d+\b(?!€)/g) ); // 2 (the price is not matched)
 ```
 
 ## Lookbehind
@@ -85,7 +89,7 @@ alert( str.match(/(?<=\$)\d+/) ); // 30 (skipped the sole number)
 ```js run
 let str = "2 turkeys cost $60";
 
-alert( str.match(/(?<!\$)\d+/) ); // 2 (skipped the price)
+alert( str.match(/(?<!\$)\b\d+/g) ); // 2 (the price is not matched)
 ```
 
 ## التقاط المجموعات

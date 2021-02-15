@@ -69,7 +69,11 @@ let sayMixin = {
 };
 
 let sayHiMixin = {
+<<<<<<< HEAD
   __proto__: sayMixin, // (او يمكننا إستخدام Object.create لكى نضع prototype هنا)
+=======
+  __proto__: sayMixin, // (or we could use Object.setPrototypeOf to set the prototype here)
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
   sayHi() {
     *!*
@@ -154,8 +158,13 @@ let eventMixin = {
    *  this.trigger('select', data1, data2);
    */
   trigger(eventName, ...args) {
+<<<<<<< HEAD
     if (!this._eventHandlers || !this._eventHandlers[eventName]) {
       return; // لا يوجد handlers لإسم الحدث هذا
+=======
+    if (!this._eventHandlers?.[eventName]) {
+      return; // no handlers for that event name
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
     }
 
     // طلب الـ handlers

@@ -1,6 +1,10 @@
 # العوامل المنطقية
 
+<<<<<<< HEAD
 يوجد ثلاثة عوامل منطقية في الجافاسكربت: `||` (OR), `&&` (AND), `!` (NOT).
+=======
+There are four logical operators in JavaScript: `||` (OR), `&&` (AND), `!` (NOT), `??` (Nullish Coalescing). Here we cover the first three, the `??` operator is in the next article.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 بالرغم من أن اسمهم عوامل منطقية إلا أنه يمكنك تطبيقهم على أي نوع من البيانات وليس فقط البيانات المنطقية. كما أنه يمكنهم إنتاج أي قيمة.
 
@@ -85,7 +89,11 @@ result = value1 || value2 || value3;
 
 يتم إرجاع القيمة بصيغتها الأصلية دون تحويل.
 
+<<<<<<< HEAD
 بصيغة أخرى فإن مجموعة OR `"||"` ترجع أول قيمة truthy value أو آخر قيمة إذا لم تجد أي قيمة truthy.
+=======
+In other words, a chain of OR `||` returns the first truthy value or the last one if no truthy value is found.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 مثلًا:
 
@@ -102,9 +110,15 @@ alert(undefined || null || 0); // 0 (الكل falsy, ترجع آخر قيمة)
 
 1. **الحصول على أول قيمة truthy من مبين مجموعة متغيرات أو تعبيرات.**
 
+<<<<<<< HEAD
     مثلًا لدينا `firstName`, `lastName` و `nickName` متغيرات كلها اختيارية.
 
     هيا نستخدم OR `||` لاختيار الذي لديه قيمة ونعرضه (أو نعرض `anonymous` إذا لم يحدد أي أحد):
+=======
+    For instance, we have `firstName`, `lastName` and `nickName` variables, all optional (i.e. can be undefined or have falsy values).
+
+    Let's use OR `||` to choose the one that has the data and show it (or `"Anonymous"` if nothing set):
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
     ```js run
     let firstName = "";
@@ -116,7 +130,11 @@ alert(undefined || null || 0); // 0 (الكل falsy, ترجع آخر قيمة)
     */!*
     ```
 
+<<<<<<< HEAD
     إذا كانت كل المتغيرات falsy, `Anonymous` سيتم عرض.
+=======
+    If all variables were falsy, `"Anonymous"` would show up.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 2. **Short-circuit evaluation.**
 
@@ -225,8 +243,13 @@ alert(1 && 2 && 3); // 3, آخر قيمة
 
 `````
 
+<<<<<<< HEAD
 ````warn header="لا تستبدل `if` ب || أو &&"
 بعض الناس يستخدمون AND `&&` كإختصار ل `if`.
+=======
+````warn header="Don't replace `if` with `||` or `&&`"
+Sometimes, people use the AND `&&` operator as a "shorter way to write `if`".
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 مثلًا:
 
@@ -246,8 +269,14 @@ let x = 1;
 if (x > 0) alert( 'Greater than zero!' );
 ```
 
+<<<<<<< HEAD
 بالرغم من أن `&&` يبدو مختصرًا إلا أن `if` أفذل ومقروءة أكثر. لذلك ننصح باستخدام كل تعبير في مكانه: نستخدم `if` إذا أردنا if ونستخدم `&&` إذا أردنا AND.
 `````
+=======
+Although, the variant with `&&` appears shorter, `if` is more obvious and tends to be a little bit more readable. So we recommend using every construct for its purpose: use `if` if we want `if` and use `&&` if we want AND.
+````
+
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ## ! (NOT)
 

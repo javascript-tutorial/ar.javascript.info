@@ -1,7 +1,11 @@
 
 regexp لرقم صحيح هو `pattern: \ d +`.
 
+<<<<<<< HEAD
 يمكننا استبعاد السلبيات عن طريق إلحاقها بالمظهر السلبي: `pattern: (؟ <! -) \ d +`.
+=======
+We can exclude negatives by prepending it with the negative lookbehind: `pattern:(?<!-)\d+`.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 على الرغم من أننا إذا جربناها الآن ، فقد نلاحظ نتيجة "إضافية" أخرى:
 

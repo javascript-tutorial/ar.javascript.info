@@ -1,1 +1,1 @@
-# Advanced working with functions
+# العمل مع التوابع بشكل متقدم

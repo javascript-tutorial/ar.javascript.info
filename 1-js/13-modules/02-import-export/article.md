@@ -317,7 +317,11 @@ export {default as User} from './user.js'; // نُعيد تصدير المبدئ
 
 ولكن فيمَ نستعمل هذا أصلًا؟ لنرى مثالًا عمليًا.
 
+<<<<<<< HEAD
 لنقل بأننا نكتب ”حزمة“، أي مجلدًا فيه وحدات كثيرة وأردنا تصدير بعض ميزاتها إلى الخارج (تتيح لنا الأدوات مثل NPM نشر هذه الحزم وتوزيعها)، ونعلم أيضًا أن الكثير من وحداتها ما هي إلّا وحدات مُساعِدة 
+=======
+Imagine, we're writing a "package": a folder with a lot of modules, with some of the functionality exported outside (tools like NPM allow us to publish and distribute such packages, but we don't have to use them), and many modules are just "helpers", for internal use in other package modules.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 يمكن أن تكون بنية الملفات هكذا:
 ```
@@ -333,13 +337,27 @@ auth/
         ...
 ```
 
+<<<<<<< HEAD
 ونريد عرض مزايا الحزمة باستعمال نقطة واحدة (أي الملف الأساسي `auth/index.js`) لتُستعمل هكذا:
+=======
+We'd like to expose the package functionality via a single entry point.
+
+In other words, a person who would like to use our package, should import only from the "main file" `auth/index.js`.
+
+Like this:
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ```
 import {login, logout} from 'auth/index.js'
 ```
 
+<<<<<<< HEAD
 الفكرة هي عدم السماح للغرباء (أي المطوّرين مستعملي الحزمة) بالتعديل على البنية الداخلية والبحث عن الملفات داخل مجلد الحزمة. نريد تصدير المطلوب فقط في `auth/index.js` وإخفاء الباقي عن أعين المتطفّلين.
+=======
+The "main file", `auth/index.js` exports all the functionality that we'd like to provide in our package.
+
+The idea is that outsiders, other programmers who use our package, should not meddle with its internal structure, search for files inside our package folder. We export only what's necessary in `auth/index.js` and keep the rest hidden from prying eyes.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 نظرًا لكون الوظيفة الفعلية المصدّرة مبعثرة بين الحزمة، يمكننا استيرادها إلى `auth/index.js` وتصديرها من هنالك أيضًا:
 
@@ -362,19 +380,36 @@ export {User};
 
 ```
 // 📁 auth/index.js
+<<<<<<< HEAD
 // ‫اِستورد login/logout وصدِرهن مباشرةً
 export {login, logout} from './helpers.js';
 
 // ‫استورد الملف المبدئي كـ User وصدره من جديد
+=======
+// re-export login/logout 
+export {login, logout} from './helpers.js';
+
+// re-export the default export as User
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 export {default as User} from './user.js';
 ...
 ```
 
+<<<<<<< HEAD
 ### إعادة تصدير التصديرات المبدئية
+=======
+The notable difference of `export ... from` compared to `import/export` is that re-exported modules aren't available in the current file. So inside the above example of `auth/index.js` we can't use re-exported `login/logout` functions. 
+
+### Re-exporting the default export
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 يحتاج التصدير المبدئي لمعالجة منفصلة عند إعادة التصدير.
 
+<<<<<<< HEAD
 لنفترض أن لدينا `user.js`، ونود إعادة تصدير الصنف ` User` منه:
+=======
+Let's say we have `user.js` with the `export default class User` and would like to re-export it:
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ```
 // 📁 user.js
@@ -384,7 +419,13 @@ export default class User {
 ```
 1. لن تعمل التعليمة `export User from './user.js'‎`. ما الخطأ الذي حدث؟ ولكن هذا الخطأ في صياغة!
 
+<<<<<<< HEAD
     لإعادة تصدير الملفات المصدرة إفتراضيًا ، علينا كتابة `export {default as User}‎` ، كما في المثال أعلاه.
+=======
+We can come across two problems with it:
+
+1. `export User from './user.js'` won't work. That would lead to a syntax error.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 2. تعيد التعليمة `export * from './user.js'‎` تصدير التصديرات الّتي لها أسماء فقط، ولكنها تتجاهل التصديرات المبدئية.
 
@@ -394,8 +435,12 @@ export default class User {
     export * from './user.js'; // لإعادة تصدير التصديرات الّتي لها أسماء
     export {default} from './user.js'; // لإعادة تصدير التصديرات المبدئية
 
+<<<<<<< HEAD
     ```
 هذه الغرابة في طريقة إعادة تصدير التصديرات المبدئية هي من أحد الأسباب لجعل بعض المطورين لا يحبونها.
+=======
+Such oddities of re-exporting a default export are one of the reasons why some developers don't like default exports and prefer named ones.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ## خلاصة
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # الوعود Promise
 لنقل بأنّك أنت هو عبد الحليم حافظ، ولنفترض بأنّ مُعجبوك من المحيط إلى الخليج يسألونك ليلًا نهارًا عن الأغنية الشاعرية التالية.
 وكي تُريح بالك تعدهم بإرسالها إليهم ما إن تُنشر. فتُعطي مُعجبيك قائمة يملؤون فيها عناوين بريدهم. ومتى ما نشرت الأغنية
@@ -14,6 +15,27 @@
 لديها ميزات وقيود إضافية.
 هذه صياغة الباني لكائنات الوعد:
 ```
+=======
+# Promise
+
+Imagine that you're a top singer, and fans ask day and night for your upcoming song.
+
+To get some relief, you promise to send it to them when it's published. You give your fans a list. They can fill in their email addresses, so that when the song becomes available, all subscribed parties instantly receive it. And even if something goes very wrong, say, a fire in the studio, so that you can't publish the song, they will still be notified.
+
+Everyone is happy: you, because the people don't crowd you anymore, and fans, because they won't miss the song.
+
+This is a real-life analogy for things we often have in programming:
+
+1. A "producing code" that does something and takes time. For instance, some code that loads the data over a network. That's a "singer".
+2. A "consuming code" that wants the result of the "producing code" once it's ready. Many functions  may need that result. These are the "fans".
+3. A *promise* is a special JavaScript object that links the "producing code" and the "consuming code" together. In terms of our analogy: this is the "subscription list". The "producing code" takes whatever time it needs to produce the promised result, and the "promise" makes that result available to all of the subscribed code when it's ready.
+
+The analogy isn't terribly accurate, because JavaScript promises are more complex than a simple subscription list: they have additional features and limitations. But it's fine to begin with.
+
+The constructor syntax for a promise object is:
+
+```js
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 let promise = new Promise(function(resolve, reject) {
 // ‫المُنفِّذ (الشيفرة المُنتجة، مثل ”المغنّي“)
 });
@@ -174,6 +196,7 @@ new Promise((resolve, reject) => {
 new Promise((resolve, reject) => {
 setTimeout(() => resolve("result"), 2000)
 })
+<<<<<<< HEAD
 .finally(() => alert("Promise ready"))
 .then(result => alert(result)); // <-- ‫‎.then ستعالج الناتج
 ```
@@ -193,12 +216,67 @@ throw new Error("error");
 ستنفذّ مباشرةً:
 ```
 // يصبح الوعد منجزًا ومتحققًا بعد الإنشاء مباشرةً
+=======
+*!*
+  // runs when the promise is settled, doesn't matter successfully or not
+  .finally(() => stop loading indicator)
+  // so the loading indicator is always stopped before we process the result/error
+*/!*
+  .then(result => show result, err => show error)
+```
+
+That said, `finally(f)` isn't exactly an alias of `then(f,f)` though. There are few subtle differences:
+
+1. A `finally` handler has no arguments. In `finally` we don't know whether the promise is successful or not. That's all right, as our task is usually to perform "general" finalizing procedures.
+2. A `finally` handler passes through results and errors to the next handler.
+
+    For instance, here the result is passed through `finally` to `then`:
+    ```js run
+    new Promise((resolve, reject) => {
+      setTimeout(() => resolve("result"), 2000)
+    })
+      .finally(() => alert("Promise ready"))
+      .then(result => alert(result)); // <-- .then handles the result
+    ```
+
+    And here there's an error in the promise, passed through `finally` to `catch`:
+
+    ```js run
+    new Promise((resolve, reject) => {
+      throw new Error("error");
+    })
+      .finally(() => alert("Promise ready"))
+      .catch(err => alert(err));  // <-- .catch handles the error object
+    ```
+
+That's very convenient, because `finally` is not meant to process a promise result. So it passes it through.
+
+We'll talk more about promise chaining and result-passing between handlers in the next chapter.
+
+
+````smart header="We can attach handlers to settled promises"
+If a promise is pending, `.then/catch/finally` handlers wait for it. Otherwise, if a promise has already settled, they just run:
+
+```js run
+// the promise becomes resolved immediately upon creation
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 let promise = new Promise(resolve => resolve("done!"));
 promise.then(alert); // done! (تظهر الآن)
 ```
 
+<<<<<<< HEAD
 الآن لنرى أمثلة عملية على فائدة الوعود في كتابة الشيفرات غير المتزامنة.
 ## تحميل السكربتات: الدالة loadScript
+=======
+Note that this makes promises more powerful than the real life "subscription list" scenario. If the singer has already released their song and then a person signs up on the subscription list, they probably won't receive that song. Subscriptions in real life must be done prior to the event.
+
+Promises are more flexible. We can add handlers any time: if the result is already there, they just execute.
+````
+
+Next, let's see more practical examples of how promises can help us write asynchronous code.
+
+## Example: loadScript [#loadscript]
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 أمامنا من الفصل الماضي الدالة `loadScript` لتحميل السكربتات.
 إليك الدالة بطريقة ردود النداء، لنتذكّرها لا أكثر ولا أقل:

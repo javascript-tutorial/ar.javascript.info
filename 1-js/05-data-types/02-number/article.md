@@ -13,14 +13,33 @@
 let billion = 1000000000;
 ```
 
+<<<<<<< HEAD
 لكن، نتجنب غالبًا كتابة سلسلة طويلة من الأصفار في الحياة الواقعية لأنه من السهل الخطأ في ذلك ولكون ذلك الأمر يأخذ وقتًا أكثر. نكتب غالبًا شيئا مثل `"1bn"` بدلًا من بليون أو `"7.3bn"` بدلًا من 7 بليون و 300 مليون. يمكن تطبيق الأمر ذاته مع الأعداد الكبيرة.
 
 نُقَصِّر أرقام الأعداد في JavaScript بإضافة الحرف `"e"` للعدد وتحديد عدد الأصفار فيه:
+=======
+We also can use underscore `_` as the separator:
+
+```js
+let billion = 1_000_000_000;
+```
+
+Here the underscore `_` plays the role of the "syntactic sugar", it makes the number more readable. The JavaScript engine simply ignores `_` between digits, so it's exactly the same one billion as above.
+
+In real life though, we try to avoid writing long sequences of zeroes. We're too lazy for that. We'll try to write something like `"1bn"` for a billion or `"7.3bn"` for 7 billion 300 million. The same is true for most large numbers.
+
+In JavaScript, we can shorten a number by appending the letter `"e"` to it and specifying the zeroes count:
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 
+<<<<<<< HEAD
+=======
+alert( 7.3e9 );  // 7.3 billions (same as 7300000000 or 7_300_000_000)
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 ```
 let billion = 1e9;  // بليون، حرفيًا: 1 وجانبه 9 أصفار
 
+<<<<<<< HEAD
 alert( 7.3e9 );  // 7,300,000,000
 ```
 
@@ -29,6 +48,13 @@ alert( 7.3e9 );  // 7,300,000,000
 ```
 1e3 = 1 * 1000
 1.23e6 = 1.23 * 1000000
+=======
+In other words, `e` multiplies the number by `1` with the given zeroes count.
+
+```js
+1e3 = 1 * 1000 // e3 means *1000
+1.23e6 = 1.23 * 1000000 // e6 means *1000000
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 ```
 
 لنكتب الآن شيئَا صغيرًا جدًا. مثلًا، جزء من المليون من الثانية:
@@ -96,8 +122,42 @@ alert( num.toString(2) );   // 11111111
 alert( 123456..toString(36) ); // 2n9c
 ```
 
+<<<<<<< HEAD
 ```warn header="نقطتين لِاستدعاء تابع"
 لاحظ أن النقطتين في `‎123456..toString(36)‎` ليست خطأ كتابي. إن أردنا استدعاء تابع مباشرة على عدد/ مثل التابع `toString` في المثال أعلاه، فسنحتاج إلى نقطتين بعد العدد `..`. 
+=======
+## Rounding
+
+One of the most used operations when working with numbers is rounding.
+
+There are several built-in functions for rounding:
+
+`Math.floor`
+: Rounds down: `3.1` becomes `3`, and `-1.1` becomes `-2`.
+
+`Math.ceil`
+: Rounds up: `3.1` becomes `4`, and `-1.1` becomes `-1`.
+
+`Math.round`
+: Rounds to the nearest integer: `3.1` becomes `3`, `3.6` becomes `4`, the middle case: `3.5` rounds up to `4` too.
+
+`Math.trunc` (not supported by Internet Explorer)
+: Removes anything after the decimal point without rounding: `3.1` becomes `3`, `-1.1` becomes `-1`.
+
+Here's the table to summarize the differences between them:
+
+|   | `Math.floor` | `Math.ceil` | `Math.round` | `Math.trunc` |
+|---|---------|--------|---------|---------|
+|`3.1`|  `3`    |   `4`  |    `3`  |   `3`   |
+|`3.6`|  `3`    |   `4`  |    `4`  |   `3`   |
+|`-1.1`|  `-2`    |   `-1`  |    `-1`  |   `-1`   |
+|`-1.6`|  `-2`    |   `-1`  |    `-2`  |   `-1`   |
+
+
+These functions cover all of the possible ways to deal with the decimal part of a number. But what if we'd like to round the number to `n-th` digit after the decimal?
+
+For instance, we have `1.2345` and want to round it to 2 digits, getting only `1.23`.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 إن وضعنا نقطة واحدة فقط `‎123456.toString(36)‎` فسيكون هناك خطأ، لأن JavaScript سَتعتبر أن النقطة هي فاصلة عشرية وأن ما بعدها هو جزء عشري للعدد. فإذا وضعنا نقطة أخرى فستعرف أن الجزء العشري فارغ وتنتقل إلى الدالة.
 
@@ -341,7 +401,11 @@ alert( parseInt('2n9c', 36) ); // 123456
 تحتوي JavaScript على الكائن المُدمَج [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) الذي يحتوي على مكتبة صغيرة بالدوال والثوابت الرياضية. إليك بعض الأمثلة:
 
 `Math.random()`
+<<<<<<< HEAD
 : تُرجِع عددًا عشوائيًا من 0 إلى 1 (لا تتضمن 1)
+=======
+: Returns a random number from 0 to 1 (not including 1).
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
     ```js run
     alert( Math.random() ); // 0.1234567894322
@@ -358,13 +422,34 @@ alert( parseInt('2n9c', 36) ); // 123456
     ```
 
 `Math.pow(n, power)`
+<<<<<<< HEAD
 :  تُرجع العدد `n` مرفوعًا إلى الأُس المُعطى:
+=======
+: Returns `n` raised to the given power.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
     ```js run
     alert( Math.pow(2, 10) ); // 2 in power 10 = 1024
     ```
 
+<<<<<<< HEAD
 يوجد المزيد من الدوال والثوابت في الكائن `Math`، بما فيها علم المُثَلَّثات، والتي يمكنك ايجادها في [توثيق الكائن Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math).
+=======
+There are more functions and constants in `Math` object, including trigonometry, which you can find in the [docs for the Math object](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math).
+
+## Summary
+
+To write numbers with many zeroes:
+
+- Append `"e"` with the zeroes count to the number. Like: `123e6` is the same as `123` with 6 zeroes `123000000`.
+- A negative number after `"e"` causes the number to be divided by 1 with given zeroes. E.g. `123e-6` means `0.000123` (`123` millionths).
+
+For different numeral systems:
+
+- Can write numbers directly in hex (`0x`), octal (`0o`) and binary (`0b`) systems.
+- `parseInt(str, base)` parses the string `str` into an integer in numeral system with given `base`, `2 ≤ base ≤ 36`.
+- `num.toString(base)` converts a number to a string in the numeral system with the given `base`.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ## الملخص
 

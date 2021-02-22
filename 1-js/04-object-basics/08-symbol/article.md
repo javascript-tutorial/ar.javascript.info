@@ -134,7 +134,7 @@ user[id] = "Their id value";
 
 ...ولكن ماذا لو استخدمنا نصًا بدلًا من رمز لنفس الغرض, فسيكون هناك تعارض:
 
-```js run
+```js
 let user = { name: "John" };
 
 // Our script uses "id" property
@@ -146,7 +146,11 @@ user.id = "Their id value";
 // Boom! overwritten by another script!
 ```
 
+<<<<<<< HEAD
 ### إستخدام الرموز بداخل الكائنات (objects)
+=======
+### Symbols in an object literal
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 إذا كنا نريد أن نضع رمزا بداخل كائن كخاصيه, فإننا نحتاج أن نضع حول الرمز أقواس مربعه `[]`
 
@@ -158,7 +162,7 @@ let id = Symbol("id");
 let user = {
   name: "John",
 *!*
-  [id]: 123 // not "id: 123"
+  [id]: 123 // not "id": 123
 */!*
 };
 ```

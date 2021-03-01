@@ -37,11 +37,19 @@ function cachingDecorator(func) {
 
 slow = cachingDecorator(slow);
 
+<<<<<<< HEAD
 alert( slow(1) ); // خبّأنا slow(1)
 alert( "Again: " + slow(1) ); // ذات الناتج
 
 alert( slow(2) ); // ‫خبّأنا slow(2)‎
 alert( "Again: " + slow(2) ); // ذات ناتج السطر السابق
+=======
+alert( slow(1) ); // slow(1) is cached and the result returned
+alert( "Again: " + slow(1) ); // slow(1) result returned from cache
+
+alert( slow(2) ); // slow(2) is cached and the result returned
+alert( "Again: " + slow(2) ); // slow(2) result returned from cache
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 ```
 
 في الشيفرة أعلاه، ندعو `‎cachingDecorator‎` *بالمُزخرِف* (decorator): وهي دالة خاصّة تأخذ دالة أخرى مُعاملًا وتعدّل على سلوكها.

@@ -49,9 +49,15 @@ let user = new User("John");
 user.sayHi();
 ```
 
+<<<<<<< HEAD
 عند استدعاء`new User("John")` :
 1. يتم إنشاء كائن جديد.
 2. يعمل "المُنشئ" مع الوسيطة المحددة ويعين "اسم هذا" إليه.
+=======
+When `new User("John")` is called:
+1. A new object is created.
+2. The `constructor` runs with the given argument and assigns it to `this.name`.
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 ... ثم يمكننا استدعاء طرق الكائن ، مثل `user.sayHi ()`.
 
@@ -217,7 +223,7 @@ function makeClass(phrase) {
   return class {
     sayHi() {
       alert(phrase);
-    };
+    }
   };
 }
 

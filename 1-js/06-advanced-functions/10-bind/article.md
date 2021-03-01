@@ -152,8 +152,13 @@ sayHi(); // Hello, John!
 
 setTimeout(sayHi, 1000); // Hello, John!
 
+<<<<<<< HEAD
 // ‫حتّى لو تغيّرت قيمة user خلال تلك الثانية
 // ‫فما زالت تستعمل sayHi القيمة التي ربطناها قبلًا
+=======
+// even if the value of user changes within 1 second
+// sayHi uses the pre-bound value which is reference to the old user object
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 user = {
   sayHi() { alert("Another user in setTimeout!"); }
 };
@@ -188,7 +193,12 @@ for (let key in user) {
 }
 ```
 
+<<<<<<< HEAD
 كما تقدّم لنا مكتبات جافاسكربت دوال للربط الجماعي لتسهيل الأمور، مثل [`‎_.bindAll(obj)‎`](http://lodash.com/docs#bindAll) في المكتبة lodash.
+=======
+JavaScript libraries also provide functions for convenient mass binding , e.g. [_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll) in lodash.
+````
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 ## الدوال الجزئية
 
@@ -230,7 +240,11 @@ alert( double(5) ); // = mul(2, 5) = 10
 
 هذا ما نسمّيه [باستعمال الدوال الجزئية](https://en.wikipedia.org/wiki/Partial_application) -- أن نصنع دالة بعد ضبط بعض مُعاملات واحدة غيرها.
 
+<<<<<<< HEAD
 لاحظ هنا بأنّا لا نستعمل `‎this‎` هنا أصلًا... ولكنّ التابِع `‎bind‎` يطلبه فعلينا تقديم شيء (وكان `‎null‎` مثلًا).
+=======
+Please note that we actually don't use `this` here. But `bind` requires it, so we must put in something like `null`.
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 الدالة `‎triple‎` أسفله تضرب القيمة في ثلاثة:
 

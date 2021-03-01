@@ -7,7 +7,13 @@
 *فئات الاحرف*  هو رمز خاص يطابق أي رمز من مجموعة معينة.
  
 
+<<<<<<< HEAD
 على سبيل المثال ، دعنا نعثر على الرقم الأول في رقم الهاتف:
+=======
+For the start, let's explore the "digit" class. It's written as `pattern:\d` and corresponds to "any single digit".
+
+For instance, let's find the first digit in the phone number:
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 ```js run
 let str = "+7(903)-123-45-67";
@@ -119,7 +125,11 @@ alert( "CS-4".match(regexp) ); // CS-4
 alert( "CS 4".match(regexp) ); // CS 4 (المسافة تعتبر أيضاً حرف)
 ```
 
+<<<<<<< HEAD
 يرجى ملاحظة أن النقطة تعني "أي حرف" ، ولكن ليس "عدم وجود حرف". يجب أن يكون هناك حرف لمطابقته:
+=======
+Please note that a dot means "any character", but not the "absence of a character". There must be a character to match it:
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 ```js run
 alert( "CS4".match(/CS.4/) ); // الناتج يكون null لان لا يجود أي حرف موضع النقطة.
@@ -143,10 +153,17 @@ alert( "A\nB".match(/A.B/) ); // null (لا متطابقة)
 alert( "A\nB".match(/A.B/s) ); // A\nB (match!)
 ```
 
+<<<<<<< HEAD
 ````warn header="لا يدعم في Firefox و IE و Edge"
 أفحص هذا الموقع <https://caniuse.com/#search=dotall> للمزيد من المعلومات حول الدعم. وفي نفس وقت الكتابة لا تنتمي الي Firefox و IE و Edge.
 
 لحسن الحظ ، هناك بديل يعمل في كل مكان. نستطيع أستخدام تعبير منتظم مثل `pattern:[\s\S]` ليكون الناتج "أي حرف".
+=======
+````warn header="Not supported in IE"
+The `pattern:s` flag is not supported in IE.
+
+Luckily, there's an alternative, that works everywhere. We can use a regexp like `pattern:[\s\S]` to match "any character" (this pattern will be covered in the article <info:regexp-character-sets-and-ranges>).
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 ```js run
 alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (الناتج!)
@@ -178,7 +195,11 @@ alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, أيضاً تعمل
 
 **المسافة تعتبر حرف. تساوي في الاهمية مع أي حرف أخر.**
 
+<<<<<<< HEAD
 لا يمكننا إضافة مسافات أو إزالتها من التعبير المنتظم ونتوقع أن تعمل بالطريقة نفسها.
+=======
+We can't add or remove spaces from a regular expression and expect it to work the same.
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 بمعني أخر, في التعبير المنتظم كل الحروف لها أهمية, والمسافات أيضاً.
 ````
@@ -197,6 +218,10 @@ alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, أيضاً تعمل
 
 ...ولكن هذا ليس كل شيء!
 
+<<<<<<< HEAD
 يوفر ترميز Unicode ، الذي تستخدمه JavaScript للسلاسل ، العديد من الخصائص للأحرف ، مثل: اللغة التي ينتمي إليها الحرف (إذا كان حرفًا) فهو علامة ترقيم ، إلخ.
+=======
+Unicode encoding, used by JavaScript for strings, provides many properties for characters, like: which language the letter belongs to (if it's a letter), is it a punctuation sign, etc.
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 يمكننا البحث بهذه الخصائص أيضًا. هذا يتطلب العلم `pattern:u`, تم تغطيته في المقال التالي.

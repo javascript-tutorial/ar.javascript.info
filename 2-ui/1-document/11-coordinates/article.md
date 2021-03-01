@@ -88,8 +88,13 @@ right:${r.right}
 من الناحية العملية ، يُرجع `elem.getBoundingClientRect ()` دائمًا العرض / الارتفاع الموجب ، وهنا نذكر `العرض / الارتفاع` السلبي فقط لكي تفهم لماذا هذه الخصائص التي تبدو مكررة ليست في الواقع مكررة.
 ```
 
+<<<<<<< HEAD
 ```عنوان تحذيري"Internet Explorer و Edge: لا يوجد دعم لـ`x/y`"
 لا يدعم Internet Explorer و Edge خصائص `x / y` لأسباب تاريخية.
+=======
+```warn header="Internet Explorer: no support for `x/y`"
+Internet Explorer doesn't support `x/y` properties for historical reasons.
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 لذلك يمكننا إما إنشاء ملف متعدد (أضف حروفًا في `DomRect.prototype`) أو فقط استخدام` أعلى / يسار` ، لأنها دائمًا ما تكون مثل `x / y` لـ` عرض / ارتفاع` إيجابي ، خاصة في نتيجة `elem.getBoundingClientRect ()`.
 ```

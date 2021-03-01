@@ -1,6 +1,10 @@
 # Lookahead و lookbehind
 
+<<<<<<< HEAD
 في بعض الأحيان نحتاج إلى العثور فقط على تلك المطابقات لنمط يتبعه أو يسبقه نمط آخر.
+=======
+Sometimes we need to find only those matches for a pattern that are followed or preceded by another pattern.
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 هناك صيغة خاصة لذلك ، تسمى "lookahead" و "lookbehind" ، يشار إليها معًا باسم "lookaround".
 
@@ -37,6 +41,10 @@ alert( str.match(/\d+(?=€)/) ); // 30, the number 1 is ignored, as it's not fo
 
 على سبيل المثال ، `pattern: \ d + (؟ = \ s) (؟ =. * 30)` يبحث عن `pattern: \ d +` فقط إذا كان متبوعًا بمسافة ، ويوجد `30` في مكان ما بعده:
 
+<<<<<<< HEAD
+=======
+For example, `pattern:\d+(?=\s)(?=.*30)` looks for `pattern:\d+` that is followed by a space `pattern:(?=\s)`, and there's `30` somewhere after it `pattern:(?=.*30)`:
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 ```js run
 let str = "1 turkey costs 30€";
@@ -58,7 +66,7 @@ alert( str.match(/\d+(?=\s)(?=.*30)/) ); // 1
 ```js run
 let str = "2 turkeys cost 60€";
 
-alert( str.match(/\d+(?!€)/) ); // 2 (the price is skipped)
+alert( str.match(/\d+\b(?!€)/g) ); // 2 (the price is not matched)
 ```
 
 ## Lookbehind
@@ -85,7 +93,7 @@ alert( str.match(/(?<=\$)\d+/) ); // 30 (skipped the sole number)
 ```js run
 let str = "2 turkeys cost $60";
 
-alert( str.match(/(?<!\$)\d+/) ); // 2 (skipped the price)
+alert( str.match(/(?<!\$)\b\d+/g) ); // 2 (the price is not matched)
 ```
 
 ## التقاط المجموعات

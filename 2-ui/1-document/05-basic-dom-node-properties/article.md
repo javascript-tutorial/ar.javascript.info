@@ -197,7 +197,11 @@ alert( document.body instanceof EventTarget ); // true
 
 ## innerHTML: المحتويات
 
+<<<<<<< HEAD
 تتيح خاصية [innerHTML] (https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML) الحصول على HTML داخل العنصر كسلسلة.
+=======
+The [innerHTML](https://w3c.github.io/DOM-Parsing/#the-innerhtml-mixin) property allows to get the HTML inside the element as a string.
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 يمكننا أيضًا تعديله. لذا فهي واحدة من أقوى الطرق لتغيير الصفحة.
 
@@ -396,15 +400,20 @@ elem.innerHTML = elem.innerHTML + "..."
 <div id="elem2"></div>
 
 <script>
-  let name = prompt("What's your name?", "<b>Winnie-the-pooh!</b>");
+  let name = prompt("What's your name?", "<b>Winnie-the-Pooh!</b>");
 
   elem1.innerHTML = name;
   elem2.textContent = name;
 </script>
 ```
 
+<<<<<<< HEAD
 1. يحصل الاسم الأول "<div>" على الاسم "بتنسيق HTML": تصبح جميع العلامات علامات ، لذلك نرى الاسم الغامق.
 2. الثانية `<div>` تحصل على الاسم "كنص" ، لذلك نرى حرفياً "<b> Winnie-the-pooh! </b>`.
+=======
+1. The first `<div>` gets the name "as HTML": all tags become tags, so we see the bold name.
+2. The second `<div>` gets the name "as text", so we literally see `<b>Winnie-the-Pooh!</b>`.
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 في معظم الحالات ، نتوقع النص من مستخدم ونريد معاملته كنص. لا نريد HTML غير متوقع في موقعنا. يؤدي التعيين إلى `textContent` ذلك بالضبط.
 
@@ -412,7 +421,11 @@ elem.innerHTML = elem.innerHTML + "..."
 
 تحدد السمة "مخفي" وخاصية DOM ما إذا كان العنصر مرئيًا أم لا.
 
+<<<<<<< HEAD
 يمكننا استخدامه في HTML أو تخصيصه باستخدام JavaScript ، مثل هذا:
+=======
+We can use it in HTML or assign it using JavaScript, like this:
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 ```html run height="80"
 <div>Both divs below are hidden</div>

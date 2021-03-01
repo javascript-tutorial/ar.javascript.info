@@ -47,7 +47,11 @@ switch (a) {
     break;
 */!*
   case 5:
+<<<<<<< HEAD
     alert( 'كثير جدًا' );
+=======
+    alert( 'Too big' );
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
     break;
   default:
     alert( "لا أعرف هذه القيمة" );

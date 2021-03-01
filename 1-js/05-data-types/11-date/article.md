@@ -68,6 +68,10 @@
     new Date(2011, 0, 1); // نفس تلك. الساعات والدقائق وغيرها 0 مبدئيًا
 ```
 
+<<<<<<< HEAD
+=======
+    The maximal precision is 1 ms (1/1000 sec):
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
     أدنى دقّة للتاريخ هي مليثانية واحدة (واحد من ألف من الثانية):
 
@@ -367,10 +371,17 @@ for (let i = 0; i < 10; i++) {
 
 يمكن أن يقرأ التابِع [Date.parse(str)](https://wiki.hsoub.com/JavaScript/Date/parse) تاريخًا من سلسلة نصية. يجب أن يكون تنسيق تلك السلسلة هكذا: `YYYY-MM-DDTHH:mm:ss.sssZ`، إذ تعني:
 
+<<<<<<< HEAD
 - `YYYY-MM-DD` -- التاريخ: اليوم-الشهر-العام.
 - يُستعمل المحرف `"T"` فاصِلًا.
 - `HH:mm:ss.sss` -- الوقت: المليثانية والثانية والدقيقة والساعة.
 - يمثّل الجزء الاختياري `'Z'` المنطقة الزمنية حسب التنسيق `+-hh:mm`. لو وضعت `Z` فقط فذلك يعني UTC+0.
+=======
+- `YYYY-MM-DD` -- is the date: year-month-day.
+- The character `"T"` is used as the delimiter.
+- `HH:mm:ss.sss` -- is the time: hours, minutes, seconds and milliseconds.
+- The optional `'Z'` part denotes the time zone in the format `+-hh:mm`. A single letter `Z` would mean UTC+0.
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 
 يمكنك أيضًا استعمال تنسيقات أقصر مثل `YYYY-MM-DD` أو `YYYY-MM` أو حتّى `YYYY`.
 
@@ -407,6 +418,7 @@ alert(date);
 
 ```
 alert(`Loading started ${performance.now()}ms ago`);
+<<<<<<< HEAD
 // ت‫ظهر هكذا: "Loading started 34731.26000000001ms ago"
 ```
 تعني ”‎.26“ هنا المايكروثوان (260 مايكروثانية)، فلو زِدت على ثلاث خانات بعد الفاصلة فستجد أخطاءً في دقّة الحساب. أوّل ثلاثة هي الصحيحة فقط.
@@ -482,6 +494,11 @@ function getLocalDay(date) {
 
   return day;
 }
+=======
+// Something like: "Loading started 34731.26000000001ms ago"
+// .26 is microseconds (260 microseconds)
+// more than 3 digits after the decimal point are precision errors, only the first 3 are correct
+>>>>>>> f6ae0b5a5f3e48074312ca3e47c17c92a5a52328
 ```
 
 ### ما هو التاريخ الذي كان قبل كذا يوم؟

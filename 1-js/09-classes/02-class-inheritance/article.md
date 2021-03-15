@@ -55,7 +55,11 @@ rabbit.run(5); // White Rabbit runs with speed 5.
 rabbit.hide(); // White Rabbit hides!
 ```
 
+<<<<<<< HEAD
 يمكن لكائن فئة "أرنب" الوصول إلى كل من طرق "أرنب" ، مثل "أرنب. إخفاء ()" ، وأيضًا إلى طرق "الحيوان" ، مثل "أرنب". () `.
+=======
+Object of `Rabbit` class have access both to `Rabbit` methods, such as `rabbit.hide()`, and also to `Animal` methods, such as `rabbit.run()`.
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 داخليًا ، تعمل الكلمة الرئيسية `` الموسعة '' باستخدام ميكانيكا النموذج القديم الجيدة. يقوم بتعيين "Rabbit.prototype. [[Prototype]]` إلى "Animal.prototype`. لذلك ، إذا لم يتم العثور على طريقة في `Rabbit.prototype` ، فإن JavaScript تأخذها من` Animal.prototype`.
 
@@ -76,8 +80,8 @@ rabbit.hide(); // White Rabbit hides!
 ```js run
 function f(phrase) {
   return class {
-    sayHi() { alert(phrase) }
-  }
+    sayHi() { alert(phrase); }
+  };
 }
 
 *!*
@@ -151,7 +155,7 @@ class Rabbit extends Animal {
 let rabbit = new Rabbit("White Rabbit");
 
 rabbit.run(5); // White Rabbit runs with speed 5.
-rabbit.stop(); // White Rabbit stands still. White rabbit hides!
+rabbit.stop(); // White Rabbit stands still. White Rabbit hides!
 ```
 
 الآن يحتوي "الأرنب" على طريقة "الإيقاف" التي تستدعي الأصل `super.stop ()` في العملية.
@@ -300,7 +304,7 @@ Consider this example:
 
 ```js run
 class Animal {
-  name = 'animal'
+  name = 'animal';
 
   constructor() {
     alert(this.name); // (*)
@@ -364,7 +368,7 @@ Why is there the difference?
 
 Well, the reason is in the field initialization order. The class field is initialized:
 - Before constructor for the base class (that doesn't extend anything),
-- Imediately after `super()` for the derived class.
+- Immediately after `super()` for the derived class.
 
 In our case, `Rabbit` is the derived class. There's no `constructor()` in it. As said previously, that's the same as if there was an empty constructor with only `super(...args)`.
 
@@ -545,7 +549,7 @@ longEar.eat();  // Long Ear eats.
 ```js run
 let animal = {
   sayHi() {
-    console.log(`I'm an animal`);
+    alert(`I'm an animal`);
   }
 };
 
@@ -559,7 +563,7 @@ let rabbit = {
 
 let plant = {
   sayHi() {
-    console.log("I'm a plant");
+    alert("I'm a plant");
   }
 };
 

@@ -67,6 +67,15 @@ this.isAdmin = false;
 تكون الخاصية فارغة في الاستدعاءات العادية، وتساوي الدالة البانية إذا استُدعِيَت باستخدام `new`:
 
 ```
+<<<<<<< HEAD
+=======
+
+Inside a function, we can check whether it was called with `new` or without it, using a special `new.target` property.
+
+It is undefined for regular calls and equals the function if called with `new`:
+
+```js run
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 function User() {
 alert(new.target);
 }

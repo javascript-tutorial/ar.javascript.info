@@ -143,8 +143,13 @@ alert( "Tea wanted: " + isTeaWanted ); // true
 الإسناد
 : الإسناد البسيط هو من الشكل: `a = b` أما الإسناد المركّب فهو من الشكل `a *= 2`.
 
+<<<<<<< HEAD
 عوامل البِتّات (Bitwise)
 : تقوم عوامل الـ Bitwise بالعمل مع الأعداد الصحيحة من فئة 32-بِت على الأقل، فهي تعمل على مستوى البِت، وللاطلاع عليها يمكن مراجعة [التوثيق](mdn:/JavaScript/Reference/Operators/Bitwise_Operators) عند الحاجة.
+=======
+Bitwise
+: Bitwise operators work with 32-bit integers at the lowest, bit-level: see the [docs](mdn:/JavaScript/Guide/Expressions_and_Operators#Bitwise) when they are needed.
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 العوامل الشرطية
 : والعامل الشرطي هو العامل الوحيد الذي يأخذ ثلاث معاملات: `cond ? resultA : resultB`. فإذا كان الشرط `cond` صحيحاً، سيتمّ إرجاع `resultA` وإلا سيتم إرجاع `resultB`.
@@ -274,9 +279,15 @@ switch (age) {
     ```
 
 
+<<<<<<< HEAD
 - يمكن أن تتضمن الدالة على متغيرات محلية: وهي المتغيرات التي يتم تعريفها ضمن جسم الدالة. وهذه المتغيرات تكون مرئية فقط ضمن الدالة نفسها.
 - يمكن أن تحتوي المعاملات على قيم افتراضية: ` {...} function sum(a = 1, b = 2)`.
 - تقوم الدوال بإرجاع قيمة دائماً. وإذا لم يكن هنالك تعليمة `return`، ستكون النتيجة هي `undefined`.
+=======
+- Functions may have local variables: those declared inside its body or its parameter list. Such variables are only visible inside the function.
+- Parameters can have default values: `function sum(a = 1, b = 2) {...}`.
+- Functions always return something. If there's no `return` statement, then the result is `undefined`.
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 للمزيد من التفاصيل: <info:function-basics>, <info:arrow-functions-basics>.
 

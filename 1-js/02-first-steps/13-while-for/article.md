@@ -328,7 +328,11 @@ alert("Done!");
 
 وضع `break` بعد `input` سيوقف فقط الحلقة الداخلية. وهذا غير مجدي--جاءت العنونة لإنقاذ الموقف!
 
+<<<<<<< HEAD
 إن _label_ يقوم بتعريف الحلقة باستخدام نقطتين قبلها:
+=======
+The ordinary `break` after `input` would only break the inner loop. That's not sufficient -- labels, come to the rescue!
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 ```js
 labelName: for (...) {
@@ -372,12 +376,22 @@ Labels لا تسمح لنا بالإنتقال إلى أي مكان داخل ا�
 
 فعلى سبيل المثال لا يمكننا فعل التالي:
 ```js
+<<<<<<< HEAD
 break label; // لن تنتقل إلى label بالأسفل
+=======
+break label; // jump to the label below (doesn't work)
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 label: for (...)
 ```
 
+<<<<<<< HEAD
 استخدام `break/continue` ممكن فقط من داخل الحلقة ويجب أن يكون Label موجود قبلهم.
+=======
+A call to `continue` is only possible from inside the loop.
+
+The `break` directive may be placed before code blocks too, as `label: { ... }`, but it's almost never used like that. And it also works only inside-out.
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 ````
 
 ## ملخص

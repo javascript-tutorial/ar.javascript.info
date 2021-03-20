@@ -1,367 +1,323 @@
-
-# Promises chaining
-
-Let's return to the problem mentioned in the chapter <info:callbacks>: we have a sequence of asynchronous tasks to be performed one after another — for instance, loading scripts. How can we code it well?
-
-Promises provide a couple of recipes to do that.
-
-In this chapter we cover promise chaining.
-
-It looks like this:
-
-```js run
+# الوعود Promises chaining
+طرحناها في الفصل "[مقدمة إلى ردود النداء
+callbacks](https://academy.hsoub.com/programming/javascript/%D9%85%D9%82%D8%AF
+%D9%85%D8%A9-%D8%A5%D9%84%D9%89-%D8%B1%D8%AF%D9%88%D8%AF-
+%D8%A7%D9%84%D9%86%D8%AF%D8%A7%D8%A1-callbacks-%D9%81%D9%8A-
+%D8%AC%D8%A7%D9%81%D8%A7%D8%B3%D9%83%D8%B1%D8%A8%D8%AA-
+r914/)" مشكلةً ألا وهي أنّ لدينا تسلسلًا من المهام غير المتزامنة ويجب أن تُجرى واحدةً بعد الأخرى، مثلًا تحميل السكربتات.
+كيف نكتب شيفرة ... لهذه المشكلة؟
+تقدّم لنا الوعود طرائق مختلفة لهذا الغرض. وفي هذا الفصل سنتكلّم عن سَلسلة الوعود فقط.
+هكذا تكون:
+```
 new Promise(function(resolve, reject) {
-
-  setTimeout(() => resolve(1), 1000); // (*)
-
+setTimeout(() => resolve(1), 1000); // (*)
 }).then(function(result) { // (**)
-
-  alert(result); // 1
-  return result * 2;
-
+alert(result); // 1
+return result * 2;
 }).then(function(result) { // (***)
-
-  alert(result); // 2
-  return result * 2;
-
+alert(result); // 2
+return result * 2;
 }).then(function(result) {
-
-  alert(result); // 4
-  return result * 2;
-
+alert(result); // 4
+return result * 2;
 });
 ```
+الفكرة وما فيها هي تمرير الناتج في سلسلة توابِع `‎.then` تابعًا تابعًا.
+هكذا تكون:
+1. يبدأ الوعد الأوّل ويُنجز خلال ثانية واحدة (*).
+2. بعدها يُستدعى معالج `‎.then` `(**)`.
+3. النتيجة التي ستعود ستمرر إلى معالج `‎.then` التالي `(***)`.
+4. وهكذا… .
+نظرًا لتمرير النتيجة على طول سلسلة المعالجات، يمكننا رؤية سلسلة من استدعاءات `alert` هكذا: 1 ← 2 ← 4.
 
-The idea is that the result is passed through the chain of `.then` handlers.
-
-Here the flow is:
-1. The initial promise resolves in 1 second `(*)`,
-2. Then the `.then` handler is called `(**)`.
-3. The value that it returns is passed to the next `.then` handler `(***)`
-4. ...and so on.
-
-As the result is passed along the chain of handlers, we can see a sequence of `alert` calls: `1` -> `2` -> `4`.
-
-![](promise-then-chain.svg)
-
-The whole thing works, because a call to `promise.then` returns a promise, so that we can call the next `.then` on it.
-
-When a handler returns a value, it becomes the result of that promise, so the next `.then` is called with it.
-
-**A classic newbie error: technically we can also add many `.then` to a single promise. This is not chaining.**
-
-For example:
-```js run
+[promise-then-chain.png]
+ويعود سبب هذا كلّه إلى أنّ استدعاء `promise.then` يُعيد وعدًا هو الآخر، بذلك يمكننا استدعاء التابِع `‎.then` التالي على
+ذلك الوعد، وهكذا.
+حين تُعيد دالة المُعاملة قيمةً ما، تصير القيمة ناتج ذلك الوعد، بذلك يمكن استدعاء `‎.then` عليه.
+**خطأ شائع بين المبتدئين: تقنيًا يمكننا إضافة أكثر من تابِع `‎.then` إلى وعد واحد. لا يُعدّ هذا سَلسلة وعود**.
+مثلًا:
+```
 let promise = new Promise(function(resolve, reject) {
-  setTimeout(() => resolve(1), 1000);
+setTimeout(() => resolve(1), 1000);
 });
-
 promise.then(function(result) {
-  alert(result); // 1
-  return result * 2;
+alert(result); // 1
+return result * 2;
 });
-
 promise.then(function(result) {
-  alert(result); // 1
-  return result * 2;
+alert(result); // 1
+return result * 2;
 });
-
 promise.then(function(result) {
-  alert(result); // 1
-  return result * 2;
+alert(result); // 1
+return result * 2;
 });
 ```
+هنا كتبنا أكثر من دالة مُعاملة لوعد واحد، وهذه التوابِع لا تمرّر القيمة إلى بعضها البعض، بل كلّ تعالجها على حدة.
+إليك الصورة (ووازِن بينها وبين السلسلة أعلاه):
+[promise-then-many.png]
+تتلقّى كلّ توابِع `‎.then` في نفس الوعد ذات الناتج (أي ناتج الوعد) بذلك تعرض الشيفرة أعلاه نتائج `alert` متطابقة: `1`.
+أمّا عمليًا فنادرًا ما نستعمل أكثر من دالة مُعاملة واحدة لكلّ وعد، على عكس السَلسلة التي يشيع استعمالها.
+## إعادة الوعود
+يمكن لدالة المُعاملة (المستعملة في `‎.then(handler)‎`) إنشاء وعد وإعادته.
+هنا تنتظر دوال المُعاملة الأخرى حتّى يكتمل الوعد وتستلم ناتجه.
+مثال على هذا:
 
-What we did here is just several handlers to one promise. They don't pass the result to each other; instead they process it independently.
-
-Here's the picture (compare it with the chaining above):
-
-![](promise-then-many.svg)
-
-All `.then` on the same promise get the same result -- the result of that promise. So in the code above all `alert` show the same: `1`.
-
-In practice we rarely need multiple handlers for one promise. Chaining is used much more often.
-
-## Returning promises
-
-A handler, used in `.then(handler)` may create and return a promise.
-
-In that case further handlers wait until it settles, and then get its result.
-
-For instance:
-
-```js run
+```
 new Promise(function(resolve, reject) {
-
-  setTimeout(() => resolve(1), 1000);
-
+setTimeout(() => resolve(1), 1000);
 }).then(function(result) {
-
-  alert(result); // 1
-
-*!*
-  return new Promise((resolve, reject) => { // (*)
-    setTimeout(() => resolve(result * 2), 1000);
-  });
-*/!*
-
+alert(result); // 1
+// لاحِظ
+return new Promise((resolve, reject) => { // (*)
+setTimeout(() => resolve(result * 2), 1000);
+});
 }).then(function(result) { // (**)
-
-  alert(result); // 2
-
-  return new Promise((resolve, reject) => {
-    setTimeout(() => resolve(result * 2), 1000);
-  });
-
+alert(result); // 2
+return new Promise((resolve, reject) => {
+setTimeout(() => resolve(result * 2), 1000);
+});
 }).then(function(result) {
+alert(result); // 4
+});
+```
+هنا يعرض أوّل تابِع `.then` القيمة `1` ويُعيد `new Promise(…)‎` في السطر `(*)`. بعد ثانية واحدة، ... الوعد ويُمرّر
+ناتجه (أي وسيط التابِع `resolve`، في حالتنا هو `result * 2`) إلى دالة المُعاملة التالية في تابِع `.then` التالي. نرى كيف أنّ
+الدالة في السطر `(**)` تعرض `2` وتؤدّي ما أدّته دالة المُعاملة السابقة.
+بذلك نحصل على ما حصلنا عليه في المثال السابق: 1 ثمّ 2 ثمّ 4، الفرق هو التأخير لمدّة ثانية بين كلّ استدعاء من استدعاءات
+`alert`.
+بإعادة الوعود يمكننا بناء سلسلة من الإجراءات غير المتزامنة.
+## مثال: loadScript
+لنستعمل هذه الميزة مع دالة `loadScript` (التي كتبناها في الفصل السابق) لنُحمّل النصوص البرمجية واحدًا تلو الآخر:
+```
+loadScript("/article/promise-chaining/one.js")
+.then(function(script) {
+return loadScript("/article/promise-chaining/two.js");
+})
 
-  alert(result); // 4
-
+.then(function(script) {
+return loadScript("/article/promise-chaining/three.js");
+})
+.then(function(script) {
+// نستعمل الدوال المعرّف عنها في النصوص البرمجية
+// ونتأكّد تمامًا بأنّها حُمّلت
+one();
+two();
+three();
+});
+```
+يمكننا أيضًا تقصير الشيفرة قليلًا باستعمال الدوال السهميّة:
+```
+loadScript("/article/promise-chaining/one.js")
+.then(script => loadScript("/article/promise-chaining/two.js"))
+.then(script => loadScript("/article/promise-chaining/three.js"))
+.then(script => {
+// اكتمل تحميل النصوص، يمكننا استعمال الدوال فيها الآن
+one();
+two();
+three();
 });
 ```
 
-Here the first `.then` shows `1` and returns `new Promise(…)` in the line `(*)`. After one second it resolves, and the result (the argument of `resolve`, here it's `result * 2`) is passed on to handler of the second `.then`. That handler is in the line `(**)`, it shows `2` and does the same thing.
-
-So the output is the same as in the previous example: 1 -> 2 -> 4, but now with 1 second delay between `alert` calls.
-
-Returning promises allows us to build chains of asynchronous actions.
-
-## Example: loadScript
-
-Let's use this feature with the promisified `loadScript`, defined in the [previous chapter](info:promise-basics#loadscript), to load scripts one by one, in sequence:
-
-```js run
-loadScript("/article/promise-chaining/one.js")
-  .then(function(script) {
-    return loadScript("/article/promise-chaining/two.js");
-  })
-  .then(function(script) {
-    return loadScript("/article/promise-chaining/three.js");
-  })
-  .then(function(script) {
-    // use functions declared in scripts
-    // to show that they indeed loaded
-    one();
-    two();
-    three();
-  });
+نرى هنا أنّ كلّ استدعاء من استدعاءات `loadScript` يُعيد وعدًا، ويعمل تابِع `‎.then` التالي في السلسلة متى ... الوعد. بعدها
+تبدأ الدالة بتحميل النص البرمجي التالي، وهكذا تُحمّل كلّ النصوص واحدًا بعد آخر.
+ويمكننا إضافة ما نريد من إجراءات غير متزامنة إلى السلسلة، ولن يزيد طول الشيفرة إلى اليمين، بل إلى أسفل، ولن نُقابل وجه ...
+ثانيةً.
+يمكننا تقنيًا إضافة تابِع `‎.then` داخل دوال `loadScript` مباشرةً هكذا:
 ```
-
-This code can be made bit shorter with arrow functions:
-
-```js run
-loadScript("/article/promise-chaining/one.js")
-  .then(script => loadScript("/article/promise-chaining/two.js"))
-  .then(script => loadScript("/article/promise-chaining/three.js"))
-  .then(script => {
-    // scripts are loaded, we can use functions declared there
-    one();
-    two();
-    three();
-  });
-```
-
-
-Here each `loadScript` call returns a promise, and the next `.then` runs when it resolves. Then it initiates the loading of the next script. So scripts are loaded one after another.
-
-We can add more asynchronous actions to the chain. Please note that the code is still "flat" — it grows down, not to the right. There are no signs of the "pyramid of doom".
-
-Technically, we could add `.then` directly to each `loadScript`, like this:
-
-```js run
 loadScript("/article/promise-chaining/one.js").then(script1 => {
-  loadScript("/article/promise-chaining/two.js").then(script2 => {
-    loadScript("/article/promise-chaining/three.js").then(script3 => {
-      // this function has access to variables script1, script2 and script3
-      one();
-      two();
-      three();
-    });
-  });
+loadScript("/article/promise-chaining/two.js").then(script2 => {
+loadScript("/article/promise-chaining/three.js").then(script3 => {
+// ‫يمكن أن تصل هذه الدالة إلى المتغيّرات script1 وscript2 وscript3
+one();
+two();
+three();
+});
+});
 });
 ```
 
-This code does the same: loads 3 scripts in sequence. But it "grows to the right". So we have the same problem as with callbacks.
-
-People who start to use promises sometimes don't know about chaining, so they write it this way. Generally, chaining is preferred.
-
-Sometimes it's ok to write `.then` directly, because the nested function has access to the outer scope. In the example above the most nested callback has access to all variables `script1`, `script2`, `script3`. But that's an exception rather than a rule.
-
-
-````smart header="Thenables"
-To be precise, a handler may return not exactly a promise, but a so-called "thenable" object - an arbitrary object that has a method `.then`. It will be treated the same way as a promise.
-
-The idea is that 3rd-party libraries may implement "promise-compatible" objects of their own. They can have an extended set of methods, but also be compatible with native promises, because they implement `.then`.
-
-Here's an example of a thenable object:
-
-```js run
-class Thenable {
-  constructor(num) {
-    this.num = num;
-  }
-  then(resolve, reject) {
-    alert(resolve); // function() { native code }
-    // resolve with this.num*2 after the 1 second
-    setTimeout(() => resolve(this.num * 2), 1000); // (**)
-  }
-}
-
-new Promise(resolve => resolve(1))
-  .then(result => {
-*!*
-    return new Thenable(result); // (*)
-*/!*
-  })
-  .then(alert); // shows 2 after 1000ms
+وتؤدّي الشيفرة نفس العمل: تُحمّل 3 نصوص برمجية بالترتيب. المشكلة هي أنّ طولها يزيد نحو اليمين وهي نفس مشكلة ردود
+النداء.
+عادةً ما يجهل المبرمجون الجدد الذين يستعملون الوعود ميزة السَلسلة، فيكتبون الشيفرات هكذا. لكنّ سَلسلة الوعود هي الأمثل
+وغالبًا الأفضل.
+ولكنّ استعمال `.then` مباشرةً أحيانًا لا يكون بالمشكلة الكبيرة، إذ يمكن للدوال المتداخلة الوصول إلى ... الخارجي. في المثال
+أعلاه مثلًا يمكن لآخر ردّ نداء متداخل الوصول إلى كلّ المتغيّرات `script1` و`script2` و`script3`، إلّا أنّ هذا استثناء عن
+القاعدة وليس قاعدة بحدّ ذاتها.
+**ملاحظة**: كائنات Thenables
+على وجه الدقة، لا تعيد المعالجات وعودًا وإنما تعيد كائن thenable - وهو كائن عشوائي له نفس توابع `.then`. ويتعامل معه
+بنفس طريقة التعامل مع الوعد.
+الفكرة أن مكتبات الخارجية تنفذ كائنات خاصة بها &quot;متوافقة مع الوعد&quot;. ويمكن أن يملكوا مجموعة توابع موسّعة. ولكن يجب أن
+يتوافقوا مع الوعود الأصيلة، لأنهم ينفذون `.then`.
+وإليك مثالًا على كائن thenable:
 ```
+class Thenable {
+constructor(num) {
+this.num = num;
+}
+then(resolve, reject) {
+alert(resolve); // function() { native code }
+// ‫إنجاز الوعد وتحقيقه مع this.num*2 بعد ثانية
+setTimeout(() => resolve(this.num * 2), 1000); // (**)
+}
+}
+new Promise(resolve => resolve(1))
+.then(result => {
+return new Thenable(result); // (*)
+})
+.then(alert); // shows 2 after 1000ms
+```
+تتحقق جافاسكربت من الكائن المُعاد من معالج `.then` في السطر `(*)`: إن لديه تابع قابل للاستدعاء يدعى `then` عندها
+سيستدعي ذاك التابع مزودًا بذلك بالتوابع الأصيلة مثل: `resolve` و `reject` كوسطاء (مشابه للمنفذ) وينتظر حتى يستدعى
+واحدًا منهم. في المثال أعلاه تستدعى `resolve(2)` بعد ثانية انظر `(**)`. بعدها تمرر النتيجة إلى أسفل السلسلة.
+تتيح لنا هذه المميزات دمج الكائنات المخصصة مع سلاسل الوعود دون الحاجة إلى الوراثة من الوعد `Promise`.
+## مثال أضخم: fetch
 
-JavaScript checks the object returned by the `.then` handler in line `(*)`: if it has a callable method named `then`, then it calls that method providing native functions `resolve`, `reject` as arguments (similar to an executor) and waits until one of them is called. In the example above `resolve(2)` is called after 1 second `(**)`. Then the result is passed further down the chain.
-
-This feature allows us to integrate custom objects with promise chains without having to inherit from `Promise`.
-````
-
-
-## Bigger example: fetch
-
-In frontend programming promises are often used for network requests. So let's see an extended example of that.
-
-We'll use the [fetch](info:fetch) method to load the information about the user from the remote server. It has a lot of optional parameters covered in [separate chapters](info:fetch), but the basic syntax is quite simple:
-
-```js
+عادةً ما نستعمل الوعود في برمجة الواجهات الرسومية لطلبات الشبكة. لنرى الآن مثالًا أوسع مجالًا قليلًا.
+سنستعمل التابِع []() لتحميل بعض المعلومات التي تخصّ المستخدم من الخادوم البعيد. لهذا التابِع معاملات كثيرة اختيارية كتبنا عنا
+في فصول مختلفة، إلّا أنّ صياغته الأساسية بسيطة إلى حدّ ما:
+```
 let promise = fetch(url);
 ```
-
-This makes a network request to the `url` and returns a promise. The promise resolves with a `response` object when the remote server responds with headers, but *before the full response is downloaded*.
-
-To read the full response, we should call the method `response.text()`: it returns a promise that resolves when the full text is downloaded from the remote server, with that text as a result.
-
-The code below makes a request to `user.json` and loads its text from the server:
-
-```js run
-fetch('/article/promise-chaining/user.json')
-  // .then below runs when the remote server responds
-  .then(function(response) {
-    // response.text() returns a new promise that resolves with the full response text
-    // when it loads
-    return response.text();
-  })
-  .then(function(text) {
-    // ...and here's the content of the remote file
-    alert(text); // {"name": "iliakan", "isAdmin": true}
-  });
+هكذا نُرسل طلبًا شبكيًا إلى العنوان `url` ونستلم وعدًا. ...... ما إن يردّ الخادم البعيد بترويسات الطلب، ولكن *قبل تنزيل الردّ
+كاملًا*.
+علينا استدعاء التابِع `response.text()‎` لقراءة الردّ كاملًا، وهو يُعيد وعدًا ... متى نُزّل النص الكامل من الخادوم البعيد،
+وناتجه يكون ذلك النص.
+تُرسل الشيفرة أسفله طلبًا إلى `user.json` وتحمّل نصّه من الخادوم:
 ```
-
-The `response` object returned from `fetch` also includes the method `response.json()` that reads the remote data and parses it as JSON. In our case that's even more convenient, so let's switch to it.
-
-We'll also use arrow functions for brevity:
-
-```js run
-// same as above, but response.json() parses the remote content as JSON
-fetch('/article/promise-chaining/user.json')
-  .then(response => response.json())
-  .then(user => alert(user.name)); // iliakan, got user name
+fetch("/article/promise-chaining/user.json")
+// ‫إن ‎.then تعمل عندما يستجيب الخادم البعيد
+.then(function(response) {
+// ‫إن التابع response.text()‎ يُعيد وعدًا جديدًا والذي يعاد مع كامل نص الاستجابة
+// عندما يُحمّل
+return response.text();
+})
+.then(function(text) {
+// ‫...وهنا سيكون محتوى الملف البعيد
+alert(text); // {"name": "iliakan", isAdmin: true}
+});
 ```
-
-Now let's do something with the loaded user.
-
-For instance, we can make one more requests to GitHub, load the user profile and show the avatar:
-
-```js run
-// Make a request for user.json
-fetch('/article/promise-chaining/user.json')
-  // Load it as json
-  .then(response => response.json())
-  // Make a request to GitHub
-  .then(user => fetch(`https://api.github.com/users/${user.name}`))
-  // Load the response as json
-  .then(response => response.json())
-  // Show the avatar image (githubUser.avatar_url) for 3 seconds (maybe animate it)
-  .then(githubUser => {
-    let img = document.createElement('img');
-    img.src = githubUser.avatar_url;
-    img.className = "promise-avatar-example";
-    document.body.append(img);
-
-    setTimeout(() => img.remove(), 3000); // (*)
-  });
+كما أنّ هناك التابِع `response.json()‎` والذي يقرأ البيانات المستلمة البعيدة ويحلّلها على أنّها JSON. في حالتنا هذا أفضل
+وأسهل فهيًا نستعمله.
+كما وسنستعمل الدوال السهميّة للاختصار قليلًا:
 ```
-
-The code works; see comments about the details. However, there's a potential problem in it, a typical error for those who begin to use promises.
-
-Look at the line `(*)`: how can we do something *after* the avatar has finished showing and gets removed? For instance, we'd like to show a form for editing that user or something else. As of now, there's no way.
-
-To make the chain extendable, we need to return a promise that resolves when the avatar finishes showing.
-
-Like this:
-
-```js run
+// ‫مشابه للمثال أعلاه ولكن التابع response.json()‎ يحلل المحتوى البعيد كملف JSON
 fetch('/article/promise-chaining/user.json')
-  .then(response => response.json())
-  .then(user => fetch(`https://api.github.com/users/${user.name}`))
-  .then(response => response.json())
-*!*
-  .then(githubUser => new Promise(function(resolve, reject) { // (*)
-*/!*
-    let img = document.createElement('img');
-    img.src = githubUser.avatar_url;
-    img.className = "promise-avatar-example";
-    document.body.append(img);
-
-    setTimeout(() => {
-      img.remove();
-*!*
-      resolve(githubUser); // (**)
-*/!*
-    }, 3000);
-  }))
-  // triggers after 3 seconds
-  .then(githubUser => alert(`Finished showing ${githubUser.name}`));
+.then(response => response.json())
+.then(user => alert(user.name)); // iliakan, got user name
 ```
+الآن لنصنع شيئًا بهذا المستخدم الذي حمّلناه.
+يمكننا مثلًا إجراء طلبات أكثر من غِت‎هَب وتحميل ملف المستخدم الشخصي وعرض صورته:
 
-That is, the `.then` handler in line `(*)` now returns `new Promise`, that becomes settled only after the call of `resolve(githubUser)` in `setTimeout` `(**)`. The next `.then` in the chain will wait for that.
+```
+// ‫أنشئ طلب لـِuser.json
+fetch('/article/promise-chaining/user.json')
+// ‫حمله وكأنه ملف json
+.then(response => response.json())
+// ‫أنشئ طلب لـِ GitHub
+.then(user => fetch(`https://api.github.com/users/${user.name}`))
+// ‫حمّل الرد كملف json
+.then(response => response.json())
+// ‫أظهر الصورة الرمزية (avatar) من (githubUser.avatar_url) لمدة 3 ثواني
+.then(githubUser => {
+let img = document.createElement('img');
+img.src = githubUser.avatar_url;
+img.className = 'promise-avatar-example';
+document.body.append(img);
+setTimeout(() => img.remove(), 3000); // (*)
+});
+```
+الشيفرة تعمل على أكمل وجه (طالِع التعليقات لتعرف التفاصيل). ولكن هناك مشكلة فيه قد تحدث، وهي خطأ شائع يقع فيه من
+يستعمل الوعود أوّل مرّة.
+طالِع السطر `(*)`: كيف يمكن أن نفعل مهمّة معينة *متى* اكتمل عرض الصورة وأُزيلت؟ فلنقل مثلًا سنعرض استمارة لتحرير
+ذلك المستخدم أو أيّ شيء آخر. حاليًا... ذلك مستحيل.
+لنقدر على مواصلة السلسلة علينا إعادة وعد المُنجز متى اكتمل عرض الصورة.
+هكذا:
+```
+fetch('/article/promise-chaining/user.json')
+.then(response => response.json())
+.then(user => fetch(`https://api.github.com/users/${user.name}`))
+.then(response => response.json())
+// هنا
+.then(githubUser => new Promise(function(resolve, reject) { // (*)
+let img = document.createElement('img');
+img.src = githubUser.avatar_url;
+img.className = "promise-avatar-example";
+document.body.append(img);
+setTimeout(() => {
+img.remove();
+resolve(githubUser); // (**)
+}, 3000);
+}))
+// يحدث بعد 3 ثوانٍ
 
-As a good practice, an asynchronous action should always return a promise. That makes it possible to plan actions after it; even if we don't plan to extend the chain now, we may need it later.
-
-Finally, we can split the code into reusable functions:
-
-```js run
+.then(githubUser => alert(`Finished showing ${githubUser.name}`));
+```
+هكذا صارت تُعيد دالة المُعاملة في `.then` عند السطر `(*)` كائنَ `new Promise` لا ... إلّا بعد استدعاء
+`resolve(githubUser)‎` في `setTimeout` عند `(**)`.
+وسينتظر تابِع `‎.then` التالي في السلسلة اكتمال ذلك.
+تُعد إعادة الإجراءات غير المتزامنة للوعود دومًا إحدى الممارسات الصحيحة في البرمجة.
+هكذا يسهّل علينا التخطيط للإجراءات التي ستصير بعد هذا، فحتّى لو لم نريد توسعة السلسلة الآن لربّما احتجنا إلى ذلك لاحقًا.
+وأخيرًا، يمكننا أيضًا تقسيم الشيفرة إلى دوال يمكن إعادة استعمالها:
+```
 function loadJson(url) {
-  return fetch(url)
-    .then(response => response.json());
+return fetch(url)
+.then(response => response.json());
 }
-
 function loadGithubUser(name) {
-  return fetch(`https://api.github.com/users/${name}`)
-    .then(response => response.json());
+return fetch(`https://api.github.com/users/${name}`)
+.then(response => response.json());
 }
-
 function showAvatar(githubUser) {
-  return new Promise(function(resolve, reject) {
-    let img = document.createElement('img');
-    img.src = githubUser.avatar_url;
-    img.className = "promise-avatar-example";
-    document.body.append(img);
-
-    setTimeout(() => {
-      img.remove();
-      resolve(githubUser);
-    }, 3000);
-  });
+return new Promise(function(resolve, reject) {
+let img = document.createElement('img');
+img.src = githubUser.avatar_url;
+img.className = "promise-avatar-example";
+document.body.append(img);
+setTimeout(() => {
+img.remove();
+resolve(githubUser);
+}, 3000);
+});
 }
-
-// Use them:
+// نستعملها الآن:
 loadJson('/article/promise-chaining/user.json')
-  .then(user => loadGithubUser(user.name))
-  .then(showAvatar)
-  .then(githubUser => alert(`Finished showing ${githubUser.name}`));
-  // ...
+.then(user => loadGithubUser(user.name))
+.then(showAvatar)
+.then(githubUser => alert(`Finished showing ${githubUser.name}`));
+// اكتمل عرض كذا // ...
 ```
+## خلاصة
 
-## Summary
-
-If a `.then` (or `catch/finally`, doesn't matter) handler returns a promise, the rest of the chain waits until it settles. When it does, its result (or error) is passed further.
-
-Here's a full picture:
-
-![](promise-handler-variants.svg)
+إن أعادت دالة مُعاملة `‎.then` (أو `catch/finally`، لا يهمّ حقًا) وعدًا، فتنتظر بقية السلسلة حتّى تُنجز متى حدث ذلك يُمرّر
+الناتج (أو الخطأ) إلى التي بعدها.
+إليك الصورة الكاملة:
+[promise-handler-variants.png]
+## تمارين
+# الوعد: then وcatch
+هل تؤدّي هاتين الشيفرتين نفس الغرض؟ أي هل يتطابق سلوكهما في الحالات المختلفة، وأيّما كانت دوال المُعاملة؟
+```
+promise.then(f1).catch(f2);
+```
+مقابل:
+```
+promise.then(f1, f2);
+```
+#### الحل
+الجواب المختصر: ** لا ليسا متساويين**:
+الفرق أنه إن حدث خطأ في `f1` فستعالجها `‎.catch` هنا:
+```
+promise
+.then(f1)
+.catch(f2);
+```
+...لكن ليس هنا:
+```
+promise
+.then(f1, f2);
+```
+وذلك بسبب تمرير الخطأ لأسفل السلسلة، وفي الجزء الثاني من الشيفرة لا يوجد سلسلة أقل من `f1`.
+بمعنى آخر يمرر `‎.then` النتيجة أو الخطأ إلى `‎.then/catch` التالية. لذا في المثال الأول يوجد `catch` بينما في المثال
+الثاني لا يوجد. ولذلك لم يعالج الخطأ.
+ترجمة -وبتصرف- للفصل [Promises chaining](https://javascript.info/promise-chaining) من
+كتاب [The JavaScript language](https://javascript.info/js)

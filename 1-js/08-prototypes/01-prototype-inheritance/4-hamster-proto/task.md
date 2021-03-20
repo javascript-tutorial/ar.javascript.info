@@ -1,12 +1,13 @@
-importance: 5
+_الأهمية: 5_
 
 ---
 
-# Why are both hamsters full?
+# لماذا أصابت التخمة كِلا الهامسترين؟
 
-We have two hamsters: `speedy` and `lazy` inheriting from the general `hamster` object. 
+لدينا هامسترين، واحد سريع `speedy` وآخر كسول `lazy`، والاثنين يرثان كائن الهامستر العمومي `hamster`.
 
-When we feed one of them, the other one is also full. Why? How can we fix it?
+حين نُعطي أحدهما الطعام، نجد الآخر أُتخم أيضًا. لماذا ذلك؟ كيف نُصلح المشكلة؟
+
 
 ```js run
 let hamster = {
@@ -25,11 +26,11 @@ let lazy = {
   __proto__: hamster
 };
 
-// This one found the food
+// وجد هذا الهامستر الطعامَ قبل الآخر
 speedy.eat("apple");
 alert( speedy.stomach ); // apple
 
-// This one also has it, why? fix please.
+// هذا أيضًا وجده. لماذا؟ أصلِح الشيفرة.
 alert( lazy.stomach ); // apple
 ```
 

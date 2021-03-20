@@ -1,6 +1,8 @@
-The first solution we could try here is the recursive one.
 
-Fibonacci numbers are recursive by definition:
+الحل الأول الذي مكن تجربته هنا هو الحل المتكرر.
+
+أعداد فيبوناتشي متكررة وذلك واضح من التعريف:
+
 
 ```js run
 function fib(n) {
@@ -12,11 +14,11 @@ alert( fib(7) ); // 13
 // fib(77); // will be extremely slow!
 ```
 
-...But for big values of `n` it's very slow. For instance, `fib(77)` may hang up the engine for some time eating all CPU resources.
+لكن القيم الكبيرة من الـ `n` سيكون بطئ جداً مثلاً `fib(77)` يمكن أن تعطل المحركلمد من الزمن
 
-That's because the function makes too many subcalls. The same values are re-evaluated again and again.
+ذلك لأن الدالة تحتوي علي منادايات كثيرة جداً داخلها لنفسها. نفس القيم تحسب مراتٍ كثيرة.
 
-For instance, let's see a piece of calculations for `fib(5)`:
+مثلاً لنري قطعة من حساب `fib(5)`:
 
 ```js no-beautify
 ...
@@ -24,24 +26,25 @@ fib(5) = fib(4) + fib(3)
 fib(4) = fib(3) + fib(2)
 ...
 ```
+`fib(5)` و `fib(4)` كلاهما يحتاج لحساب `fib(3)` إذن هذا الدالة سوف تنادي مراتان ليس لهما علاقة ببعضهما.
 
-Here we can see that the value of `fib(3)` is needed for both `fib(5)` and `fib(4)`. So `fib(3)` will be called and evaluated two times completely independently.
-
-Here's the full recursion tree:
+ها هي صورة كاملة لشجرة التكرار:
 
 ![fibonacci recursion tree](fibonacci-recursion-tree.svg)
 
-We can clearly notice that `fib(3)` is evaluated two times and `fib(2)` is evaluated three times. The total amount of computations grows much faster than `n`, making it enormous even for `n=77`.
+واضح هنا أن `fib(3)` تمت مناداتها مرتين و `fib(2)` سيتم مناداتها وتنفيذها ثلاث مرات. لذلك سيكون عدد الدوال التي تم تنفيذها سيكون هائل جداً حتي إذا كان `n=77`.
 
-We can optimize that by remembering already-evaluated values: if a value of say `fib(3)` is calculated once, then we can just reuse it in future computations.
+يمكننا تحسين هذا عن طريق تذكر القيم التي تم حسابها من قبل: مثلاإذا وجدنا `fib(3)` تم حسابها من قبل نأتي بقيمتها فوراً ولا نقوم بتنفيذها مرة أخري
 
-Another variant would be to give up recursion and use a totally different loop-based algorithm.
+ذلك يضع أمامنا خيار أخر وهو أن نتخلي عن التكرار واستخدام طريقة حل مبنية علي الـ Array مختلفة تماماً
 
-Instead of going from `n` down to lower values, we can make a loop that starts from `1` and `2`, then gets `fib(3)` as their sum, then `fib(4)` as the sum of two previous values, then `fib(5)` and goes up and up, till it gets to the needed value. On each step we only need to remember two previous values.
+بدلاً من أن نذهب من `n` أسفل للقيم الأقل, يمكن أن نصنع حلقة تبدأ من `1` و `2`, ثم نأتي بـ `fib(3)` بأعتبار أن ناتجها هو مجموعهم, ثم `fib(4)` بأعتبار أن ناتجها مجموع القيماتان السابقان ثم `fib(5)` تذهب لأعلي ثم أعلي حتي تصل إلي القيمة المطلوبة. كل ما نحتاج تذكره هو الرقمين السابقين.
 
-Here are the steps of the new algorithm in details.
 
-The start:
+هنا سنشرح الخطوات للخوارزمية الجديدة بالتفصيل.
+
+في البداية:
+
 
 ```js
 // a = fib(1), b = fib(2), these values are by definition 1
@@ -55,10 +58,10 @@ a  b  c
 1, 1, 2
 */
 ```
+الأن نحن نريد الحصول علي `fib(4) = fib(2) + fib(3)`.
 
-Now we want to get `fib(4) = fib(2) + fib(3)`.
+الأن نحتاج إلي تبديل المتغيرات `a,b` سيصبحوا `fib(2),fib(3)` و `c` سيكون مجموعهم : 
 
-Let's shift the variables: `a,b` will get `fib(2),fib(3)`, and `c` will get their sum:
 
 ```js no-beautify
 a = b; // now a = fib(2)
@@ -71,7 +74,8 @@ c = a + b; // c = fib(4)
 */
 ```
 
-The next step gives another sequence number:
+الخطوة التالية تعطينا تسلسل أخر للأرقام: 
+
 
 ```js no-beautify
 a = b; // now a = fib(3)
@@ -84,9 +88,10 @@ c = a + b; // c = fib(5)
 */
 ```
 
-...And so on until we get the needed value. That's much faster than recursion and involves no duplicate computations.
+وهكذا وهكذا حتي نحصل علي القيمة المطلوبة. هذا أسرع بكثيير ويمنع حساب شئ تم حسابه مسبقاً.
 
-The full code:
+
+الكود كاملاً:
 
 ```js run
 function fib(n) {
@@ -104,7 +109,7 @@ alert( fib(3) ); // 2
 alert( fib(7) ); // 13
 alert( fib(77) ); // 5527939700884757
 ```
+الحلقة تبدأ من `i=3`, لأننا نعرف قيمة العددين الأولين `a=1`, `b=1`.
 
-The loop starts with `i=3`, because the first and the second sequence values are hard-coded into variables `a=1`, `b=1`.
 
-The approach is called [dynamic programming bottom-up](https://en.wikipedia.org/wiki/Dynamic_programming).
+هذا الحل يسمي [البرمجة الديناميكية](https://en.wikipedia.org/wiki/Dynamic_programming).

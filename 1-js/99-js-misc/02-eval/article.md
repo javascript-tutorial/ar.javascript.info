@@ -1,93 +1,91 @@
-# Eval: run a code string
+# الدالّة "Eval" لتنفيذ الشيفرة البرمجية
 
-The built-in `eval` function allows to execute a string of code.
+تنفذ الدالّة `Eval` المضمّنة في اللغة الشيفرات البرمجية المُمرّرة لها كسلسلة نصية `string`.
 
-The syntax is:
+وصياغتها هكذا:
 
-```js
+```
 let result = eval(code);
 ```
 
-For example:
+فمثلًا:
 
-```js run
+```
 let code = 'alert("Hello")';
 eval(code); // Hello
 ```
 
-A string of code may be long, contain line breaks, function declarations, variables and so on.
+يمكن أن تكون الشيفرة المُمررة للدالّة كبيرة وتحتوي على فواصل أسطر وتعريف دوالّ ومتغيّرات، وما إلى ذلك.
 
-The result of `eval` is the result of the last statement.
+ولكن نتيجة الدالّة `Eval` هي نتيجة آخر عبارة منفذة في الشيفرة.
 
-For example:
-```js run
+وإليك المثال التالي:
+
+
+```
 let value = eval('1+1');
 alert(value); // 2
 ```
 
-```js run
+```
 let value = eval('let i = 0; ++i');
 alert(value); // 1
 ```
 
-The eval'ed code is executed in the current lexical environment, so it can see outer variables:
+تُنفذّ الشيفرة في البيئة الحالية للدالّة، ولذا فيمكنها رؤية المتغيرات الخارجية:
 
-```js run no-beautify
+```
 let a = 1;
 
 function f() {
   let a = 2;
 
-*!*
   eval('alert(a)'); // 2
-*/!*
 }
 
 f();
 ```
 
-It can change outer variables as well:
+كما يمكنها تعديل المتغيّرات الخارجية أيضًا:
 
-```js untrusted refresh run
+```
 let x = 5;
 eval("x = 10");
-alert(x); // 10, value modified
+alert(x); // النتيجة: ‫10، تعدلت القيمة بنجاح
 ```
 
-In strict mode, `eval` has its own lexical environment. So functions and variables, declared inside eval, are not visible outside:
+في الوضع الصارم، تملك الدالّة `Eval` بيئة متغيّرات خاصة بها. لذا فلن تظهر الدوالّ والمتغيرات، المعرفة -داخل الدالة- للخارج وإنما ستبقى بداخلها:
 
-```js untrusted refresh run
-// reminder: 'use strict' is enabled in runnable examples by default
-
+```
+// تذكر أن في الوضع الصارم يُشغّلُ تلقائيًا في الأمثلة الحيّة
 eval("let x = 5; function f() {}");
 
-alert(typeof x); // undefined (no such variable)
-// function f is also not visible
+alert(typeof x); // undefined (المتحول غير مرئي هنا)
+// ‫الدالّة f غير مرئية هنا أيضًا
 ```
+بدون تفعيل "الوضع صارم"، لن يكون للدالّة `Eval` بيئة متغيرات خاصة بها، ولذلك سنرى المتغيّر `x` والدالّة `f` من خارج الدالّة.
 
-Without `use strict`, `eval` doesn't have its own lexical environment, so we would see `x` and `f` outside.
+## استخدامات الدالّة "Eval"
 
-## Using "eval"
+في طرق البرمجة الحديثة، نادرًا ما تستخدم الدالّة `Eval`. وغالبًا ما يقال عنها أنها أصل الشرور.
 
-In modern programming `eval` is used very sparingly. It's often said that "eval is evil".
+والسبب بسيط: إذ كانت لغة جافاسكربت منذ زمن بعيد أضعف بكثير من الآن، ولم يكُ بالإمكان فعل إيّ شيء إلا باستخدام الدالّة `Eval`. ولكن ذلك الوقت مضى عليه عقد من الزمن.
 
-The reason is simple: long, long time ago JavaScript was a much weaker language, many things could only be done with `eval`. But that time passed a decade ago.
+حاليًا، لا يوجد سبب وجيه لاستخدامها. ولو أن شخصًا يستخدمها الآن فلديه الإمكانية لاستبدالها بالبنية الحديثة للغة أو [بالوحدات](info:modules).
 
-Right now, there's almost no reason to use `eval`. If someone is using it, there's a good chance they can replace it with a modern language construct or a [JavaScript Module](info:modules).
+لاحظ أن إمكانية وصول الدالة `eval` للمتغيرات الخارجية لها عواقب سيئة.
 
-Please note that its ability to access outer variables has side-effects.
+إن عملية تصغير الشيفرة (هي الأدوات تستخدم لتصغير شيفرة الجافاسكربت قبل نشرها وذلك لتصغير حجمها أكثر من ذي قبل) تعيد تسمية المتغيّرات المحلية لأسماء أقصر (مثل `a` و`b` وما إلى ذلك) لتصغير الشيفرة. وعادةً ما تكون هذه العلمية آمنة، ولكن ليس في حال استخدام الدالّة `Eval`، إذ يمكننا الوصول للمتغيّرات المحلية من الشيفرة المُمررة للدالّة. لذا، لن تصغّر المتغيرات التي يحتمل أن تكون مرئية من الدالة `Eval`. مما سيُؤثر سلبًا على نسبة ضغط الشيفرة.
 
-Code minifiers (tools used before JS gets to production, to compress it) rename local variables into shorter ones (like `a`, `b` etc) to make the code smaller. That's usually safe, but not if `eval` is used, as local variables may be accessed from eval'ed code string. So minifiers don't do that renaming for all variables potentially visible from `eval`. That negatively affects code compression ratio.
+يُعدّ استخدام المتغيّرات المحلية في الشيفرة بداخل الدالّة `Eval` من الممارسات البرمجية السيئة، لأنه يزيد صعوبة صيانة الشيفرة.
 
-Using outer local variables inside `eval` is also considered a bad programming practice, as it makes maintaining the code more difficult.
+هناك طريقتان لضمان الأمان الكامل عند مصادفتك مثل هذه المشاكل.
 
-There are two ways how to be totally safe from such problems.
+**إذا لم تستخدم الشيفرة الممررة للدالّة المتغيرات الخارجية، فمن الأفضل استدعاء الدالّة هكذا: `window.eval(...)‎`**
 
-**If eval'ed code doesn't use outer variables, please call `eval` as `window.eval(...)`:**
+بهذه الطريقة ستُنفذّ الشيفرة في النطاق العام:
 
-This way the code is executed in the global scope:
-
-```js untrusted refresh run
+```
 let x = 1;
 {
   let x = 5;
@@ -95,20 +93,49 @@ let x = 1;
 }
 ```
 
-**If eval'ed code needs local variables, change `eval` to `new Function` and pass them as arguments:**
+**إن احتاجت الشيفرة الممررة للدالة `Eval` لمتغيّرات خارجية، فغيّر `Eval` لتصبح `new Function` ومرّر المتغير كوسيط. هكذا:**
 
-```js run
+```
 let f = new Function('a', 'alert(a)');
 
 f(5); // 5
 ```
 
-The `new Function` construct is explained in the chapter <info:new-function>. It creates a function from a string, also in the global scope. So it can't see local variables. But it's so much clearer to pass them explicitly as arguments, like in the example above.
+شرحنا في مقالٍ سابق تعلمنا كيفية استخدام [صياغة «الدالة الجديدة» new Function](). إذ باستخدام هذه الصياغة ستُنشأ دالة جديدة من السلسلة (String)، في النطاق العام. لذا لن تتمكن من رؤية المتغيرات المحلية. ولكن من الواضح أن تمريرها المتغيرات صراحة كوسطاء سيحلّ المشكلة، كما رأينا في المثال أعلاه.
 
-## Summary
+## خلاصة
 
-A call to `eval(code)` runs the string of code and returns the result of the last statement.
-- Rarely used in modern JavaScript, as there's usually no need.
-- Can access outer local variables. That's considered bad practice.
-- Instead, to `eval` the code in the global scope, use `window.eval(code)`.
-- Or, if your code needs some data from the outer scope, use `new Function` and pass it as arguments.
+سيُشغّل استدعاء الدالّة `eval(code)‎` الشيفرة البرمجية المُمرّرة ويعيد نتيجة العبارة الأخيرة.
+
+- نادرًا ما تستخدم هذه الدالّة في الإصدارات الحديثة للغة، إذ لا توجد حاجة ماسّة لها.
+- يمكننا الوصول دائمًا للمتغيّرات الخارجية في الدالّة `eval`. ولكن يعدّ ذلك من الممارسات السيئة.
+- بدلًا من ذلك يمكننا استخدام الدالة `eval` في النطاق العام، هكذا `window.eval(code)‎`.
+- أو، إذا كانت الشيفرة الخاصة بك تحتاج لبعض البيانات من النطاق الخارجي، فاستخدم صياغة `الدالّة الجديدة` ومرّر لها المتغيرات كوسطاء.
+
+## التمارين
+
+### آلة حاسبة باستخدام الدالة Eval
+
+_الأهمية: 4_
+
+أنشئ آلة حاسبة تطالب بتعبير رياضي وتُعيد نتيجته.
+
+لا داعي للتحقق من صحة التعبير في هذا التمرين. فقط قيّم التعبير وأعد نتيجته.
+
+[لرؤية المثال الحي](https://javascript.info/eval#)
+
+#### الحل
+
+لنستخدم الدالة `eval` لحساب التعبير الرياضي:
+
+```
+let expr = prompt("Type an arithmetic expression?", '2*3+2');
+
+alert( eval(expr) );
+```
+
+يستطيع المستخدم أيضًا إدخال أي نص أو شيفرة.
+
+لجعل الشيفرة آمنة، وحصرها للعمليات الرياضية فحسب، سنتحقق من `expr` باستخدام [التعابير النمطية](https://javascript.info/regular-expressions)، لكي لا تحتوي إلا على الأرقام والمعاملات رياضية.
+
+ترجمة -وبتصرف- للفصل [Eval: run a code string](https://javascript.info/eval) من كتاب [The JavaScript language](https://javascript.info/js)

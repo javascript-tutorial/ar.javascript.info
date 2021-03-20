@@ -2,19 +2,18 @@ importance: 5
 
 ---
 
-# Check for emptiness
+# تحقق من الفراغ
 
-Write the function `isEmpty(obj)` which returns `true` if the object has no properties, `false` otherwise.
+اكتب دالة `isEmpty(obj) و التى تقوم بارجاع`true`اذا كان الكائن لا يحتوى على خواص و ارجاع`false` فى الحالات الأخرى
 
-Should work like that:
+يجب أن تعمل بهذا الشكل :
 
 ```js
 let schedule = {};
 
-alert( isEmpty(schedule) ); // true
+alert(isEmpty(schedule)); // true
 
 schedule["8:30"] = "get up";
 
-alert( isEmpty(schedule) ); // false
+alert(isEmpty(schedule)); // false
 ```
-

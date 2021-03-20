@@ -1,5 +1,6 @@
 
-1. Let's add `__proto__`:
+1. لنُضيف خاصيات `__proto__`:
+
 
     ```js run
     let head = {
@@ -27,6 +28,7 @@
     alert( table.money ); // undefined
     ```
 
-2. In modern engines, performance-wise, there's no difference whether we take a property from an object or its prototype. They remember where the property was found and reuse it in the next request.
+2. حين نتكلّم عن المحرّكات الحديثة، فليس هناك فرق (من ناحية الأداء) لو أخذنا الخاصية من الكائن أو من النموذج الأولي، فهي تتذكّر مكان الخاصية وتُعيد استعمالها عند طلبها ثانيةً.
 
-    For instance, for `pockets.glasses` they remember where they found `glasses` (in `head`), and next time will search right there. They are also smart enough to update internal caches if something changes, so that optimization is safe.
+فمثلًا ستتذكّر التعليمة `pockets.glasses` بأنّها وجدت `glasses` في كائن `head`، وفي المرة التالية ستبحث هناك مباشرة. كما أنّها ذكية لتُحدّث ذاكرتها الداخلية ما إن يتغيّر شيء ما لذا فإن الأداء الأمثل في أمان.
+

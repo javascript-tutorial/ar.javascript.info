@@ -1,3 +1,3 @@
-# Code quality
+# جودة الشِفرة
 
-This chapter explains coding practices that we'll use further in the development. 
+يشرح هذا الفصل عدد من الممارسات التي سنقوم باستخدامها أكثر في التطوير. 

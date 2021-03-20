@@ -1,7 +1,7 @@
 
-# Call async from non-async
+# استدعاء غير متزامن من غير متزامن
 
-We have a "regular" function. How to call `async` from it and use its result?
+لدينا وظيفة "عادية". كيفية استدعاء "غير متزامن" منه واستخدام نتائجه؟
 
 ```js
 async function wait() {
@@ -17,4 +17,4 @@ function f() {
 }
 ```
 
-P.S. The task is technically very simple, but the question is quite common for developers new to async/await.
+ملاحظة. المهمة بسيطة من الناحية الفنية ، ولكن السؤال شائع جدًا للمطورين الجدد على عدم المزامنة / الانتظار.

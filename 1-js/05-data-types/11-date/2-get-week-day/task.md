@@ -1,14 +1,14 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Show a weekday
+# إظهار أيام الأسبوع
 
-Write a function `getWeekDay(date)` to show the weekday in short format: 'MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'.
+قم بكتابة الدالة `getWeekDay(date)` التي تقوم بإظهار يوم الأسبوع بتنسيق قصير: 'MO'، 'TU'، 'WE'، 'TH'، 'FR'، 'SA'، 'SU'.
 
-For instance:
+على سبيل المثال:
 
 ```js no-beautify
 let date = new Date(2012, 0, 3);  // 3 Jan 2012
-alert( getWeekDay(date) );        // should output "TU"
+alert( getWeekDay(date) );        // يجب أن يظهر "TU"
 ```

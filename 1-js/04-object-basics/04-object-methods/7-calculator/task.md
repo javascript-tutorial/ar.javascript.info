@@ -1,14 +1,14 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Create a calculator
+# إنشاء آلة حاسِبة
 
-Create an object `calculator` with three methods:
+أنشئ كائنًا باسم `calculator` يحوي الدوال الثلاث التالية:
 
-- `read()` prompts for two values and saves them as object properties.
-- `sum()` returns the sum of saved values.
-- `mul()` multiplies saved values and returns the result.
+- `read()‎` تطلب قيمتين وتحفظها كخصائص الكائن.
+- `sum()‎` تُرجِع مجموع القيم المحفوظة.
+- `mul()‎` تضرب القيم المحفوظة وتُرجِع النتيجة.
 
 ```js
 let calculator = {

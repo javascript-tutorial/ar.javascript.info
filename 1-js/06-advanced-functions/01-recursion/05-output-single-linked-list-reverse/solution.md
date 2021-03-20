@@ -1,8 +1,9 @@
-# Using a recursion
+# حل التكرار
 
-The recursive logic is a little bit tricky here.
+منطق التكرار هنا يعتبر مخادع قليلاً.
 
-We need to first output the rest of the list and *then* output the current one:
+هنا نحن نحتاج أولاً أن نطبع بقية القائمة ثم بعد ذلك نطبع العنصر الحالي. هل فهمتها؟
+
 
 ```js run
 let list = {
@@ -31,13 +32,14 @@ function printReverseList(list) {
 printReverseList(list);
 ```
 
-# Using a loop
+# حل الحلقة
 
-The loop variant is also a little bit more complicated then the direct output.
+حل الحلقة هو الاخر يعتبر معقد قليلاً بالنسبة إلي الطباعة المباشرة.
 
-There is no way to get the last value in our `list`. We also can't "go back".
+نحن لا نمتلك طرييقة للحصول علي القيمة الأخيرة في القائمة ولا نستطيع العودة للخلف.
 
-So what we can do is to first go through the items in the direct order and remember them in an array, and then output what we remembered in the reverse order:
+إذا ماذا نفعل؟ نستطيع أولاً أن نمر خلال العناصر بالطريقة المباشرة ونتذكرهم عن طريق تخزينهم في ترتيب Array, ثم نطبع الترتيب الذي تذكرناه ولكن بشكل عكسي:
+
 
 ```js run
 let list = {
@@ -71,4 +73,5 @@ function printReverseList(list) {
 printReverseList(list);
 ```
 
-Please note that the recursive solution actually does exactly the same: it follows the list, remembers the items in the chain of nested calls (in the execution context stack), and then outputs them. 
+يرجي ملاحظة أن الحل المتكرر هنا فعل المثل تماماً: لقد أتبع العناصر في السلسلة عن طريق المنادايات المتداخلة ثم طباعتهم.
+

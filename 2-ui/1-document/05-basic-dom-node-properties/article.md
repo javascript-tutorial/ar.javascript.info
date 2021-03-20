@@ -66,7 +66,7 @@ alert( document.body instanceof EventTarget ); // true
 
 من السهل أيضًا رؤية ذلك عن طريق إخراج عنصر باستخدام "console.dir (elem)" في المستعرض. هناك في وحدة التحكم يمكنك مشاهدة `HTMLElement.prototype` و` Element.prototype` وما إلى ذلك.
 
-"` `smart header =" `` console.dir (elem) `مقابل` console.log (elem) ""
+```smart header=" `` console.dir (elem) `مقابل` console.log (elem) ""
 تدعم معظم المتصفحات أمرين في أدوات المطورين الخاصة بهم: `console.log` و` console.dir`. يخرجون حججهم إلى وحدة التحكم. بالنسبة لكائنات JavaScript ، تقوم هذه الأوامر بنفس الشيء.
 
 ولكن بالنسبة لعناصر DOM فهي مختلفة:

@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Uppercase the first character
+### حول الحرف الأول إلى حرف كبير
 
-Write a function `ucFirst(str)` that returns the string `str` with the uppercased first character, for instance:
+اكتب دالة باسم `ucFirst(str)‎` تُرجِع النص `str` مع تكبير أول حرف فيه، مثلًا:
 
 ```js
 ucFirst("john") == "John";

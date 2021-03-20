@@ -1,32 +1,32 @@
 # Page: DOMContentLoaded, load, beforeunload, unload
 
-The lifecycle of an HTML page has three important events:
+دورة حياة صفحه HTML لها ثلاثة احداث مهمة :
 
-- `DOMContentLoaded` -- the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures `<img>` and stylesheets may be not yet loaded.  
-- `load` -- not only HTML is loaded, but also all the external resources: images, styles etc.
-- `beforeunload/unload` -- the user is leaving the page.
+- `DOMContentLoaded` -- يتم تحميل المتصفح بالكامل HTML, ويتم انشاء ال DOM, لكن الموارد الخارجية مثل `<img>` وملفات التصميم ربما لم يتم تحميلها.  
+- `load` -- لا يتم تحمل HTML فقط , لكن ايضأ جميع الموارد الخارجية: الصور, ملفات التصميم الخ.
+- `beforeunload/unload` -- المستخدم يغادر الصفحه.
 
-Each event may be useful:
+قد يكون كل حدث مفيد:
 
-- `DOMContentLoaded` event -- DOM is ready, so the handler can lookup DOM nodes, initialize the interface.
-- `load` event -- external resources are loaded, so styles are applied, image sizes are known etc.
-- `beforeunload` event -- the user is leaving: we can check if the user saved the changes and ask them whether they really want to leave.
-- `unload` -- the user almost left, but we still can initiate some operations, such as sending out statistics.
+- `DOMContentLoaded` حدث -- DOM جاهز, بحيث يمكن للمعالج البحث عن عقد DOM , تهيئة الواجهة.
+- `load` الحدث -- يتم تحميل المواد الخارجية , لذلك يتم تطبيق الأنماط, وأحجام الصور معروفة الخ.
+- `beforeunload` الحدث -- عند مغادرة المستخدم: يمكننا التحقق مما إذا كان المستخدم حفظ التغييرات ونطلب منهم ما إذا كانوا يريدون حقا أن يغادر.
+- `unload` -- المستخدم غادر تقريبا, ولكن لا يزال بإمكاننا بدء بعض العمليات، مثل إرسال الإحصائيات.
 
-Let's explore the details of these events.
+دعونا نستكشف تفاصيل هذه الأحداث.
 
 ## DOMContentLoaded
 
-The `DOMContentLoaded` event happens on the `document` object.
+ `DOMContentLoaded` الحدث يحدث علي `document` الكائن.
 
-We must use `addEventListener` to catch it:
+يجب ان نستخدم `addEventListener` لإمساك الحدث:
 
 ```js
 document.addEventListener("DOMContentLoaded", ready);
 // not "document.onDOMContentLoaded = ..."
 ```
 
-For instance:
+على سبيل المثال:
 
 ```html run height=200 refresh
 <script>
@@ -45,17 +45,18 @@ For instance:
 <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
 ```
 
-In the example the `DOMContentLoaded` handler runs when the document is loaded, so it can see all the elements, including `<img>` below.
+علي سبيل المثال `DOMContentLoaded` يتم تشغيل المعالج عند تحميل المستند، حتى يتمكن من رؤية كافة العناصر, متضمنا `<img>` ادناه.
 
-But it doesn't wait for the image to load. So `alert` shows zero sizes.
+ولكن لا ينتظر حتى يتم تحميل الصورة. لذالك `alert` يظهر حجم الصفر.
 
-At first sight, the `DOMContentLoaded` event is very simple. The DOM tree is ready -- here's the event. There are few peculiarities though.
+للوهلة الأولى, `DOMContentLoaded` الحدث  بسيط جدا.  DOM جاهز -- ها هو الحدث. هناك القليل من الخصائص المميزة بالرغم من ذلك.
 
 ### DOMContentLoaded and scripts
 
-When the browser processes an HTML-document and comes across a `<script>` tag, it needs to execute before continuing building the DOM. That's a precaution, as scripts may want to modify DOM, and even `document.write` into it, so `DOMContentLoaded` has to wait.
+عندما يعالج المتصفح مستند HTML ويأتي عبر علامة `<script>`, يحتاج الي التنفيذ قبل متابعة بناء DOM.هذا إجراء احترازي ، حيث قد ترغب البرامج النصية في تعديل DOM
+, وحتي حدث `document.write` بداخلة, لذالك `DOMContentLoaded` يجب أن تنتظر.
 
-So DOMContentLoaded definitely happens after such scripts:
+لذلك DOMContentLoaded بالتأكيد يحدث بعد هذه البرامج النصية:
 
 ```html run
 <script>
@@ -71,19 +72,19 @@ So DOMContentLoaded definitely happens after such scripts:
 </script>
 ```
 
-In the example above, we first see "Library loaded...", and then "DOM ready!" (all scripts are executed).
+ف المثال أعلاه, نشاهد أولاً "مكتبة محملة...", ثم "DOM ready!" (يتم تنفيذ جميع البرامج النصية).
 
-```warn header="Scripts that don't block DOMContentLoaded"
-There are two exceptions from this rule:
-1. Scripts with the `async` attribute, that we'll cover [a bit later](info:script-async-defer), don't block `DOMContentLoaded`.
-2. Scripts that are generated dynamically with `document.createElement('script')` and then added to the webpage also don't block this event.
+```warn header="البرامج النصية التي لا تحظر DOMContentLoaded"
+هناك نوعان من الاستثناءات من هذه القاعدة:
+1. البرامج النصية ذات السمة `غير متزامن`, التي سنغطيها [بعد فترة وجيزة](info:script-async-defer), لا تحجب `DOMContentLoaded`.
+2. البرامج النصية التي يتم إنشاؤها ديناميكيًا باستخدام `document.createElement('script')` ثم إضافته إلى صفحة الويب أيضًا لا تحظر هذا الحدث.
 ```
 
 ### DOMContentLoaded and styles
 
-External style sheets don't affect DOM, so `DOMContentLoaded` does not wait for them.
+لا تؤثر أوراق الأنماط الخارجية على DOM, لذلك `DOMContentLoaded` لا تنتظرهم.
 
-But there's a pitfall. If we have a script after the style, then that script must wait until the stylesheet loads:
+لكن هناك مأزق. إذا كان لدينا برنامج نصي بعد النمط، فيجب أن ينتظر ذلك البرنامج النصي حتى يتم تحميل ورقة الأنماط:
 
 ```html run
 <link type="text/css" rel="stylesheet" href="style.css">
@@ -93,24 +94,24 @@ But there's a pitfall. If we have a script after the style, then that script mus
 </script>
 ```
 
-The reason for this is that the script may want to get coordinates and other style-dependent properties of elements, like in the example above. Naturally, it has to wait for styles to load.
+السبب في ذلك هو أن البرنامج النصي قد ترغب في الحصول على إحداثيات وخصائص أخرى نمط تعتمد على العناصر، كما هو الحال في المثال أعلاه.وبطبيعة الحال، فإنه يجب أن تنتظر أنماط لتحميل.
 
-As `DOMContentLoaded` waits for scripts, it now waits for styles before them as well.
+نظرا لأن `DOMContentLoaded` ينتظر البرامج النصية ، فإنه ينتظر الآن الأنماط التي تسبقها أيضًا.
 
 ### Built-in browser autofill
 
-Firefox, Chrome and Opera autofill forms on `DOMContentLoaded`.
+Firefox, Chrome , Opera تم تشغيل نماذج الملء التلقائي `DOMContentLoaded`.
 
-For instance, if the page has a form with login and password, and the browser remembered the values, then on `DOMContentLoaded` it may try to autofill them (if approved by the user).
+على سبيل المثال ، إذا كانت الصفحة تحتوي على نموذج به معلومات تسجيل دخول وكلمة مرور ، وتذكر المتصفح القيم ، فقد يحاول ملئها تلقائيًا في `DOMContentLoaded` (إذا وافق عليه المستخدم).
 
-So if `DOMContentLoaded` is postponed by long-loading scripts, then autofill also awaits. You probably saw that on some sites (if you use browser autofill) -- the login/password fields don't get autofilled immediately, but there's a delay till the page fully loads. That's actually the delay until the `DOMContentLoaded` event.
+لذلك إذا تم تأجيل `DOMContentLoaded` بواسطة نصوص برمجية طويلة التحميل ، فإن الملء التلقائي ينتظر أيضًا. ربما رأيت ذلك في بعض المواقع (إذا كنت تستخدم الملء التلقائي للمتصفح) - لا يتم ملء حقول تسجيل الدخول / كلمة المرور تلقائيًا على الفور ، ولكن هناك تأخير حتى يتم تحميل الصفحة بالكامل. هذا هو التأخير الفعلي حتى حدث `DOMContentLoaded` .
 
 
 ## window.onload [#window-onload]
 
-The `load` event on the `window` object triggers when the whole page is loaded including styles, images and other resources. This event is available via the `onload` property.
+يتم تشغيل حدث `load` في كائن `window` عند تحميل الصفحة بأكملها بما في ذلك الأنماط والصور والموارد الأخرى. هذا الحدث متاح عبر خاصية `onload` .
 
-The example below correctly shows image sizes, because `window.onload` waits for all images:
+يوضح المثال أدناه أحجام الصور بشكل صحيح ، لأن `window.onload` ينتظر جميع الصور
 
 ```html run height=200 refresh
 <script>
@@ -127,19 +128,19 @@ The example below correctly shows image sizes, because `window.onload` waits for
 
 ## window.onunload
 
-When a visitor leaves the page, the `unload` event triggers on `window`. We can do something there that doesn't involve a delay, like closing related popup windows.
+عندما يغادر زائر الصفحة ، يتم تشغيل حدث `unload` في النافذة `window`يمكننا أن نفعل شيئًا هناك لا يتضمن تأخيرًا ، مثل إغلاق النوافذ المنبثقة ذات الصلة.
 
-The notable exception is sending analytics.
+الاستثناء الملحوظ هو إرسال التحليلات.
 
-Let's say we gather data about how the page is used: mouse clicks, scrolls, viewed page areas, and so on.
+لنفترض أننا نجمع بيانات حول كيفية استخدام الصفحة: نقرات الماوس ، والتمرير ، ومناطق الصفحة المعروضة ، وما إلى ذلك.
 
-Naturally, `unload` event is when the user leaves us, and we'd like to save the data on our server.
+بطبيعه الحال, حدث `unload` هو عندما يتركنا المستخدم ، ونرغب في حفظ البيانات على خادمنا.
 
-There exists a special `navigator.sendBeacon(url, data)` method for such needs, described in the specification <https://w3c.github.io/beacon/>.
+توجد طريقة خاصة `navigator.sendBeacon(url, data)` لهذه الاحتياجات, موضوفة ف المواصفات <https://w3c.github.io/beacon/>.
 
-It sends the data in background. The transition to another page is not delayed: the browser leaves the page, but still performs `sendBeacon`.
+يرسل البيانات في الخلفية. لا يتأخر الانتقال إلى صفحة أخرى: يغادر المتصفح الصفحة ، لكنه لا يزال ينفذ `sendBeacon`.
 
-Here's how to use it:
+إليك كيفية استخدامه:
 ```js
 let analyticsData = { /* object with gathered data */ };
 
@@ -148,24 +149,25 @@ window.addEventListener("unload", function() {
 };
 ```
 
-- The request is sent as POST.
-- We can send not only a string, but also forms and other formats, as described in the chapter <info:fetch>, but usually it's a stringified object.
-- The data is limited by 64kb.
+- يتم إرسال الطلب كـ POST.
+- لا يمكننا إرسال سلسلة فحسب ، بل يمكننا أيضًا إرسال النماذج والتنسيقات الأخرى ، كما هو موضح في الفصل <info: fetch> ، ولكنه عادةً ما يكون كائنًا مشروطًا.
+- البيانات محدودة بـ 64 كيلو بايت.
 
-When the `sendBeacon` request is finished, the browser probably has already left the document, so there's no way to get server response (which is usually empty for analytics).
+عند الانتهاء من طلب `sendBeacon` , من المحتمل أن يكون المتصفح قد غادر المستند بالفعل ، لذلك لا توجد طريقة للحصول على استجابة الخادم  (والتي تكون عادةً فارغة للتحليلات).
 
-There's also a `keepalive` flag for doing such "after-page-left" requests in  [fetch](info:fetch) method for generic network requests. You can find more information in the chapter <info:fetch-api>.
+هناك ايضا علامة `keepalive` لتنفيذ طلبات "after-page-left" في طريقة  [fetch](info:fetch) لطلبات الشبكة العامة. يمكنك الحصول عل المزيد من المعلومات في الفصل <info:fetch-api>.
 
 
-If we want to cancel the transition to another page, we can't do it here. But we can use another event -- `onbeforeunload`.
+إذا أردنا إلغاء الانتقال إلى صفحة أخرى ، فلا يمكننا القيام بذلك هنا. لكن يمكننا استخدام حدث آخر -- 
+`onbeforeunload`.
 
 ## window.onbeforeunload [#window.onbeforeunload]
 
-If a visitor initiated navigation away from the page or tries to close the window, the `beforeunload` handler asks for additional confirmation.
+إذا بدأ الزائر التنقل بعيدًا عن الصفحة أو حاول إغلاق النافذة ، يطلب معالج  `beforeunload` تأكيدًا إضافيًا.
 
-If we cancel the event, the browser may ask the visitor if they are sure.
+إذا ألغينا الحدث ، فقد يسأل المتصفح الزائر عما إذا كان متأكدًا.
 
-You can try it by running this code and then reloading the page:
+يمكنك تجربتها عن طريق تشغيل هذا الرمز ثم إعادة تحميل الصفحة:
 
 ```js run
 window.onbeforeunload = function() {
@@ -173,9 +175,9 @@ window.onbeforeunload = function() {
 };
 ```
 
-For historical reasons, returning a non-empty string also counts as canceling the event. Some time ago browsers used to show it as a message, but as the [modern specification](https://html.spec.whatwg.org/#unloading-documents) says, they shouldn't.
+لأسباب تاريخية ، يتم أيضًا اعتبار إرجاع سلسلة غير فارغة بمثابة إلغاء للحدث. منذ بعض الوقت ، اعتادت المتصفحات على إظهار الرسالة كرسالة ، ولكن كما تقول [المواصفات الحديثة](https://html.spec.whatwg.org/#unloading-documents) ، لا ينبغي لها ذلك.
 
-Here's an example:
+هذا مثال:
 
 ```js run
 window.onbeforeunload = function() {
@@ -183,27 +185,27 @@ window.onbeforeunload = function() {
 };
 ```
 
-The behavior was changed, because some webmasters abused this event handler by showing misleading and annoying messages. So right now old browsers still may show it as a message, but aside of that -- there's no way to customize the message shown to the user.
+تم تغيير السلوك لأن بعض مشرفي المواقع أساءوا استخدام معالج الحدث هذا من خلال عرض رسائل مضللة ومزعجة. لذلك قد لا تزال المتصفحات القديمة تعرضها كرسالة في الوقت الحالي ، ولكن بصرف النظر عن ذلك - لا توجد طريقة لتخصيص الرسالة المعروضة للمستخدم.
 
 ## readyState
 
-What happens if we set the `DOMContentLoaded` handler after the document is loaded?
+ماذا يحدث إذا قمنا بتعيين معالج `DOMContentLoaded` بعد تحميل المستند؟
 
-Naturally, it never runs.
+بطبيعة الحال ، لا يعمل أبدا.
 
-There are cases when we are not sure whether the document is ready or not. We'd like our function to execute when the DOM is loaded, be it now or later.
+هناك حالات لا نكون فيها متأكدين مما إذا كان المستند جاهزًا أم لا. نود أن يتم تنفيذ وظيفتنا عند تحميل DOM ، سواء الآن أو لاحقًا.
 
-The `document.readyState` property tells us about the current loading state.
+تخبرنا خاصية  `document.readyState` عن حالة التحميل الحالية.
 
-There are 3 possible values:
+هناك 3 قيم محتملة:
 
-- `"loading"` -- the document is loading.
-- `"interactive"` -- the document was fully read.
-- `"complete"` -- the document was fully read and all resources (like images) are loaded too.
+- `"loading"` -- يتم تحميل المستند.
+- `"interactive"` -- تمت قراءة المستند بالكامل.
+- `"complete"` -- تمت قراءة المستند بالكامل وتحميل جميع الموارد (مثل الصور) أيضًا.
 
-So we can check `document.readyState` and setup a handler or execute the code immediately if it's ready.
+لذلك يمكننا التحقق من  `document.readyState` وإعداد معالج أو تنفيذ الكود فورًا إذا كان جاهزًا.
 
-Like this:
+مثل هذا:
 
 ```js
 function work() { /*...*/ }
@@ -217,7 +219,7 @@ if (document.readyState == 'loading') {
 }
 ```
 
-There's also the `readystatechange` event that triggers when the state changes, so we can print all these states like this:
+هناك أيضًا حدث `readystatechange` الذي يتم تشغيله عندما تتغير الحالة ، لذلك يمكننا طباعة كل هذه الحالات على النحو التالي:
 
 ```js run
 // current state
@@ -227,11 +229,11 @@ console.log(document.readyState);
 document.addEventListener('readystatechange', () => console.log(document.readyState));
 ```
 
-The `readystatechange` event is an alternative mechanics of tracking the document loading state, it appeared long ago. Nowadays, it is rarely used.
+يعد الحدث `readystatechange` آلية بديلة لتتبع حالة تحميل المستند ، وقد ظهر منذ فترة طويلة. في الوقت الحاضر ، نادرًا ما يتم استخدامه.
 
-Let's see the full events flow for the completeness.
+دعونا نرى تدفق الأحداث بالكامل للتأكد من اكتمالها.
 
-Here's a document with `<iframe>`, `<img>` and handlers that log events:
+إليك مستند يحتوي على `<iframe>`, `<img>` والمعالجات التي تسجل الأحداث:
 
 ```html
 <script>
@@ -251,9 +253,9 @@ Here's a document with `<iframe>`, `<img>` and handlers that log events:
 </script>
 ```
 
-The working example is [in the sandbox](sandbox:readystate).
+المثال العملي هو [in the sandbox](sandbox:readystate).
 
-The typical output:
+الإخراج النموذجي:
 1. [1] initial readyState:loading
 2. [2] readyState:interactive
 3. [2] DOMContentLoaded
@@ -262,23 +264,23 @@ The typical output:
 6. [4] readyState:complete
 7. [4] window onload
 
-The numbers in square brackets denote the approximate time of when it happens. Events labeled with the same digit happen approximately at the same time (+- a few ms).
+تشير الأرقام الموجودة بين قوسين معقوفين إلى الوقت التقريبي لحدوث ذلك. تحدث الأحداث التي تحمل نفس الرقم تقريبًا في نفس الوقت (+ - بضع مللي ثانية).
 
-- `document.readyState` becomes `interactive` right before `DOMContentLoaded`. These two things actually mean the same.
-- `document.readyState` becomes `complete` when all resources (`iframe` and `img`) are loaded. Here we can see that it happens in about the same time as `img.onload` (`img` is the last resource) and `window.onload`. Switching to `complete` state means the same as `window.onload`. The difference is that `window.onload` always works after all other `load` handlers.
+- `document.readyState` تصبح `interactive` قبل `DOMContentLoaded`. هذان الشيئان يعنيان نفس الشيء في الواقع.
+- `document.readyState` تصبح `complete` عندما تكون جميع الموارد (`iframe` and `img`) aيتم تحميلها. هنا يمكننا أن نرى أنه يحدث في نفس الوقت تقريبًا مثل `img.onload` (`img` هو المورد الأخير) و `window.onload`. التحويل الي `complete` الحالة تعني نفس `window.onload`. الفرق هو `window.onload` يعمل دائمًا بعد كل معالجات `load` الاخري.
 
 
-## Summary
+## الملخص
 
-Page load events:
+أحداث تحميل الصفحة:
 
-- The `DOMContentLoaded` event triggers on `document` when the DOM is ready. We can apply JavaScript to elements at this stage.
-  - Script such as `<script>...</script>` or `<script src="..."></script>` block DOMContentLoaded, the browser waits for them to execute.
-  - Images and other resources may also still continue loading.
-- The `load` event on `window` triggers when the page and all resources are loaded. We rarely use it, because there's usually no need to wait for so long.
-- The `beforeunload` event on `window` triggers when the user wants to leave the page. If we cancel the event, browser asks whether the user really wants to leave (e.g we have unsaved changes).
-- The `unload` event on `window` triggers when the user is finally leaving, in the handler we can only do simple things that do not involve delays or asking a user. Because of that limitation, it's rarely used. We can send out a network request with `navigator.sendBeacon`.
-- `document.readyState` is the current state of the document, changes can be tracked in the `readystatechange` event:
-  - `loading` -- the document is loading.
-  - `interactive` -- the document is parsed, happens at about the same time as `DOMContentLoaded`, but before it.
-  - `complete` -- the document and resources are loaded, happens at about the same time as `window.onload`, but before it.
+- `DOMContentLoaded` يتم تشغيل الحدث `document` عندما يكون DOM جاهزا. يمكننا تطبيق JavaScript على العناصر في هذه المرحلة.
+  - - نص برمجي مثل `<script>...</script>` او `<script src="..."></script>` حظر DOMContentLoaded ، ينتظر المستعرض تنفيذها.
+  - قد يستمر تحميل الصور والموارد الأخرى.
+- يتم تحميل حدث `load` في `window` عند تحميل الصفحة وجميع الموارد. نادرًا ما نستخدمه ، لأنه لا داعي للانتظار لفترة طويلة.
+- يتم تشغيل الحدث `beforeunload` في `window` عندما يريد المستخدم مغادرة الصفحة. إذا ألغينا الحدث ، يسأل المتصفح عما إذا كان المستخدم يريد حقًا المغادرة (على سبيل المثال ، لدينا تغييرات غير محفوظة).
+- يتم تشغيل الحدث `unload` في `window` عندما يغادر المستخدم أخيرًا ، في المعالج يمكننا فقط القيام بأشياء بسيطة لا تنطوي على تأخير أو سؤال المستخدم. بسبب هذا القيد ، نادرًا ما يتم استخدامه. يمكننا إرسال طلب شبكة باستخدام `navigator.sendBeacon`.
+- `document.readyState` هي الحالة الحالية للمستند ، يمكن تتبع التغييرات في حدث  `readystatechange` :
+  - `loading` -- يتم تحميل المستند.
+  - `interactive` -- يتم تحليل المستند ، ويحدث في نفس الوقت تقريبًا مثل `DOMContentLoaded`,  ولكن قبله.
+  - `complete` -- يتم تحميل المستند والموارد ، يحدث في نفس الوقت تقريبًا مثل `window.onload`, ولكن قبل ذلك.

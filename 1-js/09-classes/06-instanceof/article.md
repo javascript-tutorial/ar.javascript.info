@@ -1,62 +1,65 @@
-# Class checking: "instanceof"
+# فحص الأصناف عبر instanceof
 
-The `instanceof` operator allows to check whether an object belongs to a certain class. It also takes inheritance into account.
+يُتيح لنا المُعامل `instanceof` (أهو سيرورة من) فحص هل الكائن ينتمي إلى الصنف الفلاني؟ كما يأخذ الوراثة في الحسبان عند الفحص.
 
-Such a check may be necessary in many cases. Here we'll use it for building a *polymorphic* function, the one that treats arguments differently depending on their type.
+توجد حالات عديدة يكون فيها هذا الفحص ضروريًا. **سنستعمله هنا لصناعة دالة **، أي دالة تغيّر تعاملها حسب نوع الوسطاء الممرّرة لها.
 
-## The instanceof operator [#ref-instanceof]
+## معامل instanceof
 
-The syntax is:
+صياغته هي:
+
 ```js
 obj instanceof Class
 ```
 
-It returns `true` if `obj` belongs to the `Class` or a class inheriting from it.
+يُعيد المُعامل قيمة `true` لو كان الكائن `obj` ينتمي إلى الصنف `Class` أو أيّ صنف يرثه.
 
-For instance:
+مثال:
+
 
 ```js run
 class Rabbit {}
 let rabbit = new Rabbit();
 
-// is it an object of Rabbit class?
+// ‫هل هو كائن من الصنف Rabbit؟
 *!*
-alert( rabbit instanceof Rabbit ); // true
+alert( rabbit instanceof Rabbit ); // نعم
 */!*
 ```
 
-It also works with constructor functions:
+كما يعمل مع الدوال البانية:
 
 ```js run
 *!*
-// instead of class
+// ‫بدل استعمال class
 function Rabbit() {}
 */!*
 
-alert( new Rabbit() instanceof Rabbit ); // true
+alert( new Rabbit() instanceof Rabbit ); // نعم
 ```
 
-...And with built-in classes like `Array`:
+...كما والأصناف المضمّنة مثل المصفوفات `Array`:
 
 ```js run
 let arr = [1, 2, 3];
-alert( arr instanceof Array ); // true
-alert( arr instanceof Object ); // true
+alert( arr instanceof Array ); // نعم
+alert( arr instanceof Object ); // نعم
 ```
 
-Please note that `arr` also belongs to the `Object` class. That's because `Array` prototypically inherits from `Object`.
+لاحظ كيف أنّ الكائن `arr` ينتمي إلى صنف الكائنات `Object` أيضًا، إذ ترث المصفوفات -عبر prototype- الكائناتَ.
 
-Normally, `instanceof` examines the prototype chain for the check. We can also set a custom logic in the static method `Symbol.hasInstance`.
+عادةً ما يتحقّق المُعامل `instanceof` من سلسلة prototype عند الفحص. كما يمكننا وضع المنطق الذي نريد لكلّ صنف في التابِع الثابت `Symbol.hasInstance`.
 
-The algorithm of `obj instanceof Class` works roughly as follows:
+تعمل خوارزمية `obj instanceof Class` بهذه الطريقة تقريبًا:
 
-1. If there's a static method `Symbol.hasInstance`, then just call it: `Class[Symbol.hasInstance](obj)`. It should return either `true` or `false`, and we're done. That's how we can customize the behavior of `instanceof`.
+1. لو وجدت التابِع الثابت `Symbol.hasInstance` تستدعيه وينتهي الأمر: `Class[Symbol.hasInstance](obj)‎`. يُعيد التابِع إمّا `true` وإمّا `false`. هكذا نخصّص سلوك المُعامل `instanceof`.
 
-    For example:
+    مثال:
+
 
     ```js run
-    // setup instanceOf check that assumes that
-    // anything with canEat property is an animal
+    // ‫ضبط instanceOf للتحقق من الافتراض القائل
+    // ‫بأن كل شيء يملك الخاصية canEat هو حيوان
     class Animal {
       static [Symbol.hasInstance](obj) {
         if (obj.canEat) return true;
@@ -68,21 +71,24 @@ The algorithm of `obj instanceof Class` works roughly as follows:
     alert(obj instanceof Animal); // true: Animal[Symbol.hasInstance](obj) is called
     ```
 
-2. Most classes do not have `Symbol.hasInstance`. In that case, the standard logic is used: `obj instanceOf Class` checks whether `Class.prototype` is equal to one of the prototypes in the `obj` prototype chain.
+2. ليس لأغلب الأصناف التابِع `Symbol.hasInstance`. في هذه الحالة تستعمل المنطق العادي: يفحص `obj instanceOf Class` لو كان كائن `Class.prototype` مساويًا لأحد كائنات prototype في سلسلة كائنات prototype للكائن `obj`.
 
-    In other words, compare one after another:
+    وبعبارة أخرى ، وازن بينهم واحدًا تلو الآخر:
+
     ```js
     obj.__proto__ === Class.prototype?
     obj.__proto__.__proto__ === Class.prototype?
     obj.__proto__.__proto__.__proto__ === Class.prototype?
     ...
-    // if any answer is true, return true
-    // otherwise, if we reached the end of the chain, return false
+    // ‫لو كانت إجابة أيًا منها true، فتُعيد true
+    // ‫وإلّا متى وصلت نهاية السلسلة أعادت false
+
     ```
 
-    In the example above `rabbit.__proto__ === Rabbit.prototype`, so that gives the answer immediately.
+    في المثال أعلاه نرى `rabbit.__proto__ === Rabbit.prototype`، بذلك تُعطينا الجواب مباشرةً.
 
-    In the case of an inheritance, the match will be at the second step:
+    أمّا لو كنّا في حالة وراثة، فستتوقّف عملية المطابقة عند الخطوة الثانية:
+
 
     ```js run
     class Animal {}
@@ -90,79 +96,80 @@ The algorithm of `obj instanceof Class` works roughly as follows:
 
     let rabbit = new Rabbit();
     *!*
-    alert(rabbit instanceof Animal); // true
+    alert(rabbit instanceof Animal); // نعم
     */!*
 
     // rabbit.__proto__ === Rabbit.prototype
     *!*
-    // rabbit.__proto__.__proto__ === Animal.prototype (match!)
+    // rabbit.__proto__.__proto__ === Animal.prototype (تطابق!)
     */!*
     ```
 
-Here's the illustration of what `rabbit instanceof Animal` compares with `Animal.prototype`:
+إليك صورة توضّح طريقة موازنة `rabbit instanceof Animal` مع `Animal.prototype`:
 
 ![](instanceof.svg)
 
-By the way, there's also a method [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf), that returns `true` if `objA` is somewhere in the chain of prototypes for `objB`. So the test of `obj instanceof Class` can be rephrased as `Class.prototype.isPrototypeOf(obj)`.
+كما وهناك أيضًا التابِع [objA.isPrototypeOf(objB)‎](mdn:js/object/isPrototypeOf)، وهو يُعيد `true` لو كان الكائن `objA` في مكان داخل سلسلة prototype للكائن `objB`. يعني أنّنا نستطيع كتابة الفحص هذا `obj instanceof Class` هكذا: `Class.prototype.isPrototypeOf(obj)‎`.
 
-It's funny, but the `Class` constructor itself does not participate in the check! Only the chain of prototypes and `Class.prototype` matters.
+الأمر مضحك إذ أنّ باني الصنف `Class` نفسه ليس لديه أيّ كلمة عن هذا الفحص! المهم هو سلسلة prototype وكائن `Class.prototype` فقط.
 
-That can lead to interesting consequences when a `prototype` property is changed after the object is created.
+يمكن أن يؤدّي هذا إلى عواقب مثيرة متى تغيّرت خاصية `prototype` للكائن بعد إنشائه. طالع:
 
-Like here:
 
 ```js run
 function Rabbit() {}
 let rabbit = new Rabbit();
 
-// changed the prototype
+// غيّرنا كائن prototype
 Rabbit.prototype = {};
 
-// ...not a rabbit any more!
+// ...لم يعد أرنبًا بعد الآن!
 *!*
-alert( rabbit instanceof Rabbit ); // false
+alert( rabbit instanceof Rabbit ); // لا
 */!*
 ```
 
-## Bonus: Object.prototype.toString for the type
+## التابع Object.prototype.toString للأنواع
 
-We already know that plain objects are converted to string as `[object Object]`:
+نعلم بأنّ الكائنات العادية حين تتحوّل إلى سلاسل نصية تصير `[object Object]`:
 
 ```js run
 let obj = {};
 
 alert(obj); // [object Object]
-alert(obj.toString()); // the same
+alert(obj.toString()); // كما أعلاه
 ```
 
-That's their implementation of `toString`. But there's a hidden feature that makes `toString` actually much more powerful than that. We can use it as an extended `typeof` and an alternative for `instanceof`.
+يعتمد هذا على طريقة توفيرهم لتنفيذ التابِع `toString`. ولكن هناك ميزة مخفيّة تجعل هذا التابِع أكثر فائدة بكثير ممّا هو عليه، أن نستعمله على أنّه مُعامل `typeof` موسّع المزايا، أو بديلًا عن التابِع `toString`.
 
-Sounds strange? Indeed. Let's demystify.
+تبدو غريبة؟ أليس كذلك؟ لنُزل الغموض.
 
-By [specification](https://tc39.github.io/ecma262/#sec-object.prototype.tostring), the built-in `toString` can be extracted from the object and executed in the context of any other value. And its result depends on that value.
 
-- For a number, it will be `[object Number]`
-- For a boolean, it will be `[object Boolean]`
-- For `null`: `[object Null]`
-- For `undefined`: `[object Undefined]`
-- For arrays: `[object Array]`
-- ...etc (customizable).
+حسب [المواصفة](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)، فيمكننا استخراج التابِع `toString` المضمّن من الكائن وتنفيذه في سياق أيّ قيمة أخرى نريد، وسيكون ناتجه حسب تلك القيمة.
 
-Let's demonstrate:
+- لو كان عددًا، فسيكون `[object Number]`
+- لو كان قيمة منطقية، فسيكون `[object Boolean]`
+- لو كان `null`: ‏`[object Null]`
+- لو كان `undefined`: ‏`[object Undefined]`
+- لو كانت مصفوفة: `[object Array]`
+- ...إلى آخره (ويمكننا تخصيص ذلك).
+
+هيًا نوضّح:
+
 
 ```js run
-// copy toString method into a variable for convenience
+// ننسخ التابِع‫ toString إلى متغير ليسهل عملنا
 let objectToString = Object.prototype.toString;
 
-// what type is this?
+// ما هذا النوع؟
 let arr = [];
 
-alert( objectToString.call(arr) ); // [object *!*Array*/!*]
+alert( objectToString.call(arr) ); // [object *!*مصفوفة*/!*]
 ```
 
-Here we used [call](mdn:js/function/call) as described in the chapter [](info:call-apply-decorators) to execute the function `objectToString` in the context `this=arr`.
+استعملنا هنا [call](mdn:js/function/call)“ لتنفيذ الدالة `objectToString` بسياق `this=arr`.
 
-Internally, the `toString` algorithm examines `this` and returns the corresponding result. More examples:
+تفحص خوارزمية `toString` داخليًا قيمة `this` وتُعيد الناتج الموافق لها. إليك أمثلة أخرى:
 
 ```js run
 let s = Object.prototype.toString;
@@ -172,11 +179,12 @@ alert( s.call(null) ); // [object Null]
 alert( s.call(alert) ); // [object Function]
 ```
 
-### Symbol.toStringTag
+### خاصية Symbol.toStringTag
 
-The behavior of Object `toString` can be customized using a special object property `Symbol.toStringTag`.
+يمكننا تخصيص سلوك التابِع `toString` للكائنات باستعمال خاصية الكائنات `Symbol.toStringTag` الفريدة.
 
-For instance:
+مثال:
+
 
 ```js run
 let user = {
@@ -186,10 +194,10 @@ let user = {
 alert( {}.toString.call(user) ); // [object User]
 ```
 
-For most environment-specific objects, there is such a property. Here are some browser specific examples:
+لأغلب الكائنات الخاصّة بالبيئات خاصية مثل هذه. إليك بعض الأمثلة من المتصفّحات مثلًا:
 
 ```js run
-// toStringTag for the environment-specific object and class:
+// تابِع ‫toStringTag للكائنات والأصناف الخاصّة بالمتصفّحات:
 alert( window[Symbol.toStringTag]); // window
 alert( XMLHttpRequest.prototype[Symbol.toStringTag] ); // XMLHttpRequest
 
@@ -197,22 +205,25 @@ alert( {}.toString.call(window) ); // [object Window]
 alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 ```
 
-As you can see, the result is exactly `Symbol.toStringTag` (if exists), wrapped into `[object ...]`.
+كما نرى فالناتج هو تمامًا ما يقوله `Symbol.toStringTag` (لو وُجد) بغلاف `[object ...‎]`.
 
-At the end we have "typeof on steroids" that not only works for primitive data types, but also for built-in objects and even can be customized.
+في النهاية نجد أن لدينا "نوع من المنشطات" لا تعمل فقط على الأنواع الأولية للبيانات بل وحتى الكائنات المضمنة في اللغة ويمكننا تخصيصها أيضًا.
 
-We can use `{}.toString.call` instead of `instanceof` for built-in objects when we want to get the type as a string rather than just to check.
+يمكننا استخدام `‎{}.toString.call` بدلًا من `instanceof` للكائنات المضمنة في اللغة عندما نريد الحصول على نوع البيانات كسلسلة بدلًا من التحقق منها.
 
-## Summary
 
-Let's summarize the type-checking methods that we know:
+## الملخص
 
-|               | works for   |  returns      |
-|---------------|-------------|---------------|
-| `typeof`      | primitives  |  string       |
-| `{}.toString` | primitives, built-in objects, objects with `Symbol.toStringTag`   |       string |
-| `instanceof`  | objects     |  true/false   |
+لنلخّص ما نعرف عن التوابِع التي تفحص الأنواع:
 
-As we can see, `{}.toString` is technically a "more advanced" `typeof`.
+| | يعمل على | يُعيد |
+|--|--|--|
+| `typeof` | الأنواع الأولية | سلسلة نصية |
+| `{}.toString` | الأنواع الأولية والكائنات المضمّنة والكائنات التي لها `Symbol.toStringTag` | سلسلة نصية |
+| `instanceof` | الكائنات | true/false |
 
-And `instanceof` operator really shines when we are working with a class hierarchy and want to check for the class taking into account inheritance.
+
+كما نرى فعبارة `‎{}.toString` هي تقنيًا `typeof` ولكن ”متقدّمة أكثر“.
+
+بل إن التابع `instanceof` يؤدي دور مميّز عندما نتعامل مع تسلسل هرمي للأصناف ونريد التحقق من صنفٍ ما مع مراعاة الوراثة.
+

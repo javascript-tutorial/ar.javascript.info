@@ -1,24 +1,24 @@
-# Bubbling and capturing
+# التدفق و الإلتقاط
 
-Let's start with an example.
+لنبدأ بمثال.
 
-This handler is assigned to `<div>`, but also runs if you click any nested tag like `<em>` or `<code>`:
+تم تعيين هذا المعالج إلى `<div>`, ولكن يتم تشغيله أيضاً إذا نقرت فوق أي علامة متداخلة مثل `<em>` أو `<code>`:
 
 ```html autorun height=60
-<div onclick="alert('The handler!')">
-  <em>If you click on <code>EM</code>, the handler on <code>DIV</code> runs.</em>
+<div onclick="alert('المعالج!')">
+  <em>   <code>DIV</code>   فانه يتم تشغيل المعالج علي. <code>EM</code>اذا نقرت علي,</em>
 </div>
 ```
 
-Isn't it a bit strange? Why does the handler on `<div>` run if the actual click was on `<em>`?
+أليس هذا غريباً بعض الشيء؟ لماذا يقوم المعالج بالتشغيل علي `<div>`  إذا كانت النقرت الفعلية علي `<em>`?
 
-## Bubbling
+## التدفق
 
-The bubbling principle is simple.
+إن مبدأ التدفق بسيط.
 
-**When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.**
+**عندما يحدث حدث على عنصر، فإنه يقوم أولاً بتشغيل المعالجات عليه، ثم على والده، ثم على طول الطريق إلى أعلى على أسلافه الآخرين.**
 
-Let's say we have 3 nested elements `FORM > DIV > P` with a handler on each of them:
+لنفترض أن لدينا 3 عناصر متداخلة `FORM > DIV > P` مع معالج على كل منها:
 
 ```html run autorun
 <style>
@@ -35,124 +35,124 @@ Let's say we have 3 nested elements `FORM > DIV > P` with a handler on each of t
 </form>
 ```
 
-A click on the inner `<p>` first runs `onclick`:
-1. On that `<p>`.
-2. Then on the outer `<div>`.
-3. Then on the outer `<form>`.
-4. And so on upwards till the `document` object.
+بالنقر فوق  `<p>` الداخلي يتم التشغيل لأول  `onclick`:
+1. على ذلك ال `<p>`.
+2. ثم على الخارجي `<div>`.
+3. ثم على الخارجي `<form>`.
+4. وهكذا إلى أعلى حتى `document` كائن.
 
 ![](event-order-bubbling.svg)
 
-So if we click on `<p>`, then we'll see 3 alerts: `p` -> `div` -> `form`.
+لذا، إذا نقرت فوق `<p>`, سنرى بعد ذلك 3 تنبيهات: `p` -> `div` -> `form`.
 
-The process is called "bubbling", because events "bubble" from the inner element up through parents like a bubble in the water.
+تسمى العملية "التدفق", لأن الأحداث "تدفق" من العنصر الداخلي إلى أعلى إلى الآباء مثل فقاعة في الماء.
 
-```warn header="*Almost* all events bubble."
-The key word in this phrase is "almost".
+```warn header="*تقريبا* كل الأحداث تتدفق."
+الكلمة الأساسية في هذه العبارة هي "تقريبا".
 
-For instance, a `focus` event does not bubble. There are other examples too, we'll meet them. But still it's an exception, rather than a rule, most events do bubble.
+فعلى سبيل المثال, الحدث `focus`  لا يتدفق. وهناك أمثلة أخرى أيضاً، سوف نلتقي بها. ولكن ما زال هذا يشكل استثناءً وليس قاعدة، حيث أن أغلب الأحداث لا تزال تتدفق.
 ```
 
 ## event.target
 
-A handler on a parent element can always get the details about where it actually happened.
+يمكن أن يحصل المعالج الموجود على العنصر الأصل دائمًا على التفاصيل حول المكان الذي حدث فيه بالفعل.
 
-**The most deeply nested element that caused the event is called a *target* element, accessible as `event.target`.**
+**ويسمى العنصر الأكثر تداخلا والذي تسبب في الحدث العنصر *الاساسي* , الذي يمكن الوصول إليه كـ `event.target`.**
 
-Note the differences from `this` (=`event.currentTarget`):
+لاحظ الاختلافات من `this` (=`event.currentTarget`):
 
-- `event.target` -- is the "target" element that initiated the event, it doesn't change through the bubbling process.
-- `this` -- is the "current" element, the one that has a currently running handler on it.
+- `event.target` -- هو عنصر "الهدف" الذي بدأ الحدث، ولا يتغير من خلال عملية التدفق.
+- `this` -- هو العنصر "الحالي"، العنصر الذي يحتوي على معالج قيد التشغيل حاليًا.
 
-For instance, if we have a single handler `form.onclick`, then it can "catch" all clicks inside the form. No matter where the click happened, it bubbles up to `<form>` and runs the handler.
+فعلى سبيل المثال, إذا كان لدينا معالج واحد `form.onclick`, ثم يمكن "الامساك" بكل النقرات داخل form. بغض النظر عن مكان حدوث النقر, سوف تدفق  لأعلى `<form>` ويتم تشغيل المعالج.
 
-In `form.onclick` handler:
+في معالج `form.onclick` :
 
-- `this` (=`event.currentTarget`) is the `<form>` element, because the handler runs on it.
-- `event.target` is the actual element inside the form that was clicked.
+- `this` (=`event.currentTarget`) هي العنصر `<form>` , لأن المعالج يعمل عليه.
+- `event.target` العنصر الفعلي داخل النموذج الذي تم النقر فوقه.
 
-Check it out:
+تحقق من ذلك:
 
 [codetabs height=220 src="bubble-target"]
 
-It's possible that `event.target` could equal `this` -- it happens when the click is made directly on the `<form>` element.
+من المحتمل أن `event.target` يمكن أن يساوي `this` -- يحدث ذلك عندما يتم إجراء النقر مباشرة على العنصر `<form>` .
 
-## Stopping bubbling
+## إيقاف التدفق
 
-A bubbling event goes from the target element straight up. Normally it goes upwards till `<html>`, and then to `document` object, and some events even reach `window`, calling all handlers on the path.
+يستمر تدفق الحدث من العنصر المستهدف إلى الأعلى مباشرة. عادة ما ينتقل إلى أعلى حتى `<html>`, وبعد ذلك إلى الكائن `document` , بل إن بعض الأحداث قد تصل إلى حد بعيد `window`, وتقوم باستدعاء كافة المعالجات على المسار.
 
-But any handler may decide that the event has been fully processed and stop the bubbling.
+ولكن أي معالج قد يقرر أن الحدث قد تم تجهيزه بالكامل وأن يوقف التدفق.
 
-The method for it is `event.stopPropagation()`.
+الدالة لذلك هي  `()event.stopPropagation` .
 
-For instance, here `body.onclick` doesn't work if you click on `<button>`:
+فعلى سبيل المثال,هنا `body.onclick` لا يعمل إذا نقرت فوق `<button>`:
 
 ```html run autorun height=60
 <body onclick="alert(`the bubbling doesn't reach here`)">
-  <button onclick="event.stopPropagation()">Click me</button>
+  <button onclick="event.stopPropagation()">انقر علي</button>
 </body>
 ```
 
-```smart header="event.stopImmediatePropagation()"
-If an element has multiple event handlers on a single event, then even if one of them stops the bubbling, the other ones still execute.
+```smart header="()event.stopImmediatePropagation"
+إذا كان هناك عنصر لديه العديد من معالجات الأحداث على حدث واحد، ثم حتى إذا توقف أحدهم عن تنفيذ التدفق، فإن العناصر الأخرى لا تزال  تنفذ التدفق.
 
-In other words, `event.stopPropagation()` stops the move upwards, but on the current element all other handlers will run.
+وبعبارة أخرى, `()event.stopPropagation` توقف الحركة لأعلى, ولكن على العنصر الحالي فإن كل المعالجات الأخرى سوف تعمل.
 
-To stop the bubbling and prevent handlers on the current element from running, there's a method `event.stopImmediatePropagation()`. After it no other handlers execute.
+لإيقاف تشغيل التدفق ومنع المعالجات الموجودة على العنصر الحالي من التشغيل, هناك دالة `()event.stopImmediatePropagation`. بعد ذلك لن تقوم أي معالجات أخرى بالتنفيذ.
 ```
 
-```warn header="Don't stop bubbling without a need!"
-Bubbling is convenient. Don't stop it without a real need: obvious and architecturally well thought out.
+```warn header="لا توقف التدفق دون الحاجة إلي ذلك!"
+التدفق مناسب. لا توقف ذلك دون حاجة حقيقية: فكر وقم بالادارة بوضوح .
 
-Sometimes `event.stopPropagation()` creates hidden pitfalls that later may become problems.
+أحيانا `()event.stopPropagation` ينشئ مخاطر مخفية قد تصبح مشاكل في وقت لاحق.
 
-For instance:
+على سبيل المثال:
 
-1. We create a nested menu. Each submenu handles clicks on its elements and calls `stopPropagation` so that the outer menu won't trigger.
-2. Later we decide to catch clicks on the whole window, to track users' behavior (where people click). Some analytic systems do that. Usually the code uses `document.addEventListener('click'…)` to catch all clicks.
-3. Our analytic won't work over the area where clicks are stopped by `stopPropagation`. Sadly, we've got a "dead zone".
+1. نحن ننشئ قائمة متداخلة. تعالج كل قائمة فرعية النقرات على العناصر وتنادي علي `stopPropagation` وبذلك  لا يتم تشغيل القائمة الخارجية.
+2. وفي وقت لاحق قررنا التقاط النقرات على النافذة بالكامل, لتعقب سلوك المستخدمين (حيث يقوم الأشخاص بالنقر). والواقع أن بعض الأنظمة التحليلية تفعل ذلك. عادة الكود المستخدم هو `document.addEventListener('click'…)` لالتقاط كل النقرات.
+3. لن يعمل التحليل لدينا في المنطقة التي تتوقف فيها النقرات بواسطة `stopPropagation`. للأسف، قد وصلنا الي "منطقة ميتة".
 
-There's usually no real need to prevent the bubbling. A task that seemingly requires that may be solved by other means. One of them is to use custom events, we'll cover them later. Also we can write our data into the `event` object in one handler and read it in another one, so we can pass to handlers on parents information about the processing below.
+لا توجد حاجة حقيقية عادة لمنع حدوث التدفق .فالمهمة تبدو وكأنها تتطلب حل هذه المشكلة بوسائل أخرى. ومن بين هذه الأحداث استخدام أحداث مخصصة,سنتناولها لاحقًا. كما يمكننا كتابة بياناتنا في كائن  `event`  في معالج واحد وقراءته في معالج آخر, حتى نتمكن من تمرير معلومات إلى المدعين حول معالجة المعلومات أدناه.
 ```
 
 
-## Capturing
+## الإلتقاط
 
-There's another phase of event processing called "capturing". It is rarely used in real code, but sometimes can be useful.
+هناك مرحلة أخرى من معالجة الأحداث تسمى "الإلتقاط". ونادرًا ما يتم استخدامها في الكود, ولكن قد يكون مفيداً في بعض الأحيان.
 
-The standard [DOM Events](http://www.w3.org/TR/DOM-Level-3-Events/) describes 3 phases of event propagation:
+معيار[DOM Events](http://www.w3.org/TR/DOM-Level-3-Events/) يصف  ثلاث مراحل من نشر الحدث:
 
-1. Capturing phase -- the event goes down to the element.
-2. Target phase -- the event reached the target element.
-3. Bubbling phase -- the event bubbles up from the element.
+1. مرحلة الالتقاط-- ينتقل الحدث إلى اسفل ليصل الي العنصر.
+2. مرحلة الهدف -- يصل الحدث إلى العنصر المستهدف.
+3. مرحلة التدفق -- يتدفق الحدث لأعلي من العنصر.
 
-Here's the picture of a click on `<td>` inside a table, taken from the specification:
+إليك صورة النقر فوق `<td>` داخل جدول، مأخوذ من المواصفات:
 
 ![](eventflow.svg)
 
-That is: for a click on `<td>` the event first goes through the ancestors chain down to the element (capturing phase), then it reaches the target and triggers there (target phase), and then it goes up (bubbling phase), calling handlers on its way.
+وهذا هو: بالنقر فوق `<td>` يمر الحدث أولاً عبر سلسلة الأجداد نزولاً إلى العنصر (مرحلة الالتقاط), ثم تصل إلى الهدف وتتسبب في تشغيل ذلك الهدف (مرحلة الهدف), ثم يرتفع لأعلي (مرحلة التدفق), مناديا للمعالجين في طريقه.
 
-**Before we only talked about bubbling, because the capturing phase is rarely used. Normally it is invisible to us.**
+**قبل أن نتحدث عن التدفق فقط، لأن مرحلة الالتقاط نادراً ما تستخدم. عادة ما تكون غير مرئية بالنسبة لنا.**
 
-Handlers added using `on<event>`-property or using HTML attributes or using two-argument `addEventListener(event, handler)` don't know anything about capturing, they only run on the 2nd and 3rd phases.
+  تمت إضافة معالجات باستخدام خاصية `on<event>`-او باستخدام خواص  HTML  او باستخدام two-argument `addEventListener(event, handler)` لا تعرف أي شيء عن الالتقاط, وهي تعمل فقط على المرحلتين الثانية والثالثة.
 
-To catch an event on the capturing phase, we need to set the handler `capture` option to `true`:
+لالتقاط حدث في مرحلة الالتقاط, يجب أن نضبط اختيار المعالج `capture` الي `true`:
 
 ```js
 elem.addEventListener(..., {capture: true})
-// or, just "true" is an alias to {capture: true}
+//  {capture: true} هو اسم مستعار لـ "true" أو فقط 
 elem.addEventListener(..., true)
 ```
 
-There are two possible values of the `capture` option:
+توجد قيمتان محتملتان لـلاختيار `capture` :
 
-- If it's `false` (default), then the handler is set on the bubbling phase.
-- If it's `true`, then the handler is set on the capturing phase.
+- اذا كانت`false` (default),يتم ضبط المعالج على مرحلة التدفق.
+- اذا كانت `true`, يتم ضبط المعالج على مرحلة الالتقاط.
 
 
-Note that while formally there are 3 phases, the 2nd phase ("target phase": the event reached the element) is not handled separately: handlers on both capturing and bubbling phases trigger at that phase.
+لاحظ أنه على الرغم من وجود ثلاث مراحل رسمية, المرحلة الثانية ("مرحلة الهدف": وصول الحدث إلى العنصر) لا يتم التعامل معها بشكل منفصل: ومن ثم فإن المعالجات علي كلا من مرحلتي الالتقاط والتدفق يتم تشغيلها علي تلك المرحلة.
 
-Let's see both capturing and bubbling in action:
+دعونا نرى كلاً من التدفق والالتقاط في اجراء ما:
 
 ```html run autorun height=140 edit
 <style>
@@ -176,22 +176,22 @@ Let's see both capturing and bubbling in action:
 </script>
 ```
 
-The code sets click handlers on *every* element in the document to see which ones are working.
+يقوم الكود بوضع معالجات النقر على *كل* عنصر في المستند لمعرفة أي منها تعمل.
 
-If you click on `<p>`, then the sequence is:
+إذا نقرت على `<p>`, ثم يكون التسلسل:
 
-1. `HTML` -> `BODY` -> `FORM` -> `DIV` (capturing phase, the first listener):
-2. `P` (target phrase, triggers two times, as we've set two listeners: capturing and bubbling)
-3. `DIV` -> `FORM` -> `BODY` -> `HTML` (bubbling phase, the second listener).
+1. `HTML` -> `BODY` -> `FORM` -> `DIV` (مرحلة الالتقاط, المستمع الأول):
+2. `P` (مرحلة الهدف, يتم تشغيلها مرتين, كما وضعنا مستمعين: الالتقاط والتدفق)
+3. `DIV` -> `FORM` -> `BODY` -> `HTML` (مرحلة التدفق, المستمع الثاني).
 
-There's a property `event.eventPhase` that tells us the number of the phase on which the event was caught. But it's rarely used, because we usually know it in the handler.
+توجد خاصية`event.eventPhase` وهي تخبرنا بعدد المرحلة التي يتم فيها وقوع الحدث. ولكنها نادرًا ما يتم استخدامها، لأننا نعرفه عادةً في المعالج.
 
-```smart header="To remove the handler, `removeEventListener` needs the same phase"
-If we `addEventListener(..., true)`, then we should mention the same phase in `removeEventListener(..., true)` to correctly remove the handler.
+```smart header="لإزالة المعالج, `removeEventListener` يحتاج إلى المرحلة نفسها"
+اذا وضعنا `addEventListener(..., true)`, يتعين علينا أن نذكر نفس المرحلة في `removeEventListener(..., true)` لإزالة المعالج بشكل صحيح.
 ```
 
-````smart header="Listeners on same element and same phase run in their set order"
-If we have multiple event handlers on the same phase, assigned to the same element with `addEventListener`, they run in the same order as they are created:
+````smart header="المستمعون على نفس العنصر ونفس المرحلة يتم تشغيلهم بالنسبة لترتيبهم"
+إذا كان لدينا العديد من معالجات الأحداث في نفس المرحلة, تم تعيينها للعنصر نفسه مع `addEventListener`, يتم تشغيلها بنفس الترتيب الذي تم إنشاؤها به:
 
 ```js
 elem.addEventListener("click", e => alert(1)); // guaranteed to trigger first
@@ -200,26 +200,26 @@ elem.addEventListener("click", e => alert(2));
 ````
 
 
-## Summary
+## الخلاصة
 
-When an event happens -- the most nested element where it happens gets labeled as the "target element" (`event.target`).
+عندما يحدث حدث ما -- يكون العنصر الأكثر تداخل حيث يحدث يسمي "العنصر المستهدف" (`event.target`).
 
-- Then the event moves down from the document root to `event.target`, calling handlers assigned with `addEventListener(..., true)` on the way (`true` is a shorthand for `{capture: true}`).
-- Then handlers are called on the target element itself.
-- Then the event bubbles up from `event.target` up to the root, calling handlers assigned using `on<event>` and `addEventListener` without the 3rd argument or with the 3rd argument `false/{capture:false}`.
+- ثم ينتقل الحدث لأسفل من جذر المستند إلى `event.target`, مناديا علي المعالجات التي تم تعيينها مع `addEventListener(..., true)` بطريقة ما (`true`  اختصار لـ `{capture: true}`).
+- ثم يتم استدعاء المعالجات على العنصر الهدف نفسه.
+- ثم يتم قذف الحدث لأعلي من`event.target` الي الجذر, مناديا علي المعالجات التي تم تعيينه باستخدام `on<event>` و`addEventListener` مع او بدون القيمة الثالثة الممرة  `false/{capture:false}`.
 
-Each handler can access `event` object properties:
+يمكن لكل معالج الوصول إلى خصائص كائن "الحدث":
 
-- `event.target` -- the deepest element that originated the event.
-- `event.currentTarget` (=`this`) -- the current element that handles the event (the one that has the handler on it)
-- `event.eventPhase` -- the current phase (capturing=1, target=2, bubbling=3).
+- `event.target` -- العنصر الأعمق الذي نشأ عن الحدث.
+- `event.currentTarget` (=`this`) -- العنصر الحالي الذي يعالج الحدث (لذي يكون المعالج عليه)
+- `event.eventPhase` -- المرحلة الحالية (الالتقاط=1, الهدف=2, التدفق=3).
 
-Any event handler can stop the event by calling `event.stopPropagation()`, but that's not recommended, because we can't really be sure we won't need it above, maybe for completely different things.
+يمكن أن يوقف معالج الأحداث الحدث باستخدام `event.stopPropagation()`, ولكن هذا غير موصى به, لأننا لا نستطيع أن نتأكد من أننا لن نحتاج إليها أعلاه، ربما لأشياء مختلفة تماماً.
 
-The capturing phase is used very rarely, usually we handle events on bubbling. And there's a logic behind that.
+تُستخدم مرحلة الالتقاط نادرًا جدًا, وعادة ما نتعامل مع الأحداث الجارية في مرحلة التدفق. وهناك منطق وراء ذلك.
 
-In real world, when an accident happens, local authorities react first. They know best the area where it happened. Then higher-level authorities if needed.
+في العالم الحقيقي، حين يقع حادث ما, فالسلطات المحلية ترد أولاً. فهم يعرفون المنطقة التي حدث فيا جيدا. ثم سلطات أعلى مستوى إذا لزم الأمر.
 
-The same for event handlers. The code that set the handler on a particular element knows maximum  details about the element and what it does. A handler on a particular `<td>` may be suited for that exactly `<td>`, it knows everything about it, so it should get the chance first. Then its immediate parent also knows about the context, but a little bit less, and so on till the very top element that handles general concepts and runs the last.
+نفس الشيء بالنسبة لمعالجات الأحداث. الكود الذي يقوم بتعيين المعالج على عنصر معين يعرف الحد الأقصى من التفاصيل حول العنصر وما يفعله. قد يكون معالج على  `<td>`  معين مناسبا  بالضبط ل `<td>`,فهو يعرف كل شيء عنه, لذا فلابد وأن تحظى بالفرصة أولاً. ثم يعرف الوالد المباشر أيضاً السياق,  ولكن أقل قليلاً, وهكذا حتى العنصر العلوي الذي يعالج المفاهيم العامة ويدير العنصر الأخير.
 
-Bubbling and capturing lay the foundation for "event delegation" -- an extremely powerful event handling pattern that we study in the next chapter.
+وضع التدفق والالتقاط الأساس لـ "تفويض الحدث" -- نمط قوي للغاية للتعامل مع الأحداث ندرسه الفصل التالي.

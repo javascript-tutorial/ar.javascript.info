@@ -1,15 +1,15 @@
 
-# Animated circle with callback
+# دائرة متحركة بواسطة ال callback
 
-In the task <info:task/animate-circle> an animated growing circle is shown.
+في المهمة <info:task/animate-circle> تظهر دائرة متنامية متنامية.
 
-Now let's say we need not just a circle, but to show a message inside it. The message should appear *after* the animation is complete (the circle is fully grown), otherwise it would look ugly.
+الآن دعنا نقول أننا لسنا بحاجة فقط إلى دائرة ، ولكن لإظهار رسالة بداخلها. يجب أن تظهر الرسالة *بعد* اكتمال الرسم المتحرك (الدائرة كاملة) ، وإلا ستبدو قبيحة.
 
-In the solution of the task, the function `showCircle(cx, cy, radius)` draws the circle, but gives no way to track when it's ready.
+في حل المهمة ، ترسم هذه الدالة `showCircle(cx, cy, radius)` دائرة, لكنها لا تعطي أي وسيلة للتتبع عندما تكون جاهزة.
 
-Add a callback argument: `showCircle(cx, cy, radius, callback)` to be called when the animation is complete. The `callback` should receive the circle `<div>` as an argument.
+أضف وسيطة ال callback: `showCircle(cx, cy, radius, callback)` ليتم أستدعاءها عندما الحركه تكتمل. الدالة `callback` يجب أن تستقبل الدائرة `<div>` كوسيط.
 
-Here's the example:
+إليك المثال:
 
 ```js
 showCircle(150, 150, 100, div => {
@@ -18,8 +18,8 @@ showCircle(150, 150, 100, div => {
 });
 ```
 
-Demo:
+الناتج:
 
 [iframe src="solution" height=260]
 
-Take the solution of the task <info:task/animate-circle> as the base.
+خذ حل المهمة <info:task/animate-circle> كقاعدة.

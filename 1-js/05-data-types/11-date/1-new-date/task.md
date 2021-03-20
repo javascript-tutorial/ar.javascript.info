@@ -1,9 +1,9 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Create a date
+# إنشاء تاريخ
 
-Create a `Date` object for the date: Feb 20, 2012, 3:12am. The time zone is local.
+قم بإنشاء غرض `Date` للتاريخ: Feb 20, 2012, 3:12am. باعتبار المنطقة الزمنية هي المنطقة المحلية.
 
-Show it using `alert`.
+قم بإظهار الغرض المنشأ باستخدام `alert`.

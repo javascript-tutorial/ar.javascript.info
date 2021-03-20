@@ -1,26 +1,26 @@
-To get the time from `date` till now -- let's substract the dates.
+للحصول على الوقت المنصرم منذ التاريخ `date` حتى الآن -- لنقم بطرح التاريخين.
 
 ```js run demo
 function formatDate(date) {
-  let diff = new Date() - date; // the difference in milliseconds
+  let diff = new Date() - date; // الفرق من مرتبة المللي ثانية
 
-  if (diff < 1000) { // less than 1 second
-    return 'right now';
+  if (diff < 1000) { // أقل من ثانية
+    return 'الآن';
   }
 
-  let sec = Math.floor(diff / 1000); // convert diff to seconds
+  let sec = Math.floor(diff / 1000); // تحويل الفرق لمرتبة الثواني
 
   if (sec < 60) {
-    return sec + ' sec. ago';
+    return 'منذ ' + sec + ' ثانية';
   }
 
-  let min = Math.floor(diff / 60000); // convert diff to minutes
+  let min = Math.floor(diff / 60000); // تحويل الفرق لمرتبة الدقائق
   if (min < 60) {
-    return min + ' min. ago';
+    return 'منذ ' + min + ' دقيقة';
   }
 
-  // format the date
-  // add leading zeroes to single-digit day/month/hours/minutes
+  // تنسيق التاريخ
+  // إضافة الأصفار بادئة إلى اليوم/الشهر/الساعات/الدقائق المكونة من رقم واحد
   let d = date;
   d = [
     '0' + d.getDate(),
@@ -28,23 +28,23 @@ function formatDate(date) {
     '' + d.getFullYear(),
     '0' + d.getHours(),
     '0' + d.getMinutes()
-  ].map(component => component.slice(-2)); // take last 2 digits of every component
+  ].map(component => component.slice(-2)); // أخذ آخر رقمين من كل مكوّن
 
-  // join the components into date
+  // جمع المكونات في تاريخ واحد
   return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
 }
 
-alert( formatDate(new Date(new Date - 1)) ); // "right now"
+alert( formatDate(new Date(new Date - 1)) ); // "الآن"
 
-alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 sec. ago"
+alert( formatDate(new Date(new Date - 30 * 1000)) ); // "منذ 30 ثانية"
 
-alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 min. ago"
+alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "منذ 5 دقيقة"
 
-// yesterday's date like 31.12.2016 20:00
+// تاريخ الغد كـ 20:00 31.12.2016
 alert( formatDate(new Date(new Date - 86400 * 1000)) );
 ```
 
-Alternative solution:
+حل بديل:
 
 ```js run
 function formatDate(date) {
@@ -58,7 +58,7 @@ function formatDate(date) {
   let diffMin = diffSec / 60;
   let diffHour = diffMin / 60;
 
-  // formatting
+  // التنسيق
   year = year.toString().slice(-2);
   month = month < 10 ? '0' + month : month;
   dayOfMonth = dayOfMonth < 10 ? '0' + dayOfMonth : dayOfMonth;
@@ -66,11 +66,11 @@ function formatDate(date) {
   minutes = minutes < 10 ? '0' + minutes : minutes;
 
   if (diffSec < 1) {
-    return 'right now';  
+    return 'الآن';  
   } else if (diffMin < 1) {
-    return `${diffSec} sec. ago`
+    return `منذ ${diffSec} ثواني`;
   } else if (diffHour < 1) {
-    return `${diffMin} min. ago`
+    return `منذ ${diffMin} دقيقة`;
   } else {
     return `${dayOfMonth}.${month}.${year} ${hour}:${minutes}`
   }

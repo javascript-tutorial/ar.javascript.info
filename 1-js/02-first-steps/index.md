@@ -1,3 +1,3 @@
-# JavaScript Fundamentals
+# أساسيات جافاسكريبت
 
-Let's learn the fundamentals of script building.
+لنقم بتعلم أساسيات بناء نص جافاسكريبت.

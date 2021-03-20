@@ -1,18 +1,19 @@
-Let's look carefully at what's going on in the call `speedy.eat("apple")`.
+لنرى ما يحدث داخل الاستدعاء `‎speedy.eat("apple")‏` بدقّة.
 
-1. The method `speedy.eat` is found in the prototype (`=hamster`), then executed with `this=speedy` (the object before the dot).
+1. نجد التابِع `speedy.eat` في كائن النموذج الأولي الهامستر (`=hamster`)، وبعدها ننفّذه بقيمة `this=speedy` (الكائن قبل النقطة).
 
-2. Then `this.stomach.push()` needs to find `stomach` property and call `push` on it. It looks for `stomach` in `this` (`=speedy`), but nothing found.
+2. بعدها تأتي مهمة البحث للتابِع `this.stomach.push()‎` ليجد خاصية المعدة `stomach` ويستدعي عليها `push`. يبدأ البحث عن `stomach` في `this` (أي في `speedy`)، ولكنّه لا يجد شيئًا.
 
-3. Then it follows the prototype chain and finds `stomach` in `hamster`.
+3. بعدها يتبع سلسلة الوراثة ويجد المعدة `stomach` في `hamster`.
 
-4. Then it calls `push` on it, adding the food into *the stomach of the prototype*.
+4. ثمّ يستدعي `push` عليها ويذهب الطعام في *معدة النموذج الأولي*.
 
-So all hamsters share a single stomach!
+بهذا تتشارك الهامسترات كلها معدةً واحدة!
 
-Both for `lazy.stomach.push(...)` and `speedy.stomach.push()`, the property `stomach` is found in the prototype (as it's not in the object itself), then the new data is pushed into it.
+أكان `lazy.stomach.push(...)‎` أم `speedy.stomach.push()‎`، لا نجد خاصية المعدة `stomach` إلّا في كائن النموذج الأولي (إذ ليست موجودة في الكائن نفسه)، بذلك ندفع البيانات الجديدة إلى كائن النموذج الأولي.
 
-Please note that such thing doesn't happen in case of a simple assignment `this.stomach=`:
+لاحظ كيف أنّ هذا لا يحدث لو استعملنا طريقة الإسناد البسيط `this.stomach=‎`:
+
 
 ```js run
 let hamster = {
@@ -20,7 +21,7 @@ let hamster = {
 
   eat(food) {
 *!*
-    // assign to this.stomach instead of this.stomach.push
+    // نُسند إلى this.stomach بدلًا من this.stomach.push
     this.stomach = [food];
 */!*
   }
@@ -34,17 +35,18 @@ let lazy = {
   __proto__: hamster
 };
 
-// Speedy one found the food
+// وجد الهامستر السريع الطعام
 speedy.eat("apple");
 alert( speedy.stomach ); // apple
 
-// Lazy one's stomach is empty
+// معدة ذاك الكسول فارغة
 alert( lazy.stomach ); // <nothing>
 ```
 
-Now all works fine, because `this.stomach=` does not perform a lookup of `stomach`. The value is written directly into `this` object.
+الآن يعمل كلّ شيء كما يجب، إذ لا تبحث عملية الإسناد `this.stomach=‎` عن خاصية `stomach`، بل تكتبها مباشرةً في كائن الهامستر الّذي وجد الطعام (المستدعى قبل النقطة).
 
-Also we can totally avoid the problem by making sure that each hamster has their own stomach:
+ويمكننا تجنّب هذه المشكلة من الأساس بتخصيص معدة لكلّ هامستر (كما الطبيعي):
+
 
 ```js run
 let hamster = {
@@ -69,12 +71,12 @@ let lazy = {
 */!*
 };
 
-// Speedy one found the food
+// وجد الهامستر السريع الطعام
 speedy.eat("apple");
 alert( speedy.stomach ); // apple
 
-// Lazy one's stomach is empty
+// معدة ذاك الكسول فارغة
 alert( lazy.stomach ); // <nothing>
 ```
 
-As a common solution, all properties that describe the state of a particular object, like `stomach` above, should be written into that object. That prevents such problems.
+يكون الحلّ العام هو أن تُكتب الخاصيات كلّها الّتي تصف حالة الكائن المحدّد ذاته (مثل `stomach` أعلاه) - أن تُكتب في الكائن ذاته، وبهذا نتجنّب مشاكل تشارك المعدة.

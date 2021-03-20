@@ -2,11 +2,11 @@ importance: 3
 
 ---
 
-# Shuffle an array
+# خلط المصفوفات
 
-Write the function `shuffle(array)` that shuffles (randomly reorders) elements of the array.
+اكتب دالة shuffle(array)‎ تخلط عناصر المصفوفة (أي ترتّبها عشوائيًا).
 
-Multiple runs of `shuffle` may lead to different orders of elements. For instance:
+يمكن بتكرار نداء shuffle إعادة العناصر بترتيب مختلف. مثال:
 
 ```js
 let arr = [1, 2, 3];
@@ -22,4 +22,4 @@ shuffle(arr);
 // ...
 ```
 
-All element orders should have an equal probability. For instance, `[1,2,3]` can be reordered as `[1,2,3]` or `[1,3,2]` or `[3,1,2]` etc, with equal probability of each case.
+يجب أن تكون جميع احتمالات ترتيب العناصر متساوية. فمثلًا يمكن إعادة ترتيب [1,2,3] لتكون [1,2,3] أو [1,3,2] أو [3,1,2] أو أو أو، واحتمال حدوث كلّ حالة متساوٍ.

@@ -2,14 +2,15 @@ importance: 5
 
 ---
 
-# Set and decrease for counter
+# وضع و تقليل للعداد
 
-Modify the code of `makeCounter()` so that the counter can also decrease and set the number:
+عدل الكود الخاص بالدالة `makeCounter()` بحيث يمكن للعداد أيضاً أن يخفض أو يضبط العدد:
 
-- `counter()` should return the next number (as before).
-- `counter.set(value)` should set the counter to `value`.
-- `counter.decrease()` should decrease the counter by 1.
+- `counter()` يجب أن تُرجِع الرقم التالي (كما في السابق).
+- `counter.set(value)` يجب أن تضع قيمة العداد إلي `value`.
+- `counter.decrease()` يجب أن تقلل قيمة العداد بفارق واحد.
 
-See the sandbox code for the complete usage example.
+إنظر لصندوق الكود بالأسفل لإستخدام المثال كاملاً
 
-P.S. You can use either a closure or the function property to keep the current count. Or write both variants.
+ملحوظة: يمكنك إستخدام إما الإغلاق أو خاصية الدالة للمحافظة على العداد الحالي. أو تستخدم الإثنين إذا أردت.
+

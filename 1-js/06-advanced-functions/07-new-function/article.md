@@ -1,19 +1,18 @@
+# تركيب جملة دالة جديدة "new Function"
 
-# The "new Function" syntax
+هناك طريقة أخرى لبناء الدالة. هذه الطريقة نادرة الإستخدام لكن أحياناً لا يوجد بديل لها.
 
-There's one more way to create a function. It's rarely used, but sometimes there's no alternative.
+## تركيب الجملة
 
-## Syntax
-
-The syntax for creating a function:
+تركيب جملة بناء الدالة:
 
 ```js
 let func = new Function ([arg1, arg2, ...argN], functionBody);
 ```
 
-The function is created with the arguments `arg1...argN` and the given `functionBody`.
+بهذا التركيب تم صُنع دالة وإرسال لها العوامل الأتية `arg1...argN` و إرسال لها جسم الدالة الذي يحتوي علي ما نريد فعله بداخلها `functionBody`.
 
-It's easier to understand by looking at an example. Here's a function with two arguments:
+دعنا نبسط الأمر بمثال لدالة تحتاج إلى عاملين:
 
 ```js run
 let sum = new Function('a', 'b', 'return a + b');
@@ -21,19 +20,20 @@ let sum = new Function('a', 'b', 'return a + b');
 alert( sum(1, 2) ); // 3
 ```
 
-And here there's a function without arguments, with only the function body:
+هذا مثال أخر لدالة لا تحتاج إلى عوامل فقط نرسل لها جسم الدالة:
 
 ```js run
 let sayHi = new Function('alert("Hello")');
 
 sayHi(); // Hello
 ```
+الفرق الأساسي بين هذه الطريقة وباقي الطرق التي تبني الدالة هو أن الدالة تُبني من نص `string` يمكن أن نرسله للدالة أثناء تشغيل البرنامج. 
 
-The major difference from other ways we've seen is that the function is created literally from a string, that is passed at run time.
+كل الطرق السابقة كانت تتطلب مننا كمبرمجين أن نكتب الدالة عن طريق الكود.
 
-All previous declarations required us, programmers, to write the function code in the script.
+لكن كلمة دالة جديدة `new Function` تتيح لنا تحويل النص `string` إلى دالة
 
-But `new Function` allows to turn any string into a function. For example, we can receive a new function from a server and then execute it:
+مثلا يمكننا أن نستلم الدالة الجديدة من الخادم البعيد ثم ننفذها: 
 
 ```js
 let str = ... receive the code from a server dynamically ...
@@ -42,15 +42,14 @@ let func = new Function(str);
 func();
 ```
 
-It is used in very specific cases, like when we receive code from a server, or to dynamically compile a function from a template, in complex web-applications.
+هذه الطريقة تستخدم في حالات خاصة جداً مثلاً عندما نتسلم كود من الخادم, أو لتجميع الدالة بطريقة تلقائية من القالب وهذا يستخدم في تطبيقات الويب المعقدة.
 
 ## Closure
 
-Usually, a function remembers where it was born in the special property `[[Environment]]`. It references the Lexical Environment from where it's created  (we covered that in the chapter <info:closure>).
+عادة, تتذكر الدالة دائماً من أين تمت مناداتها في خاصية خاصة بالدالة تسمي `[[Environment]]`. وهذه الخاصية تشير إلى حسد لغوي Lexical Environment تدلنا أين تم بناء هذه الدالة ( تمت تغطية هذه الجزئية في هذا الفصل <info:closure> )
 
-But when a function is created using `new Function`, its `[[Environment]]` is set to reference not the current Lexical Environment, but the global one.
+لكن عندما عندما نستخدم طريقة دالة جديدة `new Function`, هذه الخاصية `[[Environment]]` لم تعد تشير إلى الحسد اللغوي Lexical Environment كما ذكرنا في الأعلي وإنما تشير الحدس الشامل إلى `Global Lexical Enviroment`. 
 
-So, such function doesn't have access to outer variables, only to the global ones.
 
 ```js run
 function getFunc() {
@@ -66,7 +65,7 @@ function getFunc() {
 getFunc()(); // error: value is not defined
 ```
 
-Compare it with the regular behavior:
+قارن الأن بينه وبين الطريقة التقليدية:
 
 ```js run
 function getFunc() {
@@ -82,37 +81,38 @@ function getFunc() {
 getFunc()(); // *!*"test"*/!*, from the Lexical Environment of getFunc
 ```
 
-This special feature of `new Function` looks strange, but appears very useful in practice.
+هذه الخاصية الموجودة في دالة جديدة `new Function` تبدو غريبة, لكنها عند التطبيق مفيدة جداً.
 
-Imagine that we must create a function from a string. The code of that function is not known at the time of writing the script (that's why we don't use regular functions), but will be known in the process of execution. We may receive it from the server or from another source.
+تخيل أننا نريد بناء دالة من نص `string`. الكود الخاص بالدالة الأن غير معروف في الوقت الذي تكتب فيه البرنامج ( لهذا السبب لا نستخدم الطريقة التقليدية للدالة ) لكن سيكون معروف أثناء التشغيل. ومن الممكن أن نستلم كود الدالة من الخادم البعيد أو من مصدر أخر.
 
-Our new function needs to interact with the main script.
+دالتنا الجديدة تحتاج إلى التفاعل مع الكود الأساسي.
 
-What if it could access the outer variables?
+لكن ماذا سيحدث إذا استطاعت الدالة الوصول إلى المتغيرات الخارجية ولم تكن تمتلك الخاصية المذكورة في الأعلي؟ 
 
-The problem is that before JavaScript is published to production, it's compressed using a *minifier* -- a special program that shrinks code by removing extra comments, spaces and -- what's important, renames local variables into shorter ones.
+المشكلة هي أن قبل أن يتم نشر مشروع الجافاسكريبت الخاص بك للإنتاج. يتم ضغطه عن طريق إستخدام شئ يسمي -- *minifier* -- يعتبر هذا البرنامج خاص بتقليص حجم الكود الخاص بك عن طريق مسح الزيادات مثل التعليقات و المسافات و الأهم من ذلك أنه يغير أسماء المتغيرات المحلية الطويلة إلى أسماء متغيرات أقصر.
 
-For instance, if a function has `let userName`, minifier replaces it `let a` (or another letter if this one is occupied), and does it everywhere. That's usually a safe thing to do, because the variable is local, nothing outside the function can access it. And inside the function, minifier replaces every mention of it. Minifiers are smart, they analyze the code structure, so they don't break anything. They're not just a dumb find-and-replace.
+مثلاً اذاً كانت دالة تحتوي علي `let userName` الـ -- *minifier* -- يحولها إلى `let a` (أو أي شئ أخر إذا كان هذا الأسم غير متاح), ويقوم بهذا في كل مكان تم ذكر فيه هذا المتغير وهو شئ آمن لأن المتغير يعتبر محلي داخل الدالة ولا يستطيع أي شئ خارج الدالة الوصول إليه, وداخل الدالة يغير الـ -- *minifier* -- كل مرة ذكر فيها الأسم. *minifier* يعتبر ذكي لأنه يحلل تركيب الكود لكي لايعطل شئ وليس فقط القيام بالتبديل.
 
-So if `new Function` had access to outer variables, it would be unable to find renamed  `userName`.
+لذلك إن استطاعت الدالة الجديدة `new Function` الوصول إلى المتغيرات الخارجية, الـ*minifier* لن يستطيع إيجاد إسم  `userName` وتغيره.
 
-**If `new Function` had access to outer variables, it would have problems with minifiers.**
+إذا استطاعت الدالة الجديدة `new Function` الوصول للمتغبرات الخارجية ستكون هذه مشكلة كبير قد تعطل البرنامج لهذا السبب هي زُودت بخاصية عدم الوصول إلى المتغيرات الخارجية الذي ذكرناه بالأعلي 
 
-Besides, such code would be architecturally bad and prone to errors.
 
-To pass something to a function, created as `new Function`, we should use its arguments.
+إذا أردنا الدالة أن تصل إلى متغير خارجي معين علينا أن نرسله كعامل لها,
 
-## Summary
 
-The syntax:
+## الملخص
+
+ طريقة تركيب الجملة:
 
 ```js
 let func = new Function ([arg1, arg2, ...argN], functionBody);
 ```
 
-For historical reasons, arguments can also be given as a comma-separated list.
+لأسباب تاريخية, العوامل يمكن أن نرسلها علي شكل قائمة مفصولة بفاصلات.
 
-These three declarations mean the same:
+لاحظ أن الثلاث توضيحات القادة كلهم يحملون نفس المعني:
+
 
 ```js
 new Function('a', 'b', 'return a + b'); // basic syntax
@@ -120,4 +120,5 @@ new Function('a,b', 'return a + b'); // comma-separated
 new Function('a , b', 'return a + b'); // comma-separated with spaces
 ```
 
-Functions created with `new Function`, have `[[Environment]]` referencing the global Lexical Environment, not the outer one. Hence, they cannot use outer variables. But that's actually good, because it insures us from errors. Passing parameters explicitly is a much better method architecturally and causes no problems with minifiers.
+الدوال التي تم بناءها عن طريق `new Function`, تمتلك خاصية `[[Environment]]` التي تشير إلى الحدس الشامل "global Lexical Environment", وليس الحدس الخارجي. ولذلك هذه الدالة لاتستطيع الوصول للمتغيرات الخارجية ولكن هذا شئ جيد لانه لولا حدوثه ستحدث أخطاء كثيرة جداً عند تقليص الكود. وعند الحاجة إلى متغير خارجي نرسله علي شكل عامل للدالة ذلك يمنع كل المشاكل التي ذكرناها في الأعلي.
+

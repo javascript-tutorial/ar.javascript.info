@@ -1,5 +1,5 @@
 
-There are no tricks here. Just replace `.catch` with `try...catch` inside `demoGithubUser` and add `async/await` where needed:
+لا توجد حيل هنا. ما عليك سوى استبدال `.catch` بـ` try ... catch` داخل `demoGithubUser` وإضافة` async / await` عند الحاجة:
 
 ```js run
 class HttpError extends Error {

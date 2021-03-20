@@ -1,21 +1,22 @@
-# Decorators and forwarding, call/apply
+﻿
+# المزخرفات decorators‌ والتمرير forwarding: التابعان call وapply
 
-JavaScript gives exceptional flexibility when dealing with functions. They can be passed around, used as objects, and now we'll see how to *forward* calls between them and *decorate* them.
+تقدّم لنا لغة جافاسكربت مرونة عالية غير مسبوقة في التعامل مع الدوال، إذ يمكننا تمريرها أو استعمالها على أنّها كائنات. والآن سنرى كيف *نُمرّر* الاستدعاءات بينها وكيف *نُزخرِفها*.
 
-## Transparent caching
+## خبيئة من خلف الستار
 
-Let's say we have a function `slow(x)` which is CPU-heavy, but its results are stable. In other words, for the same `x` it always returns the same result.
+لنقل بأنّ أمامنا الدالة الثقيلة على المعالج `‎slow(x)‎` بينما نتائجها مستقرة، أي لنقل بأنّنا لو مرّرنا ذات `‎x‎`، فسنجد ذات النتيجة دومًا.
 
-If the function is called often, we may want to cache (remember) the results to avoid spending extra-time on recalculations.
+لو استدعينا هذه الدالة مرارًا وتكرارًا، فالأفضل لو خبّئنا (أي تذكّرنا) ناتجها لئلا يذهب الوقت سدًى لإجراء ذات الحسابات.
 
-But instead of adding that functionality into `slow()` we'll create a wrapper function, that adds caching. As we'll see, there are many benefits of doing so.
+ولكن، بدل إضافة هذه الميزة في دالة `‎slow()‎` نفسها، سنُنشئ دالة غالِفة تُضيف ميزة الخبيئة هذه. سنرى أسفله مدى فوائد هذا الأمر.
 
-Here's the code, and explanations follow:
+إليك الشيفرة أولًا، وبعدها الشرح:
 
-```js run
+```
 function slow(x) {
-  // there can be a heavy CPU-intensive job here
-  alert(`Called with ${x}`);
+  // هنا مهمّة ثقيلة تُهلك المعالج
+  alert(`‎Called with ${x}‎`);
   return x;
 }
 
@@ -23,124 +24,120 @@ function cachingDecorator(func) {
   let cache = new Map();
 
   return function(x) {
-    if (cache.has(x)) {    // if there's such key in cache
-      return cache.get(x); // read the result from it
+    if (cache.has(x)) {    // لو وجدنا هذا المفتاح في الخبيئة
+      return cache.get(x); // نقرأ النتيجة منها
     }
 
-    let result = func(x);  // otherwise call func
+    let result = func(x);  // وإلّا نستدعي الدالة
 
-    cache.set(x, result);  // and cache (remember) the result
+    cache.set(x, result);  // ثمّ نُخبّئ (نتذكّر) ناتجها
     return result;
   };
 }
 
 slow = cachingDecorator(slow);
 
-alert( slow(1) ); // slow(1) is cached
-alert( "Again: " + slow(1) ); // the same
+alert( slow(1) ); // خبّأنا slow(1)
+alert( "Again: " + slow(1) ); // ذات الناتج
 
-alert( slow(2) ); // slow(2) is cached
-alert( "Again: " + slow(2) ); // the same as the previous line
+alert( slow(2) ); // ‫خبّأنا slow(2)‎
+alert( "Again: " + slow(2) ); // ذات ناتج السطر السابق
 ```
 
-In the code above `cachingDecorator` is a *decorator*: a special function that takes another function and alters its behavior.
+في الشيفرة أعلاه، ندعو `‎cachingDecorator‎` *بالمُزخرِف* (decorator): وهي دالة خاصّة تأخذ دالة أخرى مُعاملًا وتعدّل على سلوكها.
 
-The idea is that we can call `cachingDecorator` for any function, and it will return the caching wrapper. That's great, because we can have many functions that could use such a feature, and all we need to do is to apply `cachingDecorator` to them.
+الفكرة هنا هي استدعاء `‎cachingDecorator‎` لأيّ دالة أردنا، وستُعيد لنا غِلاف الخبيئة ذاك. الفكرة هذه رائعة إذ يمكن أن نكون أمام مئات من الدوال التي يمكن أن تستغلّ هذه الميزة، وكلّ ما علينا فعله هو إضافة `‎cachingDecorator‎` عليها.
 
-By separating caching from the main function code we also keep the main code simpler.
+كما وأنّا نحافظ على الشيفرة أبسط بفصل ميزة الخبيئة عن مهمّة الدالة الفعلية.
 
-The result of `cachingDecorator(func)` is a "wrapper": `function(x)` that "wraps" the call of `func(x)` into caching logic:
+ناتج `‎cachingDecorator(func)‎` هو «غِلاف» يُعيد الدالة `‎function(x)‎` التي «تُغلّف» استدعاء `‎func(x)‎` داخل شيفرة الخبيئة:
 
-![](decorator-makecaching-wrapper.svg)
+[decorator-makecaching-wrapper.png]
 
-From an outside code, the wrapped `slow` function still does the same. It just got a caching aspect added to its behavior.
+الشيفرات الخارجية لا ترى أيّ تغيير على دالة `‎slow‎` المُغلّفة. ما فعلناه هو تعزيز سلوكها بميزة الخبيئة.
 
-To summarize, there are several benefits of using a separate `cachingDecorator` instead of altering the code of `slow` itself:
+إذًا نُلخّص: ثمّة فوائد عدّة لاستعمال `‎cachingDecorator‎` منفصلًا بدل تعديل شيفرة الدالة `‎slow‎` نفسها:
 
-- The `cachingDecorator` is reusable. We can apply it to another function.
-- The caching logic is separate, it did not increase the complexity of `slow` itself (if there was any).
-- We can combine multiple decorators if needed (other decorators will follow).
+- إعادة استعمال `‎cachingDecorator‎`، فنُضيفه على دوال أخرى.
+- فصل شيفرة الخبيئة فلا تزيد من تعقيد دالة `‎slow‎` نفسها (هذا لو كانت معقّدة).
+- إمكانية إضافة أكثر من مُزخرف عند الحاجة (سنرى ذلك لاحقًا).
 
-## Using "func.call" for the context
+## استعمال `‎func.call‎` لأخذ السياق
 
-The caching decorator mentioned above is not suited to work with object methods.
+لا ينفع مُزخرِف الخبيئة الذي شرحناه مع توابِع الكائنات.
 
-For instance, in the code below `worker.slow()` stops working after the decoration:
+فمثلًا في الشيفرة أسفله، سيتوقّف عمل `‎worker.slow()‎` بعد هذه الزخرفة:
 
-```js run
-// we'll make worker.slow caching
+```
+// ‫هيًا نُضف ميزة الخبيئة إلى worker.slow
 let worker = {
   someMethod() {
     return 1;
   },
 
   slow(x) {
-    // scary CPU-heavy task here  
+    // أمامنا مهمّة ثقيلة على المعالج هنا 
     alert("Called with " + x);
     return x * this.someMethod(); // (*)
   }
 };
 
-// same code as before
+// نفس الشيفرة أعلاه
 function cachingDecorator(func) {
   let cache = new Map();
   return function(x) {
     if (cache.has(x)) {
       return cache.get(x);
     }
-*!*
     let result = func(x); // (**)
-*/!*
     cache.set(x, result);
     return result;
   };
 }
 
-alert( worker.slow(1) ); // the original method works
+alert( worker.slow(1) ); // التابِع الأصلي يعمل كما ينبغي
 
-worker.slow = cachingDecorator(worker.slow); // now make it caching
+worker.slow = cachingDecorator(worker.slow); // وقت الخبيئة
 
-*!*
-alert( worker.slow(2) ); // Whoops! Error: Cannot read property 'someMethod' of undefined
-*/!*
+alert( worker.slow(2) ); // ‫لاااا! خطأ: تعذّرت قراءة الخاصية 'someMethod' في undefined
 ```
 
-The error occurs in the line `(*)` that tries to access `this.someMethod` and fails. Can you see why?
+مكان الخطأ هو السطر `‎(*)‎` الذي يحاول الوصول إلى `‎this.someMethod‎` ويفشل فشلًا ذريعًا. هل تعرف السبب؟
 
-The reason is that the wrapper calls the original function as `func(x)` in the line `(**)`. And, when called like that, the function gets `this = undefined`.
+السبب هو أنّ الغِلاف يستدعي الدالة الأصلية هكذا `‎func(x)‎` في السطر `‎(**)‎`. وحين نستدعيها هكذا تستلم الدالة `‎this = undefined‎`.
 
-We would observe a similar symptom if we tried to run:
+سنرى ما يشبه هذا الخطأ لو شغّلنا هذه الشيفرة:
 
-```js
+```
 let func = worker.slow;
 func(2);
 ```
 
-So, the wrapper passes the call to the original method, but without the context `this`. Hence the error.
+إذًا... يُمرّر الغِلاف الاستدعاء إلى التابِع الأصلي دون السياق `‎this‎`، بهذا يحصل الخطأ.
 
-Let's fix it.
+وقت الإصلاح.
 
-There's a special built-in function method [func.call(context, ...args)](mdn:js/Function/call) that allows to call a function explicitly setting `this`.
+ثمّة تابِع دوال مضمّن في اللغة باسم [func.call(context, ...args)](https://wiki.hsoub.com/JavaScript/Function/call) يتيح لنا استدعاء الدالة 
 
-The syntax is:
+صياغته هي:
 
-```js
+```
 func.call(context, arg1, arg2, ...)
 ```
 
-It runs `func` providing the first argument as `this`, and the next as the arguments.
+يُشغّل التابِع الدالةَ `‎func‎` بعد تمرير المُعامل الأول (وهو `‎this‎`) وثمّ مُعاملاتها.
 
-To put it simply, these two calls do almost the same:
-```js
+للتبسيط، هذين الاستدعاءين لا يفرقان بشيء في التنفيذ:
+```
 func(1, 2, 3);
 func.call(obj, 1, 2, 3)
 ```
 
-They both call `func` with arguments `1`, `2` and `3`. The only difference is that `func.call` also sets `this` to `obj`.
+فكلاهما يستدعي `‎func‎` بالمُعاملات `‎1‎` و`‎2‎` و`‎3‎`. الفرق الوحيد هو أنّ `‎func.call‎` تضبط قيمة `‎this‎` على `‎obj‎` علاوةً على ذلك.
 
-As an example, in the code below we call `sayHi` in the context of different objects: `sayHi.call(user)` runs `sayHi` providing `this=user`, and the next line sets `this=admin`:
+لنأخذ مثالًا. في الشيفرة أسفله نستدعي `‎sayHi‎` بسياق كائنات أخرى: يُشغّل `‎sayHi.call(user)‎` الدالةَ `‎sayHi‎` ويُمرّر `‎this=user‎`، ثمّ في السطر التالي يضبط `‎this=admin‎`:
 
-```js run
+```
 function sayHi() {
   alert(this.name);
 }
@@ -148,28 +145,28 @@ function sayHi() {
 let user = { name: "John" };
 let admin = { name: "Admin" };
 
-// use call to pass different objects as "this"
-sayHi.call( user ); // John
-sayHi.call( admin ); // Admin
+// نستعمل call لنمرّر مختلف الكائنات على أنّها this:
+sayHi.call( user ); // this = John
+sayHi.call( admin ); // this = Admin
 ```
 
-And here we use `call` to call `say` with the given context and phrase:
+وهنا نستدعي `‎call‎` لتستدعي `‎say‎` بالسياق والعبارة المُمرّرتين:
 
 
-```js run
+```
 function say(phrase) {
   alert(this.name + ': ' + phrase);
 }
 
 let user = { name: "John" };
 
-// user becomes this, and "Hello" becomes the first argument
+// ‫الكائن user يصير this وتصير Hello المُعامل الأول
 say.call( user, "Hello" ); // John: Hello
 ```
 
-In our case, we can use `call` in the wrapper to pass the context to the original function:
+في حالتنا نحن، يمكن استعمال `‎call‎` في الغِلاف ليُمرّر السياق إلى الدالة الأصلية:
 
-```js run
+```
 let worker = {
   someMethod() {
     return 1;
@@ -187,63 +184,61 @@ function cachingDecorator(func) {
     if (cache.has(x)) {
       return cache.get(x);
     }
-*!*
-    let result = func.call(this, x); // "this" is passed correctly now
-*/!*
+    let result = func.call(this, x); // ‫هكذا نُمرّر «this» كما ينبغي
     cache.set(x, result);
     return result;
   };
 }
 
-worker.slow = cachingDecorator(worker.slow); // now make it caching
+worker.slow = cachingDecorator(worker.slow); // والآن نُضيف الخبيئة
 
-alert( worker.slow(2) ); // works
-alert( worker.slow(2) ); // works, doesn't call the original (cached)
+alert( worker.slow(2) ); // يعمل
+alert( worker.slow(2) ); // ‫يعمل ولا يستدعي التابِع الأصلي (إذ القيمة مُخبّأة)
 ```
 
-Now everything is fine.
+الآن يعمل كلّ شيء كما نريد.
 
-To make it all clear, let's see more deeply how `this` is passed along:
+لنوضّح الأمر أكثر، لنرى بالتفصيل المملّ تمريرات `‎this‎` من هنا إلى هناك:
 
-1. After the decoration `worker.slow` is now the wrapper `function (x) { ... }`.
-2. So when `worker.slow(2)` is executed, the wrapper gets `2` as an argument and `this=worker` (it's the object before dot).
-3. Inside the wrapper, assuming the result is not yet cached, `func.call(this, x)` passes the current `this` (`=worker`) and the current argument (`=2`) to the original method.
+1. بعد الزخرفة، يصير `‎worker.slow‎` الغِلاف `‎function (x) { ... }‎`.
+2. لذا حين نُنفّذ `‎worker.slow(2)‎`، يأخذ الغِلاف القيمةَ `‎2‎` وسيطًا ويضبط `‎this=worker‎` (وهو الكائن قبل النقطة).
+3. في الغِلاف (باعتبار أنّ النتيجة لم تُخبّأ بعد)، تُمرّر `‎func.call(this, x)‎` قيمة `‎this‎` الحالية (وهي `‎worker‎`) مع المُعامل الحالي (`‎2‎`) - كلّه إلى التابِع الأصلي.
 
-## Going multi-argument
+## استعمال أكثر من وسيط داخل `func.apply`
 
-Now let's make `cachingDecorator` even more universal. Till now it was working only with single-argument functions.
+الآن صار وقت تعميم `‎cachingDecorator‎` على العالم. كنّا إلى هنا نستعملها مع الدوال التي تأخذ مُعاملًا واحدًا فقط.
 
-Now how to cache the multi-argument `worker.slow` method?
+وماذا لو أردنا تخبئة التابِع `‎worker.slow‎` الذي يأخذ أكثر من مُعامل؟
 
-```js
+```
 let worker = {
   slow(min, max) {
-    return min + max; // scary CPU-hogger is assumed
+    return min + max; // نُعدّها عملية تستنزف المعالج
   }
 };
 
-// should remember same-argument calls
+// علينا تذكّر الاستدعاءات بنفس المُعامل هنا
 worker.slow = cachingDecorator(worker.slow);
 ```
 
-Previously, for a single argument `x` we could just `cache.set(x, result)` to save the result and `cache.get(x)` to retrieve it. But now we need to remember the result for a *combination of arguments* `(min,max)`. The native `Map` takes single value only as the key.
+كنّا سابقًا نستعمل `‎cache.set(x, result)‎` (حين تعاملنا مع المُعامل الوحيد `‎x‎`) لنحفظ الناتج، ونستعمل `‎cache.get(x)‎` لنجلب الناتج. أمّا الآن فعلينا تذكّر ناتج *مجموعة مُعاملات* `‎(min,max)‎`. الخارطة `‎Map‎` لا تأخذ المفاتيح إلّا بقيمة واحدة.
 
-There are many solutions possible:
+ثمّة أمامنا أكثر من حلّ:
 
-1. Implement a new (or use a third-party) map-like data structure that is more versatile and allows multi-keys.
-2. Use nested maps: `cache.set(min)` will be a `Map` that stores the pair `(max, result)`. So we can get `result` as `cache.get(min).get(max)`.
-3. Join two values into one. In our particular case we can just use a string `"min,max"` as the `Map` key. For flexibility, we can allow to provide a *hashing function* for the decorator, that knows how to make one value from many.
+1. كتابة بنية بيانات جديدة تشبه الخرائط (أو استعمال واحدة من طرف ثالث) يمكن استعمالها لأكثر من أمر وتسمح لنا بتخزين أكثر من مفتاح.
+2. استعمال الخرائط المتداخلة: تصير `‎cache.set(min)‎` خارطة تُخزّن الزوجين `‎(max, result)‎`. ويمكن أن نأخذ الناتج `‎result‎` باستعمال `‎cache.get(min).get(max)‎`.
+3. دمج القيمتين في واحدة. في حالتنا هذه يمكن استعمال السلسلة النصية `‎"min,max"‎` لتكون مفتاح `‎Map‎`. ويمكن أن نقدّم للمُزخرِف *دالة عنونة* _Hashing_ يمكنها صناعة قيمة من أكثر من قيمة، فيصير الأمر أسهل.
 
-For many practical applications, the 3rd variant is good enough, so we'll stick to it.
+أغلب التطبيقات العملية تَعدّ الحل الثالث كافيًا، ولهذا سنستعمله هنا.
 
-Also we need to pass not just `x`, but all arguments in `func.call`. Let's recall that in a `function()` we can get a pseudo-array of its arguments as `arguments`, so `func.call(this, x)` should be replaced with `func.call(this, ...arguments)`.
+علينا أيضًا استبدال التابِع `‎func.call(this, x)‎` بالتابِع `‎func.call(this, ...arguments)‎` كي نُمرّر كلّ المُعاملات إلى استدعاء الدالة المُغلّفة لا الأولى فقط.
 
-Here's a more powerful `cachingDecorator`:
+رحّب بالمُزخرف `‎cachingDecorator‎` الجديد، أكثر قوة وأناقة:
 
-```js run
+```
 let worker = {
   slow(min, max) {
-    alert(`Called with ${min},${max}`);
+    alert(`‎Called with ${min},${max}‎`);
     return min + max;
   }
 };
@@ -251,16 +246,12 @@ let worker = {
 function cachingDecorator(func, hash) {
   let cache = new Map();
   return function() {
-*!*
     let key = hash(arguments); // (*)
-*/!*
     if (cache.has(key)) {
       return cache.get(key);
     }
 
-*!*
     let result = func.call(this, ...arguments); // (**)
-*/!*
 
     cache.set(key, result);
     return result;
@@ -273,154 +264,376 @@ function hash(args) {
 
 worker.slow = cachingDecorator(worker.slow, hash);
 
-alert( worker.slow(3, 5) ); // works
-alert( "Again " + worker.slow(3, 5) ); // same (cached)
+alert( worker.slow(3, 5) ); // يعمل
+alert( "Again " + worker.slow(3, 5) ); // ‫نفس الناتج (خبّأناه)
 ```
 
-Now it works with any number of arguments (though the hash function would also need to be adjusted to allow any number of arguments. An interesting way to handle this will be covered below).
+الآن صار يعمل مهما كان عدد المُعاملات (ولكن علينا تعديل دالة العنونة لتسمح هي أيضًا بالمُعاملات أيًا كان عددها. سنشره أسفله إحدى الطرائق الجميلة لإنجاز هذه المهمة).
 
-There are two changes:
+أمامنا تعديلان اثنان:
 
-- In the line `(*)` it calls `hash` to create a single key from `arguments`. Here we use a simple "joining" function that turns arguments `(3, 5)` into the key `"3,5"`. More complex cases may require other hashing functions.
-- Then `(**)` uses `func.call(this, ...arguments)` to pass both the context and all arguments the wrapper got (not just the first one) to the original function.
+- في السطر`‎(*)‎`، نستدعي `‎hash‎` لتصنع مفتاحًا واحدًا من `‎arguments‎`. نستعمل هنا دالة «دمج» بسيطة تحوّل المُعاملان `‎(3, 5)‎` إلى المفتاح `‎"3,5"‎`. لو كانت الحالة لديك أكثر تعقيدًا، فتحتاج إلى دوال عنونة أخرى.
+- ثمّ يستعمل `‎(**)‎` التابِع `‎func.call(this, ...arguments)‎` لتمرير السياق وكلّ المُعاملات التي استلمها الغِلاف (وليس الأول فقط) - كله إلى الدالة الأصلية.
 
-## func.apply
+يمكننا بدل استعمال `‎func.call(this, ...arguments)‎` استغلال `‎func.apply(this, arguments)‎`.
 
-Instead of `func.call(this, ...arguments)` we could use `func.apply(this, arguments)`.
+صياغة هذا التابِع المبني في اللغة [func.apply](https://wiki.hsoub.com/JavaScript/Function/apply) هي:
 
-The syntax of built-in method [func.apply](mdn:js/Function/apply) is:
-
-```js
+```
 func.apply(context, args)
 ```
 
-It runs the `func` setting `this=context` and using an array-like object `args` as the list of arguments.
+يُشغّل التابِع الدالةَ `‎func‎` بضبط `‎this=context‎` واستعمال الكائن الشبيه بالمصفوفات `‎args‎` قائمةً بالمُعطيات للدالة.
 
-The only syntax difference between `call` and `apply` is that `call` expects a list of arguments, while `apply` takes an array-like object with them.
+الفارق الوحيد بين `‎call‎` و`‎apply‎` هي أنّ الأوّل يتوقّع قائمة بالمُعطيات بينما الثاني يأخذ كائنًا شبيهًا بالمصفوفات يحويها.
 
-So these two calls are almost equivalent:
+أي أنّ الاستدعاءين الآتين متساويين تقريبًا:
 
-```js
-func.call(context, ...args); // pass an array as list with spread syntax
-func.apply(context, args);   // is same as using call
+```
+func.call(context, ...args); // نمرّر الكائن قائمةً بمُعامل التوزيع
+func.apply(context, args);   // ‫نفس الفكرة باستعمال apply
 ```
 
-There's only a subtle difference:
+ولكن هناك فرق بسيط واحد:
 
-- The spread syntax `...` allows to pass *iterable* `args` as the list to `call`.
-- The `apply` accepts only *array-like* `args`.
+- يُتيح لنا مُعامل التوزيع `‎...‎` تمرير *المُتعدَّد* `‎args‎` قائمةً إلى `‎call‎`.
+- لا يقبل `‎apply‎` إلّا مُعامل `‎args‎` *شبيه بالمصفوفات*.
 
-So, where we expect an iterable, `call` works, and where we expect an array-like, `apply` works.
+أي أنّ هذين الاستدعاءين يُكمّلان بعضهما البعض. لو توقّعنا وصول مُتعدَّد فنستعمل `‎call‎`، ولو توقّعنا شبيهًا بالمصفوفات نستعمل `‎apply‎`.
 
-And for objects that are both iterable and array-like, like a real array, we can use any of them, but `apply` will probably be faster, because most JavaScript engines internally optimize it better.
+أمّا الكائنات المُتعدَّدة والشبيهة بالمصفوفات (مثل المصفوفات الحقيقية)، فيمكننا نظريًا استعمال أيّ من الاثنين، إلّا أنّ `‎apply‎` سيكون أسرع غالبًا إذ أنّ مُعظم محرّكات جافاسكربت تحسّن أدائه داخليًا أكثر من `‎call‎`.
 
-Passing all arguments along with the context to another function is called *call forwarding*.
+يُدى تمرير كافة المُعاملات (مع السياق) من دالة إلى أخرى *بتمرير الاستدعاء*.
 
-That's the simplest form of it:
+إليك أبسط صوره:
 
-```js
+```
 let wrapper = function() {
   return func.apply(this, arguments);
 };
 ```
 
-When an external code calls such `wrapper`, it is indistinguishable from the call of the original function `func`.
+حين تستدعي أيّ شيفرة خارجية `‎wrapper‎` محال أن تفرّق بين استدعائها واستدعاء الدالة الأصلية `‎func‎`.
 
-## Borrowing a method [#method-borrowing]
+## استعارة التوابِع
 
-Now let's make one more minor improvement in the hashing function:
+أمّا الآن لنحسّن دالة العنونة قليلًا:
 
-```js
+```
 function hash(args) {
   return args[0] + ',' + args[1];
 }
 ```
 
-As of now, it works only on two arguments. It would be better if it could glue any number of `args`.
+لا تعمل الدالة حاليًا إلّا على مُعاملين اثنين، وسيكون رائعًا لو أمكن أن ندمج أيّ عدد من `‎args‎`.
 
-The natural solution would be to use [arr.join](mdn:js/Array/join) method:
+أوّل حلّ نفكّر به هو استعمال التابِع [arr.join](https://wiki.hsoub.com/JavaScript/Array/join):
 
-```js
+```
 function hash(args) {
   return args.join();
 }
 ```
 
-...Unfortunately, that won't work. Because we are calling `hash(arguments)`, and `arguments` object is both iterable and array-like, but not a real array.
+ولكن... للأسف فهذا لن ينفع، إذ نستدعي `‎hash(arguments)‎` بتمرير كائن المُعاملات `‎arguments‎` المُتعدَّد والشبيه بالمصفوفات... إلّا أنّه ليس بمصفوفة حقيقية.
 
-So calling `join` on it would fail, as we can see below:
+بذلك استدعاء `‎join‎` سيفشل كما نرى أسفله:
 
-```js run
+```
 function hash() {
-*!*
-  alert( arguments.join() ); // Error: arguments.join is not a function
-*/!*
+  alert( arguments.join() ); // ‫خطأ: arguments.join ليست بدالة
 }
 
 hash(1, 2);
 ```
 
-Still, there's an easy way to use array join:
+مع ذلك فما زال هناك طريقة سهلة لضمّ عناصر المصفوفة:
 
-```js run
+```
 function hash() {
-*!*
   alert( [].join.call(arguments) ); // 1,2
-*/!*
 }
 
 hash(1, 2);
 ```
 
-The trick is called *method borrowing*.
+ندعو هذه الخدعة *باستعارة التوابِع*.
 
-We take (borrow) a join method from a regular array (`[].join`) and use `[].join.call` to run it in the context of `arguments`.
+فيها نأخذ (أي نستعير) تابِع الضمّ من المصفوفات العادية (`‎[].join‎`) ونستعمل `‎[].join.call‎` لتشغيله داخل سياق `‎arguments‎`.
 
-Why does it work?
+ولكن، لمَ تعمل أصلًا؟
 
-That's because the internal algorithm of the native method `arr.join(glue)` is very simple.
+هذا بسبب بساطة الخوارزمية الداخلية للتابِع الأصيل `‎arr.join(glue)‎` في اللغة.
 
-Taken from the specification almost "as-is":
+أقتبس -بتصرّف خفيف جدًا- من مواصفات اللغة:
 
-1. Let `glue` be the first argument or, if no arguments, then a comma `","`.
-2. Let `result` be an empty string.
-3. Append `this[0]` to `result`.
-4. Append `glue` and `this[1]`.
-5. Append `glue` and `this[2]`.
-6. ...Do so until `this.length` items are glued.
-7. Return `result`.
+1. لمّا أنّ `‎glue‎` هو المُعامل الأول، ولو لم تكن هناك مُعاملات فهو `‎","‎`.
+2. لمّا أنّ `‎result‎` هي سلسلة نصية فارغة.
+3. أضِف `‎this[0]‎` إلى نهاية `‎result‎`.
+أضِف `‎glue‎` و`‎this[1]‎`.
+5. أضِف `‎glue‎` و`‎this[2]‎`.
+6. ...كرّر حتّى يتنهي ضمّ العناصر الـ `‎this.length‎`.
+7. أعِد `‎result‎`.
 
-So, technically it takes `this` and joins `this[0]`, `this[1]` ...etc together. It's intentionally written in a way that allows any array-like `this` (not a coincidence, many methods follow this practice). That's why it also works with `this=arguments`.
+إذًا فهو يأخذ `‎this‎` ويضمّ `‎this[0]‎` ثمّ `‎this[1]‎` وهكذا معًا. كتب المطوّرون التابِع بهذه الطريقة عمدًا ليسمح أن تكون `‎this‎` أيّ شبيه بالمصفوفات (ليست مصادفة إذ تتبع كثير من التوابِع هذه الممارسة). لهذا يعمل التابِع حين يكون `‎this=arguments‎`.
 
-## Decorators and function properties
+## المُزخرِفات وخاصيات الدوال
 
-It is generally safe to replace a function or a method with a decorated one, except for one little thing. If the original function had properties on it, like `func.calledCount` or whatever, then the decorated one will not provide them. Because that is a wrapper. So one needs to be careful if one uses them.
+استبدال الدوال أو التوابِع بأخرى مُزخرفة هو أمر آمن عادةً، ولكن باستثناء صغير: لو احتوت الدالة الأًلية على خاصيات (مثل `‎func.calledCount‎`) فلن تقدّمها الدالة المُزخرفة، إذ أنّها غِلاف على الدالة الأصلية. علينا بذلك أن نحذر في هذه الحالة.
 
-E.g. in the example above if `slow` function had any properties on it, then `cachingDecorator(slow)` is a wrapper without them.
+نأخذ المثال أعلاه مثالًا، لو احتوت الدالة `‎slow‎` أيّ خاصيات فلن يحتوي الغِلاف `‎cachingDecorator(slow)‎` عليها.
 
-Some decorators may provide their own properties. E.g. a decorator may count how many times a function was invoked and how much time it took, and expose this information via wrapper properties.
+يمكن أن تقدّم لنا بعض المُزخرِفات خاصيات خاصة بها. فمثلًا يمكن أن يعدّ المُزخرِف كم مرّة عملت الدالة وكم من وقت أخذ ذلك، وتقدّم لنا خاصيات لنرى هذه لمعلومات.
 
-There exists a way to create decorators that keep access to function properties, but this requires using a special `Proxy` object to wrap a function. We'll discuss it later in the article <info:proxy#proxy-apply>.
+توجد طريقة لإنشاء مُزخرِفات تحتفظ بميزة الوصول إلى خاصيات الدوال، ولكنّها تطلب استعمال الكائن الوسيط `‎Proxy‎` لتغليف الدوال. سنشرح هذا الكائن لاحقًا في قسم «تغليف الدوال: `‎apply‎`».
 
-## Summary
+## ملخص
 
-*Decorator* is a wrapper around a function that alters its behavior. The main job is still carried out by the function.
+تُعدّ *المُزخرِفات* أغلفة حول الدوال فتعدّل سلوكها، بينما المهمة الأساس مرهونة بالدالة نفسها.
 
-Decorators can be seen as "features" or "aspects" that can be added to a function. We can add one or add many. And all this without changing its code!
+يمكن عدّ المُزخرِفات «مزايا» نُضيفها على الدالة، فنُضيف واحدة أو أكثر، ودون تغيير أيّ سطر في الشيفرة!
 
-To implement `cachingDecorator`, we studied methods:
+رأينا التوابِع الآتية لنعرف كيفية إعداد المُزخرِف `‎cachingDecorator‎`:
 
-- [func.call(context, arg1, arg2...)](mdn:js/Function/call) -- calls `func` with given context and arguments.
-- [func.apply(context, args)](mdn:js/Function/apply) -- calls `func` passing `context` as `this` and array-like `args` into a list of arguments.
+- [func.call(context, arg1, arg2...)](https://wiki.hsoub.com/JavaScript/Function/call) -- يستدعي `‎func‎` حسب السياق والمُعاملات الممرّرة.
+- [func.apply(context, args)](https://wiki.hsoub.com/JavaScript/Function/apply)  -- يستدعي `‎func‎` حيث يُمرّر `‎context‎` بصفته `‎this‎` والكائن الشبيه بالمصفوفات `‎args‎` في قائمة المُعاملات.
 
-The generic *call forwarding* is usually done with `apply`:
+عادةً ما نكتب *تمرير الاستدعاءات* باستعمال `‎apply‎`:
 
-```js
+```
 let wrapper = function() {
   return original.apply(this, arguments);
 };
 ```
 
-We also saw an example of *method borrowing* when we take a method from an object and `call` it in the context of another object. It is quite common to take array methods and apply them to `arguments`. The alternative is to use rest parameters object that is a real array.
+كما رأينا مثالًا عن *استعارة التوابِع* حيث أخذنا تابِعًا من كائن واستدعيناه `‎call‎` في سياق كائن آخر غيره. يشيع بين المطوّرين أخذ توابِع المصفوفات وتطبيقها على المُعاملات `‎arguments‎`. لو أردت بديلًا لذلك فاستعمل كائن المُعاملات البقية إذ هو مصفوفة حقيقية.
 
-There are many decorators there in the wild. Check how well you got them by solving the tasks of this chapter.
+ستجد في رحلتك المحفوفة بالمخاطر مُزخرِفات عديدة. حاوِل التمرّس عليها بحلّ تمارين هذا الفصل.
+## تمارين
+### مُزخرِف تجسّس
+_الأهمية: 5_
+
+أنشِئ المُزخرِف `‎spy(func)‎` ليُعيد غِلافًا يحفظ كلّ استدعاءات تلك الدالة في خاصية `‎calls‎` داخله.
+
+احفظ كلّ استدعاء على أنّه مصفوفة من الوُسطاء.
+
+مثال:
+
+```
+function work(a, b) {
+  alert( a + b ); // ‫ليست work إلّا دالة أو تابِعًا لسنا نعرف أصله
+}
+
+work = spy(work); // (*)
+
+work(1, 2); // 3
+work(4, 5); // 9
+
+for (let args of work.calls) {
+  alert( 'call:' + args.join() ); // "call:1,2", "call:4,5"
+}
+```
+
+ملاحظة: نستفيد من هذا المُزخرِف أحيانًا لاختبار الوحدات. يمكن عدّ `‎sinon.spy‎` في المكتبة [Sinon.JS](http://sinonjs.org/) صورةً متقدّمةً عنه.
+
+#### الحل
+سيُخزّن الغِلاف الذي أعادته `spy(f)‎` كلّ الوُسطاء، بعدها يستعمل `f.apply` لتمرير الاستدعاء.
+.....
+
+### مُزخرِف تأخير
+_الأهمية: 5_
+
+أنشِئ المُزخرف `‎delay(f, ms)‎` ليُؤخّر كلّ استدعاء من `‎f‎` بمقدار `‎ms‎` مليثانية.
+
+مثال:
+
+```
+function f(x) {
+  alert(x);
+}
+
+// أنشِئ الغِلافات
+let f1000 = delay(f, 1000);
+let f1500 = delay(f, 1500);
+
+f1000("test"); // ‫يعرض «test» بعد 1000 مليثانية
+f1500("test"); // ‫يعرض «test» بعد 1500 مليثانية
+```
+
+أي أنّ المُزخرِف `‎delay(f, ms)‎` يُعيد نسخة عن `‎f‎` «تأجّلت `‎ms‎`».
+
+الدالة `‎f‎` في الشيفرة أعلاه تقبل وسيطًا واحدًا، ولكن على الحل الذي ستكتبه تمرير كلّ الوُسطاء والسياق `‎this‎` كذلك.
+#### الحل
+```
+function delay(f, ms) {
+
+  return function() {
+    setTimeout(() => f.apply(this, arguments), ms);
+  };
+
+}
+
+let f1000 = delay(alert, 1000);
+
+f1000("test"); // ‫يعرض test بعد 1000 مليثانية
+```
+
+لاحظ بأنّا استعملنا الدالة السهمية هنا. كما نعلم فالدوال السهمية لا تملك لا `‎this‎` ولا `‎arguments‎`، لذا يأخذ `‎f.apply(this, arguments)‎` كِلا `‎this‎` و`‎arguments‎` من الغِلاف.
+
+لو مرّرنا دالة عادية فسيستدعيها `‎setTimeout‎` بدون المُعاملات ويضبط `‎this=window‎` (باعتبار أنّا في بيئة المتصفّح).
+
+مع ذلك يمكننا تمرير قيمة `‎this‎` الصحيحة باستعمال متغيّر وسيط ولكنّ ذلك سيكون تعبًا لا داعٍ له:
+
+```
+function delay(f, ms) {
+
+  return function(...args) {
+    let savedThis = this; // خزّنه في متغير وسيط
+    setTimeout(function() {
+      f.apply(savedThis, args); // استعمل الوسيط هنا
+    }, ms);
+  };
+
+}
+```
+### مُزخرف إزالة ارتداد
+
+اصنع المُزخرِف `‎debounce(f, ms)‎` ليُعيد غِلافًا يُمرّر الاستدعاء إلى `‎f‎` مرّة واحدة كلّ `‎ms‎` مليثانية.
+
+بعبارة أخرى: حين ندعو الدالة «بأنّ ارتدادها أُزيل» _Debounce_ فهي تضمن لنا بأنّ الاستدعاءات التي ستحدث في أقلّ من `‎ms‎` مليثانية بعد الاستدعاء السابق - ستُهمل.
+
+مثال:
+
+```
+let f = debounce(alert, 1000);
+
+f(1); // يعمل مباشرةً
+f(2); // يُهمل
+
+setTimeout( () => f(3), 100); // ‫يُهمل ( لم تمرّ إلّا 100 ملي ثانية )
+setTimeout( () => f(4), 1100); // يعمل
+setTimeout( () => f(5), 1500); // ‫يُهمل (لم تمرّ الـ 1000 مليثانية من آخر تشغيل)
+```
+
+عمليًا في الشيفرات، نستعمل `‎debounce‎` للدوال التي تستلم أو تُحدّث شيئًا ما نعرف مسبقًا بأنّ لا شيء جديد سيحدث له في هذه الفترة القصيرة، فالأفضل أن نُهمله ولا نُهدر الموارد.
+
+### الحل
+```
+function debounce(f, ms) {
+
+  let isCooldown = false;
+
+  return function() {
+    if (isCooldown) return;
+
+    f.apply(this, arguments);
+
+    isCooldown = true;
+
+    setTimeout(() => isCooldown = false, ms);
+  };
+
+}
+```
+
+استدعاء `‎debounce‎` يُعيد غِلافًا. ثمّة حالتين اثنتين لهذا الغِلاف:
+
+- `‎isCooldown = false‎` -- يمكن أن تعمل الدالة.
+- `‎isCooldown = true‎` -- ننتظر انتهاء المهلة.
+
+في أوّل استدعاء يكون `‎isCooldown‎` بقيمة `‎false‎` فيعمل الاستدعاء، وتتغيّر الحالة إلى `‎true‎`.
+
+نُهمل أيّ استدعاء آخر طالما `‎isCooldown‎` صحيحة.
+
+بعدها يعكس `‎setTimeout‎` الحالة إلى `‎false‎` بعد مرور فترة التأجيل.
+
+### مُزخرِف خنق
+_الأهمية: 5_
+
+أنشِئ مُزخرِف «الخنق/throttle» ‏`‎throttle(f, ms)‎` ليُعيد غِلافًا يُمرّر الاستدعاء إلى `‎f‎` مرّة كلّ `‎ms‎` مليثانية. والاستدعاءات التي تحدث في فترة «الراحة» تُهمل.
+
+**الفرق بين هذه وبين `‎debounce‎` هي أنّه لو كان الاستدعاء المُهمل هو آخر الاستدعاءات أثناء فترة الراحة، فسيعمل متى انتهت تلك الفترة.**
+
+لنطالع هذا التطبيق من الحياة العملية لنعرف أهمية هذا الشيء الغريب العجيب وما أساسه أصلًا.
+
+**لنقل مثلًا أنّا نريد تعقّب تحرّك الفأرة.**
+
+يمكن أن نضبط دالة (في المتصفّح) لتعمل كلّما تحرّكت الفأرة وتأخذ مكان المؤشّر أثناء هذه الحركة. لو كنت تستعمل الفأرة فعادةً ما تعمل الدالة هذه بسرعة (ربما تكون 100 مرّة في الثانية، أي كلّ 10 مليثوان).
+
+**نريد تحديث بعض المعلومات في صفحة الوِب أثناء حركة المؤشّر.**
+
+...ولكن تحديث الدالة `‎update()‎` عملية ثقيلة ولا تنفع لكلّ حركة فأرة صغيرة. كما وليس منطقيًا أصلًا التحديث أكثر من مرّة كلّ 100 مليثانية.
+
+لذا نُغلّف الدالة في مُزخرف: نستعمل `‎throttle(update, 100)‎` على أنّها دالة التشغيل كلّما تحرّكت الفأرة بدلًا من الدالة `‎update()‎` الأصلية. سيُستدعى المُزخرِف كثيرًا صحيح، ولكنّها لن يمرّر الاستدعاءات هذه إلى `‎update()‎` إلّا مرّة كلّ 100 مليثانية.
+
+هكذا سيظهر للمستخدم:
+
+1. في أوّل تحريك للفأرة، تُمرّر نسختنا المُزخرفة من الدالة الاستدعاء مباشرةً إلى `‎update‎`، وهذا مهمّ إذ يرى المستخدم كيف تفاعلت الصفحة مباشرةً مع تحريكه الفأرة.
+2. ثمّ يُحرّك المستخدم الفأرة أكثر، ولا يحدث شيء طالما لم تمرّ `‎100ms‎`. نسختنا المُزخرفة الرائعة تُهمل تلك الاستدعاءات.
+3. بعد نهاية `‎100ms‎` يعمل آخر استدعاء `‎update‎` حاملًا الإحداثيات الأخيرة.
+4. وأخيرًا تتوقّف الفأرة عن الحراك. تنتظر الدالة المُزخرفة حتى تمضي `‎100ms‎` وثمّ تشغّل `‎update‎` حاملةً آخر الإحداثيات. وهكذا نُعالج آخر حركة للفأرة، وهذا مهم
+
+مثال عن الشيفرة:
+
+```
+function f(a) {
+  console.log(a);
+}
+
+// تمرّر f1000 الاستدعاءات إلى f مرّة كلّ 1000 مليثانية كحدّ أقصى
+let f1000 = throttle(f, 1000);
+
+f1000(1); // تعرض 1
+f1000(2); // (مخنوقة، لم تمض 1000 مليثانية بعد)
+f1000(3); // (مخنوقة، لم تمض 1000 مليثانية بعد)
+
+// ‫حين تمضي 1000 مليثانية...
+// ‫...تطبع 3، إذ القيمة 2 الوسطية أُهملت
+```
+
+ملاحظة: يجب تمرير المُعاملات والسياق `‎this‎` المُمرّرة إلى `‎f1000‎`- تمريرها إلى `‎f‎` الأصلية.
+
+### الحل
+
+```
+function throttle(func, ms) {
+
+  let isThrottled = false,
+    savedArgs,
+    savedThis;
+
+  function wrapper() {
+
+    if (isThrottled) { // (2)
+      savedArgs = arguments;
+      savedThis = this;
+      return;
+    }
+
+    func.apply(this, arguments); // (1)
+
+    isThrottled = true;
+
+    setTimeout(function() {
+      isThrottled = false; // (3)
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}
+```
+
+يُعيد استدعاء `‎throttle(func, ms)‎` الغِلاف `‎wrapper‎`.
+
+1. أثناء الاستدعاء الأول، يُشغّل `‎wrapper‎` ببساطة الدالة `‎func‎` ويضبط حالة الراحة (`‎isThrottled = true‎`).
+2. في هذه الحالة نحفظ كلّ الاستدعاءات في `‎savedArgs/savedThis‎`. لاحظ بأنّ السياق والوُسطاء مهمّان ويجب حفظهما كلاهما، فنحتاجهما معًا لنُعيد ذلك الاستدعاء كما كان ونستدعيه حقًا.
+3. بعد مرور `‎ms‎` مليثانية، يعمل `‎setTimeout‎`، بهذا تُزال حالة الراحة (`‎isThrottled = false‎`) ولو كانت هناك استدعاءات مُهملة، نُنفّذ `‎wrapper‎` بآخر ما حفظنا من وُسطاء وسياق.
+
+لا نشغّل في الخطوة الثالثة `‎func‎` بل `‎wrapper‎` إذ نريد تنفيذ `‎func‎` إضافةً إلى دخول حالة الراحة ثانيةً وضبط المؤقّت لتصفيرها.
+
+ترجمة -وبتصرف- للفصل [Decorators and forwarding, call/apply](https://javascript.info/call-apply-decorators) من كتاب [The JavaScript language](https://javascript.info/js)
+

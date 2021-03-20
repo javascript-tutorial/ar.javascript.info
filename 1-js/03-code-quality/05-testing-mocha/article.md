@@ -1,120 +1,117 @@
-# Automated testing with Mocha
+# الاختبار الآلي لشيفرات جافاسكربت باستخدام mocha
 
-Automated testing will be used in further tasks, and it's also widely used in real projects.
+يُستخدَم الاختبار الآلي في الكثير من المهام، كما يستخدم بكثرة في المشاريع الحقيقية.
 
-## Why we need tests?
+## لم نحتاج الاختبارات؟
 
-When we write a function, we can usually imagine what it should do: which parameters give which results.
+عند كتابة دالة، يمكننا تخيل ما يجب أن تقوم به: ما هي المعاملات التي تعطي نتائج معينة. يمكننا فحص الدالة أثناء التطوير من خلال تشغيلها وموازنة مخرجاتها مع ما هو متوقع. مثلا يمكننا القيام بذلك في الطرفية.
 
-During development, we can check the function by running it and comparing the outcome with the expected one. For instance, we can do it in the console.
+إن كان هناك خطأ، فإننا نُصلِح الشيفرة البرمجية، ونُعيد تشغيلها، ونفحص النتائج. وهكذا حتى تصبح صحيحة. لكن هذه الطريقة «إعادة التشغيل» غير مثالية.
 
-If something is wrong -- then we fix the code, run again, check the result -- and so on till it works.
+**عند اختبار شيفرة برمجية عن طريق إعادة التشغيل اليدوية، فمن السهل نسيان شيئٍ ما.**
+=======
+# الاختبار الآلي باستخدام Mocha
 
-But such manual "re-runs" are imperfect.
+سيتم استخدام الاختبار الآلي في مهام قادمة ، كما أنه يستخدم على نطاق واسع في المشاريع الحقيقية.
 
-**When testing a code by manual re-runs, it's easy to miss something.**
+## لماذا نحتاج إلى الاختبارات؟
 
-For instance, we're creating a function `f`. Wrote some code, testing: `f(1)` works, but `f(2)` doesn't work. We fix the code and now `f(2)` works. Looks complete? But we forgot to re-test `f(1)`. That may lead to an error.
+عندما نكتب دالة ، يمكننا عادةً تخيل ما يجب أن تفعله: أي من المعطيات تعطي النتائج.
 
-That's very typical. When we develop something, we keep a lot of possible use cases in mind. But it's hard to expect a programmer to check all of them manually after every change. So it becomes easy to fix one thing and break another one.
+أثناء التطوير ، يمكننا التحقق من الدالة عن طريق تشغيلها ومقارنة النتيجة بالنتيجة المتوقعة. على سبيل المثال ، يمكننا القيام بذلك في وحدة التحكم. (console).
 
-**Automated testing means that tests are written separately, in addition to the code. They run our functions in various ways and compare results with the expected.**
+إذا كان هناك شيء خاطئ - ثم نقوم بإصلاح الكود ، ونعمل مرة أخرى ، ونتحقق من النتيجة - وهكذا حتى يعمل.
 
-## Behavior Driven Development (BDD)
+على سبيل المثال، عند إنشاء الدالة f. نكتب فيها بعض الشيفرات البرمجية، ثم نَفحصها: "f(1)‎" تعمل لكن "f(2)‎" لا تعمل. صلِح الشيفرة حتى تعمل "f(2)‎". ثم تبدو الدالة كأنها مكتملة، لكننا ننسى إعادة اختبار "f(1)‎" مما قد يؤدي إلى خطأ.
 
-Let's start with a technique named [Behavior Driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) or, in short, BDD.
+هذا الأمر وارد بكثرة. فعند تطوير أي شيء، نُبقِي العديد من الاحتمالات في الحسبان. لكنه من الصعب توقع أن يختبر المبرمج جميع هذه الحالات يدويا بعد كل تغيير، فيصبح من السهل إصلاح شيء ما وإفساد شيء آخر.
 
-**BDD is three things in one: tests AND documentation AND examples.**
+**يعني الاختبار الآلي أن الاختبارات تُكتب مستقلة، بالإضافة إلى الشيفرة البرمجية. تشغِّل هذه الاختبارات الدوال بعدة طرق وتوازنها مع النتائج المتوقعة.**
 
-To understand BDD, we'll examine a practical case of development.
+## التطوير المستند إلى السلوك (BDD)
 
-## Development of "pow": the spec
+لنبدأ بتقنية تسمى التطوير المستند إلى السلوك [Behavior Driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) أو كاختصار BDD.
 
-Let's say we want to make a function `pow(x, n)` that raises `x` to an integer power `n`. We assume that `n≥0`.
+**هذه التقنية BDD هي 3 في 1: اختبارات وتوثيق وامثلة.**
 
-That task is just an example: there's the `**` operator in JavaScript that can do that, but here we concentrate on the development flow that can be applied to more complex tasks as well.
+سنجرب حالة تطوير عملية لفهم BDD.
 
-Before creating the code of `pow`, we can imagine what the function should do and describe it.
+## تطوير الدالة "pow": الوصف
 
-Such description is called a *specification* or, in short, a spec, and contains descriptions of use cases together with tests for them, like this:
+Lلنفترض أننا نريد إنشاء الدالة pow(x, n)‎ التي ترفع الأساس x إلى القوة n. مع الأخذ بالحسبان أن n≥0. هذه المهمة هي مجرد مثال: المعامل \*\* يقوم بهذه العملية في JavaScript، لكننا نركز هنا على تدفق التطوير الذي يمكن تطبيقه على مهام أكثر تعقيدا.
+
+يمكننا تخيل ووصف ما يجب أن تقوم به الدالة pow قبل إنشاء شيفرتِها البرمجية. هذا الوصف يُسمى "specification" أو باختصار "spec" ويحتوي على وصف حالات الاستخدام بالإضافة إلى اختبارات لهذه الحالات كالتالي:
 
 ```js
 describe("pow", function() {
-
   it("raises to n-th power", function() {
     assert.equal(pow(2, 3), 8);
   });
-
 });
 ```
 
-A spec has three main building blocks that you can see above:
+تحتوي المواصفات على 3 أجزاء رئيسية كما ترى في الأعلى:
 
 `describe("title", function() { ... })`
-: What functionality we're describing. In our case we're describing the function `pow`. Used to group "workers" -- the `it` blocks.
+: ماهي الوظيفة التي نصفها، في هذه الحالة، نحن نصف الدالة pow. تستخدم بواسطة العاملين- أجزاء it.
 
 `it("use case description", function() { ... })`
-: In the title of `it` we *in a human-readable way* describe the particular use case, and the second argument is a function that tests it.
+: نصف (نحن بطريقة مقروءة للبشر) حالة الاستخدام المخصصة في عنوان it، والمعامل الآخر عبارة عن دالة تفحص هذه الدالة.
 
 `assert.equal(value1, value2)`
-: The code inside `it` block, if the implementation is correct, should execute without errors.
+: الشيفرة البرمجية بداخل it يجب أن تُنَفَّذ بدون أخطاء في حال كان التنفيذ صحيحًا.
 
-    Functions `assert.*` are used to check whether `pow` works as expected. Right here we're using one of them -- `assert.equal`, it compares arguments and yields an error if they are not equal. Here it checks that the result of `pow(2, 3)` equals `8`. There are other types of comparisons and checks, that we'll add later.
+تستخدم الدوال assert.\* لِفحص ما إن كانت الدالة pow تعمل بالشكل المتوقع أم لا. تستخدم إحدى هذه الدوال في هذا المثال - assert.equal، والتي توازن معاملَين وتُرجِع خطأ في حال عدم تساويهما. في المثال تفحص هذه الدالة إن كانت نتيجة تنفيذ الدالة pow(2, 3)‎ تساوي 8. كما يوجد العديد من أنواع التحقق والمقارنة والتي سنُضيفها لاحقا.
 
-The specification can be executed, and it will run the test specified in `it` block. We'll see that later.
+يمكن تنفيذ الوصف، وسينفِّذ الفحص الموجود بداخل it كما سنرى لاحقا.
 
-## The development flow
+## تدفق التطوير
 
-The flow of development usually looks like this:
+يبدو تدفق التطوير غالبا كما يلي:
 
-1. An initial spec is written, with tests for the most basic functionality.
-2. An initial implementation is created.
-3. To check whether it works, we run the testing framework [Mocha](http://mochajs.org/) (more details soon) that runs the spec. While the functionality is not complete, errors are displayed. We make corrections until everything works.
-4. Now we have a working initial implementation with tests.
-5. We add more use cases to the spec, probably not yet supported by the implementations. Tests start to fail.
-6. Go to 3, update the implementation till tests give no errors.
-7. Repeat steps 3-6 till the functionality is ready.
+1. يُكتب الوصف الأولي مع فحص للوظيفة الرئيسية.
+2. يُنشَئ تنفيذ أولي.
+3. لتأكد من صحة عمل التنفيذ، نُشَغِّل إطار التقييم [Mocha](http://mochajs.org/) الذي يُشَغِّل الوصف. ستظهر أخطاء في حال عدم اكتمال الوظائف. نُصحح الأخطاء حتى يصبح كل شيء صحيحًا.
+4. هكذا أصبح لدينا تنفيذ مبدئي يعمل كالمطلوب بالإضافة إلى فحصه.
+5. نضيف المزيد من حالات الاستخدام للوصف، ربما بعض هذه الميزات ليس مضمنا في التنفيذ بعد. حينها يبدأ الاختبار بالفشل.
+6. عُد للخطوة 3 وحدِّث التنفيذ إلى أن تختفي كل الأخطاء.
+7. كرر الخطوات 3-6 حتى تجهز كل الوظائف.
 
-So, the development is *iterative*. We write the spec, implement it, make sure tests pass, then write more tests, make sure they work etc. At the end we have both a working implementation and tests for it.
+إذا، تُعد عملية التطوير تكرارية. نكتب الوصف، ننفذه، نتأكد من اجتياز التنفيذ للفحص، ثم نكتب المزيد من الاختبارات، نتأكد من صحة عملها. حتى نحصل على تنفيذ صحيح مع اختباراته في الأخير.
 
-Let's see this development flow in our practical case.
+لنُجرب تدفق التطوير هذا على حالتنا العملية.
 
-The first step is already complete: we have an initial spec for `pow`. Now, before making the implementation, let's use few JavaScript libraries to run the tests, just to see that they are working (they will all fail).
+الخطوة 1 أصبحت جاهزة: لدينا وصفًا مبدئيًّا للدالة `pow`. الآن وقبل التنفيذ، لِنستخدم بعض مكاتب جافاسكربت لتشغيل الاختبار حتى نتأكد من إن كانت تعمل (لن تعمل).
 
-## The spec in action
+## المواصفات أثناء التنفيذ
 
-Here in the tutorial we'll be using the following JavaScript libraries for tests:
+سنستخدم في هذا الشرح مكاتب جافاسكربت التالية للاختبار:
 
-- [Mocha](http://mochajs.org/) -- the core framework: it provides common testing functions including `describe` and `it` and the main function that runs tests.
-- [Chai](http://chaijs.com) -- the library with many assertions. It allows to use a lot of different assertions, for now we need only `assert.equal`.
-- [Sinon](http://sinonjs.org/) -- a library to spy over functions, emulate built-in functions and more, we'll need it much later.
+- [Mocha](http://mochajs.org/) -- لإطار الرئيسي: يوفر دوال الفحص الأكثر استخدامًا ما يشمل describe و it بالإضافة إلى الدوال الرئيسية التي تُشَغِّل الاختبار.
+- [Chai](http://chaijs.com) -- لمكتبة المحتوية على دوال تأكيدية. تتيح لنا استخدام العديد من هذه الدوال، نحتاج الآن `assert.equal` فقط. .
+- [Sinon](http://sinonjs.org/) -- a مكتبة للتجسس على الدوال، ومحاكاة الدوال المدمجة، والمزيد؛ سنحتاج هذه المكتبة لاحقا.
 
-These libraries are suitable for both in-browser and server-side testing. Here we'll consider the browser variant.
+تُعد هذه المكاتب مفيدة للاختبار في كل من المتصفح والخادم. سنأخذ بعين الاعتبار هنا جهة المتصفح. صفحة HTML كاملة مع هذه المكاتب ووصف الدالة pow:
 
-The full HTML page with these frameworks and `pow` spec:
+يمكن تقسيم الصفحة إلى 5 أجزاء:
 
-```html src="index.html"
-```
+1. The `<head>` -- لإضافة مكاتب وأنماط للاختبارات.
+2. The `<script>` يحتوي على الدالة التي سيتم اختبارها، في هذا المثال الشيفرة البرمجية للدالة `pow`.
+3. الاختبار - عبارة عن سكريبت خارجي في هذا المثال test.js يحتوي على describe("pow", ...)‎ الموضح سابقا.
+4. عنصر HTML ‏<div id="mocha"‎> والذي سيُستخدم بواسطة Mocha لعرض النتائج.
+5. يتم بدء الاختبارات باستخدام الأمر `mocha.run()‎`.
 
-The page can be divided into five parts:
-
-1. The `<head>` -- add third-party libraries and styles for tests.
-2. The `<script>` with the function to test, in our case -- with the code for `pow`.
-3. The tests -- in our case an external script `test.js` that has `describe("pow", ...)` from above.
-4. The HTML element `<div id="mocha">` will be used by Mocha to output results.
-5. The tests are started by the command `mocha.run()`.
-
-The result:
+النتائج:
 
 [iframe height=250 src="pow-1" border=1 edit]
 
-As of now, the test fails, there's an error. That's logical: we have an empty function code in `pow`, so `pow(2,3)` returns `undefined` instead of `8`.
+يفشل الاختبار ويظهر خطأ في الوقت الحالي. يُعد هذا منطقيا: فالدالة pow ما زالت فارغة، فإن pow(2,3)‎ تُرجع undefined بدلا من 8.
 
-For the future, let's note that there are more high-level test-runners, like [karma](https://karma-runner.github.io/) and others, that make it easy to autorun many different tests.
+فى المستقبل يمكننا ملاحظة مستوى أعلى من الاطارات الخاصة بالاختبار مثل [karma](https://karma-runner.github.io/) و أخرى مثلاها من شأنها تسهيل تشغيل اختبارات مختلفة بشكل آلى
 
-## Initial implementation
+## التنفيذ الأولي
 
-Let's make a simple implementation of `pow`, for tests to pass:
+لنقم بتنفيذ مبسط للدالة pow حتى تعمل الاختبارات:
 
 ```js
 function pow(x, n) {
@@ -122,71 +119,63 @@ function pow(x, n) {
 }
 ```
 
-Wow, now it works!
+الآن ستعمل…
 
 [iframe height=250 src="pow-min" border=1 edit]
 
-## Improving the spec
+## تطوير الوصف
 
-What we've done is definitely a cheat. The function does not work: an attempt to calculate `pow(3,4)` would give an incorrect result, but tests pass.
+ما قمنا به هو غش فقط، لا تعمل الدالة كالمطلوب: إن قمنا بحساب pow(3,4)‎ فسنحصل على قيمة غير صحيحة، لكنها ستجتاز الاختبارات.
 
-...But the situation is quite typical, it happens in practice. Tests pass, but the function works wrong. Our spec is imperfect. We need to add more use cases to it.
+هذه الحالة غير عملية، وتحدث بكثرة. الدالة تتجاوز الاختبارات لكن آلية عملها خاطئة. هذا يعني أن الوصف غير مثالي. ونحتاج لإضافة المزيد من حالات استخدام الدالة إليه.
 
-Let's add one more test to check that `pow(3, 4) = 81`.
+لنضف اختبارًا آخر للتأكد ما إن كان `pow(3, 4) = 81`.
 
-We can select one of two ways to organize the test here:
+يمكنُنا اختيار إحدى الطريقتين لتنظيم الاختبارات:
 
-1. The first variant -- add one more `assert` into the same `it`:
+1. الخيار الأول - إضافة `assert` إلى `it`:
 
-    ```js
-    describe("pow", function() {
+   ```js
+   describe("pow", function() {
 
-      it("raises to n-th power", function() {
-        assert.equal(pow(2, 3), 8);
-    *!*
-        assert.equal(pow(3, 4), 81);
-    */!*
-      });
+     it("raises to n-th power", function() {
+       assert.equal(pow(2, 3), 8);
+   *!*
+       assert.equal(pow(3, 4), 81);
+   */!*
+     });
 
-    });
-    ```
-2. The second -- make two tests:
+   });
+   ```
 
-    ```js
-    describe("pow", function() {
+2. الخيار الآخر - عمل اختبارين:
 
-      it("2 raised to power 3 is 8", function() {
-        assert.equal(pow(2, 3), 8);
-      });
+```js
+describe("pow", function() {
+  it("2 raised to power 3 is 8", function() {
+    assert.equal(pow(2, 3), 8);
+  });
 
-      it("3 raised to power 4 is 81", function() {
-        assert.equal(pow(3, 4), 81);
-      });
+  it("3 raised to power 4 is 81", function() {
+    assert.equal(pow(3, 4), 81);
+  });
+});
+```
 
-    });
-    ```
+يختلف المبدئ في أنه عند وجود خطأ في `assert` فإن `it` تتوقف عن العمل. لذا ففي الخيار الأول عند فشل `assert` الأولى فلن نرى مخرجات `assert` الأخرى. يُعد الخيار الثاني أفضل للحصول على المزيد من المعلومات حول ما يحدث بعمل اختبارين منفصلين. بالإضافة إلى وجود قاعدة أخرى من الجيد اتباعها.
 
-The principal difference is that when `assert` triggers an error, the `it` block immediately terminates. So, in the first variant if the first `assert` fails, then we'll never see the result of the second `assert`.
+**كل اختبار يفحص شيئًا واحدًا فقط.**
 
-Making tests separate is useful to get more information about what's going on, so the second variant is better.
+إن وجدنا اختبارًا يفحص شيئين مختلفين فمن الأفضل فصلُهما إلى اختبارين. لنكمل باستخدام الخيار الثاني.
 
-And besides that, there's one more rule that's good to follow.
-
-**One test checks one thing.**
-
-If we look at the test and see two independent checks in it, it's better to split it into two simpler ones.
-
-So let's continue with the second variant.
-
-The result:
+النتائج:
 
 [iframe height=250 src="pow-2" edit border="1"]
+سيفشل الاختبار الثاني كَالمتوقع. فَالدالة تُرجع دوما`8`، بينما تتوقع الدالة `assert` النتيجة 27.
 
-As we could expect, the second test failed. Sure, our function always returns `8`, while the `assert` expects `81`.
+## تطوير التنفيذ
 
-## Improving the implementation
-
-Let's write something more real for tests to pass:
+لنكتب شيئا أكثر واقعية لاجتياز الاختبارات:
 
 ```js
 function pow(x, n) {
@@ -200,11 +189,10 @@ function pow(x, n) {
 }
 ```
 
-To be sure that the function works well, let's test it for more values. Instead of writing `it` blocks manually, we can generate them in `for`:
+للتأكد من صحة عمل الدالة K نختبرها لأكثر من قيمة. يمكننا القيام بذلك باستخدام الحلقة `for` بدلا من تكرار `it` يدويا:
 
 ```js
 describe("pow", function() {
-
   function makeTest(x) {
     let expected = x * x * x;
     it(`${x} in the power 3 is ${expected}`, function() {
@@ -215,7 +203,6 @@ describe("pow", function() {
   for (let x = 1; x <= 5; x++) {
     makeTest(x);
   }
-
 });
 ```
 
@@ -223,11 +210,11 @@ The result:
 
 [iframe height=250 src="pow-3" edit border="1"]
 
-## Nested describe
+## دالة describe متداخلة
 
-We're going to add even more tests. But before that let's note that the helper function `makeTest` and `for` should be grouped together. We won't need `makeTest` in other tests, it's needed only in `for`: their common task is to check how `pow` raises into the given power.
+سنضيف المزيد من الاختبارات، لكن، قبل ذلك لاحظ أنه يجب جمع الدالة المساعدة `makeTest` والدالة `for`. لن نَحتاج لاستخدام `makeTest` في باقي الاختبارات، نحتاجها فقط في `for`: لأن وظيفتهُما العامة هي فحص كيف ترفع الدالة `pow` قيمة ما إلى قوة معينة.
 
-Grouping is done with a nested `describe`:
+يتم جمع الدالتين باستخدام الدالة `describe` المتداخلة:
 
 ```js
 describe("pow", function() {
@@ -255,33 +242,30 @@ describe("pow", function() {
 });
 ```
 
-The nested `describe` defines a new "subgroup" of tests. In the output we can see the titled indentation:
+تُعرِّف `describe` الداخلية مجموعة فرعية جديدة من الاختبارات. يمكن ملاحظة الإزاحة في المخرجات:
 
 [iframe height=250 src="pow-4" edit border="1"]
+يمكننا إضافة المزيد من دوال `it`و `describe` في الطبقة العلوية مع دوال مساعدة لها، هذه الدوال لن ترى الدالة `makeTest`.
 
-In the future we can add more `it` and `describe` on the top level with helper functions of their own, they won't see `makeTest`.
+``smart header="`before/after` and `beforeEach/afterEach`"
+يمكننا إعداد دوال `before/after` التي تُنَفَّذ قبل/بعد تنفيذ الاختبارات، كما يمكننا استخدام `beforeEach/afterEach` قبل/بعد كل `it`.
 
-````smart header="`before/after` and `beforeEach/afterEach`"
-We can setup `before/after` functions that execute before/after running tests, and also `beforeEach/afterEach` functions that execute before/after *every* `it`.
-
-For instance:
+على سبيل المثال:
 
 ```js no-beautify
 describe("test", function() {
-
   before(() => alert("Testing started – before all tests"));
   after(() => alert("Testing finished – after all tests"));
 
   beforeEach(() => alert("Before a test – enter a test"));
   afterEach(() => alert("After a test – exit a test"));
 
-  it('test 1', () => alert(1));
-  it('test 2', () => alert(2));
-
+  it("test 1", () => alert(1));
+  it("test 2", () => alert(2));
 });
 ```
 
-The running sequence will be:
+تسلسل التنفيذ سيكون كالتالي:
 
 ```
 Testing started – before all tests (before)
@@ -295,19 +279,22 @@ Testing finished – after all tests (after)
 ```
 
 [edit src="beforeafter" title="Open the example in the sandbox."]
+تستخدم `beforeEach/afterEach` و `before/after` غالبا لتنفيذ الخطوات الأولية، العدادات التي تُخرج 0 أو للقيام بشيء ما بين الاختبارات أو مجموعة اختبارات.
 
-Usually, `beforeEach/afterEach` and `before/after` are used to perform initialization, zero out counters or do something else between the tests (or test groups).
 ````
 
-## Extending the spec
+## توسيع الوصف
 
-The basic functionality of `pow` is complete. The first iteration of the development is done. When we're done celebrating and drinking champagne -- let's go on and improve it.
 
-As it was said, the function `pow(x, n)` is meant to work with positive integer values `n`.
+أصبحت الوظيفة الرئيسية للدالة `pow` مكتملة. تم تجهيز الدورة الأولى من التطوير. الآن يمكننا الاحتفال بالانتهاء من ذلك وبدء تطوير الدالة.
 
-To indicate a mathematical error, JavaScript functions usually return `NaN`. Let's do the same for invalid values of `n`.
+كما ذكرنا مسبقا، فإن الدالة `pow(x, n) ستتعامل مع أرقام موجبة فقط n. تُرجع دوال جافاسكربت دائما NaN عند وجود خطأ حسابي. لنقم بهذا الأمر مع قيم n.
 
-Let's first add the behavior to the spec(!):
+
+
+أولا، نضيف هذا إلى الوصف:
+
+
 
 ```js
 describe("pow", function() {
@@ -322,33 +309,43 @@ describe("pow", function() {
 
   it("for non-integer n the result is NaN", function() {
 *!*
-    assert.isNaN(pow(2, 1.5));    
+    assert.isNaN(pow(2, 1.5));
 */!*
   });
 
 });
 ```
 
-The result with new tests:
+النتائج مع الاختبارات الجديدة:
+
+
 
 [iframe height=530 src="pow-nan" edit border="1"]
 
-The newly added tests fail, because our implementation does not support them. That's how BDD is done: first we write failing tests, and then make an implementation for them.
+تفشل الاختبارات المُضافة مؤخرا وذلك لأن التنفيذ لا يدعمها. هكذا هي الطريقة التي يعمل بها BDD: نبدأ بكتابة الاختبارات التي نعلم بأنها ستفشل ثم نكتب التنفيذ الخاص بها.
 
-```smart header="Other assertions"
-Please note the assertion `assert.isNaN`: it checks for `NaN`.
 
-There are other assertions in [Chai](http://chaijs.com) as well, for instance:
 
-- `assert.equal(value1, value2)` -- checks the equality  `value1 == value2`.
-- `assert.strictEqual(value1, value2)` -- checks the strict equality `value1 === value2`.
-- `assert.notEqual`, `assert.notStrictEqual` -- inverse checks to the ones above.
-- `assert.isTrue(value)` -- checks that `value === true`
-- `assert.isFalse(value)` -- checks that `value === false`
-- ...the full list is in the [docs](http://chaijs.com/api/assert/)
+```smart header="دوال تأكيد أخرى"
+لاحظ أن الدالة assert.isNaN: تفحص وجود القيمة NaN.
+
+
+لاحظ أن الدالة assert.isNaN: تفحص وجود القيمة NaN.
+
+يوجد المزيد من دوال التأكيد في [Chai](http://chaijs.com) مثلا:
+
+
+
+- `assert.equal(value1, value2)` -- - تفحص التساوي value1 == value2.
+- `assert.strictEqual(value1, value2)` --  تفحص التساوي التام value1 === value2.
+- `assert.notEqual`, `assert.notStrictEqual` --  تفحص عكس الدالتين أعلاه.
+- `assert.isTrue(value)` -- تفحص أن value === true.
+- `assert.isFalse(value)` -- تفحص أن value === false.
+- ...يمكنك قراءة باقي الدوال في [docs](http://chaijs.com/api/assert/)
 ```
 
-So we should add a couple of lines to `pow`:
+لذا، يجب أن نضيف بعض الأسطر للدالة pow:
+
 
 ```js
 function pow(x, n) {
@@ -367,43 +364,50 @@ function pow(x, n) {
 }
 ```
 
-Now it works, all tests pass:
+الآن أصبحت تعمل وتَجتاز جميع الاختبارات:
+
+
 
 [iframe height=300 src="pow-full" edit border="1"]
 
 [edit src="pow-full" title="Open the full final example in the sandbox."]
 
-## Summary
+## الخلاصة
 
-In BDD, the spec goes first, followed by implementation. At the end we have both the spec and the code.
 
-The spec can be used in three ways:
+يكون الوصف في البداية في BDD، ثم يأتي التنفيذ. فنحصل في الأخير على كل من الوصف والشيفرة البرمجية.
 
-1. As **Tests** - they guarantee that the code works correctly.
-2. As **Docs** -- the titles of `describe` and `it` tell what the function does.
-3. As **Examples** -- the tests are actually working examples showing how a function can be used.
 
-With the spec, we can safely improve, change, even rewrite the function from scratch and make sure it still works right.
+يمكن استخدام الوصف بثلاث طرق:
 
-That's especially important in large projects when a function is used in many places. When we change such a function, there's just no way to manually check if every place that uses it still works right.
 
-Without tests, people have two ways:
+1.  **اختبارات **  - تضمن صحة عمل الشيفرة البرمجية.
+2.  **توثيق ** -- توضح العناوين في describe وit وظيفة الدالة.
+3.  **أمثلة ** -- تُعد الاختبارات أمثلة فعالة تعرض كيف يمكن استخدام الدالة.
 
-1. To perform the change, no matter what. And then our users meet bugs, as we probably fail to check something manually.
-2. Or, if the punishment for errors is harsh, as there are no tests, people become afraid to modify such functions, and then the code becomes outdated, no one wants to get into it. Not good for development.
+يمكننا تطوير، تغيير، أو إعادة كتابة دالة من الصفر من خلال الوصف مع ضمان صحة عملها. يعد هذا الأمر مهمًا خاصة في المشاريع الكبيرة عند استخدام دالة في عدة أماكن. فعند تغيير هذه الدالة، يكون من الصعب التحقق من صحة عملها يدويًا في كل مكان.
 
-**Automatic testing helps to avoid these problems!**
 
-If the project is covered with tests, there's just no such problem. After any changes, we can run tests and see a lot of checks made in a matter of seconds.
 
-**Besides, a well-tested code has better architecture.**
+يوجد خيارين بدون اختبارات:
 
-Naturally, that's because auto-tested code is easier to modify and improve. But there's also another reason.
 
-To write tests, the code should be organized in such a way that every function has a clearly described task, well-defined input and output. That means a good architecture from the beginning.
 
-In real life that's sometimes not that easy. Sometimes it's difficult to write a spec before the actual code, because it's not yet clear how it should behave. But in general writing tests makes development faster and more stable.
+1. تنفيذ التغيير بغض النظر عن النتائج. هكذا قد نواجه الكثير من الأخطاء عند الفحص اليدوي.
+2. يتجنب المطورون تحديث الشيفرة عند توقع حدوث أخطاء فادحة وعدم وجود اختبارات لفحص هذه الأخطاء فتبقى الشيفرة البرمجية بدون تحديث.
 
-Later in the tutorial you will meet many tasks with tests baked-in. So you'll see more practical examples.
 
-Writing tests requires good JavaScript knowledge. But we're just starting to learn it. So, to settle down everything, as of now you're not required to write tests, but you should already be able to read them even if they are a little bit more complex than in this chapter.
+**يساعد الفحص الآلي على تجنب هذه المشاكل!**
+
+إن كان المشروع مليئا بالاختبارات، فلن يكون هناك أي مشكلة إطلاقا. فبعد أي تغيير يمكننا تنفيذ الاختبارات لنرى العديد من التحقيقات أجريت في غضون ثوانٍ.
+
+
+
+**علاوة على ذلك، الشيفرة البرمجية المختبرة جيدا تكون بهيكل أفضل.**
+
+منطقيا، لأن الشيفرة البرمجية المختبرة سهلة التعديل والتطوير. مع وجود سبب آخر أيضا. يجب أن تكون الشيفرة البرمجية منظمة من أجل كتابة اختبار بحيث يكون لدى كل دالة وظيفة رئيسية موصوفة، ومدخلات ومخرجات معروفة جيدا. ذلك يعني 1 هيكلة جيدة منذ البداية.
+
+لا يكون الأمر بهذه السهولة في الواقع. ففي بعض الأحيان يكون من الصعب كتابة وصف للدالة قبل شيفرتها البرمجية لأن سلوكها لا يكون واضحًا بعد. لكن عموما، كتابة الاختبارات يجعل التطوير أسرع وأكثر استقرارًا.
+
+ستواجه الكثير من المهام التي تتضمن ذلك لاحقا في الشرح. فسترى المزيد من الأمثلة العملية. يتطلب كتابة الاختبارات معرفة جيدة بِجافاسكربت. لكننا في بداية تعلمها. فلترتيب كل شيء، لست مطالبًا بكتابة الاختبارات في الوقت الحالي، لكن يجب أن تكون قادرًا على قرائتها حتى إن كانت معقدة أكثر قليلا مما تم شرحه هنا.
+````

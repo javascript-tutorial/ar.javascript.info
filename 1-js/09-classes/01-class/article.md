@@ -13,7 +13,7 @@
 
 # الصيغة الأساسية للClass
 
-الصيغة الأساسية هي: 
+الصيغة الأساسية هي:
 ```js
 class MyClass {
   // class methods
@@ -56,11 +56,11 @@ user.sayHi();
 ... ثم يمكننا استدعاء طرق الكائن ، مثل `user.sayHi ()`.
 
 
-"` `warn header =" لا فاصلة بين طرق الفصل "
+```warn header=" لا فاصلة بين طرق الفصل "
 من المشاكل الشائعة للمطورين المبتدئين وضع فاصلة بين طرق الفصل ، مما يؤدي إلى خطأ في بناء الجملة.
 
 لا يجب الخلط بين التدوين هنا وحرف الشيء. داخل الفصل الدراسي ، لا يلزم وجود فواصل.
-``
+```
 
 ## ما هي الclass ؟
 
@@ -95,7 +95,7 @@ alert(typeof User); // function
 
 ![](class-user.svg)
 
-إليك كود لتتفكر فيه: 
+إليك كود لتتفكر فيه:
 
 ```js run
 class User {
@@ -290,9 +290,9 @@ new User().sayHi();
 
 ## حقول class
 
-"` `warn header =" قد تحتاج المتصفحات القديمة إلى ملف متعدد "
+```warn header=" قد تحتاج المتصفحات القديمة إلى ملف متعدد "
 تعد حقول الصف إضافة حديثة للغة.
-``
+```
 
 في السابق ، كانت فصولنا تمتلك طرقًا فقط.
 
@@ -376,27 +376,6 @@ setTimeout(button.click, 1000); // undefined
 
 1. قم بتمرير دالة مجمعة ، مثل `setTimeout (() => button.click ()، 1000)`.
 2. ربط طريقة الاعتراض ، على سبيل المثال في المنشئ:
-
-```js run
-class Button {
-  constructor(value) {
-    this.value = value;
-*!*
-    this.click = this.click.bind(this);
-*/!*
-  }
-
-  click() {
-    alert(this.value);
-  }
-}
-
-let button = new Button("hello");
-
-*!*
-setTimeout(button.click, 1000); // hello
-*/!*
-```
 
 توفر حقول class بنية أكثر أناقة للحل الأخير:
 

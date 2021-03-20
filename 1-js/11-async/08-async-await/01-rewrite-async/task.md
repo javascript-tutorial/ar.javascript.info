@@ -1,8 +1,7 @@
 
-# Rewrite using async/await
+# أعد الكتابة باستخدام متزامن / انتظار
 
-Rewrite this example code from the chapter <info:promise-chaining> using `async/await` instead of `.then/catch`:
-
+أعد كتابة رمز المثال هذا من الفصل <info: prom-chaining> باستخدام `async / await` بدلاً من` .then / catch`:
 ```js run
 function loadJson(url) {
   return fetch(url)

@@ -1,68 +1,68 @@
 
 
-# Introduction: callbacks
+# مقدمة: callbacks
 
-```warn header="We use browser methods in examples here"
-To demonstrate the use of callbacks, promises and other abstract concepts, we'll be using some browser methods: specifically, loading scripts and performing simple document manipulations.
+```warn header="نستخدم طرق المتصفح في الأمثلة هنا"
+لتوضيح استخدام الاسترجاعات والوعود والمفاهيم المجردة الأخرى ، سنستخدم بعض طرق المتصفح: على وجه التحديد ، تحميل البرامج النصية وأداء التلاعب بالمستندات البسيطة.
 
-If you're not familiar with these methods, and their usage in the examples is confusing, you may want to read a few chapters from the [next part](/document) of the tutorial.
+إذا لم تكن على دراية بهذه الطرق ، وكان استخدامها في الأمثلة مربكًا ، فقد ترغب في قراءة بعض الفصول من [الجزء التالي](/document) من الدورة التعليمية.
 
-Although, we'll try to make things clear anyway. There won't be anything really complex browser-wise.
+على الرغم من أننا سنحاول توضيح الأمور على أي حال. لن يكون هناك أي شيء معقد بالفعل في المتصفح.
 ```
 
-Many functions are provided by JavaScript host environments that allow you to schedule *asynchronous* actions. In other words, actions that we initiate now, but they finish later.
+يتم توفير العديد من الوظائف من خلال بيئات استضافة JavaScript التي تسمح لك بجدولة الاحداث *الغير متزامنة*. بعبارة أخرى ، الإجراءات التي نبدأها الآن ، لكنها تنتهي لاحقًا.
 
-For instance, one such function is the `setTimeout` function.
+علي سبيل المثال, داله واحده مثل دالة ال `setTimeout`.
 
-There are other real-world examples of asynchronous actions, e.g. loading scripts and modules (we'll cover them in later chapters).
+هناك أمثلة أخرى على أرض الواقع من الإجراءات غير المتزامنة ، مثل تحميل البرامج النصية والوحدات (سنغطيها في الفصول اللاحقة).
 
-Take a look at the function `loadScript(src)`, that loads a script with the given `src`:
+ألق نظرة علي الدالة `loadScript(src)`, والتي تقوم بتحميل برنامج نصي عند أعطاءها مصدر البرنامج `src`:
 
 ```js
 function loadScript(src) {
-  // creates a <script> tag and append it to the page
-  // this causes the script with given src to start loading and run when complete
+  // أنشئ العنصر <script> و قم بأضافته الي الصفحة
+  // هذا الذي يفعله البرنامج النصي عند أعطاءه ال src لكي يبدأ تحميل ومن ثم يشغل البرنامج عند الاكتمال
   let script = document.createElement('script');
   script.src = src;
   document.head.append(script);
 }
 ```
 
-It appends to the document the new, dynamically created, tag `<script src="…">` with given `src`. The browser automatically starts loading it and executes when complete.
+يتم إلحاق المستند الجديد ، الذي تم إنشاؤه ديناميكيًا ، العنصر `<script src="…">` نعطي له مصدر البرنامج النصي `src`. المتصفح بتحميله تلقائياً و يقوم بتشغيله عند اكتمال التحميل.
 
-We can use this function like this:
+نحن نستطيع أستخدام هذه الدالة كما موضح بالأسفل:
 
 ```js
-// load and execute the script at the given path
+// تحميل وتنفيذ البرنامج النصي في المسار المحدد
 loadScript('/my/script.js');
 ```
 
-The script is executed "asynchronously", as it starts loading now, but runs later, when the function has already finished.
+يتم تنفيذ البرنامج النصي "بشكل غير متزامن" ، حيث يبدأ التحميل الآن ، ولكن يتم تشغيله لاحقًا ، عندما تنتهي الوظيفة بالفعل.
 
-If there's any code below `loadScript(…)`, it doesn't wait until the script loading finishes.
+اذا كان هناك أي كود أسفل ال `loadScript(…)`, فأنه لن ينتظر حتي أنتهاء تحميل الملف النصي.
 
 ```js
 loadScript('/my/script.js');
-// the code below loadScript
-// doesn't wait for the script loading to finish
+// الكود أسفل ال loadScript
+// لا ينتظر تحميل البرنامج النصي حتى ينتهي
 // ...
 ```
 
-Let's say we need to use the new script as soon as it loads. It declares new functions, and we want to run them.
+لنفترض أننا بحاجة إلى استخدام البرنامج النصي الجديد بمجرد تحميله. تعلن وظائف جديدة ، ونريد تشغيلها.
 
-But if we do that immediately after the `loadScript(…)` call, that wouldn't work:
+ولكن أذا فعلنا ذلك مباشرةً بعد أستدعاء الدالة `loadScript(…)`, هذا لن يعمل:
 
 ```js
-loadScript('/my/script.js'); // the script has "function newFunction() {…}"
+loadScript('/my/script.js'); // البرنامج النصي يمتلك "function newFunction() {…}"
 
 *!*
-newFunction(); // no such function!
+newFunction(); // لا يوجد مثل هذه الوظيفة!
 */!*
 ```
 
-Naturally, the browser probably didn't have time to load the script. As of now, the `loadScript` function doesn't provide a way to track the load completion. The script loads and eventually runs, that's all. But we'd like to know when it happens, to use new functions and variables from that script.
+بطبيعة الحال ، ربما لم يكن لدى المتصفح وقت لتحميل البرنامج النصي. اعتبارا من الآن، الدالة `loadScript` لا توفر الوظيفة طريقة لتتبع إكمال التحميل. يتم تحميل البرنامج النصي وتشغيله في النهاية ، هذا كل ما في الأمر. ولكن نود أن نعرف متى يحدث ذلك ، لاستخدام وظائف ومتغيرات جديدة من هذا البرنامج النصي.
 
-Let's add a `callback` function as a second argument to `loadScript` that should execute when the script loads:
+دعنا نضيف وظيفة `callback` كوسيطة ثانية إلى` loadScript` التي يجب تنفيذها عند تحميل البرنامج النصي:
 
 ```js
 function loadScript(src, *!*callback*/!*) {
@@ -77,19 +77,19 @@ function loadScript(src, *!*callback*/!*) {
 }
 ```
 
-Now if we want to call new functions from the script, we should write that in the callback:
+الآن إذا أردنا استدعاء وظائف جديدة من البرنامج النصي ، يجب أن نكتب ذلك في رد الاتصال:
 
 ```js
 loadScript('/my/script.js', function() {
-  // the callback runs after the script is loaded
-  newFunction(); // so now it works
+  // يعمل دالة ال callback بعد تحميل البرنامج النصي
+  newFunction(); // حتى الآن يعمل
   ...
 });
 ```
 
-That's the idea: the second argument is a function (usually anonymous) that runs when the action is completed.
+هذه هي الفكرة: الوسيطة الثانية هي وظيفة (عادة ما تكون مجهولة المصدر) يتم تشغيلها عند اكتمال الإجراء.
 
-Here's a runnable example with a real script:
+إليك مثال قابل للتشغيل مع نص حقيقي:
 
 ```js run
 function loadScript(src, callback) {
@@ -102,20 +102,21 @@ function loadScript(src, callback) {
 *!*
 loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js', script => {
   alert(`Cool, the script ${script.src} is loaded`);
-  alert( _ ); // function declared in the loaded script
+  alert( _ ); // دالة معلن عنها في البرنامج النصي المحمل
 });
 */!*
 ```
 
-That's called a "callback-based" style of asynchronous programming. A function that does something asynchronously should provide a `callback` argument where we put the function to run after it's complete.
+وهذا ما يسمى نمط "قائم على الاسترجاع" للبرمجة غير المتزامنة. يجب أن توفر الدالة التي تفعل شيئًا بشكل غير متزامن وسيطة `callback` حيث نضع الوظيفة قيد التشغيل بعد اكتمالها.
 
-Here we did it in `loadScript`, but of course it's a general approach.
 
-## Callback in callback
+هنا فعلنا ذلك `loadScript`, ولكن بالطبع هذا نهج عام.
 
-How can we load two scripts sequentially: the first one, and then the second one after it?
+## Callback في callback
 
-The natural solution would be to put the second `loadScript` call inside the callback, like this:
+كيف يمكننا تحميل نصين على التوالي: الأول والثاني بعده؟
+
+الحل الطبيعي أن نضع أستدعاء ال `loadScript` الثاني داخل دالة الcallback, مثل هذا:
 
 ```js
 loadScript('/my/script.js', function(script) {
@@ -131,9 +132,9 @@ loadScript('/my/script.js', function(script) {
 });
 ```
 
-After the outer `loadScript` is complete, the callback initiates the inner one.
+بعد اكتمال "loadScript" الخارجي ، يبدأ الاستدعاء الداخلي.
 
-What if we want one more script...?
+ماذا لو أردنا اكثر من برنامج نصي آخر ...؟
 
 ```js
 loadScript('/my/script.js', function(script) {
@@ -142,7 +143,7 @@ loadScript('/my/script.js', function(script) {
 
 *!*
     loadScript('/my/script3.js', function(script) {
-      // ...continue after all scripts are loaded
+      // ...استمر بعد تحميل جميع البرامج النصية
     });
 */!*
 
@@ -151,13 +152,13 @@ loadScript('/my/script.js', function(script) {
 });
 ```
 
-So, every new action is inside a callback. That's fine for few actions, but not good for many, so we'll see other variants soon.
+لذا ، فإن كل عمل جديد يكون داخل دالة ال callback. هذا جيد لبعض الإجراءات ، ولكن ليس جيدًا للعديد ، لذلك سنرى متغيرات أخرى قريبًا.
 
-## Handling errors
+## معالجة الأخطاء
 
-In the above examples we didn't consider errors. What if the script loading fails? Our callback should be able to react on that.
+في الأمثلة المذكورة أعلاه لم نعتبر الأخطاء. ماذا لو فشل تحميل البرنامج النصي؟ يجب أن يكون دالة callback  الخاص بنا قادرًا على الرد على ذلك.
 
-Here's an improved version of `loadScript` that tracks loading errors:
+فيما يلي نسخة محسنة من `loadScript` الذي يتتبع أخطاء التحميل:
 
 ```js
 function loadScript(src, callback) {
@@ -173,32 +174,32 @@ function loadScript(src, callback) {
 }
 ```
 
-It calls `callback(null, script)` for successful load and `callback(error)` otherwise.
+أنها تستدعي `callback(null, script)` للتحميل الناجح وتستدعي `callback(error)` لغير ذلك.
 
-The usage:
+الاستخدام:
 ```js
 loadScript('/my/script.js', function(error, script) {
   if (error) {
-    // handle error
+    // معالجة الخطأ هنا
   } else {
-    // script loaded successfully
+    // البرنامج النصي تم تحميله بنجاح
   }
 });
 ```
 
-Once again, the recipe that we used for `loadScript` is actually quite common. It's called the "error-first callback" style.
+مره أخري, الوصفة التي أستخدامناها لل `loadScript` هي في الواقع شائعة جداً. تُسمي النمط "error-first callback".
 
-The convention is:
-1. The first argument of the `callback` is reserved for an error if it occurs. Then `callback(err)` is called.
-2. The second argument (and the next ones if needed) are for the successful result. Then `callback(null, result1, result2…)` is called.
+الاتفاقية هي:
+1. الوسيطة الأولى لـ `callback` محجوزة لخطأ إذا حدث. ثم يتم أستدعاء ال `callback(err)`.
+2. الوسيطة الثانية (وواحدة اخري أذا احتاجنا) تكون للنتيجة الناجحة. ثم يتم أستدعاء ال `callback(null, result1, result2…)`.
 
-So the single `callback` function is used both for reporting errors and passing back results.
+لذلك يتم استخدام وظيفة `callback` الفردية للإبلاغ عن الأخطاء وإرجاع النتائج.
 
-## Pyramid of Doom
+## هرم الموت
 
-From the first look, it's a viable way of asynchronous coding. And indeed it is. For one or maybe two nested calls it looks fine.
+من النظرة الأولى ، إنها طريقة قابلة للتطبيق للتشفير غير المتزامن. وهو كذلك بالفعل. بالنسبة لأستدعاء واحد أو ربما أستدعائين متداخليين ، تبدو جيدة.
 
-But for multiple asynchronous actions that follow one after another we'll have code like this:
+ولكن بالنسبة إلى العديد من الإجراءات غير المتزامنة التي تتبع واحدًا تلو الآخر ، سيكون لدينا كود مثل هذا:
 
 ```js
 loadScript('1.js', function(error, script) {
@@ -228,14 +229,14 @@ loadScript('1.js', function(error, script) {
 });
 ```
 
-In the code above:
-1. We load `1.js`, then if there's no error.
-2. We load `2.js`, then if there's no error.
-3. We load `3.js`, then if there's no error -- do something else `(*)`.
+في الكود الذي بالأعلي:
+1. نحن نحمل ال `1.js`, أذا لم يكن هناك خطأ.
+2. نحن نحمل ال `2.js`, أذا لم يكن هناك خطأ.
+3. نحن نحمل ال `3.js`, أذا لم يكن هناك خطأ -- أفعل بعض الشئ غيره `(*)`.
 
-As calls become more nested, the code becomes deeper and increasingly more difficult to manage, especially if we have real code instead of `...` that may include more loops, conditional statements and so on.
+عندما تصبح الأستدعاءات أكثر تداخلًا ، تصبح الشفرة أعمق وتزداد صعوبة إدارتها ، خاصة إذا كان لدينا رمز حقيقي بدلاً من `...` قد يتضمن المزيد من الحلقات ، والعبارات الشرطية وما إلى ذلك.
 
-That's sometimes called "callback hell" or "pyramid of doom."
+وهذا ما يُطلق عليه أحيانًا "أسترجاع الجحيم" أو "هرم الموت".
 
 <!--
 loadScript('1.js', function(error, script) {
@@ -263,11 +264,11 @@ loadScript('1.js', function(error, script) {
 
 ![](callback-hell.svg)
 
-The "pyramid" of nested calls grows to the right with every asynchronous action. Soon it spirals out of control.
+ينمو "هرم" الأستدعاءات المتداخلة إلى اليمين مع كل إجراء غير متزامن. سرعان ما يخرج عن السيطرة.
 
-So this way of coding isn't very good.
+لذا فإن طريقة كتابة الكود هذه ليست جيدة جدًا.
 
-We can try to alleviate the problem by making every action a standalone function, like this:
+يمكننا محاولة التخفيف من المشكلة عن طريق جعل كل عمل وظيفة قائمة بذاتها ، مثل هذا:
 
 ```js
 loadScript('1.js', step1);
@@ -294,17 +295,17 @@ function step3(error, script) {
   if (error) {
     handleError(error);
   } else {
-    // ...continue after all scripts are loaded (*)
+    // ...يتم تنفيذ الاكواد هنا بعد تحميل كل الملفات (*)
   }
 };
 ```
 
-See? It does the same, and there's no deep nesting now because we made every action a separate top-level function.
+نرى؟ إنه يفعل نفس الشيء ، ولا يوجد تداخل عميق الآن لأننا جعلنا كل إجراء وظيفة منفصلة من المستوى الأعلى.
 
-It works, but the code looks like a torn apart spreadsheet. It's difficult to read, and you probably noticed that one needs to eye-jump between pieces while reading it. That's inconvenient, especially if the reader is not familiar with the code and doesn't know where to eye-jump.
+إنه يعمل ، لكن الرمز يبدو وكأنه جدول بيانات ممزق. من الصعب قراءتها ، وربما لاحظت أن المرء يحتاج إلى القفز بين القطع أثناء قراءتها. هذا غير مريح ، خاصة إذا لم يكن القارئ على دراية بالكود ولا يعرف أين يقفز.
 
-Also, the functions named `step*` are all of single use, they are created only to avoid the "pyramid of doom." No one is going to reuse them outside of the action chain. So there's a bit of namespace cluttering here.
+أيضاً, الدوال التي تم تسميتها `step*` كلها تستخدم علي حدي, يتم إنشاؤها فقط لتجنب "هرم الموت". لا أحد سيعيد استخدامها خارج سلسلة العمل. لذلك هناك القليل من فوضى مساحة الاسم هنا.
 
-We'd like to have something better.
+نود الحصول على شيء أفضل.
 
-Luckily, there are other ways to avoid such pyramids. One of the best ways is to use "promises," described in the next chapter.
+لحسن الحظ ، هناك طرق أخرى لتجنب مثل هذه الأهرامات. أحد أفضل الطرق هو استخدام "promises" الموضحة في الفصل التالي.

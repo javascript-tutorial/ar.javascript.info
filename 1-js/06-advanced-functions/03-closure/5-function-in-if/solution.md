@@ -1,3 +1,3 @@
-The result is **an error**.
+الناتج هو: **خطأ**.
 
-The function `sayHi` is declared inside the `if`, so it only lives inside it. There is no `sayHi` outside.
+صُرّح عن الدالة `‎sayHi‎` داخل الشرط `‎if‎` وتعيش فيه فقط لا غير. ما من دالة `‎sayHi‎` خارجية.

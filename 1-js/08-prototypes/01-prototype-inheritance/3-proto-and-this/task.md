@@ -1,12 +1,13 @@
-importance: 5
+_الأهمية: 5_
 
 ---
 
-# Where does it write?
+#  أين سيحدث التعديل؟
 
-We have `rabbit` inheriting from `animal`.
+لدينا الكائن `rabbit` يرث من الكائن `animal`.
 
-If we call `rabbit.eat()`, which object receives the `full` property: `animal` or `rabbit`? 
+لو استدعينا `rabbit.eat()‎` فأيّ الكائنين ستُعدل به الخاصية `full`، الكائن `animal` أم الكائن `rabbit`؟
+
 
 ```js
 let animal = {

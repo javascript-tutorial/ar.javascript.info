@@ -1,14 +1,15 @@
-importance: 4
+_الأهمية: 4_
 
 ---
 
-# Sum with closures
+### المجموع باستعمال المُنغلِقات
 
-Write function `sum` that works like this: `sum(a)(b) = a+b`.
+اكتب الدالة `‎sum‎` لتعمل هكذا: `‎sum(a)(b) = a+b‎`.
 
-Yes, exactly this way, using double parentheses (not a mistype).
+نعم هكذا تمامًا باستعمال قوسين اثنين (ليست خطأً مطبعيًا).
 
-For instance:
+مثال:
+
 
 ```js
 sum(1)(2) = 3

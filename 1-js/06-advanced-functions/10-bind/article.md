@@ -1,116 +1,108 @@
-libs:
-  - lodash
+﻿
+# ربط الدوالّ Function binding
 
----
+ثمّة مشكلة معروفة تواجهنا متى مرّرنا توابِع الكائنات على أنّها ردود نداء (كما نفعل مع `‎setTimeout‎`)، هي ضياع هويّة الأنا `‎this‎`.
 
-# Function binding
+سنرى في هذا الفصل طرائق إصلاح هذه المشكلة.
 
-When passing object methods as callbacks, for instance to `setTimeout`, there's a known problem: "losing `this`".
+## ضياع الأنا (الكلمة المفتاحية `this`)
 
-In this chapter we'll see the ways to fix it.
+رأينا قبل الآن أمثلة كيف ضاعت قيمة `‎this‎`. فما نلبث أن مرّرنا التابِع إلى مكان آخر منفصلًا عن كائنه، ضاع `‎this‎`.
 
-## Losing "this"
+إليك ظواهر هذه المشكلة باستعمال `‎setTimeout‎` مثلًا:
 
-We've already seen examples of losing `this`. Once a method is passed somewhere separately from the object -- `this` is lost.
-
-Here's how it may happen with `setTimeout`:
-
-```js run
+```
 let user = {
   firstName: "John",
   sayHi() {
-    alert(`Hello, ${this.firstName}!`);
+    alert(`‎Hello, ${this.firstName}!‎`);
   }
 };
 
-*!*
 setTimeout(user.sayHi, 1000); // Hello, undefined!
-*/!*
 ```
 
-As we can see, the output shows not "John" as `this.firstName`, but `undefined`!
+كما رأينا في ناتج الشيفرة، لم نرحّب بالأخ «John» (كما أردنا باستعمال `‎this.firstName‎`)، بل بالأخ غير المعرّف `‎undefined‎`!
 
-That's because `setTimeout` got the function `user.sayHi`, separately from the object. The last line can be rewritten as:
+هذا لأنّ التابِع `‎setTimeout‎` استلم الدالة `‎user.sayHi‎` منفصلةً عن كائنها. يمكن أن نكتب السطر الأخير هكذا:
 
-```js
+```
 let f = user.sayHi;
-setTimeout(f, 1000); // lost user context
+setTimeout(f, 1000); // ‫ضاع سياق المستخدم user
 ```
 
-The method `setTimeout` in-browser is a little special: it sets `this=window` for the function call (for Node.js, `this` becomes the timer object, but doesn't really matter here). So for `this.firstName` it tries to get `window.firstName`, which does not exist. In other similar cases, usually `this` just becomes `undefined`.
+بالمناسبة فالتابِع `‎setTimeout‎` داخل المتصفّحات يختلف قليلًا، إذ يضبط `‎this=window‎` حين نستدعي الدالة (بينما في Node.js يصير `‎this‎` هو ذاته كائن المؤقّت، ولكنّ هذا ليس بالأمر المهم الآن). يعني ذلك بأنّ `‎this.firstName‎` هنا هي فعليًا `‎window.firstName‎`، وهذا المتغير غير موجود. عادةً ما تصير `‎this‎` غير معرّفة `‎undefined‎` في الحالات الأخرى.
 
-The task is quite typical -- we want to pass an object method somewhere else (here -- to the scheduler) where it will be called. How to make sure that it will be called in the right context?
+كثيرًا ما نواجه هذه المسألة ونحن نكتب الشيفرة: نريد أن نمرّر تابِع الدالة إلى مكان آخر (مثل هنا، مرّرناه للمُجدول) حيث سيُستدعى من هناك. كيف لنا أن نتأكّد بأن يُستدعى في سياقه الصحيح؟
 
-## Solution 1: a wrapper
+## الحل رقم واحد: نستعمل  دالة مغلفة
 
-The simplest solution is to use a wrapping function:
+أسهل الحلول هو استعمال دالة غالِفة _Wrapping function_:
 
-```js run
+```
 let user = {
   firstName: "John",
   sayHi() {
-    alert(`Hello, ${this.firstName}!`);
+    alert(`‎Hello, ${this.firstName}!‎`);
   }
 };
 
-*!*
 setTimeout(function() {
   user.sayHi(); // Hello, John!
 }, 1000);
-*/!*
 ```
 
-Now it works, because it receives `user` from the outer lexical environment, and then calls the method normally.
+الآن اكتملت المهمة إذ استلمنا المستخدم `‎user‎` من البيئة المُعجمية الخارجية، وثمّ استدعينا التابِع كما العادة.
 
-The same, but shorter:
+إليك ذات المهمة بأسطر أقل:
 
-```js
+```
 setTimeout(() => user.sayHi(), 1000); // Hello, John!
 ```
 
-Looks fine, but a slight vulnerability appears in our code structure.
+ممتازة جدًا، ولكن ستظهر لنا نقطة ضعف في بنية الشيفرة.
 
-What if before `setTimeout` triggers (there's one second delay!) `user` changes value? Then, suddenly, it will call the wrong object!
+ماذا لو حدث وتغيّرت قيمة `‎user‎` قبل أن تعمل `‎setTimeout‎`؟ (لا تنسَ التأخير، ثانية كاملة!) حينها سنجد أنّا استدعينا الكائن الخطأ دون أن ندري!
 
 
-```js run
+```
 let user = {
   firstName: "John",
   sayHi() {
-    alert(`Hello, ${this.firstName}!`);
+    alert(`‎Hello, ${this.firstName}!‎`);
   }
 };
 
 setTimeout(() => user.sayHi(), 1000);
 
-// ...the value of user changes within 1 second
+// ‫...تغيّرت قيمة user خلال تلك الثانية
 user = {
   sayHi() { alert("Another user in setTimeout!"); }
 };
 
-// Another user in setTimeout!
+// setTimeout! هناك مستخدم آخر داخل التابِع‏
 ```
 
-The next solution guarantees that such thing won't happen.
+الحل الثاني سيضمن لنا ألّا تحدث هكذا أمور غير متوقّعة.
 
-## Solution 2: bind
+## الحل رقم اثنين: ربطة
 
-Functions provide a built-in method [bind](mdn:js/Function/bind) that allows to fix `this`.
+تقدّم لنا الدوال تابِعًا مضمّنًا في اللغة باسم [bind](https://wiki.hsoub.com/JavaScript/Function/bind) يتيح لنا ضبط قيمة `‎this‎`.
 
-The basic syntax is:
+إليك صياغته الأساسية:
 
-```js
-// more complex syntax will come a little later
+```
+// ستأتي الصياغة المعقّدة لاحقًا لا تقلق
 let boundFunc = func.bind(context);
 ```
 
-The result of `func.bind(context)` is a special function-like "exotic object", that is callable as function and transparently passes the call to `func` setting `this=context`.
+ناتِج التابِع `‎func.bind(context)‎` هو «كائن دخيل» يشبه الدالة ويمكن لنا استدعائه على أنّه دالة، وسيمرّر هذا الاستدعاء إلى `‎func‎` بعدما يضبط `‎this=context‎` من خلف الستار.
 
-In other words, calling `boundFunc` is like `func` with fixed `this`.
+أي بعبارة أخرى، لو استدعينا `‎boundFunc‎` فكأنّما استدعينا `‎func‎` بعدما ضبطنا قيمة `‎this‎`.
 
-For instance, here `funcUser` passes a call to `func` with `this=user`:
+إليك مثالًا تمرّر فيه `‎funcUser‎` الاستدعاء إلى `‎func‎` بضبط `‎this=user‎`:
 
-```js run  
+```
 let user = {
   firstName: "John"
 };
@@ -119,17 +111,15 @@ function func() {
   alert(this.firstName);
 }
 
-*!*
 let funcUser = func.bind(user);
 funcUser(); // John  
-*/!*
 ```
 
-Here `func.bind(user)` as a "bound variant" of `func`, with fixed `this=user`.
+رأينا «النسخة الرابطة» من `‎func‎`، ‏`‎func.bind(user)‎` بعد ضبط `‎this=user‎`.
 
-All arguments are passed to the original `func` "as is", for instance:
+كما أنّ المُعاملات كلّها تُمرّر إلى دالة `‎func‎` الأًصلية «كما هي». مثال:
 
-```js run  
+```
 let user = {
   firstName: "John"
 };
@@ -138,63 +128,59 @@ function func(phrase) {
   alert(phrase + ', ' + this.firstName);
 }
 
-// bind this to user
+// ‫نربط this إلى user
 let funcUser = func.bind(user);
 
-*!*
-funcUser("Hello"); // Hello, John (argument "Hello" is passed, and this=user)
-*/!*
+funcUser("Hello"); // ‫Hello, John (مُرّر المُعامل "Hello" كما وُضبط this=user)
 ```
 
-Now let's try with an object method:
+فلنجرّب الآن مع تابع لكائن:
 
 
-```js run
+```
 let user = {
   firstName: "John",
   sayHi() {
-    alert(`Hello, ${this.firstName}!`);
+    alert(`‎Hello, ${this.firstName}!‎`);
   }
 };
 
-*!*
 let sayHi = user.sayHi.bind(user); // (*)
-*/!*
 
-// can run it without an object
+// يمكن أن نشغّلها دون وجود كائن
 sayHi(); // Hello, John!
 
 setTimeout(sayHi, 1000); // Hello, John!
 
-// even if the value of user changes within 1 second
-// sayHi uses the pre-bound value
+// ‫حتّى لو تغيّرت قيمة user خلال تلك الثانية
+// ‫فما زالت تستعمل sayHi القيمة التي ربطناها قبلًا
 user = {
   sayHi() { alert("Another user in setTimeout!"); }
 };
 ```
 
-In the line `(*)` we take the method `user.sayHi` and bind it to `user`. The `sayHi` is a "bound" function, that can be called alone or passed to `setTimeout` -- doesn't matter, the context will be right.
+أخذنا في السطر `‎(*)‎` التابِع `‎user.sayHi‎` وربطناه مع المستخدم `‎user‎`. ندعو الدالة `‎sayHi‎` بالدالة «المربوطة» حيث يمكن أن نستدعيها لوحدها هكذا أو نمرّرها إلى `‎setTimeout‎`. مهما فعلًا فسيكون السياق صحيحًا كما نريد.
 
-Here we can see that arguments are passed "as is", only `this` is fixed by `bind`:
+نرى هنا أنّ المُعاملات مُرّرت «كما هي» وما ضبطه `‎bind‎` هو قيمة `‎this‎` فقط:
 
-```js run
+```
 let user = {
   firstName: "John",
   say(phrase) {
-    alert(`${phrase}, ${this.firstName}!`);
+    alert(`‎${phrase}, ${this.firstName}!‎`);
   }
 };
 
 let say = user.say.bind(user);
 
-say("Hello"); // Hello, John ("Hello" argument is passed to say)
-say("Bye"); // Bye, John ("Bye" is passed to say)
+say("Hello"); // ‫Hello, John!‎ (مُرّر المُعامل "Hello" إلى say)
+say("Bye"); // ‫Bye, John!‎ (مُرّر المعامل "Bye" إلى say)
 ```
 
-````smart header="Convenience method: `bindAll`"
-If an object has many methods and we plan to actively pass it around, then we could bind them all in a loop:
+**تابِع مفيد: `‎bindAll‎`**
+لو كان للكائن توابِع كثيرة وأردنا تمريرها هنا وهناك بكثرة، فربّما نربطها كلّها في حلقة:
 
-```js
+```
 for (let key in user) {
   if (typeof user[key] == 'function') {
     user[key] = user[key].bind(user);
@@ -202,127 +188,318 @@ for (let key in user) {
 }
 ```
 
-JavaScript libraries also provide functions for convenient mass binding , e.g. [_.bindAll(obj)](http://lodash.com/docs#bindAll) in lodash.
-````
+كما تقدّم لنا مكتبات جافاسكربت دوال للربط الجماعي لتسهيل الأمور، مثل [`‎_.bindAll(obj)‎`](http://lodash.com/docs#bindAll) في المكتبة lodash.
 
-## Partial functions
+## الدوال الجزئية
 
-Until now we have only been talking about binding `this`. Let's take it a step further.
+طوال هذه الفترة لم نُناقش شيئًا إلّا ربط `‎this‎`. لنُضيف شيئًا آخر على الطاولة.
 
-We can bind not only `this`, but also arguments. That's rarely done, but sometimes can be handy.
+يمكن أيضًا أن نربط المُعاملات وليس `‎this‎` فحسب. صحيح أنّا نادرًا ما نفعل ذلك إلّا أنّ الأمر مفيد في أحيان عصيبة.
 
-The full syntax of `bind`:
+صياغة `‎bind‎` الكاملة:
 
-```js
+```
 let bound = func.bind(context, [arg1], [arg2], ...);
 ```
 
-It allows to bind context as `this` and starting arguments of the function.
+وهي تسمح لنا بربط السياق ليكون `‎this‎` والمُعاملات الأولى في الدالة.
 
-For instance, we have a multiplication function `mul(a, b)`:
+نرى مثالًا: دالة ضرب `‎mul(a, b)‎`:
 
-```js
+```
 function mul(a, b) {
   return a * b;
 }
 ```
 
-Let's use `bind` to create a function `double` on its base:
+فلنستعمل `‎bind‎` لنصنع دالة «ضرب في اثنين» `‎double‎` تتّخذ تلك أساسًا لها:
 
-```js run
+```
 function mul(a, b) {
   return a * b;
 }
 
-*!*
 let double = mul.bind(null, 2);
-*/!*
 
 alert( double(3) ); // = mul(2, 3) = 6
 alert( double(4) ); // = mul(2, 4) = 8
 alert( double(5) ); // = mul(2, 5) = 10
 ```
 
-The call to `mul.bind(null, 2)` creates a new function `double` that passes calls to `mul`, fixing `null` as the context and `2` as the first argument. Further arguments are passed "as is".
+يصنع استدعاء `‎mul.bind(null, 2)‎` دالةً جديدة `‎double‎` تُمرّر الاستدعاءات إلى `‎mul‎` وتضبط `‎null‎` ليكون السياق و`‎2‎` ليكون المُعامل الأول. الباقي من مُعاملات يُمرّر «كما هو».
 
-That's called [partial function application](https://en.wikipedia.org/wiki/Partial_application) -- we create a new function by fixing some parameters of the existing one.
+هذا ما نسمّيه [باستعمال الدوال الجزئية](https://en.wikipedia.org/wiki/Partial_application) -- أن نصنع دالة بعد ضبط بعض مُعاملات واحدة غيرها.
 
-Please note that here we actually don't use `this` here. But `bind` requires it, so we must put in something like `null`.
+لاحظ هنا بأنّا لا نستعمل `‎this‎` هنا أصلًا... ولكنّ التابِع `‎bind‎` يطلبه فعلينا تقديم شيء (وكان `‎null‎` مثلًا).
 
-The function `triple` in the code below triples the value:
+الدالة `‎triple‎` أسفله تضرب القيمة في ثلاثة:
 
-```js run
+```
 function mul(a, b) {
   return a * b;
 }
 
-*!*
 let triple = mul.bind(null, 3);
-*/!*
 
 alert( triple(3) ); // = mul(3, 3) = 9
 alert( triple(4) ); // = mul(3, 4) = 12
 alert( triple(5) ); // = mul(3, 5) = 15
 ```
 
-Why do we usually make a partial function?
+ولكن لماذا نصنع الدوال الجزئية أصلًا، وعادةً؟!
 
-The benefit is that we can create an independent function with a readable name (`double`, `triple`). We can use it and not provide the first argument every time as it's fixed with `bind`.
+الفائدة هي إنشاء دالة مستقلة لها اسم سهل القراءة (`‎double‎` أو `‎triple‎`)، فنستعملها دون تقديم المُعامل الأول في كلّ مرة إذ ضبطنا قيمته باستعمال `‎bind‎`.
 
-In other cases, partial application is useful when we have a very generic function and want a less universal variant of it for convenience.
+وهناك حالات أخرى يفيدنا الاستعمال الجزئي هذا حين نحتاج نسخة أكثر تحديدًا من دالة عامّة جدًا، ليسهُل استعمالها فقط.
 
-For instance, we have a function `send(from, to, text)`. Then, inside a `user` object we may want to use a partial variant of it: `sendTo(to, text)` that sends from the current user.
+فمثلًا يمكن أن نصنع الدالة `‎send(from, to, text)‎`. وبعدها في كائن المستخدم `‎user‎` نصنع نسخة جزئية عنها: `‎sendTo(to, text)‎` تُرسل النصّ من المستخدم الحالي.
 
-## Going partial without context
+## الجزئية، بدون السياق
 
-What if we'd like to fix some arguments, but not the context `this`? For example, for an object method.
+ماذا لو أردنا أن نضبط بعض المُعاملات ولكن دون السياق `‎this‎`؟ مثلًا نستعملها لتابِع أحد الكائنات.
 
-The native `bind` does not allow that. We can't just omit the context and jump to arguments.
+تابِع `‎bind‎` الأصيل في اللغة لا يسمح بذلك، ومستحيل أن نُزيل السياق ونضع المُعاملات فقط.
 
-Fortunately, a function `partial` for binding only arguments can be easily implemented.
+لكن لحسن الحظ فيمكننا صنع دالة مُساعدة `‎partial‎` تربط المُعاملات فقط.
 
-Like this:
+هكذا تمامًا:
 
-```js run
-*!*
+```
 function partial(func, ...argsBound) {
   return function(...args) { // (*)
     return func.call(this, ...argsBound, ...args);
   }
 }
-*/!*
 
-// Usage:
+// الاستعمال:
 let user = {
   firstName: "John",
   say(time, phrase) {
-    alert(`[${time}] ${this.firstName}: ${phrase}!`);
+    alert(`‎[${time}] ${this.firstName}: ${phrase}!‎`);
   }
 };
 
-// add a partial method with fixed time
+// نُضيف تابِعًا جزئيًا بعد ضبط الوقت
 user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
 
 user.sayNow("Hello");
-// Something like:
+// وسيظهر ما يشبه الآتي:
 // [10:00] John: Hello!
 ```
 
-The result of `partial(func[, arg1, arg2...])` call is a wrapper `(*)` that calls `func` with:
-- Same `this` as it gets (for `user.sayNow` call it's `user`)
-- Then gives it `...argsBound` -- arguments from the `partial` call (`"10:00"`)
-- Then gives it `...args` -- arguments given to the wrapper (`"Hello"`)
+ناتِج استدعائنا للدالة `‎partial(func[, arg1, arg2...])‎` هو غِلاف `‎(*)‎` يستدعي الدالة `‎func‎` هكذا:
+- يترك `‎this‎` كما هو (فتكون قيمته `‎user‎` داخل الاستدعاء `‎user.sayNow‎`)
+- ثمّ يمرّر لها `‎...argsBound‎`: أي المُعاملات من استدعاء `‎partial‎` ‏(`‎"10:00"‎`)
+- وثمّ يمرّر لها `‎...args‎`: المُعاملات الممرّرة للغِلاف (`‎"Hello"‎`)
 
-So easy to do it with the spread syntax, right?
+ساعدنا مُعامل التوزيع كثيرًا هنا، أم لا؟
 
-Also there's a ready [_.partial](https://lodash.com/docs#partial) implementation from lodash library.
+كما أنّ هناك شيفرة [`‎_.partial`](https://lodash.com/docs#partial)  في المكتبة lodash.
 
-## Summary
+## ملخص
 
-Method `func.bind(context, ...args)` returns a "bound variant" of function `func` that fixes the context `this` and first arguments if given.
+يُعيد التابِع `‎func.bind(context, ...args)‎` «نسخة مربوطة» من الدالة `‎func‎` بعد ضبط سياقها `‎this‎` ومُعاملاتها الأولى (في حال مرّرناها).
 
-Usually we apply `bind` to fix `this` for an object method, so that we can pass it somewhere. For example, to `setTimeout`.
+عادةً ما نستعمل `‎bind‎` لنضبط `‎this‎` داخل تابِع لأحد الكائنات، فيمكن أن نمرّر التابِع ذلك إلى مكان آخر، مثلًا إلى `‎setTimeout‎`.
 
-When we fix some arguments of an existing function, the resulting (less universal) function is called *partially applied* or *partial*.
+وحين نضبط بعضًا من مُعاملات إحدى الدوال، يكون الناتج (وهو أكثر تفصيلًا) دالةً ندعوها بالدالة *الجزئية* أو *المطبّقة بنحوٍ جزئي* _partially applied_.
 
-Partials are convenient when we don't want to repeat the same argument over and over again. Like if we have a `send(from, to)` function, and `from` should always be the same for our task, we can get a partial and go on with it.
+تُفيدنا هذه الدوال الجزئية حين لا نريد تكرار ذات الوسيط مرارًا وتكرارًا، مثل دالة `‎send(from, to)‎` حيث يجب أن يبقى `‎from‎` كما هو في مهمّتنا هذه، فنأخذ دالة جزئية ونتعامل بها.
+## تمارين
+### دالة ربط على أنّها تابِع
+_الأهمية: 5_
+
+ما ناتج هذه الشيفرة؟
+
+```
+function f() {
+  alert( this ); // ؟
+}
+
+let user = {
+  g: f.bind(null)
+};
+
+user.g();
+```
+
+#### الحل
+الجواب هو: `‎null‎`.
+
+سياق دالة الربط مكتوب في الشيفرة (hard-coded) ولا يمكن تغييره لاحقًا بأيّ شكل من الأشكال.
+
+فحتّى لو شغّلنا `‎user.g()‎` فستُستدعى الدالة الأصلية بضبط `‎this=null‎`.
+### ربطة ثانية
+_الأهمية: 5_
+
+هي يمكن أن نغيّر قيمة `‎this‎` باستعمال ربطة إضافية؟
+
+ما ناتج هذه الشيفرة؟
+
+```
+function f() {
+  alert(this.name);
+}
+
+f = f.bind( {name: "John"} ).bind( {name: "Ann" } );
+
+f();
+```
+
+#### الحل
+الجواب هو: **John**.
+
+```
+function f() {
+  alert(this.name);
+}
+
+f = f.bind( {name: "John"} ).bind( {name: "Pete"} );
+
+f(); // John
+```
+
+لا يتذكّر كائن [دالة الربط](https://tc39.github.io/ecma262/#sec-bound-function-exotic-objects) «الدخيل» (الذي يُعيده `‎f.bind(...)‎`) السياق (مع الوُسطاء إن مُرّرت) - لا يتذكّر هذا كلّه إلى وقت إنشاء الكائن.
+
+أي: لا يمكن إعادة ربط الدوال.
+### خاصية الدالة بعد الربط
+_الأهمية: 5_
+
+تمتلك خاصية إحدى الدوال قيمة ما. هل ستتغيّر بعد `‎bind‎`؟ نعم، لماذا؟ لا، لماذا؟
+
+```
+function sayHi() {
+  alert( this.name );
+}
+sayHi.test = 5;
+
+let bound = sayHi.bind({
+  name: "John"
+});
+
+alert( bound.test ); // ما الناتج؟ لماذا؟
+```
+
+#### الحل
+الجواب هو: `‎undefined‎`.
+
+ناتِج `‎bind‎` هو كائن آخر، وليس في هذا الكائن خاصية `‎test‎`.
+
+### أصلِح هذه الدالة التي يضيع «this» منها
+_الأهمية: 5_
+
+على الاستدعاء `‎askPassword()‎` في الشيفرة أسفله فحص كلمة السر، ثمّ استدعاء `‎user.loginOk/loginFail‎` حسب نتيجة الفحص.
+
+ولكن أثناء التنفيذ نرى خطأً. لماذا؟
+
+أصلِح الجزء الذي فيه `‎(*)‎` لتعمل الشيفرة كما يجب (تغيير بقية الأسطر ممنوع).
+
+```
+function askPassword(ok, fail) {
+  let password = prompt("Password?", '');
+  if (password == "rockstar") ok();
+  else fail();
+}
+
+let user = {
+  name: 'John',
+
+  loginOk() {
+    alert(`‎${this.name} logged in‎`);
+  },
+
+  loginFail() {
+    alert(`‎${this.name} failed to log in‎`);
+  },
+
+};
+
+askPassword(user.loginOk, user.loginFail); // (*)
+```
+#### الحل
+سبب الخطأ هو أنّ الدالة `‎ask‎` تستلم الدالتين `‎loginOk/loginFail‎` دون كائنيهما.
+
+فمتى ما استدعتهما، تُعدّ `‎this=undefined‎` بطبيعتها.
+
+علينا ربط السياق!
+
+```
+function askPassword(ok, fail) {
+  let password = prompt("Password?", '');
+  if (password == "rockstar") ok();
+  else fail();
+}
+
+let user = {
+  name: 'John',
+
+  loginOk() {
+    alert(`‎${this.name} logged in‎`);
+  },
+
+  loginFail() {
+    alert(`‎${this.name} failed to log in‎`);
+  },
+
+};
+
+// (*)\maskPassword(user.loginOk.bind(user), user.loginFail.bind(user));
+```
+
+الآن صارت تعمل.
+
+أو، بطريقة أخرى:
+```
+//...
+askPassword(() => user.loginOk(), () => user.loginFail());
+```
+
+هذه الشيفرة تعمل وعادةً ما تكون سهلة القراءة أيضًا.
+
+ولكنّها في حالات أكثر تعقيدًا تصير أقلّ موثوقية، مثل لو تغيّر المتغير `‎user‎` *بعدما* استُدعيت الدالة `‎askPassword‎` و*قبل* أن يُجيب الزائر على الاستدعاء `‎() => user.loginOk()‎`.
+### استعمال الدوال الجزئية لولوج المستخدم
+
+هذا التمرين معقّد أكثر من سابقه، بقليل.
+
+هنا تعدّل كائن `‎user‎`، فصار فيه بدل الدالتين `‎loginOk/loginFail‎` دالة واحدة `‎user.login(true/false)‎`.
+
+ما الأشياء التي نمرّرها إلى `‎askPassword‎` في الشيفرة أسفله فتستدعي `‎user.login(true)‎` باستعمال `‎ok‎` وتستدعي `‎user.login(false)‎` باستعمال `‎fail‎`؟
+
+```
+function askPassword(ok, fail) {
+  let password = prompt("Password?", '');
+  if (password == "rockstar") ok();
+  else fail();
+}
+
+let user = {
+  name: 'John',
+
+  login(result) {
+    alert( this.name + (result ? ' logged in' : ' failed to log in') );
+  }
+};
+
+askPassword(?, ?); // ؟ (*)
+```
+
+يجب أن تعدّل الجزء الذي عليه `‎(*)‎` فقط لا غير.
+
+#### الحل
+1. نستعمل دالة غالِفة... سهمية لو أردنا التفصيل:
+
+    ```
+    askPassword(() => user.login(true), () => user.login(false)); 
+    ```
+
+    هكذا تأخذ `‎user‎` من المتغيرات الخارجية وتُشغّل الدوال بالطريقة العادية.
+
+2. أو نصنع دالة جزئية من `‎user.login‎` تستعمل `‎user‎` سياقًا لها ونضع مُعاملها الأول كما يجب:
+
+
+    ```
+    askPassword(user.login.bind(user, true), user.login.bind(user, false)); 
+    ```
+
+ترجمة -وبتصرف- للفصل [Function binding](https://javascript.info/bind) من كتاب [The JavaScript language](https://javascript.info/js)
+

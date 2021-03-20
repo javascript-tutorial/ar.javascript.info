@@ -1,12 +1,13 @@
-importance: 5
+_الأهمية: 5_
 
 ---
 
-# Working with prototype
+# العمل مع prototype
 
-Here's the code that creates a pair of objects, then modifies them.
+إليك شيفرة تُنشئ كائنين وتعدّلها.
 
-Which values are shown in the process?
+ما القيم الّتي ستظهر في هذه العملية؟
+
 
 ```js
 let animal = {
@@ -28,4 +29,4 @@ delete animal.jumps;
 alert( rabbit.jumps ); // ? (3)
 ```
 
-There should be 3 answers.
+ هنالك ثلاث إجابات.

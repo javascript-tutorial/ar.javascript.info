@@ -1,6 +1,5 @@
-# Object methods, "this"
-
-Objects are usually created to represent entities of the real world, like users, orders and so on:
+# الدوال في الكائنات واستعمالها `this`
+تُنشّأ الكائنات عادة لتُمَثِّل أشياء من العالم الحقيقي مثل المستخدمين، والطلبات، وغيرها:
 
 ```js
 let user = {
@@ -9,13 +8,13 @@ let user = {
 };
 ```
 
-And, in the real world, a user can *act*: select something from the shopping cart, login, logout etc.
+يمكن للمستخدم في العالم الحقيقي أن يقوم بعدة تصرفات: مثل اختيار شيء من سلة التسوق، تسجيل الدخول، والخروج ...إلخ. 
 
-Actions are represented in JavaScript by functions in properties.
+تُمَثَّل هذه التصرفات في لغة JavaScript بإسناد دالة إلى خاصية وتدعى الدالة آنذاك بالتابع (method، أي دالة تابعة لكائن).
 
-## Method examples
+## أمثلة على الدوال
 
-For a start, let's teach the `user` to say hello:
+بدايةً، لنجعل المستخدم `user` يقول مرحبًا:
 
 ```js run
 let user = {
@@ -32,15 +31,9 @@ user.sayHi = function() {
 user.sayHi(); // Hello!
 ```
 
-Here we've just used a Function Expression to create the function and assign it to the property `user.sayHi` of the object.
+استخدمنا هنا تعبير الدالة لإنشاء دالة تابع للكائن `user` وربطناها بالخاصية `user.sayHi` ثم استدعينا الدالة. هكذا أصبح بإمكان المستخدم التحدث! الآن أصبح لدى الكائن `user` الدالة `sayHi`.
 
-Then we can call it. The user can now speak!
-
-A function that is the property of an object is called its *method*.
-
-So, here we've got a method `sayHi` of the object `user`.
-
-Of course, we could use a pre-declared function as a method, like this:
+يمكننا أيضًا استخدام دالة معرفة مسبقًا بدلًا من ذلك كما يلي:
 
 ```js run
 let user = {
@@ -48,29 +41,29 @@ let user = {
 };
 
 *!*
-// first, declare
+//  أولا، نعرف دالة
 function sayHi() {
   alert("Hello!");
 };
 
-// then add as a method
+// أضِف الدالة للخاصية لإنشاء تابع
 user.sayHi = sayHi;
 */!*
 
 user.sayHi(); // Hello!
 ```
 
-```smart header="Object-oriented programming"
-When we write our code using objects to represent entities, that's called [object-oriented programming](https://en.wikipedia.org/wiki/Object-oriented_programming), in short: "OOP".
+```البرمجة الشيئية (Object-oriented programming)"
 
-OOP is a big thing, an interesting science of its own. How to choose the right entities? How to organize the interaction between them? That's architecture, and there are great books on that topic, like "Design Patterns: Elements of Reusable Object-Oriented Software" by E. Gamma, R. Helm, R. Johnson, J. Vissides or "Object-Oriented Analysis and Design with Applications" by G. Booch, and more.
+يسمى كتابة الشيفرة البرمجية باستخدام الكائنات للتعبير عن الاشياء «بالبرمجة الشيئية/كائنية» ([object-oriented programming](https://en.wikipedia.org/wiki/Object-oriented_programming)، تُختَصَر إلى "OOP"). 
+OOP هو موضوع كبيرجدًا، فهو علم مشوق ومستقل بذاته. يعلمك كيف تختار الكائنات الصحيحة؟ كيف تنظم التفاعل فيما بينها؟ كما يعد علمًا للهيكلة ويوجد العديد من الكتب الأجنبية الجيدة عن هذا الموضوع مثل كتاب “Design Patterns: Elements of Reusable Object-Oriented Software” للمؤلفين E.Gamma، و R.Helm، و R.Johnson، و J.Vissides أو كتاب “Object-Oriented Analysis and Design with Applications” للمؤلف G.Booch، وغيرهما.
 ```
-### Method shorthand
+### اختصار الدالة
 
-There exists a shorter syntax for methods in an object literal:
+يوجد طريقة أقصر لكتابة الدوال في الكائنات المعرفة تعريفًا مختصرًا باستعمال الأقواس تكون بالشكل التالي:
 
 ```js
-// these objects do the same
+// يتصرف الكائنان التاليان بالطريقة نفسها
 
 user = {
   sayHi: function() {
@@ -78,7 +71,7 @@ user = {
   }
 };
 
-// method shorthand looks better, right?
+// يبدو شكل الدالة المختصر أفضل، أليس كذلك؟
 user = {
 *!*
   sayHi() { // same as "sayHi: function()"
@@ -88,21 +81,17 @@ user = {
 };
 ```
 
-As demonstrated, we can omit `"function"` and just write `sayHi()`.
+يمكننا حذف الكلمة  `"function"` وكتابة `sayHi()‎ ` كما هو موضح. حقيقةً، التعبيرين ليسا متطابقين تمامًا، يوجد اختلافات خفية متعلقة بالوراثة في الكائنات (سيتم شرحها لاحقًا)، لكن لا يوجد مشكلة الآن. يفضل استخدام الصياغة الأقصر في كل الحالات تقريبًا.
 
-To tell the truth, the notations are not fully identical. There are subtle differences related to object inheritance (to be covered later), but for now they do not matter. In almost all cases the shorter syntax is preferred.
+## الكلمة "this" في الدوال
 
-## "this" in methods
+من المتعارف أن الدوال تحتاج للوصول إلى المعلومات المخزنة في الكائن لِتنفذ عملها. مثلًا، قد تحتاج الشيفرة التي بداخل `user.sayHi()‎` لِاسم المستخدم `user`. هنا،
 
-It's common that an object method needs to access the information stored in the object to do its job.
+**يمكن للدالة استخدام الكلمة  `this` للوصول إلى نسخة الكائن التي استدعتها**
 
-For instance, the code inside `user.sayHi()` may need the name of the `user`.
+أي، قيمة `this` هي الكائن "قبل النقطة" الذي استُخدِم لاستدعاء الدالة. 
 
-**To access the object, a method can use the `this` keyword.**
-
-The value of `this` is the object "before dot", the one used to call the method.
-
-For instance:
+مثلًا:
 
 ```js run
 let user = {
@@ -111,7 +100,7 @@ let user = {
 
   sayHi() {
 *!*
-    // "this" is the "current object"
+    // "this" هو الكائن الحالي"
     alert(this.name);
 */!*
   }
@@ -121,9 +110,8 @@ let user = {
 user.sayHi(); // John
 ```
 
-Here during the execution of `user.sayHi()`, the value of `this` will be `user`.
-
-Technically, it's also possible to access the object without `this`, by referencing it via the outer variable:
+أثناء تنفيذ `user.sayHi()‎` هنا، ستكون قيمة `this` هي الكائن `user`
+عمليًا، يمكن الوصول إلى الكائن بدون استخدام `this` بالرجوع إليه باستخدام اسم المتغير الخارجي:
 
 ```js
 let user = {
@@ -132,16 +120,14 @@ let user = {
 
   sayHi() {
 *!*
-    alert(user.name); // "user" instead of "this"
+    alert(user.name); // "user" يدلًا من "this"
 */!*
   }
 
 };
 ```
 
-...But such code is unreliable. If we decide to copy `user` to another variable, e.g. `admin = user` and overwrite `user` with something else, then it will access the wrong object.
-
-That's demonstrated below:
+...لكن، لا يمكن الاعتماد على الطريقة السابقة. فإذا قررنا نسخ الكائن `user` إلى متغير آخر، مثلا: `admin = user` وغيرنا محتوى `user` لشيء آخر، فسيتم الدخول إلى الكائن الخطأ كما هو موضح في المثال التالي:
 
 ```js run
 let user = {
@@ -150,7 +136,7 @@ let user = {
 
   sayHi() {
 *!*
-    alert( user.name ); // leads to an error
+    alert( user.name ); // يتسبب في خطأ
 */!*
   }
 
@@ -158,18 +144,16 @@ let user = {
 
 
 let admin = user;
-user = null; // overwrite to make things obvious
+user = null; // تغيير المحتوى لتوضيح الأمر
 
-admin.sayHi(); // Whoops! inside sayHi(), the old name is used! error!
+admin.sayHi(); //  يُرجِع خطأ sayHi() استخدام الاسم القديم بِداخل
 ```
 
-If we used `this.name` instead of `user.name` inside the `alert`, then the code would work.
+إن استخدمنا `this.name` بدلًا من `user.name` بداخل `alert`، فستعمل الشيفرة عملًا صحيحًا.
 
-## "this" is not bound
+## "this" غير محدودة النطاق
 
-In JavaScript, keyword `this` behaves unlike most other programming languages. It can be used in any function.
-
-There's no syntax error in the following example:
+الكلمة `this` في JavaScript تتصرف تصرفًا مختلفًا عن باقي اللغات البرمجية. فيمكن استخدامها في أي دالة. انظر إلى المثال التالي، إذ لا يوجد خطأ في الصياغة
 
 ```js
 function sayHi() {
@@ -177,9 +161,7 @@ function sayHi() {
 }
 ```
 
-The value of `this` is evaluated during the run-time, depending on the context.
-
-For instance, here the same function is assigned to two different objects and has different "this" in the calls:
+تُقَيَّم قيمة `this` أثناء تنفيذ الشيفرة بالاعتماد على السياق. مثلًا، في المثال التالي، تم تعيين الدالة ذاتها إلى كائنين مختلفين فيصبح لكل منهما قيمة مختلفة لـ "this" أثناء الاستدعاء:
 
 ```js run
 let user = { name: "John" };
@@ -190,54 +172,53 @@ function sayHi() {
 }
 
 *!*
-// use the same function in two objects
+// استخدام الدالة ذاتها مع كائنين مختلفين
 user.f = sayHi;
 admin.f = sayHi;
 */!*
 
-// these calls have different this
-// "this" inside the function is the object "before the dot"
+// tلدى الاستدعائين قيمة مختلفة لـ
+// "this"  التي بداخل الدالة تعني المتغير الذي قبل النقطة
 user.f(); // John  (this == user)
 admin.f(); // Admin  (this == admin)
 
-admin['f'](); // Admin (dot or square brackets access the method – doesn't matter)
+admin['f'](); // Admin (يمكن الوصول إلى الدالة عبر الصيغة النقطية أو الأقواس المربعة – لا يوجد مشكلة في ذلك)
 ```
 
-The rule is simple: if `obj.f()` is called, then `this` is `obj` during the call of `f`. So it's either `user` or `admin` in the example above.
+القاعدة ببساطة: إذا استُدعِيَت الدالة `obj.f()‎`، فإن `this` هي `obj` أثناء استدعاء `f`؛ أي إما `user` أو `admin` في المثال السابق.
 
-````smart header="Calling without an object: `this == undefined`"
-We can even call the function without an object at all:
+
+````smart header="استدعاءٌ دون كائن: `this == undefined`"
+يمكننا استدعاء الدالة دون كائن:
 
 ```js run
 function sayHi() {
   alert(this);
 }
 
-sayHi(); // undefined
+sayHi(); // غير معرَّف
 ```
 
-In this case `this` is `undefined` in strict mode. If we try to access `this.name`, there will be an error.
+في هذه الحالة ستكون قيمة `this` هي `undefined` في الوضع الصارم. فإن حاولنا الوصول إلى `this.name` سيكون هناك خطأ.
 
-In non-strict mode the value of `this` in such case will be the *global object* (`window` in a browser, we'll get to it later in the chapter [](info:global-object)). This is a historical behavior that `"use strict"` fixes.
+في الوضع غير الصارم، فإن قيمة `this` في هذه الحالة ستكون المتغير العام (في المتصفح `window` والتي سَنشرحها في فصل المتغيرات العامة). هذا السلوك زمني يستخدم إصلاحات الوضع الصارم `"use strict"`.
 
-Usually such call is a programming error. If there's `this` inside a function, it expects to be called in an object context.
+يُعد هذا الاستدعاء خطأً برمجيًا غالبًا. فإن وًجِدت `this` بداخل دالة، فمن المتوقع استدعاؤها من خلال كائن.
 ````
 
-```smart header="The consequences of unbound `this`"
-If you come from another programming language, then you are probably used to the idea of a "bound `this`", where methods defined in an object always have `this` referencing that object.
+```smart header="الأمور المترتبة على `this` الغير محدودة النطاق"
+إن أتيت من لغة برمجية أخرى، فمن المتوقع أنك معتاد على "`this` المحدودة" إذ يمكن لِلدوال المعرَّفة في الكائن استخدام `this` التي ترجع للكائن.
 
-In JavaScript `this` is "free", its value is evaluated at call-time and does not depend on where the method was declared, but rather on what object is "before the dot".
+تستخدم `this` بحرية في JavaScript، وتُقَيَّم قيمتها أثناء التنفيذ ولا تعتمد على المكان حيث عُرِّفت فيه، بل على الكائن الذي قبل النقطة التي استدعت الدالة.
 
-The concept of run-time evaluated `this` has both pluses and minuses. On the one hand, a function can be reused for different objects. On the other hand, the greater flexibility creates more possibilities for mistakes.
-
-Here our position is not to judge whether this language design decision is good or bad. We'll understand how to work with it, how to get benefits and avoid problems.
+يوجد ايجابيات وسلبيات لمبدأ تقييم `this` أثناء وقت التشغيل. فمن ناحية، يمكن إعادة استخدام الدالة مع عدة كائنات، ومن الناحية الأخرى، المرونة الأكثر تعطي فرصًا أكثر للخطأ. لسنا بصدد الحكم على تصميم اللغة ونعته بالجيد أم سيء، بل نحاول فهم طريقة عملها وكيفية الاستفادة من ميزاتها وتجنب الأخطاء.
 ```
 
-## Arrow functions have no "this"
+## لدوال السهمية لا تحوي "this
 
-Arrow functions are special: they don't have their "own" `this`. If we reference `this` from such a function, it's taken from the outer "normal" function.
+الدوال السهمية (Arrow function) هي دوال خاصة: فهي لا تملك `this` مخصصة لها. إن وضعنا `this` في إحدى هذه  الدوال فَستؤخذ قيمة `this` من الدالة الخارجية.
 
-For instance, here `arrow()` uses `this` from the outer `user.sayHi()` method:
+مثلًا، تحصل الدالة `arrow()‎` على قيمة `this` من الدالة الخارجية `user.sayHi()‎`:
 
 ```js run
 let user = {
@@ -251,18 +232,16 @@ let user = {
 user.sayHi(); // Ilya
 ```
 
-That's a special feature of arrow functions, it's useful when we actually do not want to have a separate `this`, but rather to take it from the outer context. Later in the chapter <info:arrow-functions> we'll go more deeply into arrow functions.
+يُعد ذلك إحدى ميزات دوال الدوال السهمية، وهي مفيدة عندما لا نريد استخدام `this` مستقلة، ونريد أخذها من السياق الخارجي بدلًا من ذلك. سَنتعمق في موضوع الدوال السهمية لاحقًا في فصل «إعادة النظر في الدوال السهمية».
 
+## الخلاصة
 
-## Summary
+- الدوال المخزنة في الكائنات تسمى «توابع» (methods).
+- تسمح هذه الكائنات باستدعائها بالشكل `object.doSomething()‎ `.
+- يمكن للدوال الوصول إلى الكائن المعرفة فيه (أو النسخة التي استدعته المشتقة منه) باستخدام الكلمة المفتاحية`this`.
+- تُعَرَّف قيمة `this` أثناء التنفيذ.
+- قد نستخدم `this` عند تعريف دالة، لكنها لا تملك أي قيمة حتى استدعاء الدالة.
+- يمكن نسخ دالة بين الكائنات.
+- عند استدعاء دالة بالصيغة `object.method()‎`، فإن قيمة `this` أثناء الاستدعاء هي `object`.
 
-- Functions that are stored in object properties are called "methods".
-- Methods allow objects to "act" like `object.doSomething()`.
-- Methods can reference the object as `this`.
-
-The value of `this` is defined at run-time.
-- When a function is declared, it may use `this`, but that `this` has no value until the function is called.
-- A function can be copied between objects.
-- When a function is called in the "method" syntax: `object.method()`, the value of `this` during the call is `object`.
-
-Please note that arrow functions are special: they have no `this`. When `this` is accessed inside an arrow function, it is taken from outside.
+لاحظ أن الدوال السهمية مختلفة تتعامل تعاملًا مختلفًا مع `this` إذ لا تملك قيمة لها. عند الوصول إلى `this` بداخل دالة سهمية فإن قيمتها تؤخذ من النطاق الموجودة فيه.

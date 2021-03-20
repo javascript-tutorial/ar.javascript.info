@@ -1,14 +1,15 @@
 
-Let's examine what's done inside `makeArmy`, and the solution will become obvious.
+لنُجري مسحًا شاملًا على ما يجري في `‎makeArmy‎`، حينها سيظهر لنا الحل جليًا.
 
-1. It creates an empty array `shooters`:
+1. تُنشئ مصفوفة `‎shooters‎` فارغة:
 
     ```js
     let shooters = [];
     ```
-2. Fills it in the loop via `shooters.push(function...)`.
+. تملأ المصفوفة في حلقة عبر `‎shooters.push(function...)‎`.
 
-    Every element is a function, so the resulting array looks like this:
+    كلّ عنصر هو دالة، بهذا تكون المصفوفة الناتجة هكذا:
+
 
     ```js no-beautify
     shooters = [
@@ -25,17 +26,18 @@ Let's examine what's done inside `makeArmy`, and the solution will become obviou
     ];
     ```
 
-3. The array is returned from the function.
+3. تُعيد الدالة المصفوفة.
 
-Then, later, the call to `army[5]()` will get the element `army[5]` from the array (it will be a function) and call it.
+لاحقًا، يستلم استدعاء `‎army[5]()‎` العنصر `‎army[5]‎` من المصفوفة، وهي دالة فيستدعيها.
 
-Now why all such functions show the same?
+الآن، لماذا تعرض كلّ هذه الدوال نفس الناتج؟
 
-That's because there's no local variable `i` inside `shooter` functions. When such a function is called, it takes `i` from its outer lexical environment.
+يعود ذلك إلى عدم وجود أيّ متغير محلي باسم `‎i‎` في دوال `‎shooter‎`. فحين تُستدعى هذه الدالة تأخذ المتغير `‎i‎` من البيئة المُعجمية الخارجية.
 
-What will be the value of `i`?
+وماذا ستكون قيمة `‎i‎`؟
 
-If we look at the source:
+لو رأينا مصدر القيمة:
+
 
 ```js
 function makeArmy() {
@@ -50,12 +52,12 @@ function makeArmy() {
   ...
 }
 ```
+كما نرى... «تعيش» القيمة في البيئة المُعجمية المرتبطة بدورة `‎makeArmy()‎` الحالية. ولكن متى استدعينا `‎army[5]()‎`، تكون دالة `‎makeArmy‎` قد أنهت مهمّتها فعلًا وقيمة `‎i‎` هي آخر قيمة، أي `‎10‎` (قيمة نهاية حلقة `‎while‎`).
 
-...We can see that it lives in the lexical environment associated with the current `makeArmy()` run. But when `army[5]()` is called, `makeArmy` has already finished its job, and `i` has the last value: `10` (the end of `while`).
+وبهذا تأخذ كلّ دوال `‎shooter‎` القيمة من البيئة المُعجمية الخارجية، ذات القيمة الأخيرة `‎i=10‎`.
 
-As a result, all `shooter` functions get from the outer lexical envrironment the same, last value `i=10`.
+يمكن أن نُصلح ذلك بنقل تعريف المتغير إلى داخل الحلقة:
 
-We can fix it by moving the variable definition into the loop:
 
 ```js run demo
 function makeArmy() {
@@ -65,8 +67,8 @@ function makeArmy() {
 *!*
   for(let i = 0; i < 10; i++) {
 */!*
-    let shooter = function() { // shooter function
-      alert( i ); // should show its number
+    let shooter = function() { // دالة مُطلق النار
+      alert( i );  // المفترض أن ترينا رقمها
     };
     shooters.push(shooter);
   }
@@ -80,15 +82,17 @@ army[0](); // 0
 army[5](); // 5
 ```
 
-Now it works correctly, because every time the code block in `for (let i=0...) {...}` is executed, a new Lexical Environment is created for it, with the corresponding variable `i`.
+الآن صارت تعمل كما يجب، إذ في كلّ مرة تُنفّذ كتلة الشيفرة في `‎for (let i=0...) {...}‎`، يُنشئ المحرّك بيئة مُعجمية جديدة لها فيها متغير `‎i‎` المناسب لتلك الكتلة.
 
-So, the value of `i` now lives a little bit closer. Not in `makeArmy()` Lexical Environment, but in the Lexical Environment that corresponds the current loop iteration. That's why now it works.
+إذًا لنلخّص: قيمة `‎i‎` صارت «تعيش» أقرب للدالة من السابق. لم تعد في بيئة `‎makeArmy()‎` المُعجمية بل الآن في تلك البيئة المخصّصة لدورة الحلقة الحالية. هكذا صارت تعمل كما يجب.
+
 
 ![](lexenv-makearmy.svg)
 
-Here we rewrote `while` into `for`.
+أعدنا كتابة الشيفرة هنا وعوّضنا `‎while‎` بحلقة `‎for‎`.
 
-Another trick could be possible, let's see it for better understanding of the subject:
+يمكننا أيضًا تنفيذ حيلة أخرى. لنراها لفهم الموضوع أكثر:
+
 
 ```js run
 function makeArmy() {
@@ -99,8 +103,8 @@ function makeArmy() {
 *!*
     let j = i;
 */!*
-    let shooter = function() { // shooter function
-      alert( *!*j*/!* ); // should show its number
+    let shooter = function() { // دالة مُطلق النار
+      alert( *!*j*/!* ); // (*) المفترض أن ترينا رقمها
     };
     shooters.push(shooter);
     i++;
@@ -115,6 +119,7 @@ army[0](); // 0
 army[5](); // 5
 ```
 
-The `while` loop, just like `for`, makes a new Lexical Environment for each run. So here we make sure that it gets the right value for a `shooter`.
+كما حلقة `‎for‎`، فحلقة `‎while‎` تصنع بيئة مُعجمية جديدة لكلّ دورة، وهكذا نتأكّد بأن تكون قيمة `‎shooter‎` صحيحة.
 
-We copy `let j = i`. This makes a loop body local `j` and copies the value of `i` to it. Primitives are copied "by value", so we actually get a complete independent copy of `i`, belonging to the current loop iteration.
+باختصار ننسخ القيمة `‎let j = i‎` وهذا يصنع المتغير `‎j‎` المحلي داخل الحلقة وينسخ قيمة `‎i‎` إلى نفسه. تُنسخ الأنواع الأولية «حسب قيمتها» _By value_، لذا بهذا نأخذ نسخة كاملة مستقلة تمامًا عن `‎i‎`، ولكنّها مرتبطة بالدورة الحالية في الحلقة.
+

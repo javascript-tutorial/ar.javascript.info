@@ -1,22 +1,23 @@
-importance: 5
+_الأهمية: 5_
 
 ---
 
-# Filter through function
+### الترشيح عبر دالة
 
-We have a built-in method `arr.filter(f)` for arrays. It filters all elements through the function `f`. If it returns `true`, then that element is returned in the resulting array.
+نعلم بوجود التابِع `‎arr.filter(f)‎` للمصفوفات. ووظيفته هي ترشيح كلّ العناصر عبر الدالة `‎f‎`. لو أرجعت `‎true‎` فيُعيد التابِع العنصر في المصفوفة الناتجة.
 
-Make a set of "ready to use" filters:
+اصنع مجموعة مرشّحات «جاهزة لنستعملها مباشرة»:
 
-- `inBetween(a, b)` -- between `a` and `b` or equal to them (inclusively).
-- `inArray([...])` -- in the given array.
+- `‎inBetween(a, b)‎` -- بين `‎a‎` و`‎b‎`بما فيه الطرفين (أي باحتساب `‎a‎` و`‎b‎`).
+- `‎inArray([...])‎` -- في المصفوفة الممرّرة.
 
-The usage must be like this:
+هكذا يكون استعمالها:
 
-- `arr.filter(inBetween(3,6))` -- selects only values between 3 and 6.
-- `arr.filter(inArray([1,2,3]))` -- selects only elements matching with one of the members of `[1,2,3]`.
+- `‎arr.filter(inBetween(3,6))‎` -- تحدّد القيم بين 3 و6 فقط.
+- `‎arr.filter(inArray([1,2,3]))‎` -- تحدّد العناصر المتطابقة مع أحد عناصر `‎[1,2,3]‎` فقط.
 
-For instance:
+مثال:
+
 
 ```js
 /* .. your code for inBetween and inArray */

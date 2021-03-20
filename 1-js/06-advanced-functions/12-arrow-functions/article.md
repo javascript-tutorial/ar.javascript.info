@@ -1,90 +1,87 @@
-# Arrow functions revisited
+﻿
+# الحديث عن الدوال السهمية Arrow functions مرة أخرى
 
-Let's revisit arrow functions.
+لنرى الدوال السهمية مرّة أخرى.
 
-Arrow functions are not just a "shorthand" for writing small stuff. They have some very specific and useful features.
+لو ظننت الدوال السهمية هي طريقة مختصرة لكتابة الشيفرات القصيرة، فأنت مخطئ، إذ لهذه الدوال مزايا تختلف عن غيرها وتفيدنا جدًا.
 
-JavaScript is full of situations where we need to write a small function that's executed somewhere else.
+كثيرًا ما نواجه المواقف (في جافاسكربت بالتحديد) التي نريد أن نكتب فيها دالة صغيرة وننفّذها في مكان آخر.
 
-For instance:
+مثال:
 
-- `arr.forEach(func)` -- `func` is executed by `forEach` for every array item.
-- `setTimeout(func)` -- `func` is executed by the built-in scheduler.
-- ...there are more.
+- `‎arr.forEaoch(func)‎`: تُنفّذ `‎forEach‎` الدالة `‎func‎` لكلّ عنصر في المصفوفة.
+- `‎setTimeut(func)‎`: يُنفّذ المجدول الداخلي في البيئة دالة `‎func‎`.
+- ...وغيرها وغيرها.
 
-It's in the very spirit of JavaScript to create a function and pass it somewhere.
+هذا هو جوهر اللغة، أن نصنع دالة في مكان ونمرّرها إلى مكان آخر.
 
-And in such functions we usually don't want to leave the current context. That's where arrow functions come in handy.
+وفي هذه الدوال عادةً ما *لا* نريد أن نترك سياقها الحالي، وهنا تأتي الفائدة المخفية للدوال السهمية.
 
-## Arrow functions have no "this"
+## ليس للدوال السهمية مفهوم الأنا `this`
 
-As we remember from the chapter <info:object-methods>, arrow functions do not have `this`. If `this` is accessed, it is taken from the outside.
+كما نذكر من فصل «دوال الكائنات، this» فليس في الدوال السهمية مفهوم `‎this‎`، ولو حاولت الوصول إلى قيمة `‎this‎` فستأخذها الدالة من الخارج.
 
-For instance, we can use it to iterate inside an object method:
+فمثلًا يمكننا استعمالها للمرور على العناصر داخل تابِع للكائن:
 
-```js run
+```
 let group = {
   title: "Our Group",
   students: ["John", "Pete", "Alice"],
 
   showList() {
-*!*
     this.students.forEach(
       student => alert(this.title + ': ' + student)
     );
-*/!*
   }
 };
 
 group.showList();
 ```
 
-Here in `forEach`, the arrow function is used, so `this.title` in it is exactly the same as in the outer method `showList`. That is: `group.title`.
+استعملنا هنا في `‎forEach‎` الدالة السهمية، وقيمة `‎this.title‎` فيها هي تمامًا القيمة التي يراها التابِع الخارجي `‎showList‎`، أي `‎group.title‎`.
 
-If we used a "regular" function, there would be an error:
+لو استعملنا هنا الدوال العادية فسنواجه خطأً:
 
-```js run
+```
 let group = {
   title: "Our Group",
   students: ["John", "Pete", "Alice"],
 
   showList() {
-*!*
+  
     this.students.forEach(function(student) {
-      // Error: Cannot read property 'title' of undefined
+      // ‫خطأ: تعذّرت قراءة الخاصية 'title' لغير المعرّف undefined
       alert(this.title + ': ' + student)
     });
-*/!*
   }
+
 };
 
 group.showList();
 ```
 
-The error occurs because `forEach` runs functions with `this=undefined` by default, so the attempt to access `undefined.title` is made.
+سبب هذا الخطأ هو أنّ التابِع `‎forEach‎` يشغّل الدوال بتمرير `‎this=undefined‎` مبدئيًا، وبذلك تحاول الشيفرة الوصول إلى `‎undefined.title‎`.
 
-That doesn't affect arrow functions, because they just don't have `this`.
+ليس لهذا أيّ تأثير على الدوال السهمية إذ ليس لها `‎this‎` أساسًا.
 
-```warn header="Arrow functions can't run with `new`"
-Not having `this` naturally means another limitation: arrow functions can't be used as constructors. They can't be called with `new`.
+**لا يمكن تشغيل الدوال السهمية باستعمال `‎new‎`**
+بطبيعة الحال فدون `‎this‎` تواجه حدًّا آخر: لا يمكنك استعمال الدوال السهمية على أنّها مُنشِئات دوال، أي لا يمكنك استدعاءها باستعمال `‎new‎`.
+
+**الدوال السهمية والربطات**
+هناك فرق بسيط بين الدالة السهمية `‎=>‎` والدالة العادية التي نستدعيها باستعمال  `‎.bind(this)‎`:
+
+- يُنشئ التابِع `‎.bind(this)‎` «نسخة مربوطة» من تلك الدالة.
+- لا يصنع السهم `‎=>‎` أيّ نوع من الربطات. الدالة ليس فيها `‎this‎`، فقط. يبحث المحرّك عن قيمة `‎this‎` كما يبحث عن أيّ قيمة متغير آخر: في البيئة المُعجمية الخارجية للدالة السهمية.
+
+## ليس للدوال السهمية «مُعاملات»
+
+كما وأنّ الدوال السهمية ليس فيها متغير مُعاملات `‎arguments‎`.
+
+وهذا أمر رائع حين نتعامل مع المُزخرِفات إذ نُمرّر الاستدعاء حاملًا قيمة `‎this‎` الحالية مع المُعاملات `‎arguments‎`.
+
+فمثلًا هنا تأخذ `‎defer(f, ms)‎` دالةً وتُعيد غِلافًا (Wrapper) عليها تُؤجّل الاستدعاء بالمليثوان `‎ms‎` الممرّرة:
+
 ```
-
-```smart header="Arrow functions VS bind"
-There's a subtle difference between an arrow function `=>` and a regular function called with `.bind(this)`:
-
-- `.bind(this)` creates a "bound version" of the function.
-- The arrow `=>` doesn't create any binding. The function simply doesn't have `this`. The lookup of `this` is made exactly the same way as a regular variable search: in the outer lexical environment.
-```
-
-## Arrows have no "arguments"
-
-Arrow functions also have no `arguments` variable.
-
-That's great for decorators, when we need to forward a call with the current `this` and `arguments`.
-
-For instance, `defer(f, ms)` gets a function and returns a wrapper around it that delays the call by `ms` milliseconds:
-
-```js run
 function defer(f, ms) {
   return function() {
     setTimeout(() => f.apply(this, arguments), ms)
@@ -96,12 +93,12 @@ function sayHi(who) {
 }
 
 let sayHiDeferred = defer(sayHi, 2000);
-sayHiDeferred("John"); // Hello, John after 2 seconds
+sayHiDeferred("John"); // ‫Hello, John بعد مرور ثانيتين
 ```
 
-The same without an arrow function would look like:
+يمكن كتابة نفس الشيفرة دون استعمال دالة سهمية هكذا:
 
-```js
+```
 function defer(f, ms) {
   return function(...args) {
     let ctx = this;
@@ -112,15 +109,17 @@ function defer(f, ms) {
 }
 ```
 
-Here we had to create additional variables `args` and `ctx` so that the function inside `setTimeout` could take them.
+هنا لزم أن نصنع المتغيرين الإضافيين `‎args‎` و `‎ctx‎` لتقدر الدالة في `‎setTimeout‎` على أخذ قيمهما.
 
-## Summary
+## ملخص
 
-Arrow functions:
+ليس للدوال السهمية:
 
-- Do not have `this`
-- Do not have `arguments`
-- Can't be called with `new`
-- They also don't have `super`, but we didn't study it yet. We will on the chapter <info:class-inheritance>
+- لا `‎this‎`.
+- ولا `‎arguments‎`.
+- ولا يمكن استدعائها باستعمال `‎new‎`.
+- وليس فيها `‎super‎`... لم نشرح ذلك بعد ولكنّا سنفعل في الفصل «وراثة الأصناف».
 
-That's because they are meant for short pieces of code that do not have their own "context", but rather work in the current one. And they really shine in that use case.
+ليس فيها هذا كله لأنّ الغرض منها كتابة شيفرات قصيرة ليس لها سياق تعتمد عليه بل سياقًا تأخذه، وهنا حين «تتألّق» هذه الدوال.
+ترجمة -وبتصرف- للفصل [Arrow functions revisited](https://javascript.info/arrow-functions) من كتاب [The JavaScript language](https://javascript.info/js)
+

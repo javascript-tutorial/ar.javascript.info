@@ -1,9 +1,9 @@
 
-# Rewrite "rethrow" with async/await
+# أعد كتابة "rethrow" مع غير متزامن / انتظار
 
-Below you can find the "rethrow" example from the chapter <info:promise-chaining>. Rewrite it using `async/await` instead of `.then/catch`.
+يمكنك العثور أدناه على مثال "إعادة النمو" من الفصل <info: prom-chaining>. أعد كتابته باستخدام "غير متزامن / انتظار" بدلاً من ".then / catch".
 
-And get rid of the recursion in favour of a loop in `demoGithubUser`: with `async/await` that becomes easy to do.
+وتخلص من العودية لصالح حلقة في `demoGithubUser`: مع` غير متزامن / انتظار 'يصبح من السهل القيام به.
 
 ```js run
 class HttpError extends Error {

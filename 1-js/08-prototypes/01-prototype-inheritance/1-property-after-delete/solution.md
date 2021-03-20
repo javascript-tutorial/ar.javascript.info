@@ -1,4 +1,4 @@
 
-1. `true`, taken from `rabbit`.
-2. `null`, taken from `animal`.
-3. `undefined`, there's no such property any more.
+1. `true`,  تأتي من `rabbit`.
+2. `null`,  تأتي من `animal`.
+3. `undefined`, إذ ليس هناك خاصية بهذا الاسم بعد الآن.

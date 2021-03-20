@@ -1,185 +1,185 @@
-# Ninja code
+# كود النينجا
 
 
-```quote author="Confucius"
-Learning without thought is labor lost; thought without learning is perilous.
+```quote author="كونفوشيوس"
+التعلم بدون تفكير هو فقدان العمل. الفكر بدون تعلم محفوف بالمخاطر.
 ```
 
-Programmer ninjas of the past used these tricks to sharpen the mind of code maintainers.
+استخدم النينجا المبرمج من الماضي هذه الحيل لشحذ عقل صانعي الكود.
 
-Code review gurus look for them in test tasks.
+معلمو مراجعة الكود يبحثون عنها في الاختبارت.
 
-Novice developers sometimes use them even better than programmer ninjas.
+يستخدمها المبتدئين أحيانًا بشكل أفضل من مبرمج النينجا.
 
-Read them carefully and find out who you are -- a ninja, a novice, or maybe a code reviewer?
+اقرأها بعناية واكتشف من أنت - نينجا ، مبتدئ ، أو ربما مراجع للكود؟
 
 
-```warn header="Irony detected"
-Many try to follow ninja paths. Few succeed.
+```warn header="للسخريه"
+يحاول الكثيرون اتباع مسارات النينجا. قليل ينجح..
 ```
 
 
-## Brevity is the soul of wit
+## الإيجاز هو روح الطرافة(Brevity is the soul of wit)
 
-Make the code as short as possible. Show how smart you are.
+اجعل الكود قصيرًا قدر الإمكان. أظهر مدى ذكائك.
 
-Let subtle language features guide you.
+دع ميزات اللغة الدقيقة ترشدك.
 
-For instance, take a look at this ternary operator `'?'`:
+على سبيل المثال ، ألق نظرة على هذا العامل الثلاثي `'?'`:
 
 ```js
-// taken from a well-known javascript library
+// مأخوذة من مكتبة جافا سكريبت معروفة
 i = i ? i < 0 ? Math.max(0, len + i) : i : 0;
 ```
 
-Cool, right? If you write like that, a developer who comes across this line and tries to understand what is the value of `i` is going to have a merry time. Then come to you, seeking for an answer.
+رائع ، أليس كذلك؟ إذا كنت تكتب بهذه الطريقة ، فإن المطور الذي يأتي عبر هذا الخط ويحاول فهم قيمة `i` سيحصل على وقت مرح. ثم تعال إليكم ، سعيًا للحصول على إجابة.
 
-Tell them that shorter is always better. Initiate them into the paths of ninja.
+أخبرهم أن الأقصر دائمًا أفضل. استهلهم في مسارات النينجا.
 
-## One-letter variables
+## المتغيرات من حرف واحد
 
-```quote author="Laozi (Tao Te Ching)"
-The Dao hides in wordlessness. Only the Dao is well begun and well
-completed.
+```quote author="لاوزي (تاو تي تشينج)"
+داو يخفي في الكلام. فقط داو بدأ بشكل جيد وجيد
+منجز.
 ```
 
-Another way to code faster is to use single-letter variable names everywhere. Like `a`, `b` or `c`.
+هناك طريقة أخرى للكتابه بشكل أسرع وهي استخدام أسماء المتغيرات ذات الحرف الواحد في كل مكان. مثل `a`, `b` او `c`.
 
-A short variable disappears in the code like a real ninja in the forest. No one will be able to find it using "search" of the editor. And even if someone does, they won't be able to "decipher" what the name `a` or `b` means.
+يختفي متغير قصير في الكود مثل نينجا حقيقي في الغابة. لن يتمكن أحد من العثور عليه باستخدام "بحث" المحرر. وحتى لو فعل شخص ما ، فلن يتمكن من معرفه معني `A` او `B`
 
-...But there's an exception. A real ninja will never use `i` as the counter in a `"for"` loop. Anywhere, but not here. Look around, there are many more exotic letters. For instance, `x` or `y`.
+... ولكن هناك استثناء. لن يستخدم النينجا الحقيقي أبدًا `i` كعداد في حلقه `"for"`. في أي مكان ، ولكن ليس هنا. انظر حولك ، هناك العديد من الحروف الغريبة. على سبيل المثال, `x` او `y`.
 
-An exotic variable as a loop counter is especially cool if the loop body takes 1-2 pages (make it longer if you can). Then if someone looks deep inside the loop, they won't be able to quickly figure out that the variable named `x` is the loop counter.
+يعتبر المتغير الغريب كعدّاد حلقة رائعًا بشكل خاص إذا كان جسم الحلقة يستغرق 1-2 صفحة (اجعله أطول إذا استطعت). ثم إذا نظر شخص ما بعمق داخل الحلقة ، فلن يتمكن بسرعه من معرفة المتغير المسمى `x` كعداد للحلقه.
 
-## Use abbreviations
+## استخدم الاختصارات
 
-If the team rules forbid the use of one-letter and vague names -- shorten them, make abbreviations.
+إذا كانت قواعد الفريق تمنع استخدام أسماء ذات أحرف واحدة وغامضة - اختصرها ، قم بعمل اختصارات.
 
-Like this:
+مثل هذا:
 
 - `list` -> `lst`.
 - `userAgent` -> `ua`.
 - `browser` -> `brsr`.
 - ...etc
 
-Only the one with truly good intuition will be able to understand such names. Try to shorten everything. Only a worthy person should be able to uphold the development of your code.
+فقط الشخص ذي الحدس الجيد حقًا سيكون قادرًا على فهم هذه الأسماء. حاول تقصير كل شيء. يجب أن يكون الشخص الجدير فقط قادرًا على دعم تطوير التعليمات البرمجية الخاصة بك.
 
-## Soar high. Be abstract.
+## ارتفاع عال. كن مجردة.
 
-```quote author="Laozi (Tao Te Ching)"
-The great square is cornerless<br>
-The great vessel is last complete,<br>
-The great note is rarified sound,<br>
-The great image has no form.
+```quote author="لاوزي (تاو تي تشينج)"
+الميدان العظيم بلا زاوية<br>
+آخر سفينة كاملة ،<br>
+الملاحظة العظيمة هي صوت نادر ،<br>
+الصورة الرائعة ليس لها شكل.
 ```
 
-While choosing a name try to use the most abstract word. Like `obj`, `data`, `value`, `item`, `elem` and so on.
+أثناء اختيار اسم ، حاول استخدام الكلمة الأكثر تجريدًا. مثل`obj`, `data`, `value`, `item`, `elem` و هكذا.
 
-- **The ideal name for a variable is `data`.** Use it everywhere you can. Indeed, every variable holds *data*, right?
+- **الاسم المثالي للمتغير هو `data`.** استخدمه في كل مكان تستطيع. في الواقع ، كل متغير يحمل *data*, صحيح؟
 
-    ...But what to do if `data` is already taken? Try `value`, it's also universal. After all, a variable eventually gets a *value*.
+    ... ولكن ماذا تفعل إذا `data` تم استخدامه بالفعل؟ جرب `value`، إنه عالمي أيضًا. بعد كل شيء ، يحصل المتغير في النهاية على *value*.
 
-- **Name a variable by its type: `str`, `num`...**
+- **تسمية متغير حسب نوعه: `str`, `num`...**
 
-    Give them a try. A young initiate may wonder -- are such names really useful for a ninja? Indeed, they are!
+    جربهم. قد يتساءل مبتدئ شاب - هل هذه الأسماء مفيدة حقًا للنينجا؟ في الواقع ، هم كذالك!
 
-    Sure, the variable name still means something. It says what's inside the variable: a string, a number or something else. But when an outsider tries to understand the code, they'll be surprised to see that there's actually no information at all! And will ultimately fail to alter your well-thought code.
+    بالتأكيد ، لا يزال اسم المتغير يعني شيئًا. تقول ما بداخل المتغير: سلسلة أو رقم أو أي شيء آخر. ولكن عندما يحاول شخص غريب فهم الكود ، سوف يفاجأ عندما يرى أنه لا توجد معلومات على الإطلاق! وسوف يفشل في نهاية المطاف في تغيير رمزك المدروس.
 
-    The value type is easy to find out by debugging. But what's the meaning of the variable? Which string/number does it store?
+    من السهل معرفة نوع القيمة عن طريق التصحيح. لكن ما معنى المتغير؟ ما السلسلة / الرقم الذي يخزنه؟
 
-    There's just no way to figure out without a good meditation!
+    لا توجد طريقة لمعرفة دون تأمل جيد!
 
-- **...But what if there are no more such names?** Just add a number: `data1, item2, elem5`...
+- **... ولكن ماذا لو لم يعد هناك مثل هذه الأسماء؟** ما عليك سوى إضافة رقم: `data1, item2, elem5`...
 
-## Attention test
+## اختبار الانتباه
 
-Only a truly attentive programmer should be able to understand your code. But how to check that?
+فقط المبرمج اليقظ حقًا يجب أن يكون قادرًا على فهم كودك. ولكن كيف يمكنك التحقق من ذلك؟
 
-**One of the ways -- use similar variable names, like `date` and `data`.**
+**إحدى الطرق - استخدم أسماء متغيرات مماثلة ، مثل `date` و `data`.**
 
-Mix them where you can.
+مزجها حيث يمكنك.
 
-A quick read of such code becomes impossible. And when there's a typo... Ummm... We're stuck for long, time to drink tea.
+تصبح القراءة السريعة لمثل هذا الرمز مستحيلة. وعندما يكون هناك خطأ مطبعي ... أمممم ... نحن عالقون لفترة طويلة لشرب الشاي.
 
 
-## Smart synonyms
+## المرادفات الذكية
 
-```quote author="Confucius"
-The hardest thing of all is to find a black cat in a dark room, especially if there is no cat.
+```quote author="كونفوشيوس"
+أصعب شيء على الإطلاق هو العثور على قطة سوداء في غرفة مظلمة ، خاصة إذا لم يكن هناك قطة.
 ```
 
-Using *similar* names for *same* things makes life more interesting and shows your creativity to the public.
+استخدام *أسماء مشابهة* للأشياء *نفسها* يجعل الحياة أكثر إثارة ويظهر إبداعك للجمهور.
 
-For instance, consider function prefixes. If a function shows a message on the screen -- start it with `display…`, like `displayMessage`. And then if another function shows on the screen something else, like a user name, start it with `show…` (like `showName`).
+على سبيل المثال, النظر في البادئات الوظيفية. إذا أظهرت داله رسالة على الشاشة -- بدأتها ب `display…`, مثل `displayMessage`. ثم إذا ظهرت داله أخرى على الشاشة شيء آخر ، مثل اسم المستخدم, بدأتها ب `show…` (مثل `showName`).
 
-Insinuate that there's a subtle difference between such functions, while there is none.
+افترض أن هناك اختلافًا دقيقًا بين هذه الدوال ، في حين أنه لا يوجد أي منها.
 
-Make a pact with fellow ninjas of the team: if John starts "showing" functions with `display...` in his code, then Peter could use `render..`, and Ann -- `paint...`. Note how much more interesting and diverse the code became.
+عقد اتفاق مع زملاء النينجا في الفريق: إذا بدأ جون في "إظهار" الدوال مع `display...` في الكود الخاص بيه, ثم يمكن أن يستخدم بيتر `render..`, وآن -- `paint...`. لاحظ كم أصبح الكود أكثر إثارة للاهتمام وتنوعًا.
 
-...And now the hat trick!
+... والآن خدعة القبعة!
 
-For two functions with important differences -- use the same prefix!
+من أجل دالتين مع اختلافات مهمة - استخدم نفس البادئة!
 
-For instance, the function `printPage(page)` will use a printer. And the function `printText(text)` will put the text on-screen. Let an unfamiliar reader think well over similarly named function `printMessage`: "Where does it put the message? To a printer or on the screen?". To make it really shine, `printMessage(message)` should output it in the new window!
+على سبيل المثال ، الدالة `printPage(page)` سيستخدم طابعة. و الدالة `printText(text)` ستضع النص على الشاشة. دع القارئ غير المألوف يفكر جيدًا في الدالة المسماة بشكل مشابه `printMessage`: "أين تضع الرسالة؟ إلى طابعة أو على الشاشة؟". لجعلها حقا تلمع, `printMessage(message)` يجب إخراجها في النافذة الجديدة!
 
-## Reuse names
+## إعادة استخدام الأسماء
 
-```quote author="Laozi (Tao Te Ching)"
-Once the whole is divided, the parts<br>
-need names.<br>
-There are already enough names.<br>
-One must know when to stop.
+```quote author="لاوزي (تاو تي تشينج)"
+بمجرد تقسيم الكل ، الأجزاء <br>
+بحاجة إلى أسماء. <br>
+هناك أسماء كافية بالفعل. <br>
+يجب على المرء أن يعرف متى يتوقف.
 ```
 
-Add a new variable only when absolutely necessary.
+أضف متغير جديد فقط عند الضرورة القصوى.
 
-Instead, reuse existing names. Just write new values into them.
+بدلاً من ذلك ، أعد استخدام الأسماء الموجودة. فقط اكتب القيم الجديدة فيها.
 
-In a function try to use only variables passed as parameters.
+في دالة حاول استخدام المتغيرات التي تم تمريرها كمعلمات فقط.
 
-That would make it really hard to identify what's exactly in the variable *now*. And also where it comes from. The purpose is to develop the intuition and memory of a person reading the code. A person with weak intuition would have to analyze the code line-by-line and track the changes through every code branch.
+سيجعل ذلك من الصعب تحديد ما هو بالضبط في المتغير *الآن*. وأيضاً من أين تأتي. والغرض من ذلك هو تطوير الحدس والذاكرة لشخص يقرأ الكود. سيتعين على الشخص ذي الحدس الضعيف تحليل الكود سطراً بسطر وتتبع التغييرات من خلال كل فرع رمز.
 
-**An advanced variant of the approach is to covertly (!) replace the value with something alike in the middle of a loop or a function.**
+**من البدائل المتقدمة للنهج استبدال (!) بشكل خفي بالقيمة بشيء مماثل في منتصف حلقة أو دالة.**
 
-For instance:
+على سبيل المثال:
 
 ```js
 function ninjaFunction(elem) {
-  // 20 lines of code working with elem
+  // elem عشرون سطر من التعليمات البرمجية تعمل مع
 
   elem = clone(elem);
 
-  // 20 more lines, now working with the clone of the elem!
+  // ! elem عشرون سطر أخرى ، تعمل الآن مع استنساخ
 }
 ```
 
-A fellow programmer who wants to work with `elem` in the second half of the function will be surprised... Only during the debugging, after examining the code they will find out that they're working with a clone!
+سوف يفاجأ أحد المبرمجين الزملاء الذين يرغبون في العمل مع `elem` في النصف الثاني من الوظيفة ... فقط أثناء تصحيح الأخطاء ، بعد فحص الكود سيكتشفون أنهم يعملون مع clone!
 
-Seen in code regularly. Deadly effective even against an experienced ninja.
+ينظر إليها في التعليمات البرمجية بانتظام. فعال للغاية حتى ضد النينجا المتمرسين.
 
-## Underscores for fun
+## الشرطه السفليه للمتعة
 
-Put underscores `_` and `__` before variable names. Like `_name` or `__value`. It would be great if only you knew their meaning. Or, better, add them just for fun, without particular meaning at all. Or different meanings in different places.
+ضع الشرطات السفلية `_` و` __` قبل أسماء المتغيرات. مثل `_name` أو `__value`. سيكون أمرا رائعا لو كنت تعرف معناها فقط. أو ، أفضل ، إضافتها للمتعة فقط ، دون معنى خاص على الإطلاق. أو معاني مختلفة في أماكن مختلفة.
 
-You kill two rabbits with one shot. First, the code becomes longer and less readable, and the second, a fellow developer may spend a long time trying to figure out what the underscores mean.
+أنت تقتل أرنبين بطلقة واحدة. أولاً ، يصبح الرمز أطول وأقل قابلية للقراءة ، والثاني ، قد يقضي المطور الزميل وقتًا طويلاً في محاولة لمعرفة ما يعنيه الخط السفلي.
 
-A smart ninja puts underscores at one spot of code and evades them at other places. That makes the code even more fragile and increases the probability of future errors.
+يضع النينجا الذكي شرطات سفلية في نقطة واحدة من الكود ويتهرب منها في أماكن أخرى. وهذا يجعل الكود أكثر هشاشة ويزيد من احتمال حدوث أخطاء في المستقبل.
 
-## Show your love
+## اظهر حبك
 
-Let everyone see how magnificent your entities are! Names like `superElement`, `megaFrame` and `niceItem` will definitely enlighten a reader.
+دع الجميع يرون كم هي رائعة كياناتك! أسماء مثل `superElement`, `megaFrame` و `niceItem` سوف تنير القارئ بالتأكيد.
 
-Indeed, from one hand, something is written: `super..`, `mega..`, `nice..` But from the other hand -- that brings no details. A reader may decide to look for a hidden meaning and meditate for an hour or two of their paid working time.
+في الواقع ، من جهة ، شيء مكتوب: `super..`, `mega..`, `nice..` لكن من ناحية أخرى -- لا يجلب أي تفاصيل. قد يقرر القارئ البحث عن معنى خفي والتأمل لمدة ساعة أو ساعتين من وقت العمل المدفوع.
 
 
-## Overlap outer variables
+## تداخل المتغيرات الخارجية
 
 ```quote author="Guan Yin Zi"
-When in the light, can't see anything in the darkness.<br>
-When in the darkness, can see everything in the light.
+عندما تكون في النور ، لا يمكنك رؤية أي شيء في الظلام. <br>
+عندما تكون في الظلام ، يمكنك رؤية كل شيء في الضوء.
 ```
 
-Use same names for variables inside and outside a function. As simple. No efforts to invent new names.
+استخدم نفس الأسماء للمتغيرات داخل وخارج الدالة. بسيطة. لا جهود لاختراع أسماء جديدة.
 
 ```js
 let *!*user*/!* = authenticateUser();
@@ -189,52 +189,52 @@ function render() {
   ...
   ...many lines...
   ...
-  ... // <-- a programmer wants to work with user here and...
+  ... // <-- مبرمج يريد العمل مع المستخدم هنا و ...
   ...
 }
 ```
 
-A programmer who jumps inside the `render` will probably fail to notice that there's a local `user` shadowing the outer one.
+مبرمج يقفز داخل `render` ربما سيفشل في ملاحظة وجود `user` محلي تظليل الخارجي.
 
-Then they'll try to work with `user` assuming that it's the external variable, the result of `authenticateUser()`... The trap is sprung! Hello, debugger...
-
-
-## Side-effects everywhere!
-
-There are functions that look like they don't change anything. Like `isReady()`, `checkPermission()`, `findTags()`... They are assumed to carry out calculations, find and return the data, without changing anything outside of them. In other words, without "side-effects".
-
-**A really beautiful trick is to add a "useful" action to them, besides the main task.**
-
-An expression of dazed surprise on the face of your colleague when they see a function named `is..`, `check..` or `find...` changing something -- will definitely broaden your boundaries of reason.
-
-**Another way to surprise is to return a non-standard result.**
-
-Show your original thinking! Let the call of `checkPermission` return not `true/false`, but a complex object with the results of the check.
-
-Those developers who try to write `if (checkPermission(..))`, will wonder why it doesn't work. Tell them: "Read the docs!". And give this article.
+ثم سيحاولون العمل مع `user`  بافتراض أنه المتغير الخارجي, نتيجة كل هذا `authenticateUser()`... انتشر الفخ! مرحبا المصحح ...
 
 
-## Powerful functions!
+## الآثار الجانبية في كل مكان!
 
-```quote author="Laozi (Tao Te Ching)"
-The great Tao flows everywhere,<br>
-both to the left and to the right.
+هناك دوال تبدو وكأنها لا تغير أي شيء. مثل `isReady()`, `checkPermission()`, `findTags()`... ويفترض أنهم يقومون بإجراء الحسابات والعثور على البيانات وإعادتها دون تغيير أي شيء خارجها. وبعبارة أخرى ، بدون "آثار جانبية".
+
+**خدعة جميلة حقًا هي إضافة إجراء "مفيد" لهم ، إلى جانب المهمة الرئيسية.**
+
+تعبير عن المفاجأة المذهلة على وجه زميلك عندما يرون وظيفة مسماة `is..`, `check..` أو `find...` تغيير شيء - سيوسع بالتأكيد حدودك العقلانية.
+
+**طريقة أخرى للمفاجأة هي إرجاع نتيجة غير قياسية.**
+
+أظهر تفكيرك الأصلي! دع استدعاء `checkPermission` لا يسترجع `true/false`, ولكن كائن معقد مع نتائج الشيك.
+
+هؤلاء المطورين الذين يحاولون الكتابة `if (checkPermission(..))`, سوف يتساءل لماذا لا يعمل. قل لهم: "اقرأ المستندات!". وتعطي هذه المقالة.
+
+
+## دوال قوية!
+
+```quote author="لاوزي (تاو تي تشينج)"
+يتدفق Tao العظيم في كل مكان ، <br>
+إلى اليسار وإلى اليمين.
 ```
 
-Don't limit the function by what's written in its name. Be broader.
+لا تحد من الدالة بما هو مكتوب باسمها. كن أوسع.
 
-For instance, a function `validateEmail(email)` could (besides checking the email for correctness) show an error message and ask to re-enter the email.
+على سبيل المثال ، الدالة `validateEmail(email)` يمكن (إلى جانب التحقق من صحة البريد الإلكتروني) إظهار رسالة خطأ وطلب إعادة إدخال البريد الإلكتروني.
 
-Additional actions should not be obvious from the function name. A true ninja coder will make them not obvious from the code as well.
+يجب ألا تكون الإجراءات الإضافية واضحة من اسم الوظيفة. مبرمج النينجا الحقيقي سيجعلهم غير واضحين من الكود كذلك.
 
-**Joining several actions into one protects your code from reuse.**
+**يؤدي ضم العديد من الإجراءات إلى إجراء واحد إلى حماية كودك من إعادة الاستخدام.**
 
-Imagine, another developer wants only to check the email, and not output any message. Your function  `validateEmail(email)` that does both will not suit them. So they won't break your meditation by asking anything about it.
+تخيل ، مطور آخر يريد فقط التحقق من البريد الإلكتروني ، وليس إخراج أي رسالة. وظيفتك  `validateEmail(email)` أن كلاهما لن يناسبهما. لذلك لن يكسروا تأملكم بسؤال أي شيء عنه.
 
-## Summary
+## ملخص
 
-All "pieces of advice" above are from the real code... Sometimes, written by experienced developers. Maybe even more experienced than you are ;)
+جميع "النصائح" الواردة أعلاه مستمدة من الكود الحقيقي ... وأحيانًا يكتبها مطورون متمرسون. ربما أكثر خبرة منك ؛)
 
-- Follow some of them, and your code will become full of surprises.
-- Follow many of them, and your code will become truly yours, no one would want to change it.
-- Follow all, and your code will become a valuable lesson for young developers looking for enlightenment.
+- اتبع بعضها ، وسيصبح كودك مليئة بالمفاجآت.
+- اتبع العديد منها ، وسيصبح كودك حقًا لك ، ولن يرغب أحد في تغييرها.
+- اتبع الكل ، وستصبح شفرتك درساً قيماً للمطورين الشباب الباحثين عن التنوير.

@@ -1,9 +1,12 @@
-The answer is: **Pete**.
+أفترض الآن بأنّ إجابة السؤال الثاني في أول الفصل ستكون جليّة.
 
-The `work()` function in the code below gets `name` from the place of its origin through the outer lexical environment reference:
+دالة `‎work()‎` في الشيفرة أدناه تأخذ الاسم `‎name‎` من مكانه الأصل عبر إشارة البيئة المُعجمية الخارجية إليه:
+
 
 ![](lexenv-nested-work.svg)
 
-So, the result is `"Pete"` here.
 
-But if there were no `let name` in `makeWorker()`, then the search would go outside and take the global variable as we can see from the chain above. In that case the result would be `"John"`.
+إذًا، فالناتج هنا هو `‎"Pete"‎`.
+
+ولكن لو لم نكتب `‎let name‎` في `‎makeWorker()‎` فسينتقل البحث إلى خارج الدالة تلك ويأخذ القيمة العمومية كما نرى من السلسلة أعلاه. في تلك الحالة سيكون الناتج `‎"John"‎`.
+

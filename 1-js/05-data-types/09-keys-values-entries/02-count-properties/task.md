@@ -2,20 +2,17 @@ importance: 5
 
 ---
 
-# Count properties
+# عدد الخاصيات
 
-Write a function `count(obj)` that returns the number of properties in the object:
+اكتب دالة باسم count(obj)‎ تُعيد عدد الخاصيات داخل الكائن:
 
 ```js
 let user = {
-  name: 'John',
+  name: "John",
   age: 30
 };
 
-alert( count(user) ); // 2
+alert(count(user)); // 2
 ```
 
-Try to make the code as short as possible.
-
-P.S. Ignore symbolic properties, count only "regular" ones.
-
+حاوِل أن تكون الشيفرة بأصغر ما أمكن.

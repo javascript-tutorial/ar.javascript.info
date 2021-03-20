@@ -1,159 +1,144 @@
-# Code structure
+# بنية الشيفرة البرمجية
+في هذا المقال، سنبدأ بتعلم أساسيات كتابة الشيفرة البرمجية في لغة JavaScript. هل أنت مستعد؟ لننطلق!
 
-The first thing we'll study is the building blocks of code.
+## التعابير البرمجية
+التعابير البرمجية هي صياغة التراكيب والأوامر التي تنفذ الأعمال في السكربت. رأيت سابقًا التعبير البرمجي،
+`alert('Hello, world!')‎`، الذي يُظهر الرسالة "Hello, world!‎".
+بإمكانك استخدام تعابير بقدر ما تريد في شيفرتك البرمجية. ويمكن فصل التعابير البرمجية عن بعضها بالفاصلة المنقوطة
+(`;`).
+مثلًا، بإمكاننا فصل "Hello World" إلى تنبيهين منفصلين بالشكل التالي:
 
-## Statements
-
-Statements are syntax constructs and commands that perform actions.
-
-We've already seen a statement, `alert('Hello, world!')`, which shows the message "Hello, world!".
-
-We can have as many statements in our code as we want. Statements can be separated with a semicolon.
-
-For example, here we split "Hello World" into two alerts:
-
-```js run no-beautify
+```
 alert('Hello'); alert('World');
 ```
 
-Usually, statements are written on separate lines to make the code more readable:
+تُكتب التعابير البرمجية عادةً على أسطر منفصلة لتسهيل قراءة الشيفرة البرمجية:
 
-```js run no-beautify
+```
 alert('Hello');
 alert('World');
 ```
 
-## Semicolons [#semicolon]
+## الفاصلة المنقوطة
+يمكن حذف الفاصلة المنقوطة من آخر التعابير البرمجية في معظم الحالات عند الانتقال إلى سطر جديد. أي أن الشيفرة
+البرمجية التالية ستعمل أيضًا بشكل صحيح:
 
-A semicolon may be omitted in most cases when a line break exists.
-
-This would also work:
-
-```js run no-beautify
+```
 alert('Hello')
 alert('World')
 ```
+تُفسِّر لغة JavaScript الانتقال إلى سطر جديد بفاصلة منقوطة (ضمنيًا). وهذا ما يُسمى (الاضافة التلقائية للفاصلة
+المنقوطة [Automatic semicolon insertion]).
 
-Here, JavaScript interprets the line break as an "implicit" semicolon. This is called an [automatic semicolon insertion](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion).
+**في معظم الحالات، يتضمن السطر جديد فاصلةً منقوطةً افتراضية في آخره. ولكن هذا لا يشمل جميع الحالات.** هناك
+حالات لا يحوي فيها السطر الجديد بالضرورة فاصلةً منقوطةً افتراضية. إليك مثلًا:
 
-**In most cases, a newline implies a semicolon. But "in most cases" does not mean "always"!**
-
-There are cases when a newline does not mean a semicolon. For example:
-
-```js run no-beautify
-alert(3 +
+```
+alert(3+
 1
-+ 2);
++2);
 ```
+خرج الشيفرة البرمجية السابقة هو 6 لأنَّ لغة JavaScript لا تضيف الفاصلة المنقوطة في هذه الحالة. فمن البديهي أنه عند
+انتهاء السطر بإشارة '+' يكون التعبير ناقصًا (incomplete expression)، وبالتالي لا يتطلب وجود فاصلة منقوطة.
+لذلك، تعمل الشيفرة البرمجية كما هو مطلوب.
+لا تعتمد دائمًا على javaScript لإضافة الفاصلة المنقوطة لأنه **توجد حالات تفشل فيها لغة JavaScript بإضافة
+الفاصلة المنقوطة عندما تكون مطلوبة**. والأخطاء التي تحدث نتيجة هذه الحالات صعبة الإيجاد والإصلاح (ستكتشف ذلك
+قريبًا خلال الشيفرات التي ستكتبها).
+إذا كنت ترغب في الاطلاع على مثال واقعي عن هذه الحالة، إليك الشيفرة البرمجية التالية:
 
-The code outputs `6` because JavaScript does not insert semicolons here. It is intuitively obvious that if the line ends with a plus `"+"`, then it is an "incomplete expression", so the semicolon is not required. And in this case that works as intended.
-
-**But there are situations where JavaScript "fails" to assume a semicolon where it is really needed.**
-
-Errors which occur in such cases are quite hard to find and fix.
-
-````smart header="An example of an error"
-If you're curious to see a concrete example of such an error, check this code out:
-
-```js run
-[1, 2].forEach(alert)
 ```
-
-No need to think about the meaning of the brackets `[]` and `forEach` yet. We'll study them later. For now, just remember the result of the code: it shows `1` then `2`.
-
-Now, let's add an `alert` before the code and *not* finish it with a semicolon:
-
-```js run no-beautify
+[1, 2].foreach(alert)
+```
+لا تقلق إن كانت هذه الشيفرة صعبة الفهم عليك، فليس هناك حاجة الآن لفهم معنى الأقواس المعقوفة `[]` أو التعبير البرمجي
+`forEach`، فسندرسهم لاحقًا. ولكن أبقِ في ذهنك أن خرج هذه الشيفرة البرمجية هو إظهار 1 ثم 2.
+سنضيف الآن تنبيهًا (alert) قبل الشيفرة البرمجية السابقة دون وضع الفاصلة المنقوطة في نهاية العبارة البرمجية:
+```
 alert("There will be an error")
-
-[1, 2].forEach(alert)
+[1 ,2].forEach(alert)
 ```
+عند تنفيذ الشيفرة البرمجية آنذاك، سيتم إظهار التنبيه الأول فقط ثم سنحصل على خطأ. تعود الشيفرة البرمجية للعمل بشكل
+صحيح مرة أخرى عند إضافة الفاصلة المنقوطة بعد التنبيه الأول:
 
-Now if we run the code, only the first `alert` is shown and then we have an error!
-
-But everything is fine again if we add a semicolon after `alert`:
-```js run
+```
 alert("All fine now");
-
-[1, 2].forEach(alert)  
+[1 ,2].forEach(alert)
 ```
 
-Now we have the "All fine now" message followed by `1` and `2`.
+تظهر لدينا الآن الرسالة "All fine now"، ثم 1 و 2.
+الخطأ الذي حدث في الحالة الأولى (حالة عدم إضافة الفاصلة المنقوطة)، سببه أنَّ لغة JavaScript لا تضيف الفاصلة
+المنقوطة تلقائيًا عند الانتقال إلى سطر جديد في حال وجود الأقواس المعقوفة `[…]` في بداية هذا السطر. وبالتالي لن تُضاف
+الفاصلة المنقوطة تلقائيًا في الحالة الأولى وسيتم التعامل مع الشيفرة البرمجية كعبارة برمجية واحدة. أي سيراها المحرك
+بالشكل التالي:
 
-
-The error in the no-semicolon variant occurs because JavaScript does not assume a semicolon before square brackets `[...]`.
-
-So, because the semicolon is not auto-inserted, the code in the first example is treated as a single statement. Here's how the engine sees it:
-
-```js run no-beautify
+```
 alert("There will be an error")[1, 2].forEach(alert)
 ```
+ولكنهما عبارتين برمجيتين منفصلتين وليستا عبارة واحدة، وبالتالي عملية الدمج في هذه الحالة خطأ. من الممكن أن تتكرر
+هذه الحالة ضمن شروط أخرى.
+بناءً على ما سبق، ننصحك بإضافة الفاصلة المنقوطة بين التعابير البرمجيَّة حتى لو قمت بفصلها بأسطر جديدة. وهذه هي
+القاعدة الأكثر اتباعًا بين مستخدمي JavaScript. لنراجع سويةً ما ذُكر سابقًا، من الممكن الاستغناء عن الفاصلة المنقوطة
+في معظم الحالات، ولكن من الأفضل إضافتها في آخر العبارة البرمجية - وخاصةً بالنسبة للمبتدئين - تجنبًا للوقوع في أخطاء
+عصية التنقيح والتصحيح أنت بغنًى عنها.
 
-But it should be two separate statements, not one. Such a merging in this case is just wrong, hence the error. This can happen in other situations.
-````
+## التعليقات
+تصبح البرامج أكثر تعقيدًا مع مرور الوقت. ويكون ضروريًا إضافة التعليقات لشرح عمل الشيفرة البرمجية. يمكن وضع
+التعليقات في أي مكان ضمن السكربت دون أن تؤثر على تنفيذه، لأنَّ المحرك ببساطة يتجاهل جميع التعليقات.
+**التعليقات المكتوبة على سطر واحد تبدأ بخطين مائلين (forward slash) بالشكل `//`**. ويكون الجزء التالي للخطين
+المائلين على نفس السطر تعليقًا. ومن الممكن أن يشغل التعليق سطرًا كاملًا أو يأتي التعليق بعد العبارة البرمجية.
+إليك المثال التالي الذي يشرح ما سبق:
 
-We recommend putting semicolons between statements even if they are separated by newlines. This rule is widely adopted by the community. Let's note once again -- *it is possible* to leave out semicolons most of the time. But it's safer -- especially for a beginner -- to use them.
-
-## Comments [#code-comments]
-
-As time goes on, programs become more and more complex. It becomes necessary to add *comments* which describe what the code does and why.
-
-Comments can be put into any place of a script. They don't affect its execution because the engine simply ignores them.
-
-**One-line comments start with two forward slash characters `//`.**
-
-The rest of the line is a comment. It may occupy a full line of its own or follow a statement.
-
-Like here:
-```js run
-// This comment occupies a line of its own
-alert('Hello');
-
-alert('World'); // This comment follows the statement
 ```
 
-**Multiline comments start with a forward slash and an asterisk <code>/&#42;</code> and end with an asterisk and a forward slash <code>&#42;/</code>.**
+// يمتد هذا التعليق على كامل السطر فقط
 
-Like this:
+alert('Hello');
+alert('World'); // هذا تعليق يلي تعبيرًا برمجيًّا
+```
+**وإن أردت كتابة تعليقات تمتد على عدَّة أسطر، فابدأ التعليق متعدد الأسطر بخط مائل يليه رمز النجمة (أي `‎/*‎`) ، وأنهِ
+التعليق برمز النجمة ثم الخط المائل (أي `‎*/‎`) **. إليك المثال التالي:
 
-```js run
-/* An example with two messages.
-This is a multiline comment.
+```
+/* يُظهر هذا المثال تنبيهين
+
+وهذا التعليق متعدد
+الأسطر
 */
 alert('Hello');
 alert('World');
 ```
+يجري تجاهل كل ما يقع داخل التعليق متعدد الأسطر، وبالتالي لا تُنفَّذ أية شيفرة برمجية موجودة داخل `/*…*/`.
+أحيانًا، يكون من المفيد إلغاء تفعيل جزء من الشيفرة البرمجية مؤقتًا أثناء تنقيح الأخطاء:
 
-The content of comments is ignored, so if we put code inside <code>/&#42; ... &#42;/</code>, it won't execute.
-
-Sometimes it can be handy to temporarily disable a part of code:
-
-```js run
-/* Commenting out the code
+```
+/* تعليق جزء من الشيفرة
 alert('Hello');
 */
 alert('World');
 ```
 
-```smart header="Use hotkeys!"
-In most editors, a line of code can be commented out by pressing the `key:Ctrl+/` hotkey for a single-line comment and something like `key:Ctrl+Shift+/` -- for multiline comments (select a piece of code and press the hotkey). For Mac, try `key:Cmd` instead of `key:Ctrl` and `key:Option` instead of `key:Shift`.
+### استخدام الاختصارات
+من الممكن تعليق سطر واحد من الشيفرة البرمجية بالضغط على الاختصار Ctrl+/‎ في معظم المُحرِّرات وبيئات التطوير.
+ومن أجل التعليقات متعددة الأسطر من الممكن استخدام الاختصار Ctrl+Shift+/، (عليك أن تحدد جزءًا من الشيفرة
+البرمجية ثم الضغط على الاختصار). في الأجهزة التي تعمل على الماك، جرّب Cmd عوضًا عن Ctrl.
+
+**تحذير:** التعليقات المتداخلة متعددة الأسطر غير مدعومة. أي لا يمكنك وضع `/*…*/` داخل
+`/*…*/` آخر، إذ ستنتهي هذه الشيفرة البرمجية بخطأ:
+
 ```
-
-````warn header="Nested comments are not supported!"
-There may not be `/*...*/` inside another `/*...*/`.
-
-Such code will die with an error:
-
-```js run no-beautify
 /*
-  /* nested comment ?!? */
+/*تعليق متشعب*/
 */
-alert( 'World' );
+alert('World');
 ```
-````
+لا تتردد أبدًا في وضع التعليقات ضمن شيفرتك البرمجية وشرح ما الذي يجري فيها لأنك عندما تعود إليها لاحقًا، ستجد غالبًا
+أنك نسيت وظيفة كل جزء من شيفرتك.
 
-Please, don't hesitate to comment your code.
+قد تزيد التعليقات من حجم الشيفرة ولكن هذه ليست بمشكلة. هناك العديد من الأدوات التي تُقلِّص الشيفرة البرمجية قبل نشرها
+على خادم الإنتاج، إذ تَحذِف التعليقات من السكربت نهائيًّا ولا يبقَ لها بذلك أي أثر. في تلك الحالة، لا يكون للتعليقات أي آثار
+سلبية عند الإنتاج. لا تقلق مرة أخرى إن لم تتضح لك الصورة ولم تفهم بعض المصطلحات (مثل ما الذي يقصد بالإنتاج) فكل
+شيء سيتضح تدريجيًّا.
+لاحقًا في هذه السلسلة التعليمية، سيكون هناك فصل عن جودة الشيفرة البرمجية والذي يشرح طريقة كتابة التعليقات بشكل
+أفضل.
 
-Comments increase the overall code footprint, but that's not a problem at all. There are many tools which minify code before publishing to a production server. They remove comments, so they don't appear in the working scripts. Therefore, comments do not have negative effects on production at all.
-
-Later in the tutorial there will be a chapter <info:code-quality> that also explains how to write better comments.
+ترجمة -وبتصرف- للفصل [Code structure](https://javascript.info/structure) من كتاب [The
+JavaScript Language](https://javascript.info/js)

@@ -1,63 +1,40 @@
-# Developer console
+# أدوات المطور
+أبقِ في بالك أن الشيفرة البرمجية عرضةً لاحتواء الكثير من الأخطاء، إذ احتمال ارتكابك الأخطاء كبير أثناء كتابة الشيفرة البرمجية، لا بل وقوعك فيها هو أمر حتمي طالما أنك إنسان ولست رجلًا آليًا. هل تصدق أنه حتى المبرمجين المتمرسين وذوي الخبرة الطويلة يرتكبون الكثير من الأخطاء في الشيفرة التي يكتبونها! لا تقلق فهذا أمر طبيعي.
+على أي حال، لا تُظهِر المتصفِّحات الأخطاء البرمجية تلقائيًا للمستخدمين. وعند وجود مشكلة ما في السكربت، ولا يمكنك آنذاك تحديد مكانها، وبالتالي لا يمكن إصلاحها. لذلك، أُضيفت «أدوات المطوّر» (developer tools) إلى المتصفِّحات لاسكتشاف الأخطاء وتوفير معلومات مفيدة عن السكربت لتحسينه.
 
-Code is prone to errors. You will quite likely make errors... Oh, what am I talking about? You are *absolutely* going to make errors, at least if you're a human, not a [robot](https://en.wikipedia.org/wiki/Bender_(Futurama)).
+يفضل معظم المطورون العمل على متصفِّحي Chrome أو FireFox لاحتوائهما على أفضل أدوات المطوّر. توفر المتصفِّحات الأخرى أيضًا مجموعة أدوات للمطوّر والتي من الممكن أن تحتوي على مزايا خاصة. لكن عادةً ما تحاول اللحاق بمتصفِّحي Chrome و FireFox الأفضل من هذه الناحية. يفضل المطوّرون بشكل عام العمل على متصفِّح واحد وينتقلون إلى متصفِّح آخر عندما تكون المشكلة التي يعملون عليها محدَّدة بهذا المتصفِّح.
 
-But in the browser, users don't see errors by default. So, if something goes wrong in the script, we won't see what's broken and can't fix it.
+بناءً على ذلك، نجد أنَّ أدوات المطور مهمة للغاية لما تمتلكه من مزايا تساعدك أثناء مسيرتك في تطوير الويب عبر JavaScript. سنتعلم في البداية طريقة فتحها، واستخدامها لاستكشاف الأخطاء، وتشغيل تعليمات JavaScript ضمنها.
 
-To see errors and get a lot of other useful information about scripts, "developer tools" have been embedded in browsers.
+## أدوات المطور في متصفح Google Chrome
+قم بفتح الصفحة [bug.html](https://javascript.info/article/devtools/bug.html). يوجد خطأ في الشيفرة المكتوبة بلغة JavaScript غير ظاهر للزائر العادي، لذا سنستخدم أدوات المطوّر لاكتشافه.
 
-Most developers lean towards Chrome or Firefox for development because those browsers have the best developer tools. Other browsers also provide developer tools, sometimes with special features, but are usually playing "catch-up" to Chrome or Firefox. So most developers have a "favorite" browser and switch to others if a problem is browser-specific.
+اضغط على F12 (أو الاختصار Cmd+Opt+J إذا كنت تستخدم نظام التشغيل «ماك») وسيفتح ذلك تلقائيًا أدوات المطوّر على لسان «الطرفية» (Console). وتظهر أدوات المطوّر تقريبًا بهذا الشكل: 
 
-Developer tools are potent; they have many features. To start, we'll learn how to open them, look at errors, and run JavaScript commands.
+يعتمد شكل أدوات المطوّر على إصدار متصفِّح Chrome الذي تستخدمه، إذ يختلف بشكل بسيط من إصدار إلى آخر. 
+- بإمكانك رؤية رسالة الخطأ باللون الأحمر. معنى الرسالة أن السكربت يحتوي على أمر غير معروف هو "lalala". 
+- لاحظ في أقصى اليمين وجود رابط إلى المصدر bug.html:12 مع رقم سطر الخطأ في الشيفرة.
 
-## Google Chrome
+يظهر تحت رسالة الخطأ الرمز `<` باللون الأزرق، ويحدد «سطر الأوامر» (command line) الذي سنكتب عنده أوامر وتعليمات JavaScript. اضغط زر الإدخال Enter لتنفيذ الأمر بعد كتابته (أو Shift+Enter للانتقال إلى السطر التالي عند إدخال أمر متعدد الأسطر). 
 
-Open the page [bug.html](bug.html).
+الآن أصبح بإمكانك استكشاف الأخطاء، وهذا يكفي بداية وسنعود لاحقًا إلى أدوات المطوَر لندرس استكشاف الأخطاء وإصلاحها أو ما يعرف debugging في فصل تنقيح الأخطاء في المتصفِّح Chrome. 
 
-There's an error in the JavaScript code on it. It's hidden from a regular visitor's eyes, so let's open developer tools to see it.
+## أدوات المطور في متصفحي FireFox و Safari وغيرهما
+تَستخدِم معظم المتصفِّحات الاختصار F12 لفتح أدوات المطوَر. بشكل عام تتشابه هذه الأدوات في الشكل والمضمون. وبمجرد تعلمك العمل على إحدى هذه الأدوات (بإمكانك البدء مع Chrome)، يمكنك بسهولة الانتقال للعمل على الأدوات الأخرى.
 
-Press `key:F12` or, if you're on Mac, then `key:Cmd+Opt+J`.
+### أدوات المطور في متصفح Safari
+يختلف المتصفِّح Safari (متصفِّح خاص بنظام التشغيل «ماك» وغير مدعوم من قبل «ويندوز» أو «لينكس») في طريقة فتح أدوات المطور. نحتاج في البداية لتفعيل «قائمة المطوّر» (Develop menu). لفعل ذلك، افتح «التفضيلات» (Preferences) ثم اختر قائمة «متقدم» (Advanced). يوجد في الأسفل مربع اختيار لإظهار قائمة المطوَر في شريط القائمة. حدده لتفعيل القائمة:
 
-The developer tools will open on the Console tab by default.
+بإمكانك استعمال الاختصار Cmd+opt+C لإظهار وإخفاء الطرفية من أدوات المطور. ويمكنك ملاحظة ظهور قائمة جديدة في الأعلى اسمها «Develop». تملك هذه القائمة العديد من الخيارات والأوامر الخاصة بالمطور.
 
-It looks somewhat like this:
+### الإدخال متعدد الأسطر
+عادةً يتم تنفيذ الشيفرة البرمجية في نافذة الأوامر سطرًا تلو الآخر عند الضغط على زر الإدخال Enter. ولكتابة أمر متعدد الأسطر، اضغط على Shift+Enter (يُمكِّنك ذلك من الانتقال إلى السطر التالي دون تنفيذ السطر الحالي، وعند الانتهاء من إدخال كامل الأمر، اضغط على Enter فقط لتنفيذ هذا الأمر المتعدد الأسطر).
 
-![chrome](chrome.png)
+## الخلاصة
+- توفِّر لك أدوات المطوّر عدة أدوات متطورة تساعدك على تنقيح الأخطاء، وتنفيذ الأوامر، وفحص المتغيرات، وغيرها من المهام.
+- يمكن الوصول إليها باستخدام الاختصار F12 في معظم متصفِّحات نظام Windows. أمَا في نظام Mac، استخدم الاختصار Cmd+Opt+J لمتصفِّح Chrome، واستخدم Cmd+Opt+C لمتصفِّح Safari (ولكن عليك أن تفعَل قائمة المطوّر في البداية).
 
-The exact look of developer tools depends on your version of Chrome. It changes from time to time but should be similar.
+الآن أصبحت البيئة جاهزة لديك. استعد للتعمق في لغة JavaScript في الفصل التالي.
 
-- Here we can see the red-colored error message. In this case, the script contains an unknown "lalala" command.
-- On the right, there is a clickable link to the source `bug.html:12` with the line number where the error has occurred.
+ترجمة -وبتصرف- للفصل [Developer Console](https://javascript.info/devtools) من كتاب [The JavaScript Language](https://javascript.info/js)
 
-Below the error message, there is a blue `>` symbol. It marks a "command line" where we can type JavaScript commands. Press `key:Enter` to run them.
-
-Now we can see errors, and that's enough for a start. We'll come back to developer tools later and cover debugging more in-depth in the chapter <info:debugging-chrome>.
-
-```smart header="Multi-line input"
-Usually, when we put a line of code into the console, and then press `key:Enter`, it executes.
-
-To insert multiple lines, press `key:Shift+Enter`. This way one can enter long fragments of JavaScript code.
-```
-
-## Firefox, Edge, and others
-
-Most other browsers use `key:F12` to open developer tools.
-
-The look & feel of them is quite similar. Once you know how to use one of these tools (you can start with Chrome), you can easily switch to another.
-
-## Safari
-
-Safari (Mac browser, not supported by Windows/Linux) is a little bit special here. We need to enable the "Develop menu" first.
-
-Open Preferences and go to the "Advanced" pane. There's a checkbox at the bottom:
-
-![safari](safari.png)
-
-Now `key:Cmd+Opt+C` can toggle the console. Also, note that the new top menu item named "Develop" has appeared. It has many commands and options.
-
-## Summary
-
-- Developer tools allow us to see errors, run commands, examine variables, and much more.
-- They can be opened with `key:F12` for most browsers on Windows. Chrome for Mac needs `key:Cmd+Opt+J`, Safari: `key:Cmd+Opt+C` (need to enable first).
-
-Now we have the environment ready. In the next section, we'll get down to JavaScript.

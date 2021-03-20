@@ -1,1 +1,1 @@
-# Prototypes, inheritance
+# النماذج، الوراثة

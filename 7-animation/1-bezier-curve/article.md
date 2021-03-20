@@ -1,201 +1,200 @@
-# Bezier curve
+#  منحنى بيزير
 
-Bezier curves are used in computer graphics to draw shapes, for CSS animation and in many other places.
+منحني بيزير هو منحني يستخدم في الرسومات الحاسوبية لرسم الاشكال، الخاصة  بالرسوم  المتحركة باستخدام CSS و ايضا في اماكن اخري. 
 
-They are a very simple thing, worth to study once and then feel comfortable in the world of vector graphics and advanced animations.
+هناك اشياء بسيطة تستحق الدراسة مرة واحدة ثم بعد ذلك تشعر بالارتياح في عالم الرسومات المتجهةو علوم الرسوم المتحركة المتقدمة.
 
-## Control points
+## نقاط التحكم 
 
-A [bezier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve) is defined by control points.
+ [منحنى بيزير](https://ar.wikipedia.org/wiki/%D9%85%D9%86%D8%AD%D9%86%D9%89_%D8%A8%D9%8A%D8%B2%D9%8A%D9%87) يتم تعريفه من خلال نقاط التحكم.
 
-There may be 2, 3, 4 or more.
+قد يكون هناك 2 أو 3 أو 4 أو أكثر من نقطة تحكم .
 
-For instance, two points curve:
+مثال علي ، منحني بنقطتين:
 
 ![](bezier2.svg)
 
-Three points curve:
+منحني بثلاث نقاط:
 
 ![](bezier3.svg)
 
-Four points curve:
+منحني باربع نقاط:
 
 ![](bezier4.svg)
 
-If you look closely at these curves, you can immediately notice:
+إذا نظرت بتمعن إلى هذه المنحنيات ، يمكنك ملاحظة ذلك على الفور:
 
-1. **Points are not always on curve.** That's perfectly normal, later we'll see how the curve is built.
-2. **The curve order equals the number of points minus one**.
-For two points we have a linear curve (that's a straight line), for three points -- quadratic curve (parabolic), for four points -- cubic curve.
-3. **A curve is always inside the [convex hull](https://en.wikipedia.org/wiki/Convex_hull) of control points:**
+1. **النقاط ليست دائما علي المنحني.** هذا طبيعي تمامًا ، سنرى لاحقًا كيف تم بناء المنحنى.
+2. **درجةالمنحنى يساوي عدد النقاط ناقص واحد**.
+بالنسبة إلى نقطتين ، لدينا منحنى خطي (خط مستقيم) ، لثلاث نقاط - منحنى تربيعي (قطع مكافئ) ، لأربع نقاط - منحنى تكعيبي.
+3. **المنحني دائما بداخل  [الغلاف المحدب (convex hull)](https://en.wikipedia.org/wiki/Convex_hull) من نقاط التحكم :**
 
     ![](bezier4-e.svg) ![](bezier3-e.svg)
 
-Because of that last property, in computer graphics it's possible to optimize intersection tests. If convex hulls do not intersect, then curves do not either. So checking for the convex hulls intersection first can give a very fast "no intersection" result. Checking the intersection or convex hulls is much easier, because they are rectangles, triangles and so on (see the picture above), much simpler figures than the curve.
+بسبب هذه الخاصية الأخيرة ، يمكن تحسين اختبارات التقاطع في رسومات الكمبيوتر. إذا لم تتقاطع الأغلفة المحدبة ، فإن المنحنيات لا تتقاطع أيضًا. لذا ، فإن التحقق من تقاطع الأغلفة المحدبة أولاً يمكن أن يعطي نتيجة سريعة جدًا "لا يوجد تقاطع". يعد فحص التقاطع أو الأغلفة المحدبة أسهل بكثير ، لأنها مستطيلات ومثلثات وما إلى ذلك (انظر الصورة أعلاه) ، وهي أشكال أبسط بكثير من المنحنى.
 
-**The main value of Bezier curves for drawing -- by moving the points the curve is changing *in intuitively obvious way*.**
+**تظهر القيمة الرئيسية لمنحنيات بيزير للرسم عن طريق تحريك النقاط التي يتغير بها المنحنى بشكل بديهي*.**
 
-Try to move control points using a mouse in the example below:
+حاول تحريك نقاط التحكم باستخدام الماوس في المثال أدناه:
 
 [iframe src="demo.svg?nocpath=1&p=0,0,0.5,0,0.5,1,1,1" height=370]
 
-**As you can notice, the curve stretches along the tangential lines 1 -> 2 and 3 -> 4.**
+**كما تلاحظ ، فإن المنحنى يمتد على طول خطوط الظل 1 <- 2 و 3 <- 4.**
 
-After some practice it becomes obvious how to place points to get the needed curve. And by connecting several curves we can get practically anything.
+بعد بعض التدريب ، يصبح من الواضح كيفية وضع النقاط للحصول على المنحنى المطلوب. ومن خلال ربط عدة منحنيات ، يمكننا عمليًا الحصول على أي شيء.
 
-Here are some examples:
+وهنا بعض الأمثلة:
 
 ![](bezier-car.svg) ![](bezier-letter.svg) ![](bezier-vase.svg)
 
-## De Casteljau's algorithm
+## خوارزمية دي كاستيلجاو(De Casteljau's algorithm)
 
-There's a mathematical formula for Bezier curves, but let's cover it a bit later, because
-[De Casteljau's algorithm](https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm) is identical to the mathematical definition and visually shows how it is constructed.
+هناك معادلة رياضية لمنحنيات بيزير ، لكن دعونا نغطيها لاحقًا ، لأن
+[خوارزمية دي كاستيلجاو (De Casteljau's algorithm) ](https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm)مطابقة للتعريف الرياضي وتظهر بصريًا كيف يتم بناؤها.
 
-First let's see the 3-points example.
+لنرى أولاً مثال النقاط الثلاث.
 
-Here's the demo, and the explanation follow.
+إليك العرض التوضيحي والتفسير التالي.
 
-Control points (1,2 and 3) can be moved by the mouse. Press the "play" button to run it.
+يمكن تحريك نقاط التحكم (1و2و3) بواسطة الماوس. ثم اضغط على زر "تشغيل" لتشغيله.
 
 [iframe src="demo.svg?p=0,0,0.5,1,1,0&animate=1" height=370]
 
-**De Casteljau's algorithm of building the 3-point bezier curve:**
+**خوارزمية دي كاستيلجاو لبناء منحني بيزير ثلاثي النقاط:**
 
-1. Draw control points. In the demo above they are labeled: `1`, `2`, `3`.
-2. Build segments between control points 1 -> 2 -> 3. In the demo above they are <span style="color:#825E28">brown</span>.
-3. The parameter `t` moves from `0` to `1`. In the example above the step `0.05` is used: the loop goes over `0, 0.05, 0.1, 0.15, ... 0.95, 1`.
+1. ارسم نقاط تحكم ، في العرض أعلاه تم تصنيفهم: `1`, `2`, `3`.
+2. قم ببناء شرائح بين نقاط التحكم 3 -> 2 ->1. في العرض أعلاه هم <span style="color:#825E28">بني</span>.
+3. العلامة `t` تتحرك من  `0` الي `1`. في المثال أعلاه يتم استخدام الخطوة بمقدار `0.05` : و تمر الحلقة علي `0, 0.05, 0.1, 0.15, ... 0.95, 1`.
 
-    For each of these values of `t`:
+    لكل من قيم  `t`:
 
-    - On each <span style="color:#825E28">brown</span> segment we take a point located on the distance proportional to `t` from its beginning. As there are two segments, we have two points.
+    - علي كل من <span style="color:#825E28">الخطوط البنية</span>  نأخذ نقطة تقع على المسافة المتناسبة مع `t` من بدايتها.و نظرًا لوجود قسمين ، فلدينا نقطتان.
 
-        For instance, for `t=0` -- both points will be at the beginning of segments, and for `t=0.25` -- on the 25% of segment length from the beginning, for `t=0.5` -- 50%(the middle), for `t=1` -- in the end of segments.
+        على سبيل المثال ، بالنسبة لـ `t = 0` - ستكون كلتا النقطتين في بداية المقاطع ، وبالنسبة لـ` t = 0.25` ستكون على 25٪ من طول المقطع من البداية ، بالنسبة لـ `t = 0.5`   ستكون في منطقة الوسط ،   عند`t = 1`  ستكون في نهاية المقطع.
 
-    - Connect the points. On the picture below the connecting segment is painted <span style="color:#167490">blue</span>.
+    - قم بتوصيل النقاط. في الصورة أدناه ، تم رسم الجزء المتصل باللون  <span style="color:#167490">الأزرق</span>.
 
 
 | For `t=0.25`             | For `t=0.5`            |
 | ------------------------ | ---------------------- |
 | ![](bezier3-draw1.svg)   | ![](bezier3-draw2.svg) |
 
-4. Now in the <span style="color:#167490">blue</span> segment take a point on the distance proportional to the same value of `t`. That is, for `t=0.25` (the left picture) we have a point at the end of the left quarter of the segment, and for `t=0.5` (the right picture) -- in the middle of the segment. On pictures above that point is <span style="color:red">red</span>.
+4. الآن في الجزء  <span style="color:#167490">الأزرق</span> خذ نقطة على المسافة متناسبة مع نفس القيمة `t`. أي بالنسبة لـ `t = 0.25` (الصورة اليسرى) لدينا نقطة في نهاية الربع الأيسر من المقطع ، وبالنسبة لـ` t = 0.5` (الصورة اليمنى) - في منتصف المقطع. على الصور أعلاه تلك النقطة  <span style="color:red">حمراء</span>.
 
-5. As `t` runs from `0` to `1`, every value of `t` adds a point to the curve. The set of such points forms the Bezier curve. It's red and parabolic on the pictures above.
+5. نظرًا لأن `t` يمتد من `0` إلى `1` ، فإن كل قيمة لـ `t` تضيف نقطة إلى المنحنى. ثم تشكل مجموعة النقاط منحنى بيزيير. إنه يظهر باللون الأحمر وعلي شكل قطع مكافئ في الصور أعلاه.
 
-That was a process for 3 points. But the same is for 4 points.
+كانت هذه عملية لمنحني 3 نقاط. ولكن الشيء نفسه بالنسبة 4 نقاط.
 
-The demo for 4 points (points can be moved by a mouse):
+العرض التوضيحي لـ 4 نقاط (يمكن تحريك النقاط بواسطة الماوس):
 
 [iframe src="demo.svg?p=0,0,0.5,0,0.5,1,1,1&animate=1" height=370]
 
-The algorithm for 4 points:
+خوارزمية 4 نقاط:
 
-- Connect control points by segments: 1 -> 2, 2 -> 3, 3 -> 4. There will be 3 <span style="color:#825E28">brown</span> segments.
-- For each `t` in the interval from `0` to `1`:
-    - We take points on these segments on the distance proportional to `t` from the beginning. These points are connected, so that we have two <span style="color:#0A0">green segments</span>.
-    - On these segments we take points proportional to `t`. We get one <span style="color:#167490">blue segment</span>.
-    - On the blue segment we take a point proportional to `t`. On the example above it's <span style="color:red">red</span>.
-- These points together form the curve.
+- ربط نقاط التحكم بالقطاعات: 1 <- 2 ، 2 <- 3 ، 3 <- 4. سيكون هناك 3 خطوط <span style="color:#825E28">بنيه</span> .
+- لكل `t` في المسافة من `0` إلى `1`:
+    - نأخذ نقاطًا على هذه الأجزاء على المسافة المتناسبة مع `t` من البداية. هذه النقاط  مرتبطة ببعضها البعض و لذلك يتكون لدينا  خطين لونهم<span style="color:#0A0"> أخضر</span>.
+    -  على الخطين الأخضر نأخذ نقاطًا تتناسب مع `t`. نحصل على خط واحد <span style="color:#167490">أزرق</span>.
+    - علي الخط الأزرق ناخذ نقطة تتناسب مع `t`. في المثال الأعلي لونها <span style="color:red">أحمر</span>.
+- هذه النقاط معا تشكل المنحني.
 
-The algorithm is recursive and can be generalized for any number of control points.
+الخوارزمية متكررة ويمكن تعميمها لأي عدد من نقاط التحكم.
 
-Given N of control points:
+معطى N من نقاط التحكم:
 
-1. We connect them to get initially N-1 segments.
-2. Then for each `t` from `0` to `1`, we take a point on each segment on the distance proportional to `t` and connect them. There will be N-2 segments.
-3. Repeat step 2 until there is only one point.
+1. نقوم بتوصيلهم للحصول على عدد خطوط N-1 في البداية.
+2. ثم لكل `t` من `0` إلى `1` ، نأخذ نقطة على كل جزء على المسافة المتناسبة مع `t` ونوصلهم. سيكون هناك  N-2 خط.
+3. نقوم بتقرار خطوة رقم 2 حتي يتبقي نقطة واحدة.
 
-These points make the curve.
+هذه النقاط معا تشكل المنحني.
 
 ```online
-**Run and pause examples to clearly see the segments and how the curve is built.**
+**قم بتشغيل الأمثلة وإيقافها  لرؤية الخطوط بوضوح وكيفية إنشاء المنحنى.**
 ```
 
 
-A curve that looks like `y=1/t`:
+منحنى الذي يشبه `y=1/t`:
 
 [iframe src="demo.svg?p=0,0,0,0.75,0.25,1,1,1&animate=1" height=370]
 
-Zig-zag control points also work fine:
+المنحني المتعرج يعمل بشكل جيد:
 
 [iframe src="demo.svg?p=0,0,1,0.5,0,0.5,1,1&animate=1" height=370]
 
-Making a loop is possible:
+ ايضا من الممكن صنع حلقة :
 
 [iframe src="demo.svg?p=0,0,1,0.5,0,1,0.5,0&animate=1" height=370]
 
-A non-smooth Bezier curve (yeah, that's possible too):
+منحنى بيزير غير أملس ( هذا ممكن أيضًا):
 
 [iframe src="demo.svg?p=0,0,1,1,0,1,1,0&animate=1" height=370]
 
 ```online
-If there's something unclear in the algorithm description, please look at the live examples above to see how
-the curve is built.
+إذا كان هناك شيء غير واضح في وصف الخوارزمية ، فالرجاء إلقاء نظرة على الأمثلة الحية أعلاه لمعرفة كيفية بناء المنحنى.
 ```
 
-As the algorithm is recursive, we can build Bezier curves of any order, that is: using 5, 6 or more control points. But in practice many points are less useful. Usually we take 2-3 points, and for complex lines glue several curves together. That's simpler to develop and calculate.
+نظرًا لأن الخوارزمية تكرارية ، يمكننا بناء منحنيات بيزير بأي درجة نريد ، أي باستخدام 5 أو 6 نقاط تحكم أو أكثر. لكن من الناحية العملية ، فإن العديد من النقاط أقل فائدة. عادةً ما نأخذ 2-3 نقاط ، وبالنسبة للخطوط المعقدة نلصق عدة منحنيات معًا ، وهذا أسهل في التطوير والحساب.
 
-```smart header="How to draw a curve *through* given points?"
-To specify a Bezier curve, control points are used. As we can see, they are not on the curve, except the first and the last ones.
+```smart header="كيفية رسم منحني  *من خلال* نقاط معينة؟"
+لتحديد منحنى بيزير ، يتم استخدام نقاط التحكم. كما نرى ، فهي ليست على المنحنى ، باستثناء الأول والأخير.
 
-Sometimes we have another task: to draw a curve *through several points*, so that all of them are on a single smooth curve. That task is called  [interpolation](https://en.wikipedia.org/wiki/Interpolation), and here we don't cover it.
+أحيانًا يكون لدينا مهمة أخرى: رسم منحنى *من خلال عدة نقاط* ، بحيث تكون جميعها على منحنى سلس واحد. هذه المهمة تسمى  [ استيفاء (interpolation) ](https://en.wikipedia.org/wiki/Interpolation)، وهنا لا نغطيها.
 
-There are mathematical formulas for such curves, for instance [Lagrange polynomial](https://en.wikipedia.org/wiki/Lagrange_polynomial). In computer graphics [spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation) is often used to build smooth curves that connect many points.
+هناك معادلات رياضية لمثل هذه المنحنيات ، على سبيل المثال [كثير حدود لاغرانج (Lagrange polynomial) ](https://en.wikipedia.org/wiki/Lagrange_polynomial).فان في رسومات الحاسوب [ استيفاء الشريحة (spline interpolation) ](https://en.wikipedia.org/wiki/Spline_interpolation) غالبًا ما يستخدم لبناء منحنيات سلسة تربط العديد من النقاط.
 ```
 
 
-## Maths
+## رياضيات
 
-A Bezier curve can be described using a mathematical formula.
+يمكن وصف منحنى بيزير باستخدام صيغة رياضية.
 
-As we saw -- there's actually no need to know it, most people just draw the curve by moving points with a mouse. But if you're into maths -- here it is.
+كما رأينا - ليست هناك حاجة في الواقع لمعرفة ذلك ، يقوم معظم الناس برسم المنحنى عن طريق تحريك النقاط بالماوس. ولكن إذا كنت مهتمًا بالرياضيات - ها هي.
 
-Given the coordinates of control points <code>P<sub>i</sub></code>: the first control point has coordinates <code>P<sub>1</sub> = (x<sub>1</sub>, y<sub>1</sub>)</code>, the second: <code>P<sub>2</sub> = (x<sub>2</sub>, y<sub>2</sub>)</code>, and so on, the curve coordinates are described by the equation that depends on the parameter `t` from the segment `[0,1]`.
+بالنظر إلى إحداثيات نقاط التحكم <code>P<sub>i</sub></code>: أول نقطة تحكم لها إحداثيات <code>P<sub>1</sub> = (x<sub>1</sub>, y<sub>1</sub>)</code>, الثانية: <code>P<sub>2</sub> = (x<sub>2</sub>, y<sub>2</sub>)</code>, وهكذا ، يتم وصف إحداثيات المنحنى بواسطة المعادلة التي تعتمد على معامل `t` من المقطع` [1،0] `.
 
-- The formula for a 2-points curve:
+- صيغة منحنى ذو نقطتين:
 
     <code>P = (1-t)P<sub>1</sub> + tP<sub>2</sub></code>
-- For 3 control points:
+- منحني 3 نقاط:
 
     <code>P = (1−t)<sup>2</sup>P<sub>1</sub> + 2(1−t)tP<sub>2</sub> + t<sup>2</sup>P<sub>3</sub></code>
-- For 4 control points:
+- منحني 4 نقاط:
 
     <code>P = (1−t)<sup>3</sup>P<sub>1</sub> + 3(1−t)<sup>2</sup>tP<sub>2</sub>  +3(1−t)t<sup>2</sup>P<sub>3</sub> + t<sup>3</sup>P<sub>4</sub></code>
 
 
-These are vector equations. In other words, we can put `x` and `y` instead of `P` to get corresponding coordinates.
+هذه معادلات متجهة. بعبارة أخرى ، يمكننا وضع `x` و` y` بدلاً من` P` للحصول على الإحداثيات المقابلة.
 
-For instance, the 3-point curve is formed by points `(x,y)` calculated as:
+على سبيل المثال ، يتكون المنحنى المكون من 3 نقاط من النقاط `` (x ، y) 'المحسوبة على النحو التالي:
 
 - <code>x = (1−t)<sup>2</sup>x<sub>1</sub> + 2(1−t)tx<sub>2</sub> + t<sup>2</sup>x<sub>3</sub></code>
 - <code>y = (1−t)<sup>2</sup>y<sub>1</sub> + 2(1−t)ty<sub>2</sub> + t<sup>2</sup>y<sub>3</sub></code>
 
-Instead of <code>x<sub>1</sub>, y<sub>1</sub>, x<sub>2</sub>, y<sub>2</sub>, x<sub>3</sub>, y<sub>3</sub></code> we should put coordinates of 3 control points, and then as `t` moves from `0` to `1`, for each value of `t` we'll have `(x,y)` of the curve.
+بدلا من <code>x<sub>3</sub>, y<sub>3</sub>, x<sub>2</sub>, y<sub>2</sub>, x<sub>1</sub>, y<sub>1</sub></code> يجب أن نضع إحداثيات 3 نقاط تحكم ، ثم عندما تنتقل `t` من`0` إلى `1` ، لكل قيمة من `t` سيكون لدينا `(x,y)` للمنحنى.
 
-For instance, if control points are  `(0,0)`, `(0.5, 1)` and `(1, 0)`, the equations become:
+على سبيل المثال ، إذا كانت نقاط التحكم `(0,0)`, `(0.5, 1)` و `(1, 0)`, تصبح المعادلات:
 
 - <code>x = (1−t)<sup>2</sup> * 0 + 2(1−t)t * 0.5 + t<sup>2</sup> * 1 = (1-t)t + t<sup>2</sup> = t</code>
 - <code>y = (1−t)<sup>2</sup> * 0 + 2(1−t)t * 1 + t<sup>2</sup> * 0 = 2(1-t)t = –2t<sup>2</sup> + 2t</code>
 
-Now as `t` runs from `0` to `1`, the set of values `(x,y)` for each `t` forms the curve for such control points.
+الآن نظرًا لأن `t` يمتد من `0` إلى `1` ، فإن مجموعة القيم `(x ، y)` لكل  `t` تشكل المنحنى لنقاط التحكم هذه.
 
-## Summary
+## الملخص
 
-Bezier curves are defined by their control points.
+يتم تحديد منحنيات Bezier من خلال نقاط التحكم الخاصة بهم.
 
-We saw two definitions of Bezier curves:
+رأينا تعريفين لمنحنيات بيزيير:
 
-1. Using a drawing process: De Casteljau's algorithm.
-2. Using a mathematical formulas.
+1. باستخدام عملية الرسم: خوارزمية دي كاستيلجاو(De Casteljau’s algorithm).
+2. استخدام المعدلات الرياضية.
 
-Good properties of Bezier curves:
+خصائص جيدة لمنحنيات بيزير:
 
-- We can draw smooth lines with a mouse by moving control points.
-- Complex shapes can be made of several Bezier curves.
+- يمكننا رسم خطوط ناعمة بالماوس عن طريق تحريك نقاط التحكم.
+- يمكن صنع الأشكال المعقدة من عدة منحنيات بيزيير.
 
-Usage:
+الاستخدام:
 
-- In computer graphics, modeling, vector graphic editors. Fonts are described by Bezier curves.
-- In web development -- for graphics on Canvas and in the SVG format. By the way, "live" examples above are written in SVG. They are actually a single SVG document that is given different points as parameters. You can open it in a separate window and see the source: [demo.svg](demo.svg?p=0,0,1,0.5,0,0.5,1,1&animate=1).
-- In CSS animation to describe the path and speed of animation.
+- في رسومات الحاسوب ، النمذجة ، محررات الرسوم المتجهة. الخطوط ايضا ممكن ان توصف بمنحنيات بيزير.
+- في تطوير الويب - للرسومات على Canvas وبتنسيق SVG. بالمناسبة ، الأمثلة "الحية" أعلاه مكتوبة في SVG. إنها في الواقع مستند SVG واحد يتم إعطاؤه نقاطًا مختلفة كمعاملات. يمكنك فتحه في نافذة منفصلة ومشاهدة المصدر: [demo.svg](demo.svg?p=0,0,1,0.5,0,0.5,1,1&animate=1).
+-  في الرسوم المتحركة لدى CSS لوصف مسار وسرعة الرسوم المتحركة.

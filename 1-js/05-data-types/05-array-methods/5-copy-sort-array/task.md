@@ -2,17 +2,17 @@ importance: 5
 
 ---
 
-# Copy and sort array
+# نسخ المصفوفة وفرزها
 
-We have an array of strings `arr`. We'd like to have a sorted copy of it, but keep `arr` unmodified.
+في يدنا مصفوفة من السلاسل النصية arr. نريد نسخة مرتّبة عنها وترك arr بلا تعديل.
 
-Create a function `copySorted(arr)` that returns such a copy.
+أنشِئ دالة copySorted(arr)‎ تُعيد هذه النسخة.
 
 ```js
 let arr = ["HTML", "JavaScript", "CSS"];
 
 let sorted = copySorted(arr);
 
-alert( sorted ); // CSS, HTML, JavaScript
-alert( arr ); // HTML, JavaScript, CSS (no changes)
+alert(sorted); // CSS, HTML, JavaScript
+alert(arr); // HTML, JavaScript, CSS (no changes)
 ```

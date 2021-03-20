@@ -1,7 +1,9 @@
 
-# Function in if
+### دالة في شرط if
 
-Look at the code. What will be the result of the call at the last line?
+
+طالِع الشيفرة أسفله. ما ناتج الاستدعاء في آخر سطر؟
+
 
 ```js run
 let phrase = "Hello";

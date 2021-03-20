@@ -1,5 +1,5 @@
 
-The notes are below the code:
+الملاحظات أسفل الكود:
 
 ```js run
 async function loadJson(url) { // (1)
@@ -17,17 +17,17 @@ loadJson('no-such-user.json')
   .catch(alert); // Error: 404 (4)
 ```
 
-Notes:
+الملاحظات:
 
-1. The function `loadJson` becomes `async`.
-2. All `.then` inside are replaced with `await`.
-3. We can `return response.json()` instead of awaiting for it, like this:
+1. تصبح الدالة `loadJson`` غير متزامنة ".
+2- يتم استبدال جميع ".then" بالداخل بـ "ينتظر".
+3. يمكننا `` response response.json () `بدلاً من انتظارها ، كما يلي:
 
-    ```js
-    if (response.status == 200) {
-      return response.json(); // (3)
-    }
-    ```
+     شبيبة
+     if (response.status == 200) {
+       رد العودة. json () ؛ // (3)
+     }}
+     ``
 
-    Then the outer code would have to `await` for that promise to resolve. In our case it doesn't matter.
-4. The error thrown from `loadJson` is handled by `.catch`. We can't use `await loadJson(…)` there, because we're not in an `async` function.
+     ثم يجب أن ينتظر الكود الخارجي `` ينتظر '' حتى يتم حل هذا الوعد. في حالتنا لا يهم.
+4. تتم معالجة الخطأ الذي تم طرحه من "loadJson" بواسطة ".catch". لا يمكننا استخدام `` انتظار انتظار Json (...) `، لأننا لسنا في وظيفة` غير متزامن '.

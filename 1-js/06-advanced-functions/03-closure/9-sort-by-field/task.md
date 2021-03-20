@@ -1,10 +1,10 @@
-importance: 5
+_الأهمية: 5_
 
 ---
 
-# Sort by field
+### الترشيح حسب حقل الاستمارة
 
-We've got an array of objects to sort:
+أمامنا مصفوفة كائنات علينا ترتيبها:
 
 ```js
 let users = [
@@ -13,8 +13,7 @@ let users = [
   { name: "Ann", age: 19, surname: "Hathaway" }
 ];
 ```
-
-The usual way to do that would be:
+الطريقة الطبيعية هي الآتي:
 
 ```js
 // by name (Ann, John, Pete)
@@ -24,13 +23,14 @@ users.sort((a, b) => a.name > b.name ? 1 : -1);
 users.sort((a, b) => a.age > b.age ? 1 : -1);
 ```
 
-Can we make it even less verbose, like this?
+هل يمكن أن تكون بحروف أقل، هكذا مثلًا؟
 
 ```js
 users.sort(byField('name'));
 users.sort(byField('age'));
 ```
 
-So, instead of writing a function, just put `byField(fieldName)`.
+أي، بدل أن نكتب دالة، نضع `‎byField(fieldName)‎` فقط.
 
-Write the function `byField` that can be used for that.
+اكتب الدالة `‎byField‎` لنستعملها هكذا.
+

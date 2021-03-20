@@ -1,6 +1,6 @@
-# Loop-based solution
+# حل مبني علي الحلقة
 
-The loop-based variant of the solution:
+الحل:
 
 ```js run
 let list = {
@@ -29,8 +29,8 @@ function printList(list) {
 
 printList(list);
 ```
+يرجي ملاحظة أننا نستخدم المتغير المؤقت `tmp` للمرور خلال القائمة. من الناحية الفنية, يمكن أن نستخدم عامل الدالة `list`:
 
-Please note that we use a temporary variable `tmp` to walk over the list. Technically, we could use a function parameter `list` instead:
 
 ```js
 function printList(list) {
@@ -43,15 +43,20 @@ function printList(list) {
 }
 ```
 
-...But that would be unwise. In the future we may need to extend a function, do something else with the list. If we change `list`, then we lose such ability.
+لكن هذا لن يكون محبذاً في المستقبل لأنه بسبب ما من الممكن أن نمد الدالة لفعل شئ أخر للقائمة.
 
-Talking about good variable names, `list` here is the list itself. The first element of it. And it should remain like that. That's clear and reliable.
+لو غيرنا الـ `list` سنخسر هذه الميزة.
+
+بمناسبة الحديث عن التسمية الجيدة للمتغيرات, `list` تعتبر الـ القائمة نفسها. بمعني أدق العنصر الأول فيها. وهو يجب أن يبقي هكذا.
+
+علي صعيد أخر, دور `tmp` يهتم فقط بالانتقال بين عناصر القائمة, مثل `i` الموجود في حلقة `for`
 
 From the other side, the role of `tmp` is exclusively a list traversal, like `i` in the `for` loop.
 
-# Recursive solution
+# الحل التكراري
 
-The recursive variant of `printList(list)` follows a simple logic: to output a list we should output the current element `list`, then do the same for `list.next`:
+الحل التكراري للدالة `printList(list)` يتبع منطق بسيط لطباعة القائمة: يجب طباعة العنصر الحالي `list` ثم إعادة الموضوع للباقي `list.next` حتي تنتهي القائمة :
+
 
 ```js run
 let list = {
@@ -81,8 +86,8 @@ function printList(list) {
 printList(list);
 ```
 
-Now what's better?
+الأن من هو الأفضل؟
 
-Technically, the loop is more effective. These two variants do the same, but the loop does not spend resources for nested function calls.
+عملياً الحلقة أكثر كفاءة بالرغم من أنهم يقومون بنفس المهمة, لكن الحلقة لا تستطيع عمل أكثر من نداء متداخل.
 
-From the other side, the recursive variant is shorter and sometimes easier to understand.
+علي الجانب الأخر التكرار يعتبر أسهل للفهم وأقصر

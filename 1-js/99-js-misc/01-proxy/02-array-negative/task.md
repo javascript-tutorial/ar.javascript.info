@@ -1,9 +1,9 @@
 
-# Accessing array[-1]
+# الوصول إلي array[-1] 
 
-In some programming languages, we can access array elements using negative indexes, counted from the end.
+في بعض لغات البرمجة، يمكن الوصول إلي عناصر المصفوفات برقم سالب حيث تقوم بالحسبة من النهاية.
 
-Like this:
+كهذا:
 
 ```js
 let array = [1, 2, 3];
@@ -13,11 +13,11 @@ array[-2]; // 2, one step from the end
 array[-3]; // 1, two steps from the end
 ```
 
-In other words, `array[-N]` is the same as `array[array.length - N]`.
+بطريقة أخري، فإن `array[-N]` هو نفسه `array[array.length - N]`.
 
-Create a proxy to implement that behavior.
+قم بإنشاء بروكسي لتنفيذ هذا السلوك.
 
-That's how it should work:
+هنا كيف يجب أن تعمل:
 
 ```js
 let array = [1, 2, 3];
@@ -29,5 +29,5 @@ array = new Proxy(array, {
 alert( array[-1] ); // 3
 alert( array[-2] ); // 2
 
-// Other array functionality should be kept "as is"
+// السلوك الطبيعي للمصفوفات الأخري يجب أن يظل كما هو
 ```

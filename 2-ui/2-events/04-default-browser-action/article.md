@@ -1,43 +1,43 @@
-# Browser default actions
+# الإجراءات الافتراضية للمتصفح
 
-Many events automatically lead to certain actions performed by the browser.
+تؤدي العديد من الأحداث تلقائيًا إلى إجراءات معينة يقوم بها المتصفح.
 
-For instance:
+:على سبيل المثال
 
-- A click on a link - initiates navigation to its URL.
-- A click on a form submit button - initiates its submission to the server.
-- Pressing a mouse button over a text and moving it - selects the text.
+- النقر على رابط - يبدأ الانتقال إلى URL الخاص به.
+- النقر على زر إرسال النموذج - يبدأ تقديم البيانات إلى الخادم server.
+- النقر على زر الماوس فوق النص مع الحركة - يقوم بتحديد النص.
 
-If we handle an event in JavaScript, we may not want the corresponding browser action to happen, and want to implement another behavior instead.
+إذا تعاملنا مع حدث في الجافا اسكريبت ، يمكن ألا نرغب في تنفيذ إجراء المتصفح المقابل لهذا الحدث ، ونريد تنفيذ سلوك آخر بدلاً من ذلك.
 
-## Preventing browser actions
+## منع إجراءات المتصفح
 
-There are two ways to tell the browser we don't want it to act:
+:هناك طريقتان لإخبار المتصفح أننا لا نريده أن يعمل
 
-- The main way is to use the `event` object. There's a method `event.preventDefault()`.
-- If the handler is assigned using `on<event>` (not by `addEventListener`), then returning `false` also works the same.
+- الطريقة الرئيسية هي استخدام كائن الحدث `event`. هناك طريقة `event.preventDefault()`.
+- إذا تم تعيين المعالج handler باستخدام `on<event>` (وليس عن طريق `addEventListener`)، عندئذ فإن ارجاع القيمة `false` يعمل بنفس الطريقة.
 
-In this HTML a click on a link doesn't lead to navigation, browser doesn't do anything:
+:في هذه الصفحة النقر على الرابط لا يؤدي إلى التنقل، ولا يقوم المتصفح بأي شيئ
 
 ```html autorun height=60 no-beautify
 <a href="/" onclick="return false">Click here</a>
-or
+أو
 <a href="/" onclick="event.preventDefault()">here</a>
 ```
 
-In the next example we'll use this technique to create a JavaScript-powered menu.
+.في المثال التالي سنستخدم هذه التقنية لإنشاء قائمة مدعومة من الجافا اسكريبت
 
-```warn header="Returning `false` from a handler is an exception"
-The value returned by an event handler is usually ignored.
+```warn header="إعادة `false` من معالج يعد استثناء"
+عادةً ما يتم تجاهل القيمة التي يتم إرجاعها بواسطة معالج الأحداث.
 
-The only exception is `return false` from a handler assigned using `on<event>`.
+الاستثناء الوحيد هو `إرجاع false` من معالج مخصص باستخدام `on<event>`.
 
-In all other cases, `return` value is ignored. In particular, there's no sense in returning `true`.
+في كل الحالات الأخرى ، `إرجاع` قيمة يتم تجاهله. بشكل خاص، لا معنى من إرجاع قيمة `true`.
 ```
 
-### Example: the menu
+### مثال: القائمة
 
-Consider a site menu, like this:
+:قائمة موقع مثل هذه
 
 ```html
 <ul id="menu" class="menu">
@@ -47,79 +47,79 @@ Consider a site menu, like this:
 </ul>
 ```
 
-Here's how it looks with some CSS:
+وهكذا تبدو بإضافة CSS:
 
 [iframe height=70 src="menu" link edit]
 
-Menu items are implemented as HTML-links `<a>`, not buttons `<button>`. There are several reasons to do so, for instance:
+عناصر القائمة مستخدمة ك `<a>`، وليس أزرار `<button>`. :هناك عدة أسباب لفعل ذلك، على سبيل المثال
 
-- Many people like to use "right click" -- "open in a new window". If we use `<button>` or `<span>`, that doesn't work.
-- Search engines follow `<a href="...">` links while indexing.
+- العديد من الأشخاص يفضلون استخدام "right click" -- "open in a new window". إذا استخدمنا `<button>` أو `<span>`، لن نستطيع فعل ذلك.
+- تتبع محركات البحث `<a href="...">` الروابط أثناء الفهرسة.
 
-So we use `<a>` in the markup. But normally we intend to handle clicks in JavaScript. So we should prevent the default browser action.
+لذلك نستخدم `<a>` في الترميز.لكننا عادةً نعتزم التعامل مع النقرات في الجافا اسكريبت. لذلك يجب علينا منع إجراء المتصفح الافتراضي.
 
-Like here:
+:مثلما هو الحال هنا
 
 ```js
 menu.onclick = function(event) {
   if (event.target.nodeName != 'A') return;
 
   let href = event.target.getAttribute('href');
-  alert( href ); // ...can be loading from the server, UI generation etc
+  alert( href ); // ...يمكن تحميله من الخادم ، وإنشاء واجهة المستخدم وما إلى ذلك
 
 *!*
-  return false; // prevent browser action (don't go to the URL)
+  return false; // منع إجراء المتصفح (لا تذهب إلى URL)
 */!*
 };
 ```
 
-If we omit `return false`, then after our code executes the browser will do its "default action" -- navigating to the URL in `href`. And we don't need that here, as we're handling the click by ourselves.
+إذا حذفنا `إرجاع خطأ` ، فبعد تنفيذ الكود الخاص بنا ، سيقوم المتصفح بتنفيذ `الإجراء الافتراضي` - الانتقال إلى عنوان URL في `href`. ولسنا بحاجة إلى ذلك هنا ، لأننا نتعامل مع النقر بأنفسنا.
 
-By the way, using event delegation here makes our menu very flexible. We can add nested lists and style them using CSS to "slide down".
+بالمناسبة استخدام تفويض الحدث event delegation يجعل قائمتنا مرنة للغاية. يمكننا إضافة قوائم متداخلة وتصميمها باستخدام CSS "slide down للانزلاق إلى أسفل".
 
 ````smart header="Follow-up events"
-Certain events flow one into another. If we prevent the first event, there will be no second.
+أحداث معينة تتدفق بعضها إلى أخرى. إذا منعنا الحدث الأول ، فلن يكون هناك ثاني. إذا منعنا الحدث الأول ، لن يصبح هنالك حدث ثاني.
 
-For instance, `mousedown` on an `<input>` field leads to focusing in it, and the `focus` event. If we prevent the `mousedown` event, there's no focus.
+على سبيل المثال ، `mousedown`في حقل `<input>`  يؤدي إلى التركيز عليه وحدوث حدث `focus`. إذا منعنا حدث `mousedown`  لن يحدث focus.
 
-Try to click on the first `<input>` below -- the `focus` event happens. But if you click the second one, there's no focus.
+جرب أن نقر على أول  `<input>` بالأسفل --  `focus` يحدث الحدث. لكن إذا قمت بالنقر على الثاني فلن يحدث focus.
 
 ```html run autorun
 <input value="Focus works" onfocus="this.value=''">
 <input *!*onmousedown="return false"*/!* onfocus="this.value=''" value="Click me">
 ```
 
-That's because the browser action is canceled on `mousedown`. The focusing is still possible if we use another way to enter the input. For instance, the `key:Tab` key to switch from the 1st input into the 2nd. But not with the mouse click any more.
+هذا بسبب إلغاء إجراء اللمتصفح في `mousedown`. لا يزال التركيز ممكناً إذا قمنا استخدمنا طريقة أخرى لإدخال المدخلات. على سبيل المثال ،`key:Tab` key  للتبديل من الإدخال الأول إلى الثاني. ولكن ليس مع النقر بالماوس بعد الآن.
 ````
 
-## The "passive" handler option
+##  passive "خيار المعامل "الخامل
 
-The optional `passive: true` option of `addEventListener` signals the browser that the handler is not going to call `preventDefault()`.
+الاختيار الغير إلزامي `passive: true` خيار `addEventListener` يشير إلى المتصفح بأن المعالج لن يستدعي الأمر `preventDefault()`.
 
-Why that may be needed?
+لماذا قد تكون هناك حاجة لذلك؟
 
-There are some events like `touchmove` on mobile devices (when the user moves their finger across the screen), that cause scrolling by default, but that scrolling can be prevented using `preventDefault()` in the handler.
+هناك بعض الأحداث مثل `touchmove` على أجهزة المحمول (عندما يحرك المستخدم إصبعه عبر الشاشة)، هذا يتسبب في scrolling افتراضي ، ولكن يمكن منع هذا باستخدام ` PreventionDefault () ` في المعالج.
 
-So when the browser detects such event, it has first to process all handlers, and then if `preventDefault` is not called anywhere, it can proceed with scrolling. That may cause unnecessary delays and "jitters" in the UI.
+لذا عندما يكتشف المتصفح حدثاً كهذا، تحتاج في البداية إلى العمل على كل المعالجات، ثم إذا لم يتم مناداة `preventDefault`في أي مكان، يمكن أن تستمر مع scrolling. قد يتسبب هذا في تأخيرات لا داعي لها "jitters" في UI.
 
-The `passive: true` options tells the browser that the handler is not going to cancel scrolling. Then browser scrolls immediately providing a maximally fluent experience, and the event is handled by the way.
+الخيار `passive: true` يخبر المتصفح أن المعالج لن يقوم بإلغاء scrolling. بعد ذلك يقوم المتصفح فوراً بالحركة scroll  مقدماً بذلك أقصى تجربة سلسة، ويتم التعامل مع الحدث .
 
-For some browsers (Firefox, Chrome), `passive` is `true` by default for `touchstart` and `touchmove` events.
+بالنسبة لبعض المتصفحات (Firefox، Chrome)، `passive` يكون`true` بشكل افتراضي لحدث `touchstart` و `touchmove`.
 
 
 ## event.defaultPrevented
 
-The property `event.defaultPrevented` is `true` if the default action was prevented, and `false` otherwise.
+الخاصية `event.defaultPrevented` تكون `صحيحة` إذا تم منع الإجراء الافتراضي، و تكون `خطأ` في الحالة المغايرة.
 
-There's an interesting use case for it.
+هناك حالة استخدام مثيرة للاهتمام لذلك.
 
-You remember in the chapter <info:bubbling-and-capturing> we talked about `event.stopPropagation()` and why stopping bubbling is bad?
+هل تتذكر في فصل <info:bubbling-and-capturing> تحدثنا عن `event.stopPropagation()` أمر سيئ؟ bubbling ولماذا إيقاف 
 
-Sometimes we can use `event.defaultPrevented` instead, to signal other event handlers that the event was handled.
+بدلاً من ذلك أحياناً يمكننا استخدام `event.defaultPrevented`، للإشارة إلى معالجات الأحداث الأخرى بأنه تم التعامل مع الحدث.
 
-Let's see a practical example.
+لنرى مثالاً عملياً.
 
-By default the browser on `contextmenu` event (right mouse click) shows a context menu with standard options. We can prevent it and show our own, like this:
+المتصفح افتراضياً في حدث`contextmenu` (النقر على الزر الأيمن للفأرة) يعرض context menu بخيارات قياسية. يمكننا منع :ذلك وإظهار القائمة الخاصةبنا، مثل
 
 ```html autorun height=50 no-beautify run
 <button>Right-click shows browser context menu</button>
@@ -129,9 +129,9 @@ By default the browser on `contextmenu` event (right mouse click) shows a contex
 </button>
 ```
 
-Now, in addition to that context menu we'd like to implement document-wide context menu.
+الآن ، بالإضافة إلى قائمة السياق هذه ، نود تنفيذ قائمة السياق على مستوى المستند.
 
-Upon right click, the closest context menu should show up.
+عند النقر بزر الماوس الأيمن ، يجب أن تظهر أقرب قائمة سياق.
 
 ```html autorun height=80 no-beautify run
 <p>Right-click here for the document context menu</p>
@@ -150,9 +150,9 @@ Upon right click, the closest context menu should show up.
 </script>
 ```
 
-The problem is that when we click on `elem`, we get two menus: the button-level and (the event bubbles up) the document-level menu.
+المشكلة هنا أنه عند النقر على `elem`، نحصل على قائمتين:  مستوى الزر button-level و (the event bubbles up) القائمة على مستوى المستند.
 
-How to fix it? One of solutions is to think like: "When we handle right-click in the button handler, let's stop its bubbling" and use `event.stopPropagation()`:
+كيف نصلح ذلك؟ أحد الحلول هو التفكير مثل: "عندما نتعامل مع النقر بزر الماوس الأيمن في معالج الزر ، فلنتوقف عن الفقاعة" ولنستخدم `event.stopPropagation()`:
 
 ```html autorun height=80 no-beautify run
 <p>Right-click for the document menu</p>
@@ -174,9 +174,9 @@ How to fix it? One of solutions is to think like: "When we handle right-click in
 </script>
 ```
 
-Now the button-level menu works as intended. But the price is high. We forever deny access to information about right-clicks for any outer code, including counters that gather statistics and so on. That's quite unwise.
+الآن تعمل قائمة مستوى الزر على النحو المطلوب. لكن تكلفة ذلك عالية. نحن نرفض إلى الأبد الوصول إلى معلومات حول النقرات الصحيحة لأي رمز خارجي ، بما في ذلك العدادات التي تجمع الإحصاءات وما إلى ذلك. هذا أمر غير حكيم.
 
-An alternative solution would be to check in the `document` handler if the default action was prevented? If it is so, then the event was handled, and we don't need to react on it.
+الحل البديل هو التحقق من معالج `المستند` . إذا ما تم منع الإجراء الافتراضي؟ إذا كان كذلك إذاً فقد تم العامل مع الحدث ولسنا بحاجة للرد عليه.
 
 
 ```html autorun height=80 no-beautify run
@@ -200,45 +200,45 @@ An alternative solution would be to check in the `document` handler if the defau
 </script>
 ```
 
-Now everything also works correctly. If we have nested elements, and each of them has a context menu of its own, that would also work. Just make sure to check for `event.defaultPrevented` in each `contextmenu` handler.
+والآن كل شيئ يعمل بشكل صحيح. إذاكان لدينا عناصر متداخلة nested elements، ولكل منهم قائمة سياق خاصة به، فذلك سوف يعمل أيضاً. فقط تأكد من التحقق من `event.defaultPrevented` في كل معالج `contextmenu`.
 
 ```smart header="event.stopPropagation() and event.preventDefault()"
-As we can clearly see, `event.stopPropagation()` and `event.preventDefault()` (also known as `return false`) are two different things. They are not related to each other.
+كما نرى بوضوح، `event.stopPropagation()` و `event.preventDefault()` (المعروف أيضاً ب `return false`) هما شيئان مختلفان. لا يرتبطان ببعضهما البعض.
 ```
 
 ```smart header="Nested context menus architecture"
-There are also alternative ways to implement nested context menus. One of them is to have a single global object with a handler for `document.oncontextmenu`, and also methods that allow us to store other handlers in it.
+هناك أيضاً طرق بديلة لتنفيذ قوائم السياق المتداخلة nested context menus. واحدة منه هو أن يكون لديك كائن واحد معالج ل `document.oncontextmenu`، وطرق أخرى تسمح لا بتخزين معالجات handlers أخرى فيه.
 
-The object will catch any right-click, look through stored handlers and run the appropriate one.
+سوف يلتقط الكائن أي نقرة بزر الماوس الأيمن ، وينظر خلال المعالجات المخزنة ويقوم بتشغيل المعالج المناسب.
 
-But then each piece of code that wants a context menu should know about that object and use its help instead of the own `contextmenu` handler.
+ولكن فيما بعد، يجب أن يعرف كل جزء من الكود -والذي يريد قائمة سياق- عن هذا الكائن وأن يستخدم مساعدته بدلاً من معالج قائمة السياق  `contextmenu`.
 ```
 
-## Summary
+## الملخص
 
-There are many default browser actions:
+:هناك العديد من إجراءات المتصفح الافتراضية
 
-- `mousedown` -- starts the selection (move the mouse to select).
-- `click` on `<input type="checkbox">` -- checks/unchecks the `input`.
-- `submit` -- clicking an `<input type="submit">` or hitting `key:Enter` inside a form field causes this event to happen, and the browser submits the form after it.
-- `keydown` -- pressing a key may lead to adding a character into a field, or other actions.
-- `contextmenu` -- the event happens on a right-click, the action is to show the browser context menu.
-- ...there are more...
+- `mousedown` -- يبدأ التحديد (حرك الماوس للتحديد).
+- `click` على `<input type="checkbox">` -- يختار/يزيل اختيار `input`.
+- `submit` -- النقر على `<input type="submit">` أو ضغط مفتاح `key:Enter` داخل حقل النموذج يتسبب في حدوث هذا الحدث ، ويقوم المتصفح بإرسال النموذج بعده.
+- `keydown` -- قد يؤدي الضغط على مفتاح إلى إضافة حرف إلى حقل أو إجراءات أخرى.
+- `contextmenu` -- يحدث الحدث عند النقر بزر الماوس الأيمن ، يتمثل الإجراء في إظهار قائمة سياق المتصفح.
+- ...وهناك أكثر...
 
-All the default actions can be prevented if we want to handle the event exclusively by JavaScript.
+يمكن منع جميع الإجراءات الافتراضية إذا أردنا التعامل مع الحدث حصريًا بواسطةالجافا اسكريبت.
 
-To prevent a default action -- use either `event.preventDefault()` or  `return false`. The second method works only for handlers assigned with `on<event>`.
+لمنع حدوث إجراء افتراضي -- استخدم إما `event.preventDefault()` أو  `return false`. الطريق الثانية عمل فقط مع المعالجات المعنية ب `on<event>`.
 
-The `passive: true` option of `addEventListener` tells the browser that the action is not going to be prevented. That's useful for some mobile events, like `touchstart` and `touchmove`, to tell the browser that it should not wait for all handlers to finish before scrolling.
+خيار `passive: true` الخاص ب `addEventListener` يخبر المتصفح أنه لن يتم منع الإجراء. وهذا مفيد لبعض الأحداث في الهواتف المحمولة، مثل `touchstart` و `touchmove`، لإخبار المتصفح بأنه يجب ألا ينتظر حتى تنتهي جميع المعالجات قبل التمرير scrolling.
 
-If the default action was prevented, the value of `event.defaultPrevented` becomes `true`, otherwise it's `false`.
+إذا تم منع لحدث الافتراضي، فإن قيمة `event.defaultPrevented` تصبح `true`، وإلا فهي تكون `false`.
 
-```warn header="Stay semantic, don't abuse"
-Technically, by preventing default actions and adding JavaScript we can customize the behavior of any elements. For instance, we can make a link `<a>` work like a button, and a button `<button>` behave as a link (redirect to another URL or so).
+```warn header="ابق على الدلالات ولا تسئ الاستخدام"
+من الناحية الفنية، بمنع الإجرائات الافتراضية وإضافة الجافا اسكريبت نستطيع تعديل سلوك أي عنصر.مثلاً، يمكننا أن نجعل الرابط `<a>` يعمل مثل الزر، ونجعل الزر `<button>` يتصرف مثل الرابط (يعيد توجيهنا إلى عنوان آخر أو نحو ذلك).
 
-But we should generally keep the semantic meaning of HTML elements. For instance, `<a>` should perform navigation, not a button.
+لكن يجب علينا عمومًا الاحتفاظ بالمعنى الدلالي لعناصر HTML. على سبيل المثال ، يجب أن يقوم `<a>`  بالتنقل ، وليس الزر.
 
-Besides being "just a good thing", that makes your HTML better in terms of accessibility.
+بالإضافة إلى كون ذلك "مجرد شيء جيد" ، فهذا يجعل HTML الخاص بك أفضل من حيث إمكانية الوصول.
 
-Also if we consider the example with `<a>`, then please note: a browser allows us to open such links in a new window (by right-clicking them and other means). And people like that. But if we make a button behave as a link using JavaScript and even look like a link using CSS, then `<a>`-specific browser features still won't work for it.
+وأيضاً إذا أخذنا في الاعتبار المثال الخاص ب `<a>`، إذاً يرجى ملاحظة: أن المتصفح يسمح لنا بفتح مثل هذه الروابط في نوافذ أخرى (عن طريق النقر بزر الماوس الأيمن عليها وغيرها من الوسائل). والناس ااعتادت ذلك وتحب هذه الطريقة. ولكن إذا جعلنا زرًا يتصرف كرابط باستخدام الجافا اسكريبت وحتى بدا وكأنه رابط باستخدام CSS ، فلن تعمل ميزات المتصفح المحددة `<a>` من أجله.
 ```

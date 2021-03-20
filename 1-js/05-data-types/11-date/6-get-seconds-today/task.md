@@ -1,15 +1,15 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# How many seconds have passed today?
+# كم ثانية مرت اليوم؟
 
-Write a function `getSecondsToday()` that returns the number of seconds from the beginning of today.
+قم بكتابة دالة `()getSecondsToday` والتي تُرجع عدد الثواني المنصرمة منذ بداية اليوم الحالي.
 
-For instance, if now were `10:00 am`, and there was no daylight savings shift, then:
+على سبيل المثال، إذا كانت الساعة الحالية هي `am 10:00`، ولم يكن هناك تحول في الوقت الصيفي، فعندئذٍ:
 
 ```js
 getSecondsToday() == 36000 // (3600 * 10)
 ```
 
-The function should work in any day. That is, it should not have a hard-coded value of "today".
+يجب أن يعمل التابع في أي يوم. أي أنه لا يجب أن يكون هناك قيمة ثابتة لليوم "today".

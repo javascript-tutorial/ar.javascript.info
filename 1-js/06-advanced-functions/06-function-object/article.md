@@ -1,20 +1,20 @@
 
-# Function object, NFE
+# كائن الدالة وتعبير الدالة المُسَمَّى
 
-As we already know, a function in JavaScript is a value.
+كما نعرف جميعاً أن الدالة في الجافاسكريبت تعتبر قيمة.
 
-Every value in JavaScript has a type. What type is a function?
+وكل قيمة في هذه اللغة لها نوع. إذا ما هو نوع الدالة؟
 
-In JavaScript, functions are objects.
+في لغة الجافاسكريبت، الدوال كائنات. 
 
-A good way to imagine functions is as callable "action objects". We can not only call them, but also treat them as objects: add/remove properties, pass by reference etc.
+ والطريقة الجيدة كي تستطيع تخيل الدوال هي أن تعتبرها كائنات تقوم ببعض الأفعال قابلة للاستدعاء. لا نستطيع فقط مناداتها بل ومعاملتها كأنها كائنات: إضافة/إزالة أي خاصية بداخلها، تخزين مرجع يشير إليها الخ.
 
 
-## The "name" property
+## خاصية "الاسم"
 
-Function objects contain some useable properties.
+كائن الدالة يحتوي علي بعض الخواص التي يعاد استخدامها كثيراً
 
-For instance, a function's name is accessible as the "name" property:
+مثلاً اسم الدالة يعتبر متاحا على شكل خاصية الاسم "name".
 
 ```js run
 function sayHi() {
@@ -24,7 +24,8 @@ function sayHi() {
 alert(sayHi.name); // sayHi
 ```
 
-What's kind of funny, the name-assigning logic is smart. It also assigns the correct name to a function even if it's created without one, and then immediately assigned:
+والطريف فى الأمر أيضاً، منطق إضافة الاسم هنا يعتبر ذكياً. إنها أيضاً تضيف الاسم الصحيح للدالة حتى وإن كانت الدالة تم إنشائها دون اسم ولكن تم إضافته بعد صنعها فوراً: 
+
 
 ```js run
 let sayHi = function() {
@@ -34,7 +35,8 @@ let sayHi = function() {
 alert(sayHi.name); // sayHi (there's a name!)
 ```
 
-It also works if the assignment is done via a default value:
+إنها تعمل أيضاً في حال إذا كانت الإضافة تتم عن طريق قيمة افتراضية:
+
 
 ```js run
 function f(sayHi = function() {}) {
@@ -43,10 +45,11 @@ function f(sayHi = function() {}) {
 
 f();
 ```
+في مواصفات الدالة هذه الخاصية تسمى الاسم السياقي "contextual name". وإذا كانت الدالة لا توفر لنا واحداً، فإن هذه الخاصية عند الإضافة تستطيع معرفته من السياق.
 
-In the specification, this feature is called a "contextual name". If the function does not provide one, then in an assignment it is figured out from the context.
 
-Object methods have names too:
+هذا الكلام يشمل دوال الكائنات أيضاً:
+
 
 ```js run
 let user = {
@@ -64,22 +67,24 @@ let user = {
 alert(user.sayHi.name); // sayHi
 alert(user.sayBye.name); // sayBye
 ```
-
-There's no magic though. There are cases when there's no way to figure out the right name. In that case, the name property is empty, like here:
+لا سحر هنا. لأنه في بعض الحالات لا يستطيع المحرك أن يعرف الاسم الصحيح. لذلك في هذه الحالة خاصية الاسم تصبح فارغة، مثل هذه الحالة:
 
 ```js run
 // function created inside array
 let arr = [function() {}];
 
 alert( arr[0].name ); // <empty string>
-// the engine has no way to set up the right name, so there is none
+
+// المحرك لم يجد طريقة لتسمية الإسم الصحيح, لذلك لا يجد إسم
+
 ```
 
-In practice, however, most functions do have a name.
+لكن هذه حالات ضعيفة وأغلب الدوال لها خاصية الاسم.
 
-## The "length" property
 
-There is another built-in property "length" that returns the number of function parameters, for instance:
+## خاصية "length"
+
+هناك خاصية أخرى تمتلكها الدوال وهي خاصية "length". هذه الخاصية تعطينا عدد العوامل الدالة، مثلاً:
 
 ```js run
 function f1(a) {}
@@ -90,21 +95,20 @@ alert(f1.length); // 1
 alert(f2.length); // 2
 alert(many.length); // 2
 ```
+هنا نلاحظ أن العوامل الباقية (rest parameters) لا تُعد.
 
-Here we can see that rest parameters are not counted.
+خاصية الطول `length` تستخدم أحياناً لـ[إستبطان الذات](https://en.wikipedia.org/wiki/Type_introspection) داخل الدوال التي تعتمد على دوال أخرى.
+مثلاً بالشيفرة التي في الأسفل، الدالة `ask` تقبل العامل `question` لتسأله وعدد عشوائي من الـ `handler` دوال لتنفيذها.
 
-The `length` property is sometimes used for [introspection](https://en.wikipedia.org/wiki/Type_introspection) in functions that operate on other functions.
+بمجرد أن يقدم المستخدم الإجابة، الدالة تنادي الـ handler. يمكن أن نمرر نوعين من الـ handlers:
 
-For instance, in the code below the `ask` function accepts a `question` to ask and an arbitrary number of `handler` functions to call.
+- دالة لا تمتلك عوامل، التي تُنادى فقط عندما يعطي المستخدم إجابة بالإيجاب، 
+- دالة لديها عوامل، وتُنادى في كلتا الحالتين وتعطينا إجابة.
 
-Once a user provides their answer, the function calls the handlers. We can pass two kinds of handlers:
+لتتم مناداة الدالة `handler` بالطريقة الصحيحة، نفحص خاصية `handlers.length`.
 
-- A zero-argument function, which is only called when the user gives a positive answer.
-- A function with arguments, which is called in either case and returns an answer.
+الفكرة هي أن لدينا دالة ليس لها عوامل للحالات الإيجابية، لكن تستطيع دعم الـ handlers أيضاً:
 
-To call `handler` the right way, we examine the `handler.length` property.
-
-The idea is that we have a simple, no-arguments handler syntax for positive cases (most frequent variant), but are able to support universal handlers as well:
 
 ```js run
 function ask(question, ...handlers) {
@@ -119,30 +123,31 @@ function ask(question, ...handlers) {
   }
 
 }
+// للإيجابات الإجابية تتم مناداة الدالتين 
+// للإيجابات السلبية تتم مناداة الدالة الثانية فقط
 
-// for positive answer, both handlers are called
-// for negative answer, only the second one
 ask("Question?", () => alert('You said yes'), result => alert(result));
 ```
 
-This is a particular case of so-called [polymorphism](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) -- treating arguments differently depending on their type or, in our case depending on the `length`. The idea does have a use in JavaScript libraries.
+هذه الحالة تُسمى [تعدد الأشكال](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) -- معاملة العوامل بطرق مختلفة إعتماداً على نوعهم أو في حالتنا إعتماداً على الطول `length`. الفكرة عامةً لها استخدام في مكتبات الجافاسكريبت.
 
-## Custom properties
+## خصائص مخصصة
 
-We can also add properties of our own.
+نستطيع أيضاً إضافة الخاصية التي نريدها إلى الدالة.
 
-Here we add the `counter` property to track the total calls count:
+فى هذا المثال سنضع خاصية `counter` لنستطيع تحديد عدد المناديات الكلي للدالة: 
+
 
 ```js run
 function sayHi() {
   alert("Hi");
 
   *!*
-  // let's count how many times we run
+  // لنحسب عدد مرات تنفيذ الدالة
   sayHi.counter++;
   */!*
 }
-sayHi.counter = 0; // initial value
+sayHi.counter = 0; // قيمة إبتدائية
 
 sayHi(); // Hi
 sayHi(); // Hi
@@ -150,17 +155,19 @@ sayHi(); // Hi
 alert( `Called ${sayHi.counter} times` ); // Called 2 times
 ```
 
-```warn header="A property is not a variable"
-A property assigned to a function like `sayHi.counter = 0` does *not* define a local variable `counter` inside it. In other words, a property `counter` and a variable `let counter` are two unrelated things.
+```warn header="الخاصية ليست متغيراً"
+الخاصية التي تضاف للدالة مثل `sayHi.counter = 0` *لا* تعرّف كمتغير محلي `counter` داخلها. 
+أو بطريقة أخرى الخاصية `counter` والمتغير `let counter` شيئان ليس لهما علاقة ببعضهم
 
-We can treat a function as an object, store properties in it, but that has no effect on its execution. Variables are not function properties and vice versa. These are just parallel worlds.
+يمكن أن نعامل الدالة مثل معاملة الشئ, تخزين خصائص داخلها لكن ليس لها تأثر علي تنفيذها. المتغيرات ليست خصائص للدالة والعكس صحيح.
+
 ```
+خواص الدالة يمكن أن تستبدل عمليات الإغلاق أحياناً. مثلاً يمكننا إعادة كتابة مثال دالة العداد الموجود فى هذا الفصل <info:closure> لاستخدام خاصية الدالة:
 
-Function properties can replace closures sometimes. For instance, we can rewrite the counter function example from the chapter <info:closure> to use a function property:
 
 ```js run
 function makeCounter() {
-  // instead of:
+  // بدلاً من : 
   // let count = 0
 
   function counter() {
@@ -177,11 +184,11 @@ alert( counter() ); // 0
 alert( counter() ); // 1
 ```
 
-The `count` is now stored in the function directly, not in its outer Lexical Environment.
+`count`  الأن تم تخزينه في الدالة مباشرة، ليس في حدسها الخارجي Lexical Environment
 
-Is it better or worse than using a closure?
+هل هذا يعتبر أفضل أم أسوء من استخدام الإغلاق؟
 
-The main difference is that if the value of `count` lives in an outer variable, then external code is unable to access it. Only nested functions may modify it. And if it's bound to a function, then such a thing is possible:
+الإختلاف الأساسي هو أن قيمة `count` تعيش داخل متغير خارجي لذلك الشيفرة الخارجية لا تستطيع الوصول إليه. وحدها الدوال المتداخلة هي التي من الممكن أن تستطيع تعديله. لكن إذا كان مقيّداً بالدالة، إذاً هذا من السهل حدوثه وهذا هو الإختلاف بينهم:
 
 ```js run
 function makeCounter() {
@@ -203,35 +210,37 @@ alert( counter() ); // 10
 */!*
 ```
 
-So the choice of implementation depends on our aims.
+لذلك إختيار طريقة الكتابة والبناء تعتمد على أهدافنا في المشروع.
 
-## Named Function Expression
 
-Named Function Expression, or NFE, is a term for Function Expressions that have a name.
+## تعبير الدالة المُسَمَّى
 
-For instance, let's take an ordinary Function Expression:
+تعبير الدالة المُسَمَّى أو (NFE) اختصاراً لـ Named Function Expression، يعتبر تعريف للدالة يحتوي على اسم.
+
+مثلاً، لنأخذ مثال لتعبير دالة:
+
 
 ```js
 let sayHi = function(who) {
   alert(`Hello, ${who}`);
 };
 ```
-
-And add a name to it:
+ونضيف اسم لها: 
 
 ```js
 let sayHi = function *!*func*/!*(who) {
   alert(`Hello, ${who}`);
 };
 ```
+هل حققنا أي شيء هنا؟ ما هو غرض زيادة اسم `"func"`؟
 
-Did we achieve anything here? What's the purpose of that additional `"func"` name?
+أولاً دعنا نلاحظ أننا مازال لدينا تعبير دالة. وإضافة اسم `"func"` بعد  `function` لم يقم بتعريف الدالة لأنها مازالت جزءًا من توضيح تعبير الدالة.
 
-First let's note, that we still have a Function Expression. Adding the name `"func"` after `function` did not make it a Function Declaration, because it is still created as a part of an assignment expression.
+ووضع هذا الاسم لم يعطل أي شيء.
 
-Adding such a name also did not break anything.
+والدالة مازالت متاحة باسم `sayHi()`:
 
-The function is still available as `sayHi()`:
+إذاً ما هى فائدتها؟!
 
 ```js run
 let sayHi = function *!*func*/!*(who) {
@@ -241,12 +250,13 @@ let sayHi = function *!*func*/!*(who) {
 sayHi("John"); // Hello, John
 ```
 
-There are two special things about the name `func`, that are the reasons for it:
+هناك شيئين حول الإسم `func`، هما السبب في كتابتنا لهم.
 
-1. It allows the function to reference itself internally.
-2. It is not visible outside of the function.
+1. يسمح للدالة بالإشارة إلى نفسها داخلياً.
+2. لا يُري خارج الدالة
 
-For instance, the function `sayHi` below calls itself again with `"Guest"` if no `who` is provided:
+مثلاً الدالة `sayHi` تنادي نفسها مرة أخرى بالـ `"Guest"` إذا لم يكن `who` مُعطى.
+
 
 ```js run
 let sayHi = function *!*func*/!*(who) {
@@ -254,21 +264,20 @@ let sayHi = function *!*func*/!*(who) {
     alert(`Hello, ${who}`);
   } else {
 *!*
-    func("Guest"); // use func to re-call itself
+    func("Guest"); // لمناداة الدالة مرة أخرى
 */!*
   }
 };
 
 sayHi(); // Hello, Guest
 
-// But this won't work:
+// لكن هذا لن يعمل لأن هذا الإسم لا يري في خارج تعريف الدالة :
 func(); // Error, func is not defined (not visible outside of the function)
 ```
 
-Why do we use `func`? Maybe just use `sayHi` for the nested call?
+لماذا استخدمنا `func`؟ ولم نستخدم `sayHi` ؟ للمناداة الأخرى.
 
-
-Actually, in most cases we can:
+في الواقع نحن يمكننا فعل ذلك ولن يسبب أخطاء:
 
 ```js
 let sayHi = function(who) {
@@ -282,7 +291,7 @@ let sayHi = function(who) {
 };
 ```
 
-The problem with that code is that `sayHi` may change in the outer code. If the function gets assigned to another variable instead, the code will start to give errors:
+لكن المشكلة مع الشيفرة هي أن `sayHi` يمكن أن تتغير فى الشيفرة الخارجية. إذا تمت تعيين الدالة لمتغير أخر في المقابل، الشيفرة ستبدأ فى إظهار أخطاء: 
 
 ```js run
 let sayHi = function(who) {
@@ -301,11 +310,13 @@ sayHi = null;
 welcome(); // Error, the nested sayHi call doesn't work any more!
 ```
 
-That happens because the function takes `sayHi` from its outer lexical environment. There's no local `sayHi`, so the outer variable is used. And at the moment of the call that outer `sayHi` is `null`.
+هذا حدث الدالة أخذت `sayHi` من حدثها الخارجي lexical environment. ولا يوجد متغير محلي اسمه `sayHi`، لذلك المتغير الخارجى مستخدم. وفي لحظة المناداة `sayHi` يعتبر `null`.
 
-The optional name which we can put into the Function Expression is meant to solve exactly these kinds of problems.
+هنا يأتي دور الاسم الذي وضعناه داخل تعبير الدالة.
 
-Let's use it to fix our code:
+هو من يحل هذه المشاكل.
+
+دعنا نستخدم هذا ونصلح شيفرتنا.
 
 ```js run
 let sayHi = function *!*func*/!*(who) {
@@ -323,31 +334,34 @@ sayHi = null;
 
 welcome(); // Hello, Guest (nested call works)
 ```
+الأن هذا يعمل، لأن الاسم `"func"` يعتبر دالة محلية. هذا لا يؤخذ من الخارج. هذه الخاصية تضمن لنا أنها ستكون دائماً تشير إلى الدالة الحالية.
 
-Now it works, because the name `"func"` is function-local. It is not taken from outside (and not visible there). The specification guarantees that it will always reference the current function.
+الشيفرة الخارجية تظل تملك المتغير `sayHi` أو `welcome`. و `func` تعتبر اسم داخلي للدالة.
 
-The outer code still has it's variable `sayHi` or `welcome`. And `func` is an "internal function name", how the function can call itself internally.
 
-```smart header="There's no such thing for Function Declaration"
-The "internal name" feature described here is only available for Function Expressions, not for Function Declarations. For Function Declarations, there is no syntax for adding an "internal" name.
 
-Sometimes, when we need a reliable internal name, it's the reason to rewrite a Function Declaration to Named Function Expression form.
+```smart header="لا يوجد هذا الشيء في تعريف الدالة العادية"
+
+خاصية اسم دالة متاحة فقط لتعبير الدالة  Function Expressions وليس لتعريف الدالة Function Declarations. بالنسبة لتعريف الدالة لا توجد طريقة لتعريف اسم داخلي.
+
+في بعض الأحيان عندما نحتاج إلى اسم داخلي يكون هذا السبب لتحويل تعريف الدالة إلى NFE أو تعبير الدالة المُسمى.
+
 ```
 
-## Summary
+## المُلخص
 
-Functions are objects.
+الدوال كائنات.
 
-Here we covered their properties:
+هنا سنغطي ما شرحناه مسبقاً عن خصائصها : 
 
-- `name` -- the function name. Usually taken from the function definition, but if there's none, JavaScript tries to guess it from the context (e.g. an assignment).
-- `length` -- the number of arguments in the function definition. Rest parameters are not counted.
+- الاسم `name` -- اسم الدالة. عادة يؤخذ من تعريف الدالة، ولكن إذا كان لا يوجد اسم، الجافاسكريبت تحاول تخمينه من السياق.
+- الطول `length` -- عدد العوامل في تعريف الدالة. والعوامل الباقية Rest parameters لا تّحسب.
 
-If the function is declared as a Function Expression (not in the main code flow), and it carries the name, then it is called a Named Function Expression. The name can be used inside to reference itself, for recursive calls or such.
+إذا تم تعريف الدالة على أنها تعبير دالة وتحمل اسما، ذلك يدعي NFE تعبير الدالة المُسَمَّى. الاسم يمكن أن يستخدم في داخل الدالة لتشير إلى نفسها، للتكرار أو أي شيء.
 
-Also, functions may carry additional properties. Many well-known JavaScript libraries make great use of this feature.
+أيضاً، الدالة يمكن أن تحمل خواص أخرى. الكثير من المكتبات المعروفة للجافاسكريبت تجعل استخدام كبير من هذه الخاصية.
 
-They create a "main" function and attach many other "helper" functions to it. For instance, the [jQuery](https://jquery.com) library creates a function named `$`. The [lodash](https://lodash.com) library creates a function `_`, and then adds `_.clone`, `_.keyBy` and other properties to it (see the [docs](https://lodash.com/docs) when you want learn more about them). Actually, they do it to lessen their pollution of the global space, so that a single library gives only one global variable. That reduces the possibility of naming conflicts.
+هم يصنعون دالة أساسية ويلحق بها دوال أخرى مساعدة لها. مثلاً مكتبة الـ [jQuery](https://jquery.com) تصنع دالة تُسمي `$`. مكتبة [lodash](https://lodash.com) تصنع دالة `_`، ثم تضيف `_.clone` و `_.keyBy` و خواص أخرى لها. يمكنك أن تعرف أكثر عن هذه المكتبة من هنا [docs](https://lodash.com/docs). يقومون بذلك، في الواقع، لتقليل تلوث الفراغ الشامل، لذلك المكتبة الواحدة تعطي فقط متغير عالمي. ذلك يقلل إحتمالية تداخل الاسماء.
 
+لذلك الدالة يمكنها القيام بواجب رائع من نفسها ويمكن أن تحمل الكثير من الخواص الأخرى في داخلها.
 
-So, a function can do a useful job by itself and also carry a bunch of other functionality in properties.

@@ -1,12 +1,13 @@
-importance: 5
+_الأهمية: 5_
 
 ---
 
-# Counter object
+### كائن عد
 
-Here a counter object is made with the help of the constructor function.
+هنا صنعنا كائن عدّ بمساعدة دالة مُنشئة _Constructor Function_.
 
-Will it work? What will it show?
+هل ستعمل؟ ماذا سيظهر؟
+
 
 ```js
 function Counter() {

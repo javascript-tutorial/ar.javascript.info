@@ -1,14 +1,12 @@
-importance: 5
+الأهمية: 5
 
 ---
 
-# Repeat until the input is a number
+#  كرر حتى يصبح المُدخَل عددًا
 
-Create a function `readNumber` which prompts for a number until the visitor enters a valid numeric value.
+أنشِئ الدالة `readNumber` والتي تطلب من الزائر إدخال عدد حتى يقوم بإدخال قيمة عددية صحيحة. يجب أن تكون القيمة المُرجَعة عددًا.
 
-The resulting value must be returned as a number.
-
-The visitor can also stop the process by entering an empty line or pressing "CANCEL". In that case, the function should return `null`.
+يمكن للزائر إيقاف العملية بإدخال سطر فارغ أو الضغط على "CANCEL". يجب أن تُرجِع الدالة `null` في هذه الحالة.
 
 [demo]
 

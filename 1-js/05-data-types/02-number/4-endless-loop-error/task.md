@@ -1,10 +1,10 @@
-importance: 4
+الأهمية: 4
 
 ---
 
-# An occasional infinite loop
+# حلقة غير منتهية أحيانًا
 
-This loop is infinite. It never ends. Why?
+الحلقة التالية غير منتهية، ولا تتوقف أبدًا. لماذا؟
 
 ```js
 let i = 0;

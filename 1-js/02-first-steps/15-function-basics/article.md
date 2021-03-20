@@ -208,7 +208,7 @@ function showMessage(from, text = anotherFunction()) {
 ```
 
 ```smart header="تنفيذ القيم الإفتراضية"
-في الجافاسكربت يتم تنفيذ القيم الإفتراضية في كل مرة يتم استدعاء الدالة دون تمرير قيمة.
+في الجافا سكريبت يتم تنفيذ القيم الإفتراضية في كل مرة يتم استدعاء الدالة دون تمرير قيمة.
 
 في المثال السابق سيتم تنفيذ `anotherFunction()` في كل مرة يتم استدعا `showMessage()` دون تمرير قيمة `text`.
 ```
@@ -243,7 +243,7 @@ function showMessage(text) {
 }
 ```
 
-محركات الجافاسكربت الحديثة تدعم [nullish coalescing operator](info:nullish-coalescing-operator) `??`وهوأفضل في التعامل مع falsy values مثل `0`:
+محركات الجافا سكريبت الحديثة تدعم [nullish coalescing operator](info:nullish-coalescing-operator) `??`وهوأفضل في التعامل مع falsy values مثل `0`:
 
 ```js run
 // إذا لم يوجد قيمة "count" يعرض "unknown"
@@ -346,7 +346,7 @@ alert(doNothing() === undefined); // true
 return
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
-هذا لن يعمل لأن الجافاسكربت ستفترض وجود فاصلة منقوطة بعد `return`. وهذا يطابق:
+هذا لن يعمل لأن الجافا سكريبت ستفترض وجود فاصلة منقوطة بعد `return`. وهذا يطابق:
 
 ```js
 return*!*;*/!*

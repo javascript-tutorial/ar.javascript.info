@@ -134,7 +134,7 @@ alert([...range]); // Error, no Symbol.iterator
 
 ## الـgenerators الغير متزامنة
 
-كما نعلم بالفعل أن الجافاسكريبت تدعم الـgenerators وهم أيضا iterables.
+كما نعلم بالفعل أن جافا سكريبت تدعم الـgenerators وهم أيضا iterables.
 
 هيا نقوم باسترجاع التسلسل الذي أنشأناه فى الفصل [](info:generators). هذه الدالة تقوم بإنشاء تسلسل من القيم من `start` إلى `end`:
 

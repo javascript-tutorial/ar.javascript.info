@@ -47,7 +47,7 @@ for (let key in proxy) alert(key); // test, التكرار يعمل (3)
 
 ماذا يمكننا أن نتدخّل (intercept) بهم؟
 
-لأغلب العمليات علي الـobjects توجد دوال تسمي "الدوال الداخلية" "internal method" فى مصدر الجافاسكريبت والتي تصف كيفية عملها عند أقل مستوي. علي سبيل المثال الدالة `[[Get]]` هي دالة داخلية لقراءة خاصية والدالة `[[Set]]` هي دالة داخلية لإضافة\تعديل خاصية وهكذا. هذه الدوال تستخدم فقط داخليًا ولا يمكننا استعمالهم بشكل مباشر.
+لأغلب العمليات علي الـobjects توجد دوال تسمي "الدوال الداخلية" "internal method" فى مصدر جافا سكريبت والتي تصف كيفية عملها عند أقل مستوي. علي سبيل المثال الدالة `[[Get]]` هي دالة داخلية لقراءة خاصية والدالة `[[Set]]` هي دالة داخلية لإضافة\تعديل خاصية وهكذا. هذه الدوال تستخدم فقط داخليًا ولا يمكننا استعمالهم بشكل مباشر.
 
 تتدخّل الـ Proxy traps فى استدعاء هذه الدوال. وهم موجودون بالتفصيل في [المصدر](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots) وفي الجدول أدناه.
 
@@ -70,7 +70,7 @@ for (let key in proxy) alert(key); // test, التكرار يعمل (3)
 | `[[OwnPropertyKeys]]`   | `ownKeys`                  | [Object.getOwnPropertyNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object/keys/values/entries` |
 
 ```warn header="بعض الثوابت"
-تفرض الجافاسكريبت بعض الثوابت -- شروط يجب أن تتحقق بالmethods و الtraps.
+تفرض جافا سكريبت بعض الثوابت -- شروط يجب أن تتحقق بالmethods و الtraps.
 
 أغلبهم لإرجاع قيم:
 - الدالة `[[Set]]` يجب أن تقوم بإرجاع `true` إذا كُتبت القيمة بشكل صحيح أو تقوم بإرجاع `false` إذا لم تكن كذلك.
@@ -450,7 +450,7 @@ user = {
 ولذلك فإن بروكسي كهذا لا يجب أن يتم استخدامه في كل مكان.
 
 ```smart header="الخصائص الخاصه في الكلاس"
-محركات الجافاسكريبت الحديثة تدعم الخصائص الخاصة (private properties) في الكلاس، مسبوقة بالعلامة `#`, تم شرحهم في المقال <info:private-protected-properties-methods>. لا نحتاج إلي بروكسي.
+محركات جافا سكريبت الحديثة تدعم الخصائص الخاصة (private properties) في الكلاس، مسبوقة بالعلامة `#`, تم شرحهم في المقال <info:private-protected-properties-methods>. لا نحتاج إلي بروكسي.
 
 خصائص كهذه لها مشاكلها الخاصة. تحديدًا، لا يمكن توارثها.
 ```
@@ -507,7 +507,7 @@ alert(50 in range); // false
 
 الtrap `apply(target, thisArg, args)` يتعامل مع استدعاء البروكسي كدالة:
 
-- `target` هو الأوبجكت المستهدف (الدوال ماهي إلا أوبجكت في الجافاسكريبت
+- `target` هو الأوبجكت المستهدف (الدوال ماهي إلا أوبجكت في جافا سكريبت
 - `thisArg` هو قيمة `this`.
 - `args` هو قائمة من المتغيرات.
 
@@ -865,7 +865,7 @@ alert(user.getName()); // خطأ
 */!*
 ````
 
-السبب في ذلك أن الخصائص الداخلية يتم إنشاؤها بالـ internal slots. ولا تستخدم الجافاسكريبت `[[Get]]/[[Set]]` عند الوصول إليهم.
+السبب في ذلك أن الخصائص الداخلية يتم إنشاؤها بالـ internal slots. ولا تستخدم جافا سكريبت `[[Get]]/[[Set]]` عند الوصول إليهم.
 
 عند استدعاء `getName()` فإن قيمة `this` يتم إحاطتها بالأوبجكت `user`، وهي لا تملك فتحة (slot) مع الخصائص الخاصة.
 

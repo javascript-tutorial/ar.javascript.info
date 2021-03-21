@@ -188,7 +188,7 @@ for (let key in user) {
 }
 ```
 
-كما تقدّم لنا مكتبات جافاسكربت دوال للربط الجماعي لتسهيل الأمور، مثل [`‎_.bindAll(obj)‎`](http://lodash.com/docs#bindAll) في المكتبة lodash.
+كما تقدّم لنا مكتبات جافا سكريبت دوال للربط الجماعي لتسهيل الأمور، مثل [`‎_.bindAll(obj)‎`](http://lodash.com/docs#bindAll) في المكتبة lodash.
 
 ## الدوال الجزئية
 

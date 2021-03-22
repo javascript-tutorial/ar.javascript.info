@@ -14,14 +14,23 @@
 
 أيضاً، إذا كنت تطور من أجل المتصفح، إذا هناك مواصفات أخرى مشمولة في [الجزء الثاني](info:browser-environment) من الدورة التعليمية.
 
+<<<<<<< HEAD
 ## المراجع
+=======
+Also, if you're developing for the browser, then there are other specifications covered in the [second part](info:browser-environment) of the tutorial.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 - **MDN (Mozilla) JavaScript Reference** هذا دليل بأمثلة ومعلومات أخرى. وهو مصدر جيد للحصول على معلومات تفصيلية حول ميزات اللغة، وطرق الكائنات المضمنة، وما إلى ذلك.
 
+<<<<<<< HEAD
 يمكن أن تجدها في <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference>.
+=======
+- **MDN (Mozilla) JavaScript Reference** is the main manual with examples and other information. It's great to get in-depth information about individual language functions, methods etc.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 أيضاً، غالباً ما يكون من الأفضل استخدام البحث عبر الإنترنت بدلاً من ذلك. فقط استخدم "[مصطلح] MDN" للإستعلام، مثال <https://google.com/search?q=MDN+parseInt> لتبحث عن دالة `parseInt`.
 
+<<<<<<< HEAD
 * **MSDN** – مراجع ميكروسوفت يوجد بها معلومات كثيرة، متضمنة جافا سكريبت (غالباً يشار إليها JScript). إذا كنت تريد شيئا أكثر تخصصا عن انترنت اكسبلورر، من الأفضل الذهاب إلى: <http://msdn.microsoft.com/>.
 
 أيضاً، يمكن غن نستخدم بحث الإنترنت بعبارات مثل "RegExp MSDN" or "RegExp MSDN jscript".
@@ -29,6 +38,9 @@
 ## جدول التوافق
 
 جافا سكريبت لغة فى سياق متطور، تضاف إليها خصائص جديدة بانتظام.
+=======
+Although, it's often best to use an internet search instead. Just use "MDN [term]" in the query, e.g. <https://google.com/search?q=MDN+parseInt> to search for `parseInt` function.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 لتَّـحَقّـق من الدعم ما بين المتصفحات والمحركات الأخرى، انظر:
 

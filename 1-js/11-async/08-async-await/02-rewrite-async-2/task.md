@@ -1,7 +1,11 @@
 
 # أعد كتابة "rethrow" مع غير متزامن / انتظار
 
+<<<<<<< HEAD
 يمكنك العثور أدناه على مثال "إعادة النمو" من الفصل <info: prom-chaining>. أعد كتابته باستخدام "غير متزامن / انتظار" بدلاً من ".then / catch".
+=======
+Below you can find the "rethrow" example. Rewrite it using `async/await` instead of `.then/catch`.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 وتخلص من العودية لصالح حلقة في `demoGithubUser`: مع` غير متزامن / انتظار 'يصبح من السهل القيام به.
 
@@ -22,7 +26,7 @@ function loadJson(url) {
       } else {
         throw new HttpError(response);
       }
-    })
+    });
 }
 
 // Ask for a user name until github returns a valid user

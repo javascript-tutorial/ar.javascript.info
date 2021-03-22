@@ -2,7 +2,11 @@
 
 يُتيح لنا المُعامل `instanceof` (أهو سيرورة من) فحص هل الكائن ينتمي إلى الصنف الفلاني؟ كما يأخذ الوراثة في الحسبان عند الفحص.
 
+<<<<<<< HEAD
 توجد حالات عديدة يكون فيها هذا الفحص ضروريًا. **سنستعمله هنا لصناعة دالة **، أي دالة تغيّر تعاملها حسب نوع الوسطاء الممرّرة لها.
+=======
+Such a check may be necessary in many cases. For example, it can be used for building a *polymorphic* function, the one that treats arguments differently depending on their type.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 ## معامل instanceof
 
@@ -197,8 +201,13 @@ alert( {}.toString.call(user) ); // [object User]
 لأغلب الكائنات الخاصّة بالبيئات خاصية مثل هذه. إليك بعض الأمثلة من المتصفّحات مثلًا:
 
 ```js run
+<<<<<<< HEAD
 // تابِع ‫toStringTag للكائنات والأصناف الخاصّة بالمتصفّحات:
 alert( window[Symbol.toStringTag]); // window
+=======
+// toStringTag for the environment-specific object and class:
+alert( window[Symbol.toStringTag]); // Window
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 alert( XMLHttpRequest.prototype[Symbol.toStringTag] ); // XMLHttpRequest
 
 alert( {}.toString.call(window) ); // [object Window]

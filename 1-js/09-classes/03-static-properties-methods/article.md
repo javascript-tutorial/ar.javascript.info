@@ -125,7 +125,11 @@ That is the same as a direct assignment to `Article`:
 Article.publisher = "Ilya Kantor";
 ```
 
+<<<<<<< HEAD
 ## وراثة الدوال والخصائص الثابتة
+=======
+## Inheritance of static properties and methods [#statics-and-inheritance]
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 الخصائص والأساليب الثابتة موروثة.
 

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+By definition, a factorial `n!` can be written as `n * (n-1)!`.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 
 الحل يكمن في التعريف `n!` يساوي `n * (n-1)`.

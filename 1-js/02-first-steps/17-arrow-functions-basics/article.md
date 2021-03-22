@@ -5,7 +5,11 @@
 تسمى "arrow functions" لأنها تشبه السهم:
 
 ```js
+<<<<<<< HEAD
 let func = (arg1, arg2, ...argN) => expression;
+=======
+let func = (arg1, arg2, ..., argN) => expression
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 ```
 
 ...هذا ينشئ دالة `func` تأخذ قيم `arg1..argN` وتنفذ `expression` الطرف الأيمن باستخدامهم وترجع النتيجة.
@@ -13,8 +17,13 @@ let func = (arg1, arg2, ...argN) => expression;
 بصيغة أخرى فهي إختصار ل:
 
 ```js
+<<<<<<< HEAD
 let func = function (arg1, arg2, ...argN) {
     return expression;
+=======
+let func = function(arg1, arg2, ..., argN) {
+  return expression;
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 };
 ```
 

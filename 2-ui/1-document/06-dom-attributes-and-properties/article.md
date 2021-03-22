@@ -298,7 +298,11 @@ document.body.sayHi(); // Hello, I'm BODY
 </div>
 ```
 
+<<<<<<< HEAD
 لماذا يكون استخدام السمة أفضل من وجود فئات مثل `.order-state-new` و` .order-state-pending` و `order-state-cancell`؟
+=======
+Why would using an attribute be preferable to having classes like `.order-state-new`, `.order-state-pending`, `.order-state-canceled`?
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 لأن السمة أكثر ملاءمة للإدارة. يمكن تغيير الحالة بالسهولة التالية:
 

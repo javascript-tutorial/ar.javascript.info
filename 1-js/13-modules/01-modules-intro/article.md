@@ -261,8 +261,12 @@ Compare to regular script below:
 
 <script>
 *!*
+<<<<<<< HEAD
 
   alert(typeof button); // ‫خطأ: الزر (button) غير معرّف. لن يستطيع السكربت رؤية العناصر أدناه
+=======
+  alert(typeof button); // button is undefined, the script can't see elements below
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 */!*
   // السكربت العادي سيُشغل مباشرة قبل أن يُستكمل تحميل الصفحة 
 </script>

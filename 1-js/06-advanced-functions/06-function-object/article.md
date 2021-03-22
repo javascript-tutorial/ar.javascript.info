@@ -342,7 +342,11 @@ welcome(); // Hello, Guest (nested call works)
 
 ```smart header="لا يوجد هذا الشيء في تعريف الدالة العادية"
 
+<<<<<<< HEAD
 خاصية اسم دالة متاحة فقط لتعبير الدالة  Function Expressions وليس لتعريف الدالة Function Declarations. بالنسبة لتعريف الدالة لا توجد طريقة لتعريف اسم داخلي.
+=======
+The outer code still has its variable `sayHi` or `welcome`. And `func` is an "internal function name", how the function can call itself internally.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 في بعض الأحيان عندما نحتاج إلى اسم داخلي يكون هذا السبب لتحويل تعريف الدالة إلى NFE أو تعبير الدالة المُسمى.
 
@@ -361,7 +365,11 @@ welcome(); // Hello, Guest (nested call works)
 
 أيضاً، الدالة يمكن أن تحمل خواص أخرى. الكثير من المكتبات المعروفة لجافا سكريبت تجعل استخدام كبير من هذه الخاصية.
 
+<<<<<<< HEAD
 هم يصنعون دالة أساسية ويلحق بها دوال أخرى مساعدة لها. مثلاً مكتبة الـ [jQuery](https://jquery.com) تصنع دالة تُسمي `$`. مكتبة [lodash](https://lodash.com) تصنع دالة `_`، ثم تضيف `_.clone` و `_.keyBy` و خواص أخرى لها. يمكنك أن تعرف أكثر عن هذه المكتبة من هنا [docs](https://lodash.com/docs). يقومون بذلك، في الواقع، لتقليل تلوث الفراغ الشامل، لذلك المكتبة الواحدة تعطي فقط متغير عالمي. ذلك يقلل إحتمالية تداخل الاسماء.
+=======
+They create a "main" function and attach many other "helper" functions to it. For instance, the [jQuery](https://jquery.com) library creates a function named `$`. The [lodash](https://lodash.com) library creates a function `_`, and then adds `_.clone`, `_.keyBy` and other properties to it (see the [docs](https://lodash.com/docs) when you want to learn more about them). Actually, they do it to lessen their pollution of the global space, so that a single library gives only one global variable. That reduces the possibility of naming conflicts.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 لذلك الدالة يمكنها القيام بواجب رائع من نفسها ويمكن أن تحمل الكثير من الخواص الأخرى في داخلها.
 

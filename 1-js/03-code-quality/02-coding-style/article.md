@@ -114,7 +114,13 @@ if (
 
    يتم عمل مسافة بادئة أفقية باستخدام مسافتين أو 4 مسافات أو رمز علامة التبويب الأفقية (key `key:Tab`). أيهما كان اختيارك فهي حرب قديمة. المساحات هي الأكثر شيوعًا في الوقت الحاضر.
 
+<<<<<<< HEAD
   هنالك ميزة واحدة للمسافات عن علامات التبويب الا و هي أن المسافات تسمح بإعدادات مسافات بادئة أكثر مرونة من رمز علامة التبويب.
+=======
+    One advantage of spaces over tabs is that spaces allow more flexible configurations of indents than the tab symbol.
+
+    For instance, we can align the parameters with the opening bracket, like this:
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
     على سبيل المثال ، يمكننا محاذاة المعاملات مع قوس الفتح ، مثل هذا:
     ```js no-beautify
@@ -329,7 +335,7 @@ Linters هي أدوات يمكنها التحقق تلقائيًا من اسلو
   },
   "rules": {
     "no-console": 0,
-    "indent": ["warning", 2]
+    "indent": 2
   }
 }
 ```

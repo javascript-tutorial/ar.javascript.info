@@ -49,7 +49,11 @@ let guestList = "Guests: // Error: Unexpected token ILLEGAL
 
 أتى استخدام علامات الاقتباس الفردية والثنائية في أوقات مبكرة من إنشاء اللغة، عندما لم يُؤخَذ بالحسبان الحاجة إلى نص متعدد الأسطر. ظهرت الفاصلة العلوية المائلة مؤخرًا ولذا فإنها متعددة الاستعمالات.
 
+<<<<<<< HEAD
 تتيح لنا أيضا الفاصلة العلوية المائلة تحديد "دالة كنموذج" قبل الفاصلة العلوية المائلة الأولى. تكون الصيغة كما يلي: ```func`string````. تُستَدعى الدالة `func` تلقائيًا، وتستقبل النص والتعابير المُضَمَّنة وتعالجها. يسمى هذا ب "القوالب الملحقة". تجعل هذه الميزة من السهل تضمين قوالب مخصصة، لكنها تستخدم بشكل نادر عمليًا. يمكنك قراءة المزيد عنها في هذا [الدليل](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates).
+=======
+Backticks also allow us to specify a "template function" before the first backtick. The syntax is: <code>func&#96;string&#96;</code>. The function `func` is called automatically, receives the string and embedded expressions and can process them. This is called "tagged templates". This feature makes it easier to implement custom templating, but is rarely used in practice. You can read more about it in the [manual](mdn:/JavaScript/Reference/Template_literals#Tagged_templates).
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 ## الرموز الخاصة
 ما زال بالإمكان كتابة نصوص متعددة الأسطر باستخدام علامات الاقتباس الأحادية والثنائية باستخدام ما يسمى ب "رمز السطر الجديد"، والذي يُكتَب `‎\n`، ويرمز لسطر جديد:
@@ -89,11 +93,33 @@ alert(str1 == str2); // true
 | `‎\uXXXX`         | صيغة رمز يونيكود مع عدد ست عشرية `XXXX` في تشفير UTF-16، مثلًا، `‎\u00A9` – هو اليونيكود لرمز حقوق النسخ `©`. يجب أن يكون مكون من 6 خانات ست عشرية. |
 | ‎`\u{X…XXXXXX}‎`   | (1 إلى 6 أحرف ست عشرية) رمز يونيكود مع تشفير UTF-32 المعطى. تُشَفَّر بعض الرموز الخاصة برمزي يونيكود، فتأخذ 4 بايت. هكذا يمكننا إدخال شيفرات طويلة. |
 
+<<<<<<< HEAD
 
 أمثلة باستخدام حروف يونيكود:
 
 ```js run
 alert( "\u00A9" ); // ©
+=======
+| Character | Description |
+|-----------|-------------|
+|`\n`|New line|
+|`\r`|Carriage return: not used alone. Windows text files use a combination of two characters `\r\n` to represent a line break. |
+|`\'`, `\"`|Quotes|
+|`\\`|Backslash|
+|`\t`|Tab|
+|`\b`, `\f`, `\v`| Backspace, Form Feed, Vertical Tab -- kept for compatibility, not used nowadays. |
+|`\xXX`|Unicode character with the given hexadecimal Unicode `XX`, e.g. `'\x7A'` is the same as `'z'`.|
+|`\uXXXX`|A Unicode symbol with the hex code `XXXX` in UTF-16 encoding, for instance `\u00A9` -- is a Unicode for the copyright symbol `©`. It must be exactly 4 hex digits. |
+|`\u{X…XXXXXX}` (1 to 6 hex characters)|A Unicode symbol with the given UTF-32 encoding. Some rare characters are encoded with two Unicode symbols, taking 4 bytes. This way we can insert long codes. |
+
+Examples with Unicode:
+
+```js run
+alert( "\u00A9" ); // ©
+alert( "\u{20331}" ); // 佫, a rare Chinese hieroglyph (long Unicode)
+alert( "\u{1F60D}" ); // 😍, a smiling face symbol (another long Unicode)
+```
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 // (رمز نادر من الهيروغليفية الصينية (يونيكود طويل
 alert( "\u{20331}" ); // 佫
@@ -111,7 +137,11 @@ alert( 'I*!*\'*/!*m the Walrus!' ); // *!*I'm*/!* the Walrus!
 
 يجب إلحاق علامة الاقتباس الداخلية بالشرطة المائلة الخلفية `‎\'‎`، وإلا فستُعتَبر نهاية السلسلة النصية. لاحظ أن الشرطة المائلة الخلفية `\` تعمل من أجل تصحيح قراءة السلسلة النصية بواسطة JavaScript. ومن ثم تختفي، لذا فإن النص في الذاكرة لا يحتوي على `\`. يمكننا رؤية ذلك بوضوح باستخدام `alert` على المثال السابق.
 
+<<<<<<< HEAD
 يجب استخدام محرف التهريب في حالة استخدام علامة الاقتباس المحيطة بالنص نفسها، لذا فإن الحل الأمثل هو استخدام علامات اقتباس مزدوجة أو فواصل عليا مائلة في مثل هذه الحالة:
+=======
+Of course, only the quotes that are the same as the enclosing ones need to be escaped. So, as a more elegant solution, we could switch to double quotes or backticks instead:
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 ```js run
 alert( `I'm the Walrus!` ); // I'm the Walrus!
@@ -231,7 +261,13 @@ alert( str.indexOf('widget') ); // -1, not found, the search is case-sensitive
 alert( str.indexOf("id") ); // 1, "id" is found at the position 1 (..idget with id)
 ```
 
+<<<<<<< HEAD
 يتيح لنا المُعامِل الثاني الاختياري البحث من الموضع المُعطَى. مثلًا في الحالة الثالثة، أول ظهور ل `"id"` هو في الموضع `1`. لِلبحث عن الظهور التالي له نبدأ البحث من الموضع `2`:
+=======
+The optional second parameter allows us to start searching from a given position.
+
+For instance, the first occurrence of `"id"` is at position `1`. To look for the next occurrence, let's start the search from position `2`:
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 ```js run
 let str = 'Widget with id';
@@ -296,7 +332,15 @@ if (str.indexOf("Widget") != -1) {
 }
 ```
 
+<<<<<<< HEAD
 #### خدعة NOT على مستوى البِت
+=======
+#### The bitwise NOT trick
+
+One of the old tricks used here is the [bitwise NOT](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_NOT) `~` operator. It converts the number to a 32-bit integer (removes the decimal part if exists) and then reverses all bits in its binary representation.
+
+In practice, that means a simple thing: for 32-bit integers `~n` equals `-(n+1)`.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 إحدى الخدع القديمة هي [لعامل الثنائي ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_NOT) `~` الذي تعمل على مستوى البِت. فهو يُحَوِّل العدد إلى عدد صحيح بصيغة 32-بِت (يحذف الجزء العشري إن وجد) ثم يُحوِّل جميع  البتات إلى تمثيلها الثنائي. عمليًا، يعني ذلك شيئًا بسيطًا: بالنسبة للأعداد الصحيحة بصيغة 32-بِت `‎~n` تساوي `‎-(n+1)‎`. مثلًا:
 
@@ -326,7 +370,11 @@ if (~str.indexOf("Widget")) {
 
 تذكر أن الشرط `if (~str.indexOf(...))‎` يعمل بالصيغة «إن وُجِد».
 
+<<<<<<< HEAD
 حتى نكون دقيقين، عندما تُحَوَّل الأرقام إلى صيغة 32-بِت باستخدام المعامل `~` يوجد أعداد أخرى تُعطي القيمة `0`، أصغر هذه الأعداد هي `‎~4294967295 == 0`. ما يجعل هذا الفحص صحيحًا في حال النصوص القصيرة فقط.
+=======
+To be precise though, as big numbers are truncated to 32 bits by `~` operator, there exist other numbers that give `0`, the smallest is `~4294967295=0`. That makes such check correct only if a string is not that long.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 لا نجد هذه الخدعة حاليًا سوى في الشيفرات القديمة، وذلك لأن JavaScript وفرت التابع `‎.includes` (ستجدها في الأسفل).
 
@@ -484,7 +532,12 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
     ```js run
     alert( String.fromCodePoint(90) ); // Z
     ```
+<<<<<<< HEAD
     يمكننا إضافة حرف يونيكود باستخدام رمزه بواسطة `‎\u` متبوعة بالرمز الست عشري:
+=======
+
+    We can also add Unicode characters by their codes using `\u` followed by the hex code:
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
     ```js run
     // يُمثَّل العدد العشري 90 بالعدد 5a في النظام الست عشري.
@@ -513,7 +566,11 @@ alert( str );
 
 ### موازنات صحيحة
 
+<<<<<<< HEAD
 الخوارزمية الصحيحة لموازنة النصوص أكثر تعقيدًا مما يبدو عليه الأمر، لأن الأحرف تختلف باختلاف اللغات. لذا، يحتاج المتصفح لمعرفة اللغة لموازنة نصوصها موازنةً صحيحة.
+=======
+### Correct comparisons [#correct-comparisons]
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 لحسن الحظ، تدعم جميع المتصفحات الحديثة المعيار العالمي [ECMA 402](http://www.ecma-international.org/ecma-402/1.0/ECMA-402.pdf)(IE10- الذي يتطلب المكتبة الاضافية [Intl.JS](https://github.com/andyearnshaw/Intl.js/))، إذ يوفر تابعًا خاصًا لموازنة النصوص بلغات متعددة، وفقًا لقواعدها.
 
@@ -594,7 +651,11 @@ alert( '𝒳'.charCodeAt(1).toString(16) ); // dcb3, between 0xdc00 and 0xdfff
 يوجد حروف مركبة في الكثير من اللغات والتي تتكون من الحرف الرئيسي مع علامة فوقه/تحته. مثلًا، يمكن للحرف `a` أن يكون أساسًا للأحرف التالية: `àáâäãåā`. لدى معظم الحروف المركبة رمزها الخاص بها في جدول UTF-16. لكن ليس جميعها، وذلك لوجود الكثير من الاحتمالات.
 
 
+<<<<<<< HEAD
 لدعم التراكيب الأساسية، تتيح لنا UTF-16 استخدام العديد من حروف يونيكود: الحرف الرئيسي متبوعًا بعلامة أو أكثر لتشكيله. مثلًا، إن كان لدينا `S` متبوعًا بالرمز الخاص "النقطة العلوية" (التي رمزها `‎ \u0307`). فسيُعرَض ك Ṡ.
+=======
+To support arbitrary compositions, UTF-16 allows us to use several Unicode characters: the base character followed by one or many "mark" characters that "decorate" it.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 
 ```js run
@@ -607,7 +668,13 @@ alert( 'S\u0307' ); // Ṡ
 alert( 'S\u0307\u0323' ); // Ṩ
 ```
 
+<<<<<<< HEAD
 هذا يوفر مرونة كبيرة، لكن مشكلة كبيرة أيضًا: قد يظهر حرفان بالشكل ذاته، لكن يمثلان بتراكيب يونيكود مختلفة. مثلًا:
+=======
+This provides great flexibility, but also an interesting problem: two characters may visually look the same, but be represented with different Unicode compositions.
+
+For instance:
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 ```js run
 
@@ -623,7 +690,11 @@ alert( s1 == s2 ); // خطأ بالرغم من أن الحرفين متساوي�
 
 ```
 
+<<<<<<< HEAD
 لحل ذلك، يوجد خوارزمية تدعى "توحيد ترميز اليونيكود" (unicode normalization) والتي تُعيد كل نص إلى الصيغة الطبيعية المستقلة له.
+=======
+To solve this, there exists a "Unicode normalization" algorithm that brings each string to the single "normal" form.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 هذه الخوارزمية مُضَمَّنة في التابع [str.normalize()](mdn:js/String/normalize).
 
@@ -645,6 +716,7 @@ alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 
 ## المُلخص
 
+<<<<<<< HEAD
 - يوجد 3 أنواع لِعلامات الاقتباس. تسمح الشرطات العلوية المائلة للنص بالتوسع لأكثر من سطر وتضمين التعبير `‎${…}‎`.
 - النصوص في JavaScript مُشَفَّرة بواسطة UTF-16.
 - يمكننا استخدام أحرف خاصة مثل `‎ \n` وإدخال أحرف باستخدام رمز يونيكود الخاص بها باستخدام `‎\u...‎`.
@@ -653,6 +725,16 @@ alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 - للتحويل من أحرف كبيرة/صغيرة، استخدم: `toLowerCase` أو `toUpperCase`.
 - للبحث عن جزء من النص، استخدم: `indexOf`، أو `includes` أو `startsWith` أو `endsWith` للفحص البسيط.
 - لموازنة النصوص وفقًا للغة، استخدم: `localeCompare`، وإلا فستوازن برموز الحروف.
+=======
+- There are 3 types of quotes. Backticks allow a string to span multiple lines and embed expressions `${…}`.
+- Strings in JavaScript are encoded using UTF-16.
+- We can use special characters like `\n` and insert letters by their Unicode using `\u...`.
+- To get a character, use: `[]`.
+- To get a substring, use: `slice` or `substring`.
+- To lowercase/uppercase a string, use: `toLowerCase/toUpperCase`.
+- To look for a substring, use: `indexOf`, or `includes/startsWith/endsWith` for simple checks.
+- To compare strings according to the language, use: `localeCompare`, otherwise they are compared by character codes.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 
 يوجد الكثير من التوابع الأخرى المفيدة في النصوص:

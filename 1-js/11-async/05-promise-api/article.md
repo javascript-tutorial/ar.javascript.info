@@ -1,6 +1,6 @@
-# Promise API 
+# Promise API
 
-هناك خمس دوال ثابتة في `Promise` class. سنغطي بسرعة حالات استخدامهم هنا.
+There are 6 static methods in the `Promise` class. We'll quickly cover their use cases here.
 
 ## Promise.all
 
@@ -24,9 +24,9 @@ let promise = Promise.all([...promises...]);
 
 ```js run
 Promise.all([
-  new Promise(resolve => setTimeout(() => resolve(1), 3000)), // 1
-  new Promise(resolve => setTimeout(() => resolve(2), 2000)), // 2
-  new Promise(resolve => setTimeout(() => resolve(3), 1000))  // 3
+  new Promise((resolve) => setTimeout(() => resolve(1), 3000)), // 1
+  new Promise((resolve) => setTimeout(() => resolve(2), 2000)), // 2
+  new Promise((resolve) => setTimeout(() => resolve(3), 1000)), // 3
 ]).then(alert); // 1,2,3 when promises are ready: each promise contributes an array member
 ```
 
@@ -37,20 +37,13 @@ Promise.all([
 على سبيل المثال ، إذا كان لدينا مجموعة من عناوين URL ، فيمكننا جلبها جميعًا مثل هذا:
 
 ```js run
-let urls = [
-  'https://api.github.com/users/iliakan',
-  'https://api.github.com/users/remy',
-  'https://api.github.com/users/jeresig'
-];
+let urls = ['https://api.github.com/users/iliakan', 'https://api.github.com/users/remy', 'https://api.github.com/users/jeresig'];
 
 // map every url to the promise of the fetch
-let requests = urls.map(url => fetch(url));
+let requests = urls.map((url) => fetch(url));
 
 // Promise.all waits until all jobs are resolved
-Promise.all(requests)
-  .then(responses => responses.forEach(
-    response => alert(`${response.url}: ${response.status}`)
-  ));
+Promise.all(requests).then((responses) => responses.forEach((response) => alert(`${response.url}: ${response.status}`)));
 ```
 
 مثال أكبر على جلب معلومات المستخدم لمجموعة من مستخدمي GitHub بأسمائهم (يمكننا جلب مجموعة من السلع حسب معرفاتهم ، المنطق متطابق):
@@ -58,21 +51,21 @@ Promise.all(requests)
 ```js run
 let names = ['iliakan', 'remy', 'jeresig'];
 
-let requests = names.map(name => fetch(`https://api.github.com/users/${name}`));
+let requests = names.map((name) => fetch(`https://api.github.com/users/${name}`));
 
 Promise.all(requests)
-  .then(responses => {
+  .then((responses) => {
     // all responses are resolved successfully
-    for(let response of responses) {
+    for (let response of responses) {
       alert(`${response.url}: ${response.status}`); // shows 200 for every url
     }
 
     return responses;
   })
   // map array of responses into an array of response.json() to read their content
-  .then(responses => Promise.all(responses.map(r => r.json())))
+  .then((responses) => Promise.all(responses.map((r) => r.json())))
   // all JSON answers are parsed: "users" is the array of them
-  .then(users => users.forEach(user => alert(user.name)));
+  .then((users) => users.forEach((user) => alert(user.name)));
 ```
 
 ** إذا تم رفض أي من الوعود ، فإن الوعد الذي تم إرجاعه بواسطة "Promise.all" يرفض على الفور هذا الخطأ. **
@@ -99,22 +92,22 @@ Promise.all([
 لا يقوم "Promise.all" بأي شيء لإلغائها ، حيث لا يوجد مفهوم "الإلغاء" في الوعود. في [فصل آخر] (info: fetch-abort) سنغطي `AbortController` التي يمكن أن تساعد في ذلك ، لكنها ليست جزءًا من Promise API.
 ```
 
-````smart header="`Promise.all(iterable)` يسمح بقيم ليست promise في "قابل للتكرار" "
-عادة ، يقبل `Promise.all (...)` الوعود (في معظم الحالات مجموعة) من الوعود. ولكن إذا لم يكن أي من هذه الأشياء وعدًا ، فسيتم تمريره إلى الصفيف الناتج "كما هو".
+````smart header="`Promise.all(iterable)`يسمح بقيم ليست promise في "قابل للتكرار" " عادة ، يقبل`Promise.all (...)` الوعود (في معظم الحالات مجموعة) من الوعود. ولكن إذا لم يكن أي من هذه الأشياء وعدًا ، فسيتم تمريره إلى الصفيف الناتج "كما هو".
 
 على سبيل المثال ، هنا النتائج هي "[1 ، 2 ، 3]`:
 
 ```js run
 Promise.all([
   new Promise((resolve, reject) => {
-    setTimeout(() => resolve(1), 1000)
+    setTimeout(() => resolve(1), 1000);
   }),
   2,
-  3
+  3,
 ]).then(alert); // 1, 2, 3
 ```
 
 حتى نتمكن من تمرير القيم الجاهزة إلى "Promise.all" حيثما يكون ذلك مناسبًا.
+
 ````
 
 ## Promise.allSettled
@@ -178,15 +171,14 @@ Promise.allSettled(urls.map(url => fetch(url)))
 إذا كان المتصفح لا يدعم `Promise.allSettled` ، فمن السهل إعادة الملء:
 
 ```js
-if(!Promise.allSettled) {
-  Promise.allSettled = function(promises) {
-    return Promise.all(promises.map(p => Promise.resolve(p).then(value => ({
-      status: 'fulfilled',
-      value
-    }), reason => ({
-      status: 'rejected',
-      reason
-    }))));
+if (!Promise.allSettled) {
+  const rejectHandler = reason => ({ status: 'rejected', reason });
+
+  const resolveHandler = value => ({ status: 'fulfilled', value });
+
+  Promise.allSettled = function (promises) {
+    const convertedPromises = promises.map(p => Promise.resolve(p).then(resolveHandler, rejectHandler));
+    return Promise.all(convertedPromises);
   };
 }
 ```
@@ -220,13 +212,50 @@ Promise.race([
 الوعد الأول هنا كان أسرع ، لذلك أصبح النتيجة. بعد الوعد المستقر الأول "يفوز بالسباق" ، يتم تجاهل جميع النتائج / الأخطاء الأخرى.
 
 
-## Promise.resolve / reject
+## Promise.any
+
+Similar to `Promise.race`, but waits only for the first fulfilled promise and gets its result. If all of the given promises are rejected, then the returned promise is rejected with [`AggregateError`](mdn:js/AggregateError) - a special error object that stores all promise errors in its `errors` property.
+
+The syntax is:
+
+```js
+let promise = Promise.any(iterable);
+```
+
+For instance, here the result will be `1`:
+
+```js run
+Promise.any([
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => resolve(1), 2000)),
+  new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
+]).then(alert); // 1
+```
+
+The first promise here was fastest, but it was rejected, so the second promise became the result. After the first fulfilled promise "wins the race", all further results are ignored.
+
+Here's an example when all promises fail:
+
+```js run
+Promise.any([
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Ouch!")), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Error!")), 2000))
+]).catch(error => {
+  console.log(error.constructor.name); // AggregateError
+  console.log(error.errors[0]); // Error: Ouch!
+  console.log(error.errors[1]); // Error: Error
+});
+```
+
+As you can see, error objects for failed promises are available in the `errors` property of the `AggregateError` object.
+
+## Promise.resolve/reject
 
 نادرًا ما تكون هناك حاجة إلى طريقتين `Promise.resolve` و` Promise.reject` في التعليمات البرمجية الحديثة ، لأن بناء الجملة `async / await` (سنغطيها [بعد قليل] (info: async-await)) يجعلها قديمة إلى حد ما.
 
 نحن نغطيها هنا للاكتمال ولأولئك الذين لا يستطيعون استخدام `` غير متزامن / انتظار '' لسبب ما.
 
-### promise.resolve 
+### promise.resolve
 
 `Promise.resolve (القيمة)` يُنشئ وعدًا تم حله بالنتيجة `value`.
 
@@ -275,14 +304,16 @@ let promise = new Promise((resolve, reject) => reject(error));
 
 ## ملخص
 
-هناك 5 طرق ثابتة لفئة `Promise`:
+There are 6 static methods of `Promise` class:
 
-1. "Promise.all (الوعود)" - تنتظر جميع الوعود لحل وإرجاع مجموعة من نتائجها. إذا تم رفض أي من الوعود المعطاة ، يصبح خطأ "Promise.all" ، ويتم تجاهل جميع النتائج الأخرى.
-2. "Promise.allSettled (الوعود)" (الطريقة المضافة حديثًا) - تنتظر جميع الوعود بتسوية نتائجها وإعادتها كمجموعة من الأشياء مع:
-     - `الدولة`:` `محقق '' أو` `مرفوض ''
-     - "القيمة" (إذا تحققت) أو "السبب" (إذا تم رفضها).
-3. "الوعد" (الوعود) - ينتظر الوعد الأول بالاستقرار ، وتصبح نتيجته / خطأه النتيجة.
-4. "Promise.resolve (القيمة)" - يقدم وعدًا ثابتًا بقيمة معينة.
-5. "Promise.reject (خطأ)" - يقدم وعدًا مرفوضًا مع الخطأ المحدد.
+1. `Promise.all(promises)` -- waits for all promises to resolve and returns an array of their results. If any of the given promises rejects, it becomes the error of `Promise.all`, and all other results are ignored.
+2. `Promise.allSettled(promises)` (recently added method) -- waits for all promises to settle and returns their results as an array of objects with:
+    - `status`: `"fulfilled"` or `"rejected"`
+    - `value` (if fulfilled) or `reason` (if rejected).
+3. `Promise.race(promises)` -- waits for the first promise to settle, and its result/error becomes the outcome.
+4. `Promise.any(promises)` (recently added method) -- waits for the first promise to fulfill, and its result becomes the outcome. If all of the given promises are rejected, [`AggregateError`](mdn:js/AggregateError) becomes the error of `Promise.any`.
+5. `Promise.resolve(value)` -- makes a resolved promise with the given value.
+6. `Promise.reject(error)` -- makes a rejected promise with the given error.
 
-من بين هذه العناصر الخمسة ، يعد "Promise.all" الأكثر شيوعًا في الممارسة.
+Of all these, `Promise.all` is probably the most common in practice.
+````

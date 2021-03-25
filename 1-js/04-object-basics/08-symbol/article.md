@@ -1,4 +1,3 @@
-
 # الرمز (Symbol type)
 
 كما ذُكر فى المصدر, فإن صفات الكائنات
@@ -27,7 +26,7 @@ let id = Symbol();
 
 ```js
 // id is a symbol with the description "id"
-let id = Symbol("id");
+let id = Symbol('id');
 ```
 
 إن الرموز مضمون بتفرُّدها. حتى فى حالة إنشاء عدة رموز بنفس الوصف, ولكنهم مختلفين فى القيمه. فالوصف مجرد وَسْم لا يؤثر على أى شيء.
@@ -100,10 +99,10 @@ alert(id.description); // id
 ```js run
 let user = {
   // belongs to another code
-  name: "John",
+  name: 'John',
 };
 
-let id = Symbol("id");
+let id = Symbol('id');
 
 user[id] = 1;
 
@@ -125,28 +124,28 @@ alert(user[id]); // we can access the data using the symbol as the key
 
 ```js
 // ...
-let id = Symbol("id");
+let id = Symbol('id');
 
-user[id] = "Their id value";
+user[id] = 'Their id value';
 ```
 
 لن يكون هناك أى تعارض بين الخصائص وبعضها لأن الرموز دائما مختلفه ولا يمكن أن تتساوى حتى إن كان لهم نفس الإسم.
 
 ...ولكن ماذا لو استخدمنا نصًا بدلًا من رمز لنفس الغرض, فسيكون هناك تعارض:
 
-```js run
-let user = { name: "John" };
+```js
+let user = { name: 'John' };
 
 // Our script uses "id" property
-user.id = "Our id value";
+user.id = 'Our id value';
 
 // ...Another script also wants "id" for its purposes...
 
-user.id = "Their id value";
+user.id = 'Their id value';
 // Boom! overwritten by another script!
 ```
 
-### إستخدام الرموز بداخل الكائنات (objects)
+### Symbols in an object literal
 
 إذا كنا نريد أن نضع رمزا بداخل كائن كخاصيه, فإننا نحتاج أن نضع حول الرمز أقواس مربعه `[]`
 
@@ -158,7 +157,7 @@ let id = Symbol("id");
 let user = {
   name: "John",
 *!*
-  [id]: 123 // not "id: 123"
+  [id]: 123 // not "id": 123
 */!*
 };
 ```
@@ -187,15 +186,15 @@ for (let key in user) alert(key); // name, age (no symbols)
 alert( "Direct: " + user[id] );
 ```
 
-وأيضا يتم تجاهل الخصائص من نوع الرمز عند استخدام `Object.keys(user)`. لأن هذا جزء من المبدأ العام "إخفاء الخصائص الرمزيه" 
+وأيضا يتم تجاهل الخصائص من نوع الرمز عند استخدام `Object.keys(user)`. لأن هذا جزء من المبدأ العام "إخفاء الخصائص الرمزيه"
 "hiding symbolic properties". وبالمثل إذا كان هناك أى برنامج آخر يقوم أو مكتبه تقوم بالتكرار على الخصائص فى هذا الكائن فإنها لن تستطيع أن تصل إلى الخاصيه من نوع الرمز.
 
-على النقيض تماما فإن 
-[Object.assign](mdn:js/Object/assign) 
+على النقيض تماما فإن
+[Object.assign](mdn:js/Object/assign)
 تقوم بنسخ خصائص الكائن كلها سواءًا النصيه أو الرمزيه.
 
 ```js run
-let id = Symbol("id");
+let id = Symbol('id');
 let user = {
   [id]: 123,
 };
@@ -211,11 +210,11 @@ alert(clone[id]); // 123
 
 كما قلنا سابقًا, فإن الرموز عادةً ما تكون مختلفة حتى وإن كان لها نفس الوصف. ولكن فى بعض الأوقات أن نصل إلى هذا الرمز بالتحديد. على سبيل المثال, إذا كان هناك أجزاء مختلفه من البرنامج الخاص بنا تريد أن تصل إلى الرمز `"id"` تحديدا.
 
-ليتم تنفيذ ذلك, فإن هناك مايسمى _مكان تسجيل الرموز العامه_ 
+ليتم تنفيذ ذلك, فإن هناك مايسمى _مكان تسجيل الرموز العامه_
 _global symbol registry_.
 حيث يمكننا أن ننشئ رمزًا ومن خلال هذا المكان نستطيع أن نصل إليه فى وقت لاحق, ومكان تسجيل الرموز يضمن لنا أن تكرار محاولات الوصول إلى الرمز بنفس الإسم سيقوم بإرجاع نفس هذا الرمز فى كل محاوله.
 
-لقراءة (أو يمكن أن نقول إنشاء رمز فى حالة عدم وجوده) فى مكان التسجيل, استخدم 
+لقراءة (أو يمكن أن نقول إنشاء رمز فى حالة عدم وجوده) فى مكان التسجيل, استخدم
 `Symbol.for(key)`.
 
 هذه الداله ترى إن كان هناك رمز فى مكان التسجيل تم وصفه باستخدام `key` ستقوم بإرجاعها. أما غير ذلك فستقوم بإنشاء رمز جديد `Symbol(key)` وتخزينه فى مكان التسجيل باستخدام الوصف `key`.
@@ -224,10 +223,10 @@ _global symbol registry_.
 
 ```js run
 // read from the global registry
-let id = Symbol.for("id"); // if the symbol did not exist, it is created
+let id = Symbol.for('id'); // if the symbol did not exist, it is created
 
 // read it again (maybe from another part of the code)
-let idAgain = Symbol.for("id");
+let idAgain = Symbol.for('id');
 
 // the same symbol
 alert(id === idAgain); // true
@@ -249,8 +248,8 @@ alert(id === idAgain); // true
 
 ```js run
 // get symbol by name
-let sym = Symbol.for("name");
-let sym2 = Symbol.for("id");
+let sym = Symbol.for('name');
+let sym2 = Symbol.for('id');
 
 // get name by symbol
 alert(Symbol.keyFor(sym)); // name
@@ -264,8 +263,8 @@ alert(Symbol.keyFor(sym2)); // id
 على سبيل المثال:
 
 ```js run
-let globalSymbol = Symbol.for("name");
-let localSymbol = Symbol("name");
+let globalSymbol = Symbol.for('name');
+let localSymbol = Symbol('name');
 
 alert(Symbol.keyFor(globalSymbol)); // name, global symbol
 alert(Symbol.keyFor(localSymbol)); // undefined, not global
@@ -303,7 +302,7 @@ alert(localSymbol.description); // name
 
 إذا كنا نريد أن نضيف خاصيه إلى كائن لا ينتمى إلى هذا الكود بل إلى برنامج آخر أو مكتبه، فعندئذ يمكننا إنشاء رمز واستخدامه كخاصيه. والخاصيه من نوع الرمز لا تظهر فى التكرار `for .. in`, ولذلك لا يمكن الوصول إلى الخاصيه عن طريق الخطأ أو أن تتعارض مع أى خاصية أخرى وذلك لأن البرنامج الآخر لا يملك الرمز الخاص بنا. وبالتالى ستظل الخاصيه محميه من الوصول إليها أو التعديل عليها.
 
-  ولذلك يمكننا أن نُخفى أى شئ بداخل كائنات نحتاجها ولا يستطيع أى برنامج الوصول إليها باستخدام الخصائص من نوع الرموز.
+ولذلك يمكننا أن نُخفى أى شئ بداخل كائنات نحتاجها ولا يستطيع أى برنامج الوصول إليها باستخدام الخصائص من نوع الرموز.
 
 2. هناك الكثير من الرموز الموجوده بالفعل فى جافا سكريبت والتى يمكن الوصول إليها عن طريق `Symbol.*`. ويمكننا استخدامهم لتغيير بعض السلوك الموجود بالفعل فى اللغه. على سبيل المثال فإننا فى موضوع مقبل سنستخدم `Symbol.iterator` من أجل التكراريات [iterables](info:iterable) وغيرها.
 

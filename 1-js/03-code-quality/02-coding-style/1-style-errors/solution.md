@@ -12,7 +12,7 @@ function pow(x,n)  // <- لا مسافات بين المعطيات
 
 let x=prompt("x?",''), n=prompt("n?",'') // <-- ممكن تقنيا,
 // ولكن من الأفضل جعلها سطرين ، كما أنه لا توجد مسافات أو مفقودة ;
-if (n<0)  // <- لا مسافات داخل (n < 0), و يجب ان يكون هنالك سطر فوقه
+if (n <= 0)  // <- لا مسافات داخل (n <= 0), و يجب ان يكون هنالك سطر فوقه
 {   // <- القوس المعقوف في سطر جديد وحده
   // أدناه - يمكن تقسيم الخطوط الطويلة إلى خطوط متعددة لتحسين القراءة
   alert(`Power ${n} is not supported, please enter an integer number greater than zero`);
@@ -39,7 +39,7 @@ function pow(x, n) {
 let x = prompt("x?", "");
 let n = prompt("n?", "");
 
-if (n < 0) {
+if (n <= 0) {
   alert(`Power ${n} is not supported,
     please enter an integer number greater than zero`);
 } else {

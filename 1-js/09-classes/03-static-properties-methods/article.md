@@ -1,9 +1,8 @@
-
 # الخواص والدوال الثابتة
 
 كما يمكننا تعيين خاصية لدالة الclass ذاتها, وليس لـ `"prototype"` الخاص بها. مثل هذه الدوال تسمى بـ*static*.
 
-في الـ class, يتم إلحاقهم بكلمة رئيسية ` static `'' ، مثل هذا:
+في الـ class, يتم إلحاقهم بكلمة رئيسية `static`'' ، مثل هذا:
 
 ```js run
 class User {
@@ -20,16 +19,16 @@ User.staticMethod(); // true
 هذا في الواقع يفعل نفس الشيء عند تعيينه كخاصية مباشرة:
 
 ```js run
-class User { }
+class User {}
 
-User.staticMethod = function() {
+User.staticMethod = function () {
   alert(this === User);
 };
 
 User.staticMethod(); // true
 ```
 
-قيمة `this` في` User.staticMethod () `هي مُنشئ الفئة` المستخدم` نفسه (قاعدة "object قبل النقطة").
+قيمة `this` في`User.staticMethod ()`هي مُنشئ الفئة` المستخدم` نفسه (قاعدة "object قبل النقطة").
 
 عادة ، يتم استخدام الأساليب الثابتة لتنفيذ الوظائف التي تنتمي إلى الفئة ، ولكن ليس لأي object معين منها.
 
@@ -95,14 +94,14 @@ let article = Article.createTodays();
 alert( article.title ); // Today's digest
 ```
 
-الآن في كل مرة نحتاج فيها إلى إنشاء ملخص اليوم ، يمكننا استدعاء `` Article.createTodays () `. مرة أخرى ، هذه ليست طريقة لمقالة ، ولكنها طريقة للفصل بأكمله.
+الآن في كل مرة نحتاج فيها إلى إنشاء ملخص اليوم ، يمكننا استدعاء ``Article.createTodays ()`. مرة أخرى ، هذه ليست طريقة لمقالة ، ولكنها طريقة للفصل بأكمله.
 
 يتم استخدام الأساليب الثابتة أيضًا في الفئات المتعلقة بقاعدة البيانات للبحث / حفظ / إزالة الإدخالات من قاعدة البيانات ، مثل هذا:
 
 ```js
 // assuming Article is a special class for managing articles
 // static method to remove the article:
-Article.remove({id: 12345});
+Article.remove({ id: 12345 });
 ```
 
 ## Static properties
@@ -113,19 +112,19 @@ Article.remove({id: 12345});
 
 ```js run
 class Article {
-  static publisher = "Ilya Kantor";
+  static publisher = 'Ilya Kantor';
 }
 
-alert( Article.publisher ); // Ilya Kantor
+alert(Article.publisher); // Ilya Kantor
 ```
 
 That is the same as a direct assignment to `Article`:
 
 ```js
-Article.publisher = "Ilya Kantor";
+Article.publisher = 'Ilya Kantor';
 ```
 
-## وراثة الدوال والخصائص الثابتة
+## Inheritance of static properties and methods [#statics-and-inheritance]
 
 الخصائص والأساليب الثابتة موروثة.
 
@@ -212,7 +211,6 @@ alert(Rabbit.prototype.__proto__ === Animal.prototype); // true
 
 الصيغة هي:
 
-
 ```js
 class MyClass {
   static property = ...;
@@ -233,4 +231,3 @@ MyClass.method = ...
 الخصائص والأساليب الثابتة موروثة.
 
 بالنسبة إلى "الفئة B التي تمد A" ، يشير النموذج الأولي للفئة `B` نفسها إلى` A`: `B. [[Prototype]] = A`. لذا ، إذا لم يتم العثور على حقل في `B` ، فسيستمر البحث في` A`.
-

@@ -2,35 +2,33 @@
 
 يمكننا حساب جميع الفئات الفرعية الممكنة.
 
-إن أبسط طريقة هي أخذ كل عنصر وحساب  جميع المصفوفات الفرعية بدءًا منها.
+إن أبسط طريقة هي أخذ كل عنصر وحساب جميع المصفوفات الفرعية بدءًا منها.
 
 علي سبيل المثال, for `[-1, 2, 3, -9, 11]`:
 
 ```js no-beautify
 // البدء من -1:
--1
--1 + 2
--1 + 2 + 3
--1 + 2 + 3 + (-9)
--1 + 2 + 3 + (-9) + 11
+-1 - 1 + 2 - 1 + 2 + 3 - 1 + 2 + 3 + -9 - 1 + 2 + 3 + -9 + 11;
 
 // البدء من 2:
-2
-2 + 3
-2 + 3 + (-9)
-2 + 3 + (-9) + 11
+2;
+2 + 3;
+2 + 3 + -9;
+2 + 3 + -9 + 11;
 
 // البدء من 3:
-3
-3 + (-9)
-3 + (-9) + 11
-
-// البدء من -9
--9
--9 + 11
+3;
+3 + -9;
+3 +
+  -9 +
+  11 -
+  // البدء من -9
+  9 -
+  9 +
+  11;
 
 // البدء من 11
-11
+11;
 ```
 
 الكود هو في الواقع حلقة متداخلة: الحلقة الخارجية فوق عناصر المصفوفه ، والعد الداخلي يحسب الفئات الفرعية التي تبدأ بالعنصر الحالي.
@@ -50,15 +48,14 @@ function getMaxSubSum(arr) {
   return maxSum;
 }
 
-alert( getMaxSubSum([-1, 2, 3, -9]) ); // 5
-alert( getMaxSubSum([-1, 2, 3, -9, 11]) ); // 11
-alert( getMaxSubSum([-2, -1, 1, 2]) ); // 3
-alert( getMaxSubSum([1, 2, 3]) ); // 6
-alert( getMaxSubSum([100, -9, 2, -3, 5]) ); // 100
+alert(getMaxSubSum([-1, 2, 3, -9])); // 5
+alert(getMaxSubSum([-1, 2, 3, -9, 11])); // 11
+alert(getMaxSubSum([-2, -1, 1, 2])); // 3
+alert(getMaxSubSum([1, 2, 3])); // 6
+alert(getMaxSubSum([100, -9, 2, -3, 5])); // 100
 ```
 
-الحل له تعقيد زمني [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation). بمعنى آخر ، إذا قمنا بزيادة حجم المصفوفه مرتين ، فستعمل الخوارزمية لفترة أطول 4 مرات.
-بالنسبة للمصفوفات الكبيرة (1000 أو 10000 أو أكثر من العناصر) ، يمكن أن تؤدي هذه الخوارزميات إلى بطء خطير.
+The solution has a time complexity of [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation). In other words, if we increase the array size 2 times, the algorithm will work 4 times longer.
 
 # الحل الأسرع
 
@@ -71,7 +68,8 @@ function getMaxSubSum(arr) {
   let maxSum = 0;
   let partialSum = 0;
 
-  for (let item of arr) { // لكل عنصر في المصفوفه
+  for (let item of arr) {
+    // لكل عنصر في المصفوفه
     partialSum += item; // أضفه إلى مجموع الجزئي
     maxSum = Math.max(maxSum, partialSum); // تذكر الحد الأقصى
     if (partialSum < 0) partialSum = 0; // صفر إذا كانت سلبية
@@ -80,12 +78,12 @@ function getMaxSubSum(arr) {
   return maxSum;
 }
 
-alert( getMaxSubSum([-1, 2, 3, -9]) ); // 5
-alert( getMaxSubSum([-1, 2, 3, -9, 11]) ); // 11
-alert( getMaxSubSum([-2, -1, 1, 2]) ); // 3
-alert( getMaxSubSum([100, -9, 2, -3, 5]) ); // 100
-alert( getMaxSubSum([1, 2, 3]) ); // 6
-alert( getMaxSubSum([-1, -2, -3]) ); // 0
+alert(getMaxSubSum([-1, 2, 3, -9])); // 5
+alert(getMaxSubSum([-1, 2, 3, -9, 11])); // 11
+alert(getMaxSubSum([-2, -1, 1, 2])); // 3
+alert(getMaxSubSum([100, -9, 2, -3, 5])); // 100
+alert(getMaxSubSum([1, 2, 3])); // 6
+alert(getMaxSubSum([-1, -2, -3])); // 0
 ```
 
 تتطلب الخوارزمية تمريراً مصفوفه واحده ، لذا فإن تعقيد الوقت هو O (n).

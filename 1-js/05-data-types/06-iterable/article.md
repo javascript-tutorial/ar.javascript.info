@@ -1,22 +1,12 @@
-# المتكررات
 
-_المتكررات_
-هي تعميم للمصفوفات
-(arrays).
-وهذا مفهوم يسمح باستخدام أى كائن فى التكرار من نوع
-`for..of`.
+# Iterables
 
-إن المصفوفات عباره عن متكررات
-(iterables)
-بالطبع. ولكن هناك كائنات أخرى موجوده بالفعل والتى هي متكرره أيضا. فعلى سبيل المثال ستجد أن النصوص
-(strings)
-متكررة أيضا.
+*Iterable* objects are a generalization of arrays. That's a concept that allows us to make any object useable in a `for..of` loop.
 
-إذا كان الكائن ليس فعليًا عباره عن مصفوفه ولكنها تعرض مجموعة من العناصر
-(قائمة أو مجموعه)
-إذًا فإن التكرار
-`for..of`
-هو خيار جيّد للتكرار على هذا الكائن. فهيّا بنا نرى كيف نحقق هذا.
+Of course, Arrays are iterable. But there are many other built-in objects, that are iterable as well. For instance, strings are also iterable.
+
+If an object isn't technically an array, but represents a collection (list, set) of something, then `for..of` is a great syntax to loop over it, so let's see how to make it work.
+
 
 ## Symbol.iterator
 
@@ -38,27 +28,14 @@ let range = {
 // for(let num of range) ... num=1,2,3,4,5
 ```
 
-لنحوّل الكائن
-`range`
-متكرر (وبالتالى يقوم التكرار `for..of` بعمله)
-سنقوم بإضافة دالة إلى الكائن تسمي
-`Symbol.iterator`
-(رمز موجود بالفعل من أجل هذا).
+To make the `range` object iterable (and thus let `for..of` work) we need to add a method to the object named `Symbol.iterator` (a special built-in symbol just for that).
 
-1. عندما يبدأ
-   `for..of`,
-   فإنه يقوم باستدعاء هذه الدالة مرة واحده (أو تعرض خطأًا إن وُجد). وهذه الدالة يجب أن تقوم بإرجاع _متكرر_ -- أى كائن بالدالة `next`.
-2. بعد ذلك, `for..of` تعمل _حيث تعمل مع هذا الكائن الذى تم إرجاعه_.
-3. عندما يحتاج التكرار `for..of` القيمة التالية، فستقوم باستدعاء الدالة `next` على هذا الكائن.
-4. يجب أن تكون نتيجة استدعاء الدالة `next()` عباره عن الشكل
-   `{done: Boolean, value: any}`,
-   وفى حالة أن
-   `done=true`
-   فهذا يعني أن التكرار قد انتهي, غير ذلك فيعني أن `value` هو القيمه التالية.
+1. When `for..of` starts, it calls that method once (or errors if not found). The method must return an *iterator* -- an object with the method `next`.
+2. Onward, `for..of` works *only with that returned object*.
+3. When `for..of` wants the next value, it calls `next()` on that object.
+4. The result of `next()` must have the form `{done: Boolean, value: any}`, where `done=true`  means that the iteration is finished, otherwise `value` is the next value.
 
-هنا الكود الكامل للكائن
-`range`
-ببعض الملاحظات:
+Here's the full implementation for `range` with remarks:
 
 ```js run
 let range = {
@@ -171,7 +148,7 @@ for (let char of str) {
 
 ## استدعاء المتكرر بوضوح
 
-لفهم أعمق، هيا بنا نرى كيف يمكننا استخدام المتكرر صراحةً.
+For deeper understanding, let's see how to use an iterator explicitly.
 
 سنقوم بالتكرار على نص مثلما تعمل `for..of` ولكن باستدعاءات مباشرة. هذا الكود يقوم بإنشاء نص متكرر ويحصل على قيم بشكل يدوي:
 
@@ -196,12 +173,12 @@ while (true) {
 
 ## المتكررات وأشباه المصفوفات (array-likes) [#array-like]
 
-يوجد مصطلحان يبدوان شبيهين ولكنهما مختلفين تمامًا. من فضلك تأكد من فهمك لهم حتى لا تتحيّر.
+Two official terms look similar, but are very different. Please make sure you understand them well to avoid the confusion.
 
 - _المتكررات_ هي كائنات تستدعى الدالة `Symbol.iterator`، كما أوضحنا سابقًا.
 - _أشباه المصفوفات_ هي كائنات أيضًا ولكنها تحتوى على `index` و `length`، وبالتالى فهي تشبه المصفوفة.
 
-عندما نستخدم جافا سكريبت لمهام فى المتصفح (browser) أو أى بيئة أخرى، يمكننا أن نجد كائنات متكررة أو شبيهة بالمصفوفه أو كلاهما.
+When we use JavaScript for practical tasks in a browser or any other environment, we may meet objects that are iterables or array-likes, or both.
 
 على سبيل المثال، ستجد أن النصوص (strings) عبارة عن متكرر (حيث يمكن استخدام `for..of` معها) وكذلك هي شبيهة بالمصفوفه (لأنها تحتوي على `length` و `indexes`).
 
@@ -323,12 +300,12 @@ alert(str.slice(1, 3)); // قطعة من كل شكل!
 
 إن الكائنات التى يمكن استخدامها فى التكرار `for..of` تدعى _متكررات_.
 
-- فعليًا، يجب أن تحتوى المتكررات على دالة تسمى `Symbol.iterator`.
-  - إن نتيجة استدعاء `obj[Symbol.iterator]` يسمى _متكررًا_. وهى تقوم بالتعامل مع عملية التكرار.
-  - إن المتكرر يجب أن يحتزى على دالة تسمي `next()` والتى تقوم بإرجاع كائن على الشكل `{done: Boolean, value: any}`, وإذا كانت `done:true` فهذا يعني توقف التكرار، غير ذلك فإن الخاصية `value` تحتوى على القيمة التالية.
-- إن الدالة `Symbol.iterator` يتم استدعاؤها تلقائيًا عن طريق `for..of`، ولكن يمكننا أيضًا أن نفعله مباشرةً.
-- إن المتكررات الموجودة بالفعل مثل النصوص والمصفوفات تقوم أيضًا باستدعاء الدالة `Symbol.iterator`.
-- النص المتكرر يدعم الأشكال.
+- Technically, iterables must implement the method named `Symbol.iterator`.
+    - The result of `obj[Symbol.iterator]()` is called an *iterator*. It handles further iteration process.
+    - An iterator must have the method named `next()` that returns an object `{done: Boolean, value: any}`, here `done:true` denotes the end of the iteration process, otherwise the `value` is the next value.
+- The `Symbol.iterator` method is called automatically by `for..of`, but we also can do it directly.
+- Built-in iterables like strings or arrays, also implement `Symbol.iterator`.
+- String iterator knows about surrogate pairs.
 
 إن الكائنات التى تحتوى على `indexes` & `length` تسمي _أشباه المصفوفات_. هذه الكائنات يمكنها ان تحتوى أيضًا على خصائص ودوالٍ أخرى ولكنها لا تحتوى على دوال المصفوفات مثل `push` & `pop`.
 
@@ -336,4 +313,4 @@ alert(str.slice(1, 3)); // قطعة من كل شكل!
 
 إن الدالة `Array.from(obj[, mapFn, thisArg])` تصنع مصفوفة حقيقية من متكرر أو شبيهٍ بالمصفوفة، وبالتالى يمكننا استخدام دوال المصفوفات عليهم. حيث أن المتغيرات `mapFn` & `thisArg` تتيح لنا أن ننفذ دالة على كل عنصر قبل إضافته للمصفوفة.
 
-`Array.from(obj[, mapFn, thisArg])` makes a real `Array` of an iterable or array-like `obj`, and we can then use array methods on it. The optional arguments `mapFn` and `thisArg` allow us to apply a function to each item.
+`Array.from(obj[, mapFn, thisArg])` makes a real `Array` from an iterable or array-like `obj`, and we can then use array methods on it. The optional arguments `mapFn` and `thisArg` allow us to apply a function to each item.

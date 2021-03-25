@@ -6,7 +6,9 @@
 
 الدوال الحديثة هي:
 
-- [Object.create(proto[, descriptors])](mdn:js/Object/create) -- تقوم بإنشاء كائن فارغ ويحتوي على الخاصية `proto` كـ `[[Prototype]]` وبعض واصفات الخصائص الإختيارية (property descriptors).
+The modern methods are:
+
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with given `proto` as `[[Prototype]]` and optional property descriptors.
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj`.
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- تقوم بإرجاع الخاصية `[[Prototype]]` من الكائن `obj`.
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- تجعل الخاصية `[[Prototype]]` من الكائن `obj` تشير إلى `proto`.
@@ -79,8 +81,7 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 
 لماذا تم استبدال الخاصية `__proto__` بالدوال `getPrototypeOf/setPrototypeOf`؟ هذا سؤال مهم ويستدعينا أن نفهم لماذا تعد الخاصية `__proto__` سيئة. أكمل القراءة لتحصل على الإجابة.
 
-```warn header="لا تغير الخاصية `[[Prototype]]` فى كائن موجود إذا كانت السرعة تهمك"
-عمليًا يمكننا أن نجلب أو نعدّل الخاصية `[[Prototype]]` فى أى وقت، ولكن عادة ما نضع ليها قيمة فقط عند إنشاء الكائن ولا نعدلها بعد ذلك: يرث الكائن `rabbit` من الكائن `animal` وهذا لن يتغير.
+```warn header="لا تغير الخاصية `[[Prototype]]`فى كائن موجود إذا كانت السرعة تهمك" عمليًا يمكننا أن نجلب أو نعدّل الخاصية`[[Prototype]]`فى أى وقت، ولكن عادة ما نضع ليها قيمة فقط عند إنشاء الكائن ولا نعدلها بعد ذلك: يرث الكائن`rabbit`من الكائن`animal` وهذا لن يتغير.
 
 ومحركات جافا سكريبت جاهزة للتعامل مع ذلك بسرعة فائقة. فتغيير النموذج وقت التنفيذ باستخدام `Object.setPrototypeOf` أو `obj.__proto__=` بطيئ جدًا ويبطئ عملية استجلاب الخصائص. ولذلك تجنب ذلك إلا إذا كنت تعرف ماذا تفعل أو أن السرعة لا تهمك.
 
@@ -166,8 +167,8 @@ alert(obj); // Error (no toString)
 
 ```js run
 let chineseDictionary = Object.create(null);
-chineseDictionary.hello = "你好";
-chineseDictionary.bye = "再见";
+chineseDictionary.hello = '你好';
+chineseDictionary.bye = '再见';
 
 alert(Object.keys(chineseDictionary)); // hello,bye
 ```
@@ -176,10 +177,9 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 
 الدوال الحديثة لإنشاء نموذج و الوصول إليه هي:
 
-- [Object.create(proto[, descriptors])](mdn:js/Object/create) -- تقوم بإنشاء كائن فارغ ويحتوي على الخاصية `proto` كـ `[[Prototype]]` وبعض واصفات الخصائص الإختيارية (property descriptors).
-- [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj`.
-- [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- تقوم بإرجاع الخاصية `[[Prototype]]` من الكائن `obj`.
-- [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- تجعل الخاصية `[[Prototype]]` من الكائن `obj` تشير إلى `proto`.
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with a given `proto` as `[[Prototype]]` (can be `null`) and optional property descriptors.
+- [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj` (same as `__proto__` getter).
+- [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- sets the `[[Prototype]]` of `obj` to `proto` (same as `__proto__` setter).
 
 و `__proto__` الموجودة بالفعل والتي تقوم بجلب أو تعديل الخصائص ليست آمنة للإستخدام إذا كنا نريد أن ننشئ خصائص بأسماء يعطيها المستخدم للكائن وذلك لأن المستخدم يمكن أن يُدخل اسم الخاصية كـ `"__proto__"` وسيكون هناك خطأًا وبآثار ونتائج غير متوقعة.
 
@@ -188,10 +188,7 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 وأيضًا، تعطي الدالة `Object.create` طريقة سهل لنسخ الكائن بكل الواصفات (descriptors):
 
 ```js
-let clone = Object.create(
-  Object.getPrototypeOf(obj),
-  Object.getOwnPropertyDescriptors(obj)
-);
+let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
 ```
 
 وقد أوضحنا أيضًا أن `__proto__` هو جالب أو معدّل للخاصية `[[Prototype]]` ويوجد فى `Object.prototype` مثل غيره من الدوال.

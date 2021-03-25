@@ -1,4 +1,3 @@
-
 # الصيغة الأساسية للClass
 
 ```quote author="Wikipedia"
@@ -14,6 +13,7 @@
 # الصيغة الأساسية للClass
 
 الصيغة الأساسية هي:
+
 ```js
 class MyClass {
   // class methods
@@ -33,7 +33,6 @@ class MyClass {
 
 ```js run
 class User {
-
   constructor(name) {
     this.name = name;
   }
@@ -41,20 +40,19 @@ class User {
   sayHi() {
     alert(this.name);
   }
-
 }
 
 // Usage:
-let user = new User("John");
+let user = new User('John');
 user.sayHi();
 ```
 
-عند استدعاء`new User("John")` :
-1. يتم إنشاء كائن جديد.
-2. يعمل "المُنشئ" مع الوسيطة المحددة ويعين "اسم هذا" إليه.
+When `new User("John")` is called:
+
+1. A new object is created.
+2. The `constructor` runs with the given argument and assigns it to `this.name`.
 
 ... ثم يمكننا استدعاء طرق الكائن ، مثل `user.sayHi ()`.
-
 
 ```warn header=" لا فاصلة بين طرق الفصل "
 من المشاكل الشائعة للمطورين المبتدئين وضع فاصلة بين طرق الفصل ، مما يؤدي إلى خطأ في بناء الجملة.
@@ -99,8 +97,12 @@ alert(typeof User); // function
 
 ```js run
 class User {
-  constructor(name) { this.name = name; }
-  sayHi() { alert(this.name); }
+  constructor(name) {
+    this.name = name;
+  }
+  sayHi() {
+    alert(this.name);
+  }
 }
 
 // class is a function
@@ -131,12 +133,12 @@ function User(name) {
 // so we don't need to create it
 
 // 2. Add the method to prototype
-User.prototype.sayHi = function() {
+User.prototype.sayHi = function () {
   alert(this.name);
 };
 
 // Usage:
-let user = new User("John");
+let user = new User('John');
 user.sayHi();
 ```
 
@@ -146,7 +148,7 @@ user.sayHi();
 
 1. أولاً ، يتم تصنيف دالة تم إنشاؤها بواسطة "class" بواسطة خاصية داخلية خاصة `[[FunctionKind]]:" classConstructor "`. لذلك فهي ليست تمامًا مثل إنشائها يدويًا.
 
-     تقوم اللغة بالتحقق من هذه الخاصية في أماكن متنوعة. على سبيل المثال ، على عكس الوظيفة العادية ، يجب أن يتم استدعاؤها بـ `new`:
+تقوم اللغة بالتحقق من هذه الخاصية في أماكن متنوعة. على سبيل المثال ، على عكس الوظيفة العادية ، يجب أن يتم استدعاؤها بـ `new`:
 
     ```js run
     class User {
@@ -166,15 +168,16 @@ user.sayHi();
 
     alert(User); // class User { ... }
     ```
-   هناك اختلافات أخرى ، سنراها قريبًا.
+
+هناك اختلافات أخرى ، سنراها قريبًا.
 
 2. دوال الclass لا تعد ولا تحصى.
-     يقوم تعريف الفئة بتعيين علامة `enumerable` إلى` false` لجميع الطرق في "" prototype "`.
+        يقوم تعريف الفئة بتعيين علامة `enumerable` إلى` false` لجميع الطرق في "" prototype "`.
 
-     هذا أمر جيد ، لأنه إذا كنا 'for..in` فوق كائن ما ، فإننا عادة لا نريد طرقه الطبقية.
+هذا أمر جيد ، لأنه إذا كنا 'for..in` فوق كائن ما ، فإننا عادة لا نريد طرقه الطبقية.
 
 3. الclasses دائمًا "استخدام صارم".
-     تكون جميع التعليمات البرمجية داخل بنية الفصل تلقائيًا في وضع صارم.
+        تكون جميع التعليمات البرمجية داخل بنية الفصل تلقائيًا في وضع صارم.
 
 بالإضافة إلى ذلك ، فإن بناء جملة `class` يجلب العديد من الميزات الأخرى التي سنستكشفها لاحقًا.
 
@@ -183,10 +186,11 @@ user.sayHi();
 تمامًا مثل functions ، يمكن تعريف الفئات داخل تعبير آخر ، وتمريرها ، وإعادتها ، وتعيينها ، وما إلى ذلك.
 
 إليك مثالاً على تعبير class:
+
 ```js
 let User = class {
   sayHi() {
-    alert("Hello");
+    alert('Hello');
   }
 };
 ```
@@ -217,16 +221,15 @@ function makeClass(phrase) {
   return class {
     sayHi() {
       alert(phrase);
-    };
+    }
   };
 }
 
 // Create a new class
-let User = makeClass("Hello");
+let User = makeClass('Hello');
 
 new User().sayHi(); // Hello
 ```
-
 
 ## Getters/setters
 
@@ -350,7 +353,6 @@ alert(user.name); // John
 لذلك إذا تم تمرير طريقة كائن واستدعاؤها في سياق آخر ، فلن يكون `هذا` مرجعاً إلى كائنه بعد الآن.
 
 على سبيل المثال ، سيُظهر هذا الرمز `undefined`:
-
 
 ```js run
 class Button {

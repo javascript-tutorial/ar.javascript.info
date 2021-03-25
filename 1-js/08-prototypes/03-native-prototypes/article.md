@@ -33,7 +33,9 @@ alert(obj); // "[object Object]" ?
 let obj = {};
 
 alert(obj.__proto__ === Object.prototype); // true
-// obj.toString === obj.__proto__.toString == Object.prototype.toString
+
+alert(obj.toString === obj.__proto__.toString); //true
+alert(obj.toString === Object.prototype.toString); //true
 ```
 
 لاحظ أنه لا يوجد المزيد من `[[Prototype]]` فى السلسة فوق `Object.prototype`:

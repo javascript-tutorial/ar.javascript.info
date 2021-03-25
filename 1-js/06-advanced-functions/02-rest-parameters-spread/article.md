@@ -238,7 +238,7 @@ alert( Array.from(str) ); // H,e,l,l,o
 
 ## الحصول علي نسخة من المصفوفة/الكائن
 
-تتذكر عندما تحدثنا عن `Object.assign()` [في الماضي](https://javascript.info/object#cloning-and-merging-object-assign)?
+## Copy an array/object
 
 يمكن أن تقوم بالمثل عن طريق `...`.
 =======
@@ -247,11 +247,11 @@ Remember when we talked about `Object.assign()` [in the past](info:object-copy#c
 
 ```js run
 let arr = [1, 2, 3];
-let arrCopy = [...arr]; // ننشر المصفوفة إلي قائمة من المعاملات
-                        // ثم نضع الناتج في مصفوفة جديدة
 
-// هل المصفوفات تمتلك نفس القيمة؟
-alert(JSON.stringify(arr) === JSON.stringify(arrCopy)); // صحيح
+*!*
+let arrCopy = [...arr]; // spread the array into a list of parameters
+                        // then put the result into a new array
+*/!*
 
 // هل متساويين؟
 alert(arr === arrCopy); // خطأ (ليس نفس المرجع)
@@ -267,8 +267,11 @@ alert(arrCopy); // 1, 2, 3
 
 ```js run
 let obj = { a: 1, b: 2, c: 3 };
-let objCopy = { ...obj }; // ننشر الكائن إلي قائمة من المعاملات
-                        // ثم نضع الناتج في كائن جديد
+
+*!*
+let objCopy = { ...obj }; // spread the object into a list of parameters
+                          // then return the result in a new object
+*/!*
 
 // هل الكائنات تمتلك نفس القيمة؟
 alert(JSON.stringify(obj) === JSON.stringify(objCopy)); // صحيح
@@ -282,10 +285,7 @@ alert(JSON.stringify(obj)); // {"a":1,"b":2,"c":3,"d":4}
 alert(JSON.stringify(objCopy)); // {"a":1,"b":2,"c":3}
 ```
 
-هذه الطريقة أقصر بكثير من `let objCopy = Object.assign({}, obj);`
-
-
-## ملخص
+This way of copying an object is much shorter than `let objCopy = Object.assign({}, obj)` or for an array `let arrCopy = Object.assign([], arr)` so we prefer to use it whenever we can.
 
 متى رأينا `‎"..."‎` في الشيفرة نعرف أنّه إمّا المُعاملات البقية وأمّا مُعامل التوزيع.
 

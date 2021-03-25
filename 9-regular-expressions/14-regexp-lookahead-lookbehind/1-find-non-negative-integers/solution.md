@@ -1,16 +1,15 @@
-
 regexp لرقم صحيح هو `pattern: \ d +`.
 
-يمكننا استبعاد السلبيات عن طريق إلحاقها بالمظهر السلبي: `pattern: (؟ <! -) \ d +`.
+We can exclude negatives by prepending it with the negative lookbehind: `pattern:(?<!-)\d+`.
 
 على الرغم من أننا إذا جربناها الآن ، فقد نلاحظ نتيجة "إضافية" أخرى:
 
 ```js run
 let regexp = /(?<!-)\d+/g;
 
-let str = "0 12 -5 123 -18";
+let str = '0 12 -5 123 -18';
 
-console.log( str.match(regexp) ); // 0, 12, 123, *!*8*/!*
+console.log(str.match(regexp)); // 0, 12, 123, *!*8*/!*
 ```
 
 كما ترون ، فإنه يطابق `المباراة: 8` ، من` الموضوع: -18`. لاستبعاده ، نحتاج إلى التأكد من أن regexp يبدأ في مطابقة رقم ليس من منتصف رقم آخر (غير مطابق).
@@ -22,7 +21,7 @@ console.log( str.match(regexp) ); // 0, 12, 123, *!*8*/!*
 ```js run
 let regexp = /(?<![-\d])\d+/g;
 
-let str = "0 12 -5 123 -18";
+let str = '0 12 -5 123 -18';
 
-alert( str.match(regexp) ); // 0, 12, 123
+alert(str.match(regexp)); // 0, 12, 123
 ```

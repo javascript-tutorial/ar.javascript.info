@@ -17,7 +17,7 @@
 ```js run
 document.body.myData = {
   name: 'Caesar',
-  title: 'Imperator'
+  title: 'Imperator',
 };
 
 alert(document.body.myData.title); // Imperator
@@ -26,7 +26,7 @@ alert(document.body.myData.title); // Imperator
 كما يمكننا إضافة طريقة أو دالة أيضا:
 
 ```js run
-document.body.sayTagName = function() {
+document.body.sayTagName = function () {
   alert(this.tagName);
 };
 
@@ -36,7 +36,7 @@ document.body.sayTagName(); // BODY (the value of "this" in the method is docume
 يمكننا أيضًا تعديل النماذج الأولية المضمنة مثل `Element.prototype` وإضافة طرق جديدة لجميع العناصر:
 
 ```js run
-Element.prototype.sayHi = function() {
+Element.prototype.sayHi = function () {
   alert(`Hello, I'm ${this.tagName}`);
 };
 
@@ -51,19 +51,20 @@ document.body.sayHi(); // Hello, I'm BODY
 
 ## سمات HTML
 
-في HTML ، قد تحتوي العلامات على سمات. عندما يقوم المتصفح بتحليل HTML لإنشاء كائنات DOM للعلامات ، فإنه يتعرف على السمات * القياسية * وينشئ خصائص DOM منها.
+في HTML ، قد تحتوي العلامات على سمات. عندما يقوم المتصفح بتحليل HTML لإنشاء كائنات DOM للعلامات ، فإنه يتعرف على السمات _ القياسية _ وينشئ خصائص DOM منها.
 
-لذلك ، عندما يكون للعنصر `id` أو سمة * standard * أخرى ، يتم إنشاء الخاصية المقابلة. ولكن هذا لا يحدث إذا كانت السمة غير قياسية.
+لذلك ، عندما يكون للعنصر `id` أو سمة _ standard _ أخرى ، يتم إنشاء الخاصية المقابلة. ولكن هذا لا يحدث إذا كانت السمة غير قياسية.
 
 على سبيل المثال:
+
 ```html run
 <body id="test" something="non-standard">
   <script>
-    alert(document.body.id); // test
-*!*
-    // non-standard attribute does not yield a property
-    alert(document.body.something); // undefined
-*/!*
+        alert(document.body.id); // test
+    *!*
+        // non-standard attribute does not yield a property
+        alert(document.body.something); // undefined
+    */!*
   </script>
 </body>
 ```
@@ -71,14 +72,15 @@ document.body.sayHi(); // Hello, I'm BODY
 يرجى ملاحظة أن السمة القياسية لعنصر واحد يمكن أن تكون غير معروفة لعنصر آخر. على سبيل المثال ، "" النوع "" قياسي لـ "<input>` ([HTMLInputElement] (https://html.spec.whatwg.org/#htmlinputelement)) ، ولكن ليس لـ "<body>` ([HTMLBodyElement] (https://html.spec.whatwg.org/#htmlbodyelement)). يتم وصف السمات القياسية في مواصفات فئة العنصر المقابلة.
 
 هنا نراه:
+
 ```html run
 <body id="body" type="...">
-  <input id="input" type="text">
+  <input id="input" type="text" />
   <script>
-    alert(input.type); // text
-*!*
-    alert(body.type); // undefined: DOM property not created, because it's non-standard
-*/!*
+        alert(input.type); // text
+    *!*
+        alert(body.type); // undefined: DOM property not created, because it's non-standard
+    */!*
   </script>
 </body>
 ```
@@ -101,9 +103,9 @@ document.body.sayHi(); // Hello, I'm BODY
 ```html run
 <body something="non-standard">
   <script>
-*!*
-    alert(document.body.getAttribute('something')); // non-standard
-*/!*
+    *!*
+        alert(document.body.getAttribute('something')); // non-standard
+    */!*
   </script>
 </body>
 ```
@@ -120,14 +122,15 @@ document.body.sayHi(); // Hello, I'm BODY
   <div id="elem" about="Elephant"></div>
 
   <script>
-    alert( elem.getAttribute('About') ); // (1) 'Elephant', reading
+    alert(elem.getAttribute('About')); // (1) 'Elephant', reading
 
     elem.setAttribute('Test', 123); // (2), writing
 
-    alert( elem.outerHTML ); // (3), see if the attribute is in HTML (yes)
+    alert(elem.outerHTML); // (3), see if the attribute is in HTML (yes)
 
-    for (let attr of elem.attributes) { // (4) list all
-      alert( `${attr.name} = ${attr.value}` );
+    for (let attr of elem.attributes) {
+      // (4) list all
+      alert(`${attr.name} = ${attr.value}`);
     }
   </script>
 </body>
@@ -147,7 +150,7 @@ document.body.sayHi(); // Hello, I'm BODY
 في المثال أدناه تم تعديل `id` كخاصية ، ويمكننا أن نرى تغيير الخاصية أيضًا. ثم نفس الشيء إلى الوراء:
 
 ```html run
-<input>
+<input />
 
 <script>
   let input = document.querySelector('input');
@@ -165,24 +168,25 @@ document.body.sayHi(); // Hello, I'm BODY
 ولكن هناك استثناءات ، على سبيل المثال ، تتم مزامنة `input.value` فقط من السمة -> إلى الخاصية ، ولكن ليس مرة أخرى:
 
 ```html run
-<input>
+<input />
 
 <script>
-  let input = document.querySelector('input');
+    let input = document.querySelector('input');
 
-  // attribute => property
-  input.setAttribute('value', 'text');
-  alert(input.value); // text
+    // attribute => property
+    input.setAttribute('value', 'text');
+    alert(input.value); // text
 
-*!*
-  // NOT property => attribute
-  input.value = 'newValue';
-  alert(input.getAttribute('value')); // text (not updated!)
-*/!*
+  *!*
+    // NOT property => attribute
+    input.value = 'newValue';
+    alert(input.getAttribute('value')); // text (not updated!)
+  */!*
 </script>
 ```
 
 في المثال أعلاه:
+
 - يؤدي تغيير السمة `القيمة` إلى تحديث العقار.
 - لكن تغيير الخاصية لا يؤثر على السمة.
 
@@ -193,7 +197,7 @@ document.body.sayHi(); // Hello, I'm BODY
 خصائص DOM ليست دائمًا سلاسل. على سبيل المثال ، تعد الخاصية `input.checked` (لمربعات الاختيار) منطقيةBoolean:
 
 ```html run
-<input id="input" type="checkbox" checked> checkbox
+<input id="input" type="checkbox" checked /> checkbox
 
 <script>
   alert(input.getAttribute('checked')); // the attribute value is: empty string
@@ -218,7 +222,7 @@ document.body.sayHi(); // Hello, I'm BODY
 
 معظم الخصائص عبارة عن سلاسل.
 
-نادرًا جدًا ، حتى إذا كان نوع خاصية DOM عبارة عن سلسلة ، فقد يختلف عن السمة. على سبيل المثال ، تكون خاصية `href` DOM دائمًا عنوان URL * كامل * ، حتى إذا كانت السمة تحتوي على عنوان URL نسبي أو فقط` # علامة تجزئة '.
+نادرًا جدًا ، حتى إذا كان نوع خاصية DOM عبارة عن سلسلة ، فقد يختلف عن السمة. على سبيل المثال ، تكون خاصية `href` DOM دائمًا عنوان URL _ كامل _ ، حتى إذا كانت السمة تحتوي على عنوان URL نسبي أو فقط` # علامة تجزئة '.
 
 إليك مثال:
 
@@ -229,12 +233,11 @@ document.body.sayHi(); // Hello, I'm BODY
   alert(a.getAttribute('href')); // #hello
 
   // property
-  alert(a.href ); // full URL in the form http://site.com/page#hello
+  alert(a.href); // full URL in the form http://site.com/page#hello
 </script>
 ```
 
 إذا كنا بحاجة إلى قيمة `href` أو أي سمة أخرى كما هو مكتوب تمامًا في HTML ، فيمكننا استخدام` getAttribute`.
-
 
 ## سمات غير قياسية ، مجموعة البيانات
 
@@ -272,33 +275,27 @@ document.body.sayHi(); // Hello, I'm BODY
 ```html run
 <style>
   /* styles rely on the custom attribute "order-state" */
-  .order[order-state="new"] {
+  .order[order-state='new'] {
     color: green;
   }
 
-  .order[order-state="pending"] {
+  .order[order-state='pending'] {
     color: blue;
   }
 
-  .order[order-state="canceled"] {
+  .order[order-state='canceled'] {
     color: red;
   }
 </style>
 
-<div class="order" order-state="new">
-  A new order.
-</div>
+<div class="order" order-state="new">A new order.</div>
 
-<div class="order" order-state="pending">
-  A pending order.
-</div>
+<div class="order" order-state="pending">A pending order.</div>
 
-<div class="order" order-state="canceled">
-  A canceled order.
-</div>
+<div class="order" order-state="canceled">A canceled order.</div>
 ```
 
-لماذا يكون استخدام السمة أفضل من وجود فئات مثل `.order-state-new` و` .order-state-pending` و `order-state-cancell`؟
+Why would using an attribute be preferable to having classes like `.order-state-new`, `.order-state-pending`, `.order-state-canceled`?
 
 لأن السمة أكثر ملاءمة للإدارة. يمكن تغيير الحالة بالسهولة التالية:
 
@@ -319,9 +316,10 @@ div.setAttribute('order-state', 'canceled');
 
 ```html run
 <body data-about="Elephants">
-<script>
-  alert(document.body.dataset.about); // Elephants
-</script>
+  <script>
+    alert(document.body.dataset.about); // Elephants
+  </script>
+</body>
 ```
 
 تصبح السمات المتعددة الكلمات مثل `حالة البيانات- الحالة` مغطاةً بجمال:` مجموعة البيانات.
@@ -330,29 +328,27 @@ div.setAttribute('order-state', 'canceled');
 
 ```html run
 <style>
-  .order[data-order-state="new"] {
+  .order[data-order-state='new'] {
     color: green;
   }
 
-  .order[data-order-state="pending"] {
+  .order[data-order-state='pending'] {
     color: blue;
   }
 
-  .order[data-order-state="canceled"] {
+  .order[data-order-state='canceled'] {
     color: red;
   }
 </style>
 
-<div id="order" class="order" data-order-state="new">
-  A new order.
-</div>
+<div id="order" class="order" data-order-state="new">A new order.</div>
 
 <script>
   // read
   alert(order.dataset.orderState); // new
 
   // modify
-  order.dataset.orderState = "pending"; // (*)
+  order.dataset.orderState = 'pending'; // (*)
 </script>
 ```
 
@@ -367,10 +363,10 @@ div.setAttribute('order-state', 'canceled');
 
 مقارنة صغيرة:
 
-| | خصائص | سمات |
-| ------------ | ------------ | ------------ |
-| النوع | أي قيمة ، تحتوي الخصائص القياسية على أنواع موصوفة في سلسلة | A | المواصفات
-| الاسم | الاسم حساس لحالة الأحرف | الاسم غير حساس لحالة الأحرف |
+|       | خصائص                                                      | سمات                        |
+| ----- | ---------------------------------------------------------- | --------------------------- | --------- |
+| النوع | أي قيمة ، تحتوي الخصائص القياسية على أنواع موصوفة في سلسلة | A                           | المواصفات |
+| الاسم | الاسم حساس لحالة الأحرف                                    | الاسم غير حساس لحالة الأحرف |
 
 طرق العمل مع السمات هي:
 

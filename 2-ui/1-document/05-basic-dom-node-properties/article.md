@@ -22,10 +22,10 @@
 - [Node] (http://dom.spec.whatwg.org/#interface-node) - هي أيضًا فئة "مجردة" ، تعمل كقاعدة لعقد DOM. يوفر وظائف الشجرة الأساسية: `motherNode` و` nextSibling` و` childNodes` وما إلى ذلك (فهي عبارة عن حروف). لا يتم إنشاء كائنات فئة "العقدة" مطلقًا. ولكن هناك فئات عقدة محددة ترث منه ، وهي: `Text` للعقد النصية و` Element` لعقد العناصر والمزيد من الأنواع الغريبة مثل `Comment` لعقد التعليق.
 - [Element] (http://dom.spec.whatwg.org/#interface-element) - هي فئة أساسية لعناصر DOM. يوفر التنقل على مستوى العنصر مثل `nextElementSibling` و` children` وطرق البحث مثل `getElementsByTagName` و` querySelector`. لا يدعم المتصفح HTML فحسب ، بل يدعم أيضًا XML و SVG. تعمل فئة `Element` كقاعدة لفئات أكثر تحديدًا:` SVGElement` و `XMLElement` و` HTMLElement`.
 - [HTMLElement] (https://html.spec.whatwg.org/multipage/dom.html#htmlelement) - أخيرًا هو الفصل الأساسي لجميع عناصر HTML. يتم توريثه بواسطة عناصر HTML محددة:
-    - [HTMLInputElement] (https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) - فئة عناصر `<input>` ،
-    - [HTMLBodyElement] (https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) - فئة عناصر `<body>` ،
-    - [HTMLAnchorElement] (https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) - فئة عناصر "<a>` ،
-    - ... وهكذا ، كل علامة لها فئة خاصة بها قد توفر خصائص وأساليب معينة.
+      - [HTMLInputElement] (https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) - فئة عناصر `<input>` ،
+      - [HTMLBodyElement] (https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) - فئة عناصر `<body>` ،
+      - [HTMLAnchorElement] (https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) - فئة عناصر "<a>` ،
+      - ... وهكذا ، كل علامة لها فئة خاصة بها قد توفر خصائص وأساليب معينة.
 
 لذلك ، فإن المجموعة الكاملة من الخصائص والأساليب لعقدة معينة تأتي نتيجة الميراث.
 
@@ -43,30 +43,30 @@
 لرؤية اسم فئة عقدة DOM ، يمكننا أن نتذكر أن الكائن عادة ما يكون له خاصية `المنشئ`. وهي تشير إلى مُنشئ الصنف ، و `buildor.name` هو اسمه:
 
 ```js run
-alert( document.body.constructor.name ); // HTMLBodyElement
+alert(document.body.constructor.name); // HTMLBodyElement
 ```
 
 ...Or we can just `toString` it:
 
 ```js run
-alert( document.body ); // [object HTMLBodyElement]
+alert(document.body); // [object HTMLBodyElement]
 ```
 
 We also can use `instanceof` to check the inheritance:
 
 ```js run
-alert( document.body instanceof HTMLBodyElement ); // true
-alert( document.body instanceof HTMLElement ); // true
-alert( document.body instanceof Element ); // true
-alert( document.body instanceof Node ); // true
-alert( document.body instanceof EventTarget ); // true
+alert(document.body instanceof HTMLBodyElement); // true
+alert(document.body instanceof HTMLElement); // true
+alert(document.body instanceof Element); // true
+alert(document.body instanceof Node); // true
+alert(document.body instanceof EventTarget); // true
 ```
 
 كما نرى ، فإن عقد DOM هي كائنات JavaScript عادية. يستخدمون الفصول القائمة على النموذج الأولي للميراث.
 
 من السهل أيضًا رؤية ذلك عن طريق إخراج عنصر باستخدام "console.dir (elem)" في المستعرض. هناك في وحدة التحكم يمكنك مشاهدة `HTMLElement.prototype` و` Element.prototype` وما إلى ذلك.
 
-```smart header=" `` console.dir (elem) `مقابل` console.log (elem) ""
+``smart header=" ` console.dir (elem) `مقابل` console.log (elem) ""
 تدعم معظم المتصفحات أمرين في أدوات المطورين الخاصة بهم: `console.log` و` console.dir`. يخرجون حججهم إلى وحدة التحكم. بالنسبة لكائنات JavaScript ، تقوم هذه الأوامر بنفس الشيء.
 
 ولكن بالنسبة لعناصر DOM فهي مختلفة:
@@ -75,7 +75,8 @@ alert( document.body instanceof EventTarget ); // true
 - يُظهر `console.dir (elem)` العنصر كعنصر DOM ، جيد لاستكشاف خصائصه.
 
 جربه على `document.body`.
-```
+
+`````
 
 ````smart header="IDL in the spec"
 في المواصفات ، لا يتم وصف فئات DOM باستخدام JavaScript ، ولكن [لغة وصف واجهة خاصة] (https://en.wikipedia.org/wiki/Interface_description_language) (IDL) ، يسهل فهمها عادةً.
@@ -111,7 +112,8 @@ alert( document.body instanceof EventTarget ); // true
   void select();
   ...
 }
-```
+`````
+
 ````
 
 ## خاصية "nodeType"
@@ -128,7 +130,7 @@ alert( document.body instanceof EventTarget ); // true
 
 ```html run
 <body>
-  <script>  
+  <script>
   let elem = document.body;
 
   // let's examine what it is?
@@ -197,7 +199,7 @@ alert( document.body instanceof EventTarget ); // true
 
 ## innerHTML: المحتويات
 
-تتيح خاصية [innerHTML] (https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML) الحصول على HTML داخل العنصر كسلسلة.
+The [innerHTML](https://w3c.github.io/DOM-Parsing/#the-innerhtml-mixin) property allows to get the HTML inside the element as a string.
 
 يمكننا أيضًا تعديله. لذا فهي واحدة من أقوى الطرق لتغيير الصفحة.
 
@@ -396,15 +398,15 @@ elem.innerHTML = elem.innerHTML + "..."
 <div id="elem2"></div>
 
 <script>
-  let name = prompt("What's your name?", "<b>Winnie-the-pooh!</b>");
+  let name = prompt("What's your name?", "<b>Winnie-the-Pooh!</b>");
 
   elem1.innerHTML = name;
   elem2.textContent = name;
 </script>
 ```
 
-1. يحصل الاسم الأول "<div>" على الاسم "بتنسيق HTML": تصبح جميع العلامات علامات ، لذلك نرى الاسم الغامق.
-2. الثانية `<div>` تحصل على الاسم "كنص" ، لذلك نرى حرفياً "<b> Winnie-the-pooh! </b>`.
+1. The first `<div>` gets the name "as HTML": all tags become tags, so we see the bold name.
+2. The second `<div>` gets the name "as text", so we literally see `<b>Winnie-the-Pooh!</b>`.
 
 في معظم الحالات ، نتوقع النص من مستخدم ونريد معاملته كنص. لا نريد HTML غير متوقع في موقعنا. يؤدي التعيين إلى `textContent` ذلك بالضبط.
 
@@ -412,7 +414,7 @@ elem.innerHTML = elem.innerHTML + "..."
 
 تحدد السمة "مخفي" وخاصية DOM ما إذا كان العنصر مرئيًا أم لا.
 
-يمكننا استخدامه في HTML أو تخصيصه باستخدام JavaScript ، مثل هذا:
+We can use it in HTML or assign it using JavaScript, like this:
 
 ```html run height="80"
 <div>Both divs below are hidden</div>
@@ -495,3 +497,4 @@ elem.innerHTML = elem.innerHTML + "..."
 تحتوي عقد DOM أيضًا على خصائص أخرى بناءً على فئتها. على سبيل المثال ، عناصر `<input>` (`HTMLInputElement`) تدعم` القيمة` ، `النوع` ، في حين أن` <a> العناصر (`HTMLAnchorElement`) تدعم` href` إلخ. معظم سمات HTML القياسية لها خاصية DOM مقابلة .
 
 ومع ذلك ، فإن خصائص HTML وخصائص DOM ليست هي نفسها دائمًا ، كما سنرى في الفصل التالي.
+````

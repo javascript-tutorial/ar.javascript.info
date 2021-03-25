@@ -1,18 +1,17 @@
-
 # المهام الصغيرة
 
 Promise معالجات الـ `.then`/`.catch`/`.finally` غير متزامنة دائما
 
-حتى عندما يتم حل promise على الفور ، فإن الكود الموجود على الأسطر * أدناه * `.then` /` .catch` / `.finally` ستستمر قبل تنفيذ هذه المعالجات.
+حتى عندما يتم حل promise على الفور ، فإن الكود الموجود على الأسطر _ أدناه _ `.then` /` .catch` / `.finally` ستستمر قبل تنفيذ هذه المعالجات.
 
 هنا عرض توضيحي:
 
 ```js run
 let promise = Promise.resolve();
 
-promise.then(() => alert("promise done!"));
+promise.then(() => alert('promise done!'));
 
-alert("code finished"); // this alert shows first
+alert('code finished'); // this alert shows first
 ```
 
 إذا قمت بتشغيله, ستلاحظ `code finished` أولا, ثم بعد ذلك`promise done!`.
@@ -23,7 +22,7 @@ alert("code finished"); // this alert shows first
 
 ## طابور المهام الصغيرة
 
-المهام عير المتزامنة بحاجة إلى إدارة سليمة. لذلك ، يحدد معيار ECMA قائمة انتظار داخلية `PromiseJobs` ، والتي يشار إليها غالبًا باسم" قائمة انتظار المهام المصغرة "(مصطلح ES8).
+Asynchronous tasks need proper management. For that, the ECMA standard specifies an internal queue `PromiseJobs`, more often referred to as the "microtask queue" (V8 term).
 
 كما هو مذكور في [المواصفات] (https://tc39.github.io/ecma262/#sec-jobs-and-job-queues):
 
@@ -45,8 +44,8 @@ alert("code finished"); // this alert shows first
 
 ```js run
 Promise.resolve()
-  .then(() => alert("promise done!"))
-  .then(() => alert("code finished"));
+  .then(() => alert('promise done!'))
+  .then(() => alert('code finished'));
 ```
 
 الآن الأمر كما هو مقصود.
@@ -74,10 +73,10 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 ولكن إذا نسينا إضافة ".catch" ، فعندما تصبح قائمة انتظار المهام الدقيقة فارغة ، يقوم المحرك بتشغيل الحدث:
 
 ```js run
-let promise = Promise.reject(new Error("Promise Failed!"));
+let promise = Promise.reject(new Error('Promise Failed!'));
 
 // Promise Failed!
-window.addEventListener('unhandledrejection', event => alert(event.reason));
+window.addEventListener('unhandledrejection', (event) => alert(event.reason));
 ```
 
 ماذا لو تعاملنا مع الخطأ لاحقًا؟ مثله:
@@ -102,7 +101,7 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 
 ## ملخص
 
-معالجة الوعد دائمًا غير متزامنة ، حيث تمر جميع إجراءات الوعد من خلال قائمة انتظار "وظائف الوعد" الداخلية ، والتي تسمى أيضًا "قائمة انتظار المهام المصغرة" (مصطلح ES8).
+Promise handling is always asynchronous, as all promise actions pass through the internal "promise jobs" queue, also called "microtask queue" (V8 term).
 
 لذلك يتم دائمًا استدعاء معالجات `.then / catch / أخيرا` بعد انتهاء الكود الحالي.
 

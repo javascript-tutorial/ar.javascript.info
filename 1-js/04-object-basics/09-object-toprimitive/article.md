@@ -48,7 +48,7 @@
 
 `"التصرف الإفتراضي"`
 
-: يحدث فى حالات نادرة عندما تكون العمليه الحسابيه غير متأكَّد من النوع المناسب معها.
+    For instance, binary plus `+` can work both with strings (concatenates them) and numbers (adds them), so both strings and numbers would do. So if a binary plus gets an object as an argument, it uses the `"default"` hint to convert it.
 
 على سبيل المثال، العلامه `+` يمكن أن تعمل مع النصوص (حيث تقوم بالإضافه) أو الأرقام (حيث تقوم بالجمع)، ولذلك فإنه يمكن التحويل إلى نصوص أو أرقام. ولذلك إذا استقبلت علامة ال `+` كائنا فإنها تستخدم `"التصرف الإفتراضي"`.
 
@@ -96,12 +96,12 @@ obj[Symbol.toPrimitive] = function(hint) {
 
 ```js run
 let user = {
-  name: "John",
+  name: 'John',
   money: 1000,
 
   [Symbol.toPrimitive](hint) {
     alert(`hint: ${hint}`);
-    return hint == "string" ? `{name: "${this.name}"}` : this.money;
+    return hint == 'string' ? `{name: "${this.name}"}` : this.money;
   },
 };
 
@@ -132,7 +132,7 @@ alert(user + 500); // hint: default -> 1500
 كما فى المثال:
 
 ```js run
-let user = { name: "John" };
+let user = { name: 'John' };
 
 alert(user); // [object Object]
 alert(user.valueOf() === user); // true
@@ -148,7 +148,7 @@ alert(user.valueOf() === user); // true
 
 ```js run
 let user = {
-  name: "John",
+  name: 'John',
   money: 1000,
 
   // for hint="string"
@@ -173,7 +173,7 @@ alert(user + 500); // valueOf -> 1500
 
 ```js run
 let user = {
-  name: "John",
+  name: 'John',
 
   toString() {
     return this.name;
@@ -217,7 +217,7 @@ alert(user + 500); // toString -> John500
 let obj = {
   // toString handles all conversions in the absence of other methods
   toString() {
-    return "2";
+    return '2';
   },
 };
 
@@ -232,7 +232,7 @@ alert(obj * 2); // 4, object converted to primitive "2", then multiplication mad
 ```js run
 let obj = {
   toString() {
-    return "2";
+    return '2';
   },
 };
 
@@ -249,8 +249,8 @@ alert(obj + 2); // 22 ("2" + 2), conversion to primitive returned a string => co
 - `"الرقم"` (فى العمليات الحسابيه).
 - `"الطريقة الإفتراضيه"` (فى بعض العمليات).
 
-يوضح المصدر أى عملية تستخدم أى طريقه. وهناك القليل من العمليات التي 
-"لا تعلم ما نوع العامل الذي ستستقبله" 
+يوضح المصدر أى عملية تستخدم أى طريقه. وهناك القليل من العمليات التي
+"لا تعلم ما نوع العامل الذي ستستقبله"
 وتستخدم `"الطريقه الإفتراضيه"`. وعادةً ما يتم استخدام `"الطريقة الإفتراضيه"` مع الكائنات الموجوده بالفعل كما يتم التعامل مع `"الأرقام"`, ولذلك عمليا فإن الطريقتين الأخيرتين يمكن ضمهما معًا.
 
 تتم طريقة التحويل كالآتى:

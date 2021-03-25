@@ -13,14 +13,14 @@
 ```js run
 let regexp = /html|php|css|java(script)?/gi;
 
-let str = "First HTML appeared, then CSS, then JavaScript";
+let str = 'First HTML appeared, then CSS, then JavaScript';
 
-alert( str.match(regexp) ); // 'HTML', 'CSS', 'JavaScript'
+alert(str.match(regexp)); // 'HTML', 'CSS', 'JavaScript'
 ```
 
 لقد رأينا بالفعل شيئًا مشابهًا - الأقواس المربعة. تسمح بالاختيار بين عدة أحرف ، على سبيل المثال `pattern: gr [ae] y` يطابق` match: gre` أو `match: grey`.
 
-تسمح الأقواس المربعة باستخدام الأحرف أو مجموعات الأحرف فقط. يسمح التناوب بأي تعبيرات. نمط regexp `: A | B | C` يعني أحد التعبيرات` A` أو `B` أو` C`.
+Square brackets allow only characters or character classes. Alternation allows any expressions. A regexp `pattern:A|B|C` means one of expressions `A`, `B` or `C`.
 
 على سبيل المثال:
 
@@ -28,12 +28,13 @@ alert( str.match(regexp) ); // 'HTML', 'CSS', 'JavaScript'
 - `pattern: gra | ey` تعني` match: gra` أو `match: ey`.
 
 لتطبيق التناوب على جزء مختار من النمط ، يمكننا تضمينه بين قوسين:
+
 - `النمط: أحب HTML | CSS` يطابق` مطابقة: أنا أحب HTML` أو `تطابق: CSS`.
 - `pattern: I love (HTML | CSS)` يتطابق مع `match: I love HTML` أو` match: I love CSS`.
 
 ## مثال: regexp للوقت
 
-في المقالات السابقة ، كانت هناك مهمة لبناء regexp لوقت البحث في شكل `hh: mm` ، على سبيل المثال` 12: 00`. لكن `` النمط البسيط: \ d \ d: \ d \ d` غامض للغاية. يقبل `25: 99` كوقت (حيث تتطابق 99 ثانية مع النمط ، لكن ذلك الوقت غير صالح).
+In previous articles there was a task to build a regexp for searching time in the form `hh:mm`, for instance `12:00`. But a simple `pattern:\d\d:\d\d` is too vague. It accepts `25:99` as the time (as 99 minutes match the pattern, but that time is invalid).
 
 كيف يمكننا صنع نمط أفضل؟
 
@@ -47,15 +48,13 @@ alert( str.match(regexp) ); // 'HTML', 'CSS', 'JavaScript'
 
 بعد ذلك ، يجب أن تكون الدقائق من `00` إلى` 59`. في لغة التعبير العادي التي يمكن كتابتها كـ `pattern: [0-5] \ d`: الرقم الأول` 0-5` ، ثم أي رقم.
 
-إذا صقنا الدقائق والثواني معًا ، نحصل على النمط: `pattern: [01] \ d | 2 [0-3]: [0-5] \ d`.
+If we glue hours and minutes together, we get the pattern: `pattern:[01]\d|2[0-3]:[0-5]\d`.
 
 لقد انتهينا تقريبًا ، ولكن هناك مشكلة. يحدث "النمط البديل": | `الآن بين` النمط: [01] \ d` و "النمط: 2 [0-3]: [0-5] \ d`.
 
 أي: تمت إضافة الدقائق إلى البديل الثاني ، إليك صورة واضحة:
 
-``
-[01] \ d | 2 [0-3]: [0-5] \ د
-``
+`[01] \ d | 2 [0-3]: [0-5] \ د`
 
 يبحث هذا النمط عن `النمط: [01] \ d` أو` النمط: 2 [0-3]: [0-5] \ d`.
 
@@ -66,6 +65,5 @@ alert( str.match(regexp) ); // 'HTML', 'CSS', 'JavaScript'
 ```js run
 let regexp = /([01]\d|2[0-3]):[0-5]\d/g;
 
-alert("00:00 10:10 23:59 25:99 1:2".match(regexp)); // 00:00,10:10,23:59
+alert('00:00 10:10 23:59 25:99 1:2'.match(regexp)); // 00:00,10:10,23:59
 ```
-

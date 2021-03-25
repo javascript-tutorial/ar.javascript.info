@@ -1,8 +1,8 @@
-# خطأ عند قراءة خاصية غير موجودة
+# Error on reading non-existent property
 
-عادة، عند محاولة قراءة خاصية غير موجودة فإنها تُرجع `undefined`.
+Usually, an attempt to read a non-existent property returns `undefined`.
 
-قم بإنشاء بروكسي يقوم بإظهار خطأ عند محاولة قراءة خاصية غير موجودة بدلًا من ذلك.
+Create a proxy that throws an error for an attempt to read of a non-existent property instead.
 
 هذا يساعد علي استكشاف الأخطاء البرمجية بشكل أسرع.
 
@@ -27,6 +27,6 @@ user = wrap(user);
 
 alert(user.name); // John
 *!*
-alert(user.age); // ReferenceError: Property doesn't exist "age"
+alert(user.age); // ReferenceError: Property doesn't exist: "age"
 */!*
 ```

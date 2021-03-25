@@ -1,8 +1,8 @@
 يصبح الفرق واضحًا عندما ننظر إلى الكود داخل دالة.
 
-يختلف السلوك إذا كان هناك "خروج" من `try..catch`.
+The behavior is different if there's a "jump out" of `try...catch`.
 
-على سبيل المثال ، عندما يكون هناك `return` داخل `try..catch`. يعمل `finally` في حالة *أي* خروج من `try..catch`, حتى عبر عبارة `return`: مباشرة بعد الانتهاء من `try..catch`,  ولكن قبل أن يحصل الكود الذي قمنا بالاتصال به على التحكم.
+For instance, when there's a `return` inside `try...catch`. The `finally` clause works in case of _any_ exit from `try...catch`, even via the `return` statement: right after `try...catch` is done, but before the calling code gets the control.
 
 ```js run
 function f() {
@@ -11,7 +11,7 @@ function f() {
 *!*
     return "النتيجة";
 */!*
-  } catch (e) {
+  } catch (err) {
     /// ...
   } finally {
     alert('نظف!');
@@ -28,11 +28,11 @@ function f() {
   try {
     alert('إبدء');
     throw new Error("an error");
-  } catch (e) {
+  } catch (err) {
     // ...
     if("can't handle the error") {
 *!*
-      throw e;
+      throw err;
 */!*
     }
 

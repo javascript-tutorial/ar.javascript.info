@@ -1,4 +1,3 @@
-
 # النوع المرجعي
 
 ```warn header="خصائص متقدمه فى اللغه"
@@ -33,13 +32,15 @@ user.hi(); // تعمل
 كما ترى, تشغيل التابع أحدث خطأ, بسبب أن نتيجة `"this"` داخل تشغيل التابع أنتج `undefined`.
 
 هذا يعمل (كائن نقطة تابع):
+
 ```js
 user.hi();
 ```
 
 هذا لا يعمل:
+
 ```js
-(user.name == "John" ? user.hi : user.bye)(); // خطأ!
+(user.name == 'John' ? user.hi : user.bye)(); // خطأ!
 ```
 
 لماذ ؟ إذا كنا نريد ان نفهم لماذا يحدث هذا, دعونا نري خلف الكواليس كيف يعمل `()obj.method`.
@@ -84,7 +85,7 @@ hi(); // خطأ, لأن this غير معرفة
 
 ```js
 // قيمة النوع المرجعي
-(user, "hi", true)
+user, 'hi', true;
 ```
 
 حيث الأقواس `()` تسمى النوع المرجعي, يتلقون المعلومات الكاملة حول الكائن و توابعه, و يمكن وضع القيمه الصحيحة لـ `this` (`=user` في هذه الحالة).
@@ -93,7 +94,7 @@ hi(); // خطأ, لأن this غير معرفة
 
 اى عملية اخري مثل `hi = user.hi` تتجاهل النوع المرجعي بالكامل, تأخذ القيمة من `user.hi` (التابع) و تقوم بتمريره. اذا اى من العمليات المستقبلية "تفقد" `this`.
 
-لذا, قيمة `this` يتم تمريرها بالطريقة الصحيحة فقط إذا تم استدعاء التابع مباشرةً باستخدام نقطة `obj.method()` أو الاقواس المربعة `obj['method']()` (يقومون بنفس الوظيفه هنا). لاحقًا في هذا البرنامج التعليمي ، سنتعلم طرقًا مختلفة لحل هذه المشكلة مثل [func.bind()](/bind#solution-2-bind).
+So, as the result, the value of `this` is only passed the right way if the function is called directly using a dot `obj.method()` or square brackets `obj['method']()` syntax (they do the same here). There are various ways to solve this problem such as [func.bind()](/bind#solution-2-bind).
 
 ## الملخص
 
@@ -105,10 +106,4 @@ hi(); // خطأ, لأن this غير معرفة
 
 بالنسبة لجميع العمليات الأخرى ، يصبح النوع المرجعي تلقائيًا قيمة الخاصية (تابع في حالتنا).
 
-جميع آليات العمل مختفيه. لا يهم إلا في الحالات الدقيقة, مثل عندما يتم الحصول على طريقة ديناميكيًا من الكائن ، باستخدام تعبير.
-
-
-
-
-
- نتيجة النقطة `.` ليست في الواقع طريقة ، ولكنها قيمة `` يحتاج إلى طريقة لتمرير المعلومات حول `obj`
+The whole mechanics is hidden from our eyes. It only matters in subtle cases, such as when a method is obtained dynamically from the object, using an expression.

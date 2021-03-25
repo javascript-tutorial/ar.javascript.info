@@ -53,21 +53,21 @@ for (let key in proxy) alert(key); // test, التكرار يعمل (3)
 
 لكل دالة داخلية يوجد trap في هذا الجدول: اسم الدالة التي يمكننا إضافتها للمتغير الذي يسمي `handler` والذي نضيفه للـ `new Proxy` للتدخل فى العملية:
 
-| الدالة الداخلية         | الدالة العاملة             | تعمل عند...                                                                                                                                                                                                                                                                                                                       |
-| ----------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `[[Get]]`               | `get`                      | قراءة خاصية                                                                                                                                                                                                                                                                                                                       |
-| `[[Set]]`               | `set`                      | التعديل علي خاصية                                                                                                                                                                                                                                                                                                                 |
-| `[[HasProperty]]`       | `has`                      | `in` المعامل                                                                                                                                                                                                                                                                                                                      |
-| `[[Delete]]`            | `deleteProperty`           | `delete` المعامل                                                                                                                                                                                                                                                                                                                  |
-| `[[Call]]`              | `apply`                    | استدعاء دالة                                                                                                                                                                                                                                                                                                                      |
-| `[[Construct]]`         | `construct`                | `new` المعامل                                                                                                                                                                                                                                                                                                                     |
-| `[[GetPrototypeOf]]`    | `getPrototypeOf`           | [Object.getPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)                                                                                                                                                                                                   |
-| `[[SetPrototypeOf]]`    | `setPrototypeOf`           | [Object.setPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)                                                                                                                                                                                                   |
-| `[[IsExtensible]]`      | `isExtensible`             | [Object.isExtensible](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible)                                                                                                                                                                                                       |
-| `[[PreventExtensions]]` | `preventExtensions`        | [Object.preventExtensions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions)                                                                                                                                                                                             |
-| `[[DefineOwnProperty]]` | `defineProperty`           | [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty), [Object.defineProperties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties)                                                              |
-| `[[GetOwnProperty]]`    | `getOwnPropertyDescriptor` | [Object.getOwnPropertyDescriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor), `for..in`, `Object.keys/values/entries`                                                                                                                                      |
-| `[[OwnPropertyKeys]]`   | `ownKeys`                  | [Object.getOwnPropertyNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object/keys/values/entries` |
+| Internal Method         | Handler Method             | Triggers when...                                                                                                                                                                                                                                  |
+| ----------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `[[Get]]`               | `get`                      | reading a property                                                                                                                                                                                                                                |
+| `[[Set]]`               | `set`                      | writing to a property                                                                                                                                                                                                                             |
+| `[[HasProperty]]`       | `has`                      | `in` operator                                                                                                                                                                                                                                     |
+| `[[Delete]]`            | `deleteProperty`           | `delete` operator                                                                                                                                                                                                                                 |
+| `[[Call]]`              | `apply`                    | function call                                                                                                                                                                                                                                     |
+| `[[Construct]]`         | `construct`                | `new` operator                                                                                                                                                                                                                                    |
+| `[[GetPrototypeOf]]`    | `getPrototypeOf`           | [Object.getPrototypeOf](mdn:/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)                                                                                                                                                           |
+| `[[SetPrototypeOf]]`    | `setPrototypeOf`           | [Object.setPrototypeOf](mdn:/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)                                                                                                                                                           |
+| `[[IsExtensible]]`      | `isExtensible`             | [Object.isExtensible](mdn:/JavaScript/Reference/Global_Objects/Object/isExtensible)                                                                                                                                                               |
+| `[[PreventExtensions]]` | `preventExtensions`        | [Object.preventExtensions](mdn:/JavaScript/Reference/Global_Objects/Object/preventExtensions)                                                                                                                                                     |
+| `[[DefineOwnProperty]]` | `defineProperty`           | [Object.defineProperty](mdn:/JavaScript/Reference/Global_Objects/Object/defineProperty), [Object.defineProperties](mdn:/JavaScript/Reference/Global_Objects/Object/defineProperties)                                                              |
+| `[[GetOwnProperty]]`    | `getOwnPropertyDescriptor` | [Object.getOwnPropertyDescriptor](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor), `for..in`, `Object.keys/values/entries`                                                                                              |
+| `[[OwnPropertyKeys]]`   | `ownKeys`                  | [Object.getOwnPropertyNames](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object.keys/values/entries` |
 
 ```warn header="بعض الثوابت"
 تفرض جافا سكريبت بعض الثوابت -- شروط يجب أن تتحقق بالmethods و الtraps.
@@ -132,12 +132,12 @@ alert( numbers[123] ); // 0 (لا يوجد عنصر كهذا)
 
 ```js run
 let dictionary = {
-  Hello: "مرحبًا",
-  Bye: "إلي اللقاء",
+  Hello: 'مرحبًا',
+  Bye: 'إلي اللقاء',
 };
 
-alert(dictionary["Hello"]); // مرحبًا
-alert(dictionary["Welcome"]); // undefined
+alert(dictionary['Hello']); // مرحبًا
+alert(dictionary['Welcome']); // undefined
 ```
 
 حاليًا، ليست هناك جملة، فعند الإسترجاع من القاموس تقوم بإرجاع `undefined`. ولكن في التطبيق العملي، فإن ترك الجملة غير مترجمة أفضل من `undefined`. ولذلك سنجعلها تقوم بإرجاع الجملة غير مترجمة بدلًا من `undefined`.
@@ -307,7 +307,7 @@ let user = {};
 user = new Proxy(user, {
   ownKeys(target) {
     // يتم استدعاؤها مرة لإرجاع قائمة
-    return ["a", "b", "c"];
+    return ['a', 'b', 'c'];
   },
 
   getOwnPropertyDescriptor(target, prop) {
@@ -333,8 +333,8 @@ alert(Object.keys(user)); // a, b, c
 
 ```js run
 let user = {
-  name: "John",
-  _password: "secret",
+  name: 'John',
+  _password: 'secret',
 };
 
 alert(user._password); // secret
@@ -378,7 +378,7 @@ user = new Proxy(user, {
     }
   },
 *!*
-  deleteProperty(target, prop) { // لاعتراض حذف الخاصية
+  deleteProperty(target, prop) { // to intercept property deletion
 */!*
     if (prop.startsWith('_')) {
       throw new Error("Access denied");
@@ -441,7 +441,9 @@ user = {
 
 استدعاء `user.checkPassword()` يقوم بإرجاع `user` المُحاط ببروكسي كقيمة لـ `this` (الأوبجكت قبل علامة النقطة هو قيمة `this`)، ولذلك فعندما تحاول الوصول إلي `this._password` ينشط الـtrap `get` (تعمل مع كل استدعاء لخاصية) وتظهر خطأًا.
 
-ولذلك نقوم بربط سياق دوال الأوبجكت بالأوبجكت الأصلي، `target`، في لاسطر `(*)`. وبعد ذلك فإن استدعائهم في المستقبل سيسختدم `target` كقيمة لـ `this`، بدون trap.
+A call to `user.checkPassword()` gets proxied `user` as `this` (the object before dot becomes `this`), so when it tries to access `this._password`, the `get` trap activates (it triggers on any property read) and throws an error.
+
+So we bind the context of object methods to the original object, `target`, in the line `(*)`. Then their future calls will use `target` as `this`, without any traps.
 
 هذا الحل عادة ما يعمل، ولكنه ليس مثاليًا، فإن دالة كهذه يمكنها أن ترجع الأوبجكت غير محاط ببروكسي في أي مكان آخر وهكذا سيفسد كل شيئ: أين الأوبجكت الأصلي؟ وأين المحاط ببروكسي؟
 
@@ -533,7 +535,7 @@ function sayHi(user) {
 // بعد هذه الإحاطه فإن استدعاء الدالة سيتأخر ل 3 ثواني
 sayHi = delay(sayHi, 3000);
 
-sayHi("John"); // Hello, John! (after 3 seconds)
+sayHi('John'); // Hello, John! (after 3 seconds)
 ```
 
 هذا يعمل كما رأينا بالفعل. الدالة المُحيطة `(*)` تقوم بالإستدعاء بعد انتهاء الوقت.
@@ -617,7 +619,7 @@ sayHi("John"); // Hello, John! (after 3 seconds)
 ```js run
 let user = {};
 
-Reflect.set(user, "name", "John");
+Reflect.set(user, 'name', 'John');
 
 alert(user.name); // John
 ```
@@ -834,8 +836,7 @@ alert(proxy.get('test')); // 1 (works!)
 
 علي عكس المثال السابق، فإن قيمة `this` بداخل `proxy.set(...)` لن تكون بروكسي ولكن فقط ال`map` الأصلي. لذلك عندما تحاول الدالة `set` أن تصل إلي `this.[[MapData]]` فإنها تنجح.
 
-```smart header="`Array` لا تحتوي علي internal slots"
-استثناء ملحوظ: الـ `Array` لا تستخدم الـ internal slots. وهذا لأسباب متأصلة وتاريخية، لأنها ظهرت منذ زمن طويل.
+```smart header="`Array`لا تحتوي علي internal slots" استثناء ملحوظ: الـ`Array` لا تستخدم الـ internal slots. وهذا لأسباب متأصلة وتاريخية، لأنها ظهرت منذ زمن طويل.
 
 لذلك لا توجد مشكلة كهذه عند إحاطة المصفوفة ببروكسي.
 
@@ -843,7 +844,7 @@ alert(proxy.get('test')); // 1 (works!)
 
 ### الخصائص الخاصة Private fields
 
-الشيئ المشابه يحدث مع الخصائص الخاصة بالكلاس.
+A similar thing happens with private class fields.
 
 علي سبيل المثال، الدالة `getName()` تصل إلي الخاصية الخاصة `#name` وتقف بعد الإحاطة:
 
@@ -873,7 +874,7 @@ alert(user.getName()); // خطأ
 
 ```js run
 class User {
-  #name = "Guest";
+  #name = 'Guest';
 
   getName() {
     return this.#name;
@@ -885,7 +886,7 @@ let user = new User();
 user = new Proxy(user, {
   get(target, prop, receiver) {
     let value = Reflect.get(...arguments);
-    return typeof value == "function" ? value.bind(target) : value;
+    return typeof value == 'function' ? value.bind(target) : value;
   },
 });
 
@@ -923,8 +924,7 @@ alert(allUsers.has(user)); // false
 
 كما نري، فإنه بعد الإحاطة لا نستطيع أن نجد `user` في المجموعه `allUsers`، لأن البروكسي هو كائن مختلف.
 
-```warn header="البروكسي لا يستطيع أن يعترض اختبار المساواة `===`"
-البروكسي يمكنه اعتراض الكثير من العمليات، مثل `new` باستخدام `construct` و كذلك `in` باستخدام `has` وهكذا.
+```warn header="البروكسي لا يستطيع أن يعترض اختبار المساواة `===`" البروكسي يمكنه اعتراض الكثير من العمليات، مثل `new`باستخدام`construct`و كذلك`in`باستخدام`has` وهكذا.
 
 ولكن ليست هناك طريقة لاعتراض اختبار المساواة `===` للأوبجكتس. فإن الأوبجكت مساوٍ تماما لنفسه فقط وليس أي قيمة أخري.
 
@@ -950,7 +950,7 @@ let {proxy, revoke} = Proxy.revocable(target, handler)
 
 ```js run
 let object = {
-  data: "Valuable data",
+  data: 'Valuable data',
 };
 
 let { proxy, revoke } = Proxy.revocable(object, {});
@@ -965,9 +965,13 @@ revoke();
 alert(proxy.data); // خطأ
 ```
 
-استدعاء `revoke()` يمسح كل المراجع الداخلية للأوبجكت المستهدف من البروكسي، ولذلك فإنهما ليسا متصلان بعد الآن. الأوبجكت المستهدف يمكن أن يتم تنظيفه بعد ذلك.
+A call to `revoke()` removes all internal references to the target object from the proxy, so they are no longer connected.
 
-يمكننا أيضًا أن نخزن الدالة `revoke` في `WeakMap`، لنكون قادرين علي إيجاده بواسطة بروكسي:
+Initially, `revoke` is separate from `proxy`, so that we can pass `proxy` around while leaving `revoke` in the current scope.
+
+We can also bind `revoke` method to proxy by setting `proxy.revoke = revoke`.
+
+Another option is to create a `WeakMap` that has `proxy` as the key and the corresponding `revoke` as the value, that allows to easily find `revoke` for a proxy:
 
 ```js run
 *!*
@@ -982,21 +986,19 @@ let {proxy, revoke} = Proxy.revocable(object, {});
 
 revokes.set(proxy, revoke);
 
-// ..later in our code..
+// ..somewhere else in our code..
 revoke = revokes.get(proxy);
 revoke();
 
 alert(proxy.data); // خطأ (تم إلغاؤه)
 ```
 
-الفائدة من نهج كهذا هو أننا لسنا مضطرين لأن نحمل الدالة `revoke`. يمكننا الحصول عليها من الmap بواسطة `proxy` عند الحاجه.
-
-نستخدم `WeakMap` بدلًل من `Map`هنا لأننا لا نريد أن نمنع عملية التنظيف (garbage collection). إذا أصبح الأوبجكت "لا يمكن الوصول إليه" (علي سبيل المثال لا توجد أي متغيرات تصل إليها)، تسمح له الـ `WeakMap` أن يتم مسحه من الذاكرة مع دالة `revoke` الخاصة به فليس هناك حاجة لها بعد الآن.
+We use `WeakMap` instead of `Map` here because it won't block garbage collection. If a proxy object becomes "unreachable" (e.g. no variable references it any more), `WeakMap` allows it to be wiped from memory together with its `revoke` that we won't need any more.
 
 ## المراجع
 
-- المصدر: [Proxy](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots).
-- MDN: [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
+- Specification: [Proxy](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots).
+- MDN: [Proxy](mdn:/JavaScript/Reference/Global_Objects/Proxy).
 
 ## الملخص
 
@@ -1016,16 +1018,18 @@ let proxy = new Proxy(target, {
 
 يمكننا أن نعترض:
 
-- قراءة (`get`), تعديل (`set`), حذف (`deleteProperty`) خاصية (حتي إذا لم تكن موجودة).
-- استدعاء دالة (`apply`).
-- المعامل `new` (`construct` trap).
-- وغيره الكثير من العمليات (القامة الكاملة موجودة في بداية المقال وفي [المصدر](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)).
+We can trap:
+
+- Reading (`get`), writing (`set`), deleting (`deleteProperty`) a property (even a non-existing one).
+- Calling a function (`apply` trap).
+- The `new` operator (`construct` trap).
+- Many other operations (the full list is at the beginning of the article and in the [docs](mdn:/JavaScript/Reference/Global_Objects/Proxy)).
 
 هذا يسمح لنا أن ننشئ خواص ودوال افتراضية واسترجاع قيم افتراضية وأوبجكت ملحوظ والكثير.
 
 يمكننا أيضًا أن نعترض أوبجكت مرات عدة ببروكسي مختلف، وتعليمها بطرق مختلفة.
 
-[الكائن Reflect](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect) تم إنشاؤه ليكمل الـ [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). لكل trap في `Proxy`, يوجد استدعاء لـ `Reflect` بنفس المتغيرات. يجب أن نستخدمها لتمرير القيم إلي الأوبجكت المستهدف.
+The [Reflect](mdn:/JavaScript/Reference/Global_Objects/Reflect) API is designed to complement [Proxy](mdn:/JavaScript/Reference/Global_Objects/Proxy). For any `Proxy` trap, there's a `Reflect` call with same arguments. We should use those to forward calls to target objects.
 
 البروكسي له حدود:
 

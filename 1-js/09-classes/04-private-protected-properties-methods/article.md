@@ -1,5 +1,4 @@
-
-# الخواص والدوال الـ `private` و الـ `protected` 
+# الخواص والدوال الـ `private` و الـ `protected`
 
 أحد أهم مبادئ البرمجة الشيئية - تحديد الواجهة الداخلية عن الواجهة الخارجية.
 
@@ -11,7 +10,7 @@
 
 ## مثال واقعي
 
-على سبيل المثال ، آلة صنع القهوة. بسيط من الخارج: زر ، شاشة ، بضع ثقوب ... وبالتأكيد النتيجة - قهوة رائعة!  :)
+على سبيل المثال ، آلة صنع القهوة. بسيط من الخارج: زر ، شاشة ، بضع ثقوب ... وبالتأكيد النتيجة - قهوة رائعة! :)
 
 ![](coffee.jpg)
 
@@ -23,7 +22,7 @@
 
 آلات القهوة موثوقة تمامًا ، أليس كذلك؟ يمكننا استخدام واحد لسنوات ، وفقط إذا حدث خطأ - إحضاره للإصلاحات.
 
-سر الموثوقية والبساطة في آلة القهوة - كل التفاصيل مضبوطة جيدًا و * مخفية * من الداخل.
+سر الموثوقية والبساطة في آلة القهوة - كل التفاصيل مضبوطة جيدًا و _ مخفية _ من الداخل.
 
 إذا أزلنا الغطاء الواقي من آلة القهوة ، فسيكون استخدامه أكثر تعقيدًا (أين نضغط؟) ، وخطير (يمكن أن يصعق بالكهرباء).
 
@@ -35,8 +34,8 @@
 
 في البرمجة الشيئية ، تنقسم الخصائص والأساليب إلى مجموعتين:
 
-- * الواجهة الداخلية * - الأساليب والخصائص ، يمكن الوصول إليها من طرق أخرى للفئة ، ولكن ليس من الخارج.
-- * الواجهة الخارجية * - الأساليب والخصائص ، ويمكن الوصول إليها أيضًا من خارج الفصل.
+- - الواجهة الداخلية \* - الأساليب والخصائص ، يمكن الوصول إليها من طرق أخرى للفئة ، ولكن ليس من الخارج.
+- - الواجهة الخارجية \* - الأساليب والخصائص ، ويمكن الوصول إليها أيضًا من خارج الفصل.
 
 إذا واصلنا المقارنة مع آلة القهوة - ما هو مخفي في الداخل: أنبوب غلاية ، وعنصر تسخين ، وما إلى ذلك - هي واجهتها الداخلية.
 
@@ -69,9 +68,8 @@ class CoffeeMachine {
 
   constructor(power) {
     this.power = power;
-    alert( `Created a coffee-machine, power: ${power}` );
+    alert(`Created a coffee-machine, power: ${power}`);
   }
-
 }
 
 // create the coffee machine
@@ -96,7 +94,9 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   set waterAmount(value) {
-    if (value < 0) throw new Error("Negative water");
+    if (value < 0) {
+      value = 0;
+    }
     this._waterAmount = value;
   }
 
@@ -107,7 +107,6 @@ class CoffeeMachine {
   constructor(power) {
     this._power = power;
   }
-
 }
 
 // create the coffee machine
@@ -117,7 +116,7 @@ let coffeeMachine = new CoffeeMachine(100);
 coffeeMachine.waterAmount = -10; // Error: Negative water
 ```
 
-الآن الوصول تحت السيطرة ، لذلك فشل إعداد المياه تحت الصفر.
+Now the access is under control, so setting the water amount below zero becomes impossible.
 
 ## "قوة" للقراءة فقط
 
@@ -138,7 +137,6 @@ class CoffeeMachine {
   get power() {
     return this._power;
   }
-
 }
 
 // create the coffee machine
@@ -159,7 +157,7 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   *!*setWaterAmount(value)*/!* {
-    if (value < 0) throw new Error("Negative water");
+    if (value < 0) value = 0;
     this._waterAmount = value;
   }
 
@@ -199,11 +197,15 @@ class CoffeeMachine {
 */!*
 
 *!*
-  #checkWater(value) {
-    if (value < 0) throw new Error("Negative water");
-    if (value > this.#waterLimit) throw new Error("Too much water");
+  #fixWaterAmount(value) {
+    if (value < 0) return 0;
+    if (value > this.#waterLimit) return this.#waterLimit;
   }
 */!*
+
+  setWaterAmount(value) {
+    this.#waterLimit = this.#fixWaterAmount(value);
+  }
 
 }
 
@@ -211,7 +213,7 @@ let coffeeMachine = new CoffeeMachine();
 
 *!*
 // can't access privates from outside of the class
-coffeeMachine.#checkWater(); // Error
+coffeeMachine.#fixWaterAmount(123); // Error
 coffeeMachine.#waterLimit = 1000; // Error
 */!*
 ```
@@ -224,7 +226,6 @@ coffeeMachine.#waterLimit = 1000; // Error
 
 ```js run
 class CoffeeMachine {
-
   #waterAmount = 0;
 
   get waterAmount() {
@@ -232,7 +233,7 @@ class CoffeeMachine {
   }
 
   set waterAmount(value) {
-    if (value < 0) throw new Error("Negative water");
+    if (value < 0) value = 0;
     this.#waterAmount = value;
   }
 }
@@ -314,3 +315,4 @@ class User {
 - تبدأ الحقول الخاصة بـ `#`. جافا سكريبت تتأكد من أنه لا يمكننا الوصول إلا من داخل الفصل.
 
 في الوقت الحالي ، لا يتم دعم الحقول الخاصة بشكل جيد بين المتصفحات ، ولكن يمكن إعادة ملؤها.
+````

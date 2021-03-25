@@ -4,17 +4,18 @@
 
 للقيام بذلك ، يمكننا العثور على وإزالة أي شيء ليس رقمًا. يمكن أن تساعد فئات الأحرف في ذلك.
 
-*فئات الاحرف*  هو رمز خاص يطابق أي رمز من مجموعة معينة.
- 
+_فئات الاحرف_ هو رمز خاص يطابق أي رمز من مجموعة معينة.
 
-على سبيل المثال ، دعنا نعثر على الرقم الأول في رقم الهاتف:
+For the start, let's explore the "digit" class. It's written as `pattern:\d` and corresponds to "any single digit".
+
+For instance, let's find the first digit in the phone number:
 
 ```js run
-let str = "+7(903)-123-45-67";
+let str = '+7(903)-123-45-67';
 
 let regexp = /\d/;
 
-alert( str.match(regexp) ); // 7
+alert(str.match(regexp)); // 7
 ```
 
 بدون العلم `pattern:g`, التعبير المنتظم ينظر فقط للمتطابقة الاولي, والذي يكون الرقم الاول `pattern:\d`.
@@ -22,14 +23,14 @@ alert( str.match(regexp) ); // 7
 لنقم بأضافة العلم `pattern:g` لأيجاد كل الارقام:
 
 ```js run
-let str = "+7(903)-123-45-67";
+let str = '+7(903)-123-45-67';
 
 let regexp = /\d/g;
 
-alert( str.match(regexp) ); // مصفوفة من المتطابقات: 7,9,0,3,1,2,3,4,5,6,7
+alert(str.match(regexp)); // مصفوفة من المتطابقات: 7,9,0,3,1,2,3,4,5,6,7
 
 // دعنا نحصل علي أرقام الهاتف الحلوي فقط
-alert( str.match(regexp).join('') ); // 79031234567
+alert(str.match(regexp).join('')); // 79031234567
 ```
 
 وهذا كان فئة الحرف للأرقام. هناك فئات الاحرف الاخري كذلك.
@@ -52,16 +53,16 @@ alert( str.match(regexp).join('') ); // 79031234567
 علي سبيل المثال, `pattern:CSS\d` ينتج عنه نص `match:CSS` مع رقم يأتي بعده:
 
 ```js run
-let str = "Is there CSS4?";
-let regexp = /CSS\d/
+let str = 'Is there CSS4?';
+let regexp = /CSS\d/;
 
-alert( str.match(regexp) ); // CSS4
+alert(str.match(regexp)); // CSS4
 ```
 
 أيضاً نستطيع أستخدام الكثير من فئات الأحرف:
 
 ```js run
-alert( "I love HTML5!".match(/\s\w\w\w\w\d/) ); // ' HTML5'
+alert('I love HTML5!'.match(/\s\w\w\w\w\d/)); // ' HTML5'
 ```
 
 الناتج (كل فئة حرف تقابلها الناتج الخاص بها):
@@ -86,17 +87,17 @@ alert( "I love HTML5!".match(/\s\w\w\w\w\d/) ); // ' HTML5'
 في بداية الفصل رأينا كيفية صنع رقم هاتف لرقم فقط من النص مثل`subject:+7(903)-123-45-67`: أيجاد كل الارقام وتم جمعهم.
 
 ```js run
-let str = "+7(903)-123-45-67";
+let str = '+7(903)-123-45-67';
 
-alert( str.match(/\d/g).join('') ); // 79031234567
+alert(str.match(/\d/g).join('')); // 79031234567
 ```
 
 طريقة بديلة ,أسهل هي العثور علي أي شئ غير الارقام `pattern:\D` من النص و حذفه من النص:
 
 ```js run
-let str = "+7(903)-123-45-67";
+let str = '+7(903)-123-45-67';
 
-alert( str.replace(/\D/g, "") ); // 79031234567
+alert(str.replace(/\D/g, '')); // 79031234567
 ```
 
 ## النقطة هي "أي حرف"
@@ -106,7 +107,7 @@ alert( str.replace(/\D/g, "") ); // 79031234567
 علي سبيل المثال:
 
 ```js run
-alert( "Z".match(/./) ); // Z
+alert('Z'.match(/./)); // Z
 ```
 
 او يمكن أستخدامها في منتصف التعبير المنتظم:
@@ -114,15 +115,15 @@ alert( "Z".match(/./) ); // Z
 ```js run
 let regexp = /CS.4/;
 
-alert( "CSS4".match(regexp) ); // CSS4
-alert( "CS-4".match(regexp) ); // CS-4
-alert( "CS 4".match(regexp) ); // CS 4 (المسافة تعتبر أيضاً حرف)
+alert('CSS4'.match(regexp)); // CSS4
+alert('CS-4'.match(regexp)); // CS-4
+alert('CS 4'.match(regexp)); // CS 4 (المسافة تعتبر أيضاً حرف)
 ```
 
-يرجى ملاحظة أن النقطة تعني "أي حرف" ، ولكن ليس "عدم وجود حرف". يجب أن يكون هناك حرف لمطابقته:
+Please note that a dot means "any character", but not the "absence of a character". There must be a character to match it:
 
 ```js run
-alert( "CS4".match(/CS.4/) ); // الناتج يكون null لان لا يجود أي حرف موضع النقطة.
+alert('CS4'.match(/CS.4/)); // الناتج يكون null لان لا يجود أي حرف موضع النقطة.
 ```
 
 ### النقطة تكون أي حرف مثل العلم "s"
@@ -132,7 +133,7 @@ alert( "CS4".match(/CS.4/) ); // الناتج يكون null لان لا يجود
 علي سبيل المثال, التعبير المنتظم `pattern:A.B` يطابق `match:A`, ومن ثم `match:B` مع أي حرف بينهم, ما عدا السطر الجديد `\n`:
 
 ```js run
-alert( "A\nB".match(/A.B/) ); // null (لا متطابقة)
+alert('A\nB'.match(/A.B/)); // null (لا متطابقة)
 ```
 
 هناك العديد من المواقف عندما نرغب في أن تعني النقطة حرفياً "أي حرف" ، بما في ذلك السطر الجديد.
@@ -140,13 +141,13 @@ alert( "A\nB".match(/A.B/) ); // null (لا متطابقة)
 ماذا العلم `pattern:s` يفعل. اذا كان التعبير المنتظم يحتوي عليه, كذلك النقطة `pattern:.` ينتج عنها أي حرف:
 
 ```js run
-alert( "A\nB".match(/A.B/s) ); // A\nB (match!)
+alert('A\nB'.match(/A.B/s)); // A\nB (match!)
 ```
 
-````warn header="لا يدعم في Firefox و IE و Edge"
-أفحص هذا الموقع <https://caniuse.com/#search=dotall> للمزيد من المعلومات حول الدعم. وفي نفس وقت الكتابة لا تنتمي الي Firefox و IE و Edge.
+````warn header="Not supported in IE"
+The `pattern:s` flag is not supported in IE.
 
-لحسن الحظ ، هناك بديل يعمل في كل مكان. نستطيع أستخدام تعبير منتظم مثل `pattern:[\s\S]` ليكون الناتج "أي حرف".
+Luckily, there's an alternative, that works everywhere. We can use a regexp like `pattern:[\s\S]` to match "any character" (this pattern will be covered in the article <info:regexp-character-sets-and-ranges>).
 
 ```js run
 alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (الناتج!)
@@ -178,7 +179,7 @@ alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, أيضاً تعمل
 
 **المسافة تعتبر حرف. تساوي في الاهمية مع أي حرف أخر.**
 
-لا يمكننا إضافة مسافات أو إزالتها من التعبير المنتظم ونتوقع أن تعمل بالطريقة نفسها.
+We can't add or remove spaces from a regular expression and expect it to work the same.
 
 بمعني أخر, في التعبير المنتظم كل الحروف لها أهمية, والمسافات أيضاً.
 ````
@@ -197,6 +198,6 @@ alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, أيضاً تعمل
 
 ...ولكن هذا ليس كل شيء!
 
-يوفر ترميز Unicode ، الذي تستخدمه JavaScript للسلاسل ، العديد من الخصائص للأحرف ، مثل: اللغة التي ينتمي إليها الحرف (إذا كان حرفًا) فهو علامة ترقيم ، إلخ.
+Unicode encoding, used by JavaScript for strings, provides many properties for characters, like: which language the letter belongs to (if it's a letter), is it a punctuation sign, etc.
 
 يمكننا البحث بهذه الخصائص أيضًا. هذا يتطلب العلم `pattern:u`, تم تغطيته في المقال التالي.

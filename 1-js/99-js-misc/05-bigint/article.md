@@ -9,7 +9,7 @@
 ```js
 const bigint = 1234567890123456789012345678901234567890n;
 
-const sameBigint = BigInt("1234567890123456789012345678901234567890");
+const sameBigint = BigInt('1234567890123456789012345678901234567890');
 
 const bigintFromNumber = BigInt(10); // 10n مثلها
 ```
@@ -38,7 +38,7 @@ alert(1n + 2); // Error: Cannot mix BigInt and other types
 let bigint = 1n;
 let number = 2;
 
-// bigint تحويل number إلى 
+// bigint تحويل number إلى
 alert(bigint + BigInt(number)); // 3
 
 // number تحويل bigint إلى
@@ -47,16 +47,18 @@ alert(Number(bigint) + number); // 3
 
 يحدث تحويل `bigint` إلى رقم دائمًا بشكل ضمني وبدون توليد أخطاء ، ولكن إذا كانت قيمة `bigint` كبيرة جدًا ولا تتناسب مع نوع الرقم ، فسيتم تجاهل `bits` الإضافية ، لذلك يجب توخي الحذر في مثل هذه التحويلات.
 
-````smart header="لا يتم دعم ميزة الزائد الأحادي (+) على `bigints`"
-يعد عامل تشغيل الزائد الأحادي `+value` طريقة معروفة لتحويل `value` إلى رقم.
+````smart header="لا يتم دعم ميزة الزائد الأحادي (+) على `bigints`" يعد عامل تشغيل الزائد الأحادي `+value`طريقة معروفة لتحويل`value` إلى رقم.
 
-لا يتم دعم عامل التشغيل هذا عند العمل مع أرقام `BigInt`:
+In order to avoid confusion, it's not supported on bigints:
+
 ```js run
 let bigint = 1n;
 
-alert( +bigint ); // error
+alert(+bigint); // error
 ```
+
 لذلك يجب أن نستخدم `Number()` لتحويل `bigint` إلى رقم.
+
 ````
 
 ## المقارنات
@@ -130,5 +132,6 @@ alert( 0n || 2 ); // 2 (0n ستكون `false`)
 
 ## المراجع
 
-- [MDN BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
-- [تخصيص](https://tc39.es/ecma262/#sec-bigint-objects).
+- [MDN docs on BigInt](mdn:/JavaScript/Reference/Global_Objects/BigInt).
+- [Specification](https://tc39.es/ecma262/#sec-bigint-objects).
+````

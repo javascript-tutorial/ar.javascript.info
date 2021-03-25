@@ -21,13 +21,13 @@ let user = {
 alert(user); // {name: "John", age: 30}
 ```
 
-...ولكن عند التطبيق العملى يتم إضافة خصائص جديده أو إعادة تسمية خصائص قديمه أو إزالتها. فتحديث النص عن طريق الدالة `toString` كل  مرة سيكون صعبًا. يمكننا أن نقوم بالتكرار على كل الخصائص فى هذا الكائن ولكن ماذا إذا كان هذا الكائن معقدًا ويحتوى على كائنات أخرى بداخله؟ يجب أن نقوم بتحويلهم أيضًا.
+...ولكن عند التطبيق العملى يتم إضافة خصائص جديده أو إعادة تسمية خصائص قديمه أو إزالتها. فتحديث النص عن طريق الدالة `toString` كل مرة سيكون صعبًا. يمكننا أن نقوم بالتكرار على كل الخصائص فى هذا الكائن ولكن ماذا إذا كان هذا الكائن معقدًا ويحتوى على كائنات أخرى بداخله؟ يجب أن نقوم بتحويلهم أيضًا.
 
 لحسن الحظ، ليس هناك حاجه لكتابة كود يقوم بالتعامل مع ذلك. فقد تم حل هذه المشكله بالفعل.
 
 ## JSON.stringify
 
-إن الكائن 
+إن الكائن
 [JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation)
 هو شكل عام لعرض الكائنات والقيم. وقد تم وصفه كما فى ال [RFC 4627](http://tools.ietf.org/html/rfc4627).
 لقد صُنع فى البداية من أجل جافا سكريبت، ولكن هناك لغات ومكتبات أخرى للتعامل معه أيضًا. ولذلك من السهل استخدام الكائن JSON لتبادل البيانات عندما تكون الواجهة بجافا سكريبت والسيرفر / الباك اند بلغة مثل Ruby/PHP/Java أو أيًا كان.
@@ -96,7 +96,7 @@ alert(json);
 alert(JSON.stringify(1)); // 1
 
 // النص المحوَّل إلى جيسون هو نصٌ أيضًا ولكن محاط بعلامة التنصيص الثنائية ""
-alert(JSON.stringify("test")); // "test"
+alert(JSON.stringify('test')); // "test"
 
 alert(JSON.stringify(true)); // true
 
@@ -107,17 +107,17 @@ alert(JSON.stringify([1, 2, 3])); // [1,2,3]
 
 وهى:
 
-- الخصائص التى هي عباره عن دوال (Functions).
-- الخصائص من نوع الرمز (Symbol).
-- الخصائص التى قيمتها `undefined`.
+- Function properties (methods).
+- Symbolic keys and values.
+- Properties that store `undefined`.
 
 ```js run
 let user = {
   sayHi() {
     // يتم تجاهلها
-    alert("Hello");
+    alert('Hello');
   },
-  [Symbol("id")]: 123, // يتم تجاهلها
+  [Symbol('id')]: 123, // يتم تجاهلها
   something: undefined, // يتم تجاهلها
 };
 
@@ -257,8 +257,8 @@ let room = {
 };
 
 let meetup = {
-  title: "Conference",
-  participants: [{ name: "John" }, { name: "Alice" }],
+  title: 'Conference',
+  participants: [{ name: 'John' }, { name: 'Alice' }],
   place: room, // meetup يحتوى علي room
 };
 
@@ -267,7 +267,7 @@ room.occupiedBy = meetup; // room يحتوى علي meetup
 alert(
   JSON.stringify(meetup, function replacer(key, value) {
     alert(`${key}: ${value}`);
-    return key == "occupiedBy" ? undefined : value;
+    return key == 'occupiedBy' ? undefined : value;
   })
 );
 
@@ -281,14 +281,15 @@ name:         John
 name:         Alice
 place:        [object Object]
 number:       23
+occupiedBy: [object Object]
 */
 ```
 
-لاحظ أن الدالة `replacer` تستقبل كل خاصية وقيمتها بما فيها من كائنات مُضَمّنة وكذلك عناصر القائمة. حيث أنه سيتم تنفيذه بشكل متكرر. وقيمة 
+لاحظ أن الدالة `replacer` تستقبل كل خاصية وقيمتها بما فيها من كائنات مُضَمّنة وكذلك عناصر القائمة. حيث أنه سيتم تنفيذه بشكل متكرر. وقيمة
 `this`
- داخل الدالة 
- `replacer`
- هو كائن يحتوى على الخاصية الحالية.
+داخل الدالة
+`replacer`
+هو كائن يحتوى على الخاصية الحالية.
 
 الإستدعاء الأول للدالة خاص. لأنه يتم بكائن خاص يحتويه `{"": meetup}`. بصيغة أخرى يمكن أن نقول أن أول خاصية بقيمتها تحتوى على خاصية فارغة والقيمة هي الكائن المستهدف تحويله بأكمله.لهذا قيمة أول سطر هي `":[object Object]"` قى المثال أعلاه.
 
@@ -304,7 +305,7 @@ number:       23
 
 ```js run
 let user = {
-  name: "John",
+  name: 'John',
   age: 25,
   roles: {
     isAdmin: false,
@@ -335,9 +336,12 @@ alert(JSON.stringify(user, null, 2));
 }
 */
 ```
+
 يُستخدم المتغير `space` لوحده من أجل الطباعة بشكل منظم.
 
-## دالة "toJson" مخصصه
+The third argument can also be a string. In this case, the string is used for indentation instead of a number of spaces.
+
+The `space` parameter is used solely for logging and nice-output purposes.
 
 كما أنه توجد دالة `toString` للتحويل إلى نص، يمكن لأى كائن أن يحتوى علي دالة `toJSON` للتحويل إلى جيسون. وتستدعيها الدالة `JSON.stringify` تلقائيًا إذا كانت موجودة.
 
@@ -422,7 +426,7 @@ reviver
 
 ```js run
 // قائمة محوَّلة
-let numbers = "[0, 1, 2, 3]";
+let numbers = '[0, 1, 2, 3]';
 
 numbers = JSON.parse(numbers);
 
@@ -432,8 +436,7 @@ alert(numbers[1]); // 1
 أو لكائنات مُضَمَّنة (nested objects):
 
 ```js run
-let userData =
-  '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
+let userData = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
 
 let user = JSON.parse(userData);
 
@@ -489,7 +492,7 @@ alert( meetup.date.getDate() ); // خطأ!
 
 إن قيمة `meetup.date` هي نص وليست تاريخ، كيف يمكن للدالة `JSON.parse` أن تعلم أنها يجب أن تحول هذا النص إلى تاريخ؟
 
-هيا نمرر الدالة `reviver` إلى الدالة `JSON.parse` كمتغير ثانٍ والتى تقوم بإرجاع كل شيئ كما هو عدا 
+هيا نمرر الدالة `reviver` إلى الدالة `JSON.parse` كمتغير ثانٍ والتى تقوم بإرجاع كل شيئ كما هو عدا
 `date` ستتحول إلى `تاريخ`:
 
 ```js run

@@ -1,4 +1,3 @@
-
 # Class توريث ال
 
 توريث الclass هو وسيلة لفئة واحدة لتمديد فئة أخرى.
@@ -25,7 +24,7 @@ class Animal {
   }
 }
 
-let animal = new Animal("My animal");
+let animal = new Animal('My animal');
 ```
 
 إليك كيفية تمثيل كائن "الحيوان" وفئة "الحيوان" بشكل رسومي:
@@ -55,13 +54,14 @@ rabbit.run(5); // White Rabbit runs with speed 5.
 rabbit.hide(); // White Rabbit hides!
 ```
 
-يمكن لكائن فئة "أرنب" الوصول إلى كل من طرق "أرنب" ، مثل "أرنب. إخفاء ()" ، وأيضًا إلى طرق "الحيوان" ، مثل "أرنب". () `.
+Object of `Rabbit` class have access both to `Rabbit` methods, such as `rabbit.hide()`, and also to `Animal` methods, such as `rabbit.run()`.
 
 داخليًا ، تعمل الكلمة الرئيسية `` الموسعة '' باستخدام ميكانيكا النموذج القديم الجيدة. يقوم بتعيين "Rabbit.prototype. [[Prototype]]` إلى "Animal.prototype`. لذلك ، إذا لم يتم العثور على طريقة في `Rabbit.prototype` ، فإن JavaScript تأخذها من` Animal.prototype`.
 
 ![](animal-rabbit-extends.svg)
 
 على سبيل المثال ، للعثور على طريقة `rabbit.run` ، يتحقق المحرك (من أسفل إلى أعلى في الصورة):
+
 1. كائن "الأرنب" (ليس له "تشغيل").
 2. نموذجها الأولي ، وهو "Rabbit.prototype" (به "إخفاء" وليس "تشغيل").
 3. نموذجها الأولي ، أي (بسبب "يمتد") "Animal.prototype" ، الذي يحتوي في النهاية على طريقة "run".
@@ -76,8 +76,8 @@ rabbit.hide(); // White Rabbit hides!
 ```js run
 function f(phrase) {
   return class {
-    sayHi() { alert(phrase) }
-  }
+    sayHi() { alert(phrase); }
+  };
 }
 
 *!*
@@ -111,7 +111,7 @@ class Rabbit extends Animal {
 توفر الفصول كلمة رئيسية `` فائقة '' لذلك.
 
 - `super.method (...)` لاستدعاء طريقة أصل.
-- `` super (...) `لاستدعاء مُنشئ أصل (داخل مُنشئنا فقط).
+- ``super (...)`لاستدعاء مُنشئ أصل (داخل مُنشئنا فقط).
 
 على سبيل المثال ، دع أرنبا يختبئ تلقائيًا عندما يتوقف:
 
@@ -151,7 +151,7 @@ class Rabbit extends Animal {
 let rabbit = new Rabbit("White Rabbit");
 
 rabbit.run(5); // White Rabbit runs with speed 5.
-rabbit.stop(); // White Rabbit stands still. White rabbit hides!
+rabbit.stop(); // White Rabbit stands still. White Rabbit hides!
 ```
 
 الآن يحتوي "الأرنب" على طريقة "الإيقاف" التي تستدعي الأصل `super.stop ()` في العملية.
@@ -177,7 +177,6 @@ setTimeout(function() { super.stop() }, 1000);
 ```
 ````
 
-
 ## تجاوز constructor
 
 مع المنشئين يصبح الأمر صعبًا بعض الشيء.
@@ -200,7 +199,6 @@ class Rabbit extends Animal {
 كما نرى ، فإنه يطلق بشكل أساسي على `المنشئ` الأصل ويمررها جميع الحجج. يحدث هذا إذا لم نكتب مُنشئًا خاصًا بنا.
 
 الآن دعنا نضيف مُنشئًا مخصصًا لـ "أرنب". ستحدد "طول الأذن" بالإضافة إلى "الاسم":
-
 
 ```js run
 class Animal {
@@ -249,7 +247,7 @@ let rabbit = new Rabbit("White Rabbit", 10); // Error: this is not defined.
 
 لذا يجب على المُنشئ المشتق استدعاء `super` من أجل تنفيذ مُنشئه الأصلي (غير المُشتق) ، وإلا فلن يتم إنشاء كائن` this`. وسنحصل على خطأ.
 
-لكي يعمل مُنشئ "الأرنب" ، يجب الاتصال بـ "super ()` قبل استخدام `this` ، كما يلي:
+لكي يعمل مُنشئ "الأرنب" ، يجب الاتصال بـ "super ()`قبل استخدام`this` ، كما يلي:
 
 ```js run
 class Animal {
@@ -300,7 +298,7 @@ Consider this example:
 
 ```js run
 class Animal {
-  name = 'animal'
+  name = 'animal';
 
   constructor() {
     alert(this.name); // (*)
@@ -363,8 +361,9 @@ And that's what we naturally expect. When the parent constructor is called in th
 Why is there the difference?
 
 Well, the reason is in the field initialization order. The class field is initialized:
+
 - Before constructor for the base class (that doesn't extend anything),
-- Imediately after `super()` for the derived class.
+- Immediately after `super()` for the derived class.
 
 In our case, `Rabbit` is the derived class. There's no `constructor()` in it. As said previously, that's the same as if there was an empty constructor with only `super(...args)`.
 
@@ -378,7 +377,7 @@ If it becomes a problem, one can fix it by using methods or getters/setters inst
 
 ## Super: الأجزاء الداخلية ، [[HomeObject]]
 
-```warn header="معلومات متقدمة"
+````warn header="معلومات متقدمة"
 إذا كنت تقرأ البرنامج التعليمي لأول مرة - فقد يتم تخطي هذا القسم.
 
 إنه يتعلق بالآليات الداخلية الكامنة وراء الميراث و "السوبر".
@@ -419,9 +418,9 @@ let rabbit = {
 };
 
 rabbit.eat(); // Rabbit eats.
-```
+````
 
-عند السطر `(*)` نأخذ `نأكل` من النموذج الأولي (` الحيوان`) ونطلق عليه في سياق الكائن الحالي. يرجى ملاحظة أن ".call (هذا)` مهم هنا ، لأن "هذا .__ proto __.
+عند السطر `(*)` نأخذ `نأكل` من النموذج الأولي (` الحيوان`) ونطلق عليه في سياق الكائن الحالي. يرجى ملاحظة أن ".call (هذا)` مهم هنا ، لأن "هذا .** proto **.
 
 وفي الكود أعلاه يعمل في الواقع على النحو المنشود: لدينا "التنبيه" الصحيح.
 
@@ -466,25 +465,25 @@ longEar.eat(); // Error: Maximum call stack size exceeded
 
 ![](this-super-loop.svg)
 
-1. داخل `longEar.eat ()` ، يستدعي السطر `(**)` rabbit.eat` تزويده بـ `this = longEar`.
-    ```js
-    // inside longEar.eat() we have this = longEar
-    this.__proto__.eat.call(this) // (**)
-    // becomes
-    longEar.__proto__.eat.call(this)
-    // that is
-    rabbit.eat.call(this);
-    ```
-2. ثم في السطر `(*)` من 'rabbit.eat` ، نرغب في تمرير المكالمة أعلى في السلسلة ، ولكن `this = longEar` ، لذا` هذا .__ proto __. eat` هو مرة أخرى " أرنب يأكل `!
+1. داخل `longEar.eat ()` ، يستدعي السطر `(**)` rabbit.eat`تزويده بـ`this = longEar`.
+   ```js
+   // inside longEar.eat() we have this = longEar
+   this.__proto__.eat.call(this); // (**)
+   // becomes
+   longEar.__proto__.eat.call(this);
+   // that is
+   rabbit.eat.call(this);
+   ```
+2. ثم في السطر `(*)` من 'rabbit.eat`، نرغب في تمرير المكالمة أعلى في السلسلة ، ولكن`this = longEar` ، لذا` هذا .** proto **. eat`هو مرة أخرى " أرنب يأكل`!
 
-    ```js
-    // inside rabbit.eat() we also have this = longEar
-    this.__proto__.eat.call(this) // (*)
-    // becomes
-    longEar.__proto__.eat.call(this)
-    // or (again)
-    rabbit.eat.call(this);
-    ```
+   ```js
+   // inside rabbit.eat() we also have this = longEar
+   this.__proto__.eat.call(this); // (*)
+   // becomes
+   longEar.__proto__.eat.call(this);
+   // or (again)
+   rabbit.eat.call(this);
+   ```
 
 3. ... لذا فإن "rabbit.eat" تطلق على نفسها اسمها في الحلقة اللانهائية ، لأنها لا تستطيع الصعود أكثر من ذلك.
 
@@ -545,7 +544,7 @@ longEar.eat();  // Long Ear eats.
 ```js run
 let animal = {
   sayHi() {
-    console.log(`I'm an animal`);
+    alert(`I'm an animal`);
   }
 };
 
@@ -559,7 +558,7 @@ let rabbit = {
 
 let plant = {
   sayHi() {
-    console.log("I'm a plant");
+    alert("I'm a plant");
   }
 };
 
@@ -579,8 +578,9 @@ tree.sayHi();  // I'm an animal (?!?)
 يُظهر استدعاء "tree.sayHi ()` أنا حيوان ". خطأ بالتأكيد.
 
 والسبب بسيط:
+
 - في السطر `(*)` ، تم نسخ الأسلوب `tree.sayHi` من` rabbit`. ربما أردنا فقط تجنب تكرار التعليمات البرمجية؟
-- "[[HomeObject]]` هو "أرنب" ، حيث تم إنشاؤه في "أرنب". لا توجد طريقة لتغيير `[[HomeObject]]`.
+- "[[HomeObject]]`هو "أرنب" ، حيث تم إنشاؤه في "أرنب". لا توجد طريقة لتغيير`[[HomeObject]]`.
 - كود `tree.sayHi ()` يحتوي على `super.sayHi ()` بالداخل. يرتفع من "أرنب" ويأخذ الطريقة من "حيوان".
 
 إليك الرسم البياني لما يحدث:
@@ -617,14 +617,15 @@ rabbit.eat();  // Error calling super (because there's no [[HomeObject]])
 ## ملخص
 
 1. لتمديد الفصل الدراسي: `class child تمديد Parent`:
-     - هذا يعني أن "Child.prototype .__ proto__" سيكون "Parent.prototype" ، لذلك يتم توريث الطرق.
+        - هذا يعني أن "Child.prototype .** proto**" سيكون "Parent.prototype" ، لذلك يتم توريث الطرق.
 2. عند تجاوز منشئ:
-     - يجب أن نطلق على مُنشئ الوالدين باسم `super ()` في مُنشئ `Child` قبل استخدام` this`.
+        - يجب أن نطلق على مُنشئ الوالدين باسم `super ()` في مُنشئ `Child` قبل استخدام` this`.
 3. عند تجاوز طريقة أخرى:
-     - يمكننا استخدام `super.method ()` في طريقة `Child` لاستدعاء طريقة` Parent`.
+        - يمكننا استخدام `super.method ()` في طريقة `Child` لاستدعاء طريقة` Parent`.
 4. الداخلية:
-     - تتذكر الأساليب فئتها / كائنها في خاصية `[[HomeObject]] الداخلية. هذه هي الطريقة التي يحل `super` الأساليب الأم.
-     - لذا ليس من الآمن نسخ طريقة باستخدام "super" من كائن إلى آخر.
+        - تتذكر الأساليب فئتها / كائنها في خاصية `[[HomeObject]] الداخلية. هذه هي الطريقة التي يحل `super` الأساليب الأم.
+        - لذا ليس من الآمن نسخ طريقة باستخدام "super" من كائن إلى آخر.
 
 أيضا:
+
 - لا تحتوي وظائف السهم على "هذا" أو "فائق" خاص بها ، لذا فهي تتناسب بشفافية مع السياق المحيط.

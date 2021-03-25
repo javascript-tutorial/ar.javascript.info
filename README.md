@@ -1,7 +1,6 @@
 # The Modern JavaScript Tutorial in Arabic
 
-This repository hosts the translation of <https://javascript.info> in Arabic.
-
+This repository hosts the Arabic content of the Modern JavaScript Tutorial, published in [https://ar.javascript.info](https://ar.javascript.info).
 
 **That's how you can contribute:**
 
@@ -24,6 +23,9 @@ If maintainers do not respond, or if you'd like to become a maintainer, write us
 Your name and the contribution size will appear in the "About project" page when the translation gets published.
 
 P.S. The full list of languages can be found at <https://javascript.info/translate>.
+**You can edit the text in any editor.** The tutorial uses enhanced "markdown" format, easy to grasp. And if you want to see how it looks on-site, there's a server to run the tutorial locally at <https://github.com/javascript-tutorial/server>.
+
+The list of contributors is available at <https://ar.javascript.info/about#contributors>.
 
 ## Structure
 
@@ -33,9 +35,9 @@ The folder is named `N-url`, where `N` – is the number for sorting (articles a
 
 The folder has one of files:
 
-- `index.md` for a section,
-- `article.md` for an article,
-- `task.md` for a task formulation (+`solution.md` with the solution text if any).
+  - `index.md` stands for a chapter
+  - `article.md` stands for an article
+  - `task.md` stands for a task (solution must be provided in `solution.md` file as well)
 
 A file starts with the `# Title Header`, and then the text in Markdown-like format, editable in a simple text editor. 
 
@@ -104,7 +106,6 @@ Please note, that sometimes code is followed by pictures, and if you translate t
 
 In that case it's probably easier not to translate such text. See more about translating images later.
 
-
 ### External Links
 
 If an external link is to Wikipedia, e.g. `https://en.wikipedia.org/wiki/JavaScript`, and a version of that article exists in your language that is of decent quality, link to that version instead.
@@ -168,3 +169,6 @@ image.svg:        # image file
 You can run the tutorial server locally to see how the translation looks.
 
 The server and install instructions are at <https://github.com/javascript-tutorial/server>. 
+---  
+♥  
+Ilya Kantor @iliakan

@@ -1,5 +1,4 @@
-﻿
-# ربط الدوالّ Function binding
+﻿# ربط الدوالّ Function binding
 
 ثمّة مشكلة معروفة تواجهنا متى مرّرنا توابِع الكائنات على أنّها ردود نداء (كما نفعل مع `‎setTimeout‎`)، هي ضياع هويّة الأنا `‎this‎`.
 
@@ -35,7 +34,7 @@ setTimeout(f, 1000); // ‫ضاع سياق المستخدم user
 
 كثيرًا ما نواجه هذه المسألة ونحن نكتب الشيفرة: نريد أن نمرّر تابِع الدالة إلى مكان آخر (مثل هنا، مرّرناه للمُجدول) حيث سيُستدعى من هناك. كيف لنا أن نتأكّد بأن يُستدعى في سياقه الصحيح؟
 
-## الحل رقم واحد: نستعمل  دالة مغلفة
+## الحل رقم واحد: نستعمل دالة مغلفة
 
 أسهل الحلول هو استعمال دالة غالِفة _Wrapping function_:
 
@@ -63,7 +62,6 @@ setTimeout(() => user.sayHi(), 1000); // Hello, John!
 ممتازة جدًا، ولكن ستظهر لنا نقطة ضعف في بنية الشيفرة.
 
 ماذا لو حدث وتغيّرت قيمة `‎user‎` قبل أن تعمل `‎setTimeout‎`؟ (لا تنسَ التأخير، ثانية كاملة!) حينها سنجد أنّا استدعينا الكائن الخطأ دون أن ندري!
-
 
 ```
 let user = {
@@ -112,7 +110,7 @@ function func() {
 }
 
 let funcUser = func.bind(user);
-funcUser(); // John  
+funcUser(); // John
 ```
 
 رأينا «النسخة الرابطة» من `‎func‎`، ‏`‎func.bind(user)‎` بعد ضبط `‎this=user‎`.
@@ -136,7 +134,6 @@ funcUser("Hello"); // ‫Hello, John (مُرّر المُعامل "Hello" كما
 
 فلنجرّب الآن مع تابع لكائن:
 
-
 ```
 let user = {
   firstName: "John",
@@ -152,8 +149,8 @@ sayHi(); // Hello, John!
 
 setTimeout(sayHi, 1000); // Hello, John!
 
-// ‫حتّى لو تغيّرت قيمة user خلال تلك الثانية
-// ‫فما زالت تستعمل sayHi القيمة التي ربطناها قبلًا
+// even if the value of user changes within 1 second
+// sayHi uses the pre-bound value which is reference to the old user object
 user = {
   sayHi() { alert("Another user in setTimeout!"); }
 };
@@ -188,7 +185,9 @@ for (let key in user) {
 }
 ```
 
-كما تقدّم لنا مكتبات جافا سكريبت دوال للربط الجماعي لتسهيل الأمور، مثل [`‎_.bindAll(obj)‎`](http://lodash.com/docs#bindAll) في المكتبة lodash.
+JavaScript libraries also provide functions for convenient mass binding , e.g. [\_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll) in lodash.
+
+````
 
 ## الدوال الجزئية
 
@@ -230,7 +229,7 @@ alert( double(5) ); // = mul(2, 5) = 10
 
 هذا ما نسمّيه [باستعمال الدوال الجزئية](https://en.wikipedia.org/wiki/Partial_application) -- أن نصنع دالة بعد ضبط بعض مُعاملات واحدة غيرها.
 
-لاحظ هنا بأنّا لا نستعمل `‎this‎` هنا أصلًا... ولكنّ التابِع `‎bind‎` يطلبه فعلينا تقديم شيء (وكان `‎null‎` مثلًا).
+Please note that we actually don't use `this` here. But `bind` requires it, so we must put in something like `null`.
 
 الدالة `‎triple‎` أسفله تضرب القيمة في ثلاثة:
 
@@ -489,7 +488,7 @@ askPassword(?, ?); // ؟ (*)
 1. نستعمل دالة غالِفة... سهمية لو أردنا التفصيل:
 
     ```
-    askPassword(() => user.login(true), () => user.login(false)); 
+    askPassword(() => user.login(true), () => user.login(false));
     ```
 
     هكذا تأخذ `‎user‎` من المتغيرات الخارجية وتُشغّل الدوال بالطريقة العادية.
@@ -498,8 +497,9 @@ askPassword(?, ?); // ؟ (*)
 
 
     ```
-    askPassword(user.login.bind(user, true), user.login.bind(user, false)); 
+    askPassword(user.login.bind(user, true), user.login.bind(user, false));
     ```
 
 ترجمة -وبتصرف- للفصل [Function binding](https://javascript.info/bind) من كتاب [The JavaScript language](https://javascript.info/js)
 
+````

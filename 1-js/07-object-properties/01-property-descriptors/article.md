@@ -1,4 +1,3 @@
-
 # رايات الخصائص و واصفاتها
 
 كما نعلم, الكائنات يمكن ان تُخزن الخصائص.
@@ -19,9 +18,10 @@
 
 اولاً, دعنا نري كيف يمكننا الحصول علي تلك الرايات.
 
-الطريقة [Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor) تسمح بالإستعلام *الكامل* عن المعلومات الخاصة بأيّ خاصية.
+الطريقة [Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor) تسمح بالإستعلام _الكامل_ عن المعلومات الخاصة بأيّ خاصية.
 
 و صياغتها تكون كالآتي:
+
 ```js
 let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
 ```
@@ -38,12 +38,12 @@ let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
 
 ```js run
 let user = {
-  name: "John"
+  name: 'John',
 };
 
 let descriptor = Object.getOwnPropertyDescriptor(user, 'name');
 
-alert( JSON.stringify(descriptor, null, 2 ) );
+alert(JSON.stringify(descriptor, null, 2));
 /* واصف الخاصية:
 {
   "value": "John",
@@ -59,7 +59,7 @@ alert( JSON.stringify(descriptor, null, 2 ) );
 و صياغتها تكون كالآتي:
 
 ```js
-Object.defineProperty(obj, propertyName, descriptor)
+Object.defineProperty(obj, propertyName, descriptor);
 ```
 
 `obj`, `propertyName`
@@ -122,9 +122,9 @@ user.name = "Pete"; // خطأ: لا يمكن إسناد القيم إلى الخ
 
 الآن يستحيل على أيّ شخص تعديل اسم هذا المستخدم, إلا عند تطبيق `defineProperty` لتعديل ما فعلناه نحن.
 
-```smart header="لا تظهر الأخطاء إلّا في الوضع الصارم `strict mode`"
-في الوضع الغير صارم `non-strict mode`, لا يحدث أخطاء عند التعديل علي خاصية غير قابلة للتعديل. و لكن العمليه لن تتم بنجاح أيضاً. أخطاء خرق الرايه يتم تجاهلها بصمت في الوضع الغير صارم `non-strict`.
-```
+```smart header="لا تظهر الأخطاء إلّا في الوضع الصارم `strict mode`" في الوضع الغير صارم `non-strict mode`, لا يحدث أخطاء عند التعديل علي خاصية غير قابلة للتعديل. و لكن العمليه لن تتم بنجاح أيضاً. أخطاء خرق الرايه يتم تجاهلها بصمت في الوضع الغير صارم `non-strict`.
+
+````
 
 إليك نفس المثال, و لكن سوف يتم إنشاء الخاصية من الصفر:
 
@@ -142,7 +142,7 @@ Object.defineProperty(user, "name", {
 
 alert(user.name); // John
 user.name = "Pete"; // Error
-```
+````
 
 ## منع قابلية الإحصاء
 
@@ -152,10 +152,10 @@ user.name = "Pete"; // Error
 
 ```js run
 let user = {
-  name: "John",
+  name: 'John',
   toString() {
     return this.name;
-  }
+  },
 };
 
 // بشكل إفتراضي, كلا الخاصيتين سوف يتم عرضهم:
@@ -201,7 +201,7 @@ alert(Object.keys(user)); // name
 ```js run
 let descriptor = Object.getOwnPropertyDescriptor(Math, 'PI');
 
-alert( JSON.stringify(descriptor, null, 2 ) );
+alert(JSON.stringify(descriptor, null, 2));
 /*
 {
   "value": 3.141592653589793,
@@ -211,6 +211,7 @@ alert( JSON.stringify(descriptor, null, 2 ) );
 }
 */
 ```
+
 لذا, لن يستطيع المبرمج تغيير قيمة `Math.PI` أو التعديل عليها.
 
 ```js run
@@ -222,36 +223,46 @@ Math.PI = 3; // خطأ
 إن تفعيل خاصيّة منع قابلية إعادة الضبط هو قرار لا عودة فيه. فلا يمكننا تغيير الراية (إتاحة قابلية إعادة الضبط) باستعمال `defineProperty`.
 
 وللدقّة فهذا المنع يضع تقييدات أخرى على `defineProperty`:
+
 1. منع تغيير راية قابلية إعادة الضبط `configurable`.
 2. منع تغيير راية قابلية الإحصاء `enumerable`.
 3. منع تغيير راية قابلية التعديل `writable: false` الي `true` (و لكن العكس ممكن).
 4. منع تغيير ضابط وجالب واصف الوصول `get/set` (ولكن يمكن إسناد قيم إليه).
 
-هنا سوف نحدد الخاصية `user.name` ثابتة للأبد:
+**The idea of "configurable: false" is to prevent changes of property flags and its deletion, while allowing to change its value.**
+
+Here `user.name` is non-configurable, but we can still change it (as it's writable):
 
 ```js run
-let user = { };
+let user = {
+  name: 'John',
+};
 
-Object.defineProperty(user, "name", {
-  value: "John",
-  writable: false,
-  configurable: false
+Object.defineProperty(user, 'name', {
+  configurable: false,
 });
 
-*!*
-// لن يمكن تغيير user.name او الرايات الخاصه بها
-// كل ذلك لن يعمل:
-//   user.name = "Pete"
-//   delete user.name
-//   defineProperty(user, "name", { value: "Pete" })
-Object.defineProperty(user, "name", {writable: true}); // خطأ
-*/!*
+user.name = 'Pete'; // works fine
+delete user.name; // Error
 ```
 
-```smart header="\"منع قابلية إعادة الضبط\" لا يعني \"منع قابلية التعديل\""
-إستثناء ملحوظ: قيمة الخاصية التى لديها منع إعادة الضبط, و لكن لديها قابلية التعديل , تلك القيمة يمكن تغييرها.
+And here we make `user.name` a "forever sealed" constant:
 
-الفكره وراء `configurable: false` لمنع تغيير رايات الخاصية او حذفها, ليس لتغيير قيمتها.
+```js run
+let user = {
+  name: 'John',
+};
+
+Object.defineProperty(user, 'name', {
+  writable: false,
+  configurable: false,
+});
+
+// won't be able to change user.name or its flags
+// all this won't work:
+user.name = 'Pete';
+delete user.name;
+Object.defineProperty(user, 'name', { value: 'Pete' });
 ```
 
 ## Object.defineProperties
@@ -263,7 +274,7 @@ Object.defineProperty(user, "name", {writable: true}); // خطأ
 ```js
 Object.defineProperties(obj, {
   prop1: descriptor1,
-  prop2: descriptor2
+  prop2: descriptor2,
   // ...
 });
 ```
@@ -272,8 +283,8 @@ Object.defineProperties(obj, {
 
 ```js
 Object.defineProperties(user, {
-  name: { value: "John", writable: false },
-  surname: { value: "Smith", writable: false },
+  name: { value: 'John', writable: false },
+  surname: { value: 'Smith', writable: false },
   // ...
 });
 ```
@@ -294,19 +305,19 @@ let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
 
 ```js
 for (let key in user) {
-  clone[key] = user[key]
+  clone[key] = user[key];
 }
 ```
 
 ...و لكن هذا لا ينسخ الرايات. لذا إذا كنا نريد نسخ "أفضل" سيكون إستخدام `Object.defineProperties` أفضل.
 
-إختلاف آخر و ذلك أن `for..in` تتجاهل الخصائص الرمزية (Symbolic Properties), و لكن `Object.getOwnPropertyDescriptors` تُعيد *كل* واصِفات الخصائص بما فيها الرمزية.
+إختلاف آخر و ذلك أن `for..in` تتجاهل الخصائص الرمزية (Symbolic Properties), و لكن `Object.getOwnPropertyDescriptors` تُعيد _كل_ واصِفات الخصائص بما فيها الرمزية.
 
 ## إغلاق الكائنات على المستوى العام
 
 تعمل واصِفات الخصائص على مستوى الخصائص منفردةً. هناك أيضًا توابِع تقصر الوصول إلى الكائن كلّه.
 
-يوجد ايضاً تحدد الدخول الى الكائن *كله* :
+يوجد ايضاً تحدد الدخول الى الكائن _كله_ :
 
 [Object.preventExtensions(obj)](mdn:js/Object/preventExtensions)
 : يمنع إضافة خصائص جديدة إلى الكائن.

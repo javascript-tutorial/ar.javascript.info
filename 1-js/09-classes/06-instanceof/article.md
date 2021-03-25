@@ -2,20 +2,19 @@
 
 يُتيح لنا المُعامل `instanceof` (أهو سيرورة من) فحص هل الكائن ينتمي إلى الصنف الفلاني؟ كما يأخذ الوراثة في الحسبان عند الفحص.
 
-توجد حالات عديدة يكون فيها هذا الفحص ضروريًا. **سنستعمله هنا لصناعة دالة **، أي دالة تغيّر تعاملها حسب نوع الوسطاء الممرّرة لها.
+Such a check may be necessary in many cases. For example, it can be used for building a _polymorphic_ function, the one that treats arguments differently depending on their type.
 
 ## معامل instanceof
 
 صياغته هي:
 
 ```js
-obj instanceof Class
+obj instanceof Class;
 ```
 
 يُعيد المُعامل قيمة `true` لو كان الكائن `obj` ينتمي إلى الصنف `Class` أو أيّ صنف يرثه.
 
 مثال:
-
 
 ```js run
 class Rabbit {}
@@ -42,8 +41,8 @@ alert( new Rabbit() instanceof Rabbit ); // نعم
 
 ```js run
 let arr = [1, 2, 3];
-alert( arr instanceof Array ); // نعم
-alert( arr instanceof Object ); // نعم
+alert(arr instanceof Array); // نعم
+alert(arr instanceof Object); // نعم
 ```
 
 لاحظ كيف أنّ الكائن `arr` ينتمي إلى صنف الكائنات `Object` أيضًا، إذ ترث المصفوفات -عبر prototype- الكائناتَ.
@@ -54,56 +53,54 @@ alert( arr instanceof Object ); // نعم
 
 1. لو وجدت التابِع الثابت `Symbol.hasInstance` تستدعيه وينتهي الأمر: `Class[Symbol.hasInstance](obj)‎`. يُعيد التابِع إمّا `true` وإمّا `false`. هكذا نخصّص سلوك المُعامل `instanceof`.
 
-    مثال:
+   مثال:
 
+   ```js run
+   // ‫ضبط instanceOf للتحقق من الافتراض القائل
+   // ‫بأن كل شيء يملك الخاصية canEat هو حيوان
+   class Animal {
+     static [Symbol.hasInstance](obj) {
+       if (obj.canEat) return true;
+     }
+   }
 
-    ```js run
-    // ‫ضبط instanceOf للتحقق من الافتراض القائل
-    // ‫بأن كل شيء يملك الخاصية canEat هو حيوان
-    class Animal {
-      static [Symbol.hasInstance](obj) {
-        if (obj.canEat) return true;
-      }
-    }
+   let obj = { canEat: true };
 
-    let obj = { canEat: true };
-
-    alert(obj instanceof Animal); // true: Animal[Symbol.hasInstance](obj) is called
-    ```
+   alert(obj instanceof Animal); // true: Animal[Symbol.hasInstance](obj) is called
+   ```
 
 2. ليس لأغلب الأصناف التابِع `Symbol.hasInstance`. في هذه الحالة تستعمل المنطق العادي: يفحص `obj instanceOf Class` لو كان كائن `Class.prototype` مساويًا لأحد كائنات prototype في سلسلة كائنات prototype للكائن `obj`.
 
-    وبعبارة أخرى ، وازن بينهم واحدًا تلو الآخر:
+   وبعبارة أخرى ، وازن بينهم واحدًا تلو الآخر:
 
-    ```js
-    obj.__proto__ === Class.prototype?
-    obj.__proto__.__proto__ === Class.prototype?
-    obj.__proto__.__proto__.__proto__ === Class.prototype?
-    ...
-    // ‫لو كانت إجابة أيًا منها true، فتُعيد true
-    // ‫وإلّا متى وصلت نهاية السلسلة أعادت false
+   ```js
+   obj.__proto__ === Class.prototype?
+   obj.__proto__.__proto__ === Class.prototype?
+   obj.__proto__.__proto__.__proto__ === Class.prototype?
+   ...
+   // ‫لو كانت إجابة أيًا منها true، فتُعيد true
+   // ‫وإلّا متى وصلت نهاية السلسلة أعادت false
 
-    ```
+   ```
 
-    في المثال أعلاه نرى `rabbit.__proto__ === Rabbit.prototype`، بذلك تُعطينا الجواب مباشرةً.
+   في المثال أعلاه نرى `rabbit.__proto__ === Rabbit.prototype`، بذلك تُعطينا الجواب مباشرةً.
 
-    أمّا لو كنّا في حالة وراثة، فستتوقّف عملية المطابقة عند الخطوة الثانية:
+   أمّا لو كنّا في حالة وراثة، فستتوقّف عملية المطابقة عند الخطوة الثانية:
 
+   ```js run
+   class Animal {}
+   class Rabbit extends Animal {}
 
-    ```js run
-    class Animal {}
-    class Rabbit extends Animal {}
+   let rabbit = new Rabbit();
+   *!*
+   alert(rabbit instanceof Animal); // نعم
+   */!*
 
-    let rabbit = new Rabbit();
-    *!*
-    alert(rabbit instanceof Animal); // نعم
-    */!*
-
-    // rabbit.__proto__ === Rabbit.prototype
-    *!*
-    // rabbit.__proto__.__proto__ === Animal.prototype (تطابق!)
-    */!*
-    ```
+   // rabbit.__proto__ === Rabbit.prototype
+   *!*
+   // rabbit.__proto__.__proto__ === Animal.prototype (تطابق!)
+   */!*
+   ```
 
 إليك صورة توضّح طريقة موازنة `rabbit instanceof Animal` مع `Animal.prototype`:
 
@@ -114,7 +111,6 @@ alert( arr instanceof Object ); // نعم
 الأمر مضحك إذ أنّ باني الصنف `Class` نفسه ليس لديه أيّ كلمة عن هذا الفحص! المهم هو سلسلة prototype وكائن `Class.prototype` فقط.
 
 يمكن أن يؤدّي هذا إلى عواقب مثيرة متى تغيّرت خاصية `prototype` للكائن بعد إنشائه. طالع:
-
 
 ```js run
 function Rabbit() {}
@@ -144,7 +140,6 @@ alert(obj.toString()); // كما أعلاه
 
 تبدو غريبة؟ أليس كذلك؟ لنُزل الغموض.
 
-
 حسب [المواصفة](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)، فيمكننا استخراج التابِع `toString` المضمّن من الكائن وتنفيذه في سياق أيّ قيمة أخرى نريد، وسيكون ناتجه حسب تلك القيمة.
 
 - لو كان عددًا، فسيكون `[object Number]`
@@ -156,7 +151,6 @@ alert(obj.toString()); // كما أعلاه
 
 هيًا نوضّح:
 
-
 ```js run
 // ننسخ التابِع‫ toString إلى متغير ليسهل عملنا
 let objectToString = Object.prototype.toString;
@@ -164,7 +158,7 @@ let objectToString = Object.prototype.toString;
 // ما هذا النوع؟
 let arr = [];
 
-alert( objectToString.call(arr) ); // [object *!*مصفوفة*/!*]
+alert(objectToString.call(arr)); // [object *!*مصفوفة*/!*]
 ```
 
 استعملنا هنا [call](mdn:js/function/call)“ لتنفيذ الدالة `objectToString` بسياق `this=arr`.
@@ -174,9 +168,9 @@ alert( objectToString.call(arr) ); // [object *!*مصفوفة*/!*]
 ```js run
 let s = Object.prototype.toString;
 
-alert( s.call(123) ); // [object Number]
-alert( s.call(null) ); // [object Null]
-alert( s.call(alert) ); // [object Function]
+alert(s.call(123)); // [object Number]
+alert(s.call(null)); // [object Null]
+alert(s.call(alert)); // [object Function]
 ```
 
 ### خاصية Symbol.toStringTag
@@ -185,24 +179,23 @@ alert( s.call(alert) ); // [object Function]
 
 مثال:
 
-
 ```js run
 let user = {
-  [Symbol.toStringTag]: "User"
+  [Symbol.toStringTag]: 'User',
 };
 
-alert( {}.toString.call(user) ); // [object User]
+alert({}.toString.call(user)); // [object User]
 ```
 
 لأغلب الكائنات الخاصّة بالبيئات خاصية مثل هذه. إليك بعض الأمثلة من المتصفّحات مثلًا:
 
 ```js run
-// تابِع ‫toStringTag للكائنات والأصناف الخاصّة بالمتصفّحات:
-alert( window[Symbol.toStringTag]); // window
-alert( XMLHttpRequest.prototype[Symbol.toStringTag] ); // XMLHttpRequest
+// toStringTag for the environment-specific object and class:
+alert(window[Symbol.toStringTag]); // Window
+alert(XMLHttpRequest.prototype[Symbol.toStringTag]); // XMLHttpRequest
 
-alert( {}.toString.call(window) ); // [object Window]
-alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
+alert({}.toString.call(window)); // [object Window]
+alert({}.toString.call(new XMLHttpRequest())); // [object XMLHttpRequest]
 ```
 
 كما نرى فالناتج هو تمامًا ما يقوله `Symbol.toStringTag` (لو وُجد) بغلاف `[object ...‎]`.
@@ -211,19 +204,16 @@ alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 
 يمكننا استخدام `‎{}.toString.call` بدلًا من `instanceof` للكائنات المضمنة في اللغة عندما نريد الحصول على نوع البيانات كسلسلة بدلًا من التحقق منها.
 
-
 ## الملخص
 
 لنلخّص ما نعرف عن التوابِع التي تفحص الأنواع:
 
-| | يعمل على | يُعيد |
-|--|--|--|
-| `typeof` | الأنواع الأولية | سلسلة نصية |
+|               | يعمل على                                                                   | يُعيد      |
+| ------------- | -------------------------------------------------------------------------- | ---------- |
+| `typeof`      | الأنواع الأولية                                                            | سلسلة نصية |
 | `{}.toString` | الأنواع الأولية والكائنات المضمّنة والكائنات التي لها `Symbol.toStringTag` | سلسلة نصية |
-| `instanceof` | الكائنات | true/false |
-
+| `instanceof`  | الكائنات                                                                   | true/false |
 
 كما نرى فعبارة `‎{}.toString` هي تقنيًا `typeof` ولكن ”متقدّمة أكثر“.
 
 بل إن التابع `instanceof` يؤدي دور مميّز عندما نتعامل مع تسلسل هرمي للأصناف ونريد التحقق من صنفٍ ما مع مراعاة الوراثة.
-

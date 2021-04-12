@@ -377,9 +377,24 @@ break label; // تنتقل إلى الحقل بالأسفل (لا تعمل)
 label: for (...)
 ```
 
+<<<<<<< HEAD
 إستخدام `continue` يكون ممكنًا فقط من داخل الحلقه.
 
 `break` ربما يمكن وضعه قبل الشيفرة ايضًا, as `label: { ... }`, لكنها لا تستخدم أبدًا بهذه الطريقة. وهي تعمل أيضًا من الداخل إلى الخارج فقط.
+=======
+A `break` directive must be inside a code block. Technically, any labelled code block will do, e.g.:
+```js
+label: {
+  // ...
+  break label; // works
+  // ...
+}
+```
+
+...Although, 99.9% of the time `break` used is inside loops, as we've seen in the examples above.
+
+A `continue` is only possible from inside a loop.
+>>>>>>> 7b76185892aa9798c3f058256aed44a9fb413cc3
 ````
 
 ## ملخص

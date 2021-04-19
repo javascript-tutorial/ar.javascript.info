@@ -413,7 +413,11 @@ checkPermission(..) // checks a permission, returns true/false
 
 على سبيل المثال مكتبة [jQuery](http://jquery.com) تعرف دالة اسمها `$`. ومكتبة [Lodash](http://lodash.com/) لديها دالة اسمها `_`.
 
+<<<<<<< HEAD
 هذه مجرد استثناءات ففي العموم يجب أن يكون اسم الدالة معبرًا.
+=======
+These are exceptions. Generally function names should be concise and descriptive.
+>>>>>>> 6ab384f2512902d74e4b0ff5a6be60e48ab52e96
 ```
 
 ## الدوال == تعليقات

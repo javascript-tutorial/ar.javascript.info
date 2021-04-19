@@ -318,7 +318,12 @@ function bench(f) {
 let time1 = 0;
 let time2 = 0;
 
+<<<<<<< HEAD
 // ‫نشغّل bench(upperSlice)‎ وbench(upperLoop)‎ عشر مرات مرّة بمرّة
+=======
+*!*
+// run bench(diffSubtract) and bench(diffGetTime) each 10 times alternating
+>>>>>>> 6ab384f2512902d74e4b0ff5a6be60e48ab52e96
 for (let i = 0; i < 10; i++) {
   time1 += bench(diffSubtract);
   time2 += bench(diffGetTime);

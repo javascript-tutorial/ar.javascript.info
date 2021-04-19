@@ -158,7 +158,11 @@ alert(counter()); // 2
 
 فهم هذه الأشياء يعد عظيماً للمعلومات الشاملة لجافا سكريبت ومفيد جداً في حالة السيناريوهات المعقدة. لذلك هيا نتعمق أكثر في أمور أكثر صعوبة وتحتاج إلي تركيز.
 
+<<<<<<< HEAD
 ## البيئات المعجمية
+=======
+Understanding such things is great for the overall knowledge of JavaScript and beneficial for more complex scenarios. So let's go a bit in-depth.
+>>>>>>> 6ab384f2512902d74e4b0ff5a6be60e48ab52e96
 
 ```warn header="هنا يجب أن تكون شديد التركيز!"
 

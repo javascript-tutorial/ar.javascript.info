@@ -188,7 +188,11 @@ new CoffeeMachine().setWaterAmount(100);
 
 يجب أن يبدأ الأفراد بـ `#`. يمكن الوصول إليها فقط من داخل الفصل.
 
+<<<<<<< HEAD
 على سبيل المثال ، إليك خاصية `# waterLimit` الخاصة والطريقة الخاصة لفحص المياه` # checkWater`:
+=======
+For instance, here's a private `#waterLimit` property and the water-checking private method `#fixWaterAmount`:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 class CoffeeMachine {

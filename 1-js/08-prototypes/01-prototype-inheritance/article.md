@@ -10,7 +10,7 @@ _الوراثة النموذجية_ (تدعى أيضًا الوراثة عبر �
 
 لكائنات جافا سكريبت خاصية مخفية أخرى باسم `[[Prototype]]` (هذا اسمها في المواصفات القياسية للغة جافا سكريبت)، وهي إمّا أن تكون `null` أو أن تشير إلى كائن آخر. نسمّي هذا الكائن بِـ”prototype“ (نموذج أولي).
 
-When we read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, such thing is called "prototypal inheritance". And soon we'll study many examples of such inheritance, as well as cooler language features built upon it.
+When we read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, this is called "prototypal inheritance". And soon we'll study many examples of such inheritance, as well as cooler language features built upon it.
 
 إن كائن النموذج الأولي ”سحريٌ“ إن صحّ القول، فحين نريد قراءة خاصية من كائن `object` ولا يجدها محرّك جافا سكريبت، يأخذها تلقائيًا من كائن النموذج الأولي لذاك الكائن. يُسمّى هذا في علم البرمجة ”بالوراثة النموذجية“ (‏Prototypal inheritance)، وهناك العديد من المزايا الرائعة في اللغة وفي التقنيات البرمجية مبنية عليها.
 

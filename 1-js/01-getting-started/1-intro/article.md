@@ -29,7 +29,13 @@
 
 من الجيد تذكر المصطلحات الواردة أعلاه لأنها مستخدمة في مقالات المطورين على الإنترنت. سنستخدمهم أيضًا. على سبيل المثال ، إذا كانت "الميزة إكس مدعومة بواسطة في8" ، فمن المحتمل أنها تعمل في كروم و أوبرا.
 
+<<<<<<< HEAD
 ```smart header="كيف تعمل المحركات؟"
+=======
+- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome and Opera.
+- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
+- ...There are other codenames like "Chakra" for IE, "JavaScriptCore", "Nitro" and "SquirrelFish" for Safari, etc.
+>>>>>>> 8558fa8f5cfb16ef62aa537d323e34d9bef6b4de
 
 المحركات معقدة. ولكن الأساسيات بسيطه .
 

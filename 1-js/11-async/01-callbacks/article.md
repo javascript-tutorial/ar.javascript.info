@@ -28,7 +28,11 @@ function loadScript(src) {
 }
 ```
 
+<<<<<<< HEAD
 يتم إلحاق المستند الجديد ، الذي تم إنشاؤه ديناميكيًا ، العنصر `<script src="…">` نعطي له مصدر البرنامج النصي `src`. المتصفح بتحميله تلقائياً و يقوم بتشغيله عند اكتمال التحميل.
+=======
+It inserts into the document a new, dynamically created, tag `<script src="…">` with the given `src`. The browser automatically starts loading it and executes when complete.
+>>>>>>> 8558fa8f5cfb16ef62aa537d323e34d9bef6b4de
 
 نحن نستطيع أستخدام هذه الدالة كما موضح بالأسفل:
 

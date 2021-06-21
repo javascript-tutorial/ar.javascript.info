@@ -35,9 +35,15 @@ let billion = 1e9;  // بليون، حرفيًا: 1 وجانبه 9 أصفار
 In other words, `e` multiplies the number by `1` with the given zeroes count.
 
 ```js
+<<<<<<< HEAD
 1e3 = 1 * 1000 // e3 means *1000
 1.23e6 = 1.23 * 1000000 // e6 means *1000000
 ````
+=======
+1e3 === 1 * 1000; // e3 means *1000
+1.23e6 === 1.23 * 1000000; // e6 means *1000000
+```
+>>>>>>> 8558fa8f5cfb16ef62aa537d323e34d9bef6b4de
 
 لنكتب الآن شيئَا صغيرًا جدًا. مثلًا، جزء من المليون من الثانية:
 
@@ -55,12 +61,21 @@ let ms = 1e-6; // ستة أصفار على يسار 1
 
 بمعنى آخر، وجود رقم سالب بعد `"e"` يعني القسمة على 1 متبوعًا بِعدد الأصفار المعطى:
 
+<<<<<<< HEAD
 ```
 // -3 بالقسمة على 1 متبوعًا ب 3 أصفار
 1e-3 = 1 / 1000 (=0.001)
 
 // -6 بالقسمة على 1 متبوعًا ب 6 أصفار
 1.23e-6 = 1.23 / 1000000 (=0.00000123)
+=======
+```js
+// -3 divides by 1 with 3 zeroes
+1e-3 === 1 / 1000; // 0.001
+
+// -6 divides by 1 with 6 zeroes
+1.23e-6 === 1.23 / 1000000; // 0.00000123
+>>>>>>> 8558fa8f5cfb16ef62aa537d323e34d9bef6b4de
 ```
 
 ### الأعداد الست عشرية، والثنائية والثمانية
@@ -102,8 +117,22 @@ alert( num.toString(2) );   // 11111111
 - `base=2`: يستخدم بكثرة في تصحيح العمليات الدقيقة، يمكن أن يحوي الرقمين `0` أو `1`.
 - `base=36`: هو الحد الأعلى، يمكن أن يحوي الأرقام `0..9` أو الأحرُف `A..Z`. يمكن استخدام جميع الأحرف اللاتينية لتمثيل عدد. قد يبدو أمرًا ممتعًا لكن يكون مفيدًا في حال احتجنا لتحويل معرف عددي طويل إلى عدد أقصر، مثلًا، لتقصير رابط url. يمكن تمثيله بالنظام العددي ذي الأساس `36`:
 
+<<<<<<< HEAD
 ```
 alert( 123456..toString(36) ); // 2n9c
+=======
+    ```js run
+    alert( 123456..toString(36) ); // 2n9c
+    ```
+
+```warn header="Two dots to call a method"
+Please note that two dots in `123456..toString(36)` is not a typo. If we want to call a method directly on a number, like `toString` in the example above, then we need to place two dots `..` after it.
+
+If we placed a single dot: `123456.toString(36)`, then there would be an error, because JavaScript syntax implies the decimal part after the first dot. And if we place one more dot, then JavaScript knows that the decimal part is empty and now goes the method.
+
+Also could write `(123456).toString(36)`.
+
+>>>>>>> 8558fa8f5cfb16ef62aa537d323e34d9bef6b4de
 ```
 
 ## Rounding

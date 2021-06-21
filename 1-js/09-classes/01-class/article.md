@@ -112,7 +112,7 @@ alert(typeof User); // function
 alert(User === User.prototype.constructor); // true
 
 // The methods are in User.prototype, e.g:
-alert(User.prototype.sayHi); // alert(this.name);
+alert(User.prototype.sayHi); // the code of the sayHi method
 
 // there are exactly two methods in the prototype
 alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
@@ -146,7 +146,11 @@ user.sayHi();
 
 لا تزال هناك اختلافات مهمة.
 
+<<<<<<< HEAD
 1. أولاً ، يتم تصنيف دالة تم إنشاؤها بواسطة "class" بواسطة خاصية داخلية خاصة `[[FunctionKind]]:" classConstructor "`. لذلك فهي ليست تمامًا مثل إنشائها يدويًا.
+=======
+1. First, a function created by `class` is labelled by a special internal property `[[IsClassConstructor]]: true`. So it's not entirely the same as creating it manually.
+>>>>>>> 8558fa8f5cfb16ef62aa537d323e34d9bef6b4de
 
 تقوم اللغة بالتحقق من هذه الخاصية في أماكن متنوعة. على سبيل المثال ، على عكس الوظيفة العادية ، يجب أن يتم استدعاؤها بـ `new`:
 

@@ -87,4 +87,8 @@ let doublePrices = Object.fromEntries(
 alert(doublePrices.meat); // 8
 ```
 
+<<<<<<< HEAD
 ربّما تراه صعبًا أوّل وهلة، ولكن لا تقلق فسيصير أسهل أكثر متى ما بدأت استعمالها مرّة واثنتان وثلاث. يمكن أن نصنع سلسلة فعّالة من التعديلات بهذه الطريقة:
+=======
+It may look difficult at first sight, but becomes easy to understand after you use it once or twice. We can make powerful chains of transforms this way. 
+>>>>>>> 8558fa8f5cfb16ef62aa537d323e34d9bef6b4de

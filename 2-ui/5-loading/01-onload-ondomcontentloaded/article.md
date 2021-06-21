@@ -45,7 +45,11 @@ document.addEventListener('DOMContentLoaded', ready);
 <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0" />
 ```
 
+<<<<<<< HEAD
 علي سبيل المثال `DOMContentLoaded` يتم تشغيل المعالج عند تحميل المستند، حتى يتمكن من رؤية كافة العناصر, متضمنا `<img>` ادناه.
+=======
+In the example, the `DOMContentLoaded` handler runs when the document is loaded, so it can see all the elements, including `<img>` below.
+>>>>>>> 8558fa8f5cfb16ef62aa537d323e34d9bef6b4de
 
 ولكن لا ينتظر حتى يتم تحميل الصورة. لذالك `alert` يظهر حجم الصفر.
 

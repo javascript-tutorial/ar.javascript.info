@@ -80,7 +80,7 @@ user = {
 // يبدو شكل الدالة المختصر أفضل، أليس كذلك؟
 user = {
 *!*
-  sayHi() { // same as "sayHi: function()"
+  sayHi() { // same as "sayHi: function(){...}"
 */!*
     alert("Hello");
   }

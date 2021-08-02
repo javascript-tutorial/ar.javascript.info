@@ -70,9 +70,16 @@ f();
 
 دعونا نؤكد: `` انتظارًا '' يجعل جافا سكريبت تنتظر حتى يستقر الوعد ، ثم استمر في النتيجة. هذا لا يكلف أي موارد وحدة المعالجة المركزية ، لأن المحرك يمكنه القيام بمهام أخرى في الوقت نفسه: تنفيذ البرامج النصية الأخرى ، والتعامل مع الأحداث ، وما إلى ذلك.
 
+<<<<<<< HEAD
 Let's emphasize: `await` literally suspends the function execution until the promise settles, and then resumes it with the promise result. That doesn't cost any CPU resources, because the JavaScript engine can do other jobs in the meantime: execute other scripts, handle events, etc.
 
 ```` warn header="لا يمكن استخدام` انتظار 'في الوظائف العادية " إذا حاولنا استخدام `` انتظار '' في وظيفة غير متزامنة ، فسيكون هناك خطأ في بناء الجملة:
+=======
+It's just a more elegant syntax of getting the promise result than `promise.then`. And, it's easier to read and write.
+
+````warn header="Can't use `await` in regular functions"
+If we try to use `await` in a non-async function, there would be a syntax error:
+>>>>>>> ef8d576821ff28c69bfb7410dc79fd216b0a315b
 
 ```js run
 function f() {
@@ -83,7 +90,12 @@ function f() {
 }
 ```
 
+<<<<<<< HEAD
 We may get this error if we forget to put `async` before a function. As said, `await` only works inside an `async` function.
+=======
+We may get this error if we forget to put `async` before a function. As stated earlier, `await` only works inside an `async` function.
+````
+>>>>>>> ef8d576821ff28c69bfb7410dc79fd216b0a315b
 
 `````
 
@@ -190,7 +202,7 @@ class Waiter {
 
 new Waiter()
   .wait()
-  .then(alert); // 1
+  .then(alert); // 1 (this is the same as (result => alert(result)))
 ```
 The meaning is the same: it ensures that the returned value is a promise and enables `await`.
 

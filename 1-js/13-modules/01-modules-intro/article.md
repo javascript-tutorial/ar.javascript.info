@@ -56,7 +56,7 @@ sayHi('John'); // Hello, John!
 
 يجلب المتصفّح الوحدة تلقائيًا ويقيم الشيفرة البرمجية بداخلها (ويستورد جميع الوحدات المتعلقة بها إن لزم الأمر)، وثمّ يشغلها.
 
-```warn header="Modules work only via HTTP(s), not in local files"
+```warn header="Modules work only via HTTP(s), not locally"
 If you try to open a web-page locally, via `file://` protocol, you'll find that `import/export` directives don't work. Use a local web-server, such as [static-server](https://www.npmjs.com/package/static-server#getting-started) or use the "live server" capability of your editor, such as VS Code [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to test modules.
 ```
 
@@ -70,7 +70,11 @@ If you try to open a web-page locally, via `file://` protocol, you'll find that 
 
 ### الوضع الصارم الإفتراضي
 
+<<<<<<< HEAD
 تستخدم الوحدات الوضع الصارم تلقائيًا فمثلًا إسناد قيمة لمتحول غير معرّف سينتج خطأ.
+=======
+Modules always work in strict mode. E.g. assigning to an undeclared variable will give an error.
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 ```
 <script type="module">
@@ -82,6 +86,7 @@ If you try to open a web-page locally, via `file://` protocol, you'll find that 
 
 كلّ وِحدة لها نطاق عالي المستوى خاص بها. بتعبيرٍ آخر، لن يُنظر للمتغيّرات والدوالّ من الوحدات الأخرى، وإنما يكون نطاق المتغيرات محلي.
 
+<<<<<<< HEAD
 نرى في المثال أدناه أنّا حمّلنا نصّين برمجيين، ويحاول الملف `hello.js` استعمال المتغير `user` المصرّح عنه في الملف `user.js` ولا يقدر:
 
 [codetabs src="scopes" height="140" current="index.html"]
@@ -89,12 +94,30 @@ If you try to open a web-page locally, via `file://` protocol, you'll find that 
 على الوحدات تصدير `export` ما تريد للآخرين من خارجها رؤيته، واستيراد `import` ما تحتاج استعماله.
 
 لذا علينا استيراد `user.js` و`hello.js` وأخذ المزايا المطلوبة منهما بدل الاعتماد على المتغيّرات العمومية.
+=======
+In the example below, two scripts are imported, and `hello.js` tries to use `user` variable declared in `user.js`. It fails, because it's a separate module (you'll see the error in the console):
+
+[codetabs src="scopes" height="140" current="index.html"]
+
+Modules should `export` what they want to be accessible from outside and `import` what they need.
+
+- `user.js` should export the `user` variable.
+- `hello.js` should import it from `user.js` module.
+
+In other words, with modules we use import/export instead of relying on global variables.
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 هذه النسخة الصحيحة من الشيفرة:
 
 [codetabs src="scopes-working" height="140" current="hello.js"]
 
+<<<<<<< HEAD
 يوجد في المتصفح نطاق مستقل عالي المستوى. وهو موجود أيضًا للوحدات `‎<script type="module">‎`:
+=======
+In the browser, if we talk about HTML pages, independent top-level scope also exists for each `<script type="module">`.
+
+Here are two scripts on the same page, both `type="module"`. They don't see each other's top-level variables:
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 ```
 <script type="module">
@@ -109,13 +132,31 @@ If you try to open a web-page locally, via `file://` protocol, you'll find that 
 </script>
 ```
 
+<<<<<<< HEAD
 ولو أردنا أن ننشئ متغير عام على مستوى النافذة يمكننا تعيينه صراحة للمتغيّر `window` ويمكننا الوصول إليه هكذا `window.user`. ولكن لابد من وجود سبب وجيهٍ لذلك.
+=======
+```smart
+In the browser, we can make a variable window-level global by explicitly assigning it to a `window` property, e.g. `window.user = "John"`. 
+
+Then all scripts will see it, both with `type="module"` and without it. 
+
+That said, making such global variables is frowned upon. Please try to avoid them.
+```
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 ### تقييم شيفرة الوحدة لمرة واحدة فقط
 
+<<<<<<< HEAD
 لو استوردتَ نفس الوحدة في أكثر من مكان، فلا تُنفّذ شيفرتها إلّا مرة واحدة، وبعدها تُصدّر إلى من استوردها.
 
 ولهذا توابع مهمّ معرفتها. لنرى بعض الأمثلة.
+=======
+If the same module is imported into multiple other modules, its code is executed only once, upon the first import. Then its exports are given to all further importers.
+
+The one-time evaluation has important consequences, that we should be aware of. 
+
+Let's see a couple of examples.
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 أولًا، لو كان لشيفرة الوحدة التي ستُنفّذ أيّ تأثيرات (مثل عرض رسالة أو ما شابه)، فاستيرادها أكثر من مرّة سيشغّل ذلك التأثير مرة واحدة، وهي أول مرة فقط:
 
@@ -134,9 +175,17 @@ import `./alert.js`; // ‫نُفّذت شيفرة الوحدة!
 import `./alert.js`; // (لا نرى شيئًا هنا)
 ```
 
+<<<<<<< HEAD
 في الواقع، فشيفرات الوحدات عالية المستوى في بنية البرمجية لا تُستعمل إلّا لتمهيد بنى البيانات الداخلية وإنشائها. ولو أردنا شيئًا نُعيد استعماله، نُصدّر الوحدة.
 
 الآن حان وقت مثال مستواه متقدّم أكثر.
+=======
+The second import shows nothing, because the module has already been evaluated.
+
+There's a rule: top-level module code should be used for initialization, creation of module-specific internal data structures. If we need to make something callable multiple times - we should export it as a function, like we did with `sayHi` above.
+
+Now, let's consider a deeper example.
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 لنقل بأنّ هناك وحدة تُصدّر كائنًا:
 
@@ -161,6 +210,7 @@ import {admin} from './admin.js';
 alert(admin.name); // Pete
 
 *!*
+<<<<<<< HEAD
 // ‫كِلا الملفين ‎1.js و ‎2.js سيستوردان نفس الكائن
 // ‫التغييرات الّتي ستحدثُ في الملف ‎1.js ستكون مرئية في الملف ‎2.js
 */!*
@@ -171,45 +221,90 @@ alert(admin.name); // Pete
 يتيح لنا هذا السلوك ”ضبط“ الوحدة عند أوّل استيراد لها، فنضبط خاصياتها المرة الأولى، ومتى ما استوُردت مرة أخرى تكون جاهزة.
 
 فمثلًا قد تقدّم لنا وحدة `admin.js` بعض المزايا ولكن تطلب أن تأتي امتيازات الإدارة من خارج كائن `admin` إلى داخله:
+=======
+// Both 1.js and 2.js reference the same admin object
+// Changes made in 1.js are visible in 2.js
+*/!*
+```
+
+As you can see, when `1.js` changes the `name` property in the imported `admin`, then `2.js` can see the new `admin.name`.
+
+That's exactly because the module is executed only once. Exports are generated, and then they are shared between importers, so if something changes the `admin` object, other modules will see that.
+
+**Such behavior is actually very convenient, because it allows us to *configure* modules.**
+
+In other words, a module can provide a generic functionality that needs a setup. E.g. authentication needs credentials. Then it can export a configuration object expecting the outer code to assign to it.
+
+Here's the classical pattern:
+1. A module exports some means of configuration, e.g. a configuration object.
+2. On the first import we initialize it, write to its properties. The top-level application script may do that.
+3. Further imports use the module.
+
+For instance, the `admin.js` module may provide certain functionality (e.g. authentication), but expect the credentials to come into the `config` object from outside:
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 ```
 // 📁 admin.js
-export let admin = { };
+export let config = { };
 
 export function sayHi() {
-  alert(`Ready to serve, ${admin.name}!`);
+  alert(`Ready to serve, ${config.user}!`);
 }
 ```
 
+<<<<<<< HEAD
 نضبط في `init.js` (أوّل نص برمجي لتطبيقنا) المتغير `admin.name`. بعدها سيراه كلّ من أراد بما في ذلك الاستدعاءات من داخل وحدة `admin.js` نفسها:
+=======
+Here, `admin.js` exports the `config` object (initially empty, but may have default properties too).
+
+Then in `init.js`, the first script of our app, we import `config` from it and set `config.user`:
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 ```
 // 📁 init.js
-import {admin} from './admin.js';
-admin.name = "Pete";
+import {config} from './admin.js';
+config.user = "Pete";
 ```
 
+<<<<<<< HEAD
 ويمكن لوحدة أخرى استعمال `admin.name`:
 
 ```
 // 📁 other.js
 import {admin, sayHi} from './admin.js';
+=======
+...Now the module `admin.js` is configured. 
 
-alert(admin.name); // *!*Pete*/!*
+Further importers can call it, and it correctly shows the current user:
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
+
+```js
+// 📁 another.js
+import {sayHi} from './admin.js';
 
 sayHi(); // Ready to serve, *!*Pete*/!*!
 ```
+
 
 ### import.meta
 
 يحتوي الكائن `import.meta` على معلومات الوحدة الحالية.
 
+<<<<<<< HEAD
 ويعتمد محتواها على البيئة الحالية، ففي المتصفّحات يحتوي على عنوان النص البرمجي أو عنوان صفحة الوِب الحالية لو كان داخل HTML:
+=======
+Its content depends on the environment. In the browser, it contains the URL of the script, or a current webpage URL if inside HTML:
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 ```
 html run height=0
 <script type="module">
+<<<<<<< HEAD
   alert(import.meta.url); // ‫عنوان URL للسكربت (عنوان URL لصفحة HTML للسكربت الضمني)
+=======
+  alert(import.meta.url); // script URL
+  // for an inline script - the URL of the current HTML-page
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 </script>
 ```
 

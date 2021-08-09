@@ -194,7 +194,11 @@ alert(Object.keys(user)); // name
 
 راية عدم الضبط (`configurable:false`) احياناً يتم إعدادها مسبقاً في بعض الكائنات والخصائص المضمّنة في اللغة.
 
+<<<<<<< HEAD
 الخاصية الغير قابلة للإحصاء لا يمكن حذفها.
+=======
+A non-configurable property can't be deleted, its attributes can't be modified.
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 فمثلاً, `Math.PI` غير قابلة للتعديل, غير قابلة للإحصاء و غير قابلة لإعادة الضبط:
 
@@ -215,11 +219,16 @@ alert(JSON.stringify(descriptor, null, 2));
 لذا, لن يستطيع المبرمج تغيير قيمة `Math.PI` أو التعديل عليها.
 
 ```js run
+<<<<<<< HEAD
 Math.PI = 3; // خطأ
+=======
+Math.PI = 3; // Error, because it has writable: false
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 // delete Math.PI لن تعمل أيضًا
 ```
 
+<<<<<<< HEAD
 إن تفعيل خاصيّة منع قابلية إعادة الضبط هو قرار لا عودة فيه. فلا يمكننا تغيير الراية (إتاحة قابلية إعادة الضبط) باستعمال `defineProperty`.
 
 وللدقّة فهذا المنع يضع تقييدات أخرى على `defineProperty`:
@@ -228,8 +237,20 @@ Math.PI = 3; // خطأ
 2. منع تغيير راية قابلية الإحصاء `enumerable`.
 3. منع تغيير راية قابلية التعديل `writable: false` الي `true` (و لكن العكس ممكن).
 4. منع تغيير ضابط وجالب واصف الوصول `get/set` (ولكن يمكن إسناد قيم إليه).
+=======
+We also can't change `Math.PI` to be `writable` again:
 
-**The idea of "configurable: false" is to prevent changes of property flags and its deletion, while allowing to change its value.**
+```js run
+// Error, because of configurable: false
+Object.defineProperty(Math, "PI", { writable: true });
+```
+
+There's absolutely nothing we can do with `Math.PI`.
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
+
+Making a property non-configurable is a one-way road. We cannot change it back with `defineProperty`.
+
+**Please note: `configurable: false` prevents changes of property flags and its deletion, while allowing to change its value.**
 
 Here `user.name` is non-configurable, but we can still change it (as it's writable):
 
@@ -246,7 +267,7 @@ user.name = 'Pete'; // works fine
 delete user.name; // Error
 ```
 
-And here we make `user.name` a "forever sealed" constant:
+And here we make `user.name` a "forever sealed" constant, just like the built-in `Math.PI`:
 
 ```js run
 let user = {
@@ -265,6 +286,15 @@ delete user.name;
 Object.defineProperty(user, 'name', { value: 'Pete' });
 ```
 
+<<<<<<< HEAD
+=======
+```smart header="The only attribute change possible: writable true -> false"
+There's a minor exception about changing flags.
+
+We can change `writable: true` to `false` for a non-configurable property, thus preventing its value modification (to add another layer of protection). Not the other way around though.
+```
+
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 ## Object.defineProperties
 
 يوجد طريقة [Object.defineProperties(obj, descriptors)](mdn:js/Object/defineProperties) و التي تسمح بتعريف كثير من الخصائص مره واحده.

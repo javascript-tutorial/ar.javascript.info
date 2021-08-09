@@ -18,7 +18,11 @@ let promise = Promise.all([...promises...]);
 
 يأخذ `Promise.all` مجموعة من الوعود (من الناحية التقنية يمكن أن تكون قابلة للتكرار ، ولكن عادة ما تكون صفيفًا) ويعيد وعدًا جديدًا.
 
+<<<<<<< HEAD
 يتم حل الوعد الجديد عندما تتم تسوية جميع الوعود المدرجة ، وتصبح مجموعة نتائجها نتاجها.
+=======
+The new promise resolves when all listed promises are resolved, and the array of their results becomes its result.
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 على سبيل المثال ، يستقر "Promise.all" أدناه بعد 3 ثوانٍ ، ومن ثم تكون نتائجه مصفوفة `[1 ، 2 ، 3]`:
 

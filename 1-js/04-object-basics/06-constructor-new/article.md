@@ -55,6 +55,7 @@ isAdmin: false
 لاحظ أنَّه يمكن استخدام أي دالة لتكون دالة بانية تقنيًا. يعني أنه يمكن تنفيذ أي دالة مع `new`، وستُنَفَّذ باستخدام الخوارزمية أعلاه.
 استخدام الأحرف الكبيرة في البداية هو اتفاق شائع لتمييز الدالة البانية من غيرها وأنَّه يجب استدعاؤها مع `new`.
 
+<<<<<<< HEAD
 ### `**new function() { … }‎**`
 
 إن كان لدينا العديد من الأسطر البرمجية، وجميعها عن إنشاء كائن واحد مُعَقَّد، فبإمكاننا تضمينها في دالة بانية، هكذا:
@@ -70,6 +71,27 @@ this.isAdmin = false;
 ```
 
 لا يمكن استدعاء المُنشِئ مجددًا، لأنه غير محفوظ في أي مكان، يُنشَأ ويُستدعى فقط. لذا فإن الخدعة تهدف إلى تضمين الشيفرة التي تُنشِئ كائنًا واحدًا، دون إعادة الاستخدام وتكرار العملية مستقبلًا.
+=======
+Let's note once again -- technically, any function (except arrow functions, as they don't have `this`) can be used as a constructor. It can be run with `new`, and it will execute the algorithm above. The "capital letter first" is a common agreement, to make it clear that a function is to be run with `new`.
+
+````smart header="new function() { ... }"
+If we have many lines of code all about creation of a single complex object, we can wrap them in an immediately called constructor function, like this:
+
+```js
+// create a function and immediately call it with new
+let user = new function() { 
+  this.name = "John";
+  this.isAdmin = false;
+
+  // ...other code for user creation
+  // maybe complex logic and statements
+  // local variables etc
+};
+```
+
+This constructor can't be called again, because it is not saved anywhere, just created and called. So this trick aims to encapsulate the code that constructs the single object, without future reuse.
+````
+>>>>>>> 4d01fc20d4d82358e61518a31efe80dec9bb2602
 
 ## وضع اختبار الباني: `new.target`
 

@@ -297,8 +297,12 @@ return fetch(url)
 .then(response => response.json());
 }
 function loadGithubUser(name) {
+<<<<<<< HEAD
 return fetch(`https://api.github.com/users/${name}`)
 .then(response => response.json());
+=======
+  return loadJson(`https://api.github.com/users/${name}`);
+>>>>>>> 4d01fc20d4d82358e61518a31efe80dec9bb2602
 }
 function showAvatar(githubUser) {
 return new Promise(function(resolve, reject) {

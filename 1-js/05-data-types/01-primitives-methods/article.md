@@ -40,8 +40,13 @@ Objects  "اثقل" من الأساليب البدائية. وهي تتطلب م
 
 هنا التناقض الذي واجه صانع جافا سكريبت:
 
+<<<<<<< HEAD
 - هناك العديد من الأشياء التي يمكن أن يفعلها الشخص بالأسلوب البدائي مثل  string أو  number. سيكون من الرائع استخدامهم كا methods.
 - الأساليب البدائية يجب أن تكون سريعة وخفيفة بقدر الإمكان.
+=======
+- There are many things one would want to do with a primitive like a string or a number. It would be great to access them using methods.
+- Primitives must be as fast and lightweight as possible.
+>>>>>>> b09e38c5573346c401a9f9f7410b4ff9be5f4115
 
 إن الحل يبدو غريبا بعض الشيء، ولكن ها هو:
 

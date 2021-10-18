@@ -532,7 +532,12 @@ alert( str );
 - تأتي الأحرف الصغيرة بعد الأحرف الكبيرة دائمًا لأن رموزها العددية دائمًا أكبر.
 - تكون بعض الأحرف مثل `Ö` بعيدة عن الأحرف الهجائية. هنا، قيمة الحرف هذا أكبر من أي حرف بين `a` و `z`.
 
+<<<<<<< HEAD
 ### موازنات صحيحة
+=======
+- All lowercase letters go after uppercase letters because their codes are greater.
+- Some letters like `Ö` stand apart from the main alphabet. Here, its code is greater than anything from `a` to `z`.
+>>>>>>> eda333d423db8ade41f75d2e2d30ea06c7d997ef
 
 ### Correct comparisons [#correct-comparisons]
 

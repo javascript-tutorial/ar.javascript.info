@@ -133,7 +133,11 @@ clone.name = "Pete"; // تغيير البيانات
 alert( user.name ); // تبقى John في الكائن الأصلي
 ```
 
+<<<<<<< HEAD
 أيضًا يمكننا استخدام [Object.assign](mdn:js/Object/assign) لذلك.
+=======
+Also we can use the method [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) for that.
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c
 
 The syntax is:
 

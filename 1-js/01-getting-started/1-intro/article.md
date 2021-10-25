@@ -29,9 +29,17 @@
 
 من الجيد تذكر المصطلحات الواردة أعلاه لأنها مستخدمة في مقالات المطورين على الإنترنت. سنستخدمهم أيضًا. على سبيل المثال ، إذا كانت "الميزة إكس مدعومة بواسطة في8" ، فمن المحتمل أنها تعمل في كروم و أوبرا.
 
+<<<<<<< HEAD
 ```smart header="كيف تعمل المحركات؟"
 
 المحركات معقدة. ولكن الأساسيات بسيطه .
+=======
+- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome, Opera and Edge.
+- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
+- ...There are other codenames like "Chakra" for IE, "JavaScriptCore", "Nitro" and "SquirrelFish" for Safari, etc.
+
+The terms above are good to remember because they are used in developer articles on the internet. We'll use them too. For instance, if "a feature X is supported by V8", then it probably works in Chrome, Opera and Edge.
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c
 
 ١. يقرأ ("يحلّل") المحرك (المثبت إذا كان متصفحًا) السكريبت.
 

@@ -29,9 +29,17 @@
 
 من الجيد تذكر المصطلحات الواردة أعلاه لأنها مستخدمة في مقالات المطورين على الإنترنت. سنستخدمهم أيضًا. على سبيل المثال ، إذا كانت "الميزة إكس مدعومة بواسطة في8" ، فمن المحتمل أنها تعمل في كروم و أوبرا.
 
+<<<<<<< HEAD
 ```smart header="كيف تعمل المحركات؟"
 
 المحركات معقدة. ولكن الأساسيات بسيطه .
+=======
+- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome, Opera and Edge.
+- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
+- ...There are other codenames like "Chakra" for IE, "JavaScriptCore", "Nitro" and "SquirrelFish" for Safari, etc.
+
+The terms above are good to remember because they are used in developer articles on the internet. We'll use them too. For instance, if "a feature X is supported by V8", then it probably works in Chrome, Opera and Edge.
+>>>>>>> 6989312841d843f2350803ab552d9082437be569
 
 ١. يقرأ ("يحلّل") المحرك (المثبت إذا كان متصفحًا) السكريبت.
 
@@ -59,7 +67,11 @@
 - الحصول على ملفات تعريف الارتباط وتعيينها ، وطرح الأسئلة على الزائر ، وإظهار الرسائل.
 - تذكر البيانات الموجودة على جانب العميل ("التخزين المحلي").
 
+<<<<<<< HEAD
 ## ما الذي لا يمكن لجافا سكريبت في المتصفح فعله؟
+=======
+JavaScript's abilities in the browser are limited for the sake of a user's safety. The aim is to prevent an evil webpage from accessing private information or harming the user's data.
+>>>>>>> 6989312841d843f2350803ab552d9082437be569
 
 إمكانيات جافا سكريبت في المتصفح محدودة من أجل سلامة المستخدم. الهدف هو منع صفحة ويب شريرة من الوصول إلى المعلومات الخاصة أو الإضرار ببيانات المستخدم.
 
@@ -86,9 +98,15 @@
 هناك على الأقل *ثلاثة* أشياء رائعة حول جافا سكريبت:
 
 ```compare
+<<<<<<< HEAD
 + تكامل تام مع HTML / CSS.
 + الأشياء البسيطة تتم ببساطة.
 + مدعوم من قبل جميع المتصفحات الرائدة وتمكينه تلقائيا.
+=======
++ Full integration with HTML/CSS.
++ Simple things are done simply.
++ Supported by all major browsers and enabled by default.
+>>>>>>> 6989312841d843f2350803ab552d9082437be569
 ```
 
 جافا سكريبت هي تقنية المتصفح الوحيدة التي تجمع بين هذه الأشياء الثلاثة.
@@ -120,6 +138,12 @@
 
 ## ملخص
 
+<<<<<<< HEAD
 - تم إنشاء جافا سكريبت في البداية كلغة للمتصفح فقط ، ولكنها تُستخدم الآن في العديد من البيئات الأخرى أيضًا.
 - تتمتع جافا سكريبت اليوم بمكانة فريدة باعتبارها لغة المتصفح الأكثر استخدامًا مع تكاملها التام مع HTML / CSS.
 - هناك العديد من اللغات التي يتم "تحويلها" إلى جافا سكريبت وتوفر ميزات معينة. يوصى بإلقاء نظرة عليهم ، على الأقل لفترة وجيزة ، بعد إتقان جافا سكريبت.
+=======
+- JavaScript was initially created as a browser-only language, but it is now used in many other environments as well.
+- Today, JavaScript has a unique position as the most widely-adopted browser language, fully integrated with HTML/CSS.
+- There are many languages that get "transpiled" to JavaScript and provide certain features. It is recommended to take a look at them, at least briefly, after mastering JavaScript.
+>>>>>>> 6989312841d843f2350803ab552d9082437be569

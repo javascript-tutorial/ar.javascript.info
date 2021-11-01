@@ -3,6 +3,13 @@
 ```smart header="هذه المقالة من أجل فهم النصوص القديمة"
 المعلومات داخل هذه المقالة تساعدنا فى فهم النصوص القديمة أكثر ولا تحتوي علي أي معلومات عن كيفية كتابة كود جديد
 
+<<<<<<< HEAD
+=======
+```smart header="This article is for understanding old scripts"
+The information in this article is useful for understanding old scripts.
+
+That's not how we write new code.
+>>>>>>> 6989312841d843f2350803ab552d9082437be569
 ```
 
 ذكرنا في أوائل الفصول حين تكلمنا عن [المتغيرات](info:variables), ذكرنا ثلاث طرائق للتصريح عنها:

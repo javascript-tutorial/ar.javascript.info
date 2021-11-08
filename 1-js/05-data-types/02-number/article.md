@@ -5,7 +5,11 @@
 1. أعداد عادية تخزَّن بصيغة 64-بت [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision)، تُعرف أيضًا ب "الأعداد العشرية مضاعفة الدقة" (double precision floating point numbers). هذا النوع هو ما سنستعلمه أغلب الوقت وسنسلط عليه الضوء في هذا الفصل.
 2. أعداد صحيحة كبيرة (BigInt numbers) تمثِّل عددًا صحيحًا متغير الحجم، إذ قد نلجأ إليها أحيانًا لأن النوع السابق لا يمكن أن يتجاوز القيمة 2^53 أو أن تقل عن -2^53، وسنخصص لهذا النوع فصلًا خاصًا به نظرًا للحاجة إليه في حالات خاصة.
 
+<<<<<<< HEAD
 حاليًا، لِنتوسع عن ما نعرفه عنها، وننتقل إلى الحديث عن النوع الأول، الأعداد العادية.
+=======
+2. BigInt numbers, to represent integers of arbitrary length. They are sometimes needed, because a regular number can't safely exceed <code>2<sup>53</sup></code> or be less than <code>-2<sup>53</sup></code>. As bigints are used in few special areas, we devote them a special chapter <info:bigint>.
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 
 ## طرق أخرى لكتابة عدد
 
@@ -35,9 +39,15 @@ let billion = 1e9;  // بليون، حرفيًا: 1 وجانبه 9 أصفار
 In other words, `e` multiplies the number by `1` with the given zeroes count.
 
 ```js
+<<<<<<< HEAD
 1e3 = 1 * 1000 // e3 means *1000
 1.23e6 = 1.23 * 1000000 // e6 means *1000000
 ````
+=======
+1e3 === 1 * 1000; // e3 means *1000
+1.23e6 === 1.23 * 1000000; // e6 means *1000000
+```
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 
 لنكتب الآن شيئَا صغيرًا جدًا. مثلًا، جزء من المليون من الثانية:
 
@@ -51,16 +61,29 @@ let ms = 0.000001;
 let ms = 1e-6; // ستة أصفار على يسار 1
 ```
 
+<<<<<<< HEAD
 إن قمنا بعد الأصفار في `0.000001`، سنجد عددها 6. لذا يكون الرقم `1e-6`.
+=======
+If we count the zeroes in `0.000001`, there are 6 of them. So naturally it's `1e-6`.
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 
 بمعنى آخر، وجود رقم سالب بعد `"e"` يعني القسمة على 1 متبوعًا بِعدد الأصفار المعطى:
 
+<<<<<<< HEAD
 ```
 // -3 بالقسمة على 1 متبوعًا ب 3 أصفار
 1e-3 = 1 / 1000 (=0.001)
 
 // -6 بالقسمة على 1 متبوعًا ب 6 أصفار
 1.23e-6 = 1.23 / 1000000 (=0.00000123)
+=======
+```js
+// -3 divides by 1 with 3 zeroes
+1e-3 === 1 / 1000; // 0.001
+
+// -6 divides by 1 with 6 zeroes
+1.23e-6 === 1.23 / 1000000; // 0.00000123
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 ```
 
 ### الأعداد الست عشرية، والثنائية والثمانية
@@ -102,8 +125,22 @@ alert( num.toString(2) );   // 11111111
 - `base=2`: يستخدم بكثرة في تصحيح العمليات الدقيقة، يمكن أن يحوي الرقمين `0` أو `1`.
 - `base=36`: هو الحد الأعلى، يمكن أن يحوي الأرقام `0..9` أو الأحرُف `A..Z`. يمكن استخدام جميع الأحرف اللاتينية لتمثيل عدد. قد يبدو أمرًا ممتعًا لكن يكون مفيدًا في حال احتجنا لتحويل معرف عددي طويل إلى عدد أقصر، مثلًا، لتقصير رابط url. يمكن تمثيله بالنظام العددي ذي الأساس `36`:
 
+<<<<<<< HEAD
 ```
 alert( 123456..toString(36) ); // 2n9c
+=======
+    ```js run
+    alert( 123456..toString(36) ); // 2n9c
+    ```
+
+```warn header="Two dots to call a method"
+Please note that two dots in `123456..toString(36)` is not a typo. If we want to call a method directly on a number, like `toString` in the example above, then we need to place two dots `..` after it.
+
+If we placed a single dot: `123456.toString(36)`, then there would be an error, because JavaScript syntax implies the decimal part after the first dot. And if we place one more dot, then JavaScript knows that the decimal part is empty and now goes the method.
+
+Also could write `(123456).toString(36)`.
+
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 ```
 
 ## Rounding
@@ -342,7 +379,13 @@ let num = +prompt("Enter a number", '');
 alert( isFinite(num) );
 ```
 
+<<<<<<< HEAD
 يرجى ملاحظة أن الفراغ أو المسافة الواحدة تُعامل معاملة الصفر `0` في جميع التوابع العددية بما فيها `isFinite`.
+=======
+Please note that an empty or a space-only string is treated as `0` in all numeric functions including `isFinite`.
+
+```smart header="Compare with `Object.is`"
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 
 ```smart header="المقارنة باستخدام `Object.is`"
 

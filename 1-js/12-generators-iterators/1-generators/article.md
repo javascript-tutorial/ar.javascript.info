@@ -456,7 +456,33 @@ try {
 
 إذا لم نستقبل الخطأ هناك فإنه كالمعتاد سيُنهي الـgenerator ويخرج إلى الكود خارج الـgenerator (إذا كان هناك) وإذا لم يتم التعامل معه سيُنهي السكريبت (script).
 
+<<<<<<< HEAD
 ## الملخص
+=======
+## generator.return
+
+`generator.return(value)` finishes the generator execution and return the given `value`.
+
+```js
+function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const g = gen();
+
+g.next();        // { value: 1, done: false }
+g.return('foo'); // { value: "foo", done: true }
+g.next();        // { value: undefined, done: true }
+```
+
+If we again use `generator.return()` in a completed generator, it will return that value again ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/return)).
+
+Often we don't use it, as most of time we want to get all returning values, but it can be useful when we want to stop generator in a specific condition.
+
+## Summary
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 
 - يتم إنشاء الـGenerators عن طريق دوال الـGenerator `function* f(…) {…}`.
 - بداخل الـgenerator توجد `yield` فقط.

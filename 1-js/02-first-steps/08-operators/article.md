@@ -56,18 +56,30 @@ alert( 8 % 3 ); // 2, a remainder of 8 divided by 3
 
 ### الضرب الأسي ** 
 
+<<<<<<< HEAD
 عامل الضرب الأسي `a ** b` يقوم بضرب الرقم `a`  في نفسه عدد `b` من المرات 
+=======
+The exponentiation operator `a ** b` raises `a` to the power of `b`.
+
+In school maths, we write that as a<sup>b</sup>.
+>>>>>>> a82915575863d33db6b892087975f84dea6cb425
 
 على سبيل المثال: 
 
 ```js run
-alert( 2 ** 2 ); // 4  (2 multiplied by itself 2 times)
-alert( 2 ** 3 ); // 8  (2 * 2 * 2, 3 times)
-alert( 2 ** 4 ); // 16 (2 * 2 * 2 * 2, 4 times)
+alert( 2 ** 2 ); // 2² = 4
+alert( 2 ** 3 ); // 2³ = 8
+alert( 2 ** 4 ); // 2⁴ = 16
 ```
 
+<<<<<<< HEAD
 من الناحية الرياضياتية الضرب الأسي يستخدم أيضا مع الأرقام غير الصحيحة.  على سبيل المثال الجذر التربيعي هو ضرب أسي بقيمة
  `1/2`:
+=======
+Just like in maths, the exponentiation operator is defined for non-integer numbers as well. 
+
+For example, a square root is an exponentiation by ½:
+>>>>>>> a82915575863d33db6b892087975f84dea6cb425
 
 ```js run
 alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root)

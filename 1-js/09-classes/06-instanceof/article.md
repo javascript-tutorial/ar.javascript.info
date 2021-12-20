@@ -87,9 +87,17 @@ alert(arr instanceof Object); // نعم
 
    أمّا لو كنّا في حالة وراثة، فستتوقّف عملية المطابقة عند الخطوة الثانية:
 
+<<<<<<< HEAD
    ```js run
    class Animal {}
    class Rabbit extends Animal {}
+=======
+    // rabbit.__proto__ === Animal.prototype (no match)
+    *!*
+    // rabbit.__proto__.__proto__ === Animal.prototype (match!)
+    */!*
+    ```
+>>>>>>> 8d04d0d2db97276dbb2b451c30a7bd3e05d65831
 
    let rabbit = new Rabbit();
    *!*

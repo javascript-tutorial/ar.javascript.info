@@ -5,10 +5,14 @@
 تسمى "arrow functions" لأنها تشبه السهم:
 
 ```js
-let func = (arg1, arg2, ..., argN) => expression
+let func = (arg1, arg2, ..., argN) => expression;
 ```
 
+<<<<<<< HEAD
 ...هذا ينشئ دالة `func` تأخذ قيم `arg1..argN` وتنفذ `expression` الطرف الأيمن باستخدامهم وترجع النتيجة.
+=======
+This creates a function `func` that accepts arguments `arg1..argN`, then evaluates the `expression` on the right side with their use and returns its result.
+>>>>>>> 8d04d0d2db97276dbb2b451c30a7bd3e05d65831
 
 بصيغة أخرى فهي إختصار ل:
 

@@ -116,7 +116,11 @@ function isHidden(elem) {
 }
 ```
 
+<<<<<<< HEAD
 يرجى ملاحظة أن مثل `isHidden` يعرض` true` للعناصر التي تظهر على الشاشة ، ولكن بدون أحجام (مثل `<div>` فارغ).
+=======
+Please note that such `isHidden` returns `true` for elements that are on-screen, but have zero sizes.
+>>>>>>> 8d04d0d2db97276dbb2b451c30a7bd3e05d65831
 ````
 
 ## clientTop/Left

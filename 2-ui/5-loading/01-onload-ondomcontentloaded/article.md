@@ -45,7 +45,11 @@ document.addEventListener('DOMContentLoaded', ready);
 <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0" />
 ```
 
+<<<<<<< HEAD
 علي سبيل المثال `DOMContentLoaded` يتم تشغيل المعالج عند تحميل المستند، حتى يتمكن من رؤية كافة العناصر, متضمنا `<img>` ادناه.
+=======
+In the example, the `DOMContentLoaded` handler runs when the document is loaded, so it can see all the elements, including `<img>` below.
+>>>>>>> 8d04d0d2db97276dbb2b451c30a7bd3e05d65831
 
 ولكن لا ينتظر حتى يتم تحميل الصورة. لذالك `alert` يظهر حجم الصفر.
 
@@ -114,8 +118,12 @@ Firefox, Chrome , Opera تم تشغيل نماذج الملء التلقائي `
 
 ```html run height=200 refresh
 <script>
+<<<<<<< HEAD
   window.onload = function () {
     // same as window.addEventListener('load', (event) => {
+=======
+  window.onload = function() { // can also use window.addEventListener('load', (event) => {
+>>>>>>> 8d04d0d2db97276dbb2b451c30a7bd3e05d65831
     alert('Page loaded');
 
     // image is loaded at this time
@@ -188,6 +196,26 @@ window.onbeforeunload = function () {
 ```
 
 تم تغيير السلوك لأن بعض مشرفي المواقع أساءوا استخدام معالج الحدث هذا من خلال عرض رسائل مضللة ومزعجة. لذلك قد لا تزال المتصفحات القديمة تعرضها كرسالة في الوقت الحالي ، ولكن بصرف النظر عن ذلك - لا توجد طريقة لتخصيص الرسالة المعروضة للمستخدم.
+
+````warn header="The `event.preventDefault()` doesn't work from a `beforeunload` handler"
+That may sound weird, but most browsers ignore `event.preventDefault()`.
+
+Which means, following code may not work:
+```js run
+window.addEventListener("beforeunload", (event) => {
+  // doesn't work, so this event handler doesn't do anything
+	event.preventDefault();
+});
+```
+
+Instead, in such handlers one should set `event.returnValue` to a string to get the result similar to the code above:
+```js run
+window.addEventListener("beforeunload", (event) => {
+  // works, same as returning from window.onbeforeunload
+	event.returnValue = "There are unsaved changes. Leave now?";
+});
+```
+````
 
 ## readyState
 

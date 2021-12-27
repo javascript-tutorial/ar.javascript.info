@@ -106,12 +106,21 @@ for (let i = 0; i < 3; i++) {
 
 لنشرح `for` جزء بجزء:
 
+<<<<<<< HEAD
 | الجزء     |            |                                                             |
 | --------- | ---------- | ----------------------------------------------------------- |
 | begin     | `i = 0`    | ينفذ مرة واحدة فقط في البداية.                              |
 | condition | `i < 3`    | يتم اختباره قبل كل عملية تكرار وإذا لم يتحقق يتوقف التكرار. |
 | body      | `alert(i)` | تنفذ طالما الشرط محقق.                                      |
 | step      | `i++`      | ينفذ بعد body في كل عملية تكرار.                            |
+=======
+| part  |          |                                                                            |
+|-------|----------|----------------------------------------------------------------------------|
+| begin | `let i = 0`    | Executes once upon entering the loop.                                      |
+| condition | `i < 3`| Checked before every loop iteration. If false, the loop stops.              |
+| body | `alert(i)`| Runs again and again while the condition is truthy.                         |
+| step| `i++`      | Executes after the body on each iteration. |
+>>>>>>> 3c934b5a46a76861255e3a4f29da6fd54ab05c8c
 
 الخوارزمية العامة للتكرار تعمل كالتالي:
 
@@ -377,9 +386,24 @@ break label; // تنتقل إلى الحقل بالأسفل (لا تعمل)
 label: for (...)
 ```
 
+<<<<<<< HEAD
 إستخدام `continue` يكون ممكنًا فقط من داخل الحلقه.
 
 `break` ربما يمكن وضعه قبل الشيفرة ايضًا, as `label: { ... }`, لكنها لا تستخدم أبدًا بهذه الطريقة. وهي تعمل أيضًا من الداخل إلى الخارج فقط.
+=======
+A `break` directive must be inside a code block. Technically, any labelled code block will do, e.g.:
+```js
+label: {
+  // ...
+  break label; // works
+  // ...
+}
+```
+
+...Although, 99.9% of the time `break` is used inside loops, as we've seen in the examples above.
+
+A `continue` is only possible from inside a loop.
+>>>>>>> 3c934b5a46a76861255e3a4f29da6fd54ab05c8c
 ````
 
 ## ملخص

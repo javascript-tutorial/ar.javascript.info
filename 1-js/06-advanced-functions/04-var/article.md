@@ -3,6 +3,13 @@
 ```smart header="هذه المقالة من أجل فهم النصوص القديمة"
 المعلومات داخل هذه المقالة تساعدنا فى فهم النصوص القديمة أكثر ولا تحتوي علي أي معلومات عن كيفية كتابة كود جديد
 
+<<<<<<< HEAD
+=======
+```smart header="This article is for understanding old scripts"
+The information in this article is useful for understanding old scripts.
+
+That's not how we write new code.
+>>>>>>> 3c934b5a46a76861255e3a4f29da6fd54ab05c8c
 ```
 
 ذكرنا في أوائل الفصول حين تكلمنا عن [المتغيرات](info:variables), ذكرنا ثلاث طرائق للتصريح عنها:
@@ -268,11 +275,11 @@ function go() {
 ```js run
 // Ways to create IIFE
 
-(function() {
+*!*(*/!*function() {
   alert("Parentheses around the function");
 }*!*)*/!*();
 
-(function() {
+*!*(*/!*function() {
   alert("Parentheses around the whole thing");
 }()*!*)*/!*;
 

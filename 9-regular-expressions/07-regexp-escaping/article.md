@@ -5,9 +5,15 @@
 هناك رموز خاصة أخرى كذلك, التى لها معنى خاص فى المصطلحات العادية. يتم استخدامها لإجراء عمليات بحث أكثر قوة .
 فيما يلى قائمة كاملة بها: `pattern:[\ ^ $ . | ? * + ( )`.
 
+<<<<<<< HEAD
 لا تحاول تذكر القائمة -- قريبا سنتعامل مع كل منهم على حدة وستعرفهم عن ظهر قلب تلقائيًا
 
 ## التخطى
+=======
+There are other special characters as well, that have special meaning in a regexp, such as `pattern:[ ] { } ( ) \ ^ $ . | ? * +`. They are used to do more powerful searches.
+
+Don't try to remember the list -- soon we'll deal with each of them, and you'll know them by heart automatically.
+>>>>>>> 3c934b5a46a76861255e3a4f29da6fd54ab05c8c
 
 لنفترض أننا نريد إيجاد نقطة حرفيا. ليس "اى حرف"
 لكن مجرد نقطة.
@@ -69,7 +75,11 @@ alert('الفصل 5.1'.match(regexp)); // null
 
 السبب هوا أن الشرط المائلة "تستهلك" بواسطة النص, كما قد نتذكر, النصوص العادية لديها رموز خاصة بها, مثل `n\`, والشرطة المائلة للخلف تستخدم فى التخطى.
 
+<<<<<<< HEAD
 إليك كيف ينظر الى "\d\.\d" :
+=======
+Here's how "\d\.\d" is perceived:
+>>>>>>> 3c934b5a46a76861255e3a4f29da6fd54ab05c8c
 
 ```js run
 alert('d.d'); // d.d

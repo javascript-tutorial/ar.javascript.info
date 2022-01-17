@@ -1,83 +1,83 @@
-# LocalStorage, sessionStorage
+# LocalStorage التخزين المحلي, sessionStorage تخزين الجلسة
 
-Web storage objects `localStorage` and `sessionStorage` allow to save key/value pairs in the browser.
+كائنات تخزين الويب `localStorage` و `sessionStorage` تُتيح حفظَ أزواج المفتاح/القيمة في المتصفح.
 
-What's interesting about them is that the data survives a page refresh (for `sessionStorage`) and even a full browser restart (for `localStorage`). We'll see that very soon.
+المثير للاِهتمام بشأنهما هو أنَّ البيانات تبقى بعدَ تحديث الصفحة (بالنسبة لتخزين الجلسة `sessionStorage`) و حتى بعد إعادة تشغيل المتصفح بالكامل (بالنسبة للتخزين المحلي `localStorage`). سوف نرى ذلك قريبًا.
 
-We already have cookies. Why additional objects?
+لدينا ملفات تعريف الارتباط بالفعل. لِمَ المزيد من الكائنات؟
 
-- Unlike cookies, web storage objects are not sent to server with each request. Because of that, we can store much more. Most browsers allow at least 2 megabytes of data (or more) and have settings to configure that.
-- Also unlike cookies, the server can't manipulate storage objects via HTTP headers. Everything's done in JavaScript.
-- The storage is bound to the origin (domain/protocol/port triplet). That is, different protocols or subdomains infer different storage objects, they can't access data from each other.
+- على عكس ملفات تعريف الارتباط، لا يتم إرسال كائنات تخزين الويب إلى الخادم مع كل طلب. لذلك السبب، بإمكاننا تخزين المزيد. أغلب المتصفحات تسمح بـ 2 ميقابايت من البيانات على الأقل 
+- أيضا على عكس ملفات تعريف الارتباط، لا يمكن للخادم التحكم بكائنات التخزين عبر رؤوس الHTTP. كل شيء يتم عمله في جافا سكريبت
+- التخزين مربوط بالأصل (المجال/البروتوكول/المنفذ الثلاثي) . مما يعني أنَّ البروتوكولات أو المجالات الفرعية المختلفة تستنتج كائنات تخزين مختلفة، ولا يمكنها الوصول إلى البيانات من بعضها البعض.
 
-Both storage objects provide same methods and properties:
+يقوم كِلا كائِنَي التخزين بتوفير توابع وخصائص متماثلة:
 
-- `setItem(key, value)` -- store key/value pair.
-- `getItem(key)` -- get the value by key.
-- `removeItem(key)` -- remove the key with its value.
-- `clear()` -- delete everything.
-- `key(index)` -- get the key on a given position.
-- `length` -- the number of stored items.
+- `setItem(key, value)` -- خَزِّن زوج المفتاح/القيمة.
+- `getItem(key)` -- احْصُل على القيمة بواسطة المفتاح.
+- `removeItem(key)` -- قُم بإزالةالمفتاح مع قيمته.
+- `clear()` -- احذف كل شيء.
+- `key(index)` -- احْصُل على المفتاح في مكان محدَّد.
+- `length` -- عدد العناصر المُخَزَّنة.
 
-As you can see, it's like a `Map` collection (`setItem/getItem/removeItem`), but also allows access by index with `key(index)`.
+كما ترى، إنها تشبه مجموعة الخارطة `Map` (`setItem/getItem/removeItem`), لكنها تسمح أيضًا بالوصول عن طريق الفهرس بواسطة `key(index)`.
 
-Let's see how it works.
+دعنا نرى كيف تعمل.
 
-## localStorage demo
+## localStorage مثال تجريبي للتخزين المحلي
 
-The main features of `localStorage` are:
+الخصائص الأساسية للتخزين المحلي `localStorage` هي:
 
-- Shared between all tabs and windows from the same origin.
-- The data does not expire. It remains after the browser restart and even OS reboot.
+- مشترك بين جميع علامات التبويب والنوافذ من نفس الأصل.
+- البيانات لا تنتهي صلاحيتها. بل تبقى حتى بعد إعادة تشغيل المتصفح وإعادة تشغيل النظام أيضًا.
 
-For instance, if you run this code...
+على سبيل المثال، إذا قمت بتشغيل هذه الشَّفْرَة...
 
 ```js run
 localStorage.setItem('test', 1);
 ```
 
-...And close/open the browser or just open the same page in a different window, then you can get it like this:
+...و قمت بإغلاق/فتح المتصفح أو قمت فقط بفتح الصفحة نفسها في نافذة أخرى، يمكنك عندها الحصول عليها كالتالي:
 
 ```js run
 alert( localStorage.getItem('test') ); // 1
 ```
 
-We only have to be on the same origin (domain/port/protocol), the url path can be different.
+علينا فقط أن نكون على نفس الأصل (المجال/المنفذ/البروتوكول)، بينما يمكن أن يكون مسار الـurl مختلفًا.
 
-The `localStorage` is shared between all windows with the same origin, so if we set the data in one window, the change becomes visible in another one.
+التخزين المحلي `localStorage` مشترك بين جميع النوافذ من نفس الأصل، لذلك إذا قمنا بتعيين البيانات في أحد النوافذ فإن التغيير سيظهر في نافذة أخرى.
 
-## Object-like access
+## الوصول الكائني
 
-We can also use a plain object way of getting/setting keys, like this:
+نستطيع أيضًا استخدام طريقة الكائن العادي في الحصول على/تعيين المفاتيح كالتالي:
 
 ```js run
-// set key
+// تعيين المفتاح
 localStorage.test = 2;
 
-// get key
+// الحصول على المفتاح
 alert( localStorage.test ); // 2
 
-// remove key
+// إزالة المفتاح
 delete localStorage.test;
 ```
 
-That's allowed for historical reasons, and mostly works, but generally not recommended, because:
+مسموح بذلك لأسباب تاريخية وغالبًا ما يعمل، ولكن بشكل عام لا يوصى به للأسباب التالية:
 
-1. If the key is user-generated, it can be anything, like `length` or `toString`, or another built-in method of `localStorage`. In that case `getItem/setItem` work fine, while object-like access fails:
+1. إذا كان المفتاح من إنشاء المستخدم، فمن المحتمل أن يكون أيَّ شيء كـ `length` أو `toString`، أو أحد التوابع المضمنة في التخزين المحلي `localStorage`. في تلك الحالة ستعمل `getItem/setItem` بشكل صحيح، بينما سيتعثر الوصول الكائني:
     ```js run
     let key = 'length';
-    localStorage[key] = 5; // Error, can't assign length
+    localStorage[key] = 5; // خطأ، لا يمكن تعيين الـlength
     ```
 
-2. There's a `storage` event, it triggers when we modify the data. That event does not happen for object-like access. We'll see that later in this chapter.
+2. هناك حدث للـ`storage` يتم إطلاقه عندما نقوم بتعديل البيانات. ذلك الحدث لا يتم إطلاقه في حال الوصول الكائني. سوف نرى ذلك لاحقًا في هذا الفصل.
 
-## Looping over keys
+## التكرار على المفاتيح
 
-As we've seen, the methods provide "get/set/remove by key" functionality. But how to get all saved values or keys?
+كما رأينا، تقوم التوابع بتوفير وظائف الـ "حصول/تعيين/إزالة بواسطة المفتاح". ولكن كيف يمكن الحصول على كل القيم أو المفاتيح المُخزَّنة؟ 
 
-Unfortunately, storage objects are not iterable.
+للأسف، كائنات التخزين ليست تِكْرارية.
 
-One way is to loop over them as over an array:
+أحد الطرق هو القيامُ بالتِكْرار عليها مثلَ التكرار على مصفوفةِِ ما:
 
 ```js run
 for(let i=0; i<localStorage.length; i++) {
@@ -86,29 +86,29 @@ for(let i=0; i<localStorage.length; i++) {
 }
 ```
 
-Another way is to use `for key in localStorage` loop, just as we do with regular objects.
+الطريقة الأخرى هي التكرار باستخدام `for key in localStorage`، كما نفعل مع الكائنات المعتادة.
 
-It iterates over keys, but also outputs few built-in fields that we don't need:
+تقوم بالتكرار على المفاتيح، ولكنها تُنتج قليلًا من الحقول المدمجة التي لا نحتاجها :
 
 ```js run
-// bad try
+// محاولة غير جيدة
 for(let key in localStorage) {
-  alert(key); // shows getItem, setItem and other built-in stuff
+  alert(key); // تقوم بإظهار getItem، setItem و الأشياء المدمجة الأخرى
 }
 ```
 
-...So we need either to filter fields from the prototype with `hasOwnProperty` check:
+...لذلك نحن بحاجة إما إلى تصفية الحقول من الـprototype مع التحقق من `hasOwnProperty` :
 
 ```js run
 for(let key in localStorage) {
   if (!localStorage.hasOwnProperty(key)) {
-    continue; // skip keys like "setItem", "getItem" etc
+    continue; // وغيرها "setItem"، "getItem"تخطى المفاتيح المشابهة لـ
   }
   alert(`${key}: ${localStorage.getItem(key)}`);
 }
 ```
 
-...Or just get the "own" keys with `Object.keys` and then loop over them if needed:
+...أو احصل على المفاتيح الخاصة بواسطة `Object.keys` ثم قم بالتكرار عليها إذا لزم الأمر :
 
 ```js run
 let keys = Object.keys(localStorage);
@@ -117,92 +117,92 @@ for(let key of keys) {
 }
 ```
 
-The latter works, because `Object.keys` only returns the keys that belong to the object, ignoring the prototype.
+الخيار الأخير يعمل، لأن `Object.keys` تقوم بإرجاع المفاتيح التي تنتمي إلى الكائن فقط، متجاهلةً الـ prototype.
 
 
-## Strings only
+## نصوص فقط
 
-Please note that both key and value must be strings.
+يُرجى الملاحظة بأن كلًّا من المفتاح والقيمة يجب أن يكونا نصوصًا.
 
-If were any other type, like a number, or an object, it gets converted to string automatically:
+إذا كانا أي نوع آخر كرقم أو كائن فسيتم تحويلهما إلى نص تلقائيًّا:
 
 ```js run
 sessionStorage.user = {name: "John"};
 alert(sessionStorage.user); // [object Object]
 ```
 
-We can use `JSON` to store objects though:
+على الرغم من ذلك يمكننا استخدام `JSON` لتخزين الكائنات:
 
 ```js run
 sessionStorage.user = JSON.stringify({name: "John"});
 
-// sometime later
+// في وقتٍ ما لاحقًا
 let user = JSON.parse( sessionStorage.user );
 alert( user.name ); // John
 ```
 
-Also it is possible to stringify the whole storage object, e.g. for debugging purposes:
+من الممكن أيضًا تحويل كائن التخزين بأكمله إلى نص لغرض تصحيح الأخطاء مثلًا:
 
 ```js run
-// added formatting options to JSON.stringify to make the object look nicer
+// تم إضافة خيارات التنسيق إلى JSON.stringify لجعل الكائن يبدو أجمل 
 alert( JSON.stringify(localStorage, null, 2) );
 ```
 
 
-## sessionStorage
+## sessionStorage تخزين الجلسة
 
-The `sessionStorage` object is used much less often than `localStorage`.
+يُستخدم كائن تخزين الجلسة `sessionStorage` بشكل أقل بكثير من التخزين المحلي `localStorage`.
 
-Properties and methods are the same, but it's much more limited:
+الخصائص والتوابع متماثلة، ولكنها محدودة بشكل أكبر:
 
-- The `sessionStorage` exists only within the current browser tab.
-  - Another tab with the same page will have a different storage.
-  - But it is shared between iframes in the same tab (assuming they come from the same origin).
-- The data survives page refresh, but not closing/opening the tab.
+- يتواجد تخزين الجلسة `sessionStorage` في علامة التبويب الحالية للمتصفح فقط .
+  - سيكون هناك مساحة تخزين مختلفة لعلامة تبويب أخرى بنفس الصفحة.
+  - لكنها مشتركة بين الiframes في نفس علامة التبويب (على افتراض أنهم من نفس الأصل)
+- تبقى البيانات بعد تحديث الصفحة، ولكن ليس بعد إغلاق/فتح علامة التبويب.
 
-Let's see that in action.
+دعونا نرى ذلك.
 
-Run this code...
+قُم بتشغيل هذه الشَفْرة...
 
 ```js run
 sessionStorage.setItem('test', 1);
 ```
 
-...Then refresh the page. Now you can still get the data:
+...ثم قُم بتحديث الصفحة. لا زال بإمكانك الآن الحصول على البيانات:
 
 ```js run
-alert( sessionStorage.getItem('test') ); // after refresh: 1
+alert( sessionStorage.getItem('test') ); // بعد التحديث: 1
 ```
 
-...But if you open the same page in another tab, and try again there, the code above returns `null`, meaning "nothing found".
+...ولكن إذا قمت بفتح نفس الصفحة في علامة تبويب أخرى، و أعدت المحاولة هناك، فإنَّ الشفرة في الأعلى ستقوم بإرجاع `null`، أي "لم يتم العثور على أي شيء".
 
-That's exactly because `sessionStorage` is bound not only to the origin, but also to the browser tab. For that reason, `sessionStorage` is used sparingly.
+وذلك بالضبط لأنَّ تخزين الجلسة `sessionStorage` ليس مرتبط بالأصل فحسب، بل بعلامة تبويب المتصفح أيضًا. لذلك السبب فإنَّ تخزين الجلسة `sessionStorage` يُستخدم بشكل مُقْتصَد.
 
-## Storage event
+## حدث التخزين
 
-When the data gets updated in `localStorage` or `sessionStorage`, [storage](https://www.w3.org/TR/webstorage/#the-storage-event) event triggers, with properties:
+عندما يتم تحديث البيانات في التخزين المحلي `localStorage`  أو تخزين الجلسة `sessionStorage`، يتم إطلاق حدث التخزين [storage](https://www.w3.org/TR/webstorage/#the-storage-event)، بالخصائص التالية:
 
-- `key` – the key that was changed (`null` if `.clear()` is called).
-- `oldValue` – the old value (`null` if the key is newly added).
-- `newValue` – the new value (`null` if the key is removed).
-- `url` – the url of the document where the update happened.
-- `storageArea` – either `localStorage` or `sessionStorage` object where the update happened.
+- `key` – المفتاح الذي تم تغييره (`null` إذا تم استدعاء `.clear()`).
+- `oldValue` – القيمة القديمة (`null` إذا تمَّت إضافة المفتاح حديثًا).
+- `newValue` – القيمة الجديدة (`null` إذا تمَّت إزالة المفتاح).
+- `url` – عنوان الurl الخاص بالمستند الذي تم فيه التحديث.
+- `storageArea` – إمَّا كائن التخزين المحلي `localStorage` أو تخزين الجلسة `sessionStorage` حيث تم التحديث.
 
-The important thing is: the event triggers on all `window` objects where the storage is accessible, except the one that caused it.
+الشيء المهم هو أنَّ الحدث يتم إطلاقه على جميع كائنات الـ `window` حيث الوصول إلى مساحة التخزين ممكن باستثناء الكائن الذي تسبَّبَ في ذلك.
 
-Let's elaborate.
+دعنا نقوم بالتوضيح.
 
-Imagine, you have two windows with the same site in each. So `localStorage` is shared between them.
+تخيل أنَّ لديك نافِذَتان بنفس الموقع الإلكتروني في كلٍّ منهما. حيث سيكون التخزين المحليُّ `localStorage` مشتركٌ بَينهُما.
 
 ```online
-You might want to open this page in two browser windows to test the code below.
+قد ترغبُ في فتح هذهِ الصفحةِ في نافذتين للمتصفح لاختبار الشفرة أدناه.
 ```
 
-If both windows are listening for `window.onstorage`, then each one will react on updates that happened in the other one.
+إذا كانت كِلا النافذتين تستمعان لـ `window.onstorage`، فستقوم كلًّا منهما بالتفاعل معَ التحديث الذي يتمُّ في النافذةِ الأخرى.
 
 ```js run
-// triggers on updates made to the same storage from other documents
-window.onstorage = event => { // same as window.addEventListener('storage', event => {
+// تُطلق نتيجة تحديثات لنفس مساحة التخزين من مستندات أُخرى
+window.onstorage = event => { // مُماثل لـ window.addEventListener('storage', event => {
   if (event.key != 'now') return;
   alert(event.key + ':' + event.newValue + " at " + event.url);
 };
@@ -210,40 +210,40 @@ window.onstorage = event => { // same as window.addEventListener('storage', even
 localStorage.setItem('now', Date.now());
 ```
 
-Please note that the event also contains: `event.url` -- the url of the document where the data was updated.
+يُرجى الملاحظة بأنَّ الحدث يحتوي أيضًا على: `event.url` -- عنوان الurl الخاص بالمستند الذي تم تحديث البيانات فيه.
 
-Also, `event.storageArea` contains the storage object -- the event is the same for both `sessionStorage` and `localStorage`, so `event.storageArea` references the one that was modified. We may even want to set something back in it, to "respond" to a change.
+يحتوي `event.storageArea` أيضًا على كائن التخزين-- الحدث هو نفسه لكلِِّ من تخزين الجلسة `sessionStorage` و التخزين المحلي `localStorage`، لذلك يقوم `event.storageArea` بالإشارة إلى كائن التخزين الذي تم تعديله. قد نرغب أيضًا بالقيام بتعيين شيءِِ ما في هذا الكائن كاستجابة لتغيير معين.
 
-**That allows different windows from the same origin to exchange messages.**
+**يسمح ذلك لنوافذ مختلفة من نفس الأصل أن تتبادل الرسائل**
 
-Modern browsers also support [Broadcast channel API](mdn:/api/Broadcast_Channel_API), the special API for same-origin inter-window communication, it's more full featured, but less supported. There are libraries that polyfill that API, based on `localStorage`, that make it available everywhere.
+تدعم المتصفحات الحديثة أيضًا API قناة البث [Broadcast channel API](mdn:/api/Broadcast_Channel_API)، الAPI الخاص للاتصال بين النوافذ من نفس الأصل، يتمتع هذا الAPI بمميزات أكثر لكنه أقل دعمًا. هناك مكتبات تقوم بتغطية الجوانب الغير مدعومة في ذلك الAPI استنادًا إلى التخزين المحلي `localStorage` مما يجعلها متوفرة في كل مكان.
 
-## Summary
+## ملخص
 
-Web storage objects `localStorage` and `sessionStorage` allow to store key/value in the browser.
-- Both `key` and `value` must be strings.
-- The limit is 5mb+, depends on the browser.
-- They do not expire.
-- The data is bound to the origin (domain/port/protocol).
+تقوم كائنات تخزين الويب التخزين المحلي `localStorage` و تخزين الجلسة `sessionStorage` بإتاحة تخزين المفتاح/القيمة في المتصفح.
+- لابد أن يكون كلًّا من المفتاح `key` والقيمة `value` سلاسل نصية.
+- الحد هو 5mb+، حسب المتصفح.
+- صلاحيتها لا تنتهي.
+- البيانات مرتبطة بالأصل (المجال/المنفذ/البروتوكول).
 
 | `localStorage` | `sessionStorage` |
 |----------------|------------------|
-| Shared between all tabs and windows with the same origin | Visible within a browser tab, including iframes from the same origin |
-| Survives browser restart | Survives page refresh (but not tab close) |
+| مشتركة بين جميع علامات التبويب والنوافذ من نفس الأصل | مرئية بداخل علامة تبويب المتصفح إضافةً للـiframes من نفس الأصل |
+| تبقى بعد إعادة تشغيل المتصفح | تبقى بعد تحديث الصفحة (ولكن ليس بعد إغلاق علامة التبويب) |
 
 API:
 
-- `setItem(key, value)` -- store key/value pair.
-- `getItem(key)` -- get the value by key.
-- `removeItem(key)` -- remove the key with its value.
-- `clear()` -- delete everything.
-- `key(index)` -- get the key number `index`.
-- `length` -- the number of stored items.
-- Use `Object.keys` to get all keys.
-- We access keys as object properties, in that case `storage` event isn't triggered.
+- `setItem(key, value)` -- تخزين زوج المفتاح/القيمة.
+- `getItem(key)` -- الحصول على القيمة بواسطة المفتاح.
+- `removeItem(key)` -- إزالة المفتاح مع قيمته.
+- `clear()` -- حذف كل شيء.
+- `key(index)` -- الحصول على رقم المفتاح `index`.
+- `length` -- عدد العناصر المخزنة.
+- استخدم `Object.keys` للحصول على كل المفاتيح.
+- عند الوصول إلى المفاتيح عن طريق خصائص الكائن فإنَّ حدث التخزين `storage` لا يتم إطلاقه.
 
-Storage event:
+حدث التخزين:
 
-- Triggers on `setItem`, `removeItem`, `clear` calls.
-- Contains all the data about the operation (`key/oldValue/newValue`), the document `url` and the storage object `storageArea`.
-- Triggers on all `window` objects that have access to the storage except the one that generated it (within a tab for `sessionStorage`, globally for `localStorage`).
+- يتم إطلاقه في حال استدعاء `setItem`، `removeItem`، `clear`.
+- يحتوي على كل البيانات الخاصة بالعملية (`key/oldValue/newValue`)، عنوان الـ`url` للمستند وكائن التخزين `storageArea`.
+- يتم إطلاقه على كل كائنات الـ `window` التي يمكنها الوصول إلى مساحة التخزين ماعدا تلك التي قامت بتوليدها (عبر علامة تبويب بالنسبة لتخزين الجلسة `sessionStorage`، عموميًّا بالنسبة للتخزين المحلي `localStorage`).

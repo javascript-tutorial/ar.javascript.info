@@ -4,7 +4,28 @@
 
 فى هذه الحالة، تتحول الكائنات إلى قيم فردية تلقائيًا، ثم يتم تنفيذ هذه العملية الحسابية.
 
+<<<<<<< HEAD
 فى قسم (تحويل الأنواع) رأينا كيف يمكن تحويل النصوص (strings) والأرقام والقيَم المنطقيه (booleans) إلى قيم فردية. ولكننا تركنا مساحة فارغة من أجل الكائنات. والآن بعد أن عرفنا الكثير عن الدوال (methods) والرموز (symbols)، أصبح الآن ممكنًا أن نملأ هذه المساحه.
+=======
+JavaScript doesn't exactly allow to customize how operators work on objects. Unlike some other programming languages, such as Ruby or C++, we can't implement a special object method to handle an addition (or other operators).
+
+In case of such operations, objects are auto-converted to primitives, and then the operation is carried out over these primitives and results in a primitive value.
+
+That's an important limitation, as the result of `obj1 + obj2` can't be another object!
+
+E.g. we can't make objects representing vectors or matrices (or achievements or whatever), add them and expect a "summed" object as the result. Such architectural feats are automatically "off the board".
+
+So, because we can't do much here, there's no maths with objects in real projects. When it happens, it's usually because of a coding mistake.
+
+In this chapter we'll cover how an object converts to primitive and how to customize it.
+
+We have two purposes:
+
+1. It will allow us to understand what's going on in case of coding mistakes, when such an operation happened accidentally.
+2. There are exceptions, where such operations are possible and look good. E.g. subtracting or comparing dates (`Date` objects). We'll come across them later.
+
+## Conversion rules
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 1. كل الكائنات عند تحويلها إلى قيمه منطقيه (boolean) فإن قيمتها تساوى `true`. وبالتالى فإن التحويلات المتاحة هي التحويل إلى نص أو رقم.
 
@@ -12,6 +33,7 @@
 
 3. وبالنسبه إلى التحويل إلى نص -- فإنه يحدث عادة عند طباعة الكائن باستخدام دالة التنبيه `alert(obj)` والدوال المشابهة.
 
+<<<<<<< HEAD
 ## ToPrimitive
 
 يمكننا التحكم فى التحويل إلى نص أو رقم، باستخدام بعض دوال الكائنات.
@@ -19,6 +41,13 @@
 هناك ثلاث ملاحظات مختلفه على تحويل الأنواع ويطلق عليها "hints" وتم ذكرها فى [المصدر](https://tc39.github.io/ecma262/#sec-toprimitive):
 
 `"النص"`
+=======
+We can fine-tune string and numeric conversion, using special object methods.
+
+There are three variants of type conversion, that happen in various situations.
+
+They're called "hints", as described in the [specification](https://tc39.github.io/ecma262/#sec-toprimitive):
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 : يحدث التحويل إلى نص عندما نقوم بعملية معينه على كائن تتوقع نصًا لا كائنًا مثل دالة التنبيه `alert`:
 
@@ -87,12 +116,19 @@ if (user == 1) { ... };
 
 ```js
 obj[Symbol.toPrimitive] = function(hint) {
-  // must return a primitive value
+  // here goes the code to convert this object to a primitive
+  // it must return a primitive value
   // hint = one of "string", "number", "default"
 };
 ````
 
+<<<<<<< HEAD
 على سبيل المثال, يطبق هذه الطريقه الكائن `user`:
+=======
+If the method `Symbol.toPrimitive` exists, it's used for all hints, and no more methods are needed.
+
+For instance, here `user` object implements it:
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 ```js run
 let user = {
@@ -115,12 +151,21 @@ alert(user + 500); // hint: default -> 1500
 
 ## toString/valueOf
 
+<<<<<<< HEAD
 الدوال `toString` و `valueOf`موجوده من قديم الأزل. إنهم ليسو رموزًا ولكنهم دوال تستعمل مع النصوص. ويقومون بتوفير طريقة قديمه للقيام بالتحويل.
 
 إذا لم يكن هناك `Symbol.toPrimitive` فإن جافا سكريبت تقوم بالبحث عنهمو استخدامهم بالترتيب الآتى:
 
 - `toString -> valueOf` فى الطريقه النصيه.
 - `valueOf -> toString` غير ذلك.
+=======
+If there's no `Symbol.toPrimitive` then JavaScript tries to find methods `toString` and `valueOf`:
+
+- For the "string" hint: `toString`, and if it doesn't exist, then `valueOf` (so `toString` has the priority for string conversions).
+- For other hints: `valueOf`, and if it doesn't exist, then `toString` (so `valueOf` has the priority for maths).
+
+Methods `toString` and `valueOf` come from ancient times. They are not symbols (symbols did not exist that long ago), but rather "regular" string-named methods. They provide an alternative "old-style" way to implement the conversion.
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 هذه الدوال لابد أن تقوم بإرجاع قيمه فردية. فإذا قامت هاتان الدالتان بإرجاع كائن فسيتم تجاهله.
 
@@ -140,9 +185,15 @@ alert(user.valueOf() === user); // true
 
 لذلك إذا حاولنا أن نستخدم الكائن كنص، كما فى حالة استخدام الداله النصيه `alert` سنرى بشكل افتراضي `[object object]`.
 
+<<<<<<< HEAD
 الداله `valueOf` تم ذكرها هنا فقط لإكمال المعلومات ولتجنب أى التباس. فكما ترى فإن هذه الداله تقوم بإرجاع الكائن نفسه وبالتالى يتم تجاهله. لا تسأل لماذا فهذا لأسباب متأصله historical reasons. ولذلك يمكننا اعتبار أنها غير موجوده.
 
 هيا نقوم باستخدام هذه الدوال.
+=======
+The default `valueOf` is mentioned here only for the sake of completeness, to avoid any confusion. As you can see, it returns the object itself, and so is ignored. Don't ask me why, that's for historical reasons. So we can assume it doesn't exist.
+
+Let's implement these methods to customize the conversion.
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 على سبيل المثال، فإن الكائن `user` هنا يقوم بنفس التصرف أعلاه عند استخدام خليط من `toString` و `valueOf` بدلًا من `Symbol.toPrimitive`:
 
@@ -186,7 +237,11 @@ alert(user + 500); // toString -> John500
 
 فى حالة غياب `Symbol.toPrimitive` و `valueOf` فإن `toString` ستقوم بالتعامل مع كل حالات التحويل إلى قيم فرديه.
 
+<<<<<<< HEAD
 ## أنواع القيم المسترجعه
+=======
+### A conversion can return any primitive type
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 هناك شئ مهم يجب أن تعرفه وهو أن كل طرق التحويل إلى قيم مفرده لا يجب بالضروره أن تقوم بإرجاع نفس نوع القيمه المفرده المحوَّله إليه.
 
@@ -261,4 +316,10 @@ alert(obj + 2); // 22 ("2" + 2), conversion to primitive returned a string => co
 3. غير ذلك إذا كانت الطريقة `"رقمًا"` أو `"الطريقة الإفتراضيه"`
    - استخدام `obj.valueOf()` أو `obj.toString()` فى حالة وجود أى منهم.
 
+<<<<<<< HEAD
 ويكفى عمليًا استخدام `obj.toString()` لكل التحويلات والتى تقوم بإرجاع قيمة يمكن قرائتها من أجل الطباعة أو البحث عن الأخطاء.
+=======
+In practice, it's often enough to implement only `obj.toString()` as a "catch-all" method for string conversions that should return a "human-readable" representation of an object, for logging or debugging purposes.  
+
+As for math operations, JavaScript doesn't provide a way to "override" them using methods, so real life projects rarely use them on objects.
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad

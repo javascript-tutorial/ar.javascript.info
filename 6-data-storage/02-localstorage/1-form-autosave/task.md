@@ -1,10 +1,10 @@
 
-# Autosave a form field
+# حفظ تلقائي لحقل النموذج
 
-Create a `textarea` field that "autosaves" its value on every change.
+قم ببناء حقل `textarea` يحفظ قيمته تلقائيًّا نتيجة أي تغيير.
 
-So, if the user accidentally closes the page, and opens it again, he'll find his unfinished input at place.
+فإِذا أغلَق المستخدمُ الصفحةَ عن طريق  الخطأ ثم فتحها مرة أخرى فسيجد المدخلات التي كانت قيد التحرير في مكانها.
 
-Like this:
+هكذا:
 
 [iframe src="solution" height=120]

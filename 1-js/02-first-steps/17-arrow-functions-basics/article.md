@@ -5,10 +5,14 @@
 تسمى "arrow functions" لأنها تشبه السهم:
 
 ```js
-let func = (arg1, arg2, ..., argN) => expression
+let func = (arg1, arg2, ..., argN) => expression;
 ```
 
+<<<<<<< HEAD
 ...هذا ينشئ دالة `func` تأخذ قيم `arg1..argN` وتنفذ `expression` الطرف الأيمن باستخدامهم وترجع النتيجة.
+=======
+This creates a function `func` that accepts arguments `arg1..argN`, then evaluates the `expression` on the right side with their use and returns its result.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 بصيغة أخرى فهي إختصار ل:
 
@@ -33,7 +37,11 @@ let sum = function(a, b) {
 alert(sum(1, 2)); // 3
 ```
 
+<<<<<<< HEAD
 كما ترى فإن `(a, b) => a + b` تعني أن الدالة تستقبل قيمتين `a` و `b`. وتنفذ التعبير `a + b` وترجع نتيجته.
+=======
+As you can see, `(a, b) => a + b` means a function that accepts two arguments named `a` and `b`. Upon the execution, it evaluates the expression `a + b` and returns the result.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 -   إذا كان لديك معامل واحد فقط فيمكن حذف الأقواس الدائرية من حوله لجعل التعبير أقصر.
 

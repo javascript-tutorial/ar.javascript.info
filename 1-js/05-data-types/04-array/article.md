@@ -371,9 +371,13 @@ alert( arr[0] ); // غير معرف! لا توجد عناصر.
 alert( arr.length ); // الطول 2
 ```
 
+<<<<<<< HEAD
 في الكود أعلاه, `مصفوفه جديده(رقم)` تكون لديها كل العناصر `غير معرفه`.
 
 للتهرب من هذه المفاجآت ، نستخدم عادةً الأقواس المربعة ، إلا إذا كنا نعرف حقًا ما نقوم به.
+=======
+To avoid such surprises, we usually use square brackets, unless we really know what we're doing.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 ## مصفوفات متعدده الأبعاد
 

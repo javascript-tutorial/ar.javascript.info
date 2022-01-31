@@ -381,7 +381,12 @@ More explanations about how it works:
   let count = 0;
 
   for await (const commit of fetchCommits('javascript-tutorial/en.javascript.info')) {
+<<<<<<< HEAD
     console.log(commit.author.login);
+=======
+
+    console.log(commit.author.name);
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
 
     if (++count == 100) {
       // let's stop at 100 commits
@@ -389,6 +394,8 @@ More explanations about how it works:
     }
   }
 })();
+
+// Note: If you are running this in an external sandbox, you'll need to paste here the function fetchCommits described above 
 ```
 
 That's just what we wanted.

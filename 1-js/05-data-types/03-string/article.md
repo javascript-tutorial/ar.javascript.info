@@ -92,7 +92,7 @@ alert(str1 == str2); // true
 | Character | Description |
 |-----------|-------------|
 |`\n`|New line|
-|`\r`|Carriage return: not used alone. Windows text files use a combination of two characters `\r\n` to represent a line break. |
+|`\r`|In Windows text files a combination of two characters `\r\n` represents a new break, while on non-Windows OS it's just `\n`. That's for historical reasons, most Windows software also understands `\n`. |
 |`\'`, `\"`|Quotes|
 |`\\`|Backslash|
 |`\t`|Tab|
@@ -532,7 +532,12 @@ alert( str );
 - تأتي الأحرف الصغيرة بعد الأحرف الكبيرة دائمًا لأن رموزها العددية دائمًا أكبر.
 - تكون بعض الأحرف مثل `Ö` بعيدة عن الأحرف الهجائية. هنا، قيمة الحرف هذا أكبر من أي حرف بين `a` و `z`.
 
+<<<<<<< HEAD
 ### موازنات صحيحة
+=======
+- All lowercase letters go after uppercase letters because their codes are greater.
+- Some letters like `Ö` stand apart from the main alphabet. Here, its code is greater than anything from `a` to `z`.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 ### Correct comparisons [#correct-comparisons]
 

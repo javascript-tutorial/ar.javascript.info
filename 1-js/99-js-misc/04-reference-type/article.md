@@ -3,7 +3,14 @@
 ```warn header="خصائص متقدمه فى اللغه"
 هذه المقالة تقوم بتغطية موضوع متقدم, لفهم بعض الحالات بشكل أفضل.
 
+<<<<<<< HEAD
 إنها ليست مهمة. يعيش العديد من المطورين ذوي الخبرة بشكل جيد دون معرفة ذلك. تابع القراءة إذا كنت تريد معرفة كيفية عمل الأشياء خلف الكواليس.
+=======
+```warn header="In-depth language feature"
+This article covers an advanced topic, to understand certain edge-cases better.
+
+It's not important. Many experienced developers live fine without knowing it. Read on if you want to know how things work under the hood.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 ```
 
 قد تفقد استدعاء تابع تم تقييمه بشكل ديناميكي `this`.

@@ -35,7 +35,14 @@
 - [Notepad++](https://notepad-plus-plus.org/) (الويندوز، مجاني).
 - [Vim](http://www.vim.org/) و [Emacs](https://www.gnu.org/software/emacs/) رائعة إذا كنت تعرف كيفية استخدامها.
 
+<<<<<<< HEAD
 ## دعونا لا نتشاجر
+=======
+- [Atom](https://atom.io/) (cross-platform, free).
+- [Sublime Text](http://www.sublimetext.com) (cross-platform, shareware).
+- [Notepad++](https://notepad-plus-plus.org/) (Windows, free).
+- [Vim](http://www.vim.org/) and [Emacs](https://www.gnu.org/software/emacs/) are also cool if you know how to use them.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 المحررات أعلاه هي التي نقوم باستخدامها أنا وأصدقائي، والذين أعتقد أنهم مطورون جيدون يستخدمونها منذ وقت طويل وتسعدهم.
 

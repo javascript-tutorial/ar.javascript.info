@@ -12,7 +12,13 @@ function sayHi() {
 
 هناك طريقة أخرى لعمل دالة وتسمى _Function Expression_.
 
+<<<<<<< HEAD
 كالتالي:
+=======
+It allows us to create a new function in the middle of any expression.
+
+For example:
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 ```js
 let sayHi = function () {
@@ -20,9 +26,25 @@ let sayHi = function () {
 };
 ```
 
+<<<<<<< HEAD
 هنا تم عمل الدالة وتخزينها في متغير مثل أي قيمة أخرى ولا يهم كيف تم تعريفها. هي فقط تخزن في متغير اسمه `sayHi`.
 
 معنى هذا الكود كالآتي: "إنشئ دالةوضعها في المتغير `sayHi`".
+=======
+Here we can see a variable `sayHi` getting a value, the new function, created as `function() { alert("Hello"); }`.
+
+As the function creation happens in the context of the assignment expression (to the right side of `=`), this is a *Function Expression*.
+
+Please note, there's no name after the `function` keyword. Omitting a name is allowed for Function Expressions.
+
+Here we immediately assign it to the variable, so the meaning of these code samples is the same: "create a function and put it into the variable `sayHi`".
+
+In more advanced situations, that we'll come across later, a function may be created and immediately called or scheduled for a later execution, not stored anywhere, thus remaining anonymous.
+
+## Function is a value
+
+Let's reiterate: no matter how the function is created, a function is a value. Both examples above store a function in the `sayHi` variable.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 يمكننا حتى طباعة هذه القيمة باستخدام `alert`:
 
@@ -64,11 +86,19 @@ sayHi(); // Hello    //     this still works too (why wouldn't it)
 2. السطر `(2)` ينسخها إلى متغير اسمه `func`. لاحظ عدم وجود أقواس بعد `sayHi`. إذا وجدت الأقواس `func = sayHi()` سيتم وضع نتيجة تنفيذ `sayHi()` داخل `func` وليس الدالة `sayHi` نفسها.
 3. الآن يمكننا استدعاء الدالة عن طريق `sayHi()` أو `func()`.
 
+<<<<<<< HEAD
 لاحظ أنه يمكننا استخدام Function Expression لتعريف `sayHi` في السطر الأول:
 
 ```js
 let sayHi = function () {
     alert("Hello");
+=======
+We could also have used a Function Expression to declare `sayHi`, in the first line:
+
+```js
+let sayHi = function() { // (1) create
+  alert( "Hello" );
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 };
 
 let func = sayHi;
@@ -90,9 +120,15 @@ let sayHi = function() {
 }*!*;*/!*
 ```
 
+<<<<<<< HEAD
 الإجابة بسيطة:
 - لا حاجة للفاصلة المنقوطة `;` في نهاية code blocks والهياكل المشابهة مثل `if { ... }`, `for {  }`, `function f { }` الخ.
 - يتم استخدام Function Expression داخل التعبير: `let sayHi = ...;` كقيمة وليس code block. يفضل استخدام الفاصلة المنقوطة `;` في نهاية التعبيرات مهما كانت القيمة. لذلك فالفاصلة المنقوطة هنا لا تخص Function Expression نفسه ولكنها فقط تنهي التعبير.
+=======
+The answer is simple: a Function Expression is created here as `function(…) {…}` inside the assignment statement: `let sayHi = …;`. The semicolon `;` is recommended at the end of the statement, it's not a part of the function syntax.
+
+The semicolon would be there for a simpler assignment, such as `let sayHi = 5;`, and it's also there for a function assignment.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 ````
 
 ## Callback functions

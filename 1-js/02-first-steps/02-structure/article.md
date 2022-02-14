@@ -46,6 +46,7 @@ alert(3+
 قريبًا خلال الشيفرات التي ستكتبها).
 إذا كنت ترغب في الاطلاع على مثال واقعي عن هذه الحالة، إليك الشيفرة البرمجية التالية:
 
+<<<<<<< HEAD
 ```
 [1, 2].foreach(alert)
 ```
@@ -55,10 +56,36 @@ alert(3+
 ```
 alert("There will be an error")
 [1 ,2].forEach(alert)
+=======
+The code outputs `6` because JavaScript does not insert semicolons here. It is intuitively obvious that if the line ends with a plus `"+"`, then it is an "incomplete expression", so a semicolon there would be incorrect. And in this case, that works as intended.
+
+**But there are situations where JavaScript "fails" to assume a semicolon where it is really needed.**
+
+Errors which occur in such cases are quite hard to find and fix.
+
+````smart header="An example of an error"
+If you're curious to see a concrete example of such an error, check this code out:
+
+```js run
+alert("Hello");
+
+[1, 2].forEach(alert);
+```
+
+No need to think about the meaning of the brackets `[]` and `forEach` yet. We'll study them later. For now, just remember the result of running the code: it shows `Hello`, then `1`, then `2`.
+
+Now let's remove the semicolon after the `alert`:
+
+```js run no-beautify
+alert("Hello")
+
+[1, 2].forEach(alert);
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 ```
 عند تنفيذ الشيفرة البرمجية آنذاك، سيتم إظهار التنبيه الأول فقط ثم سنحصل على خطأ. تعود الشيفرة البرمجية للعمل بشكل
 صحيح مرة أخرى عند إضافة الفاصلة المنقوطة بعد التنبيه الأول:
 
+<<<<<<< HEAD
 ```
 alert("All fine now");
 [1 ,2].forEach(alert)
@@ -72,6 +99,18 @@ alert("All fine now");
 
 ```
 alert("There will be an error")[1, 2].forEach(alert)
+=======
+The difference compared to the code above is only one character: the semicolon at the end of the first line is gone.
+
+If we run this code, only the first `Hello` shows (and there's an error, you may need to open the console to see it). There are no numbers any more.
+
+That's because JavaScript does not assume a semicolon before square brackets `[...]`. So, the code in the last example is treated as a single statement.
+
+Here's how the engine sees it:
+
+```js run no-beautify
+alert("Hello")[1, 2].forEach(alert);
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 ```
 ولكنهما عبارتين برمجيتين منفصلتين وليستا عبارة واحدة، وبالتالي عملية الدمج في هذه الحالة خطأ. من الممكن أن تتكرر
 هذه الحالة ضمن شروط أخرى.
@@ -87,7 +126,24 @@ alert("There will be an error")[1, 2].forEach(alert)
 المائلين على نفس السطر تعليقًا. ومن الممكن أن يشغل التعليق سطرًا كاملًا أو يأتي التعليق بعد العبارة البرمجية.
 إليك المثال التالي الذي يشرح ما سبق:
 
+<<<<<<< HEAD
 ```
+=======
+Looks weird, right? Such merging in this case is just wrong. We need to put a semicolon after `alert` for the code to work correctly.
+
+This can happen in other situations also.
+````
+
+We recommend putting semicolons between statements even if they are separated by newlines. This rule is widely adopted by the community. Let's note once again -- *it is possible* to leave out semicolons most of the time. But it's safer -- especially for a beginner -- to use them.
+
+## Comments [#code-comments]
+
+As time goes on, programs become more and more complex. It becomes necessary to add *comments* which describe what the code does and why.
+
+Comments can be put into any place of a script. They don't affect its execution because the engine simply ignores them.
+
+**One-line comments start with two forward slash characters `//`.**
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 // يمتد هذا التعليق على كامل السطر فقط
 

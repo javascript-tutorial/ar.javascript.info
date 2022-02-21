@@ -13,12 +13,18 @@ There are 6 static methods in the `Promise` class. We'll quickly cover their use
 يكتب على النحو التالي:
 
 ```js
-let promise = Promise.all([...promises...]);
+let promise = Promise.all(iterable);
 ```
 
+<<<<<<< HEAD
 يأخذ `Promise.all` مجموعة من الوعود (من الناحية التقنية يمكن أن تكون قابلة للتكرار ، ولكن عادة ما تكون صفيفًا) ويعيد وعدًا جديدًا.
 
 يتم حل الوعد الجديد عندما تتم تسوية جميع الوعود المدرجة ، وتصبح مجموعة نتائجها نتاجها.
+=======
+`Promise.all` takes an iterable (usually, an array of promises) and returns a new promise.
+
+The new promise resolves when all listed promises are resolved, and the array of their results becomes its result.
+>>>>>>> e2f9e5840737e00846bfd492192d8a3828820c60
 
 على سبيل المثال ، يستقر "Promise.all" أدناه بعد 3 ثوانٍ ، ومن ثم تكون نتائجه مصفوفة `[1 ، 2 ، 3]`:
 

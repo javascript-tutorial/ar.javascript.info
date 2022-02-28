@@ -1,7 +1,11 @@
 ﻿
 # النوع WeakMap والنوع WeakSet: الخرائط والأطقم ضعيفة الإشارة
 
+<<<<<<< HEAD
 كما عرفنا من فصل «كنس المهملات»، فمُحرّك جافا سكريبت يخُزّن القيمة في الذاكرة طالما يمكن أن يصل لها شيء (أي يمكن استعمالها لاحقًا). هكذا:
+=======
+As we know from the chapter <info:garbage-collection>, JavaScript engine keeps a value in memory while it is "reachable" and can potentially be used.
+>>>>>>> 2cca9a9d09fdd45819832294225aa3721fa5a2d4
 
 ```
 let john = { name: "John" };

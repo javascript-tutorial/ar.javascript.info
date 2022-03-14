@@ -17,7 +17,11 @@
 - الطريقة الرئيسية هي استخدام كائن الحدث `event`. هناك طريقة `event.preventDefault()`.
 - إذا تم تعيين المعالج handler باستخدام `on<event>` (وليس عن طريق `addEventListener`)، عندئذ فإن ارجاع القيمة `false` يعمل بنفس الطريقة.
 
+<<<<<<< HEAD
 :في هذه الصفحة النقر على الرابط لا يؤدي إلى التنقل، ولا يقوم المتصفح بأي شيئ
+=======
+In this HTML, a click on a link doesn't lead to navigation; the browser doesn't do anything:
+>>>>>>> 2cca9a9d09fdd45819832294225aa3721fa5a2d4
 
 ```html autorun height=60 no-beautify
 <a href="/" onclick="return false">Click here</a>
@@ -96,7 +100,11 @@ menu.onclick = function(event) {
 
 الاختيار الغير إلزامي `passive: true` خيار `addEventListener` يشير إلى المتصفح بأن المعالج لن يستدعي الأمر `preventDefault()`.
 
+<<<<<<< HEAD
 لماذا قد تكون هناك حاجة لذلك؟
+=======
+Why might that be needed?
+>>>>>>> 2cca9a9d09fdd45819832294225aa3721fa5a2d4
 
 هناك بعض الأحداث مثل `touchmove` على أجهزة المحمول (عندما يحرك المستخدم إصبعه عبر الشاشة)، هذا يتسبب في scrolling افتراضي ، ولكن يمكن منع هذا باستخدام ` PreventionDefault () ` في المعالج.
 

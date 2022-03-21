@@ -40,8 +40,13 @@ Objects  "اثقل" من الأساليب البدائية. وهي تتطلب م
 
 هنا التناقض الذي واجه صانع جافا سكريبت:
 
+<<<<<<< HEAD
 - هناك العديد من الأشياء التي يمكن أن يفعلها الشخص بالأسلوب البدائي مثل  string أو  number. سيكون من الرائع استخدامهم كا methods.
 - الأساليب البدائية يجب أن تكون سريعة وخفيفة بقدر الإمكان.
+=======
+- There are many things one would want to do with a primitive like a string or a number. It would be great to access them using methods.
+- Primitives must be as fast and lightweight as possible.
+>>>>>>> 2cca9a9d09fdd45819832294225aa3721fa5a2d4
 
 إن الحل يبدو غريبا بعض الشيء، ولكن ها هو:
 
@@ -49,7 +54,11 @@ Objects  "اثقل" من الأساليب البدائية. وهي تتطلب م
 2. تسمح اللغة بالوصول الي ال  methods و الخصائص الخاصة ب strings, numbers, booleans و symbols.
 3. ولكي يعمل ذلك، يتم إنشاء "object wrapper" خاص يوفر الوظائف الإضافية، ثم يتم تدميره.
 
+<<<<<<< HEAD
 ال "object wrappers" تختلف لكل نوع بدائي و تدعى: `String`, `Number`, `Boolean` و `Symbol`. وبالتالي، فإنها توفر مجموعات مختلفة من methods.
+=======
+The "object wrappers" are different for each primitive type and are called: `String`, `Number`, `Boolean`, `Symbol` and `BigInt`. Thus, they provide different sets of methods.
+>>>>>>> 2cca9a9d09fdd45819832294225aa3721fa5a2d4
 
 على سبيل المثال
 , هنالك a string method [()str.toUpperCase](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase) التي ترجع capitalized `str`.

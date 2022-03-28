@@ -25,7 +25,7 @@ That's the expected result. JavaScript works like this. As `user.address` is `un
 
 In many practical cases we'd prefer to get `undefined` instead of an error here (meaning "no street").
 
-...And another example. In the web development, we can get an object that corresponds to a web page element using a special method call, such as `document.querySelector('.elem')`, and it returns `null` when there's no such element.
+...and another example. In Web development, we can get an object that corresponds to a web page element using a special method call, such as `document.querySelector('.elem')`, and it returns `null` when there's no such element.
 
 ```js run
 // document.querySelector('.elem') is null if there's no element
@@ -107,9 +107,9 @@ E.g. in `user?.address.street.name` the `?.` allows `user` to safely be `null/un
 
 ولكن إذا كان الغرض `user` موجوداً بالفعل، فيجب أن تكون الخصائص الوسيطة موجودة ونقصد بالخصائص الوسيطة `user.address` مثلاً.
 
-For example, if according to our coding logic `user` object must exist, but `address` is optional, then we should write `user.address?.street`, but not `user?.address?.street`.
+For example, if according to our code logic `user` object must exist, but `address` is optional, then we should write `user.address?.street`, but not `user?.address?.street`.
 
-So, if `user` happens to be undefined due to a mistake, we'll see a programming error about it and fix it. Otherwise, coding errors can be silenced where not appropriate, and become more difficult to debug.
+Then, if `user` happens to be undefined, we'll see a programming error about it and fix it. Otherwise, if we overuse `?.`, coding errors can be silenced where not appropriate, and become more difficult to debug.
 ```
 
 ````warn header="المتحول الواقع قبل التركيب `.?` يجب أن يكون معرّفاً"
@@ -126,7 +126,7 @@ The variable must be declared (e.g. `let/const/var user` or as a function parame
 
 كما تمّ ذكره آنفاً، يقوم التركيب `.?` بإيقاف عملية تقييم الكود البرمجي (يختصر الطريق) إذا لم يكن القسم اليساري (على يسار التركيب) موجوداً.
 
-So, if there are any further function calls or side effects, they don't occur.
+So, if there are any further function calls or operations to the right of `?.`, they won't be made.
 
 For instance:
 
@@ -134,7 +134,7 @@ For instance:
 let user = null;
 let x = 0;
 
-user?.sayHi(x++); // no "sayHi", so the execution doesn't reach x++
+user?.sayHi(x++); // no "user", so the execution doesn't reach sayHi call and x++
 
 alert(x); // لا يتم زيادة القيمة 0
 ```
@@ -178,7 +178,7 @@ let user1 = {
   firstName: "John"
 };
 
-let user2 = null; 
+let user2 = null;
 
 alert( user1?.[key] ); // John
 alert( user2?.[key] ); // undefined

@@ -26,7 +26,11 @@ let message;
 let message;
 
 *!*
+<<<<<<< HEAD
 message = 'Hello'; // تخزين النص
+=======
+message = 'Hello'; // store the string 'Hello' in the variable named message
+>>>>>>> 741d90ce8a730d66e987bff5e9794d6e41cb2f05
 */!*
 ```
 

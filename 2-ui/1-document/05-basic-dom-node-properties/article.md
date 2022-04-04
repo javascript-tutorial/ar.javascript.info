@@ -18,6 +18,7 @@
 
 الclasses هي:
 
+<<<<<<< HEAD
 - [EventTarget] (https://dom.spec.whatwg.org/#eventtarget) - هي فئة الجذر "المجردة". لا يتم إنشاء كائنات هذه الفئة أبدًا. إنه بمثابة قاعدة ، بحيث تدعم جميع عقد DOM ما يسمى "الأحداث" ، وسندرسها لاحقًا.
 - [Node] (http://dom.spec.whatwg.org/#interface-node) - هي أيضًا فئة "مجردة" ، تعمل كقاعدة لعقد DOM. يوفر وظائف الشجرة الأساسية: `motherNode` و` nextSibling` و` childNodes` وما إلى ذلك (فهي عبارة عن حروف). لا يتم إنشاء كائنات فئة "العقدة" مطلقًا. ولكن هناك فئات عقدة محددة ترث منه ، وهي: `Text` للعقد النصية و` Element` لعقد العناصر والمزيد من الأنواع الغريبة مثل `Comment` لعقد التعليق.
 - [Element] (http://dom.spec.whatwg.org/#interface-element) - هي فئة أساسية لعناصر DOM. يوفر التنقل على مستوى العنصر مثل `nextElementSibling` و` children` وطرق البحث مثل `getElementsByTagName` و` querySelector`. لا يدعم المتصفح HTML فحسب ، بل يدعم أيضًا XML و SVG. تعمل فئة `Element` كقاعدة لفئات أكثر تحديدًا:` SVGElement` و `XMLElement` و` HTMLElement`.
@@ -26,6 +27,18 @@
       - [HTMLBodyElement] (https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) - فئة عناصر `<body>` ،
       - [HTMLAnchorElement] (https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) - فئة عناصر "<a>` ،
       - ... وهكذا ، كل علامة لها فئة خاصة بها قد توفر خصائص وأساليب معينة.
+=======
+- [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- is the root "abstract" class. Objects of that class are never created. It serves as a base, so that all DOM nodes support so-called "events", we'll study them later.
+- [Node](http://dom.spec.whatwg.org/#interface-node) -- is also an "abstract" class, serving as a base  for DOM nodes. It provides the core tree functionality: `parentNode`, `nextSibling`, `childNodes` and so on (they are getters). Objects of `Node` class are never created. But there are concrete node classes that inherit from it, namely: `Text` for text nodes, `Element` for element nodes and more exotic ones like `Comment` for comment nodes.
+- [Element](http://dom.spec.whatwg.org/#interface-element) -- is a base class for DOM elements. It provides element-level navigation like `nextElementSibling`, `children` and searching methods like `getElementsByTagName`, `querySelector`. A browser supports not only HTML, but also XML and SVG. The `Element` class serves as a base for more specific classes: `SVGElement`, `XMLElement` and `HTMLElement`.
+- [HTMLElement](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) -- is finally the basic class for all HTML elements. It is inherited by concrete HTML elements:
+    - [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) -- the class for `<input>` elements,
+    - [HTMLBodyElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) -- the class for `<body>` elements,
+    - [HTMLAnchorElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) -- the class for `<a>` elements,
+    - ...and so on.
+
+There are many other tags with their own classes that may have specific properties and methods, while some elements, such as `<span>`, `<section>`, `<article>` do not have any specific properties, so they are instances of `HTMLElement` class.
+>>>>>>> 45934debd9bb31376ea5da129e266df5b43e545f
 
 لذلك ، فإن المجموعة الكاملة من الخصائص والأساليب لعقدة معينة تأتي نتيجة الميراث.
 

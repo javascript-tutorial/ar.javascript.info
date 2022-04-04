@@ -302,11 +302,19 @@ Linters هي أدوات يمكنها التحقق تلقائيًا من اسلو
 
 فيما يلي بعض أدوات الفحص الشهيرة:
 
+<<<<<<< HEAD
 - [JSLint](http://www.jslint.com/) -- أحد أوائل ادوات الفحص.
 - [JSHint](http://www.jshint.com/) -- به خصائص اكثر من JSLint.
 - [ESLint](http://eslint.org/) -- غالبا هو الأحدث.
 
 يمكن لجميعهم القيام بهذه المهمة. المؤلف يستخدم [ESLint](http://eslint.org/).
+=======
+- [JSLint](https://www.jslint.com/) -- one of the first linters.
+- [JSHint](https://jshint.com/) -- more settings than JSLint.
+- [ESLint](https://eslint.org/) -- probably the newest one.
+
+All of them can do the job. The author uses [ESLint](https://eslint.org/).
+>>>>>>> 45934debd9bb31376ea5da129e266df5b43e545f
 
 تتكامل معظم أدوات فحص الكود مع العديد من محررات الأكواد الشهيرة: ما عليك سوى تمكين الاضافة )(Plugin) في المحرر وتكوين الكود.
 
@@ -336,7 +344,11 @@ Linters هي أدوات يمكنها التحقق تلقائيًا من اسلو
 
 هنا التوجيه `"extends"` يشير إلى أن التكوين يستند إلى مجموعة اعدادات "eslint:recommended" . بعد ذلك يمكننا تحديد الاعدادات الخاصة بنا.
 
+<<<<<<< HEAD
 من الممكن أيضًا تنزيل مجموعات من ارشادات الأسلوب و الاضافة عليها بدلاً من ذلك. See <http://eslint.org/docs/user-guide/getting-started> لمعلومات أكثر عن التنزيل.
+=======
+It is also possible to download style rule sets from the web and extend them instead. See <https://eslint.org/docs/user-guide/getting-started> for more details about installation.
+>>>>>>> 45934debd9bb31376ea5da129e266df5b43e545f
 
 كما أن بعض بيئة تطوير متكاملة (IDEs)  تحتوي على أدوات فحص الكود مدمجة، وهو أمر مريح ولكنه غير قابل للتخصيص مثل ESLint.
 

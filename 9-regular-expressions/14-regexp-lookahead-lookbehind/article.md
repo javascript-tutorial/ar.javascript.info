@@ -62,9 +62,17 @@ alert(str.match(/\d+\b(?!€)/g)); // 2 (the price is not matched)
 
 ## Lookbehind
 
+<<<<<<< HEAD
 يسمح Lookahead بإضافة شرط لـ "ما يلي".
 
 Lookbehind مشابه ، لكنه يبدو في الخلف. أي أنه يسمح بمطابقة النمط فقط إذا كان هناك شيء قبله.
+=======
+```warn header="Lookbehind browser compatibility"
+Please Note: Lookbehind is not supported in non-V8 browsers, such as Safari, Internet Explorer.
+```
+
+Lookahead allows to add a condition for "what follows".
+>>>>>>> 45934debd9bb31376ea5da129e266df5b43e545f
 
 الصيغة هي:
 

@@ -24,8 +24,14 @@ In this example we can observe the peculiar difference between a "non-existing" 
 ```js
 function func() {
 *!*
+<<<<<<< HEAD
 // المتغير المحلي X يعتبر معروف للمحرك من البداية, لكن **غير معرف بقيمة** تظل حتي let
   // لذلك هناك خطأ
+=======
+  // the local variable x is known to the engine from the beginning of the function,
+  // but "uninitialized" (unusable) until let ("dead zone")
+  // hence the error
+>>>>>>> 45934debd9bb31376ea5da129e266df5b43e545f
 */!*
 
   console.log(x); // ReferenceError: لا نستطيع الوصول لـ 'x' قبل إعطائها قيمة

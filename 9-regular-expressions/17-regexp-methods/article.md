@@ -63,9 +63,15 @@ Regular Expressions  تعني سلسلة من الرموز والأحرف الت
 
 هناك 3 اختلافات عن "المباراة":
 
+<<<<<<< HEAD
 1. تقوم بإرجاع كائن قابل للتكرار مع تطابقات بدلاً من صفيف. يمكننا عمل مصفوفة منتظمة منه باستخدام `Array.from`.
 2. يتم إرجاع كل تطابق كمصفوفة مع مجموعات التقاط (نفس تنسيق `str.match` بدون علامة` pattern: g`).
 3. إذا لم تكن هناك نتائج ، فإنها لا تُرجع "null" ، ولكنها تُرجع كائنًا فارغًا قابلًا للتكرار.
+=======
+1. It returns an iterable object with matches instead of an array. We can make a regular array from it using `Array.from`.
+2. Every match is returned as an array with capturing groups (the same format as `str.match` without flag `pattern:g`).
+3. If there are no results, it returns an empty iterable object instead of `null`.
+>>>>>>> 45934debd9bb31376ea5da129e266df5b43e545f
 
 مثال للاستخدام:
 
@@ -250,7 +256,11 @@ alert('12-34-56'.replaceAll("-", ":")) // 12:34:56
 
 ## regexp.exec(str)
 
+<<<<<<< HEAD
 تُظهر الطريقة `regexp.exec (str)` مطابقة لـ `regexp` في السلسلة` str`. على عكس الطرق السابقة ، يتم استدعاء regexp ، وليس على سلسلة.
+=======
+The `regexp.exec(str)` method returns a match for `regexp` in the string `str`.  Unlike previous methods, it's called on a regexp, not on a string.
+>>>>>>> 45934debd9bb31376ea5da129e266df5b43e545f
 
 يتصرف بشكل مختلف اعتمادًا على ما إذا كان regexp يحتوي على علامة `pattern: g`.
 

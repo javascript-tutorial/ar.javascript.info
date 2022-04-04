@@ -44,8 +44,14 @@ In cases when a single action initiates multiple events, their order is fixed. T
 ```online
 لمعاينة الأحداث بوضوح أنقر فوق الزر أدناه. جرب النقر مرتين أيضاً.
 
+<<<<<<< HEAD
 في التجربة التالية ، يتم تسجيل جميع أحداث الماوس ، وإذا كان هناك  تأخير لأكثر من ثانية واحدة يتم فصلها بخط أفقي متقطع.
 
+=======
+On the teststand below, all mouse events are logged, and if there is more than a 1 second delay between them, they are separated by a horizontal rule.
+
+Also, we can see the `button` property that allows us to detect the mouse button; it's explained below.
+>>>>>>> 45934debd9bb31376ea5da129e266df5b43e545f
 
 كما يمكننا أن نرى  `button` الذي يسمح لنا باكتشاف زر الماوس ، كما هو موضح أدناه.
 

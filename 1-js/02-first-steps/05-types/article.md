@@ -47,13 +47,23 @@ n = 12.345;
     alert( "not a number" / 2 ); // NaN مثل هذه القسمة خاطئة
     ```
 
+<<<<<<< HEAD
     `NaN` لزجة. أي عملية تتم على  `NaN` ترجع `NaN`:
+=======
+    `NaN` is sticky. Any further mathematical operation on `NaN` returns `NaN`:
+>>>>>>> ac7daa516fa8e687427eac51186af97154748afa
 
     ```js run
-    alert( "not a number" / 2 + 5 ); // NaN
+    alert( NaN + 1 ); // NaN
+    alert( 3 * NaN ); // NaN
+    alert( "not a number" / 2 - 1 ); // NaN
     ```
 
+<<<<<<< HEAD
     لذلك إذا وجدت `NaN` في أي مكان في تعبير حسابي تنتشر في النتيجة بأكملها.
+=======
+    So, if there's a `NaN` somewhere in a mathematical expression, it propagates to the whole result (there's only one exception to that: `NaN ** 0` is `1`).
+>>>>>>> ac7daa516fa8e687427eac51186af97154748afa
 
 ```smart header="العمليات الرياضية أمنة"
 القيام بالرياضيات "أمن" في جافا سكربت. نستطيع القيام بأي شئ: القسمة على صفر و معاملة النصوص الغير الرقمية على أنها أرقام و إلخ.
@@ -65,7 +75,7 @@ n = 12.345;
 
 سنرى المزيد من التعامل مع الأرقام خلال هذا الفصل <info:number>.
 
-## BigInt
+## BigInt [#bigint-type]
 
 في جافا سكريبت، النوع "number"  لا يمثل الأعداد الصحيحة أكبر من <code>(2<sup>53</sup>-1)</code> (و هو `9007199254740991`)، أو أقل من <code>-(-2<sup>53</sup>-1)</code> للأرقام السالبة. إنها قيود فنية ناتجة عن تمثيلهم الداخلي.
 
@@ -213,6 +223,7 @@ alert(age); // "undefined"
 
 معامل `typeof` يرجع نوع قيمة المدخلات. إنه مفيد عندما نريد معالجة قيم من أنواع مختلفة بإختلاف أو لمجرد إجراد فحص سريع للنوع .
 
+<<<<<<< HEAD
 إنه يدعم نوعين من بناء الكود:
 
 1. كمعامل: `typeof x`.
@@ -221,6 +232,9 @@ alert(age); // "undefined"
 بكلمات أخرى ، إنها تعمل بأقواس أو بدون أقواس. النتيجة ستكون واحدة.
 
 إستدعاء `typeof x` يرجع نص بإسم نوع القيمة:
+=======
+A call to `typeof x` returns a string with the type name:
+>>>>>>> ac7daa516fa8e687427eac51186af97154748afa
 
 ```js
 typeof undefined // "undefined"
@@ -250,11 +264,29 @@ typeof alert // "function"  (3)
 
 الثلاث سطور الأخيرة قد تحتاج لتوضيح إضافي:
 
+<<<<<<< HEAD
 1. `Math` كائن مدمج داخلياً لتدعيم العمليات الرياضية. سنتعلمه في الفصل <info:number>. هنا، يخدم فقط كمثال للكائن.
 2. نتيجة `typeof null` هي `"object"`. هذا رسمياً يعتبر خطأ في سلوك `typeof` ، يأتي من الأيام الأولى لجافا سكربت وتم الحفاظ عليه من أجل التوافقية. قطعاً `null` ليس كائن. إنه قيمة خاصة بنوع منفصل خاص.
 3. نتيجة `typeof alert` هي `"function"`، لأن `alert` دالة. سندرس الدوال في الفصول القادمة وهناك سنرى أنه لا توجد نوع خاص  "دالة" في جافا سكربت. الدوال الدوال تنتمي للنوع كائن. لكن `typeof` تعاملهم بشكل مختلف، يرجع `"دالة"`. هذا أيضاً يأتي من الأيام الأولى لجافا سكربت. فنياً، مثل هذا السلوك غير صحيح، لكن قد يكون ملائم في الممارسة.
 
 ## خلاصة
+=======
+1. `Math` is a built-in object that provides mathematical operations. We will learn it in the chapter <info:number>. Here, it serves just as an example of an object.
+2. The result of `typeof null` is `"object"`. That's an officially recognized error in `typeof`, coming from very early days of JavaScript and kept for compatibility. Definitely, `null` is not an object. It is a special value with a separate type of its own. The behavior of `typeof` is wrong here.
+3. The result of `typeof alert` is `"function"`, because `alert` is a function. We'll study functions in the next chapters where we'll also see that there's no special "function" type in JavaScript. Functions belong to the object type. But `typeof` treats them differently, returning `"function"`. That also comes from the early days of JavaScript. Technically, such behavior isn't correct, but can be convenient in practice.
+
+```smart header="The `typeof(x)` syntax"
+You may also come across another syntax: `typeof(x)`. It's the same as `typeof x`.
+
+To put it clear: `typeof` is an operator, not a function. The parentheses here aren't a part of `typeof`. It's the kind of parentheses used for mathematical grouping.
+
+Usually, such parentheses contain a mathematical expression, such as `(2 + 2)`, but here they contain only one argument `(x)`. Syntactically, they allow to avoid a space between the `typeof` operator and its argument, and some people like it.
+
+Some people prefer `typeof(x)`, although the `typeof x` syntax is much more common.
+```
+
+## Summary
+>>>>>>> ac7daa516fa8e687427eac51186af97154748afa
 
 يوجد 8 أنواع للبيانات في جافا سكربت.
 
@@ -269,8 +301,14 @@ typeof alert // "function"  (3)
 
 معامل `typeof` يسمح لنا بمعرفة نوع البيانات الموجودة بداخل المتغيرة.
 
+<<<<<<< HEAD
 - له شكلان: `typeof x` أو `typeof(x)`.
 - يرجع نص بإسم نوع البيانات، مثل  `"string"`.
 - من أجل `null` يرجع `"object"` - هذا خطأ في اللغة، إنه ليس في الحقيقة كائن.
+=======
+- Usually used as `typeof x`, but `typeof(x)` is also possible.
+- Returns a string with the name of the type, like `"string"`.
+- For `null` returns `"object"` -- this is an error in the language, it's not actually an object.
+>>>>>>> ac7daa516fa8e687427eac51186af97154748afa
 
 في الفصول القادمة سنركز على القيم البدائية وعندما نكون متألفين معاهم، سنتجه للكائنات.

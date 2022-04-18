@@ -28,7 +28,11 @@ function loadScript(src) {
 }
 ```
 
+<<<<<<< HEAD
 يتم إلحاق المستند الجديد ، الذي تم إنشاؤه ديناميكيًا ، العنصر `<script src="…">` نعطي له مصدر البرنامج النصي `src`. المتصفح بتحميله تلقائياً و يقوم بتشغيله عند اكتمال التحميل.
+=======
+It inserts into the document a new, dynamically created, tag `<script src="…">` with the given `src`. The browser automatically starts loading it and executes when complete.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 نحن نستطيع أستخدام هذه الدالة كما موضح بالأسفل:
 
@@ -197,9 +201,15 @@ loadScript('/my/script.js', function(error, script) {
 
 ## هرم الموت
 
+<<<<<<< HEAD
 من النظرة الأولى ، إنها طريقة قابلة للتطبيق للتشفير غير المتزامن. وهو كذلك بالفعل. بالنسبة لأستدعاء واحد أو ربما أستدعائين متداخليين ، تبدو جيدة.
 
 ولكن بالنسبة إلى العديد من الإجراءات غير المتزامنة التي تتبع واحدًا تلو الآخر ، سيكون لدينا كود مثل هذا:
+=======
+At first glance, it looks like a viable approach to asynchronous coding. And indeed it is. For one or maybe two nested calls it looks fine.
+
+But for multiple asynchronous actions that follow one after another, we'll have code like this:
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 ```js
 loadScript('1.js', function(error, script) {
@@ -229,10 +239,17 @@ loadScript('1.js', function(error, script) {
 });
 ```
 
+<<<<<<< HEAD
 في الكود الذي بالأعلي:
 1. نحن نحمل ال `1.js`, أذا لم يكن هناك خطأ.
 2. نحن نحمل ال `2.js`, أذا لم يكن هناك خطأ.
 3. نحن نحمل ال `3.js`, أذا لم يكن هناك خطأ -- أفعل بعض الشئ غيره `(*)`.
+=======
+In the code above:
+1. We load `1.js`, then if there's no error...
+2. We load `2.js`, then if there's no error...
+3. We load `3.js`, then if there's no error -- do something else `(*)`.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 عندما تصبح الأستدعاءات أكثر تداخلًا ، تصبح الشفرة أعمق وتزداد صعوبة إدارتها ، خاصة إذا كان لدينا رمز حقيقي بدلاً من `...` قد يتضمن المزيد من الحلقات ، والعبارات الشرطية وما إلى ذلك.
 
@@ -300,7 +317,11 @@ function step3(error, script) {
 }
 ```
 
+<<<<<<< HEAD
 نرى؟ إنه يفعل نفس الشيء ، ولا يوجد تداخل عميق الآن لأننا جعلنا كل إجراء وظيفة منفصلة من المستوى الأعلى.
+=======
+See? It does the same thing, and there's no deep nesting now because we made every action a separate top-level function.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 إنه يعمل ، لكن الرمز يبدو وكأنه جدول بيانات ممزق. من الصعب قراءتها ، وربما لاحظت أن المرء يحتاج إلى القفز بين القطع أثناء قراءتها. هذا غير مريح ، خاصة إذا لم يكن القارئ على دراية بالكود ولا يعرف أين يقفز.
 
@@ -308,4 +329,8 @@ function step3(error, script) {
 
 نود الحصول على شيء أفضل.
 
+<<<<<<< HEAD
 لحسن الحظ ، هناك طرق أخرى لتجنب مثل هذه الأهرامات. أحد أفضل الطرق هو استخدام "promises" الموضحة في الفصل التالي.
+=======
+Luckily, there are other ways to avoid such pyramids. One of the best ways is to use "promises", described in the next chapter.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0

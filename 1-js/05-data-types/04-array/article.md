@@ -90,6 +90,38 @@ let fruits = [
 
 يسهّل نمط "الفاصلة اللاحقة" إدراج / إزالة العناصر ، لأن جميع الخطوط متشابهة.````
 
+## Get last elements with "at"
+
+[recent browser="new"]
+
+Let's say we want a last element of the array.
+
+Some programming languages allow to use negative indexes for the same purpose, like `fruits[-1]`.
+
+Although, in JavaScript it won't work. The result will be `undefined`, because the index in square brackets is treated literally.
+
+We can explicitly calculate the last element index and then access it: `fruits[fruits.length - 1]`.
+
+```js run
+let fruits = ["Apple", "Orange", "Plum"];
+
+alert( fruits[fruits.length-1] ); // Plum
+```
+
+A bit cumbersome, isn't it? We need to write the variable name twice.
+
+Luckily, there's a shorter syntax: `fruits.at(-1)`:
+
+```js run
+let fruits = ["Apple", "Orange", "Plum"];
+
+// same as fruits[fruits.length-1]
+alert( fruits.at(-1) ); // Plum
+```
+
+In other words, `arr.at(i)`:
+- is exactly the same as `arr[i]`, if `i >= 0`.
+- for negative values of `i`, it steps back from the end of the array.
 
 ## وسائل pop/push, shift/unshift
 
@@ -133,6 +165,8 @@ let fruits = [
 
      ;alert( fruits ) // البرتقال, التفاح
     ```
+
+    Both `fruits.pop()` and `fruits.at(-1)` return the last element of the array, but `fruits.pop()` also modifies the array by removing it.
 
 `push`
 : ألحق العنصر بنهاية المصفوفة:
@@ -371,9 +405,13 @@ alert( arr[0] ); // غير معرف! لا توجد عناصر.
 alert( arr.length ); // الطول 2
 ```
 
+<<<<<<< HEAD
 في الكود أعلاه, `مصفوفه جديده(رقم)` تكون لديها كل العناصر `غير معرفه`.
 
 للتهرب من هذه المفاجآت ، نستخدم عادةً الأقواس المربعة ، إلا إذا كنا نعرف حقًا ما نقوم به.
+=======
+To avoid such surprises, we usually use square brackets, unless we really know what we're doing.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 ## مصفوفات متعدده الأبعاد
 
@@ -432,7 +470,7 @@ Let's recall the rules:
 - If one of the arguments of `==` is an object, and the other one is a primitive, then the object gets converted to primitive, as explained in the chapter <info:object-toprimitive>.
 - ...With an exception of `null` and `undefined` that equal `==` each other and nothing else.
 
-The strict comparison `===` is even simpler, as it doesn't convert types. 
+The strict comparison `===` is even simpler, as it doesn't convert types.
 
 So, if we compare arrays with `==`, they are never the same, unless we compare two variables that reference exactly the same array.
 
@@ -452,7 +490,7 @@ alert( 0 == [] ); // true
 alert('0' == [] ); // false
 ```
 
-Here, in both cases, we compare a primitive with an array object. So the array `[]` gets converted to primitive for the purpose of comparison and becomes an empty string `''`. 
+Here, in both cases, we compare a primitive with an array object. So the array `[]` gets converted to primitive for the purpose of comparison and becomes an empty string `''`.
 
 Then the comparison process goes on with the primitives, as described in the chapter <info:type-conversions>:
 

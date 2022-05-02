@@ -8,9 +8,22 @@
 (symbol)
 . ليست رقما أو قيمه منطقيه (boolean) وإنما عباره عن نصوص أو رموز, فقط هذين النوعين.
 
+<<<<<<< HEAD
 لقد استخدمنا حتى الآن النص فقط. فهيا نرى الفوائد التى يمكن أن توفرها لنا الرموز.
 
 ## الرموز
+=======
+By specification, only two primitive types may serve as object property keys:
+
+- string type, or
+- symbol type.
+
+Otherwise, if one uses another type, such as number, it's autoconverted to string. So that `obj[1]` is the same as `obj["1"]`, and `obj[true]` is the same as `obj["true"]`.
+
+Till now we've been using only strings.
+
+Now let's explore symbols, see what they can do for us.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 كلمة رمز فى الإنجليزيه تعنى معَرٌِف فريد من نوعه أى لا شئ مماثل له
 Unique Identifier.
@@ -18,7 +31,6 @@ Unique Identifier.
 يمكن إنشاء قيمه من نوع الرمز باستخدام الداله `Symbol()`:
 
 ```js
-// id is a new symbol
 let id = Symbol();
 ```
 
@@ -46,10 +58,17 @@ alert(id1 == id2); // false
 (Ruby)
 أو أى لغة برمجة أخرى لديها شئ قريب من الرموز فلا تحتار
 
+<<<<<<< HEAD
 ````warn header="الرموز لا تتحول إلى نص تلقائياً"
 أغلب القيم فى جافا سكريبت يمكن تحويلها ضمنيًا إلى نص (string).
 على سبيل المثال, يمكننا أن نعرض أى قيمه فى دالة التنبيه (`alert()`),
 وستعمل, ولكن الرموز (Symbols) لها طابع خاص. فلا تسرى عليهم القاعده نفسها.
+=======
+So, to summarize, symbols are "primitive unique values" with optional description. Let's see where we can use them.
+
+````warn header="Symbols don't auto-convert to a string"
+Most values in JavaScript support implicit conversion to a string. For instance, we can `alert` almost any value, and it will work. Symbols are special. They don't auto-convert.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 على سبيل المثال, هذا الكود سيؤدى إلى ظهور خطأ:
 
@@ -62,9 +81,14 @@ alert(id); // TypeError: Cannot convert a Symbol value to a string
 
 هذا لمنع الأخطاء غير المقصوده, لأن النصوص والرموز مختلفين تمام ولا يجب أن يتم تغيير واحد إلى الآخر عن طريق الخطأ.
 
+<<<<<<< HEAD
 إذا كنا نريد أن نعرض الرمز كما هو, فإننا نحتاج إلى أن نستدعى الداله
 `.toString()`
 مع هذا الرمز, كالمثال أدناه:
+=======
+If we really want to show a symbol, we need to explicitly call `.toString()` on it, like here:
+
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 ```js run
 let id = Symbol("id");
 *!*
@@ -72,9 +96,14 @@ alert(id.toString()); // Symbol(id), now it works
 */!*
 ```
 
+<<<<<<< HEAD
  أو نستدعى الخاصيه
 `symbol.description`
 لعرض الوصف فقط:
+=======
+Or get `symbol.description` property to show the description only:
+
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 ```js run
 let id = Symbol("id");
 *!*
@@ -86,9 +115,14 @@ alert(id.description); // id
 
 ## الخصائص المخفيه
 
+<<<<<<< HEAD
 باستخدام الرموز يمكننا أن ننشئ خصائص مخفيه لكائن ما
 (object)
 حيث لا يمكن لأى جزء آخر فى الكود أن يصل إليها ولا أن يعدل قيمتها عن طريق الخطأ.
+=======
+
+Symbols allow us to create "hidden" properties of an object, that no other part of code can accidentally access or overwrite.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 على سبيل المثال, إذا كنا نعمل على كائن
 `user`
@@ -186,8 +220,12 @@ for (let key in user) alert(key); // name, age (no symbols)
 alert( "Direct: " + user[id] );
 ```
 
+<<<<<<< HEAD
 وأيضا يتم تجاهل الخصائص من نوع الرمز عند استخدام `Object.keys(user)`. لأن هذا جزء من المبدأ العام "إخفاء الخصائص الرمزيه"
 "hiding symbolic properties". وبالمثل إذا كان هناك أى برنامج آخر يقوم أو مكتبه تقوم بالتكرار على الخصائص فى هذا الكائن فإنها لن تستطيع أن تصل إلى الخاصيه من نوع الرمز.
+=======
+[Object.keys(user)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) also ignores them. That's a part of the general "hiding symbolic properties" principle. If another script or a library loops over our object, it won't unexpectedly access a symbolic property.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 على النقيض تماما فإن
 [Object.assign](mdn:js/Object/assign)
@@ -300,7 +338,13 @@ alert(localSymbol.description); // name
 
 1. خصائص الكائن المخفيه.
 
+<<<<<<< HEAD
 إذا كنا نريد أن نضيف خاصيه إلى كائن لا ينتمى إلى هذا الكود بل إلى برنامج آخر أو مكتبه، فعندئذ يمكننا إنشاء رمز واستخدامه كخاصيه. والخاصيه من نوع الرمز لا تظهر فى التكرار `for .. in`, ولذلك لا يمكن الوصول إلى الخاصيه عن طريق الخطأ أو أن تتعارض مع أى خاصية أخرى وذلك لأن البرنامج الآخر لا يملك الرمز الخاص بنا. وبالتالى ستظل الخاصيه محميه من الوصول إليها أو التعديل عليها.
+=======
+1. "Hidden" object properties.
+
+    If we want to add a property into an object that "belongs" to another script or a library, we can create a symbol and use it as a property key. A symbolic property does not appear in `for..in`, so it won't be accidentally processed together with other properties. Also it won't be accessed directly, because another script does not have our symbol. So the property will be protected from accidental use or overwrite.
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 
 ولذلك يمكننا أن نُخفى أى شئ بداخل كائنات نحتاجها ولا يستطيع أى برنامج الوصول إليها باستخدام الخصائص من نوع الرموز.
 

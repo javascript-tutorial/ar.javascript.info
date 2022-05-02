@@ -170,8 +170,13 @@ let user = {
 
 let say = user.say.bind(user);
 
+<<<<<<< HEAD
 say("Hello"); // ‫Hello, John!‎ (مُرّر المُعامل "Hello" إلى say)
 say("Bye"); // ‫Bye, John!‎ (مُرّر المعامل "Bye" إلى say)
+=======
+say("Hello"); // Hello, John! ("Hello" argument is passed to say)
+say("Bye"); // Bye, John! ("Bye" is passed to say)
+>>>>>>> 291b5c05b99452cf8a0d32bd32426926dbcc0ce0
 ```
 
 **تابِع مفيد: `‎bindAll‎`**

@@ -6,7 +6,15 @@
 
 ## الجالبات والضابطات
 
+<<<<<<< HEAD
 خصائص الوصول تمثل بـ "getter" و "setter". يشار إليهم داخل الكائن بـ `get` and `set`:
+=======
+The second type of property is something new. It's an *accessor property*. They are essentially functions that execute on getting and setting a value, but look like regular properties to an external code.
+
+## Getters and setters
+
+Accessor properties are represented by "getter" and "setter" methods. In an object literal they are denoted by `get` and `set`:
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 
 ```js
 let obj = {

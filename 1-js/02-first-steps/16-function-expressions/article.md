@@ -12,7 +12,13 @@ function sayHi() {
 
 هناك طريقة أخرى لعمل دالة وتسمى _Function Expression_.
 
+<<<<<<< HEAD
 كالتالي:
+=======
+It allows us to create a new function in the middle of any expression.
+
+For example:
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 
 ```js
 let sayHi = function () {
@@ -20,9 +26,25 @@ let sayHi = function () {
 };
 ```
 
+<<<<<<< HEAD
 هنا تم عمل الدالة وتخزينها في متغير مثل أي قيمة أخرى ولا يهم كيف تم تعريفها. هي فقط تخزن في متغير اسمه `sayHi`.
 
 معنى هذا الكود كالآتي: "إنشئ دالةوضعها في المتغير `sayHi`".
+=======
+Here we can see a variable `sayHi` getting a value, the new function, created as `function() { alert("Hello"); }`.
+
+As the function creation happens in the context of the assignment expression (to the right side of `=`), this is a *Function Expression*.
+
+Please note, there's no name after the `function` keyword. Omitting a name is allowed for Function Expressions.
+
+Here we immediately assign it to the variable, so the meaning of these code samples is the same: "create a function and put it into the variable `sayHi`".
+
+In more advanced situations, that we'll come across later, a function may be created and immediately called or scheduled for a later execution, not stored anywhere, thus remaining anonymous.
+
+## Function is a value
+
+Let's reiterate: no matter how the function is created, a function is a value. Both examples above store a function in the `sayHi` variable.
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 
 يمكننا حتى طباعة هذه القيمة باستخدام `alert`:
 
@@ -64,11 +86,19 @@ sayHi(); // Hello    //     this still works too (why wouldn't it)
 2. السطر `(2)` ينسخها إلى متغير اسمه `func`. لاحظ عدم وجود أقواس بعد `sayHi`. إذا وجدت الأقواس `func = sayHi()` سيتم وضع نتيجة تنفيذ `sayHi()` داخل `func` وليس الدالة `sayHi` نفسها.
 3. الآن يمكننا استدعاء الدالة عن طريق `sayHi()` أو `func()`.
 
+<<<<<<< HEAD
 لاحظ أنه يمكننا استخدام Function Expression لتعريف `sayHi` في السطر الأول:
 
 ```js
 let sayHi = function () {
     alert("Hello");
+=======
+We could also have used a Function Expression to declare `sayHi`, in the first line:
+
+```js
+let sayHi = function() { // (1) create
+  alert( "Hello" );
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 };
 
 let func = sayHi;
@@ -77,8 +107,13 @@ let func = sayHi;
 
 كل شئ يعمل بنفس الطريقة.
 
+<<<<<<< HEAD
 ````smart header="لماذا يوجد فاصلة منقوطة في النهاية ?"
 ربما تتسائل لماذا يوجد فاصلة منقوطة في نهاية Function Expression ولا يوجد مع Function Declaration:
+=======
+````smart header="Why is there a semicolon at the end?"
+You might wonder, why do Function Expressions have a semicolon `;` at the end, but Function Declarations do not:
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 
 ```js
 function sayHi() {
@@ -90,9 +125,15 @@ let sayHi = function() {
 }*!*;*/!*
 ```
 
+<<<<<<< HEAD
 الإجابة بسيطة:
 - لا حاجة للفاصلة المنقوطة `;` في نهاية code blocks والهياكل المشابهة مثل `if { ... }`, `for {  }`, `function f { }` الخ.
 - يتم استخدام Function Expression داخل التعبير: `let sayHi = ...;` كقيمة وليس code block. يفضل استخدام الفاصلة المنقوطة `;` في نهاية التعبيرات مهما كانت القيمة. لذلك فالفاصلة المنقوطة هنا لا تخص Function Expression نفسه ولكنها فقط تنهي التعبير.
+=======
+The answer is simple: a Function Expression is created here as `function(…) {…}` inside the assignment statement: `let sayHi = …;`. The semicolon `;` is recommended at the end of the statement, it's not a part of the function syntax.
+
+The semicolon would be there for a simpler assignment, such as `let sayHi = 5;`, and it's also there for a function assignment.
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 ````
 
 ## Callback functions
@@ -132,13 +173,21 @@ function showCancel() {
 ask("Do you agree?", showOk, showCancel);
 ```
 
+<<<<<<< HEAD
 هذه الدوال مفيدة إلى حد ما. الفرق الأساسي بين `ask` في الواقع والمثال السابق هو أن في الواقع يتم استخدام طرق أكثر تعقيدًا للتعامل مع المستخدم بدلًا من مجرد `confirm`. ربما يتم رسم نافذة سؤال بشكل لطيف ولكن هذه قصة أخرى.
+=======
+In practice, such functions are quite useful. The major difference between a real-life `ask` and the example above is that real-life functions use more complex ways to interact with the user than a simple `confirm`. In the browser, such functions usually draw a nice-looking question window. But that's another story.
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 
 **المعاملات `showOk` و `showCancel` الخاصين ب `ask` يسمون _callback functions_ أو فقط _callbacks_.**
 
 الفكرة هي أننا نقوم بتمرير دالة ونتوقع أن يتم استدعائها لاحقًا إذا لزم الأمر. وفي حالتنا فإن `showOk` تصبح رد على الإجابة "yes" answer و `showCancel` للإجابة "no".
 
+<<<<<<< HEAD
 يمكن استخدام Function Expressions لكتابة نفس الدالة بشكل أقصر:
+=======
+We can use Function Expressions to write an equivalent, shorter function:
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 
 ```js run no-beautify
 function ask(question, yes, no) {
@@ -173,7 +222,11 @@ ask(
 
 أولا طريقة الكتابة: كيف تفرق بينهم في الكود.
 
+<<<<<<< HEAD
 -   _Function Declaration:_ يتم تعريف الدالة كجزء منفصل في سريان البرنامج.
+=======
+- *Function Declaration:* a function, declared as a separate statement, in the main code flow:
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 
     ```js
     // Function Declaration
@@ -181,8 +234,12 @@ ask(
         return a + b;
     }
     ```
+<<<<<<< HEAD
 
 -   _Function Expression:_ يتم إنشاء الدالة داخل تعبير أو جزء آخر. هنا تم إنشاء الدالة في الجزء الأيمن من "assignment expression" `=`:
+=======
+- *Function Expression:* a function, created inside an expression or inside another syntax construct. Here, the function is created on the right side of the "assignment expression" `=`:
+>>>>>>> 206485fc3a5465f961608b6e7303fae2e1a0e0b5
 
     ```js
     // Function Expression

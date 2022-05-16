@@ -106,12 +106,21 @@ for (let i = 0; i < 3; i++) {
 
 لنشرح `for` جزء بجزء:
 
+<<<<<<< HEAD
 | الجزء     |            |                                                             |
 | --------- | ---------- | ----------------------------------------------------------- |
 | begin     | `i = 0`    | ينفذ مرة واحدة فقط في البداية.                              |
 | condition | `i < 3`    | يتم اختباره قبل كل عملية تكرار وإذا لم يتحقق يتوقف التكرار. |
 | body      | `alert(i)` | تنفذ طالما الشرط محقق.                                      |
 | step      | `i++`      | ينفذ بعد body في كل عملية تكرار.                            |
+=======
+| part  |          |                                                                            |
+|-------|----------|----------------------------------------------------------------------------|
+| begin | `let i = 0`    | Executes once upon entering the loop.                                      |
+| condition | `i < 3`| Checked before every loop iteration. If false, the loop stops.              |
+| body | `alert(i)`| Runs again and again while the condition is truthy.                         |
+| step| `i++`      | Executes after the body on each iteration. |
+>>>>>>> 2901e0c64590a67d8a2bde1ea76a514d96f80469
 
 الخوارزمية العامة للتكرار تعمل كالتالي:
 
@@ -277,9 +286,14 @@ for (let i = 0; i < 10; i++) {
 
 هذا الكود مطابق تمامًا للسابق. يمكننا فقط وضع الكود داخل `if` بدلًا من استخدام `continue`.
 
+<<<<<<< HEAD
 ولكن هذا ينتج مستوى آخر من التداخل (استدعاء `alert` داخل أقواس معقوفة). إذا كان ما بداخل `if` سطور كثيرة فهذا سيقلل من إمكانية قراءة الكود بوضوح.
 
 `````
+=======
+But as a side effect, this created one more level of nesting (the `alert` call inside the curly braces). If the code inside of `if` is longer than a few lines, that may decrease the overall readability.
+````
+>>>>>>> 2901e0c64590a67d8a2bde1ea76a514d96f80469
 
 ````warn header="لا يمكن استخدام `break/continue` في الجانب الأيمن من '?'"
 لا يمكن استخدام هذه التعبيرات `break/continue` مع العامل الشرطي `?`.
@@ -377,9 +391,24 @@ break label; // تنتقل إلى الحقل بالأسفل (لا تعمل)
 label: for (...)
 ```
 
+<<<<<<< HEAD
 إستخدام `continue` يكون ممكنًا فقط من داخل الحلقه.
 
 `break` ربما يمكن وضعه قبل الشيفرة ايضًا, as `label: { ... }`, لكنها لا تستخدم أبدًا بهذه الطريقة. وهي تعمل أيضًا من الداخل إلى الخارج فقط.
+=======
+A `break` directive must be inside a code block. Technically, any labelled code block will do, e.g.:
+```js
+label: {
+  // ...
+  break label; // works
+  // ...
+}
+```
+
+...Although, 99.9% of the time `break` is used inside loops, as we've seen in the examples above.
+
+A `continue` is only possible from inside a loop.
+>>>>>>> 2901e0c64590a67d8a2bde1ea76a514d96f80469
 ````
 
 ## ملخص

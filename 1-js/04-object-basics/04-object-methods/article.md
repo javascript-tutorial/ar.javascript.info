@@ -50,7 +50,7 @@ let user = {
 //  أولا، نعرف دالة
 function sayHi() {
   alert("Hello!");
-};
+}
 
 // أضِف الدالة للخاصية لإنشاء تابع
 user.sayHi = sayHi;
@@ -80,7 +80,7 @@ user = {
 // يبدو شكل الدالة المختصر أفضل، أليس كذلك؟
 user = {
 *!*
-  sayHi() { // same as "sayHi: function()"
+  sayHi() { // same as "sayHi: function(){...}"
 */!*
     alert("Hello");
   }

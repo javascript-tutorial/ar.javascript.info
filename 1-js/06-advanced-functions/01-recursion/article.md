@@ -549,9 +549,13 @@ list.next = list.next.next;
 
   مثلاً القائمة المتصلة يمكن تعريفها علي أنها هيكل بيانات تتكون من شئ object يشير إلي القائمة نفسها.
 
+<<<<<<< HEAD
   ```js
   list = { value, next -> list }
   ```
+=======
+    Trees like HTML elements tree or the department tree from this chapter are also naturally recursive: they have branches and every branch can have other branches.
+>>>>>>> 2901e0c64590a67d8a2bde1ea76a514d96f80469
 
   **الشجر** مثل عناصر الـ HTML أو الأقسام مثل ما ذكرنا أعلي هذا الفصل.
 

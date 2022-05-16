@@ -17,8 +17,8 @@
     width: 300px;
     height: 200px;
     border: 25px solid #E8C48F;
-    padding: 20px;              
-    overflow: auto;             
+    padding: 20px;
+    overflow: auto;
   }
 </style>
 ```
@@ -106,7 +106,11 @@ You can [open the document in the sandbox](sandbox:metric).
 
 إذا كان أحد العناصر (أو أي من أسلافه) يحتوي على "عرض: لا شيء" أو غير موجود في المستند ، فإن جميع الخصائص الهندسية تكون صفرية (أو "خالية" لـ "offsetParent").
 
+<<<<<<< HEAD
 على سبيل المثال ، `offsetParent` هي` null` ، و `offsetWidth` ،` offsetHeight` هي `0` عندما أنشأنا عنصرًا ، ولكننا لم نقم بإدراجه في المستند حتى الآن ، أو (أو أصله) يحتوي على` عرض : لا شيء.
+=======
+For example, `offsetParent` is `null`, and `offsetWidth`, `offsetHeight` are `0` when we created an element, but haven't inserted it into the document yet, or it (or its ancestor) has `display:none`.
+>>>>>>> 2901e0c64590a67d8a2bde1ea76a514d96f80469
 
 يمكننا استخدام هذا للتحقق مما إذا كان العنصر مخفيًا ، مثل هذا:
 
@@ -116,7 +120,11 @@ function isHidden(elem) {
 }
 ```
 
+<<<<<<< HEAD
 يرجى ملاحظة أن مثل `isHidden` يعرض` true` للعناصر التي تظهر على الشاشة ، ولكن بدون أحجام (مثل `<div>` فارغ).
+=======
+Please note that such `isHidden` returns `true` for elements that are on-screen, but have zero sizes.
+>>>>>>> 2901e0c64590a67d8a2bde1ea76a514d96f80469
 ````
 
 ## clientTop/Left

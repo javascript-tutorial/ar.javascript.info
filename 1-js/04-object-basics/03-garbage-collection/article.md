@@ -223,9 +223,17 @@ The basic garbage collection algorithm is called "mark-and-sweep".
 
  [A tour of V8: Garbage Collection](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection)
 
+<<<<<<< HEAD
 تنشر ايضا [V8 blog](https://v8.dev/)  مقالات حول تنظيم الذاكرة من آن الي أخر, بطبيعة الحال, لتعلم جامع القمامة يفضل ان تتهيأ عن طريق تعلم مكونات `V8` بشكل عام و قراءة مدونة
 [Vyacheslav Egorov](http://mrale.ph) و الذي عمل كأحد مهندسي  `V8`. استطيع ان أقول `V8` تحديدا لأنه الأكثر تغطية عن طريق المقالات علي الانترنت.
 و بالنسبة للمحركات الأخري, العديد من الطرق متشابهة, و لكن جامع القمامة يختلف في نقاط عديدة.
 
 المعرفة المتعمقة للمحركات ضرورية في حين الحاجة الي تحسينات ذات مستوي متطور, فأن تخطط لمعرفتها بعد ان تصبح علي معرفة جيدة باللغة لهي بالتأكيد خطوة حكيمة.
 
+=======
+If you are familiar with low-level programming, more detailed information about V8's garbage collector is in the article [A tour of V8: Garbage Collection](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection).
+
+The [V8 blog](https://v8.dev/) also publishes articles about changes in memory management from time to time. Naturally, to learn more about garbage collection, you'd better prepare by learning about V8 internals in general and read the blog of [Vyacheslav Egorov](http://mrale.ph) who worked as one of the V8 engineers. I'm saying: "V8", because it is best covered by articles on the internet. For other engines, many approaches are similar, but garbage collection differs in many aspects.
+
+In-depth knowledge of engines is good when you need low-level optimizations. It would be wise to plan that as the next step after you're familiar with the language.
+>>>>>>> 2901e0c64590a67d8a2bde1ea76a514d96f80469

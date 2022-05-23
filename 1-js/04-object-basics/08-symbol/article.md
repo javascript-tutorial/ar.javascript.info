@@ -8,9 +8,22 @@
 (symbol)
 . ليست رقما أو قيمه منطقيه (boolean) وإنما عباره عن نصوص أو رموز, فقط هذين النوعين.
 
+<<<<<<< HEAD
 لقد استخدمنا حتى الآن النص فقط. فهيا نرى الفوائد التى يمكن أن توفرها لنا الرموز.
 
 ## الرموز
+=======
+By specification, only two primitive types may serve as object property keys:
+
+- string type, or
+- symbol type.
+
+Otherwise, if one uses another type, such as number, it's autoconverted to string. So that `obj[1]` is the same as `obj["1"]`, and `obj[true]` is the same as `obj["true"]`.
+
+Until now we've been using only strings.
+
+Now let's explore symbols, see what they can do for us.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 كلمة رمز فى الإنجليزيه تعنى معَرٌِف فريد من نوعه أى لا شئ مماثل له
 Unique Identifier.
@@ -18,18 +31,25 @@ Unique Identifier.
 يمكن إنشاء قيمه من نوع الرمز باستخدام الداله `Symbol()`:
 
 ```js
-// id is a new symbol
 let id = Symbol();
 ```
 
+<<<<<<< HEAD
 عند الإنشاء, يمكننا إعطاء الرمز وصفًا (ويمكن تسميته أيضا إسم الرمز), وهذا مفيد غالبا فى البحث عن الأخطاء وحلها.
+=======
+Upon creation, we can give symbols a description (also called a symbol name), mostly useful for debugging purposes:
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 ```js
 // id is a symbol with the description "id"
 let id = Symbol('id');
 ```
 
+<<<<<<< HEAD
 إن الرموز مضمون بتفرُّدها. حتى فى حالة إنشاء عدة رموز بنفس الوصف, ولكنهم مختلفين فى القيمه. فالوصف مجرد وَسْم لا يؤثر على أى شيء.
+=======
+Symbols are guaranteed to be unique. Even if we create many symbols with exactly the same description, they are different values. The description is just a label that doesn't affect anything.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 على سبيل المثال, هذان الرمزان لهما نفس الوصف -- ولكنهما غير متساويين:
 
@@ -46,10 +66,17 @@ alert(id1 == id2); // false
 (Ruby)
 أو أى لغة برمجة أخرى لديها شئ قريب من الرموز فلا تحتار
 
+<<<<<<< HEAD
 ````warn header="الرموز لا تتحول إلى نص تلقائياً"
 أغلب القيم فى جافا سكريبت يمكن تحويلها ضمنيًا إلى نص (string).
 على سبيل المثال, يمكننا أن نعرض أى قيمه فى دالة التنبيه (`alert()`),
 وستعمل, ولكن الرموز (Symbols) لها طابع خاص. فلا تسرى عليهم القاعده نفسها.
+=======
+So, to summarize, a symbol is a "primitive unique value" with an optional description. Let's see where we can use them.
+
+````warn header="Symbols don't auto-convert to a string"
+Most values in JavaScript support implicit conversion to a string. For instance, we can `alert` almost any value, and it will work. Symbols are special. They don't auto-convert.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 على سبيل المثال, هذا الكود سيؤدى إلى ظهور خطأ:
 
@@ -62,9 +89,14 @@ alert(id); // TypeError: Cannot convert a Symbol value to a string
 
 هذا لمنع الأخطاء غير المقصوده, لأن النصوص والرموز مختلفين تمام ولا يجب أن يتم تغيير واحد إلى الآخر عن طريق الخطأ.
 
+<<<<<<< HEAD
 إذا كنا نريد أن نعرض الرمز كما هو, فإننا نحتاج إلى أن نستدعى الداله
 `.toString()`
 مع هذا الرمز, كالمثال أدناه:
+=======
+If we really want to show a symbol, we need to explicitly call `.toString()` on it, like here:
+
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 ```js run
 let id = Symbol("id");
 *!*
@@ -72,9 +104,14 @@ alert(id.toString()); // Symbol(id), now it works
 */!*
 ```
 
+<<<<<<< HEAD
  أو نستدعى الخاصيه
 `symbol.description`
 لعرض الوصف فقط:
+=======
+Or get `symbol.description` property to show the description only:
+
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 ```js run
 let id = Symbol("id");
 *!*
@@ -86,9 +123,14 @@ alert(id.description); // id
 
 ## الخصائص المخفيه
 
+<<<<<<< HEAD
 باستخدام الرموز يمكننا أن ننشئ خصائص مخفيه لكائن ما
 (object)
 حيث لا يمكن لأى جزء آخر فى الكود أن يصل إليها ولا أن يعدل قيمتها عن طريق الخطأ.
+=======
+
+Symbols allow us to create "hidden" properties of an object, that no other part of code can accidentally access or overwrite.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 على سبيل المثال, إذا كنا نعمل على كائن
 `user`
@@ -114,9 +156,15 @@ alert(user[id]); // we can access the data using the symbol as the key
 بدلا من النص
 `"id"` ؟
 
+<<<<<<< HEAD
 حيث أن الكائن `user` ينتمي لكود خارجي وهذا الكود يعمل جيدا, إذا فلا يصح أن نضيف أى خاصيه لهذا الكائن. ولكن الرمز لا يمكن الوصول إليه عن طريق الخطأ مثل النص حيث أن الكود الخارجى لا يمكن أن يراه من الأساس, ولذلك هذه الطريقه تُعد صحيحه.
 
 تخيل أيضا لو أن هناك برنامج (script) آخر يريد أن يضيف خاصية بداخل الكائن `user` لأغراضه الخاصه, هذا البرنامج الآخر يمكنه أن يكون مكتبه مبنية بجافا سكريبت ولذلك فإن هذه البرامج لا تعرف شيئا عن بعضها البعض.
+=======
+As `user` objects belong to another codebase, it's unsafe to add fields to them, since we might affect pre-defined behavior in that other codebase. However, symbols cannot be accessed accidentally. The third-party code won't be aware of newly defined symbols, so it's safe to add symbols to the `user` objects.
+
+Also, imagine that another script wants to have its own identifier inside `user`, for its own purposes.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 لذلك هذا البرنامج يمكنه أن ينشئ
 `Symbol("id")`
@@ -186,8 +234,12 @@ for (let key in user) alert(key); // name, age (no symbols)
 alert( "Direct: " + user[id] );
 ```
 
+<<<<<<< HEAD
 وأيضا يتم تجاهل الخصائص من نوع الرمز عند استخدام `Object.keys(user)`. لأن هذا جزء من المبدأ العام "إخفاء الخصائص الرمزيه"
 "hiding symbolic properties". وبالمثل إذا كان هناك أى برنامج آخر يقوم أو مكتبه تقوم بالتكرار على الخصائص فى هذا الكائن فإنها لن تستطيع أن تصل إلى الخاصيه من نوع الرمز.
+=======
+[Object.keys(user)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) also ignores them. That's a part of the general "hiding symbolic properties" principle. If another script or a library loops over our object, it won't unexpectedly access a symbolic property.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 على النقيض تماما فإن
 [Object.assign](mdn:js/Object/assign)
@@ -237,12 +289,20 @@ alert(id === idAgain); // true
 ```smart header="هذا يبدو مثل لغة البرمجه Ruby"
 فى بعض لغات البرمجه مثل Ruby فإن هناك رمزًا لكل إسم.
 
+<<<<<<< HEAD
 فى جافا سكريبت كما نرى فإن هذا صحيح بالنسبة إلى الرموز العامه.
+=======
+In JavaScript, as we can see, that's true for global symbols.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 ```
 
 ### Symbol.keyFor
 
+<<<<<<< HEAD
 بالنسبة إلى الرموز العامه فإنه لايوجد `Symbol.for(key)` التى تقوم بإرجاع الرمز باستخدام الإسم فقط، ولكن يوجد أيضا العكس `Symbol.keyFor(sym)` الذى يقوم بإرجاع الإسم باستخدام الرمز العام.
+=======
+We have seen that for global symbols, `Symbol.for(key)` returns a symbol by name. To do the opposite -- return a name by global symbol -- we can use: `Symbol.keyFor(sym)`:
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 على سبيل المثال:
 
@@ -258,7 +318,11 @@ alert(Symbol.keyFor(sym2)); // id
 
 الداله `Symbol.keyFor` عندما تعمل تقوم باستخدام مكان تسجيل الرموز العام للبحث عن إسم للرمز, ولذلك فإنها لا تعمل إلا مع الرموز العامه. فإذا كان الرمز غير عام فلن تستطيع إيجاده وستقوم بإرجاع `undefined`.
 
+<<<<<<< HEAD
 يقال بأن كل رمز يملك الخاصيه `description`.
+=======
+That said, all symbols have the `description` property.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 على سبيل المثال:
 
@@ -300,10 +364,20 @@ alert(localSymbol.description); // name
 
 1. خصائص الكائن المخفيه.
 
+<<<<<<< HEAD
 إذا كنا نريد أن نضيف خاصيه إلى كائن لا ينتمى إلى هذا الكود بل إلى برنامج آخر أو مكتبه، فعندئذ يمكننا إنشاء رمز واستخدامه كخاصيه. والخاصيه من نوع الرمز لا تظهر فى التكرار `for .. in`, ولذلك لا يمكن الوصول إلى الخاصيه عن طريق الخطأ أو أن تتعارض مع أى خاصية أخرى وذلك لأن البرنامج الآخر لا يملك الرمز الخاص بنا. وبالتالى ستظل الخاصيه محميه من الوصول إليها أو التعديل عليها.
+=======
+1. "Hidden" object properties.
+
+    If we want to add a property into an object that "belongs" to another script or a library, we can create a symbol and use it as a property key. A symbolic property does not appear in `for..in`, so it won't be accidentally processed together with other properties. Also it won't be accessed directly, because another script does not have our symbol. So the property will be protected from accidental use or overwrite.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e
 
 ولذلك يمكننا أن نُخفى أى شئ بداخل كائنات نحتاجها ولا يستطيع أى برنامج الوصول إليها باستخدام الخصائص من نوع الرموز.
 
 2. هناك الكثير من الرموز الموجوده بالفعل فى جافا سكريبت والتى يمكن الوصول إليها عن طريق `Symbol.*`. ويمكننا استخدامهم لتغيير بعض السلوك الموجود بالفعل فى اللغه. على سبيل المثال فإننا فى موضوع مقبل سنستخدم `Symbol.iterator` من أجل التكراريات [iterables](info:iterable) وغيرها.
 
+<<<<<<< HEAD
 عمليًا، فإن الرموز لا تكون مخفية بالكامل. ولكن هناك داله موجوده تسمى [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols) والتى تمكننا من الوصول إلى كل الرموز. ,توجد أيضًا دالة تسمي [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) والتى تقوم بإرجاع _كل_ الخصائص بداخل كائن معين بما فيها الخصائص التى من نوع الرمز. ولذلك فإن هذه الخصائص ليست مخفية بالكامل. ولكن أعلب المكتبات والدوال لا تستخدم هذه الوسائل.
+=======
+Technically, symbols are not 100% hidden. There is a built-in method [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols) that allows us to get all symbols. Also there is a method named [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) that returns *all* keys of an object including symbolic ones. But most libraries, built-in functions and syntax constructs don't use these methods.
+>>>>>>> d5e8b6d308869738bd1f08dde62b64c969b0673e

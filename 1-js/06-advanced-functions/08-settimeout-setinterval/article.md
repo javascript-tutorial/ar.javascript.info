@@ -235,7 +235,11 @@ setTimeout(function() {...}, 100);
 
 For `setInterval` the function stays in memory until `clearInterval` is called.
 
+<<<<<<< HEAD
 ولكن هناك تأثير جانبي لذلك كالعادة، فالدوال تُشير إلى بيئتها المُعجمية الخارجية. لذا طالما «تعيش»، تعيش معها المتغيرات الخارجية أيضًا، وهي أحيانًا كبيرة تأخذ ذاكرة أكبر من الدالة ذاتها. لذا، متى ما لم ترد تلك الدالة المُجدولة فالأفضل أن تُلغيها حتّى لو كانت صغيرة جدًا.
+=======
+There's a side effect. A function references the outer lexical environment, so, while it lives, outer variables live too. They may take much more memory than the function itself. So when we don't need the scheduled function anymore, it's better to cancel it, even if it's very small.
+>>>>>>> 2efe0dce18a57f2b6121ed6656d6fe10b0ee8f96
 ````
 
 ## جدولة setTimeout بتأخير صفر

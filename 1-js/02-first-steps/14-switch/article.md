@@ -139,7 +139,11 @@ switch (a) {
 
 الآن كل من `3` و `5` يظهرون الرسالة.
 
+<<<<<<< HEAD
 إمكانية تجميع الحالات هي تأثير جانبي لطريقة عمل `switch/case` بدون `break`. هنا يبدأ التنفيذ من `case 3` في السطر `(*)` وينتقل إلى `case 5` لعدم وجود `break`.
+=======
+The ability to "group" cases is a side effect of how `switch/case` works without `break`. Here the execution of `case 3` starts from the line `(*)` and goes through `case 5`, because there's no `break`.
+>>>>>>> 2efe0dce18a57f2b6121ed6656d6fe10b0ee8f96
 
 ## الأنواع مهمة
 

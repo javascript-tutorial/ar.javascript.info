@@ -26,7 +26,11 @@ let message;
 let message;
 
 *!*
+<<<<<<< HEAD
 message = 'Hello'; // تخزين النص
+=======
+message = 'Hello'; // store the string 'Hello' in the variable named message
+>>>>>>> 7bb6066eb6ea3a030b875cdc75433c458f80997e
 */!*
 ```
 
@@ -192,8 +196,13 @@ let 1a; // لا نستطيع نبدأ الاسم برقم
 let my-name; // الواصلات '-' غير مسموح بها في التسمية
 ```
 
+<<<<<<< HEAD
 ```smart header="الملاحظه المهمه"
 المتغيرات التي تُسمي `apple` و `AppLE` يكونوا متغيريين مختلفين تماما
+=======
+```smart header="Case matters"
+Variables named `apple` and `APPLE` are two different variables.
+>>>>>>> 7bb6066eb6ea3a030b875cdc75433c458f80997e
 ```
 
 ````smart header="يُسمح باستخدام الأحرف غير اللاتينية ، ولكن لا يُنصح بها"
@@ -299,7 +308,11 @@ const pageLoadTime = /* الوقت اللازم لتحضير صفحة الويب
 
 قيمة `pageLoadTime` غير معرفه في بداية تحضير الصفحة, لذلك من الطبيعي تسميتها. ولكنها مازالت ثابت لانها لم تتغير بعد التعريف.
 
+<<<<<<< HEAD
 بمعنى آخر ، تُستخدم الثوابت التي تحمل أسماء كبيرة فقط كأسماء مستعارة لقيم "الثابت الترميز".
+=======
+In other words, capital-named constants are only used as aliases for "hard-coded" values.
+>>>>>>> 7bb6066eb6ea3a030b875cdc75433c458f80997e
 
 ## تسمية الاشياء بشكل صحيح
 

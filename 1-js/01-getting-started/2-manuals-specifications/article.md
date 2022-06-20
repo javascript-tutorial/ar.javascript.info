@@ -28,7 +28,12 @@
 جافا سكريبت لغة فى سياق متطور، تضاف إليها خصائص جديدة بانتظام.
 
 
+<<<<<<< HEAD
 لتَّـحَقّـق من الدعم ما بين المتصفحات والمحركات الأخرى، انظر:
+=======
+- <https://caniuse.com> - per-feature tables of support, e.g. to see which engines support modern cryptography functions: <http://caniuse.com/#feat=cryptography>.
+- <https://kangax.github.io/compat-table> - a table with language features and engines that support those or don't support.
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 - <http://caniuse.com> - جدول الدعم لكل خاصية، مثال: لترى أيًا من المحركات يدعم دوال التشفير الحديث: <http://caniuse.com/#feat=cryptography>.
 - <https://kangax.github.io/compat-table> - جدول بمواصفات ومحركات اللغة وقابلية دعم كل محرك لكل خاصية.

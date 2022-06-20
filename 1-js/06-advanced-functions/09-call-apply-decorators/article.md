@@ -288,19 +288,34 @@ func.apply(context, args)
 
 أي أنّ الاستدعاءين الآتين متساويين تقريبًا:
 
+<<<<<<< HEAD
 ```
 func.call(context, ...args); // نمرّر الكائن قائمةً بمُعامل التوزيع
 func.apply(context, args);   // ‫نفس الفكرة باستعمال apply
 ```
 
 ولكن هناك فرق بسيط واحد:
+=======
+```js
+func.call(context, ...args);
+func.apply(context, args);
+```
+
+They perform the same call of `func` with given context and arguments.
+
+There's only a subtle difference regarding `args`:
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 - يُتيح لنا مُعامل التوزيع `‎...‎` تمرير _المُتعدَّد_ `‎args‎` قائمةً إلى `‎call‎`.
 - لا يقبل `‎apply‎` إلّا مُعامل `‎args‎` _شبيه بالمصفوفات_.
 
+<<<<<<< HEAD
 أي أنّ هذين الاستدعاءين يُكمّلان بعضهما البعض. لو توقّعنا وصول مُتعدَّد فنستعمل `‎call‎`، ولو توقّعنا شبيهًا بالمصفوفات نستعمل `‎apply‎`.
 
 أمّا الكائنات المُتعدَّدة والشبيهة بالمصفوفات (مثل المصفوفات الحقيقية)، فيمكننا نظريًا استعمال أيّ من الاثنين، إلّا أنّ `‎apply‎` سيكون أسرع غالبًا إذ أنّ مُعظم محرّكات جافا سكريبت تحسّن أدائه داخليًا أكثر من `‎call‎`.
+=======
+...And for objects that are both iterable and array-like, such as a real array, we can use any of them, but `apply` will probably be faster, because most JavaScript engines internally optimize it better.
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 يُدى تمرير كافة المُعاملات (مع السياق) من دالة إلى أخرى _بتمرير الاستدعاء_.
 

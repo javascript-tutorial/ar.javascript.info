@@ -56,18 +56,30 @@ alert( 8 % 3 ); // 2, a remainder of 8 divided by 3
 
 ### الضرب الأسي ** 
 
+<<<<<<< HEAD
 عامل الضرب الأسي `a ** b` يقوم بضرب الرقم `a`  في نفسه عدد `b` من المرات 
+=======
+The exponentiation operator `a ** b` raises `a` to the power of `b`.
+
+In school maths, we write that as a<sup>b</sup>.
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 على سبيل المثال: 
 
 ```js run
-alert( 2 ** 2 ); // 4  (2 multiplied by itself 2 times)
-alert( 2 ** 3 ); // 8  (2 * 2 * 2, 3 times)
-alert( 2 ** 4 ); // 16 (2 * 2 * 2 * 2, 4 times)
+alert( 2 ** 2 ); // 2² = 4
+alert( 2 ** 3 ); // 2³ = 8
+alert( 2 ** 4 ); // 2⁴ = 16
 ```
 
+<<<<<<< HEAD
 من الناحية الرياضياتية الضرب الأسي يستخدم أيضا مع الأرقام غير الصحيحة.  على سبيل المثال الجذر التربيعي هو ضرب أسي بقيمة
  `1/2`:
+=======
+Just like in maths, the exponentiation operator is defined for non-integer numbers as well. 
+
+For example, a square root is an exponentiation by ½:
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 ```js run
 alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root)
@@ -198,6 +210,7 @@ alert( +apples + +oranges ); // 5
 | الأسبقية | الاسم | تسجيل |
 | ------------ | ------ | ------ |
 | ... | ... | ... |
+<<<<<<< HEAD
 | 17 | أحادي زائد | `+` |
 | 17 | نفي أحادي | `-` |
 | 16 | الأسي | `**` |
@@ -210,10 +223,28 @@ alert( +apples + +oranges ); // 5
 | ... | ... | ... |
 
 كما نرى ، فإن "unary plus" لها أولوية "17" وهي أعلى من "13" لـ "add" (ثنائي زائد). لهذا السبب ، في تعبير "+ apples + + oranges" ، تعمل الإيجابيات الأحادية قبل الإضافة.
+=======
+| 15 | unary plus | `+` |
+| 15 | unary negation | `-` |
+| 14 | exponentiation | `**` |
+| 13 | multiplication | `*` |
+| 13 | division | `/` |
+| 12 | addition | `+` |
+| 12 | subtraction | `-` |
+| ... | ... | ... |
+| 2 | assignment | `=` |
+| ... | ... | ... |
+
+As we can see, the "unary plus" has a priority of `15` which is higher than the `12` of "addition" (binary plus). That's why, in the expression `"+apples + +oranges"`, unary pluses work before the addition.
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 ## التعيين 
 
+<<<<<<< HEAD
 دعنا نلاحظ أن المهمة `=` هي أيضًا عامل. وهي مدرجة في جدول الأسبقية بأولوية منخفضة جدًا لـ `3`.
+=======
+Let's note that an assignment `=` is also an operator. It is listed in the precedence table with the very low priority of `2`.
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 لهذا السبب ، عندما نقوم بتعيين متغير ، مثل `x = 2 * 2 + 1` ، تتم الحسابات أولاً ثم يتم تقييم` = `، وتخزين النتيجة في` x`.
 
@@ -442,7 +473,13 @@ counter++;
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
+<<<<<<< HEAD
 نادرًا ما يتم استخدام عوامل التشغيل هذه ، عندما نحتاج إلى التلاعب بالأرقام على أدنى مستوى (أحادي البتات). لن نحتاج إلى هؤلاء المشغلين في أي وقت قريب ، لأن تطوير الويب لا يستخدمهم كثيرًا ، ولكن في بعض المجالات الخاصة ، مثل التشفير ، فهي مفيدة. يمكنك قراءة مقالة [عوامل تشغيل Bitwise] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Bitwise) مقالة حول MDN عند الحاجة. 
+=======
+These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#bitwise_operators) chapter on MDN when a need arises.
+
+## Comma
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 ## الفاصلة 
 

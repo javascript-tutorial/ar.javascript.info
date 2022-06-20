@@ -2,7 +2,13 @@
 
 كما يمكننا تعيين خاصية لدالة الclass ذاتها, وليس لـ `"prototype"` الخاص بها. مثل هذه الدوال تسمى بـ*static*.
 
+<<<<<<< HEAD
 في الـ class, يتم إلحاقهم بكلمة رئيسية `static`'' ، مثل هذا:
+=======
+We can also assign a method to the class as a whole. Such methods are called *static*.
+
+In a class declaration, they are prepended by `static` keyword, like this:
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 ```js run
 class User {
@@ -30,9 +36,17 @@ User.staticMethod(); // true
 
 قيمة `this` في`User.staticMethod ()`هي مُنشئ الفئة` المستخدم` نفسه (قاعدة "object قبل النقطة").
 
+<<<<<<< HEAD
 عادة ، يتم استخدام الأساليب الثابتة لتنفيذ الوظائف التي تنتمي إلى الفئة ، ولكن ليس لأي object معين منها.
 
 على سبيل المثال ، لدينا objects `Article` ونحتاج إلى وظيفة لمقارنتها. الحل الطبيعي هو إضافة طريقة `Article.compare` ، على النحو التالي:
+=======
+Usually, static methods are used to implement functions that belong to the class as a whole, but not to any particular object of it.
+
+For instance, we have `Article` objects and need a function to compare them.
+
+A natural solution would be to add `Article.compare` static method:
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 ```js run
 class Article {
@@ -62,9 +76,17 @@ articles.sort(Article.compare);
 alert( articles[0].title ); // CSS
 ```
 
+<<<<<<< HEAD
 هنا "Article.compare" تقف المقالات "أعلاه" ، كوسيلة لمقارنتها. إنها ليست دالة لـ `article` ، ولكن بدلاً من الـ `class` بأكمله.
 
 مثال آخر هو ما يسمى طريقة "المصنع". تخيل ، نحن بحاجة إلى طرق قليلة لإنشاء مقال:
+=======
+Here `Article.compare` method stands "above" articles, as a means to compare them. It's not a method of an article, but rather of the whole class.
+
+Another example would be a so-called "factory" method.
+
+Let's say, we need multiple ways to create an article:
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 1. إنشاء بواسطة معلمات معينة (`العنوان` ،` التاريخ` وما إلى ذلك).
 2. إنشاء مقال فارغ بتاريخ اليوم.
@@ -72,7 +94,11 @@ alert( articles[0].title ); // CSS
 
 يمكن تنفيذ الطريقة الأولى من قبل المنشئ. وللثاني يمكننا عمل طريقة ثابتة للفئة.
 
+<<<<<<< HEAD
 مثل `Article.createTodays()` هنا:
+=======
+Such as `Article.createTodays()` here:
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 
 ```js run
 class Article {
@@ -100,9 +126,25 @@ alert( article.title ); // Today's digest
 
 ```js
 // assuming Article is a special class for managing articles
+<<<<<<< HEAD
 // static method to remove the article:
 Article.remove({ id: 12345 });
+=======
+// static method to remove the article by id:
+Article.remove({id: 12345});
+>>>>>>> 7964b11b8fa2c314d9a09a82ea4b585cda618c80
 ```
+
+````warn header="Static methods aren't available for individual objects"
+Static methods are callable on classes, not on individual objects.
+
+E.g. such code won't work:
+
+```js
+// ...
+article.createTodays(); /// Error: article.createTodays is not a function
+```
+````
 
 ## Static properties
 

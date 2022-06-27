@@ -10,7 +10,11 @@
 
 تنتمي كل عقدة DOM إلى الفئة المضمنة المقابلة.
 
+<<<<<<< HEAD
 جذر التسلسل الهرمي هو [EventTarget] (https://dom.spec.whatwg.org/#eventtarget) ، الموروث بواسطة [Node] (http://dom.spec.whatwg.org/#interface-node ) ، وترث العقد الأخرى منه.
+=======
+The root of the hierarchy is [EventTarget](https://dom.spec.whatwg.org/#eventtarget), that is inherited by  [Node](https://dom.spec.whatwg.org/#interface-node), and other DOM nodes inherit from it.
+>>>>>>> 30a5d5e2a7c3504c9afd5028f83f4a696e60aede
 
 هذه هي الصورة والتفسيرات التي يجب اتباعها:
 
@@ -18,6 +22,7 @@
 
 الclasses هي:
 
+<<<<<<< HEAD
 - [EventTarget] (https://dom.spec.whatwg.org/#eventtarget) - هي فئة الجذر "المجردة". لا يتم إنشاء كائنات هذه الفئة أبدًا. إنه بمثابة قاعدة ، بحيث تدعم جميع عقد DOM ما يسمى "الأحداث" ، وسندرسها لاحقًا.
 - [Node] (http://dom.spec.whatwg.org/#interface-node) - هي أيضًا فئة "مجردة" ، تعمل كقاعدة لعقد DOM. يوفر وظائف الشجرة الأساسية: `motherNode` و` nextSibling` و` childNodes` وما إلى ذلك (فهي عبارة عن حروف). لا يتم إنشاء كائنات فئة "العقدة" مطلقًا. ولكن هناك فئات عقدة محددة ترث منه ، وهي: `Text` للعقد النصية و` Element` لعقد العناصر والمزيد من الأنواع الغريبة مثل `Comment` لعقد التعليق.
 - [Element] (http://dom.spec.whatwg.org/#interface-element) - هي فئة أساسية لعناصر DOM. يوفر التنقل على مستوى العنصر مثل `nextElementSibling` و` children` وطرق البحث مثل `getElementsByTagName` و` querySelector`. لا يدعم المتصفح HTML فحسب ، بل يدعم أيضًا XML و SVG. تعمل فئة `Element` كقاعدة لفئات أكثر تحديدًا:` SVGElement` و `XMLElement` و` HTMLElement`.
@@ -28,6 +33,41 @@
       - ... وهكذا ، كل علامة لها فئة خاصة بها قد توفر خصائص وأساليب معينة.
 
 لذلك ، فإن المجموعة الكاملة من الخصائص والأساليب لعقدة معينة تأتي نتيجة الميراث.
+=======
+- [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- is the root "abstract" class for everything.
+
+    Objects of that class are never created. It serves as a base, so that all DOM nodes support so-called "events", we'll study them later.
+
+- [Node](https://dom.spec.whatwg.org/#interface-node) -- is also an "abstract" class, serving as a base  for DOM nodes.
+
+    It provides the core tree functionality: `parentNode`, `nextSibling`, `childNodes` and so on (they are getters). Objects of `Node` class are never created. But there are other classes that inherit from it (and so inherit the `Node` functionality).
+
+- [Document](https://dom.spec.whatwg.org/#interface-document), for historical reasons often inherited by `HTMLDocument` (though the latest spec doesn't dictate it) -- is a document as a whole.
+
+    The `document` global object belongs exactly to this class. It servers as an entry point to the DOM.
+
+- [CharacterData](https://dom.spec.whatwg.org/#interface-characterdata) -- an "abstract" class, inherited by:
+    - [Text](https://dom.spec.whatwg.org/#interface-text) -- the class corresponding to a text inside elements, e.g. `Hello` in `<p>Hello</p>`.
+    - [Comment](https://dom.spec.whatwg.org/#interface-comment) -- the class for comments. They are not shown, but each comment becomes a member of DOM.
+
+- [Element](https://dom.spec.whatwg.org/#interface-element) -- is the base class for DOM elements.
+
+    It provides element-level navigation like `nextElementSibling`, `children` and searching methods like `getElementsByTagName`, `querySelector`.
+
+    A browser supports not only HTML, but also XML and SVG. So the `Element` class serves as a base for more specific classes: `SVGElement`, `XMLElement` (we don't need them here) and `HTMLElement`.
+
+- Finally, [HTMLElement](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) is the basic class for all HTML elements. We'll work with it most of the time.
+
+    It is inherited by concrete HTML elements:
+    - [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) -- the class for `<input>` elements,
+    - [HTMLBodyElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) -- the class for `<body>` elements,
+    - [HTMLAnchorElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) -- the class for `<a>` elements,
+    - ...and so on.
+
+There are many other tags with their own classes that may have specific properties and methods, while some elements, such as `<span>`, `<section>`, `<article>` do not have any specific properties, so they are instances of `HTMLElement` class.
+
+So, the full set of properties and methods of a given node comes as the result of the chain of inheritance.
+>>>>>>> 30a5d5e2a7c3504c9afd5028f83f4a696e60aede
 
 على سبيل المثال ، لنفكر في كائن DOM لعنصر `<input>`. وهي تنتمي إلى فئة [HTMLInputElement] (https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement).
 
@@ -133,10 +173,10 @@ alert(document.body instanceof EventTarget); // true
   <script>
   let elem = document.body;
 
-  // let's examine what it is?
+  // let's examine: what type of node is in elem?
   alert(elem.nodeType); // 1 => element
 
-  // and the first child is...
+  // and its first child is...
   alert(elem.firstChild.nodeType); // 3 => text
 
   // for the document object, the type is 9

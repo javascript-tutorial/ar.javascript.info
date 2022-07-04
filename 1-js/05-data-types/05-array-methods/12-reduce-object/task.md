@@ -4,7 +4,11 @@ importance: 4
 
 # انشاء مفاتيح خاصة بكائنات المصفوفة
 
+<<<<<<< HEAD
 دعنا نقول أننا نستقبل مصفوفة خاصة بالمستخدمين داخل form مكونة `{id:..., name:..., age... }`
+=======
+Let's say we received an array of users in the form `{id:..., name:..., age:... }`.
+>>>>>>> fe1c4a241f12a0939d1e0977cec6504ccd67201f
 
 اكتب دالة `groupById(arr)` لانشاء كائن منها يحتوى على `id` كمفتاح و عناصر المصفوفة كقيم
 

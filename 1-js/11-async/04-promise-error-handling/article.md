@@ -198,7 +198,15 @@ new Promise(function() {
 
 ## ملخص
 
+<<<<<<< HEAD
 - يعالج `.catch` الأخطاء في الوعود بجميع أنواعها: سواء كان استدعاء` `رفض ()` أو خطأ تم طرحه في معالج.
 - يجب وضع ".catch" بالضبط في الأماكن التي نرغب في معالجة الأخطاء فيها ومعرفة كيفية التعامل معها. يجب أن يقوم المعالج بتحليل الأخطاء (تساعد فئات الأخطاء المخصصة) وإعادة إنشاء الأخطاء غير المعروفة (ربما تكون أخطاء برمجة).
 - لا بأس بعدم استخدام "الصيد" على الإطلاق ، إذا لم تكن هناك طريقة للتعافي من خطأ.
 - على أي حال ، يجب أن يكون لدينا معالج الأحداث `unhandledrejection` (للمتصفحات والنظير للبيئات الأخرى) لتتبع الأخطاء التي لم تتم معالجتها وإبلاغ المستخدم (وربما خادمنا) بشأنها ، حتى لا يموت تطبيقنا أبدًا.
+=======
+- `.catch` handles errors in promises of all kinds: be it a `reject()` call, or an error thrown in a handler.
+- `.then` also catches errors in the same manner, if given the second argument (which is the error handler).
+- We should place `.catch` exactly in places where we want to handle errors and know how to handle them. The handler should analyze errors (custom error classes help) and rethrow unknown ones (maybe they are programming mistakes).
+- It's ok not to use `.catch` at all, if there's no way to recover from an error.
+- In any case we should have the `unhandledrejection` event handler (for browsers, and analogs for other environments) to track unhandled errors and inform the user (and probably our server) about them, so that our app never "just dies".
+>>>>>>> fe1c4a241f12a0939d1e0977cec6504ccd67201f

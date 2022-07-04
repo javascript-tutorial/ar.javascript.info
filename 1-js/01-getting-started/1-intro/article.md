@@ -29,9 +29,17 @@
 
 من الجيد تذكر المصطلحات الواردة أعلاه لأنها مستخدمة في مقالات المطورين على الإنترنت. سنستخدمهم أيضًا. على سبيل المثال ، إذا كانت "الميزة إكس مدعومة بواسطة في8" ، فمن المحتمل أنها تعمل في كروم و أوبرا.
 
+<<<<<<< HEAD
 ```smart header="كيف تعمل المحركات؟"
 
 المحركات معقدة. ولكن الأساسيات بسيطه .
+=======
+- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome, Opera and Edge.
+- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
+- ...There are other codenames like "Chakra" for IE, "JavaScriptCore", "Nitro" and "SquirrelFish" for Safari, etc.
+
+The terms above are good to remember because they are used in developer articles on the internet. We'll use them too. For instance, if "a feature X is supported by V8", then it probably works in Chrome, Opera and Edge.
+>>>>>>> fe1c4a241f12a0939d1e0977cec6504ccd67201f
 
 ١. يقرأ ("يحلّل") المحرك (المثبت إذا كان متصفحًا) السكريبت.
 
@@ -59,7 +67,11 @@
 - الحصول على ملفات تعريف الارتباط وتعيينها ، وطرح الأسئلة على الزائر ، وإظهار الرسائل.
 - تذكر البيانات الموجودة على جانب العميل ("التخزين المحلي").
 
+<<<<<<< HEAD
 ## ما الذي لا يمكن لجافا سكريبت في المتصفح فعله؟
+=======
+JavaScript's abilities in the browser are limited for the sake of a user's safety. The aim is to prevent an evil webpage from accessing private information or harming the user's data.
+>>>>>>> fe1c4a241f12a0939d1e0977cec6504ccd67201f
 
 إمكانيات جافا سكريبت في المتصفح محدودة من أجل سلامة المستخدم. الهدف هو منع صفحة ويب شريرة من الوصول إلى المعلومات الخاصة أو الإضرار ببيانات المستخدم.
 
@@ -86,9 +98,15 @@
 هناك على الأقل *ثلاثة* أشياء رائعة حول جافا سكريبت:
 
 ```compare
+<<<<<<< HEAD
 + تكامل تام مع HTML / CSS.
 + الأشياء البسيطة تتم ببساطة.
 + مدعوم من قبل جميع المتصفحات الرائدة وتمكينه تلقائيا.
+=======
++ Full integration with HTML/CSS.
++ Simple things are done simply.
++ Supported by all major browsers and enabled by default.
+>>>>>>> fe1c4a241f12a0939d1e0977cec6504ccd67201f
 ```
 
 جافا سكريبت هي تقنية المتصفح الوحيدة التي تجمع بين هذه الأشياء الثلاثة.
@@ -109,17 +127,32 @@
 
 أمثلة على هذه اللغات:
 
+<<<<<<< HEAD
 - [كوفي سكريبت](http://coffeescript.org/) هو "سكر نحوي" لجافا سكريبت. إنه يقدم بناء جمل أقصر ، مما يسمح لنا بكتابة كود أكثر وضوحًا ودقة. عادة ،مطورو روبي يحبونها.
 - [تايب سكريبت](http://www.typescriptlang.org/) يركز على إضافة "كتابة بيانات صارمة" لتبسيط تطوير ودعم الأنظمة المعقدة. تم تطويره بواسطة ميكروسوفت.
 - [فلو](http://flow.org/) يضيف أيضًا كتابة البيانات ، ولكن بطريقة مختلفة. تم تطويره بواسطة فايسبوك.
 - [دارت](https://www.dartlang.org/) هي لغة قائمة بذاتها لها محركها الخاص الذي يعمل في بيئات غير المتصفح (مثل تطبيقات الهاتف المحمول) ، ولكن يمكن أيضًا تحويلها إلى جافا سكريبت. من تطوير جوجل.
 - [بريثون](https://brython.info/) هو محول من بايثون إلى جافا سكريبت و الذي يمكّن من كتابة التطبيقات بلغة بايثون بشكل كامل بدون جافا سكريبت.
 - [كوتلن](https://kotlinlang.org/docs/reference/js-overview.html) هي لغة برمجة حديثة وموجزة وآمنة يمكنها استهداف المتصفح أو نود.
+=======
+- [CoffeeScript](https://coffeescript.org/) is a "syntactic sugar" for JavaScript. It introduces shorter syntax, allowing us to write clearer and more precise code. Usually, Ruby devs like it.
+- [TypeScript](https://www.typescriptlang.org/) is concentrated on adding "strict data typing" to simplify the development and support of complex systems. It is developed by Microsoft.
+- [Flow](https://flow.org/) also adds data typing, but in a different way. Developed by Facebook.
+- [Dart](https://www.dartlang.org/) is a standalone language that has its own engine that runs in non-browser environments (like mobile apps), but also can be transpiled to JavaScript. Developed by Google.
+- [Brython](https://brython.info/) is a Python transpiler to JavaScript that enables the writing of applications in pure Python without JavaScript.
+- [Kotlin](https://kotlinlang.org/docs/reference/js-overview.html) is a modern, concise and safe programming language that can target the browser or Node.
+>>>>>>> fe1c4a241f12a0939d1e0977cec6504ccd67201f
 
 هناك أكثر. بالطبع ، حتى لو استخدمنا إحدى اللغات المترجمة ، يجب أن نعرف أيضًا جافا سكريبت لفهم ما نقوم به حقًا.
 
 ## ملخص
 
+<<<<<<< HEAD
 - تم إنشاء جافا سكريبت في البداية كلغة للمتصفح فقط ، ولكنها تُستخدم الآن في العديد من البيئات الأخرى أيضًا.
 - تتمتع جافا سكريبت اليوم بمكانة فريدة باعتبارها لغة المتصفح الأكثر استخدامًا مع تكاملها التام مع HTML / CSS.
 - هناك العديد من اللغات التي يتم "تحويلها" إلى جافا سكريبت وتوفر ميزات معينة. يوصى بإلقاء نظرة عليهم ، على الأقل لفترة وجيزة ، بعد إتقان جافا سكريبت.
+=======
+- JavaScript was initially created as a browser-only language, but it is now used in many other environments as well.
+- Today, JavaScript has a unique position as the most widely-adopted browser language, fully integrated with HTML/CSS.
+- There are many languages that get "transpiled" to JavaScript and provide certain features. It is recommended to take a look at them, at least briefly, after mastering JavaScript.
+>>>>>>> fe1c4a241f12a0939d1e0977cec6504ccd67201f

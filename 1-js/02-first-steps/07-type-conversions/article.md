@@ -7,7 +7,11 @@
 هناك أيضاً حالات نحتاج إلى تصريح تحويل القيمة إلى النوع المطلوب.
 
 ```smart header="Not talking about objects yet"
+<<<<<<< HEAD
 في هذا الفصل، لن نغطي الكائنات. الآن سوف نتحدث عن الأنواع الأساسية.
+=======
+In this chapter, we won't cover objects. For now, we'll just be talking about primitives.
+>>>>>>> fe1c4a241f12a0939d1e0977cec6504ccd67201f
 
 فيما بعد، بعد أن نتعلم عن الكائنات، في هذا الفصل <info:object-toprimitive> سنرى كيف تتلائم الكائنات فيه.
 ```

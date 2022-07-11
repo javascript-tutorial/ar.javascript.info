@@ -68,7 +68,15 @@ for (let value of Object.values(user)) {
 2. استعمل توابِع المصفوفات على تلك المصفوفة (مثلًا map).
 3. استعمل Object.fromEntries(array)‎ على المصفوفة الناتج لتُحوّلها ثانيةً إلى كائن.
 
+<<<<<<< HEAD
 إليك مثالًا لدينا كائنًا فيه تسعير البضائع، ونريد مضاعفتها (إذ ارتفع الدولار):
+=======
+1. Use `Object.entries(obj)` to get an array of key/value pairs from `obj`.
+2. Use array methods on that array, e.g. `map`, to transform these key/value pairs.
+3. Use `Object.fromEntries(array)` on the resulting array to turn it back into an object.
+
+For example, we have an object with prices, and would like to double them:
+>>>>>>> 82ed8f11b40bd40797427a5dd1763edbe1fca523
 
 ```js run
 let prices = {
@@ -79,12 +87,22 @@ let prices = {
 
 *!*
 let doublePrices = Object.fromEntries(
+<<<<<<< HEAD
   // ‫نحوّله إلى مصفوفة، ثمّ نستعمل الطقم، ثمّ يُعيد إلينا fromEntries الكائن المطلوب
   Object.entries(prices).map(([key, value]) => [key, value * 2])
+=======
+  // convert prices to array, map each key/value pair into another pair
+  // and then fromEntries gives back the object
+  Object.entries(prices).map(entry => [entry[0], entry[1] * 2])
+>>>>>>> 82ed8f11b40bd40797427a5dd1763edbe1fca523
 );
 */!*
 
 alert(doublePrices.meat); // 8
 ```
 
+<<<<<<< HEAD
 ربّما تراه صعبًا أوّل وهلة، ولكن لا تقلق فسيصير أسهل أكثر متى ما بدأت استعمالها مرّة واثنتان وثلاث. يمكن أن نصنع سلسلة فعّالة من التعديلات بهذه الطريقة:
+=======
+It may look difficult at first sight, but becomes easy to understand after you use it once or twice. We can make powerful chains of transforms this way.
+>>>>>>> 82ed8f11b40bd40797427a5dd1763edbe1fca523

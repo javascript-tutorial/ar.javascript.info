@@ -55,7 +55,11 @@ for(;;) {
 
 يجب وضع هذه التعليمة أو التوجيه في أعلى النص البرمجي أو في بداية جسم التابع.
 
+<<<<<<< HEAD
 وبدون وضع التعليمة `"use strict"`، سيعمل كل شيء على ما يرام، ولكن ستعمل بعض الميزات بأسلوبها القديم المتوافق مع السلوك الحديث. لذلك يُفضل عموماً استخدام هذا الأسلوب الأحدث.
+=======
+Without `"use strict"`, everything still works, but some features behave in the old-fashioned, "compatible" way. We'd generally prefer the modern behavior.
+>>>>>>> 82ed8f11b40bd40797427a5dd1763edbe1fca523
 
 جديرٌ بالذكر، أن بعضاً من هذه الميزات (كالصفوف التي سندرسها في المستقبل) تقوم بتفعيل هذا الوضع الحديث (الدقيق) بشكل ضمني حتى لو لم يتم كتابة التعليمة بشكل صريح.
 
@@ -143,8 +147,13 @@ alert( "Tea wanted: " + isTeaWanted ); // true
 الإسناد
 : الإسناد البسيط هو من الشكل: `a = b` أما الإسناد المركّب فهو من الشكل `a *= 2`.
 
+<<<<<<< HEAD
 عوامل البِتّات (Bitwise)
 : تقوم عوامل الـ Bitwise بالعمل مع الأعداد الصحيحة من فئة 32-بِت على الأقل، فهي تعمل على مستوى البِت، وللاطلاع عليها يمكن مراجعة [التوثيق](mdn:/JavaScript/Guide/Expressions_and_Operators#Bitwise) عند الحاجة.
+=======
+Bitwise
+: Bitwise operators work with 32-bit integers at the lowest, bit-level: see the [docs](mdn:/JavaScript/Guide/Expressions_and_Operators#bitwise_operators) when they are needed.
+>>>>>>> 82ed8f11b40bd40797427a5dd1763edbe1fca523
 
 العوامل الشرطية
 : والعامل الشرطي هو العامل الوحيد الذي يأخذ ثلاث معاملات: `cond ? resultA : resultB`. فإذا كان الشرط `cond` صحيحاً، سيتمّ إرجاع `resultA` وإلا سيتم إرجاع `resultB`.
@@ -256,7 +265,11 @@ switch (age) {
 3. الدوال كأسهم: (حيث تُرسم الدوال بطريقة تشبه شكل السهم)
 
     ```js
+<<<<<<< HEAD
     // توضع التعابير في الطرف اليميني
+=======
+    // expression on the right side
+>>>>>>> 82ed8f11b40bd40797427a5dd1763edbe1fca523
     let sum = (a, b) => a + b;
 
     // أو يمكن استخدام أكثر من سطر مع أقواس الكتل {...}

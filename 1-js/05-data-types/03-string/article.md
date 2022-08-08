@@ -47,7 +47,11 @@ let guestList = "Guests: // Error: Unexpected token ILLEGAL
   * John";
 ```
 
+<<<<<<< HEAD
 أتى استخدام علامات الاقتباس الفردية والثنائية في أوقات مبكرة من إنشاء اللغة، عندما لم يُؤخَذ بالحسبان الحاجة إلى نص متعدد الأسطر. ظهرت الفاصلة العلوية المائلة مؤخرًا ولذا فإنها متعددة الاستعمالات.
+=======
+Single and double quotes come from ancient times of language creation, when the need for multiline strings was not taken into account. Backticks appeared much later and thus are more versatile.
+>>>>>>> 7000ede297bfd688f9a3767e8ca43abd9242f322
 
 Backticks also allow us to specify a "template function" before the first backtick. The syntax is: <code>func&#96;string&#96;</code>. The function `func` is called automatically, receives the string and embedded expressions and can process them. This is called "tagged templates". This feature makes it easier to implement custom templating, but is rarely used in practice. You can read more about it in the [manual](mdn:/JavaScript/Reference/Template_literals#Tagged_templates).
 
@@ -92,7 +96,7 @@ alert(str1 == str2); // true
 | Character | Description |
 |-----------|-------------|
 |`\n`|New line|
-|`\r`|Carriage return: not used alone. Windows text files use a combination of two characters `\r\n` to represent a line break. |
+|`\r`|In Windows text files a combination of two characters `\r\n` represents a new break, while on non-Windows OS it's just `\n`. That's for historical reasons, most Windows software also understands `\n`. |
 |`\'`, `\"`|Quotes|
 |`\\`|Backslash|
 |`\t`|Tab|
@@ -222,7 +226,7 @@ alert( 'Interface'.toLowerCase() ); // interface
 أو إن أردنا بتغيير حالة حرف واحد فقط:
 
 
-```js
+```js run
 alert( 'Interface'[0].toLowerCase() ); // 'i'
 ```
 
@@ -370,8 +374,8 @@ alert( "Widget".includes("id", 3) ); // false, from position 3 there is no "id"
 يعمل التابعان  [str.startsWith](mdn:js/String/startsWith) و [str.endsWith](mdn:js/String/endsWith) بما هو واضح من مسمياتهما، "سلسلة نصية تبدأ بـ"، و "سلسلة نصية تنتهي بـ" على التوالي:
 
 ```js run
-alert( "Widget".startsWith("Wid") ); // true, "Widget" starts with "Wid"
-alert( "Widget".endsWith("get") ); // true, "Widget" ends with "get"
+alert( "*!*Wid*/!*get".startsWith("Wid") ); // true, "Widget" starts with "Wid"
+alert( "Wid*!*get*/!*".endsWith("get") ); // true, "Widget" ends with "get"
 ```
 
 ## جلب جزء من نص
@@ -532,7 +536,12 @@ alert( str );
 - تأتي الأحرف الصغيرة بعد الأحرف الكبيرة دائمًا لأن رموزها العددية دائمًا أكبر.
 - تكون بعض الأحرف مثل `Ö` بعيدة عن الأحرف الهجائية. هنا، قيمة الحرف هذا أكبر من أي حرف بين `a` و `z`.
 
+<<<<<<< HEAD
 ### موازنات صحيحة
+=======
+- All lowercase letters go after uppercase letters because their codes are greater.
+- Some letters like `Ö` stand apart from the main alphabet. Here, its code is greater than anything from `a` to `z`.
+>>>>>>> 7000ede297bfd688f9a3767e8ca43abd9242f322
 
 ### Correct comparisons [#correct-comparisons]
 
@@ -612,7 +621,11 @@ alert( '𝒳'.charCodeAt(1).toString(16) ); // dcb3, between 0xdc00 and 0xdfff
 
 ### علامات التشكيل وتوحيد الترميز
 
+<<<<<<< HEAD
 يوجد حروف مركبة في الكثير من اللغات والتي تتكون من الحرف الرئيسي مع علامة فوقه/تحته. مثلًا، يمكن للحرف `a` أن يكون أساسًا للأحرف التالية: `àáâäãåā`. لدى معظم الحروف المركبة رمزها الخاص بها في جدول UTF-16. لكن ليس جميعها، وذلك لوجود الكثير من الاحتمالات.
+=======
+In many languages, there are symbols that are composed of the base character with a mark above/under it.
+>>>>>>> 7000ede297bfd688f9a3767e8ca43abd9242f322
 
 
 To support arbitrary compositions, UTF-16 allows us to use several Unicode characters: the base character followed by one or many "mark" characters that "decorate" it.

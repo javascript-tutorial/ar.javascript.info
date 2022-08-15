@@ -8,7 +8,7 @@ We already know that a function can access variables outside of it ("outer" vari
 
 But what happens if outer variables change since a function is created? Will the function get newer values or the old ones?
 
-And what if a function is passed along as a parameter and called from another place of code, will it get access to outer variables at the new place?
+And what if a function is passed along as an argument and called from another place of code, will it get access to outer variables at the new place?
 
 Let's expand our knowledge to understand these scenarios and more complex ones.
 
@@ -158,7 +158,11 @@ alert(counter()); // 2
 
 فهم هذه الأشياء يعد عظيماً للمعلومات الشاملة لجافا سكريبت ومفيد جداً في حالة السيناريوهات المعقدة. لذلك هيا نتعمق أكثر في أمور أكثر صعوبة وتحتاج إلي تركيز.
 
+<<<<<<< HEAD
 ## البيئات المعجمية
+=======
+Understanding such things is great for the overall knowledge of JavaScript and beneficial for more complex scenarios. So let's go a bit in-depth.
+>>>>>>> 72aa4f0b9783a38155dd766ef50f025e672cfcee
 
 ```warn header="هنا يجب أن تكون شديد التركيز!"
 

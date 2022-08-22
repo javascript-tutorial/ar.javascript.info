@@ -70,9 +70,16 @@ f();
 
 دعونا نؤكد: `` انتظارًا '' يجعل جافا سكريبت تنتظر حتى يستقر الوعد ، ثم استمر في النتيجة. هذا لا يكلف أي موارد وحدة المعالجة المركزية ، لأن المحرك يمكنه القيام بمهام أخرى في الوقت نفسه: تنفيذ البرامج النصية الأخرى ، والتعامل مع الأحداث ، وما إلى ذلك.
 
+<<<<<<< HEAD
 Let's emphasize: `await` literally suspends the function execution until the promise settles, and then resumes it with the promise result. That doesn't cost any CPU resources, because the JavaScript engine can do other jobs in the meantime: execute other scripts, handle events, etc.
 
 ```` warn header="لا يمكن استخدام` انتظار 'في الوظائف العادية " إذا حاولنا استخدام `` انتظار '' في وظيفة غير متزامنة ، فسيكون هناك خطأ في بناء الجملة:
+=======
+It's just a more elegant syntax of getting the promise result than `promise.then`. And, it's easier to read and write.
+
+````warn header="Can't use `await` in regular functions"
+If we try to use `await` in a non-async function, there would be a syntax error:
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 ```js run
 function f() {
@@ -83,7 +90,12 @@ function f() {
 }
 ```
 
+<<<<<<< HEAD
 We may get this error if we forget to put `async` before a function. As said, `await` only works inside an `async` function.
+=======
+We may get this error if we forget to put `async` before a function. As stated earlier, `await` only works inside an `async` function.
+````
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 `````
 
@@ -122,16 +134,27 @@ showAvatar();
 
 نظيفة جدا وسهلة القراءة ، أليس كذلك؟ أفضل بكثير من ذي قبل.
 
+<<<<<<< HEAD
 ````smart header="` `انتظار '' لن يعمل في رمز المستوى الأعلى"
 يميل الأشخاص الذين بدأوا للتو في استخدام `` انتظار '' إلى نسيان حقيقة أنه لا يمكننا استخدام `` انتظار '' في رمز المستوى الأعلى. على سبيل المثال ، لن يعمل هذا:
+=======
+````smart header="Modern browsers allow top-level `await` in modules"
+In modern browsers, `await` on top level works just fine, when we're inside a module. We'll cover modules in article <info:modules-intro>.
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
-```js run
-// syntax error in top-level code
+For instance:
+
+```js run module
+// we assume this code runs at top level, inside a module
 let response = await fetch('/article/promise-chaining/user.json');
 let user = await response.json();
+
+console.log(user);
 ```
 
-But we can wrap it into an anonymous async function, like this:
+If we're not using modules, or [older browsers](https://caniuse.com/mdn-javascript_operators_await_top_level) must be supported, there's a universal recipe: wrapping into an anonymous async function.
+
+Like this:
 
 ```js
 (async () => {
@@ -141,10 +164,14 @@ But we can wrap it into an anonymous async function, like this:
 })();
 ```
 
+<<<<<<< HEAD
 P.S. New feature: starting from V8 engine version 8.9+, top-level await works in [modules](info:modules).
 `````
 
 ````smart header="`await`accepts \"thenables\"" Like`promise.then`, `await`allows us to use thenable objects (those with a callable`then`method). The idea is that a third-party object may not be a promise, but promise-compatible: if it supports`.then`, that's enough to use it with `await`.
+=======
+````
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 ````smart header="` `في انتظار` يقبل \" ثماني \ ""
 مثل "prom.then`" ، يتيح لنا "await" استخدام العناصر القابلة للاستعمال (تلك التي تستخدم طريقة `ثم`القابلة للاستدعاء). الفكرة هي أن كائن طرف ثالث قد لا يكون وعدًا ، ولكنه متوافق مع الوعد: إذا كان يدعم`.then` ، فهذا يكفي لاستخدامه مع` `بانتظار ''.
@@ -190,7 +217,7 @@ class Waiter {
 
 new Waiter()
   .wait()
-  .then(alert); // 1
+  .then(alert); // 1 (this is the same as (result => alert(result)))
 ```
 The meaning is the same: it ensures that the returned value is a promise and enables `await`.
 
@@ -301,8 +328,13 @@ let results = await Promise.all([
 
 تجعل الكلمة الرئيسية "في انتظار" قبل الوعد جافا سكريبت تنتظر حتى يستقر هذا الوعد ، ثم:
 
+<<<<<<< HEAD
 1. إذا كان هناك خطأ ، فسيتم إنشاء الاستثناء - مثل استدعاء "خطأ في الخطأ" في ذلك المكان.
 2. وإلا ، فإنها ترجع النتيجة.
+=======
+1. If it's an error, an exception is generated — same as if `throw error` were called at that very place.
+2. Otherwise, it returns the result.
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 يوفرون معًا إطارًا رائعًا لكتابة رمز غير متزامن يسهل قراءته وكتابته.
 

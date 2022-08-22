@@ -235,7 +235,11 @@ setTimeout(function() {...}, 100);
 
 For `setInterval` the function stays in memory until `clearInterval` is called.
 
+<<<<<<< HEAD
 ولكن هناك تأثير جانبي لذلك كالعادة، فالدوال تُشير إلى بيئتها المُعجمية الخارجية. لذا طالما «تعيش»، تعيش معها المتغيرات الخارجية أيضًا، وهي أحيانًا كبيرة تأخذ ذاكرة أكبر من الدالة ذاتها. لذا، متى ما لم ترد تلك الدالة المُجدولة فالأفضل أن تُلغيها حتّى لو كانت صغيرة جدًا.
+=======
+There's a side effect. A function references the outer lexical environment, so, while it lives, outer variables live too. They may take much more memory than the function itself. So when we don't need the scheduled function anymore, it's better to cancel it, even if it's very small.
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 ````
 
 ## جدولة setTimeout بتأخير صفر
@@ -299,8 +303,15 @@ For server-side JavaScript, that limitation does not exist, and there exist othe
 
 فمثلًا يمكن أن تكون مؤقّتات المتصفّحات أبطأ لأسباب عديدة:
 
+<<<<<<< HEAD
 - المعالج مُثقل بالعمليات.
 - المتصفّح يعمل في الخلفية.
 - يعمل الحاسوب المحمول على البطارية.
+=======
+For example, the in-browser timer may slow down for a lot of reasons:
+- The CPU is overloaded.
+- The browser tab is in the background mode.
+- The laptop is on battery saving mode.
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 يمكن لهذا كله رفع دقّة المؤقّت الدنيا (أي أدنى تأخير ممكن) لتصير 300 مليثانية أو حتى 1000 مليثانية حسب المتصفّح وإعدادات الأداء في نظام التشغيل.

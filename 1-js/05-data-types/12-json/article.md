@@ -27,10 +27,14 @@ alert(user); // {name: "John", age: 30}
 
 ## JSON.stringify
 
+<<<<<<< HEAD
 إن الكائن
 [JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation)
 هو شكل عام لعرض الكائنات والقيم. وقد تم وصفه كما فى ال [RFC 4627](http://tools.ietf.org/html/rfc4627).
 لقد صُنع فى البداية من أجل جافا سكريبت، ولكن هناك لغات ومكتبات أخرى للتعامل معه أيضًا. ولذلك من السهل استخدام الكائن JSON لتبادل البيانات عندما تكون الواجهة بجافا سكريبت والسيرفر / الباك اند بلغة مثل Ruby/PHP/Java أو أيًا كان.
+=======
+The [JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a general format to represent values and objects. It is described as in [RFC 4627](https://tools.ietf.org/html/rfc4627) standard. Initially it was made for JavaScript, but many other languages have libraries to handle it as well.  So it's easy to use JSON for data exchange when the client uses JavaScript and the server is written on Ruby/PHP/Java/Whatever.
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 تحتوى جافا سكريبت على دوال للتعامل مع الكائن JSON:
 
@@ -45,7 +49,7 @@ let student = {
   age: 30,
   isAdmin: false,
   courses: ['html', 'css', 'js'],
-  wife: null
+  spouse: null
 };
 
 *!*
@@ -62,7 +66,7 @@ alert(json);
   "age": 30,
   "isAdmin": false,
   "courses": ["html", "css", "js"],
-  "wife": null
+  "spouse": null
 }
 */
 */!*

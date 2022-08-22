@@ -22,6 +22,7 @@ let promise = new Promise(function (resolve, reject) {
 });
 ```
 
+<<<<<<< HEAD
 تُدعى الدالة الممرّرة إلى `new Promise` ”بالمُنفِّذ“. متى صُنع الوعد `new Promise` عملت الدالة تلقائيًا. يحتوي هذا
 المُنفِّذ الشيفرة المُنتجِة، ويمكن أن تقدّم لنا في النهاية ناتجًا. في مثالنا أعلاه، فالمُنفِّذ هذا هو ”المغنّي“.
 تقدّم جافا سكريبت الوسيطين `resolve` و `reject` وهما ردود نداء. كما ولا نضع الشيفرة التي نريد تنفيذها إلا داخل المُنفِّذ.
@@ -40,6 +41,25 @@ let promise = new Promise(function (resolve, reject) {
 [promise-resolve-reject.png]
 سنرى لاحقًا كيف سيشترك ”مُعجبونا“ بهذه التغييرات.
 إليك مثالًا عن بانيًا للوعود ودالة مُنفِّذ بسيطة فيها ”شيفرة مُنتجِة“ تأخذ بعض الوقت (باستعمال `setTimeout`):
+=======
+The function passed to `new Promise` is called the *executor*. When `new Promise` is created, the executor runs automatically. It contains the producing code which should eventually produce the result. In terms of the analogy above: the executor is the "singer".
+
+Its arguments `resolve` and `reject` are callbacks provided by JavaScript itself. Our code is only inside the executor.
+
+When the executor obtains the result, be it soon or late, doesn't matter, it should call one of these callbacks:
+
+- `resolve(value)` — if the job is finished successfully, with result `value`.
+- `reject(error)` — if an error has occurred, `error` is the error object.
+
+So to summarize: the executor runs automatically and attempts to perform a job. When it is finished with the attempt, it calls `resolve` if it was successful or `reject` if there was an error.
+
+The `promise` object returned by the `new Promise` constructor has these internal properties:
+
+- `state` — initially `"pending"`, then changes to either `"fulfilled"` when `resolve` is called or `"rejected"` when `reject` is called.
+- `result` — initially `undefined`, then changes to `value` when `resolve(value)` is called or `error` when `reject(error)` is called.
+
+So the executor eventually moves `promise` to one of these states:
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 ```
 let promise = new Promise(function(resolve, reject) {
@@ -49,7 +69,16 @@ setTimeout(() => resolve("done"), 1000);
 });
 ```
 
+<<<<<<< HEAD
 بتشغيل الشيفرة أعلاه، نرى أمرين اثنين:
+=======
+We can see two things by running the code above:
+
+1. The executor is called automatically and immediately (by `new Promise`).
+2. The executor receives two arguments: `resolve` and `reject`. These functions are pre-defined by the JavaScript engine, so we don't need to create them. We should only call one of them when ready.
+
+    After one second of "processing", the executor calls `resolve("done")` to produce the result. This changes the state of the `promise` object:
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 1. يُستدعى المُنفِّذ تلقائيًا ومباشرةً (عند استعمال `new Promise`).
 2. يستلم المُنفِّذ وسيطين: دالة الحلّ `resolve` ودالة الرفض `reject`، وهي دوال معرّفة مسبقًا في محرّك جافا سكريبت، ولا داعٍ
@@ -106,11 +135,17 @@ resolve(123); // أظهر مباشرة النتيجة: 123
 تكون خصائص الحالة `state` و النتيجة `result` لكائن الوعد داخلية. ولا يمكننا الوصول إليهم مباشرة. يمكننا استخدام التوابِع
 `‎.then`/`.catch`/`.finally` لذلك والتي سنشرحُها أدناه.
 
+<<<<<<< HEAD
 ## الاستهلاك: عبارات then وcatch وfinally
 
 كائن الوعد هو كالوصلة بين المُنفِّذ (أي ”الشيفرة المُنتِجة“ أو ”المغنّي“) والدوال المُستهلكة (أي ”المُعجبون“) التي ستسلم الناتج أو
 الخطأ. يمكن تسجيل دوال الاستهلاك (أو أن تشترك، كما في المثال العملي ذاك) باستعمال التوابِع `‎.then` و`‎.catch`
 و`‎.finally`.
+=======
+## Consumers: then, catch
+
+A Promise object serves as a link between the executor (the "producing code" or "singer") and the consuming functions (the "fans"), which will receive the result or error. Consuming functions can be registered (subscribed) using the methods `.then` and `.catch`.
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 ### then
 
@@ -123,9 +158,17 @@ function(error) { /* نتعامل مع الخطأ */ }
 );
 ```
 
+<<<<<<< HEAD
 الوسيط الأوّل من التابِع `‎.then` يُعدّ دالة تُشغّل إن تحقّق الوعد، ويكون الوسيطُ الناتج.
 بينما الوسيط الثاني يُعدّ دالةً تُشغّل إن رُفض الوعد، ويكون الوسيطُ الخطأ.
 إليك مثال نتعامل فيه مع وعد تحقّق بنجاح:
+=======
+The first argument of `.then` is a function that runs when the promise is resolved and receives the result.
+
+The second argument of `.then` is a function that runs when the promise is rejected and receives the error.
+
+For instance, here's a reaction to a successfully resolved promise:
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 ```
 let promise = new Promise(function(resolve, reject) {
@@ -176,7 +219,13 @@ setTimeout(() => reject(new Error("Whoops!")), 1000);
 promise.catch(alert); // ‫إظهار "Error: Whoops!‎" بعد ثانية
 ```
 
+<<<<<<< HEAD
 ### finally
+=======
+The call `.catch(f)` is a complete analog of `.then(null, f)`, it's just a shorthand.
+
+## Cleanup: finally
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 كما المُنغلِقة `finally` في عبارات `try {...} catch {...}‎` العادية، فهناك مثلها في الوعود.
 استدعاء `‎.finally(f)‎` يشبه استدعاء `‎.then(f, f)‎`، ووجه الشبه هو أنّ الدالة `f` تعمل دومًا متى .... الوعد، كان قد تحقّق أو
@@ -184,6 +233,7 @@ promise.catch(alert); // ‫إظهار "Error: Whoops!‎" بعد ثانية
 استعمال `finally` مفيد جدًا لتنظيف ما تبقّى من أمور مهمًا كان ناتج الوعد، مثل إيقاف أيقونات التحميل (فلم نعد نحتاجها). هكذا
 مثلًا:
 
+<<<<<<< HEAD
 ```
 new Promise((resolve, reject) => {
 // ‫افعل شيئًا يستغرق وقتًا ثم استدع resolve/reject lre
@@ -195,6 +245,17 @@ new Promise((resolve, reject) => {
 ```
 
 ولكنها ليست متطابقة تمامًا مع `then(f,f)‎`، فهناك فروقات مهمّة:
+=======
+The call `.finally(f)` is similar to `.then(f, f)` in the sense that `f` runs always, when the promise is settled: be it resolve or reject.
+
+The idea of `finally` is to set up a handler for performing cleanup/finalizing after the previous operations are complete.
+
+E.g. stopping loading indicators, closing no longer needed connections, etc.
+
+Think of it as a party finisher. No matter was a party good or bad, how many friends were in it, we still need (or at least should) do a cleanup after it.
+
+The code may look like this:
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 1. ليس لدالة المُعالجة `finally` أيّ وسطاء. أي لسنا نعلم في `finally` أكان الوعد تحقّق أو نُكث، وهذه ليست مشكلة إذ ما نريده
    عادةً هو تنفيذ بعض الأمور ”العامّة“ لنُنهي ما بدأنا به.
@@ -203,21 +264,30 @@ new Promise((resolve, reject) => {
 
 ```
 new Promise((resolve, reject) => {
+<<<<<<< HEAD
 setTimeout(() => resolve("result"), 2000)
+=======
+  /* do something that takes time, and then call resolve or maybe reject */
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 })
 *!*
   // runs when the promise is settled, doesn't matter successfully or not
   .finally(() => stop loading indicator)
-  // so the loading indicator is always stopped before we process the result/error
+  // so the loading indicator is always stopped before we go on
 */!*
   .then(result => show result, err => show error)
 ```
 
-That said, `finally(f)` isn't exactly an alias of `then(f,f)` though. There are few subtle differences:
+Please note that `finally(f)` isn't exactly an alias of `then(f,f)` though.
+
+There are important differences:
 
 1. A `finally` handler has no arguments. In `finally` we don't know whether the promise is successful or not. That's all right, as our task is usually to perform "general" finalizing procedures.
-2. A `finally` handler passes through results and errors to the next handler.
 
+    Please take a look at the example above: as you can see, the `finally` handler has no arguments, and the promise outcome is handled by the next handler.
+2. A `finally` handler "passes through" the result or error to the next suitable handler.
+
+<<<<<<< HEAD
    For instance, here the result is passed through `finally` to `then`:
 
    ```js run
@@ -237,13 +307,53 @@ That said, `finally(f)` isn't exactly an alias of `then(f,f)` though. There are 
      .finally(() => alert('Promise ready'))
      .catch((err) => alert(err)); // <-- .catch handles the error object
    ```
+=======
+    For instance, here the result is passed through `finally` to `then`:
 
-That's very convenient, because `finally` is not meant to process a promise result. So it passes it through.
+    ```js run
+    new Promise((resolve, reject) => {
+      setTimeout(() => resolve("value"), 2000);
+    })
+      .finally(() => alert("Promise ready")) // triggers first
+      .then(result => alert(result)); // <-- .then shows "value"
+    ```
 
-We'll talk more about promise chaining and result-passing between handlers in the next chapter.
+    As you can see, the `value` returned by the first promise is passed through `finally` to the next `then`.
 
+    That's very convenient, because `finally` is not meant to process a promise result. As said, it's a place to do generic cleanup, no matter what the outcome was.
+
+    And here's an example of an error, for us to see how it's passed through `finally` to `catch`:
+
+    ```js run
+    new Promise((resolve, reject) => {
+      throw new Error("error");
+    })
+      .finally(() => alert("Promise ready")) // triggers first
+      .catch(err => alert(err));  // <-- .catch shows the error
+    ```
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
+
+3. A `finally` handler also shouldn't return anything. If it does, the returned value is silently ignored.
+
+    The only exception to this rule is when a `finally` handler throws an error. Then this error goes to the next handler, instead of any previous outcome.
+
+To summarize:
+
+<<<<<<< HEAD
+=======
+- A `finally` handler doesn't get the outcome of the previous handler (it has no arguments). This outcome is passed through instead, to the next suitable handler.
+- If a `finally` handler returns something, it's ignored.
+- When `finally` throws an error, then the execution goes to the nearest error handler.
+
+These features are helpful and make things work just the right way if we use `finally` how it's supposed to be used: for generic cleanup procedures.
+
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 ````smart header="We can attach handlers to settled promises"
-If a promise is pending, `.then/catch/finally` handlers wait for it. Otherwise, if a promise has already settled, they just run:
+If a promise is pending, `.then/catch/finally` handlers wait for its outcome.
+
+Sometimes, it might be that a promise is already settled when we add a handler to it.
+
+In such case, these handlers just run immediately:
 
 ```js run
 // the promise becomes resolved immediately upon creation
@@ -256,12 +366,16 @@ Note that this makes promises more powerful than the real life "subscription lis
 Promises are more flexible. We can add handlers any time: if the result is already there, they just execute.
 ````
 
-Next, let's see more practical examples of how promises can help us write asynchronous code.
-
 ## Example: loadScript [#loadscript]
 
+<<<<<<< HEAD
 أمامنا من الفصل الماضي الدالة `loadScript` لتحميل السكربتات.
 إليك الدالة بطريقة ردود النداء، لنتذكّرها لا أكثر ولا أقل:
+=======
+Next, let's see more practical examples of how promises can help us write asynchronous code.
+
+We've got the `loadScript` function for loading a script from the previous chapter.
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 ```
 function loadScript(src, callback) {

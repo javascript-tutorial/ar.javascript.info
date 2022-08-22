@@ -2,7 +2,11 @@
 
 يُستخدَم الاختبار الآلي في الكثير من المهام، كما يستخدم بكثرة في المشاريع الحقيقية.
 
+<<<<<<< HEAD
 ## لم نحتاج الاختبارات؟
+=======
+## Why do we need tests?
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 عند كتابة دالة، يمكننا تخيل ما يجب أن تقوم به: ما هي المعاملات التي تعطي نتائج معينة. يمكننا فحص الدالة أثناء التطوير من خلال تشغيلها وموازنة مخرجاتها مع ما هو متوقع. مثلا يمكننا القيام بذلك في الطرفية.
 
@@ -53,7 +57,11 @@ describe("pow", function() {
 تحتوي المواصفات على 3 أجزاء رئيسية كما ترى في الأعلى:
 
 `describe("title", function() { ... })`
+<<<<<<< HEAD
 : ماهي الوظيفة التي نصفها، في هذه الحالة، نحن نصف الدالة pow. تستخدم بواسطة العاملين- أجزاء it.
+=======
+: What functionality we're describing? In our case we're describing the function `pow`. Used to group "workers" -- the `it` blocks.
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 `it("use case description", function() { ... })`
 : نصف (نحن بطريقة مقروءة للبشر) حالة الاستخدام المخصصة في عنوان it، والمعامل الآخر عبارة عن دالة تفحص هذه الدالة.
@@ -81,7 +89,11 @@ describe("pow", function() {
 
 لنُجرب تدفق التطوير هذا على حالتنا العملية.
 
+<<<<<<< HEAD
 الخطوة 1 أصبحت جاهزة: لدينا وصفًا مبدئيًّا للدالة `pow`. الآن وقبل التنفيذ، لِنستخدم بعض مكاتب جافا سكريبت لتشغيل الاختبار حتى نتأكد من إن كانت تعمل (لن تعمل).
+=======
+The first step is already complete: we have an initial spec for `pow`. Now, before making the implementation, let's use a few JavaScript libraries to run the tests, just to see that they are working (they will all fail).
+>>>>>>> 1edb0a38330b54d2e1916f5193fc043e6fbbea78
 
 ## المواصفات أثناء التنفيذ
 

@@ -2,7 +2,11 @@
 
 إن الخاصية `"prototype"` مستخدمة بشكل واسع من جافا سكريبت نفسها، حيث أن كل الدوال البانية (constructor functions) تستخدمها.
 
+<<<<<<< HEAD
 أولًا سنرى التفاصيل، ثم نتعلم كيف نستخدمها لإضافة إمكانيات جديدة للكائنات الموجودة بالفعل (built-in objects).
+=======
+First we'll look at the details, and then how to use it for adding new capabilities to built-in objects.
+>>>>>>> 53b35c16835b7020a0a5046da5a47599d313bbb8
 
 ## Object.prototype
 

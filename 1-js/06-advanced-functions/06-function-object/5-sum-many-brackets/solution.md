@@ -56,6 +56,10 @@ function f(b) {
 }
 ```
 
+<<<<<<< HEAD
 وستُستعمل `‎f‎` هذه في الاستدعاء التالي، وتُعيد نفسها ثانيةً مهما لزم. وبعدها حين نستعمل العدد أو السلسلة النصية، يُعيد التابِع `‎toString‎` المجموع `‎currentSum‎`. يمكن أيضًا أن نستعمل `‎Symbol.toPrimitive‎` أو `‎valueOf‎` لإجراء عملية التحويل.
 
 ترجمة -وبتصرف- للفصل [Function object, NFE](https://javascript.info/function-object) من كتاب [The JavaScript language](https://javascript.info/js)
+=======
+This `f` will be used in the next call, again return itself, as many times as needed. Then, when used as a number or a string -- the `toString` returns the `currentSum`. We could also use `Symbol.toPrimitive` or `valueOf` here for the conversion.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4

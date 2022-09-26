@@ -95,12 +95,16 @@ say.sayBye('John');
 
    لنقل مثلًا بأنّا أضفنا مكتبة خارجية اسمها `say.js` إلى مشروعنا، وفيها دوالّ عديدة:
 
+<<<<<<< HEAD
    ```
    // 📁 say.js
    export function sayHi() { ... }
    export function sayBye() { ... }
    export function becomeSilent() { ... }
    ```
+=======
+1. Modern build tools ([webpack](https://webpack.js.org/) and others) bundle modules together and optimize them to speedup loading and remove unused stuff.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
    هكذا نستعمل واحدة فقط من دوالّ `say.js` في مشروعنا:
 
@@ -406,10 +410,18 @@ We can come across two problems with it:
 
    إذا رغبنا في إعادة تصدير التصديرات المبدئية والتي لها أسماء أيضًا، فسنحتاج إلى العبارتين:
 
+<<<<<<< HEAD
    ```
    export * from './user.js'; // لإعادة تصدير التصديرات الّتي لها أسماء
    export {default} from './user.js'; // لإعادة تصدير التصديرات المبدئية
    ```
+=======
+    If we'd like to re-export both named and default exports, then two statements are needed:
+    ```js
+    export * from './user.js'; // to re-export named exports
+    export {default} from './user.js'; // to re-export the default export
+    ```
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 Such oddities of re-exporting a default export are one of the reasons why some developers don't like default exports and prefer named ones.
 

@@ -76,7 +76,11 @@ Now if we do the same:
 user = null;
 ```
 
+<<<<<<< HEAD
 ...في هذه الحالة ما زال بالامكان الوصول الي الكائن عن طريق المتغير العام  `admin`, لذا فهو مخزن بالذاكرة. اذا تم استخدام المتغير `admin` في مكان أخر ايضا هنا يمكن ازالة الكائن .
+=======
+...Then the object is still reachable via `admin` global variable, so it must stay in memory. If we overwrite `admin` too, then it can be removed.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 ## الكائنات المترابطة
 
@@ -178,11 +182,19 @@ The basic garbage collection algorithm is called "mark-and-sweep".
 
 ![](garbage-collection-2.svg)
 
+<<<<<<< HEAD
 ثم وضع علامة علي كل المراجع المرتبطة به:
 
 ![](garbage-collection-3.svg)
 
 ...و مراجعم كذلك ان امكن 
+=======
+Then we follow their references and mark referenced objects:
+
+![](garbage-collection-3.svg)
+
+...And continue to follow further references, while possible:
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 ![](garbage-collection-4.svg)
 
@@ -191,6 +203,7 @@ The basic garbage collection algorithm is called "mark-and-sweep".
 ![](garbage-collection-5.svg)
 
 
+<<<<<<< HEAD
 يمكننا تخيل العملية كصب دلو كبير من الطلاء من الجذر و الذي سيسري خلال كل المراجع و يضع علامة علي كل الكائنات التي يمكن الوصول اليها, و الكائنات التي لا يمكن الوصول اليها يتم ازالتها.
 
 تلك هي المبادئ التي يعمل علي اساسها جامع القمامة. محرك ال JavaScript يطبق العديد من التحسينات لجعله يعمل بشكل اسرع و الا يؤثر علي الآداء.
@@ -205,10 +218,19 @@ The basic garbage collection algorithm is called "mark-and-sweep".
 - **مجموعة وقت الخمول** -- يحاول جامع القمامة ان يعمل في حالة ان وحدة المعالجة المركزية (CPU) في حالة خمول حتي لا يؤثر علي عملية التنفيذ.
 
 هنالك العديد من التحسينات في خوارزميات جامع القمامة. و علي قدر ما اود ان اشرحها هنا,يجب ان نتوقف و ذلك لأن المحركات الختلفة تتبني طرق و حلول مختلفة و الأهم من ذلك ان الأشياء تتغير بتتطور المحركات, لذا ادرس أكثر "مقدما" فبدون الحاجة الحقيقية لمعرفتها فهي لا تستحق العناء الا ان كنت و بالطبع تمتلك الشغف للمعرفة فالروابط بالأسفل ستساعدك بالتأكيد.
+=======
+That's the concept of how garbage collection works. JavaScript engines apply many optimizations to make it run faster and not introduce any delays into the code execution.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 ## الملخص
 
+<<<<<<< HEAD
 اهم النقاط لتعرفها:
+=======
+- **Generational collection** -- objects are split into two sets: "new ones" and "old ones". In typical code, many objects have a short life span: they appear, do their job and die fast, so it makes sense to track new objects and clear the memory from them if that's the case. Those that survive for long enough, become "old" and are examined less often.
+- **Incremental collection** -- if there are many objects, and we try to walk and mark the whole object set at once, it may take some time and introduce visible delays in the execution. So the engine splits the whole set of existing objects into multiple parts. And then clear these parts one after another. There are many small garbage collections instead of a total one. That requires some extra bookkeeping between them to track changes, but we get many tiny delays instead of a big one.
+- **Idle-time collection** -- the garbage collector tries to run only while the CPU is idle, to reduce the possible effect on the execution.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 - جامع القمامة يعمل بشكل تلقائي, لا يمكن اجباره علي العمل او ايقافه
 - الكائنات تظل في الذاكرة طالما كان بالمكان الوصول اليها
@@ -218,14 +240,28 @@ The basic garbage collection algorithm is called "mark-and-sweep".
 
 كتاب `"The Garbage Collection Handbook: The Art of Automatic Memory Management"(R.Jones et al)` يجمع بعضها
 
+<<<<<<< HEAD
 اذا  كنت  علي علم بالمستويات العميقة من البرمجيات , فهنالك المزيد من المعلومات عن جـامع القمامة  `V8` في هذا المقال 
+=======
+- Garbage collection is performed automatically. We cannot force or prevent it.
+- Objects are retained in memory while they are reachable.
+- Being referenced is not the same as being reachable (from a root): a pack of interlinked objects can become unreachable as a whole, as we've seen in the example above.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 
  [A tour of V8: Garbage Collection](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection)
 
+<<<<<<< HEAD
 تنشر ايضا [V8 blog](https://v8.dev/)  مقالات حول تنظيم الذاكرة من آن الي أخر, بطبيعة الحال, لتعلم جامع القمامة يفضل ان تتهيأ عن طريق تعلم مكونات `V8` بشكل عام و قراءة مدونة
 [Vyacheslav Egorov](http://mrale.ph) و الذي عمل كأحد مهندسي  `V8`. استطيع ان أقول `V8` تحديدا لأنه الأكثر تغطية عن طريق المقالات علي الانترنت.
 و بالنسبة للمحركات الأخري, العديد من الطرق متشابهة, و لكن جامع القمامة يختلف في نقاط عديدة.
 
 المعرفة المتعمقة للمحركات ضرورية في حين الحاجة الي تحسينات ذات مستوي متطور, فأن تخطط لمعرفتها بعد ان تصبح علي معرفة جيدة باللغة لهي بالتأكيد خطوة حكيمة.
 
+=======
+If you are familiar with low-level programming, more detailed information about V8's garbage collector is in the article [A tour of V8: Garbage Collection](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection).
+
+The [V8 blog](https://v8.dev/) also publishes articles about changes in memory management from time to time. Naturally, to learn more about garbage collection, you'd better prepare by learning about V8 internals in general and read the blog of [Vyacheslav Egorov](http://mrale.ph) who worked as one of the V8 engineers. I'm saying: "V8", because it is best covered by articles on the internet. For other engines, many approaches are similar, but garbage collection differs in many aspects.
+
+In-depth knowledge of engines is good when you need low-level optimizations. It would be wise to plan that as the next step after you're familiar with the language.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4

@@ -47,7 +47,11 @@ let guestList = "Guests: // Error: Unexpected token ILLEGAL
   * John";
 ```
 
+<<<<<<< HEAD
 أتى استخدام علامات الاقتباس الفردية والثنائية في أوقات مبكرة من إنشاء اللغة، عندما لم يُؤخَذ بالحسبان الحاجة إلى نص متعدد الأسطر. ظهرت الفاصلة العلوية المائلة مؤخرًا ولذا فإنها متعددة الاستعمالات.
+=======
+Single and double quotes come from ancient times of language creation, when the need for multiline strings was not taken into account. Backticks appeared much later and thus are more versatile.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 Backticks also allow us to specify a "template function" before the first backtick. The syntax is: <code>func&#96;string&#96;</code>. The function `func` is called automatically, receives the string and embedded expressions and can process them. This is called "tagged templates". This feature makes it easier to implement custom templating, but is rarely used in practice. You can read more about it in the [manual](mdn:/JavaScript/Reference/Template_literals#Tagged_templates).
 
@@ -58,10 +62,17 @@ Backticks also allow us to specify a "template function" before the first backti
 ```js run
 let guestList = "Guests:\n * John\n * Pete\n * Mary";
 
+<<<<<<< HEAD
 alert(guestList);  // قائمة متعددة الأسطر بالضيوف
 ```
 
 مثلًا، السطرين التاليين متماثلان، لكنهما مكتوبين بطريقة مختلفة:
+=======
+alert(guestList); // a multiline list of guests, same as above
+```
+
+As a simpler example, these two lines are equal, just written differently:
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 ```js run
 let str1 = "Hello\nWorld"; // سطران باستخدام "رمز السطر الجديد"
@@ -73,6 +84,7 @@ World`;
 alert(str1 == str2); // true
 ```
 
+<<<<<<< HEAD
 يوجد رموز خاصة أخرى أقل انتشارًا.
 
 هذه القائمة كاملة:
@@ -88,32 +100,36 @@ alert(str1 == str2); // true
 | `‎\xXX`           | صيغة رمز يونيكود مع عدد ست عشري مُعطى `XX`، مثال: `'‎ \x7A'` هي نفسها `'z'`. |
 | `‎\uXXXX`         | صيغة رمز يونيكود مع عدد ست عشرية `XXXX` في تشفير UTF-16، مثلًا، `‎\u00A9` – هو اليونيكود لرمز حقوق النسخ `©`. يجب أن يكون مكون من 6 خانات ست عشرية. |
 | ‎`\u{X…XXXXXX}‎`   | (1 إلى 6 أحرف ست عشرية) رمز يونيكود مع تشفير UTF-32 المعطى. تُشَفَّر بعض الرموز الخاصة برمزي يونيكود، فتأخذ 4 بايت. هكذا يمكننا إدخال شيفرات طويلة. |
+=======
+There are other, less common "special" characters:
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 | Character | Description |
 |-----------|-------------|
 |`\n`|New line|
-|`\r`|Carriage return: not used alone. Windows text files use a combination of two characters `\r\n` to represent a line break. |
-|`\'`, `\"`|Quotes|
+|`\r`|In Windows text files a combination of two characters `\r\n` represents a new break, while on non-Windows OS it's just `\n`. That's for historical reasons, most Windows software also understands `\n`. |
+|`\'`,&nbsp;`\"`,&nbsp;<code>\\`</code>|Quotes|
 |`\\`|Backslash|
 |`\t`|Tab|
-|`\b`, `\f`, `\v`| Backspace, Form Feed, Vertical Tab -- kept for compatibility, not used nowadays. |
-|`\xXX`|Unicode character with the given hexadecimal Unicode `XX`, e.g. `'\x7A'` is the same as `'z'`.|
-|`\uXXXX`|A Unicode symbol with the hex code `XXXX` in UTF-16 encoding, for instance `\u00A9` -- is a Unicode for the copyright symbol `©`. It must be exactly 4 hex digits. |
-|`\u{X…XXXXXX}` (1 to 6 hex characters)|A Unicode symbol with the given UTF-32 encoding. Some rare characters are encoded with two Unicode symbols, taking 4 bytes. This way we can insert long codes. |
+|`\b`, `\f`, `\v`| Backspace, Form Feed, Vertical Tab -- mentioned for completeness, coming from old times, not used nowadays (you can forget them right now). |
 
-Examples with Unicode:
+As you can see, all special characters start with a backslash character `\`. It is also called an "escape character".
+
+Because it's so special, if we need to show an actual backslash `\` within the string, we need to double it:
 
 ```js run
-alert( "\u00A9" ); // ©
-alert( "\u{20331}" ); // 佫, a rare Chinese hieroglyph (long Unicode)
-alert( "\u{1F60D}" ); // 😍, a smiling face symbol (another long Unicode)
+alert( `The backslash: \\` ); // The backslash: \
 ```
 
+<<<<<<< HEAD
 // (رمز نادر من الهيروغليفية الصينية (يونيكود طويل
 alert( "\u{20331}" ); // 佫
 
 // (رمز وجه مبتسم (يونيكود طويل آخر
 alert( "\u{1F60D}" ); // 😍
+=======
+So-called "escaped" quotes `\'`, `\"`, <code>\\`</code> are used to insert a quote into the same-quoted string.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 ```
 
@@ -128,14 +144,18 @@ alert( 'I*!*\'*/!*m the Walrus!' ); // *!*I'm*/!* the Walrus!
 Of course, only the quotes that are the same as the enclosing ones need to be escaped. So, as a more elegant solution, we could switch to double quotes or backticks instead:
 
 ```js run
-alert( `I'm the Walrus!` ); // I'm the Walrus!
+alert( "I'm the Walrus!" ); // I'm the Walrus!
 ```
 
+<<<<<<< HEAD
 لكن ماذا إن أردنا عرض شرطة مائلة خلفية ضمن النص؟ يمكن ذلك، لكننا نحتاج إلى تكرارها هكذا `\\`:
 
 ```js run
 alert( `The backslash: \\` ); // The backslash: \
 ```
+=======
+Besides these special characters, there's also a special notation for Unicode codes `\u…`, we'll cover it a bit later in this chapter.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 ## طول النص
 تحمل الخاصية `length` طول النص:
@@ -222,7 +242,7 @@ alert( 'Interface'.toLowerCase() ); // interface
 أو إن أردنا بتغيير حالة حرف واحد فقط:
 
 
-```js
+```js run
 alert( 'Interface'[0].toLowerCase() ); // 'i'
 ```
 
@@ -312,6 +332,7 @@ if (str.indexOf("Widget") != -1) {
 }
 ```
 
+<<<<<<< HEAD
 #### The bitwise NOT trick
 
 One of the old tricks used here is the [bitwise NOT](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_NOT) `~` operator. It converts the number to a 32-bit integer (removes the decimal part if exists) and then reverses all bits in its binary representation.
@@ -350,6 +371,8 @@ To be precise though, as big numbers are truncated to 32 bits by `~` operator, t
 
 لا نجد هذه الخدعة حاليًا سوى في الشيفرات القديمة، وذلك لأن JavaScript وفرت التابع `‎.includes` (ستجدها في الأسفل).
 
+=======
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 ### includes, startsWith, endsWith
 
 يُرجِع التابع الأحدث  [str.includes(substr, pos)](mdn:js/String/includes) القيمة المنطقية `true` أو `false` وفقًا لما إن كانت السلسلة النصية `str` تحتوي على السلسلة النصية الفرعية `substr`. هذه هي الطريقة الصحيحة في حال أردنا التأكد من وجود تطابق جزء من سلسلة ضمن سلسلة أخرى، ولا يهمنا موضعه:
@@ -370,8 +393,8 @@ alert( "Widget".includes("id", 3) ); // false, from position 3 there is no "id"
 يعمل التابعان  [str.startsWith](mdn:js/String/startsWith) و [str.endsWith](mdn:js/String/endsWith) بما هو واضح من مسمياتهما، "سلسلة نصية تبدأ بـ"، و "سلسلة نصية تنتهي بـ" على التوالي:
 
 ```js run
-alert( "Widget".startsWith("Wid") ); // true, "Widget" starts with "Wid"
-alert( "Widget".endsWith("get") ); // true, "Widget" ends with "get"
+alert( "*!*Wid*/!*get".startsWith("Wid") ); // true, "Widget" starts with "Wid"
+alert( "Wid*!*get*/!*".endsWith("get") ); // true, "Widget" ends with "get"
 ```
 
 ## جلب جزء من نص
@@ -405,10 +428,17 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
     alert( str.slice(-4, -1) ); // 'gif'
     ```
 
+<<<<<<< HEAD
 ### **`str.substring(start [, end])‎`**
 يُرجِع هذا التابع جزءًا من النص الواقع بين الموضع `start` والموضع `end`. 
 
     `. يشبه هذا التابع تقريبًا التابع `slice`، لكنه يسمح بكون المعامل `start` أكبر من `end`.
+=======
+`str.substring(start [, end])`
+: Returns the part of the string *between* `start` and `end` (not including `end`).
+
+    This is almost the same as `slice`, but it allows `start` to be greater than `end` (in this case it simply swaps `start` and `end` values).
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
     مثلًا:
 
@@ -450,6 +480,7 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
     alert( str.substr(-4, 2) ); // حرفين ابتداءًا من الموضع الرابع
     ```
 
+<<<<<<< HEAD
 لِنُلَخِّص هذه التوابع لتجنب الخلط بينها:
 
 | التابع                  | يقتطع ...                                               | المواضع السالبة        |
@@ -457,12 +488,29 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
 | `slice(start, end)‎`     | من الموضع `start` إلى الموضع `end` (بما لا يتضمن `end`) | مسموحة لكلا المعاملين  |
 | `substring(start, end)‎` | ما بين الموضع `start` والموضع `end`                     | غير مسموحة وتصبح `0`   |
 | `substr(start, length)‎` | أرجع الأحرف بطول `length` بدءًا من `start`               | مسموحة للمعامل `start` |
+=======
+    This method resides in the [Annex B](https://tc39.es/ecma262/#sec-string.prototype.substr) of the language specification. It means that only browser-hosted Javascript engines should support it, and it's not recommended to use it. In practice, it's supported everywhere.
+
+Let's recap these methods to avoid any confusion:
+
+| method | selects... | negatives |
+|--------|-----------|-----------|
+| `slice(start, end)` | from `start` to `end` (not including `end`) | allows negatives |
+| `substring(start, end)` | between `start` and `end` (not including `end`)| negative values mean `0` |
+| `substr(start, length)` | from `start` get `length` characters | allows negative `start` |
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 
+<<<<<<< HEAD
 ```smart header="**أيهما تختار؟**"
 يمكن لجميع التوابع تنفيذ الغرض المطلوب. لدى التابع `substr` قصور بسيط رسميًا: فهو غير ذكورة في توثيق JavaScript الرسمي، بل في Annex B والذي يغطي ميزات مدعومة في المتصفحات فقط لأسباب تاريخية، لذا فإن أي بيئة لا تعمل على المتصفح ستفشل في دعم هذا التابع، لكنه يعمل عمليًا في كل مكان.
 
 ما بين الخيارين الآخرين، `slice` هو أكثر مرونة، فهو يسمح بتمرير مُعامِلات سالبة كما أنه أقصر في الكتابة. لذا، من الكافِ تذكر `slice` فقط من هذه التوابع الثلاث.
+=======
+Of the other two variants, `slice` is a little bit more flexible, it allows negative arguments and shorter to write.
+
+So, for practical use it's enough to remember only `slice`.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 ```
 
 ## موازنة النصوص
@@ -490,11 +538,21 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
 ### **`str.codePointAt(pos)‎`**
 يُرجِع هذا التابع الرمز العددي الخاص بالحرف المعطى في الموضع `pos`:
 
+<<<<<<< HEAD
 
     ```js run
     // لدى الأحرف المختلفة في الحالة رموز مختلفة
     alert( "z".codePointAt(0) ); // 122
+=======
+`str.codePointAt(pos)`
+: Returns a decimal number representing the code for the character at position `pos`:
+
+    ```js run
+    // different case letters have different codes
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
     alert( "Z".codePointAt(0) ); // 90
+    alert( "z".codePointAt(0) ); // 122
+    alert( "z".codePointAt(0).toString(16) ); // 7a (if we need a more commonly used hex value of the code)
     ```
 
 ### **`String.fromCodePoint(code)‎`**
@@ -503,6 +561,7 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
 
     ```js run
     alert( String.fromCodePoint(90) ); // Z
+    alert( String.fromCodePoint(0x5a) ); // Z (we can also use a hex value as an argument)
     ```
 
     We can also add Unicode characters by their codes using `\u` followed by the hex code:
@@ -532,7 +591,12 @@ alert( str );
 - تأتي الأحرف الصغيرة بعد الأحرف الكبيرة دائمًا لأن رموزها العددية دائمًا أكبر.
 - تكون بعض الأحرف مثل `Ö` بعيدة عن الأحرف الهجائية. هنا، قيمة الحرف هذا أكبر من أي حرف بين `a` و `z`.
 
+<<<<<<< HEAD
 ### موازنات صحيحة
+=======
+- All lowercase letters go after uppercase letters because their codes are greater.
+- Some letters like `Ö` stand apart from the main alphabet. Here, its code is greater than anything from `a` to `z`.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 ### Correct comparisons [#correct-comparisons]
 
@@ -555,23 +619,70 @@ mdn:js/String/localeCompare
 
 في الحقيقة، لهذه الدالة مُعامِلين إضافيين كما في [توثيقها على MDN](mdn:js/String/localeCompare)، إذ يسمح هذان المُعاملان بتحديد اللغة (تؤخذ من بيئة العمل تلقائيًا، ويعتمد ترتيب الأحرف على اللغة) بالإضافة إلى إعداد قواعد أخرى مثل الحساسية تجاه حالة الأحرف، أو ما إن كان يجب معاملة `"a"` و `"á"` بالطريقة نفسها ...الخ.
 
+<<<<<<< HEAD
 ## ما خلف الستار، يونيكود
 
 ```warn header="**معلومات متقدمة**"
 يتعمق الجزء التالي في ما يقبع خلف ستار النصوص التي تراها، وهذه المعلومات ستكون قيمة إن كنت تخطط للتعامل مع الرموز التعبيرية، أو الأحرف الرياضية النادرة أو الهيروغليفية أو أي رموز نادرة أخرى. يمكنك تخطي هذا الجزء إن لم تكن مهتمًا به.
+=======
+```warn header="Advanced knowledge"
+The section goes deeper into string internals. This knowledge will be useful for you if you plan to deal with emoji, rare mathematical or hieroglyphic characters or other rare symbols.
+```
+
+## Unicode characters
+
+As we already mentioned, JavaScript strings are based on [Unicode](https://en.wikipedia.org/wiki/Unicode).
+
+Each character is represented by a byte sequence of 1-4 bytes.
+
+JavaScript allows us to specify a character not only by directly including it into a stirng, but also by its hexadecimal Unicode code using these three notations:
+
+- `\xXX` -- a character whose Unicode code point is `U+00XX`.
+
+    `XX` is two hexadecimal digits with value between `00` and `FF`, so `\xXX` notation can be used only for the first 256 Unicode characters (including all 128 ASCII characters).
+
+    These first 256 characters include latin alphabet, most basic syntax characters and some others. For example, `"\x7A"` is the same as `"z"` (Unicode `U+007A`).
+- `\uXXXX` -- a character whose Unicode code point is `U+XXXX` (a character with the hex code `XXXX` in UTF-16 encoding).
+
+    `XXXX` must be exactly 4 hex digits with the value between `0000` and `FFFF`, so `\uXXXX` notation can be used for the first 65536 Unicode characters. Characters with Unicode value greater than `U+FFFF` can also be represented with this notation, but in this case we will need to use a so called surrogate pair (we will talk about surrogate pairs later in this chapter).
+- `\u{X…XXXXXX}` -- a character with any given Unicode code point (a character with the given hex code in UTF-32 encoding).
+
+    `X…XXXXXX` must be a hexadecimal value of 1 to 6 bytes between `0` and `10FFFF` (the highest code point defined by Unicode). This notation allows us to easily represent all existing Unicode characters.
+
+Examples with Unicode:
+
+```js run
+alert( "\uA9" ); // ©, the copyright symbol
+
+alert( "\u00A9" ); // ©, the same as above, using the 4-digit hex notation
+alert( "\u044F" ); // я, the cyrillic alphabet letter
+alert( "\u2191" ); // ↑, the arrow up symbol
+
+alert( "\u{20331}" ); // 佫, a rare Chinese hieroglyph (long Unicode)
+alert( "\u{1F60D}" ); // 😍, a smiling face symbol (another long Unicode)
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 ```
 
 ### أزواج بديلة (Surrogate pairs)
 
 لكل الأحرف المستخدمة بكثرة رموز عددية (code) مؤلفة من 2-بايت. لدى أحرف اللغات الأوروبية، والأرقام، وحتى معظم الرموز الهيروغليفية تمثيل من 2-بايت.
 
+<<<<<<< HEAD
 لكن، نحصل من 2-بايت 65536 على تركيبًا فقط وذلك غير كافٍ لكل الرموز (symbol) المُحتَمَلَة، لذا فإن الرموز (symbol) النادرة مرمزة بزوج من المحارف بحجم 2-بايت يسمى "أزواج بديلة" (Surrogate pairs).
 
 طول كل رمز هو `2`:
 
+=======
+Initially, JavaScript was based on UTF-16 encoding that only allowed 2 bytes per character. But 2 bytes only allow 65536 combinations and that's not enough for every possible symbol of Unicode.
+
+So rare symbols that require more than 2 bytes are encoded with a pair of 2-byte characters called "a surrogate pair".
+
+As a side effect, the length of such symbols is `2`:
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 ```js run
 
+<<<<<<< HEAD
 // في الرياضيات X الحرف 
 alert( '𝒳'.length ); // 2
 
@@ -595,27 +706,86 @@ alert( '𝒳'[1] ); // أجزاء من الزوج البديل
 ```
 
 لاحظ أن أجزاء الزوج البديل لا تحمل أي معنى إذا كانت منفصلة عن بعضها البعض. لذا فإن ما يعرضه مر `alert` في الأعلى هو شيء غير مفيد.
+=======
+That's because surrogate pairs did not exist at the time when JavaScript was created, and thus are not correctly processed by the language!
+
+We actually have a single symbol in each of the strings above, but the `length` property shows a length of `2`.
+
+Getting a symbol can also be tricky, because most language features treat surrogate pairs as two characters.
+
+For example, here we can see two odd characters in the output:
+
+```js run
+alert( '𝒳'[0] ); // shows strange symbols...
+alert( '𝒳'[1] ); // ...pieces of the surrogate pair
+```
+
+Pieces of a surrogate pair have no meaning without each other. So the alerts in the example above actually display garbage.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 يمكن تَوَقُّع الأزواج البديلة عمليًا بواسطة رموزها: إن كان الرمز العددي لحرف يقع في المدى `0xd800..0xdbff`، فإنه الجزء الأول من الزوج البديل. أما الجزء الثاني فيجب أن يكون في المدى `0xdc00..0xdfff`. هذا المدى محجوز للأزواج البديلة وفقًا للمعايير المتبعة.
 
+<<<<<<< HEAD
 وفقًا للحالة السابقة، سنستعمل التابع `charCodeAt` الذي 
 :
 
 ```js run
 // لا يتعامل مع الأزواج البديلة، لذا فإنه يُرجِع أجزاء الرمز
+=======
+So the methods `String.fromCodePoint` and `str.codePointAt` were added in JavaScript to deal with surrogate pairs.
 
-alert( '𝒳'.charCodeAt(0).toString(16) ); // d835, between 0xd800 and 0xdbff
-alert( '𝒳'.charCodeAt(1).toString(16) ); // dcb3, between 0xdc00 and 0xdfff
+They are essentially the same as [String.fromCharCode](mdn:js/String/fromCharCode) and [str.charCodeAt](mdn:js/String/charCodeAt), but they treat surrogate pairs correctly.
+
+One can see the difference here:
+
+```js run
+// charCodeAt is not surrogate-pair aware, so it gives codes for the 1st part of 𝒳:
+
+alert( '𝒳'.charCodeAt(0).toString(16) ); // d835
+
+// codePointAt is surrogate-pair aware
+alert( '𝒳'.codePointAt(0).toString(16) ); // 1d4b3, reads both parts of the surrogate pair
+```
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
+
+That said, if we take from position 1 (and that's rather incorrect here), then they both return only the 2nd part of the pair:
+
+```js run
+alert( '𝒳'.charCodeAt(1).toString(16) ); // dcb3
+alert( '𝒳'.codePointAt(1).toString(16) ); // dcb3
+// meaningless 2nd half of the pair
 ```
 
 ستجد المزيد من الطرق للتعامل مع الأزواج البديلة لاحقًا في الفصل  <info:iterable>. يوجد أيضًا مكاتب خاصة لذلك، لكن لا يوجد شيء شهير محدد لِاقتراحه هنا.
 
+<<<<<<< HEAD
 ### علامات التشكيل وتوحيد الترميز
 
 يوجد حروف مركبة في الكثير من اللغات والتي تتكون من الحرف الرئيسي مع علامة فوقه/تحته. مثلًا، يمكن للحرف `a` أن يكون أساسًا للأحرف التالية: `àáâäãåā`. لدى معظم الحروف المركبة رمزها الخاص بها في جدول UTF-16. لكن ليس جميعها، وذلك لوجود الكثير من الاحتمالات.
 
+=======
+````warn header="Takeaway: splitting strings at an arbitrary point is dangerous"
+We can't just split a string at an arbitrary position, e.g. take `str.slice(0, 4)` and expect it to be a valid string, e.g.:
 
-To support arbitrary compositions, UTF-16 allows us to use several Unicode characters: the base character followed by one or many "mark" characters that "decorate" it.
+```js run
+alert( 'hi 😂'.slice(0, 4) ); //  hi [?]
+```
+
+Here we can see a garbage character (first half of the smile surrogate pair) in the output.
+
+Just be aware of it if you intend to reliably work with surrogate pairs. May not be a big problem, but at least you should understand what happens.
+````
+
+### Diacritical marks and normalization
+
+In many languages, there are symbols that are composed of the base character with a mark above/under it.
+
+For instance, the letter `a` can be the base character for these characters: `àáâäãåā`.
+
+Most common "composite" characters have their own code in the Unicode table. But not all of them, because there are too many possible combinations.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
+
+To support arbitrary compositions, Unicode standard allows us to use several Unicode characters: the base character followed by one or many "mark" characters that "decorate" it.
 
 
 ```js run
@@ -662,14 +832,18 @@ alert( "S\u0307\u0323".normalize().length ); // 1
 alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 ```
 
+<<<<<<< HEAD
 في الواقع، هذه ليست الحالة دائمًا. وذلك لأن الرمز `Ṩ` متعارف بكثرة، فضَمَّنّهُ مُنشِئوا UTF-16 في الجدول الرئيسي وأعطوه رمزًا خاصًا.
+=======
+In reality, this is not always the case. The reason being that the symbol `Ṩ` is "common enough", so Unicode creators included it in the main table and gave it the code.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 إن أردت تعلم المزيد عن قواعد التوحيد واختلافاتها - فستجدها في ملحق معايير اليونيكود: [نماذج توحيد ترميز اليونيكود](http://www.unicode.org/reports/tr15/),  لكن للأغراض العملية المتعارفة فالمعلومات السابقة تفي بالغرض.
 
 ## المُلخص
 
 - There are 3 types of quotes. Backticks allow a string to span multiple lines and embed expressions `${…}`.
-- Strings in JavaScript are encoded using UTF-16.
+- Strings in JavaScript are encoded using UTF-16, with surrogate pairs for rare characters (and these cause glitches).
 - We can use special characters like `\n` and insert letters by their Unicode using `\u...`.
 - To get a character, use: `[]`.
 - To get a substring, use: `slice` or `substring`.

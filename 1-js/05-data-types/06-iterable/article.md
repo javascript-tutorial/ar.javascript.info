@@ -33,7 +33,7 @@ To make the `range` object iterable (and thus let `for..of` work) we need to add
 1. When `for..of` starts, it calls that method once (or errors if not found). The method must return an *iterator* -- an object with the method `next`.
 2. Onward, `for..of` works *only with that returned object*.
 3. When `for..of` wants the next value, it calls `next()` on that object.
-4. The result of `next()` must have the form `{done: Boolean, value: any}`, where `done=true`  means that the iteration is finished, otherwise `value` is the next value.
+4. The result of `next()` must have the form `{done: Boolean, value: any}`, where `done=true` means that the loop is finished, otherwise `value` is the next value.
 
 Here's the full implementation for `range` with remarks:
 
@@ -43,10 +43,18 @@ let range = {
   to: 5,
 };
 
+<<<<<<< HEAD
 // 1. عند تشغيل التكرار for..of فهي تقوم باستدعائ هذه الدالة
 range[Symbol.iterator] = function () {
   // ... وهذه الدالة تقوم بإرجاع الكائن المتكرر:
   // 2. بعد ذلك، يعمل التكرار for..of على هذا المتكرر فقط باحثًا عن القيم التالية
+=======
+// 1. call to for..of initially calls this
+range[Symbol.iterator] = function() {
+
+  // ...it returns the iterator object:
+  // 2. Onward, for..of works only with the iterator object below, asking it for next values
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
   return {
     current: this.from,
     last: this.to,
@@ -226,8 +234,13 @@ alert(arr.pop()); // World
 
 وهذا مايحدث أيضا للمتكرر:
 
+<<<<<<< HEAD
 ```js
 // على فرض أن الكائن range مأخوذ من المثال السابق
+=======
+```js run
+// assuming that range is taken from the example above
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 let arr = Array.from(range);
 alert(arr); // 1,2,3,4,5 (يحدث التحويل من مصفوفة إلى نص باستخدام toString)
 ```
@@ -242,8 +255,13 @@ Array.from(obj[, mapFn, thisArg])
 
 على سبيل المثال:
 
+<<<<<<< HEAD
 ```js
 // على فرض أن الكائن range مأخوذ من المثال السابق
+=======
+```js run
+// assuming that range is taken from the example above
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 // تربيع كل رقم
 let arr = Array.from(range, (num) => num * num);
@@ -279,7 +297,11 @@ for (let char of str) {
 alert(chars);
 ```
 
+<<<<<<< HEAD
 ...ولكن هذا أقصر.
+=======
+...But it is shorter.
+>>>>>>> ff4ef57c8c2fd20f4a6aa9032ad37ddac93aa3c4
 
 حتى أنه يمكننا أن نبنى دالة `slice` متوافقة مع الأشكال أيضًا:
 

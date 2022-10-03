@@ -102,7 +102,11 @@ alert(timerId); // same identifier (doesn't become null after canceling)
 
 Again, there is no universal specification for these methods, so that's fine.
 
+<<<<<<< HEAD
 يمكنك مراجعة مواصفة HTML5 للمؤقّتات (داخل المتصفّحات) في فصل المؤقّتات.
+=======
+For browsers, timers are described in the [timers section](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers) of HTML Living Standard.
+>>>>>>> 18b1314af4e0ead5a2b10bb4bacd24cecbb3f18e
 
 ## setInterval
 
@@ -235,7 +239,11 @@ setTimeout(function() {...}, 100);
 
 For `setInterval` the function stays in memory until `clearInterval` is called.
 
+<<<<<<< HEAD
 ولكن هناك تأثير جانبي لذلك كالعادة، فالدوال تُشير إلى بيئتها المُعجمية الخارجية. لذا طالما «تعيش»، تعيش معها المتغيرات الخارجية أيضًا، وهي أحيانًا كبيرة تأخذ ذاكرة أكبر من الدالة ذاتها. لذا، متى ما لم ترد تلك الدالة المُجدولة فالأفضل أن تُلغيها حتّى لو كانت صغيرة جدًا.
+=======
+There's a side effect. A function references the outer lexical environment, so, while it lives, outer variables live too. They may take much more memory than the function itself. So when we don't need the scheduled function anymore, it's better to cancel it, even if it's very small.
+>>>>>>> 18b1314af4e0ead5a2b10bb4bacd24cecbb3f18e
 ````
 
 ## جدولة setTimeout بتأخير صفر
@@ -258,8 +266,13 @@ alert('Hello');
 
 كما أنّ هناك استعمالات متقدّمة خصّيصًا للمتصفّحات للمهلة بالتأخير صفر هذه، وسنشرحها في الفصل «حلقة الأحداث: المهام على المستويين الجُسيمي والذرّي».
 
+<<<<<<< HEAD
 ````smart header="في الواقع، فالتأخير الصفر هذا ليس صفرًا (في المتصفّحات)"
 تحدّ المتصفّحات من التأخير بين تشغيل المؤقّتات المتداخلة. تقول مواصفة [HTML5 standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers) HTML5: «بعد المؤقّتات المتداخلة الخمسة الأولى، تُجبر الفترة لتكون أربع مليثوان على الأقل.».
+=======
+````smart header="Zero delay is in fact not zero (in a browser)"
+In the browser, there's a limitation of how often nested timers can run. The [HTML Living Standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers) says: "after five nested timers, the interval is forced to be at least 4 milliseconds.".
+>>>>>>> 18b1314af4e0ead5a2b10bb4bacd24cecbb3f18e
 
 لنرى ما يعني ذلك بهذا المثال أسفله. يُعيد استدعاء ‎setTimeout‎ جدولة نفسه بمدّة تأخير تساوي صفر، ويتذكّر كل استدعاء الوقت الفعلي بينه وبين آخر استدعاء في مصفوفة ‎times‎. ولكن، ما هي التأخيرات الفعلية؟ لنرى بأعيننا:
 
@@ -299,8 +312,15 @@ For server-side JavaScript, that limitation does not exist, and there exist othe
 
 فمثلًا يمكن أن تكون مؤقّتات المتصفّحات أبطأ لأسباب عديدة:
 
+<<<<<<< HEAD
 - المعالج مُثقل بالعمليات.
 - المتصفّح يعمل في الخلفية.
 - يعمل الحاسوب المحمول على البطارية.
+=======
+For example, the in-browser timer may slow down for a lot of reasons:
+- The CPU is overloaded.
+- The browser tab is in the background mode.
+- The laptop is on battery saving mode.
+>>>>>>> 18b1314af4e0ead5a2b10bb4bacd24cecbb3f18e
 
 يمكن لهذا كله رفع دقّة المؤقّت الدنيا (أي أدنى تأخير ممكن) لتصير 300 مليثانية أو حتى 1000 مليثانية حسب المتصفّح وإعدادات الأداء في نظام التشغيل.

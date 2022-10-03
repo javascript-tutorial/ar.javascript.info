@@ -40,8 +40,13 @@ Objects  "اثقل" من الأساليب البدائية. وهي تتطلب م
 
 هنا التناقض الذي واجه صانع جافا سكريبت:
 
+<<<<<<< HEAD
 - هناك العديد من الأشياء التي يمكن أن يفعلها الشخص بالأسلوب البدائي مثل  string أو  number. سيكون من الرائع استخدامهم كا methods.
 - الأساليب البدائية يجب أن تكون سريعة وخفيفة بقدر الإمكان.
+=======
+- There are many things one would want to do with a primitive, like a string or a number. It would be great to access them using methods.
+- Primitives must be as fast and lightweight as possible.
+>>>>>>> 18b1314af4e0ead5a2b10bb4bacd24cecbb3f18e
 
 إن الحل يبدو غريبا بعض الشيء، ولكن ها هو:
 
@@ -49,7 +54,11 @@ Objects  "اثقل" من الأساليب البدائية. وهي تتطلب م
 2. تسمح اللغة بالوصول الي ال  methods و الخصائص الخاصة ب strings, numbers, booleans و symbols.
 3. ولكي يعمل ذلك، يتم إنشاء "object wrapper" خاص يوفر الوظائف الإضافية، ثم يتم تدميره.
 
+<<<<<<< HEAD
 ال "object wrappers" تختلف لكل نوع بدائي و تدعى: `String`, `Number`, `Boolean` و `Symbol`. وبالتالي، فإنها توفر مجموعات مختلفة من methods.
+=======
+The "object wrappers" are different for each primitive type and are called: `String`, `Number`, `Boolean`, `Symbol` and `BigInt`. Thus, they provide different sets of methods.
+>>>>>>> 18b1314af4e0ead5a2b10bb4bacd24cecbb3f18e
 
 على سبيل المثال
 , هنالك a string method [()str.toUpperCase](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase) التي ترجع capitalized `str`.
@@ -106,9 +115,16 @@ if (zero) { // zero is true, because it's an object
 }
 ```
 
+<<<<<<< HEAD
 من ناحية أخرى, استخدام نفس ال functions `String/Number/Boolean` بدون `new` هو شيء سَليم و مفيد. يحولون قيمة إلى النوع المقابل: إلي a string, a number, or a boolean (primitive - نوع بدائي).
 
 علي سبيل المثال, هذا صحيح تماما:
+=======
+On the other hand, using the same functions `String/Number/Boolean` without `new` is totally fine and useful thing. They convert a value to the corresponding type: to a string, a number, or a boolean (primitive).
+
+For example, this is entirely valid:
+
+>>>>>>> 18b1314af4e0ead5a2b10bb4bacd24cecbb3f18e
 ```js
 let num = Number("123"); // convert a string to number
 ```

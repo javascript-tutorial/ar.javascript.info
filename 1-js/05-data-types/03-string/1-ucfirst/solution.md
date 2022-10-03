@@ -6,12 +6,16 @@ let newStr = str[0].toUpperCase() + str.slice(1);
 
 لكن، يوجد مشكلة صغيرة، وهي إن كان `str` فارغًا، فسيصبح `str[0]‎` قيمة غير معرفة `undefined`، ولأن `undefined` لا يملك الدالة `toUpperCase()‎` فسيظهر خطأ.
 
+<<<<<<< HEAD
 يوجد طريقتين بديلتين هنا:
 1- استخدام `str.charAt(0)‎`، لأنها تُرجِع نصًا دائمًا (ربما نصًا فارغًا).
 2- إضافة اختبار في حال كان النص فارغًا.
 
 هنا الخيار الثاني:
 
+=======
+The easiest way out is to add a test for an empty string, like this:
+>>>>>>> 18b1314af4e0ead5a2b10bb4bacd24cecbb3f18e
 
 ```js run demo
 function ucFirst(str) {
@@ -22,4 +26,3 @@ function ucFirst(str) {
 
 alert( ucFirst("john") ); // John
 ```
-

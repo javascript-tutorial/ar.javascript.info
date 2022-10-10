@@ -113,7 +113,7 @@ class CoffeeMachine {
 let coffeeMachine = new CoffeeMachine(100);
 
 // add water
-coffeeMachine.waterAmount = -10; // Error: Negative water
+coffeeMachine.waterAmount = -10; // _waterAmount will become 0, not -10
 ```
 
 Now the access is under control, so setting the water amount below zero becomes impossible.
@@ -188,7 +188,11 @@ new CoffeeMachine().setWaterAmount(100);
 
 يجب أن يبدأ الأفراد بـ `#`. يمكن الوصول إليها فقط من داخل الفصل.
 
+<<<<<<< HEAD
 على سبيل المثال ، إليك خاصية `# waterLimit` الخاصة والطريقة الخاصة لفحص المياه` # checkWater`:
+=======
+For instance, here's a private `#waterLimit` property and the water-checking private method `#fixWaterAmount`:
+>>>>>>> 18b1314af4e0ead5a2b10bb4bacd24cecbb3f18e
 
 ```js run
 class CoffeeMachine {

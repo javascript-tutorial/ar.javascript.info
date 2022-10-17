@@ -13,6 +13,7 @@ Till now, we've learned about the following complex data structures:
 
 هذه توابِعها وخاصياتها:
 
+<<<<<<< HEAD
 - `new Map()‎` -- يُنشِئ خارطة.
 - `map.set(key, value)‎` -- يضبط القيمة حسب مفتاحها.
 - `map.get(key)‎` -- يجلب القيمة حسب مفتاحها، و`undefined` لو لم يوجد `key` في الخارطة.
@@ -20,6 +21,15 @@ Till now, we've learned about the following complex data structures:
 - `map.delete(key)‎` -- يُزيل القيمة حسب مفتاحها.
 - `map.clear()‎` -- يُزيل كل شيء من الخارطة.
 - `map.size` -- يُعيد عدد العناصر الحالي.
+=======
+- `new Map()` -- creates the map.
+- [`map.set(key, value)`](mdn:js/Map/set) -- stores the value by the key.
+- [`map.get(key)`](mdn:js/Map/get) -- returns the value by the key, `undefined` if `key` doesn't exist in map.
+- [`map.has(key)`](mdn:js/Map/has) -- returns `true` if the `key` exists, `false` otherwise.
+- [`map.delete(key)`](mdn:js/Map/delete) -- removes the value by the key.
+- [`map.clear()`](mdn:js/Map/clear) -- removes everything from the map.
+- [`map.size`](mdn:js/Map/size) -- returns the current element count.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 إليك المثال الآتي:
 
@@ -108,7 +118,13 @@ map.set('1', 'str1')
 - `map.values()‎` -- يُعيد مُتعدَّدًا للقيم،
 - `map.entries()‎` -- يُعيد مُتعدَّدًا للمدخلات `[key, value]`، وهي التي تستعملها `for..of` مبدئيًا.
 
+<<<<<<< HEAD
 مثال:
+=======
+- [`map.keys()`](mdn:js/Map/keys) -- returns an iterable for keys,
+- [`map.values()`](mdn:js/Map/values) -- returns an iterable for values,
+- [`map.entries()`](mdn:js/Map/entries) -- returns an iterable for entries `[key, value]`, it's used by default in `for..of`.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 ```
 
@@ -241,12 +257,21 @@ let obj = Object.fromEntries(map); // ب‫دون ‎.entries()‎
 
 إليك توابِعه الرئيسة:
 
+<<<<<<< HEAD
 - `new Set(iterable)‎` -- يصنع الطقم. في حال مرّرت كائن `iterable` (وهو عادةً مصفوفة)، فينسخ بياناته إلى الطقم.
 - `set.add(value)‎` -- يُضيف قيمة إلى الطقم ويُعيده ذاته.
 - `set.delete(value)‎` -- يُزيل القيمة ويُعيد `true` لو كانت القيمة `value` موجودة عند استدعاء التابِع، وإلّا يُعيد `false`.
 - `set.has(value)‎` -- يُعيد `true` لو كانت القيمة موجودة في الطقم، وإلّا يُعيد `false`.
 - `set.clear()‎` -- يُزيل كلّ شيء من الطقم.
 - `set.size` -- خاصية عدد العناصر في الطقم.
+=======
+- `new Set(iterable)` -- creates the set, and if an `iterable` object is provided (usually an array), copies values from it into the set.
+- [`set.add(value)`](mdn:js/Set/add) -- adds a value, returns the set itself.
+- [`set.delete(value)`](mdn:js/Set/delete) -- removes the value, returns `true` if `value` existed at the moment of the call, otherwise `false`.
+- [`set.has(value)`](mdn:js/Set/has) -- returns `true` if the value exists in the set, otherwise `false`.
+- [`set.clear()`](mdn:js/Set/clear) -- removes everything from the set.
+- [`set.size`](mdn:js/Set/size) -- is the elements count.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 الميزة الأهمّ للأطقم هي أنّك لو استدعيت `set.add(value)‎` أكثر من مرّة وبنفس القيمة، فكأنّك استدعيتهُ مرّة واحدة. لهذا تظهر كل قيمة في الطقم مرّة واحدة لا غير.
 
@@ -378,13 +403,23 @@ return Array.from(new Set(arr));
 ### ترشيح الألفاظ المقلوبة
 _الأهمية: 4_
 
+<<<<<<< HEAD
 تُسمّى الكلمات التي لها ذات الأحرف ولكن بترتيب مختلف [ألفاظًا مقلوبة](https://ar.wikipedia.org/wiki/%D9%84%D9%81%D8%B8_%D9%85%D9%82%D9%84%D9%88%D8%A8)، مثل هذه:
+=======
+That's for compatibility with `Map` where the callback passed `forEach` has three arguments. Looks a bit strange, for sure. But this may help to replace `Map` with `Set` in certain cases with ease, and vice versa.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 ```
 
+<<<<<<< HEAD
 nap - pan
 ear - are - era
 cheaters - hectares - teachers
+=======
+- [`set.keys()`](mdn:js/Set/keys) -- returns an iterable object for values,
+- [`set.values()`](mdn:js/Set/values) -- same as `set.keys()`, for compatibility with `Map`,
+- [`set.entries()`](mdn:js/Set/entries) -- returns an iterable object for entries `[value, value]`, exists for compatibility with `Map`.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 ```
 
@@ -468,12 +503,12 @@ map.set(sorted, word);
 ```
 
 - `new Map([iterable])` -- creates the map, with optional `iterable` (e.g. array) of `[key,value]` pairs for initialization.
-- `map.set(key, value)` -- stores the value by the key, returns the map itself.
-- `map.get(key)` -- returns the value by the key, `undefined` if `key` doesn't exist in map.
-- `map.has(key)` -- returns `true` if the `key` exists, `false` otherwise.
-- `map.delete(key)` -- removes the value by the key, returns `true` if `key` existed at the moment of the call, otherwise `false`.
-- `map.clear()` -- removes everything from the map.
-- `map.size` -- returns the current element count.
+- [`map.set(key, value)`](mdn:js/Map/set) -- stores the value by the key, returns the map itself.
+- [`map.get(key)`](mdn:js/Map/get) -- returns the value by the key, `undefined` if `key` doesn't exist in map.
+- [`map.has(key)`](mdn:js/Map/has) -- returns `true` if the `key` exists, `false` otherwise.
+- [`map.delete(key)`](mdn:js/Map/delete) -- removes the value by the key, returns `true` if `key` existed at the moment of the call, otherwise `false`.
+- [`map.clear()`](mdn:js/Map/clear) -- removes everything from the map.
+- [`map.size`](mdn:js/Map/size) -- returns the current element count.
 
 وفي النهاية يأخذ `Array.from(map.values())‎` متُعدَّدا يمرّ على قيم الخارطة (لا نريد مفاتيحها في ناتج الدالة) فيُعيد المصفوفة نفسها.
 
@@ -534,10 +569,19 @@ keys.push("more");
 
 alert(keys); // name, more
 
+<<<<<<< HEAD
 ```
 
 
 ترجمة -وبتصرف- للفصل [Map and Set](https://javascript.info/map-set) من كتاب [The JavaScript language](https://javascript.info/js)
+=======
+- `new Set([iterable])` -- creates the set, with optional `iterable` (e.g. array) of values for initialization.
+- [`set.add(value)`](mdn:js/Set/add) -- adds a value (does nothing if `value` exists), returns the set itself.
+- [`set.delete(value)`](mdn:js/Set/delete) -- removes the value, returns `true` if `value` existed at the moment of the call, otherwise `false`.
+- [`set.has(value)`](mdn:js/Set/has) -- returns `true` if the value exists in the set, otherwise `false`.
+- [`set.clear()`](mdn:js/Set/clear) -- removes everything from the set.
+- [`set.size`](mdn:js/Set/size) -- is the elements count.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 
 ```

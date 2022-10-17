@@ -129,8 +129,21 @@ setTimeout(() => document.body.style.display = "", 1000); // العودة الى
 
 إذا وضعنا `style.display` إلى سلسلة فارغة ، ثم يطبق المتصفح فئات CSS وأنماطه المضمنة بشكل طبيعي ، كما لو لم تكن هناك خاصية `style.display` على الإطلاق.
 
+<<<<<<< HEAD
 ````smart header="إعادة كتابة كاملة مع `style.cssText`"
 عادة نستخدم `style.*` لتعيين خصائص النمط الفردية. لا يمكننا تعيين النمط الكامل مثل `div.style="color: red; width: 100px"`, لان  `div.style` هو كائن ، وهو للقراءة فقط.
+=======
+Also there is a special method for that, `elem.style.removeProperty('style property')`. So, We can remove a property like this:
+
+```js run
+document.body.style.background = 'red'; //set background to red
+
+setTimeout(() => document.body.style.removeProperty('background'), 1000); // remove background after 1 second
+```
+
+````smart header="Full rewrite with `style.cssText`"
+Normally, we use `style.*` to assign individual style properties. We can't set the full style like `div.style="color: red; width: 100px"`, because `div.style` is an object, and it's read-only.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 لتعيين النمط الكامل كسلسلة ، هناك خاصية خاصة
  `style.cssText`:
@@ -267,6 +280,7 @@ pseudo
 ````warn header="`getComputedStyle` يتطلب اسم الخاصية بالكامل"
 يجب أن نسأل دائمًا عن العقار المحدد الذي نريده ، مثل `paddingLeft` أو `marginTop` أو `borderTopWidth`. وإلا فإن النتيجة الصحيحة ليست مضمونة.
 
+<<<<<<< HEAD
 على سبيل المثال ، إذا كانت هناك خصائص `paddingLeft / paddingTop` ، فماذا يجب أن نحصل عليه للحصول على `padComputedStyle (elem) .padding`؟ لا شيء ، أو ربما قيمة "مولدة" من الحشوات المعروفة؟ لا توجد قاعدة قياسية هنا.
 
 هناك تناقضات أخرى. كمثال ، بعض المتصفحات (Chrome) تظهر `10px` في الوثيقة أدناه ، وبعضها
@@ -283,6 +297,9 @@ pseudo
   alert(style.margin); // سلسلة فارغة في Firefox
 </script>
 ```
+=======
+For instance, if there are properties `paddingLeft/paddingTop`, then what should we get for `getComputedStyle(elem).padding`? Nothing, or maybe a "generated" value from known paddings? There's no standard rule here.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 ````
 
 ```smart header="تم تطبيق الأنماط على `:visited` الروابط مخفية!"

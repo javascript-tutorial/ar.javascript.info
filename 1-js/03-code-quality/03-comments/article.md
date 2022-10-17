@@ -145,7 +145,11 @@ function pow(x, n) {
 
 بالمناسبة ، يمكن للعديد من المحررين مثل [WebStorm] (https://www.jetbrains.com/webstorm/) فهمهم أيضًا واستخدامهم لتوفير الإكمال التلقائي وبعض التحقق التلقائي من التعليمات البرمجية.
 
+<<<<<<< HEAD
 أيضًا ، هناك أدوات مثل [JSDoc 3] (https://github.com/jsdoc3/jsdoc) يمكنها إنشاء وثائق HTML من التعليقات. يمكنك قراءة المزيد من المعلومات حول JSDoc على <http://usejsdoc.org/>.
+=======
+Also, there are tools like [JSDoc 3](https://github.com/jsdoc/jsdoc) that can generate HTML-documentation from the comments. You can read more information about JSDoc at <https://jsdoc.app>.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 لماذا تحل المهمة بهذه الطريقة؟
 : ما هو مكتوب مهم. لكن ما هو * غير * مكتوب قد يكون أكثر أهمية لفهم ما يحدث. لماذا يتم حل المهمة بهذه الطريقة بالضبط؟ الكود لا يعطي إجابة.

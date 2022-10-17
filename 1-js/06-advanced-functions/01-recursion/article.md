@@ -286,7 +286,11 @@ function pow(x, n) {
 
 **أي دالة متكررة "Recursive" يمكن أن نعيد كتابتها بطريقة التكرار "Iterative".ودائماً ما يكون التكرار بإستخدام الحلقات أكثر كفاءة.**
 
+<<<<<<< HEAD
 لكن أحياناً إعادة كتابة الدالة بطريقة التكرار لا يكون سهلاً أبداً خصوصاً عندما تكون الدالة الخارجية تعتمد علي أكثر من دالة داخلية وشروط كثيرة والكثيرة من فروع الشروط. كل هذا يجعلك لا تستطيع إعادة كتابتها مرة أخري بطرية الحلقات.
+=======
+...But sometimes the rewrite is non-trivial, especially when a function uses different recursive subcalls depending on conditions and merges their results or when the branching is more intricate. And the optimization may be unneeded and totally not worth the efforts.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 الدالة المتكررة "Recursion" تعطيك كود أقصر وأسهل في القراءة. وضع في إعتبارك أن تحقيق الاستخدام الأمثل ليس مطلوباً في كل الحالات في بعض الحالات أنت فقط تريد كود جيداً.
 
@@ -549,9 +553,13 @@ list.next = list.next.next;
 
   مثلاً القائمة المتصلة يمكن تعريفها علي أنها هيكل بيانات تتكون من شئ object يشير إلي القائمة نفسها.
 
+<<<<<<< HEAD
   ```js
   list = { value, next -> list }
   ```
+=======
+    Trees like HTML elements tree or the department tree from this chapter are also naturally recursive: they have branches and every branch can have other branches.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
   **الشجر** مثل عناصر الـ HTML أو الأقسام مثل ما ذكرنا أعلي هذا الفصل.
 

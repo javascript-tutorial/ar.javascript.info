@@ -12,8 +12,13 @@
 
 إذا لم تقم باختيار IDE بعد، ففكر في الخيارات التالية:
 
+<<<<<<< HEAD
 - [فيجوال ستديو كود](https://code.visualstudio.com/) (يعمل على أكثر من نظام تشغيل، مجاني).
 - [ويب ستورم](http://www.jetbrains.com/webstorm/) (يعمل على أكثر من نظام تشغيل، مدفوع).
+=======
+- [Visual Studio Code](https://code.visualstudio.com/) (cross-platform, free).
+- [WebStorm](https://www.jetbrains.com/webstorm/) (cross-platform, paid).
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 بالنسبة للويندوز، يمكن استخدام برنامج فيجوال ستديو، لايجب الخلط بينه وبين الفيجوال ستديو كود، فيجوال ستديو هو محرر مدفوع يعمل على نظام ويندوز فقط، ومناسب تماماً لبيئة الـ.NET. أنه أيضاً جيد لجافا سكريبت. كما يوجد إصدار مجاني منه [Visual Studio Community](https://www.visualstudio.com/vs/community/).
 
@@ -35,7 +40,13 @@
 - [Notepad++](https://notepad-plus-plus.org/) (الويندوز، مجاني).
 - [Vim](http://www.vim.org/) و [Emacs](https://www.gnu.org/software/emacs/) رائعة إذا كنت تعرف كيفية استخدامها.
 
+<<<<<<< HEAD
 ## دعونا لا نتشاجر
+=======
+- [Sublime Text](http://www.sublimetext.com) (cross-platform, shareware).
+- [Notepad++](https://notepad-plus-plus.org/) (Windows, free).
+- [Vim](http://www.vim.org/) and [Emacs](https://www.gnu.org/software/emacs/) are also cool if you know how to use them.
+>>>>>>> bf7d8bb1af3b416d393af1c15b03cb1352da1f9c
 
 المحررات أعلاه هي التي نقوم باستخدامها أنا وأصدقائي، والذين أعتقد أنهم مطورون جيدون يستخدمونها منذ وقت طويل وتسعدهم.
 

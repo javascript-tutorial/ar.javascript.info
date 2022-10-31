@@ -2,7 +2,11 @@
 
 يُستخدَم الاختبار الآلي في الكثير من المهام، كما يستخدم بكثرة في المشاريع الحقيقية.
 
+<<<<<<< HEAD
 ## لم نحتاج الاختبارات؟
+=======
+## Why do we need tests?
+>>>>>>> 5dff42ba283bce883428c383c080fa9392b71df8
 
 عند كتابة دالة، يمكننا تخيل ما يجب أن تقوم به: ما هي المعاملات التي تعطي نتائج معينة. يمكننا فحص الدالة أثناء التطوير من خلال تشغيلها وموازنة مخرجاتها مع ما هو متوقع. مثلا يمكننا القيام بذلك في الطرفية.
 
@@ -53,7 +57,11 @@ describe("pow", function() {
 تحتوي المواصفات على 3 أجزاء رئيسية كما ترى في الأعلى:
 
 `describe("title", function() { ... })`
+<<<<<<< HEAD
 : ماهي الوظيفة التي نصفها، في هذه الحالة، نحن نصف الدالة pow. تستخدم بواسطة العاملين- أجزاء it.
+=======
+: What functionality we're describing? In our case we're describing the function `pow`. Used to group "workers" -- the `it` blocks.
+>>>>>>> 5dff42ba283bce883428c383c080fa9392b71df8
 
 `it("use case description", function() { ... })`
 : نصف (نحن بطريقة مقروءة للبشر) حالة الاستخدام المخصصة في عنوان it، والمعامل الآخر عبارة عن دالة تفحص هذه الدالة.
@@ -69,6 +77,7 @@ describe("pow", function() {
 
 يبدو تدفق التطوير غالبا كما يلي:
 
+<<<<<<< HEAD
 1. يُكتب الوصف الأولي مع فحص للوظيفة الرئيسية.
 2. يُنشَئ تنفيذ أولي.
 3. لتأكد من صحة عمل التنفيذ، نُشَغِّل إطار التقييم [Mocha](http://mochajs.org/) الذي يُشَغِّل الوصف. ستظهر أخطاء في حال عدم اكتمال الوظائف. نُصحح الأخطاء حتى يصبح كل شيء صحيحًا.
@@ -76,20 +85,39 @@ describe("pow", function() {
 5. نضيف المزيد من حالات الاستخدام للوصف، ربما بعض هذه الميزات ليس مضمنا في التنفيذ بعد. حينها يبدأ الاختبار بالفشل.
 6. عُد للخطوة 3 وحدِّث التنفيذ إلى أن تختفي كل الأخطاء.
 7. كرر الخطوات 3-6 حتى تجهز كل الوظائف.
+=======
+1. An initial spec is written, with tests for the most basic functionality.
+2. An initial implementation is created.
+3. To check whether it works, we run the testing framework [Mocha](https://mochajs.org/) (more details soon) that runs the spec. While the functionality is not complete, errors are displayed. We make corrections until everything works.
+4. Now we have a working initial implementation with tests.
+5. We add more use cases to the spec, probably not yet supported by the implementations. Tests start to fail.
+6. Go to 3, update the implementation till tests give no errors.
+7. Repeat steps 3-6 till the functionality is ready.
+>>>>>>> 5dff42ba283bce883428c383c080fa9392b71df8
 
 إذا، تُعد عملية التطوير تكرارية. نكتب الوصف، ننفذه، نتأكد من اجتياز التنفيذ للفحص، ثم نكتب المزيد من الاختبارات، نتأكد من صحة عملها. حتى نحصل على تنفيذ صحيح مع اختباراته في الأخير.
 
 لنُجرب تدفق التطوير هذا على حالتنا العملية.
 
+<<<<<<< HEAD
 الخطوة 1 أصبحت جاهزة: لدينا وصفًا مبدئيًّا للدالة `pow`. الآن وقبل التنفيذ، لِنستخدم بعض مكاتب جافا سكريبت لتشغيل الاختبار حتى نتأكد من إن كانت تعمل (لن تعمل).
+=======
+The first step is already complete: we have an initial spec for `pow`. Now, before making the implementation, let's use a few JavaScript libraries to run the tests, just to see that they are working (they will all fail).
+>>>>>>> 5dff42ba283bce883428c383c080fa9392b71df8
 
 ## المواصفات أثناء التنفيذ
 
 سنستخدم في هذا الشرح مكاتب جافا سكريبت التالية للاختبار:
 
+<<<<<<< HEAD
 - [Mocha](http://mochajs.org/) -- لإطار الرئيسي: يوفر دوال الفحص الأكثر استخدامًا ما يشمل describe و it بالإضافة إلى الدوال الرئيسية التي تُشَغِّل الاختبار.
 - [Chai](http://chaijs.com) -- لمكتبة المحتوية على دوال تأكيدية. تتيح لنا استخدام العديد من هذه الدوال، نحتاج الآن `assert.equal` فقط. .
 - [Sinon](http://sinonjs.org/) -- a مكتبة للتجسس على الدوال، ومحاكاة الدوال المدمجة، والمزيد؛ سنحتاج هذه المكتبة لاحقا.
+=======
+- [Mocha](https://mochajs.org/) -- the core framework: it provides common testing functions including `describe` and `it` and the main function that runs tests.
+- [Chai](https://www.chaijs.com/) -- the library with many assertions. It allows to use a lot of different assertions, for now we need only `assert.equal`.
+- [Sinon](https://sinonjs.org/) -- a library to spy over functions, emulate built-in functions and more, we'll need it much later.
+>>>>>>> 5dff42ba283bce883428c383c080fa9392b71df8
 
 تُعد هذه المكاتب مفيدة للاختبار في كل من المتصفح والخادم. سنأخذ بعين الاعتبار هنا جهة المتصفح. صفحة HTML كاملة مع هذه المكاتب ووصف الدالة pow:
 
@@ -332,6 +360,7 @@ describe("pow", function() {
 
 لاحظ أن الدالة assert.isNaN: تفحص وجود القيمة NaN.
 
+<<<<<<< HEAD
 يوجد المزيد من دوال التأكيد في [Chai](http://chaijs.com) مثلا:
 
 
@@ -342,6 +371,16 @@ describe("pow", function() {
 - `assert.isTrue(value)` -- تفحص أن value === true.
 - `assert.isFalse(value)` -- تفحص أن value === false.
 - ...يمكنك قراءة باقي الدوال في [docs](http://chaijs.com/api/assert/)
+=======
+There are other assertions in [Chai](https://www.chaijs.com/) as well, for instance:
+
+- `assert.equal(value1, value2)` -- checks the equality  `value1 == value2`.
+- `assert.strictEqual(value1, value2)` -- checks the strict equality `value1 === value2`.
+- `assert.notEqual`, `assert.notStrictEqual` -- inverse checks to the ones above.
+- `assert.isTrue(value)` -- checks that `value === true`
+- `assert.isFalse(value)` -- checks that `value === false`
+- ...the full list is in the [docs](https://www.chaijs.com/api/assert/)
+>>>>>>> 5dff42ba283bce883428c383c080fa9392b71df8
 ```
 
 لذا، يجب أن نضيف بعض الأسطر للدالة pow:

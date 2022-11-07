@@ -26,7 +26,11 @@ function sum(a, b) {
 alert( sum(1, 2, 3, 4, 5) );
 ```
 
+<<<<<<< HEAD
 لن ترى أيّ خطأ بسبب تلك الوُسطاء «الزائدة». ولكن طبعًا فالنتيجة لن تأخذ بالحسبان إلا أوّل اثنين.
+=======
+There will be no error because of "excessive" arguments. But of course in the result only the first two will be counted, so the result in the code above is `3`.
+>>>>>>> 5dff42ba283bce883428c383c080fa9392b71df8
 
 يمكن تضمين بقية المُعاملات في تعريف الدالة باستعمال الثلاث نقاط `‎...‎` ثمّ اسم المصفوفة التي ستحتويهم. تعني تلك النقط حرفيًا «اجمع المُعاملات الباقية في مصفوفة».
 

@@ -52,22 +52,35 @@
 ```js run
 alert( 5 % 2 ); // 1, a remainder of 5 divided by 2
 alert( 8 % 3 ); // 2, a remainder of 8 divided by 3
+alert( 8 % 4 ); // 2, 0 remainder of 8 divided by 4
 ```
 
 ### الضرب الأسي ** 
 
+<<<<<<< HEAD
 عامل الضرب الأسي `a ** b` يقوم بضرب الرقم `a`  في نفسه عدد `b` من المرات 
+=======
+The exponentiation operator `a ** b` raises `a` to the power of `b`.
+
+In school maths, we write that as a<sup>b</sup>.
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 على سبيل المثال: 
 
 ```js run
-alert( 2 ** 2 ); // 4  (2 multiplied by itself 2 times)
-alert( 2 ** 3 ); // 8  (2 * 2 * 2, 3 times)
-alert( 2 ** 4 ); // 16 (2 * 2 * 2 * 2, 4 times)
+alert( 2 ** 2 ); // 2² = 4
+alert( 2 ** 3 ); // 2³ = 8
+alert( 2 ** 4 ); // 2⁴ = 16
 ```
 
+<<<<<<< HEAD
 من الناحية الرياضياتية الضرب الأسي يستخدم أيضا مع الأرقام غير الصحيحة.  على سبيل المثال الجذر التربيعي هو ضرب أسي بقيمة
  `1/2`:
+=======
+Just like in maths, the exponentiation operator is defined for non-integer numbers as well.
+
+For example, a square root is an exponentiation by ½:
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 ```js run
 alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root)
@@ -77,7 +90,11 @@ alert( 8 ** (1/3) ); // 2 (power of 1/3 is the same as a cubic root)
 
 ## إضافة الكلمات وسلاسل الحروف بعامل الإضافة + 
 
+<<<<<<< HEAD
 هيا نتعرف على مميزات عوامل اللغة جافا سكريبت والتي تتجاوز الحساب المدرسي 
+=======
+Let's meet the features of JavaScript operators that are beyond school arithmetics.
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 عادة، عامل الإضافة "+" يقوم بجمع الأرقام
 
@@ -198,6 +215,7 @@ alert( +apples + +oranges ); // 5
 | الأسبقية | الاسم | تسجيل |
 | ------------ | ------ | ------ |
 | ... | ... | ... |
+<<<<<<< HEAD
 | 17 | أحادي زائد | `+` |
 | 17 | نفي أحادي | `-` |
 | 16 | الأسي | `**` |
@@ -210,10 +228,28 @@ alert( +apples + +oranges ); // 5
 | ... | ... | ... |
 
 كما نرى ، فإن "unary plus" لها أولوية "17" وهي أعلى من "13" لـ "add" (ثنائي زائد). لهذا السبب ، في تعبير "+ apples + + oranges" ، تعمل الإيجابيات الأحادية قبل الإضافة.
+=======
+| 14 | unary plus | `+` |
+| 14 | unary negation | `-` |
+| 13 | exponentiation | `**` |
+| 12 | multiplication | `*` |
+| 12 | division | `/` |
+| 11 | addition | `+` |
+| 11 | subtraction | `-` |
+| ... | ... | ... |
+| 2 | assignment | `=` |
+| ... | ... | ... |
+
+As we can see, the "unary plus" has a priority of `14` which is higher than the `11` of "addition" (binary plus). That's why, in the expression `"+apples + +oranges"`, unary pluses work before the addition.
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 ## التعيين 
 
+<<<<<<< HEAD
 دعنا نلاحظ أن المهمة `=` هي أيضًا عامل. وهي مدرجة في جدول الأسبقية بأولوية منخفضة جدًا لـ `3`.
+=======
+Let's note that an assignment `=` is also an operator. It is listed in the precedence table with the very low priority of `2`.
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 لهذا السبب ، عندما نقوم بتعيين متغير ، مثل `x = 2 * 2 + 1` ، تتم الحسابات أولاً ثم يتم تقييم` = `، وتخزين النتيجة في` x`.
 
@@ -309,9 +345,9 @@ alert( n ); // 14
 ```js run
 let n = 2;
 
-n *= 3 + 5;
+n *= 3 + 5; // right part evaluated first, same as n *= 8
 
-alert( n ); // 16  (right part evaluated first, same as n *= 8)
+alert( n ); // 16
 ```
 
 ## الزيادة / النقصان
@@ -442,7 +478,13 @@ counter++;
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
+<<<<<<< HEAD
 نادرًا ما يتم استخدام عوامل التشغيل هذه ، عندما نحتاج إلى التلاعب بالأرقام على أدنى مستوى (أحادي البتات). لن نحتاج إلى هؤلاء المشغلين في أي وقت قريب ، لأن تطوير الويب لا يستخدمهم كثيرًا ، ولكن في بعض المجالات الخاصة ، مثل التشفير ، فهي مفيدة. يمكنك قراءة مقالة [عوامل تشغيل Bitwise] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Bitwise) مقالة حول MDN عند الحاجة. 
+=======
+These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#bitwise_operators) chapter on MDN when a need arises.
+
+## Comma
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 ## الفاصلة 
 

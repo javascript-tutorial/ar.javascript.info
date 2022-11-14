@@ -57,7 +57,11 @@ alert(getMaxSubSum([100, -9, 2, -3, 5])); // 100
 
 The solution has a time complexity of [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation). In other words, if we increase the array size 2 times, the algorithm will work 4 times longer.
 
+<<<<<<< HEAD
 # الحل الأسرع
+=======
+For big arrays (1000, 10000 or more items) such algorithms can lead to serious sluggishness.
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 دعنا نسير في المصفوفة ونحتفظ بالمجموع الجزئي الحالي للعناصر في المتغير `s`. إذا أصبحت `s` سالبة في وقت ما ، قم بتعيين` s = 0`. سيكون الحد الأقصى لكل هذه الإجابات هو الإجابة.
 
@@ -88,4 +92,8 @@ alert(getMaxSubSum([-1, -2, -3])); // 0
 
 تتطلب الخوارزمية تمريراً مصفوفه واحده ، لذا فإن تعقيد الوقت هو O (n).
 
+<<<<<<< HEAD
 يمكنك العثور على مزيد من المعلومات التفصيلية حول الخوارزمية هنا: [Maximum subarray problem](http://en.wikipedia.org/wiki/Maximum_subarray_problem). إذا كان لا يزال من غير الواضح سبب نجاح ذلك ، فالرجاء تتبع الخوارزمية في الأمثلة أعلاه ، ومعرفة كيفية عملها ، وهذا أفضل من أي كلمات.
+=======
+You can find more detailed information about the algorithm here: [Maximum subarray problem](http://en.wikipedia.org/wiki/Maximum_subarray_problem). If it's still not obvious why that works, then please trace the algorithm on the examples above, see how it works, that's better than any words.
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321

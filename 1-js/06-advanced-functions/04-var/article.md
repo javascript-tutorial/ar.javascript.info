@@ -3,6 +3,13 @@
 ```smart header="هذه المقالة من أجل فهم النصوص القديمة"
 المعلومات داخل هذه المقالة تساعدنا فى فهم النصوص القديمة أكثر ولا تحتوي علي أي معلومات عن كيفية كتابة كود جديد
 
+<<<<<<< HEAD
+=======
+```smart header="This article is for understanding old scripts"
+The information in this article is useful for understanding old scripts.
+
+That's not how we write new code.
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 ```
 
 ذكرنا في أوائل الفصول حين تكلمنا عن [المتغيرات](info:variables), ذكرنا ثلاث طرائق للتصريح عنها:
@@ -76,7 +83,7 @@ alert(test); // ReferenceError: test is not defined
 ````
 يسري الأمر ذاته على الحلقات فلا يمكن أن يكون `‎var‎` محليًا حسب الكتلة أو حسب الحلقة:
 
-```js
+```js run
 for (var i = 0; i < 10; i++) {
   var one = 1;
   // ...
@@ -268,11 +275,11 @@ function go() {
 ```js run
 // Ways to create IIFE
 
-(function() {
+*!*(*/!*function() {
   alert("Parentheses around the function");
 }*!*)*/!*();
 
-(function() {
+*!*(*/!*function() {
   alert("Parentheses around the whole thing");
 }()*!*)*/!*;
 

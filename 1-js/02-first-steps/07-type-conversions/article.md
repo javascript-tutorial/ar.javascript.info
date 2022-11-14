@@ -7,7 +7,11 @@
 هناك أيضاً حالات نحتاج إلى تصريح تحويل القيمة إلى النوع المطلوب.
 
 ```smart header="Not talking about objects yet"
+<<<<<<< HEAD
 في هذا الفصل، لن نغطي الكائنات. الآن سوف نتحدث عن الأنواع الأساسية.
+=======
+In this chapter, we won't cover objects. For now, we'll just be talking about primitives.
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 فيما بعد، بعد أن نتعلم عن الكائنات، في هذا الفصل <info:object-toprimitive> سنرى كيف تتلائم الكائنات فيه.
 ```
@@ -70,7 +74,11 @@ alert(age); // NaN، التحويل فشل
 |`undefined`|`NaN`|
 |`null`|`0`|
 |<code>true&nbsp;and&nbsp;false</code> | `1` and `0` |
+<<<<<<< HEAD
 | `string` | المساحات البيضاء في البداية والنهاية يتم إزالتها. لو باقي النص فارغ، النتيجة هي `0`. غير ذلك، الرقم "يتم قرائته" من النص. أي خطأ يعطي`NaN`. |
+=======
+| `string` | Whitespaces (includes spaces, tabs `\t`, newlines `\n` etc.) from the start and end are removed. If the remaining string is empty, the result is `0`. Otherwise, the number is "read" from the string. An error gives `NaN`. |
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 أمثلة:
 
@@ -130,7 +138,11 @@ alert( Boolean(" ") ); // المسافات، أيضاً true (أي نص غير �
 |`undefined`|`NaN`|
 |`null`|`0`|
 |<code>true&nbsp;/&nbsp;false</code> | `1 / 0` |
+<<<<<<< HEAD
 | `string` | يتم قراءة النص "كما هو"،المسافات البيضاء من الجانبين يتم تجاهلها. النص الفارغ يصبح `0`. الخطأ `NaN`. |
+=======
+| `string` | The string is read "as is", whitespaces (includes spaces, tabs `\t`, newlines `\n` etc.) from both sides are ignored. An empty string becomes `0`. An error gives `NaN`. |
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 **`التحويلات المنطقية`** -- يحدث في المعاملات المنطقية. يتم تنفيذه عن طريق `Boolean(value)`.
 

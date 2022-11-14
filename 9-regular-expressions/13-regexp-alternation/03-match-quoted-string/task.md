@@ -2,7 +2,11 @@
 
 قم بإنشاء regexp للعثور على سلاسل في علامات اقتباس مزدوجة `الموضوع:" ... "`.
 
+<<<<<<< HEAD
 يجب أن تدعم السلاسل الهروب ، بنفس الطريقة التي تدعمها سلاسل JavaScript. على سبيل المثال ، يمكن إدراج علامات الاقتباس كـ `subject: \" `سطر جديد مثل` subject: \ n` ، والشرطة نفسها كـ `subject: \\`.
+=======
+The strings should support escaping, the same way as JavaScript strings do. For instance, quotes can be inserted as `subject:\"` a newline as `subject:\n`, and the backslash itself as `subject:\\`.
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 ```js
 let str = "Just like \"here\".";
@@ -18,11 +22,15 @@ let str = "Just like \"here\".";
 ```js
 .. *!*"test me"*/!* ..  
 .. *!*"Say \"Hello\"!"*/!* ... (escaped quotes inside)
-.. *!*"\\"*/!* ..  (double slash inside)
-.. *!*"\\ \""*/!* ..  (double slash and an escaped quote inside)
+.. *!*"\\"*/!* ..  (double backslash inside)
+.. *!*"\\ \""*/!* ..  (double backslash and an escaped quote inside)
 ```
 
+<<<<<<< HEAD
 في جافا سكريبت ، نحتاج إلى مضاعفة الخطوط المائلة لتمريرها مباشرة في السلسلة ، مثل هذا:
+=======
+In JavaScript we need to double the backslashes to pass them right into the string, like this:
+>>>>>>> 8d9ecb724c7df59774d1e5ffb5e5167740b7d321
 
 ```js run
 let str = ' .. "test me" .. "Say \\"Hello\\"!" .. "\\\\ \\"" .. ';

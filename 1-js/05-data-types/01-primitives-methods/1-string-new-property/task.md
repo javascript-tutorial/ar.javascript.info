@@ -15,5 +15,9 @@ str.test = 5;
 alert(str.test);
 ```
 
+<<<<<<< HEAD
 كيف تعتقد أنها ستنجح؟
  ماذا سيتضح؟
+=======
+What do you think, will it work? What will be shown?
+>>>>>>> 746ad803c878e33182e7fab1578c0d15b9b75ca0

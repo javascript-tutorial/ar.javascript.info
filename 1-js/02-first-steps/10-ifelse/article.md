@@ -187,10 +187,17 @@ alert(message);
 
 ربما يكون من الصعب معرفة ما يحدث ولكن إذا نظرنا عن قرب سنجد أنه مجرد تتابع لمجموعة إختبارات:
 
+<<<<<<< HEAD
 1. أول علامة استفهام تختبر إذا كان `age < 3`.
 2. لو صحيح ترجع `'مرحبًا يا صغيري!'`. ولو لم يكن تكمل لما بعد النقطتين '":"'وتختبر `age < 18`.
 3. لو صحيح ترجع `'أهلا!'`. ولو لم يكن تكمل لما بعد النقطتين '":"'وتختبر `age < 100`.
 4. لو صحيح ترجع `'تحياتي!'`. ولو لم يكن تكمل لما بعد النقطتين الأخيرتين '":"'وترجع `'يا له من عمر غير عادي!'`.
+=======
+1. The first question mark checks whether `age < 3`.
+2. If true -- it returns `'Hi, baby!'`. Otherwise, it continues to the expression after the colon ":", checking `age < 18`.
+3. If that's true -- it returns `'Hello!'`. Otherwise, it continues to the expression after the next colon ":", checking `age < 100`.
+4. If that's true -- it returns `'Greetings!'`. Otherwise, it continues to the expression after the last colon ":", returning `'What an unusual age!'`.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 هنا ما يبدو عليه باستخدام `if..else`:
 

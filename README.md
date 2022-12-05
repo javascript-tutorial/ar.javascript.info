@@ -1,6 +1,10 @@
 # The Modern JavaScript Tutorial in Arabic
 
+<<<<<<< HEAD
 This repository hosts the Arabic content of the Modern JavaScript Tutorial, published in [https://ar.javascript.info](https://ar.javascript.info).
+=======
+This repository hosts the English content of the Modern JavaScript Tutorial, published at [https://javascript.info](https://javascript.info).
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 **That's how you can contribute:**
 
@@ -20,18 +24,32 @@ If maintainers do not respond, or if you'd like to become a maintainer, write us
 
 🎉 Thank you!
 
+<<<<<<< HEAD
 Your name and the contribution size will appear in the "About project" page when the translation gets published.
 
 P.S. The full list of languages can be found at <https://javascript.info/translate>.
 **You can edit the text in any editor.** The tutorial uses enhanced "markdown" format, easy to grasp. And if you want to see how it looks on-site, there's a server to run the tutorial locally at <https://github.com/javascript-tutorial/server>.
+=======
+We'd also like to collaborate on the tutorial with other people.
+
+Something's wrong? A topic is missing? Explain it to people, add it as PR 👏
+
+**You can edit the text in any editor.** The tutorial uses an enhanced "markdown" format, easy to grasp. And if you want to see how it looks on-site, there's a server to run the tutorial locally at <https://github.com/javascript-tutorial/server>.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 The list of contributors is available at <https://ar.javascript.info/about#contributors>.
 
 ## Structure
 
+<<<<<<< HEAD
 Every chapter, an article or a task resides in its own folder.
 
 The folder is named `N-url`, where `N` – is the number for sorting (articles are ordered), and `url` is the URL-slug on the site.
+=======
+Every chapter, article, or task has its folder.
+
+The folder is named like `N-url`, where `N` is a number for the sorting purposes and `URL` is the URL part with the title of the material.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 The folder has one of files:
 

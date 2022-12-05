@@ -52,10 +52,17 @@ _`new Date(datestring)‎`_
 _`new Date(year, month, date, hours, minutes, seconds, ms)‎`_
 يُنشئ تاريخًا بالمكوّنات الممرّرة حسب المنطقة الزمنية المحلية. أوّل وسيطين إلزاميين أما البقية اختيارية.
 
+<<<<<<< HEAD
 يجب أن يكون العام `year` بأربع خانات: `2013` صح، `98` خطأ.
 يبدأ الشهر `month` بالرقم `0` (يناير) وينتهي بالعدد `11` (ديسمبر).
 مُعامل التاريخ `date` هو رقم اليوم من الشهر. لو لم يكن موجودًا فسيعدّه الكائن `1`.
 لو لم تكن مُعاملات الساعة والدقيقة والثانية والمليثانية `hours/minutes/seconds/ms` موجودة، فسيعدّها الكائن `0`.
+=======
+    - The `year` should have 4 digits. For compatibility, 2 digits are also accepted and considered `19xx`, e.g. `98` is the same as `1998` here, but always using 4 digits is strongly encouraged.
+    - The `month` count starts with `0` (Jan), up to `11` (Dec).
+    - The `date` parameter is actually the day of month, if absent then `1` is assumed.
+    - If `hours/minutes/seconds/ms` is absent, they are assumed to be equal `0`.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 مثال:
 
@@ -318,7 +325,12 @@ function bench(f) {
 let time1 = 0;
 let time2 = 0;
 
+<<<<<<< HEAD
 // ‫نشغّل bench(upperSlice)‎ وbench(upperLoop)‎ عشر مرات مرّة بمرّة
+=======
+*!*
+// run bench(diffSubtract) and bench(diffGetTime) each 10 times alternating
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 for (let i = 0; i < 10; i++) {
   time1 += bench(diffSubtract);
   time2 += bench(diffGetTime);
@@ -344,7 +356,12 @@ for (let i = 0; i < 10; i++) {
 
 **الزم الحذر متى ما أجريت قياسات أداء على المستوى الذرّي**.
 
+<<<<<<< HEAD
 تُنفّذ محرّكات جافا سكريبت الحديثة عددًا كبيرًا من التحسينات، وقد تُغيّر نتائج ”الاختبارات الصناعية“ موازنةً ”بالاستعمال الطبيعي لها“، خصوصًا حين نقيس أداء ما هو صغير للغاية مثل طريقة عمل مُعامل رياضي، أو دالة مضمّنة في اللغة نفسها. لهذا، لو كنت تريد حقًا فهم الأداء كما يجب، فمن فضلك تعلّم طريقة عمل محرّك جافا سكريبت. حينها ربّما لن تحتاج هذه القياسات على المستوى الذرّي، أبدًا.
+=======
+The great pack of articles about V8 can be found at <https://mrale.ph>.
+```
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 يمكنك أن تقرأ بعض المقالات الرائعة حول V8 هنا [http://mrale.ph](mrale.ph).
 

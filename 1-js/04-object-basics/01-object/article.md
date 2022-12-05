@@ -44,7 +44,11 @@ let user = {     // an object كائن
 
 ![user object](object-user.svg)
 
+<<<<<<< HEAD
 يمكننا إضافة، وحذف، وقراءة الملفات من الخزانة في أي وقت. 
+=======
+We can add, remove and read files from it at any time.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 يمكن الوصول إلى قيم الخاصيات باستخدام الصيغة النُقَطية (dot notation):
 
@@ -62,7 +66,11 @@ user.isAdmin = true;
 
 ![user object 2](object-user-isadmin.svg)
 
+<<<<<<< HEAD
 يمكننا استخدام المُعامِل `delete` لحذف خاصية:
+=======
+To remove a property, we can use the `delete` operator:
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 ```js
 delete user.age;
@@ -225,13 +233,21 @@ let bag = {
 };
 ```
 
+<<<<<<< HEAD
 الأقواس المربعة أقوى بكثير من استخدام الصيغة النُقطية. حيث تسمح باستخدام أي أسماء خصائص ومتغيرات. لكنها أيضا أكثر إرهاقاً في الكتابة.
+=======
+Square brackets are much more powerful than dot notation. They allow any property names and variables. But they are also more cumbersome to write.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 لذلك، معظم الوقت، حينما يكون اسم خاصية معروفا أو غير مركب، تستخدم الصيغة النُقطية. وإذا أردنا شيئاً أكثر تعقيدا، ننتقل إلى استخدام الأقواس المربعة.
 
 ## اختصار قيمة الخاصية (Property value shorthand)
 
+<<<<<<< HEAD
 في الشيفرة الحقيقية، غالبًا ما نستخدم المتغيرات الموجودة بصفتها قيَمًا لأسماء الخصائص.
+=======
+In real code, we often use existing variables as values for property names.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 مثلاً:
 
@@ -276,7 +292,11 @@ let user = {
 
 ## قيود أسماء الخصائص Property names limitations
 
+<<<<<<< HEAD
 كما نعلم، لا يمكن للمتغير أن يمتلك اسماً يساوي واحداً من الكلمات المحفوظة للغة (language-reserved words) مثل "for", "let", "return" إلخ.
+=======
+As we already know, a variable cannot have a name equal to one of the language-reserved words like "for", "let", "return" etc.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 لكن بالنسبة لخاصية في كائن، لا توجد مثل هذه القيود:
 
@@ -351,7 +371,11 @@ alert( "blabla" in user ); // false, user.blabla غير موجود
 
 يرجى ملاحظة أنه في الجهة اليسرى من `in` يجب أن يكون هناك *اسم خاصية*. يكون عادة نصًا بين علامتي تنصيص.
 
+<<<<<<< HEAD
 إذا حذفنا علامات التنصيص، فهذا يعني متغيرًا، يجب أن يحتوي على الاسم الفعلي المراد اختباره. على سبيل المثال:
+=======
+If we omit quotes, that means a variable should contain the actual name to be tested. For instance:
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 ```js run
 let user = { age: 30 };
@@ -381,7 +405,7 @@ alert( "test" in obj ); // true, الخاصية موجودة بالفعل!
 مواقف مثل هذه تحدث نادراً، لأن `undefined` لا ينبغي تعيينها بشكل ذاتي. عادة ما نستخدم `null` للقيم غير المعروفة أو الفارغة. لذا معامل `in` يعتبر ضيفاً غريباً في الشيفرة.
 
 
-## The "for..in" loop
+## The "for..in" loop [#forin]
 
 للمرور على كل مفاتيح الكائن، يوجد شكل خاص آخر للحلقة loop: `for..in`. هذه الحلقة مختلفة تمامًا عما درسناه سابقًا، أي الحلقة `for(;;)`.
 
@@ -438,7 +462,11 @@ for (let code in codes) {
 */!*
 ```
 
+<<<<<<< HEAD
 قد يستخد الكائن لاقتراح قائمة من الخيارات للمستخدم. إن كنا نقوم بعمل الموقع بشكل رئيسي للزوار الألمان فإننا نريد أن يظهر `49` في أول القائمة.
+=======
+The object may be used to suggest a list of options to the user. If we're making a site mainly for a German audience then we probably want `49` to be the first.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 لكن إذا قمنا بتشغيل الكود, فإننا نرى صورة مختلفة تماماً:
 
@@ -450,6 +478,7 @@ for (let code in codes) {
 ````smart header="خصائص عددية؟ ما هذا؟"
 "الخصائص الرقمية integer property" مصطلح يعني هنا نصًا يمكن تحويله من وإلى عدد دون أن يتغير.
 
+<<<<<<< HEAD
 لذا, "49" هو اسم خاصية عددي, لأنه عند تحويله إلى عدد وإرجاعه لنص, يبقى كما هو. لكن "+49" و "1.2" are ليسا كذلك:
 
 ```js run
@@ -457,6 +486,16 @@ for (let code in codes) {
 alert( String(Math.trunc(Number("49"))) ); // "49", الخاصية العددية ذاتها
 alert( String(Math.trunc(Number("+49"))) ); // "49" مختلفة عن "49+" => إذًا ليست خاصية عددية
 alert( String(Math.trunc(Number("1.2"))) ); // "1" مختلفة عن "1.2" => إذًا ليست خاصية عددية
+=======
+So, `"49"` is an integer property name, because when it's transformed to an integer number and back, it's still the same. But `"+49"` and `"1.2"` are not:
+
+```js run
+// Number(...) explicitly converts to a number
+// Math.trunc is a built-in function that removes the decimal part
+alert( String(Math.trunc(Number("49"))) ); // "49", same, integer property
+alert( String(Math.trunc(Number("+49"))) ); // "49", not same "+49" ⇒ not integer property
+alert( String(Math.trunc(Number("1.2"))) ); // "1", not same "1.2" ⇒ not integer property
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 ```
 ````
 
@@ -505,9 +544,15 @@ for (let code in codes) {
 - مفاتيح الخواص يجب أن تكون نصاً أو رمزاً (عادة ما تكون نصاً).
 - القيم يمكن أن تكون من أي نوع.
 
+<<<<<<< HEAD
 للوصول إلى خاصية, يمكننا استخدام:
 - رمز النقطة: `obj.property`.
 - رمز الأقواس المربعة `obj["property"]`. تسمح الأقواس المربعة بأخذ المفتاح من متغير, مثل `obj[varWithKey]`.
+=======
+To access a property, we can use:
+- The dot notation: `obj.property`.
+- Square brackets notation `obj["property"]`. Square brackets allow taking the key from a variable, like `obj[varWithKey]`.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 معاملات إضافية Additional operators:
 - لحذف خاصية: `delete obj.prop`.

@@ -6,7 +6,24 @@
 
 _الحلقات التكرارية_ هي طريقة لتكرار الأوامر.
 
+<<<<<<< HEAD
 ## حلقة "while"
+=======
+```smart header="The for..of and for..in loops"
+A small announcement for advanced readers.
+
+This article covers only basic loops: `while`, `do..while` and `for(..;..;..)`.
+
+If you came to this article searching for other types of loops, here are the pointers:
+
+- See [for..in](info:object#forin) to loop over object properties.
+- See [for..of](info:array#loops) and [iterables](info:iterable) for looping over arrays and iterable objects.
+
+Otherwise, please read on.
+```
+
+## The "while" loop
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 إن حلقة `while` تكتب بالطريقة التالية:
 
@@ -106,12 +123,21 @@ for (let i = 0; i < 3; i++) {
 
 لنشرح `for` جزء بجزء:
 
+<<<<<<< HEAD
 | الجزء     |            |                                                             |
 | --------- | ---------- | ----------------------------------------------------------- |
 | begin     | `i = 0`    | ينفذ مرة واحدة فقط في البداية.                              |
 | condition | `i < 3`    | يتم اختباره قبل كل عملية تكرار وإذا لم يتحقق يتوقف التكرار. |
 | body      | `alert(i)` | تنفذ طالما الشرط محقق.                                      |
 | step      | `i++`      | ينفذ بعد body في كل عملية تكرار.                            |
+=======
+| part  |          |                                                                            |
+|-------|----------|----------------------------------------------------------------------------|
+| begin | `let i = 0`    | Executes once upon entering the loop.                                      |
+| condition | `i < 3`| Checked before every loop iteration. If false, the loop stops.              |
+| body | `alert(i)`| Runs again and again while the condition is truthy.                         |
+| step| `i++`      | Executes after the body on each iteration. |
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 الخوارزمية العامة للتكرار تعمل كالتالي:
 
@@ -173,12 +199,17 @@ for (i = 0; i < 3; i++) { // استخدام متغير معرف مسبقًا
 
 alert(i); // 3, يمكن التعامل معه لأنه معرف خارج الحلقة
 ```
-
 ````
 
+<<<<<<< HEAD
 ### أجزاء يمكن تخطيها
 
 أي جزء من `for` يمكن الاستغناء عنه.
+=======
+### Skipping parts
+
+Any part of `for` can be skipped.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 مثلًا إذا حذفنا `begin` لن يكون لدينا ما نفعله في بداية الحلقة.
 
@@ -277,9 +308,14 @@ for (let i = 0; i < 10; i++) {
 
 هذا الكود مطابق تمامًا للسابق. يمكننا فقط وضع الكود داخل `if` بدلًا من استخدام `continue`.
 
+<<<<<<< HEAD
 ولكن هذا ينتج مستوى آخر من التداخل (استدعاء `alert` داخل أقواس معقوفة). إذا كان ما بداخل `if` سطور كثيرة فهذا سيقلل من إمكانية قراءة الكود بوضوح.
 
 `````
+=======
+But as a side effect, this created one more level of nesting (the `alert` call inside the curly braces). If the code inside of `if` is longer than a few lines, that may decrease the overall readability.
+````
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 
 ````warn header="لا يمكن استخدام `break/continue` في الجانب الأيمن من '?'"
 لا يمكن استخدام هذه التعبيرات `break/continue` مع العامل الشرطي `?`.
@@ -295,7 +331,6 @@ if (i > 5) {
 ```
 
 ...وكتبناه باستخدام علامة الاستفهام:
-
 
 ```js no-beautify
 (i > 5) ? alert(i) : *!*continue*/!*; // continue لا يسمح باستخدامها هنا
@@ -330,6 +365,11 @@ alert("Done!");
 
 إن _label_ يقوم بتعريف الحلقة باستخدام نقطتين قبلها:
 
+<<<<<<< HEAD
+=======
+A *label* is an identifier with a colon before a loop:
+
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 ```js
 labelName: for (...) {
   ...
@@ -351,6 +391,7 @@ labelName: for (...) {
     // أفعل شئ ما بالقيمة...
   }
 }
+
 alert('Done!');
 ```
 
@@ -370,16 +411,37 @@ for (let i = 0; i < 3; i++) { ... }
 ````warn header="Labels لا تستخدم للإنتقال إلى أي مكان"
 Labels لا تسمح لنا بالإنتقال إلى أي مكان داخل الكود.
 
+<<<<<<< HEAD
 فعلى سبيل المثال لا يمكننا فعل التالي:
+=======
+For example, it is impossible to do this:
+
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 ```js
 break label; // تنتقل إلى الحقل بالأسفل (لا تعمل)
 
 label: for (...)
 ```
 
+<<<<<<< HEAD
 إستخدام `continue` يكون ممكنًا فقط من داخل الحلقه.
 
 `break` ربما يمكن وضعه قبل الشيفرة ايضًا, as `label: { ... }`, لكنها لا تستخدم أبدًا بهذه الطريقة. وهي تعمل أيضًا من الداخل إلى الخارج فقط.
+=======
+A `break` directive must be inside a code block. Technically, any labelled code block will do, e.g.:
+
+```js
+label: {
+  // ...
+  break label; // works
+  // ...
+}
+```
+
+...Although, 99.9% of the time `break` is used inside loops, as we've seen in the examples above.
+
+A `continue` is only possible from inside a loop.
+>>>>>>> 1ce5644a15ee141fbe78c0fb79c8f40d870d7043
 ````
 
 ## ملخص

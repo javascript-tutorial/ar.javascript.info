@@ -4,7 +4,17 @@
 
 هناك اشياء بسيطة تستحق الدراسة مرة واحدة ثم بعد ذلك تشعر بالارتياح في عالم الرسومات المتجهةو علوم الرسوم المتحركة المتقدمة.
 
+<<<<<<< HEAD
 ## نقاط التحكم
+=======
+```smart header="Some theory, please"
+This article provides a theoretical, but very needed insight into what Bezier curves are, while [the next one](info:css-animations#bezier-curve) shows how we can use them for CSS animations.
+
+Please take your time to read and understand the concept, it'll serve you well.
+```
+
+## Control points
+>>>>>>> ea7738bb7c3616bb51ff14ae3db2a2747d7888ff
 
 [منحنى بيزير](https://ar.wikipedia.org/wiki/%D9%85%D9%86%D8%AD%D9%86%D9%89_%D8%A8%D9%8A%D8%B2%D9%8A%D9%87) يتم تعريفه من خلال نقاط التحكم.
 

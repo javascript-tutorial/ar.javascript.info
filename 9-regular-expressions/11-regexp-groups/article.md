@@ -335,7 +335,7 @@ alert( str.replace(regexp, '$<day>.$<month>.$<year>') );
 let str = "Gogogo John!";
 
 *!*
-// ?: exludes 'go' from capturing
+// ?: excludes 'go' from capturing
 let regexp = /(?:go)+ (\w+)/i;
 */!*
 

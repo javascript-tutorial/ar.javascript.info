@@ -21,14 +21,22 @@ alert( rabbit.hasOwnProperty('name') ); // true
 
 لكن هذا ليس كل شيء بعد.
 
+<<<<<<< HEAD
 حتى بعد الإصلاح ، لا يزال هناك اختلاف مهم في "class rabbit يوسع الكائن" "مقابل" class Rabbit ".
+=======
+Even after the fix, there's still an important difference between `"class Rabbit extends Object"` and `class Rabbit`.
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 كما نعلم ، فإن الصيغة "الممتدة" تضع نموذجين أوليين:
 
 1. بين "النموذج" لوظائف المنشئ (للطرق).
 2. بين وظائف المنشئ أنفسهم (للأساليب الثابتة).
 
+<<<<<<< HEAD
 في حالتنا ، تعني كلمة "أرنب يمتد الكائن" ما يلي:
+=======
+In the case of `class Rabbit extends Object` it means:
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 ```js run
 class Rabbit extends Object {}
@@ -37,7 +45,11 @@ alert( Rabbit.prototype.__proto__ === Object.prototype ); // (1) true
 alert( Rabbit.__proto__ === Object ); // (2) true
 ```
 
+<<<<<<< HEAD
 إذن يوفر "الأرنب" الآن إمكانية الوصول إلى الأساليب الثابتة لـ "الكائن" عبر "الأرنب" ، على النحو التالي:
+=======
+So `Rabbit` now provides access to the static methods of `Object` via `Rabbit`, like this:
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 ```js run
 class Rabbit extends Object {}
@@ -67,7 +79,11 @@ alert ( Rabbit.getOwnPropertyNames({a: 1, b: 2})); // Error
 
 لذا `Rabbit` لا يوفر الوصول إلى الأساليب الثابتة لـ "الكائن" في هذه الحالة.
 
+<<<<<<< HEAD
 بالمناسبة ، يحتوي `Function.prototype` على طرق وظيفية" عامة "، مثل` call` و` bind` وما إلى ذلك. وهي متاحة في النهاية في كلتا الحالتين ، لأن مُنشئ `Object` المدمج ،` Object .__ proto__ = == Function.prototype`.
+=======
+By the way, `Function.prototype` also has "generic" function methods, like `call`, `bind` etc. They are ultimately available in both cases, because for the built-in `Object` constructor, `Object.__proto__ === Function.prototype`.
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 ها هي الصورة:
 

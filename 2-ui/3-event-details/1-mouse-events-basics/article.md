@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 # أحداث الماوس
+=======
+
+# Mouse events
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 في هذا الفصل سنتناول المزيد حول أحداث الماوس وخصائصها.
 
@@ -44,8 +49,14 @@ In cases when a single action initiates multiple events, their order is fixed. T
 ```online
 لمعاينة الأحداث بوضوح أنقر فوق الزر أدناه. جرب النقر مرتين أيضاً.
 
+<<<<<<< HEAD
 في التجربة التالية ، يتم تسجيل جميع أحداث الماوس ، وإذا كان هناك  تأخير لأكثر من ثانية واحدة يتم فصلها بخط أفقي متقطع.
 
+=======
+On the teststand below, all mouse events are logged, and if there is more than a 1 second delay between them, they are separated by a horizontal rule.
+
+Also, we can see the `button` property that allows us to detect the mouse button; it's explained below.
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 كما يمكننا أن نرى  `button` الذي يسمح لنا باكتشاف زر الماوس ، كما هو موضح أدناه.
 
@@ -58,7 +69,7 @@ In cases when a single action initiates multiple events, their order is fixed. T
 
 We usually don't use it for `click` and `contextmenu` events, because the former happens only on left-click, and the latter -- only on right-click.
 
-From the other hand, `mousedown` and `mouseup` handlers may need `event.button`, because these events trigger on any button, so `button` allows to distinguish between "right-mousedown" and "left-mousedown".
+On the other hand, `mousedown` and `mouseup` handlers may need `event.button`, because these events trigger on any button, so `button` allows to distinguish between "right-mousedown" and "left-mousedown".
 
 القيم المحتملة لـ `event.button` هي:
 
@@ -160,7 +171,11 @@ Also there's `event.buttons` property that has all currently pressed buttons as 
 
 ## منع الإختيار في الماوس
 
+<<<<<<< HEAD
 النقر المزدوج بزر الماوس له تأثير جانبي قد يكون غير ملائم في بعض الواجهات: فهو يحدد النص.
+=======
+Double mouse click has a side effect that may be disturbing in some interfaces: it selects text.
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 For instance, double-clicking on the text below selects it in addition to our handler:
 

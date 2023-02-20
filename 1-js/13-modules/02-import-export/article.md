@@ -44,7 +44,11 @@ export function sayHi(user) {
 
 هنا نصرّح أولًا عن الدالتين وبعدها نُصدّرهما:
 
+<<<<<<< HEAD
 ```
+=======
+```js
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 // 📁 say.js
 function sayHi(user) {
   alert(`Hello, ${user}!`);
@@ -95,6 +99,7 @@ say.sayBye('John');
 
    لنقل مثلًا بأنّا أضفنا مكتبة خارجية اسمها `say.js` إلى مشروعنا، وفيها دوالّ عديدة:
 
+<<<<<<< HEAD
    ```
    // 📁 say.js
    export function sayHi() { ... }
@@ -110,6 +115,16 @@ say.sayBye('John');
    ```
 
    ...حينها تأتي أداة التحسين وترى ذلك، فتُزيل الدوال الأخرى من الشيفرة ... بذلك يصغُر حجم الملف المبني. هذا ما نسميه هز الشجر (لتَسقطَ الأوراق اليابسة).
+=======
+1. Explicitly listing what to import gives shorter names: `sayHi()` instead of `say.sayHi()`.
+2. Explicit list of imports gives better overview of the code structure: what is used and where. It makes code support and refactoring easier.
+
+```smart header="Don't be afraid to import too much"
+Modern build tools, such as [webpack](https://webpack.js.org/) and others, bundle modules together and optimize them to speedup loading. They also removed unused imports.
+
+For instance, if you `import * as library` from a huge code library, and then use only few methods, then unused ones [will not be included](https://github.com/webpack/webpack/tree/main/examples/harmony-unused#examplejs) into the optimzed bundle.
+```
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 2. لو وضّحنا بالضبط ما نريد استيراده فيمكننا كتابته باسم أقصر: `sayHi()‎` بدل `say.sayHi()‎`.
 3. بكتابة قائمة الاستيراد جهارةً نستطيع أن نفهم بنية الشيفرة دون الخوض في التفاصيل (أي نعرف ما نستعمل من وحدات، وأين نستعملها). هذا يسهّل دعم الشيفرة وإعادة كتابتها لو تطلّب الأمر.
@@ -402,14 +417,26 @@ We can come across two problems with it:
 
 1. `export User from './user.js'` won't work. That would lead to a syntax error.
 
+<<<<<<< HEAD
 2. تعيد التعليمة `export * from './user.js'‎` تصدير التصديرات الّتي لها أسماء فقط، ولكنها تتجاهل التصديرات المبدئية.
+=======
+    To re-export the default export, we have to write `export {default as User}`, as in the example above.
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
    إذا رغبنا في إعادة تصدير التصديرات المبدئية والتي لها أسماء أيضًا، فسنحتاج إلى العبارتين:
 
+<<<<<<< HEAD
    ```
    export * from './user.js'; // لإعادة تصدير التصديرات الّتي لها أسماء
    export {default} from './user.js'; // لإعادة تصدير التصديرات المبدئية
    ```
+=======
+    If we'd like to re-export both named and default exports, then two statements are needed:
+    ```js
+    export * from './user.js'; // to re-export named exports
+    export {default} from './user.js'; // to re-export the default export
+    ```
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 Such oddities of re-exporting a default export are one of the reasons why some developers don't like default exports and prefer named ones.
 

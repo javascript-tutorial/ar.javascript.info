@@ -112,7 +112,7 @@ alert(typeof User); // function
 alert(User === User.prototype.constructor); // true
 
 // The methods are in User.prototype, e.g:
-alert(User.prototype.sayHi); // alert(this.name);
+alert(User.prototype.sayHi); // the code of the sayHi method
 
 // there are exactly two methods in the prototype
 alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
@@ -120,7 +120,11 @@ alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
 
 ## ليس مجرد سكر نحوي
 
+<<<<<<< HEAD
 أحيانًا يقول الناس أن "class" عبارة عن "سكر نحوي" (بنية تم تصميمها لتسهيل قراءة الأشياء ، ولكن لا تقدم أي شيء جديد) ، لأنه يمكننا في الواقع أن نعلن الشيء نفسه بدون كلمة "class" على الإطلاق:
+=======
+Sometimes people say that `class` is a "syntactic sugar" (syntax that is designed to make things easier to read, but doesn't introduce anything new), because we could actually declare the same thing without using the `class` keyword at all:
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 ```js run
 // rewriting class User in pure functions
@@ -146,7 +150,11 @@ user.sayHi();
 
 لا تزال هناك اختلافات مهمة.
 
+<<<<<<< HEAD
 1. أولاً ، يتم تصنيف دالة تم إنشاؤها بواسطة "class" بواسطة خاصية داخلية خاصة `[[FunctionKind]]:" classConstructor "`. لذلك فهي ليست تمامًا مثل إنشائها يدويًا.
+=======
+1. First, a function created by `class` is labelled by a special internal property `[[IsClassConstructor]]: true`. So it's not entirely the same as creating it manually.
+>>>>>>> 9e3fa1351f80cfd6353a778a55b2c86bca9e895f
 
 تقوم اللغة بالتحقق من هذه الخاصية في أماكن متنوعة. على سبيل المثال ، على عكس الوظيفة العادية ، يجب أن يتم استدعاؤها بـ `new`:
 

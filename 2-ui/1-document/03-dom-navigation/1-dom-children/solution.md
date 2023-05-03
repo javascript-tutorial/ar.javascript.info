@@ -1,27 +1,26 @@
-There are many ways, for instance:
+هناك العديد من الطرق، على سبيل المثال:
 
-
-The `<div>` DOM node:
+عقدة DOM `<div>`:
 
 ```js
-document.body.firstElementChild
-// or
-document.body.children[0]
-// or (the first node is space, so we take 2nd)
-document.body.childNodes[1]
+document.body.firstElementChild;
+// أو
+document.body.children[0];
+// أو (العقدة الأولى هي المسافة، لذلك نأخذ الثانية)
+document.body.childNodes[1];
 ```
 
-The `<ul>` DOM node:
+عقدة DOM `<ul>`:
 
 ```js
-document.body.lastElementChild
-// or
-document.body.children[1]
+document.body.lastElementChild;
+// أو
+document.body.children[1];
 ```
 
-The second `<li>` (with Pete):
+العنصر `<li>` الثاني (مع Pete):
 
 ```js
-// get <ul>, and then get its last element child
-document.body.lastElementChild.lastElementChild
+// احصل على <ul>، ثم احصل على آخر عنصر فرعي له
+document.body.lastElementChild.lastElementChild;
 ```

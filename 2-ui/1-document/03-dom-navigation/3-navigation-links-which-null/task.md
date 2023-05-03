@@ -1,10 +1,10 @@
-importance: 5
+درجة الأهمية: 5
 
 ---
 
-# The sibling question
+# سؤال الأشقاء
 
-If `elem` -- is an arbitrary DOM element node...
+إذا كان `elem` -- هو عقدة DOM عنصرية عشوائية...
 
-- Is it true that `elem.lastChild.nextSibling` is always `null`?
-- Is it true that `elem.children[0].previousSibling` is always `null` ?
+- هل صحيح أن `elem.lastChild.nextSibling` هو دائمًا `null`؟
+- هل صحيح أن `elem.children[0].previousSibling` هو دائمًا `null`؟

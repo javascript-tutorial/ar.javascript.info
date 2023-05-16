@@ -2,23 +2,24 @@ importance: 5
 
 ---
 
-# DOM children
+# اطفال ال DOM
 
-Look at this page:
+انظر إلى هذه الصفحة:
 
 ```html
 <html>
-<body>
-  <div>Users:</div>
-  <ul>
-    <li>John</li>
-    <li>Pete</li>
-  </ul>
-</body>
+  <body>
+    <div>المستخدمون:</div>
+    <ul>
+      <li>جون</li>
+      <li>بيت</li>
+    </ul>
+  </body>
 </html>
 ```
 
-For each of the following, give at least one way of how to access them:
-- The `<div>` DOM node?
-- The `<ul>` DOM node?
-- The second `<li>` (with Pete)?
+لكل من التالي، أعطِ طريقة واحدة على الأقل لكيفية الوصول إليها:
+
+- عقدة `<DOM <div`؟
+- عقدة `<DOM <ul`؟
+- العنصر `<li>` الثاني (مع Pete)؟

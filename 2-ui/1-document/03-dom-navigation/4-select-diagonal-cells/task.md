@@ -2,17 +2,17 @@ importance: 5
 
 ---
 
-# Select all diagonal cells
+# حدد كل الخلايا القطرية
 
-Write the code to paint all diagonal table cells in red.
+اكتب الكود لتلوين كل الخلايا القطرية في الجدول باللون الأحمر.
 
-You'll need to get all diagonal `<td>` from the `<table>` and paint them using the code:
+سوف تحتاج إلى الحصول على كل `<td>` قطرية من `<table>` وتلوينها باستخدام الكود:
 
 ```js
-// td should be the reference to the table cell
+// يجب أن يكون td مرجعًا لخلية الجدول
 td.style.backgroundColor = 'red';
 ```
 
-The result should be:
+يجب أن يكون النتيجة:
 
 [iframe src="solution" height=180]

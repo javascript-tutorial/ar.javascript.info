@@ -1,1 +1,1 @@
-We'll be using `rows` and `cells` properties to access diagonal table cells.
+سنستخدم خصائص `rows` و `cells` للوصول إلى الخلايا القطرية في الجدول.

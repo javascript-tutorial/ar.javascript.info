@@ -1,107 +1,107 @@
 libs:
-  - d3
-  - domtree
+
+- d3
+- domtree
 
 ---
 
+# المشي في الـ DOM
 
-# Walking the DOM
+يسمح لنا الـ DOM بالقيام بأي شيء مع العناصر ومحتوياتها، ولكن أولاً يجب علينا الوصول إلى كائن DOM المقابل.
 
-The DOM allows us to do anything with elements and their contents, but first we need to reach the corresponding DOM object.
+تبدأ جميع العمليات على الـ DOM مع كائن `document`. هذه هي النقطة الرئيسية للدخول إلى DOM. من خلاله يمكننا الوصول إلى أي عقدة.
 
-All operations on the DOM start with the `document` object. That's the main "entry point" to DOM. From it we can access any node.
-
-Here's a picture of links that allow for travel between DOM nodes:
+هذه صورة لروابط تسمح بالسفر بين عقد DOM:
 
 ![](dom-links.svg)
 
-Let's discuss them in more detail.
+دعونا نناقشهم بمزيد من التفصيل.
 
-## On top: documentElement and body
+## في الأعلى: documentElement و body
 
-The topmost tree nodes are available directly as `document` properties:
+تتوفر العقد الشجرية العليا مباشرة كخصائص `document`:
 
-`<html>` = `document.documentElement`
-: The topmost document node is `document.documentElement`. That's the DOM node of the `<html>` tag.
+`html>` = `document.documentElement>`
+: العقدة الوثيقة العليا هي `document.documentElement`. هذه هي عقدة DOM للعلامة `<html>`.
 
-`<body>` = `document.body`
-: Another widely used DOM node is the `<body>` element -- `document.body`.
+`body>` = `document.body>`
+: عقدة DOM أخرى مستخدمة على نطاق واسع هي عنصر `body>` -- `document.body>`.
 
-`<head>` = `document.head`
-: The `<head>` tag is available as `document.head`.
+`head>` = `document.head>`
+: تتوفر علامة `<head>` كـ `document.head`.
 
-````warn header="There's a catch: `document.body` can be `null`"
-A script cannot access an element that doesn't exist at the moment of running.
+````warn header="هناك مشكلة: يمكن أن يكون `document.body`قيمته`null`"
+لا يمكن للبرنامج النصي الوصول إلى عنصر غير موجود في لحظة التشغيل.
 
-In particular, if a script is inside `<head>`, then `document.body` is unavailable, because the browser did not read it yet.
+على وجه الخصوص، إذا كان البرنامج النصي داخل `<head>`، فإن `document.body` غير متاح، لأن المتصفح لم يقرأه بعد.
 
-So, in the example below the first `alert` shows `null`:
+لذلك، في المثال أدناه يظهر التنبيه الأول `null`:
 
 ```html run
 <html>
 
-<head>
-  <script>
-*!*
-    alert( "From HEAD: " + document.body ); // null, there's no <body> yet
-*/!*
-  </script>
-</head>
+  <head>
+    <script>
+      *!*
+          alert( "من HEAD: " + document.body ); // null، لا يوجد <body> بعد
+      */!*
+    </script>
+  </head>
 
-<body>
+  <body>
 
-  <script>
-    alert( "From BODY: " + document.body ); // HTMLBodyElement, now it exists
-  </script>
+    <script>
+      alert("من BODY: " + document.body); // HTMLBodyElement، الآن يوجد
+    </script>
 
-</body>
+  </body>
 </html>
 ```
-````
+`````
 
-```smart header="In the DOM world `null` means \"doesn't exist\""
-In the DOM, the `null` value means "doesn't exist" or "no such node".
+```smart header="فى عالم ال `null` DOM تعنى \"غير موجود\""
+في ال DOM، تعني قيمة `null` "غير موجود" أو "لا يوجد مثل هذه العقدة".
 ```
 
-## Children: childNodes, firstChild, lastChild
+## الأطفال: childNodes، firstChild، lastChild
 
-There are two terms that we'll use from now on:
+هناك مصطلحان سنستخدمهما من الآن فصاعدًا:
 
-- **Child nodes (or children)** -- elements that are direct children. In other words, they are nested exactly in the given one. For instance, `<head>` and `<body>` are children of `<html>` element.
-- **Descendants** -- all elements that are nested in the given one, including children, their children and so on.
+- **عقد الأطفال (أو الأطفال)** -- العناصر التي هي أطفال مباشرين. بعبارة أخرى، هم متداخلون بالضبط في المعطى. على سبيل المثال، `<head>` و `<body>` هما أطفال عنصر `<html>`.
+- **السلالة** -- جميع العناصر المتداخلة في المعطى، بما في ذلك الأطفال وأطفالهم وهكذا.
 
-For instance, here `<body>` has children `<div>` and `<ul>` (and few blank text nodes):
+على سبيل المثال، هنا `<body>` لديه أطفال `<div>` و `<ul>` (وبعض العقد النصية الفارغة):
 
 ```html run
 <html>
 <body>
-  <div>Begin</div>
+  <div>بداية</div>
 
   <ul>
     <li>
-      <b>Information</b>
+      <b>معلومات</b>
     </li>
   </ul>
 </body>
 </html>
 ```
 
-...And descendants of `<body>` are not only direct children `<div>`, `<ul>` but also more deeply nested elements, such as `<li>` (a child of `<ul>`) and `<b>` (a child of `<li>`) -- the entire subtree.
+...وسلالة `<body>` ليست فقط الأطفال المباشرين `<div>`، `<ul>` ولكن أيضًا العناصر المتداخلة بشكل أعمق، مثل `<li>` (طفل `<ul>`) و `<b>` (طفل `<li>`) -- الشجرة الفرعية بأكملها.
 
-**The `childNodes` collection lists all child nodes, including text nodes.**
+**تدرج مجموعة `childNodes` جميع عقد الأطفال، بما في ذلك العقد النصية.**
 
-The example below shows children of `document.body`:
+يوضح المثال أدناه أطفال `document.body`:
 
 ```html run
 <html>
 <body>
-  <div>Begin</div>
+  <div>بداية</div>
 
   <ul>
-    <li>Information</li>
+    <li>معلومات</li>
   </ul>
 
-  <div>End</div>
+  <div>نهاية</div>
 
   <script>
 *!*
@@ -110,81 +110,81 @@ The example below shows children of `document.body`:
     }
 */!*
   </script>
-  ...more stuff...
+  ...المزيد من المحتوى...
 </body>
 </html>
 ```
 
-Please note an interesting detail here. If we run the example above, the last element shown is `<script>`. In fact, the document has more stuff below, but at the moment of the script execution the browser did not read it yet, so the script doesn't see it.
+يرجى ملاحظة تفصيل مثير للاهتمام هنا. إذا قمنا بتشغيل المثال أعلاه ، فإن آخر عنصر يظهر هو `<script>`. في الواقع ، يحتوي المستند على المزيد من المحتوى أدناه ، ولكن في لحظة تنفيذ البرنامج النصي لم يقرأ المتصفح بعد ، لذلك لا يرى البرنامج النصي.
 
-**Properties `firstChild` and `lastChild` give fast access to the first and last children.**
+*توفر الخصائص `firstChild` و `lastChild` إمكانية الوصول السريع إلى الأطفال الأول والأخير.**
 
-They are just shorthands. If there exist child nodes, then the following is always true:
+إنهم مجرد اختصارات. إذا كانت هناك عقد فرعية ، فإن التالي صحيح دائمًا:
 ```js
 elem.childNodes[0] === elem.firstChild
 elem.childNodes[elem.childNodes.length - 1] === elem.lastChild
 ```
 
-There's also a special function `elem.hasChildNodes()` to check whether there are any child nodes.
+هناك أيضًا وظيفة خاصة `elem.hasChildNodes()` للتحقق مما إذا كانت هناك أي عقد فرعية.
 
-### DOM collections
+### مجموعات DOM
 
-As we can see, `childNodes` looks like an array. But actually it's not an array, but rather a *collection* -- a special array-like iterable object.
+كما نرى ، يبدو `childNodes` كمصفوفة. ولكن في الواقع ليس مجموعة ، بل *مجموعة* - كائن قابل للتكرار يشبه المصفوفة.
 
-There are two important consequences:
+هناك نتيجتان مهمتان:
 
-1. We can use `for..of` to iterate over it:
+1. يمكننا استخدام `for..of` للتكرار عليه:
   ```js
   for (let node of document.body.childNodes) {
-    alert(node); // shows all nodes from the collection
+    alert(node); // يظهر جميع العقد من المجموعة
   }
   ```
-  That's because it's iterable (provides the `Symbol.iterator` property, as required).
+  هذا لأنه قابل للتكرار (يوفر خاصية `Symbol.iterator` ، كما هو مطلوب).
 
-2. Array methods won't work, because it's not an array:
+2. لن تعمل طرق المصفوفة ، لأنها ليست مصفوفة:
   ```js run
-  alert(document.body.childNodes.filter); // undefined (there's no filter method!)
+  alert(document.body.childNodes.filter); // undefined (لا يوجد طريقة تصفية!)
   ```
 
-The first thing is nice. The second is tolerable, because we can use `Array.from` to create a "real" array from the collection, if we want array methods:
+الشيء الأول جميل. الثانية محتملة ، لأنه يمكن استخدام `Array.from` لإنشاء مصفوفة "حقيقية" من المجموعة ، إذا كانت نرغب في استخدام طرق المصفوفات:
 
   ```js run
   alert( Array.from(document.body.childNodes).filter ); // function
   ```
 
-```warn header="DOM collections are read-only"
-DOM collections, and even more -- *all* navigation properties listed in this chapter are read-only.
+```warn header="مجموعات DOM للقراءة فقط"
+مجموعات DOM ، وحتى أكثر - *جميع* خصائص التنقل المدرجة في هذا الفصل للقراءة فقط.
 
-We can't replace a child by something else by assigning `childNodes[i] = ...`.
+لا يمكننا استبدال الطفل بشيء آخر عن طريق تعيين `childNodes[i] = ...`.
 
-Changing DOM needs other methods. We will see them in the next chapter.
+تغيير DOM يحتاج إلى طرق أخرى. سنراهم في الفصل التالي.
 ```
 
-```warn header="DOM collections are live"
-Almost all DOM collections with minor exceptions are *live*. In other words, they reflect the current state of DOM.
+```warn header="مجموعات DOM حية"
+تكاد تكون جميع مجموعات DOM بدون استثناءات قليلة *حية*. بعبارة أخرى ، فهي تعكس الحالة الحالية لـ DOM.
 
-If we keep a reference to `elem.childNodes`, and add/remove nodes into DOM, then they appear in the collection automatically.
+إذا قمنا بالاحتفاظ بإشارة إلى `elem.childNodes` ، وإضافة / إزالة العقد في DOM ، فإنها تظهر في المجموعة تلقائيًا.
 ```
 
-````warn header="Don't use `for..in` to loop over collections"
-Collections are iterable using `for..of`. Sometimes people try to use `for..in` for that.
+````warn header="لا تستخدم `for..in` للتكرار على المجموعات"
+تكون المجموعات قابلة للتكرار باستخدام `for..of`. في بعض الأحيان يحاول الناس استخدام `for..in` لذلك.
 
-Please, don't. The `for..in` loop iterates over all enumerable properties. And collections have some "extra" rarely used properties that we usually do not want to get:
+من فضلك، لا. يتكرر حلقة `for..in` على جميع الخصائص القابلة للتعداد. والمجموعات لديها بعض الخصائص "الإضافية" التي نادرًا ما نستخدمها والتي عادةً ما لا نرغب في الحصول عليها:
 
 ```html run
 <body>
 <script>
-  // shows 0, 1, length, item, values and more.
+  // يظهر 0 و 1 والطول والعنصر والقيم والمزيد.
   for (let prop in document.body.childNodes) alert(prop);
 </script>
 </body>
-````
+`````
 
-## Siblings and the parent
+## الأشقاء والوالد
 
-*Siblings* are nodes that are children of the same parent.
+_الأشقاء_ هم العقد التي هي أطفال من نفس الوالد.
 
-For instance, here `<head>` and `<body>` are siblings:
+على سبيل المثال، هنا `<head>` و `<body>` هم أشقاء:
 
 ```html
 <html>
@@ -192,80 +192,80 @@ For instance, here `<head>` and `<body>` are siblings:
 </html>
 ```
 
-- `<body>` is said to be the "next" or "right" sibling of `<head>`,
-- `<head>` is said to be the "previous" or "left" sibling of `<body>`.
+- يقال أن `<body>` هو الشقيق "التالي" أو "الأيمن" لـ `<head>`,
+- يقال أن `<head>` هو الشقيق "السابق" أو "الأيسر" لـ `<body>`.
 
-The next sibling is in `nextSibling` property, and the previous one - in `previousSibling`.
+الشقيق التالي موجود في خاصية `nextSibling`، والسابق - في `previousSibling`.
 
-The parent is available as `parentNode`.
+الوالد متاح كـ `parentNode`.
 
-For example:
+على سبيل المثال:
 
 ```js run
-// parent of <body> is <html>
-alert( document.body.parentNode === document.documentElement ); // true
+// والد <body> هو <html>
+alert(document.body.parentNode === document.documentElement); // صحيح
 
-// after <head> goes <body>
-alert( document.head.nextSibling ); // HTMLBodyElement
+// بعد <head> يأتي <body>
+alert(document.head.nextSibling); // HTMLBodyElement
 
-// before <body> goes <head>
-alert( document.body.previousSibling ); // HTMLHeadElement
+// قبل <body> يأتي <head>
+alert(document.body.previousSibling); // HTMLHeadElement
 ```
 
-## Element-only navigation
+## التنقل الخاص بالعناصر فقط
 
-Navigation properties listed above refer to *all* nodes. For instance, in `childNodes` we can see both text nodes, element nodes, and even comment nodes if there exist.
+تشير خصائص التنقل المذكورة أعلاه إلى _جميع_ العقد. على سبيل المثال، في `childNodes` يمكننا رؤية كل من عقد النصوص وعقد العناصر وحتى عقد التعليقات إذا كانت موجودة.
 
-But for many tasks we don't want text or comment nodes. We want to manipulate element nodes that represent tags and form the structure of the page.
+ولكن للعديد من المهام لا نريد عقد النصوص أو التعليقات. نريد التلاعب بعقد العناصر التي تمثل العلامات وتشكل هيكل الصفحة.
 
-So let's see more navigation links that only take *element nodes* into account:
+لذلك دعونا نرى المزيد من روابط التنقل التي تأخذ _عقد العناصر_ فقط في الاعتبار:
 
 ![](dom-links-elements.svg)
 
-The links are similar to those given above, just with `Element` word inside:
+الروابط مشابهة لتلك المعطاة أعلاه، فقط مع كلمة `Element` بداخلها:
 
-- `children` -- only those children that are element nodes.
-- `firstElementChild`, `lastElementChild` -- first and last element children.
-- `previousElementSibling`, `nextElementSibling` -- neighbor elements.
-- `parentElement` -- parent element.
+- `children` -- فقط تلك الأطفال التي هي عقد عناصر.
+- `firstElementChild`، `lastElementChild` -- أول وآخر أطفال العناصر.
+- `previousElementSibling`، `nextElementSibling` -- عناصر الجوار.
+- `parentElement` -- عنصر الوالد.
 
-````smart header="Why `parentElement`? Can the parent be *not* an element?"
-The `parentElement` property returns the "element" parent, while `parentNode` returns "any node" parent. These properties are usually the same: they both get the parent.
+````smart header="لماذا `parentElement`؟ هل يمكن أن يكون الوالد *ليس* عنصرًا؟"
+تعيد خاصية `parentElement`الوالد "العنصر"، بينما تعيد`parentNode` الوالد "أي عقدة". هذه الخصائص عادة متشابهة: كلاهما يحصل على الوالد.
 
-With the one exception of `document.documentElement`:
+مع استثناء واحد لـ `document.documentElement`:
 
 ```js run
-alert( document.documentElement.parentNode ); // document
-alert( document.documentElement.parentElement ); // null
+alert(document.documentElement.parentNode); // document
+alert(document.documentElement.parentElement); // null
 ```
 
-The reason is that the root node `document.documentElement` (`<html>`) has `document` as its parent. But `document` is not an element node, so `parentNode` returns it and `parentElement` does not.
+السبب هو أن العقدة الجذر `document.documentElement` (`<html>`) لديها `document` كوالدها. لكن `document` ليس عقدة عنصر، لذلك تعيد `parentNode` ولا تعيد `parentElement`.
 
-This detail may be useful when we want to travel up from an arbitrary element `elem` to `<html>`, but not to the `document`:
+قد يكون هذا التفصيل مفيدًا عندما نريد السفر من عنصر عشوائي `elem` إلى `<html>`، ولكن ليس إلى `document`:
 ```js
-while(elem = elem.parentElement) { // go up till <html>
-  alert( elem );
+while ((elem = elem.parentElement)) { // اذهب لأعلى حتى <html>
+  alert(elem);
 }
 ```
 ````
 
-Let's modify one of the examples above: replace `childNodes` with `children`. Now it shows only elements:
+دعونا نعدل أحد الأمثلة أعلاه: استبدل `childNodes` بـ `children`. الآن يظهر العناصر فقط:
 
 ```html run
 <html>
 <body>
-  <div>Begin</div>
+  <div>بداية</div>
 
   <ul>
-    <li>Information</li>
+    <li>معلومات</li>
   </ul>
 
-  <div>End</div>
+  <div>نهاية</div>
 
   <script>
 *!*
     for (let elem of document.body.children) {
-      alert(elem); // DIV, UL, DIV, SCRIPT
+      alert(elem); // DIV، UL، DIV، SCRIPT
     }
 */!*
   </script>
@@ -274,60 +274,60 @@ Let's modify one of the examples above: replace `childNodes` with `children`. No
 </html>
 ```
 
-## More links: tables [#dom-navigation-tables]
+## المزيد من الروابط: الجداول [#dom-navigation-tables]
 
-Till now we described the basic navigation properties.
+حتى الآن قمنا بوصف خصائص التنقل الأساسية.
 
-Certain types of DOM elements may provide additional properties, specific to their type, for convenience.
+قد توفر أنواع معينة من عناصر DOM خصائص إضافية، محددة لنوعها، للراحة.
 
-Tables are a great example of that, and represent a particularly important case:
+الجداول هي مثال رائع على ذلك، وتمثل حالة مهمة بشكل خاص:
 
-**The `<table>`** element supports (in addition to the given above) these properties:
-- `table.rows` -- the collection of `<tr>` elements of the table.
-- `table.caption/tHead/tFoot` -- references to elements `<caption>`, `<thead>`, `<tfoot>`.
-- `table.tBodies` -- the collection of `<tbody>` elements (can be many according to the standard, but there will always be at least one -- even if it is not in the source HTML, the browser will put it in the DOM).
+**عنصر `<table>`** يدعم (بالإضافة إلى المعطى أعلاه) هذه الخصائص:
+- `table.rows` -- مجموعة عناصر `<tr>` في الجدول.
+- `table.caption/tHead/tFoot` -- مراجع لعناصر `<caption>`، `<thead>`، `<tfoot>`.
+- `table.tBodies` -- مجموعة عناصر `<tbody>` (يمكن أن يكون هناك العديد وفقًا للمعيار، ولكن سيكون هناك دائمًا واحد على الأقل - حتى لو لم يكن في HTML المصدر، سيضعه المتصفح في DOM).
 
-**`<thead>`, `<tfoot>`, `<tbody>`** elements provide the `rows` property:
-- `tbody.rows` -- the collection of `<tr>` inside.
+**عناصر `<thead>` و `<tfoot>` و `<tbody>`** توفر خاصية `rows`:
+- `tbody.rows` -- مجموعة `<tr>` بداخلها.
 
 **`<tr>`:**
-- `tr.cells` -- the collection of `<td>` and `<th>` cells inside the given `<tr>`.
-- `tr.sectionRowIndex` -- the position (index) of the given `<tr>` inside the enclosing `<thead>/<tbody>/<tfoot>`.
-- `tr.rowIndex` -- the number of the `<tr>` in the table as a whole (including all table rows).
+- `tr.cells` -- مجموعة الخلايا `<td>` و `<th>` داخل `<tr>` المعطى.
+- `tr.sectionRowIndex` -- الموضع (الفهرس) لـ `<tr>` المعطى داخل `<thead>/<tbody>/<tfoot>` المحيط.
+- `tr.rowIndex` -- رقم `<tr>` في الجدول ككل (بما في ذلك جميع صفوف الجدول).
 
-**`<td>` and `<th>`:**
-- `td.cellIndex` -- the number of the cell inside the enclosing `<tr>`.
+**`<td>` و `<th>`:**
+- `td.cellIndex` -- عدد الخلايا داخل التغليف`<tr>`.
 
-An example of usage:
+مثال على الاستخدام:
 
 ```html run height=100
 <table id="table">
   <tr>
-    <td>one</td><td>two</td>
+    <td>واحد</td><td>اثنان</td>
   </tr>
   <tr>
-    <td>three</td><td>four</td>
+    <td>ثلاثة</td><td>أربعة</td>
   </tr>
 </table>
 
 <script>
-  // get td with "two" (first row, second column)
+  // احصل على td مع "اثنان" (الصف الأول، العمود الثاني)
   let td = table.*!*rows[0].cells[1]*/!*;
-  td.style.backgroundColor = "red"; // highlight it
+  td.style.backgroundColor = "red"; // قم بتسليط الضوء عليه
 </script>
 ```
 
-The specification: [tabular data](https://html.spec.whatwg.org/multipage/tables.html).
+المواصفات: [بيانات جدولية](https://html.spec.whatwg.org/multipage/tables.html).
 
-There are also additional navigation properties for HTML forms. We'll look at them later when we start working with forms.
+هناك أيضًا خصائص تنقل إضافية لنماذج HTML. سننظر إليهم لاحقًا عندما نبدأ في العمل مع النماذج.
 
-## Summary
+## ملخص
 
-Given a DOM node, we can go to its immediate neighbors using navigation properties.
+بالنظر إلى عقدة DOM، يمكننا الذهاب إلى جيرانها المباشرين باستخدام خصائص التنقل.
 
-There are two main sets of them:
+هناك مجموعتان رئيسيتان منهم:
 
-- For all nodes: `parentNode`, `childNodes`, `firstChild`, `lastChild`, `previousSibling`, `nextSibling`.
-- For element nodes only: `parentElement`, `children`, `firstElementChild`, `lastElementChild`, `previousElementSibling`, `nextElementSibling`.
+- لجميع العقد: `parentNode`، `childNodes`، `firstChild`، `lastChild`، `previousSibling`، `nextSibling`.
+- لعقد العنصر فقط: `parentElement`، `children`، `firstElementChild`، `lastElementChild`، `previousElementSibling`، `nextElementSibling`.
 
-Some types of DOM elements, e.g. tables, provide additional properties and collections to access their content.
+توفر بعض أنواع عناصر DOM، مثل الجداول، خصائص ومجموعات إضافية للوصول إلى محتوياتها.

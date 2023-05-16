@@ -1,4 +1,4 @@
-درجة الأهمية: 5
+importance: 5
 
 ---
 
@@ -10,7 +10,7 @@
 
 ```js
 // يجب أن يكون td مرجعًا لخلية الجدول
-td.style.backgroundColor = "red";
+td.style.backgroundColor = 'red';
 ```
 
 يجب أن يكون النتيجة:

@@ -1,6 +1,6 @@
 هناك العديد من الطرق، على سبيل المثال:
 
-عقدة DOM `<div>`:
+عقدة `<DOM <div`:
 
 ```js
 document.body.firstElementChild;
@@ -10,7 +10,7 @@ document.body.children[0];
 document.body.childNodes[1];
 ```
 
-عقدة DOM `<ul>`:
+عقدة `<DOM <ul`:
 
 ```js
 document.body.lastElementChild;

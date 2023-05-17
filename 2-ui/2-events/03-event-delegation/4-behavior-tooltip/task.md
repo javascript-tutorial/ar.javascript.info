@@ -2,37 +2,37 @@ importance: 5
 
 ---
 
-# Tooltip behavior
+# سلوك التلميح
 
-Create JS-code for the tooltip behavior.
+قم بإنشاء كود JS لسلوك التلميح.
 
-When a mouse comes over an element with `data-tooltip`, the tooltip should appear over it, and when it's gone then hide.
+عندما يأتي الماوس فوق عنصر مع `data-tooltip` ، يجب أن يظهر التلميح فوقه ، وعندما يذهب يختفي.
 
-An example of annotated HTML:
+مثال على HTML المشروح:
 ```html
-<button data-tooltip="the tooltip is longer than the element">Short button</button>
-<button data-tooltip="HTML<br>tooltip">One more button</button>
+<button data-tooltip="التلميح أطول من العنصر">زر قصير</button>
+<button data-tooltip="تلميح HTML<br>">زر آخر</button>
 ```
 
-Should work like this:
+يجب أن يعمل هكذا:
 
 [iframe src="solution" height=200 border=1]
 
-In this task we assume that all elements with `data-tooltip` have only text inside. No nested tags (yet).
+في هذه المهمة نفترض أن جميع العناصر مع `data-tooltip` لديها نص فقط بداخلها. لا توجد علامات متداخلة (بعد).
 
-Details:
+التفاصيل:
 
-- The distance between the element and the tooltip should be `5px`.
-- The tooltip should be centered relative to the element, if possible.
-- The tooltip should not cross window edges. Normally it should be above the element, but if the element is at the page top and there's no space for the tooltip, then below it.
-- The tooltip content is given in the `data-tooltip` attribute. It can be arbitrary HTML.
+- يجب أن يكون المسافة بين العنصر والتلميح `5px`.
+- يجب أن يكون التلميح مركزًا بالنسبة للعنصر ، إذا كان ذلك ممكنًا.
+- يجب ألا يتجاوز التلميح حواف النافذة. عادةً ما يكون فوق العنصر ، ولكن إذا كان العنصر في أعلى الصفحة ولا يوجد مساحة للتلميح ، فأدناه.
+- يتم إعطاء محتوى التلميح في سمة `data-tooltip`. يمكن أن يكون HTML تعسفيًا.
 
-You'll need two events here:
-- `mouseover` triggers when a pointer comes over an element.
-- `mouseout` triggers when a pointer leaves an element.
+ستحتاج إلى حدثين هنا:
+- يُطلق الحدث `mouseover` عندما يأتي مؤشر فوق عنصر.
+- يُطلق الحدث `mouseout` عندما يغادر المؤشر عنصرًا.
 
-Please use event delegation: set up two handlers on `document` to track all "overs" and "outs" from elements with `data-tooltip` and manage tooltips from there.
+يرجى استخدام تفويض الحدث: قم بإعداد معالجين على `document` لتتبع جميع "overs" و "outs" من العناصر مع `data-tooltip` وإدارة التلميحات من هناك.
 
-After the behavior is implemented, even people unfamiliar with JavaScript can add annotated elements.
+بعد تنفيذ السلوك ، يمكن حتى للأشخاص غير الملمين بـ JavaScript إضافة عناصر مُلحقة.
 
-P.S. Only one tooltip may show up at a time.
+ملاحظة: قد يظهر تلميح واحد فقط في وقت واحد.

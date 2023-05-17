@@ -2,13 +2,13 @@ importance: 5
 
 ---
 
-# Tree menu
+# قائمة الشجرة
 
-Create a tree that shows/hides node children on click:
+قم بإنشاء شجرة تعرض / تخفي عقد الأطفال عند النقر:
 
 [iframe border=1 src="solution"]
 
-Requirements:
+المتطلبات:
 
-- Only one event handler (use delegation)
-- A click outside the node title (on an empty space) should not do anything.
+- معالج واحد فقط للحدث (استخدم التفويض)
+- يجب ألا يؤدي النقر خارج عنوان العقدة (على مساحة فارغة) إلى أي شيء.

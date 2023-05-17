@@ -1,4 +1,4 @@
-The solution has two parts.
+الحل له جزأين.
 
-1. Wrap every tree node title into `<span>`. Then we can CSS-style them on `:hover` and handle clicks exactly on text, because `<span>` width is exactly the text width (unlike without it).
-2. Set a handler to the `tree` root node and handle clicks on that `<span>` titles.
+1. قم بلف كل عنوان عقدة شجرة في `<span>`. ثم يمكننا تصميم CSS عليها على `:hover` والتعامل مع النقرات بالضبط على النص ، لأن عرض `<span>` هو بالضبط عرض النص (على عكس بدونه).
+2. قم بتعيين معالج لعقدة الجذر `tree` وتعامل مع النقرات على تلك العناوين `<span>`.

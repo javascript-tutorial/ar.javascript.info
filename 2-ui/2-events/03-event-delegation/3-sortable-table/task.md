@@ -2,42 +2,42 @@ importance: 4
 
 ---
 
-# Sortable table
+# جدول قابل للفرز
 
-Make the table sortable: clicks on `<th>` elements should sort it by corresponding column.
+اجعل الجدول قابلًا للفرز: يجب أن تقوم النقرات على عناصر `<th>` بفرزه حسب العمود المقابل.
 
-Each `<th>` has the type in the attribute, like this:
+كل `<th>` لديه النوع في السمة ، مثل هذا:
 
 ```html
 <table id="grid">
   <thead>
     <tr>
 *!*
-      <th data-type="number">Age</th>
-      <th data-type="string">Name</th>
+      <th data-type="number">العمر</th>
+      <th data-type="string">الاسم</th>
 */!*
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>5</td>
-      <td>John</td>
+      <td>جون</td>
     </tr>
     <tr>
       <td>10</td>
-      <td>Ann</td>
+      <td>آن</td>
     </tr>
     ...
   </tbody>
 </table>
 ```
 
-In the example above the first column has numbers, and the second one -- strings. The sorting function should handle sort according to the type.
+في المثال أعلاه ، يحتوي العمود الأول على أرقام ، والثاني - على سلاسل. يجب أن تتعامل وظيفة الفرز مع الترتيب وفقًا للنوع.
 
-Only `"string"` and `"number"` types should be supported.
+يجب دعم أنواع `"string"` و `"number"` فقط.
 
-The working example:
+المثال العامل:
 
 [iframe border=1 src="solution" height=190]
 
-P.S. The table can be big, with any number of rows and columns.
+ملاحظة: يمكن أن يكون الجدول كبيرًا ، بأي عدد من الصفوف والأعمدة.

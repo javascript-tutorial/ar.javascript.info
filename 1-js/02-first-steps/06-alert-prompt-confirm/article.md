@@ -1,4 +1,4 @@
-# Interaction: alert, prompt, confirm
+# التفاعل: alert ، prompt ، confirm
 
 بينما نستخدم المتصفح كبيئة تجريبية، تعال نرى بعض الدوال المستخدمة في التعامل مع المستخدم: `alert`و `prompt` و `confirm`.
 
@@ -30,7 +30,7 @@ result = prompt(title, [default]);
 `default`
 : معامل ثاني إختياري، القيمة الأولية لحقل الإدخال.
 
-```smart header="The square brackets in syntax `[...]`"
+```smart header="الأقواس المربعة في الصيغة `[...]`"
 الأقواس المربعة حول `default` في الكود أعلاه يوضح أن المعامل إختياري، ليس مطلوب.
 ```
 
@@ -41,12 +41,12 @@ result = prompt(title, [default]);
 على سبيل المثال:
 
 ```js run
-let age = prompt('How old are you?', 100);
+let age = prompt('كم عمرك؟', 100);
 
-alert(`You are ${age} years old!`); // You are 100 years old!
+alert(`أنت عمرك ${age} سنة!`); // أنت عمرك 100 سنة!
 ```
 
-````warn header="In IE: always supply a `default`"
+````warn header="في IE: قم دائمًا بتوفير `default`"
 المعامل الثاني إختياري، لكن إذا لم يتم إدخاله، انترنت اكسبلورر سيدخل النص `"undefined"` داخل حقل الإدخال.
 
 جرب هذا الكود في متصفح إنترنت إكسبلورر وسترى:
@@ -77,12 +77,12 @@ result = confirm(question);
 على سبيل المثال:
 
 ```js run
-let isBoss = confirm("Are you the boss?");
+let isBoss = confirm("هل أنت المدير؟");
 
 alert( isBoss ); // true لو زر أوك تم الضغط عليه
 ```
 
-## Summary
+## ملخص
 
 غطينا 3  دوال خاصة بالمتصفح للتعامل مع الزوار:
 

@@ -157,14 +157,14 @@ alert(x); // 2
 
 ## ملخص
 
-- The nullish coalescing operator `??` provides a short way to choose the first "defined" value from a list.
+- يوفر المشغل الفارغ المتحد `??` طريقة قصيرة لاختيار القيمة "المحددة" الأولى من قائمة.
 
-    يستخدم لوضع قيم افتراضية للمتغيرات:
+يستخدم لوضع قيم افتراضية للمتغيرات:
 
-    ```js
-    // اجعل height=100 إذا كان null أو undefined
-    height = height ?? 100;
-    ```
+```js
+// اجعل height=100 إذا كان null أو undefined
+height = height ?? 100;
+```
 
-- The operator `??` has a very low precedence, only a bit higher than `?` and `=`, so consider adding parentheses when using it in an expression.
-- It's forbidden to use it with `||` or `&&` without explicit parentheses.
+- يحتوي المشغل `??` على أولوية منخفضة جدًا ، فقط قليلًا أعلى من `؟` و `=` ، لذلك يجب عليك النظر في إضافة الأقواس عند استخدامه في تعبير.
+- يحظر استخدامه مع `||` أو `&&` بدون أقواس صريحة.

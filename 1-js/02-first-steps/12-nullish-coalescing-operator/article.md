@@ -1,61 +1,61 @@
-# Nullish Coalescing Operator '??'
+# عامل التحقق من الفراغ '??'
 
 [recent browser="new"]
 
-The nullish coalescing operator is written as two question marks `??`.
+يتم كتابة عامل التحقق من الفراغ كعلامتي استفهام `??`.
 
-As it treats `null` and `undefined` similarly, we'll use a special term here, in this article. We'll say that an expression is "defined" when it's neither `null` nor `undefined`.
+نظرًا لأنه يعامل `null` و `undefined` بطريقة مماثلة ، سنستخدم مصطلحًا خاصًا هنا ، في هذه المقالة. سنقول أن التعبير "محدد" عندما لا يكون `null` ولا `undefined`.
 
-The result of `a ?? b` is:
-- if `a` is defined, then `a`,
-- if `a` isn't defined, then `b`.
+نتيجة `a ?? b` هي:
+- إذا كان `a` محددًا ، فإن `a`،
+- إذا لم يتم تحديد `a` ، فإن `b`.
 
-In other words, `??` returns the first argument if it's not `null/undefined`. Otherwise, the second one.
+بعبارة أخرى ، يعيد `??` الوسيطة الأولى إذا لم يكن `null/undefined`. وإلا ، الثانية.
 
-The nullish coalescing operator isn't anything completely new. It's just a nice syntax to get the first "defined" value of the two.
+عامل التحقق من الفراغ ليس شيئًا جديدًا تمامًا. إنه مجرد صياغة جميلة للحصول على القيمة "المحددة" الأولى من اثنين.
 
-We can rewrite `result = a ?? b` using the operators that we already know, like this:
+يمكننا إعادة كتابة `result = a ?? b` باستخدام العوامل التي نعرفها بالفعل ، مثل هذا:
 
 ```js
 result = (a !== null && a !== undefined) ? a : b;
 ```
 
-Now it should be absolutely clear what `??` does. Let's see where it helps.
+الآن يجب أن يكون من الواضح تمامًا ما يفعله `??`. دعنا نرى أين يساعد.
 
-The common use case for `??` is to provide a default value for a potentially undefined variable.
+حالة الاستخدام الشائعة لـ `??` هي توفير قيمة افتراضية لمتغير محتمل أن يكون غير محدد.
 
-For example, here we show `user` if defined, otherwise `Anonymous`:
+على سبيل المثال ، هنا نعرض `user` إذا تم تحديده ، وإلا `Anonymous`:
 
 ```js run
 let user;
 
-alert(user ?? "Anonymous"); // Anonymous (user not defined)
+alert(user ?? "مجهول الهوية"); // مجهول الهوية (لم يتم تحديد المستخدم)
 ```
 
-Here's the example with `user` assigned to a name:
+هذا مثال على `user` المعين لاسم:
 
 ```js run
 let user = "John";
 
-alert(user ?? "Anonymous"); // John (user defined)
+alert(user ?? "مجهول الهوية"); // John (تم تحديد المستخدم)
 ```
 
-We can also use a sequence of `??` to select the first value from a list that isn't `null/undefined`.
+يمكننا أيضًا استخدام تسلسل `??` لتحديد القيمة الأولى من قائمة ليست `null/undefined`.
 
-Let's say we have a user's data in variables `firstName`, `lastName` or `nickName`. All of them may be not defined, if the user decided not to enter a value.
+لنفترض أن لدينا بيانات المستخدم في المتغيرات `firstName` و `lastName` أو `nickName`. قد لا يتم تحديد كل منهما ، إذا قرر المستخدم عدم إدخال قيمة.
 
-We'd like to display the user name using one of these variables, or show "Anonymous" if all of them aren't defined.
+نود عرض اسم المستخدم باستخدام أحد هذه المتغيرات ، أو عرض "مجهول الهوية" إذا لم يتم تحديد كل منهم.
 
-Let's use the `??` operator for that:
+لنستخدم عامل التحقق من الفراغ `??` لذلك:
 
 ```js run
 let firstName = null;
 let lastName = null;
 let nickName = "Supercoder";
 
-// shows the first defined value:
+// يعرض القيمة المحددة الأولى:
 *!*
-alert(firstName ?? lastName ?? nickName ?? "Anonymous"); // Supercoder
+alert(firstName ?? lastName ?? nickName ?? "مجهول الهوية"); // Supercoder
 */!*
 ```
 
@@ -63,34 +63,34 @@ alert(firstName ?? lastName ?? nickName ?? "Anonymous"); // Supercoder
 
 هذا مشابه جدًا للمعامل `||`. في الحقيقة يمكننا استبدال `??` ب `||` في المثال السابق وسنحصل على نفس النتيجة. كما وصفنا في [الفصل السابق](info:logical-operators#or-finds-the-first-truthy-value).
 
-The OR `||` operator can be used in the same way as `??`, as it was described in the [previous chapter](info:logical-operators#or-finds-the-first-truthy-value).
+يمكن استخدام عامل OR `||` بنفس الطريقة التي يتم فيها استخدام `??` ، كما تم وصفه في [الفصل السابق](info:logical-operators#or-finds-the-first-truthy-value).
 
-For example, in the code above we could replace `??` with `||` and still get the same result:
+على سبيل المثال ، في الكود أعلاه يمكننا استبدال `??` بـ `||` ولا يزال نحصل على نفس النتيجة:
 
 ```js run
 let firstName = null;
 let lastName = null;
 let nickName = "Supercoder";
 
-// shows the first truthy value:
+// يعرض القيمة الحقيقية الأولى:
 *!*
-alert(firstName || lastName || nickName || "Anonymous"); // Supercoder
+alert(firstName || lastName || nickName || "مجهول الهوية"); // Supercoder
 */!*
 ```
 
-Historically, the OR `||` operator was there first. It exists since the beginning of JavaScript, so developers were using it for such purposes for a long time.
+تاريخيًا ، كان عامل OR `||` هناك أولاً. لقد كان موجودًا منذ بداية JavaScript ، لذلك كان المطورون يستخدمونه لمثل هذه الأغراض لفترة طويلة.
 
-On the other hand, the nullish coalescing operator `??` was added to JavaScript only recently, and the reason for that was that people weren't quite happy with `||`.
+من ناحية أخرى ، تمت إضافة عامل التحقق من الفراغ `??` إلى JavaScript مؤخرًا فقط ، وكان السبب في ذلك أن الناس لم يكونوا راضين تمامًا عن `||`.
 
-The important difference between them is that:
-- `||` returns the first *truthy* value.
-- `??` returns the first *defined* value.
+الفرق الهام بينهما هو أن:
+- `||` يعيد القيمة الحقيقية الأولى.
+- `??` يعيد القيمة المحددة الأولى.
 
-In other words, `||` doesn't distinguish between `false`, `0`, an empty string `""` and `null/undefined`. They are all the same -- falsy values. If any of these is the first argument of `||`, then we'll get the second argument as the result.
+بعبارة أخرى ، لا يميز `||` بين `false` و `0` والسلسلة الفارغة `""` و `null/undefined`. كلهم متشابهون - قيم زائفة. إذا كان أي منهم هو الوسيطة الأولى لـ `||` ، فسنحصل على الوسيطة الثانية كنتيجة.
 
-In practice though, we may want to use default value only when the variable is `null/undefined`. That is, when the value is really unknown/not set.
+على الرغم من ذلك ، في الممارسة قد نرغب في استخدام قيمة افتراضية فقط عندما يكون المتغير `null/undefined`. أي عندما تكون القيمة مجهولة / غير محددة حقًا.
 
-For example, consider this:
+على سبيل المثال ، خذ هذا:
 
 ```js run
 let height = 0;
@@ -99,20 +99,20 @@ alert(height || 100); // 100
 alert(height ?? 100); // 0
 ```
 
-- The `height || 100` checks `height` for being a falsy value, and it's `0`, falsy indeed.
-    - so the result of `||` is the second argument, `100`.
-- The `height ?? 100` checks `height` for being `null/undefined`, and it's not,
-    - so the result is `height` "as is", that is `0`.
+- يتحقق `height || 100` من `height` لكونه قيمة زائفة ، وهو `0` ، زائف بالفعل.
+ - لذلك نتيجة `||` هي الوسيطة الثانية ، `100`.
+- يتحقق `height ?? 100` من `height` لكونه `null/undefined` ، وليس كذلك ،
+ - لذلك النتيجة هي `height` "كما هو" ، أي `0`.
 
-In practice, the zero height is often a valid value, that shouldn't be replaced with the default. So `??` does just the right thing.
+في الممارسة ، يعد الارتفاع الصفري قيمة صالحة في كثير من الأحيان ، والتي يجب عدم استبدالها بالقيمة الافتراضية. لذلك يفعل `??` ما يجب.
 
 ## الأولوية
 
-The precedence of the `??` operator is about the same as `||`, just a bit lower. It equals `5` in the [MDN table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table), while `||` is `6`.
+تعادل أولوية عامل التحقق من الفراغ `??` تقريبًا نفس `||` ، فقط قليلًا أدنى. يساوي `5` في [جدول MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table) ، بينما `||` هو `6`.
 
-That means that, just like `||`, the nullish coalescing operator `??` is evaluated before `=` and `?`, but after most other operations, such as `+`, `*`.
+وهذا يعني أنه مثل `||` ، يتم تقييم عامل التحقق من الفراغ `??` قبل `=` و `؟` ، ولكن بعد معظم العمليات الأخرى مثل `+` و `*`.
 
-So if we'd like to choose a value with `??` in an expression with other operators, consider adding parentheses:
+لذلك إذا كنا نرغب في اختيار قيمة مع `??` في تعبير مع عوامل أخرى ، فكر في إضافة أقواس:
 
 ```js run
 let height = null;
@@ -124,19 +124,19 @@ let area = (height ?? 100) * (width ?? 50);
 alert(area); // 5000
 ```
 
-Otherwise, if we omit parentheses, then as `*` has the higher precedence than `??`, it would execute first, leading to incorrect results.
+وإلا ، إذا تجاهلنا الأقواس ، فبما أن `*` لديه أولوية أعلى من `??` ، فسيتم تنفيذه أولاً مما يؤدي إلى نتائج غير صحيحة.
 
 ```js
-// without parentheses
+// بدون أقواس
 let area = height ?? 100 * width ?? 50;
 
-// ...works the same as this (probably not what we want):
+// ... يعمل بنفس الطريقة كهذا (ربما ليس ما نريده):
 let area = height ?? (100 * width) ?? 50;
 ```
 
-### Using ?? with && or ||
+### استخدام ?? مع && أو ||
 
-Due to safety reasons, JavaScript forbids using `??` together with `&&` and `||` operators, unless the precedence is explicitly specified with parentheses.
+نظرًا لأسباب السلامة ، يحظر JavaScript استخدام `??` مع عوامل التشغيل `&&` و `||` ، ما لم يتم تحديد الأولوية صراحةً بالأقواس.
 
 هذا سينتج خطأ لغوي:
 
@@ -144,7 +144,7 @@ Due to safety reasons, JavaScript forbids using `??` together with `&&` and `||`
 let x = 1 && 2 ?? 3; // Syntax error
 ```
 
-The limitation is surely debatable, it was added to the language specification with the purpose to avoid programming mistakes, when people start to switch from `||` to `??`.
+الحد هو بالتأكيد قابل للنقاش ، تم إضافته إلى مواصفات اللغة بهدف تجنب أخطاء البرمجة ، عندما يبدأ الناس في التبديل من `||` إلى `??`.
 
 استخدم الأقواس لتجنب الخطأ:
 

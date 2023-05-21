@@ -1,6 +1,6 @@
 # تعدد الأشكال
 
-# Polyfills and transpilers
+# البوليفيلز والمترجمات
 
 الفرق خلف محركات جافا سكريبت لديهم افكارهم الخاصه عن ماذا يقوموا بتنفيذه اولاً. قد يقررون تنفيذ المقترحات الموجودة في المسودة وتأجيل الأشياء الموجودة بالفعل في المواصفات, لأنهم أقل إثارة للاهتمام أو يصعب القيام بهم.
 
@@ -8,84 +8,84 @@
 
 صفحة جيدة لمعرفة الحالة الحالية لدعم ميزات اللغة هي <https://kangax.github.io/compat-table/es6/> (إنها ضخمه, لدينا الكثير لندرسه بعد).
 
-As programmers, we'd like to use most recent features. The more good stuff - the better!
+كمبرمجين، نود استخدام الميزات الأحدث. كلما كان هناك المزيد من الميزات الجيدة - كلما كان أفضل!
 
-On the other hand, how to make our modern code work on older engines that don't understand recent features yet?
+من ناحية أخرى، كيف يمكننا جعل شفرتنا الحديثة تعمل على محركات أقدم لا تفهم الميزات الحديثة بعد؟
 
-There are two tools for that:
+هناك أداتان لذلك:
 
-1. Transpilers.
-2. Polyfills.
+1. المترجمات.
+2. البوليفيلز.
 
-Here, in this chapter, our purpose is to get the gist of how they work, and their place in web development.
+هنا، في هذا الفصل، هدفنا هو الحصول على فكرة عامة حول كيفية عملهما، ومكانتهما في تطوير الويب.
 
-## Transpilers
+## المحوّلات اللغوية
 
-A [transpiler](https://en.wikipedia.org/wiki/Source-to-source_compiler) is a special piece of software that can parse ("read and understand") modern code, and rewrite it using older syntax constructs, so that the result would be the same.
+المحوّل اللغوي (Transpiler) هو برنامج خاص يمكنه تحليل الشفرة الحديثة وإعادة كتابتها باستخدام بنى بناء لغوية أقدم، بحيث يتم الحصول على نفس النتيجة.
 
-E.g. JavaScript before year 2020 didn't have the "nullish coalescing operator" `??`. So, if a visitor uses an outdated browser, it may fail to understand the code like `height = height ?? 100`.
+على سبيل المثال، كان لغة JavaScript قبل عام 2020 لا تتضمن "عامل تجميع القيم الفارغة Nullish Coalescing" `??`. لذلك، إذا استخدم الزائر متصفح قديم، فقد يفشل في فهم الشفرة مثل `height = height ?? 100`.
 
-A transpiler would analyze our code and rewrite `height ?? 100` into `(height !== undefined && height !== null) ? height : 100`.
+في هذه الحالة، يقوم المحوّل اللغوي بتحليل الشفرة وإعادة كتابة `height ?? 100` إلى `(height !== undefined && height !== null) ? height : 100`.
 
 ```js
-// before running the transpiler
+// قبل تشغيل المحول
 height = height ?? 100;
 
-// after running the transpiler
+// بعد تشغيل المحول
 height = (height !== undefined && height !== null) ? height : 100;
 ```
 
-Now the rewritten code is suitable for older JavaScript engines.
+الآن، أصبحت الشفرة المعدّلة مناسبة لمحرّكات JavaScript القديمة.
 
-Usually, a developer runs the transpiler on their own computer, and then deploys the transpiled code to the server.
+عادةً، يقوم المطوّر بتشغيل المحوّل اللغوي على جهازه الخاص، ثم ينشر الشفرة المحوّلة على الخادم.
 
-Speaking of names, [Babel](https://babeljs.io) is one of the most prominent transpilers out there. 
+وبالنسبة للاسم، فإن [Babel](https://babeljs.io) هو أحد أشهر المحوّلات اللغوية المتاحة.
 
-Modern project build systems, such as [webpack](http://webpack.github.io/), provide means to run transpiler automatically on every code change, so it's very easy to integrate into development process.
+توفر أنظمة بناء المشاريع الحديثة، مثل [webpack](http://webpack.github.io/)، وسائل لتشغيل المحوّل اللغوي تلقائيًا عند كل تغيير في الشفرة، لذلك فمن السهل جدًا دمجه في عملية التطوير.
 
-## Polyfills
+## البوليفيلز
 
-New language features may include not only syntax constructs and operators, but also built-in functions.
+قد تشمل الميزات اللغوية الجديدة لغة البرمجةليست مجرد بنى بناء لغوية وعوامل تجميع، بل يمكن أيضًا أن تشمل وظائف مدمجة.
 
-For example, `Math.trunc(n)` is a function that "cuts off" the decimal part of a number, e.g `Math.trunc(1.23) = 1`.
+على سبيل المثال، تعتبر `Math.trunc(n)` وظيفة تقوم بـ "قص" الجزء العشري من رقم، على سبيل المثال `Math.trunc(1.23) = 1`.
 
-In some (very outdated) JavaScript engines, there's no `Math.trunc`, so such code will fail.
+في بعض محركات JavaScript القديمة جدًا، لا يوجد `Math.trunc`، لذلك ستفشل هذه الشفرة.
 
-As we're talking about new functions, not syntax changes, there's no need to transpile anything here. We just need to declare the missing function.
+نظرًا لأننا نتحدث عن وظائف جديدة، وليس تغييرات في البنى اللغوية، فلا حاجة لتحويل أي شيء هنا. نحتاج فقط إلى إعلان الوظيفة المفقودة.
 
-A script that updates/adds new functions is called "polyfill". It "fills in" the gap and adds missing implementations.
+يُطلق على البرنامج النصي الذي يحدث/يضيف الوظائف الجديدة هناك "برنامج الإضافات" "polyfill". يعمل هذا البرنامج على "ملء الفجوة" وإضافة التنفيذات المفقودة.
 
-For this particular case, the polyfill for `Math.trunc` is a script that implements it, like this:
+بالنسبة لهذه الحالة الخاصة، فإن Polyfill لـ `Math.trunc` هو برنامج ينفذه، مثل هذا: 
 
 ```js
-if (!Math.trunc) { // if no such function
-  // implement it
+if (!Math.trunc) { // إذا لم يوجد هذه الوظيفة
+  // اضفها
   Math.trunc = function(number) {
-    // Math.ceil and Math.floor exist even in ancient JavaScript engines
-    // they are covered later in the tutorial
+    // تعتبر Math.ceil و Math.floor متوفرتين حتى في محركات JavaScript القديمة
+    // سيتم شرحهما لاحقا في الدرس
     return number < 0 ? Math.ceil(number) : Math.floor(number);
   };
 }
 ```
 
-JavaScript is a highly dynamic language, scripts may add/modify any functions, even including built-in ones. 
+JavaScript هي لغة ديناميكية بشكل كبير، حيث يمكن للنصوص البرمجية إضافة/تعديل أي وظائف، بما في ذلك تلك المدمجة في اللغة.
 
-Two interesting libraries of polyfills are:
-- [core js](https://github.com/zloirock/core-js) that supports a lot, allows to include only needed features.
-- [polyfill.io](http://polyfill.io) service that provides a script with polyfills, depending on the features and user's browser.
+هناك مكتبتان جديرتان بالاهتمام من بين مكتبات Polyfills:
+- [core-js](https://github.com/zloirock/core-js) التي تدعم العديد من الميزات، وتسمح بتضمين الميزات المطلوبة فقط.
+- خدمة [polyfill.io](http://polyfill.io) التي توفر برنامجًا نصّيًّا مع Polyfills، يعتمد على الميزات ومتصفح المستخدم.
 
 
-## Summary
+## الملخص
 
-In this chapter we'd like to motivate you to study modern and even "bleeding-edge" language features, even if they aren't yet well-supported by JavaScript engines.
+في هذا الفصل، نود تحفيزك على دراسة ميزات اللغة الحديثة وحتى "الحافة الحادة"، حتى لو لم يتم دعمها بشكل جيد بواسطة محركات JavaScript.
 
-Just don't forget to use transpiler (if using modern syntax or operators) and polyfills (to add functions that may be missing). And they'll ensure that the code works.
+ولكن لا تنسَ استخدام المترجم (إذا استخدمت بنية عبارات أو عمليات حديثة) والبوليفيلز (لإضافة الوظائف التي قد تفتقر إليها). وسيضمنون أن يعمل الكود.
 
-For example, later when you're familiar with JavaScript, you can setup a code build system based on [webpack](http://webpack.github.io/) with [babel-loader](https://github.com/babel/babel-loader) plugin.
+على سبيل المثال، عندما تصبح متعودًا على JavaScript، يمكنك إعداد نظام بناء الشفرة على أساس [webpack](http://webpack.github.io/) مع ملحق [babel-loader](https://github.com/babel/babel-loader).
 
-Good resources that show the current state of support for various features:
-- <https://kangax.github.io/compat-table/es6/> - for pure JavaScript.
-- <https://caniuse.com/> - for browser-related functions.
+هناك موارد جيدة توضح الحالة الحالية لدعم العديد من الميزات، وهي:
+- <https://kangax.github.io/compat-table/es6/> - للجافاسكريبت الخام.
+- <https://caniuse.com/> - لوظائف المتصفح.
 
-P.S. Google Chrome is usually the most up-to-date with language features, try it if a tutorial demo fails. Most tutorial demos work with any modern browser though.
+ومن المعروف أن جوجل كروم هو الأكثر تحديثًا بالنسبة لميزات اللغة، جرب استخدامه إذا فشل تطبيق تعليمي. ومع ذلك، يعمل معظم تطبيقات التعليمات البرمجية مع أي متصفح حديث.
 

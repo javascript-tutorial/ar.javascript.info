@@ -1,16 +1,15 @@
-# نطاق المُتغير
 
-# Variable scope, closure
+# نطاق المتغيرات، الإغلاق
 
-JavaScript is a very function-oriented language. It gives us a lot of freedom. A function can be created at any moment, passed as an argument to another function, and then called from a totally different place of code later.
+جافا سكريبت هي لغة موجهة نحو الدوال. تمنحنا اللغة حرية كبيرة، حيث يمكن إنشاء دالة في أي وقت، وإرسالها كوسيط لدالة أخرى ومن ثم استدعائها من مكان مختلف في الكود لاحقًا.
 
-We already know that a function can access variables outside of it ("outer" variables).
+نحن بالفعل نعلم أن الدالة يمكنها الوصول إلى المتغيرات الخارجية منها ("المتغيرات الخارجية").
 
-But what happens if outer variables change since a function is created? Will the function get newer values or the old ones?
+ولكن ماذا يحدث إذا تغيرت المتغيرات الخارجية بعد إنشاء الدالة؟ هل ستحصل الدالة على القيم الأحدث أم القيم القديمة؟
 
-And what if a function is passed along as a parameter and called from another place of code, will it get access to outer variables at the new place?
+وماذا إذا تم تمرير دالة كمعلمة واستدعاؤها من مكان آخر في الكود؟ هل ستحصل الدالة على وصول إلى المتغيرات الخارجية في المكان الجديد؟
 
-Let's expand our knowledge to understand these scenarios and more complex ones.
+دعنا نوسع معرفتنا لفهم هذه السيناريوهات والسيناريوهات الأكثر تعقيدًا.
 
 سنتحدث عن المُتغيرات `let/const` هنا
 
@@ -203,11 +202,11 @@ alert(counter()); // 2
 
 # بسيط حتّى الآن، أم لا؟
 
-1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
-   - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It's almost the same as if the variable didn't exist.
-2. Then `let phrase` definition appears. There's no assignment yet, so its value is `undefined`. We can use the variable from this point forward.
-3. `phrase` is assigned a value.
-4. `phrase` changes the value.
+1. عند بدء تشغيل البرنامج، تمتلئ البيئة اللغوية (Lexical Environment) مسبقًا بجميع المتغيرات المعلنة.
+- في البداية، تكون المتغيرات في الحالة "Uninitialized". هذه حالة داخلية خاصة، وتعني أن المحرك يعرف المتغير، ولكن لا يمكن الإشارة إليه حتى يتم تعريفه بـ `let`. إنها تقريبًا نفس الشيء كما لو أن المتغير لم يكن موجودًا.
+2. ثم يظهر تعريف `let phrase`. لا يوجد تعيين حتى الآن، لذلك قيمتها هي `undefined`. يمكننا استخدام المتغير من هذه النقطة فصاعدًا.
+3. يتم تعييين قيمة `phrase`.
+4. تتغير قيمة `phrase`.
 
 - المتغير هو فعليًا خاصية لإحدى الكائنات الداخلية الخاصة، وهذا الكائن مرتبط بالكتلة أو الدالة أو السكربت الذي يجري تنفيذه حاليًا.
 - حين نعمل مع المتغيرات نكون في الواقع نعمل مع خصائص ذلك الكائن.
@@ -310,10 +309,7 @@ let counter = makeCounter();
 
 ![](closure-makecounter-nested-call.svg)
 
-# الأن عندما يبدأ الكود في البحث عن المتغير `count` داخل الدالة `counter()`, يبحث أولاً في البيئة المعجمية الخاصة به وإذا كانت فارفة يبحث في البيئة المعجمية الخارجية, ثم الخارج ثم الخارج حتي يجده.
-
-Now when the code inside `counter()` looks for `count` variable, it first searches its own Lexical Environment (empty, as there are no local variables there), then the Lexical Environment of the outer `makeCounter()` call, where it finds and changes it.
-
+الآن عندما يبحث الكود داخل `counter()` عن متغير `count` ، يبحث أولاً في بيئته اللغوية الخاصة (التي تكون فارغة ، لأنه لا توجد متغيرات محلية هناك) ، ثم في بيئة `makeCounter()` الخارجية التي يتم استدعاؤها منها، حيث يجد المتغير ويقوم بتغييره.
 ** المتغير تم تعديله في البيئة المعجمية حيث يعيش.**
 
 ها هي الحالة بعد التنفيذ:
@@ -337,9 +333,9 @@ A [المنغلقات](https://en.wikipedia.org/wiki/Closure_(computer_programmi
 
 عادةً ما تُمسح وتُحذف البيئة المُعجمية بعدما تعمل الدالة
 
-However, if there's a nested function that is still reachable after the end of a function, then it has `[[Environment]]` property that references the lexical environment.
+ومع ذلك، إذا كان هناك دالة متداخلة يمكن الوصول إليها بعد انتهاء الدالة الأصلية، فإن لديها خاصية `[[Environment]]` التي تشير إلى البيئة اللغوية.
 
-In that case the Lexical Environment is still reachable even after the completion of the function, so it stays alive.
+في هذه الحالة، يمكن الوصول إلى البيئة اللغوية حتى بعد اكتمال الدالة، لذلك تبقى حية.
 
 مثال:
 
@@ -356,7 +352,7 @@ let g = f(); // g.[[Environment]] stores a reference to the Lexical Environment
 // of the corresponding f() call
 ```
 
-Please note that if `f()` is called many times, and resulting functions are saved, then all corresponding Lexical Environment objects will also be retained in memory. In the code below, all 3 of them:
+يرجى ملاحظة أنه إذا تم استدعاء `f()` العديد من المرات، وتم حفظ الدوال الناتجة، فسيتم الإحتفاظ بجميع كائنات البيئة اللغوية المقابلة في الذاكرة. في الكود أدناه، سيتم الإحتفاظ بجميع الكائنات اللغوية الثلاثة:
 
 ```js
 function f() {
@@ -395,7 +391,6 @@ g = null; // ...والآن لم تعد كذلك ونكون قد نظّفنا ا�
 
 كما رأينا، فنظريًا طالما الدالة «حيّة تُرزق» تبقى معها كل متغيراتها الخارجية.
 
-**An important side effect in V8 (Chrome, Edge, Opera) is that such variable will become unavailable in debugging.**
 
 **ثمّة -في محرّك V8 (كروم وأوبرا)- تأثير مهمّ ألا وهو أنّ هذا المتغير لن يكون مُتاحًا أثناء التنقيح.**
 
@@ -439,6 +434,6 @@ let g = f();
 g();
 ```
 
-This feature of V8 is good to know. If you are debugging with Chrome/Edge/Opera, sooner or later you will meet it.
+هذه الميزة في V8 جيدة للمعرفة. إذا كنت تقوم بتصحيح الأخطاء باستخدام Chrome / Edge / Opera ، في وقت ما ستواجه هذه الميزة.
 
-That is not a bug in the debugger, but rather a special feature of V8. Perhaps it will be changed sometime. You can always check for it by running the examples on this page.
+لا يعتبر هذا خطأ في مصحح الأخطاء ، بل هو ميزة خاصة في V8. ربما سيتم تغييرها في وقت ما. يمكنك دائمًا التحقق من ذلك عن طريق تشغيل الأمثلة على هذه الصفحة.

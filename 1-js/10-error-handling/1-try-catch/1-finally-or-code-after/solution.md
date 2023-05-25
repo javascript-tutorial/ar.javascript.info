@@ -1,8 +1,8 @@
 يصبح الفرق واضحًا عندما ننظر إلى الكود داخل دالة.
 
-The behavior is different if there's a "jump out" of `try...catch`.
+السلوك يختلف إذا كان هناك "الانتقال" من `try...catch`.
 
-For instance, when there's a `return` inside `try...catch`. The `finally` clause works in case of _any_ exit from `try...catch`, even via the `return` statement: right after `try...catch` is done, but before the calling code gets the control.
+على سبيل المثال، عند وجود `return` داخل `try...catch`. الشرط `finally` يعمل في حالة أي خروج من `try...catch`، حتى عند استخدام عبارة `return`: مباشرة بعد انتهاء `try...catch`، ولكن قبل أن يستعيد الكود السيطرة.
 
 ```js run
 function f() {

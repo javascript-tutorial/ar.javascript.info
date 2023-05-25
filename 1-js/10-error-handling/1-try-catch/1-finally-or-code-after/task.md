@@ -6,7 +6,7 @@ importance: 5
 
 قارن بين جزئي الكود.
 
-1. The first one uses `finally` to execute the code after `try...catch`:
+1. الأول يستخدم `finally` لتنفيذ الكود بعد `try...catch`:
 
    ```js
    try {
@@ -20,7 +20,7 @@ importance: 5
    }
    ```
 
-2. The second fragment puts the cleaning right after `try...catch`:
+2. القطعة الثانية تضع عملية التنظيف مباشرة بعد `try...catch`:
 
    ```js
    try {

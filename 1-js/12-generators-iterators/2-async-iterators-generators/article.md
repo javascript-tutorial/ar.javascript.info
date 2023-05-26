@@ -1,16 +1,17 @@
 # الـgenerators والتكرار الغير متزامن
 
-# Async iteration and generators
+# التكرار اللامتزامن والمولدات
 
-Asynchronous iteration allow us to iterate over data that comes asynchronously, on-demand. Like, for instance, when we download something chunk-by-chunk over a network. And asynchronous generators make it even more convenient.
+يسمح لنا التكرار اللامتزامن بالتكرار على البيانات التي تأتي بشكل لامتزامن، حسب الطلب. مثل، على سبيل المثال، عندما نقوم بتنزيل شيء تدريجيًا عبر الشبكة. وتجعل المولدات اللامتزامنة ذلك أكثر ملاءمة.
+
 
 ## المتكررات الغير متزامنة Async iterators
 
-## Recall iterables
+## تذكر المتكررات
 
-Let's recall the topic about iterables.
+دعنا نستدعي الموضوع حول المتكررات.
 
-The idea is that we have an object, such as `range` here:
+الفكرة هي أن لدينا كائنًا، مثل `range` هنا:
 
 ```js
 let range = {
@@ -19,17 +20,17 @@ let range = {
 };
 ```
 
-...And we'd like to use `for..of` loop on it, such as `for(value of range)`, to get values from `1` to `5`.
+... ونريد استخدام حلقة `for..of` عليه، مثل `for(value of range)`، للحصول على القيم من `1` إلى `5`.
 
-In other words, we want to add an _iteration ability_ to the object.
+بعبارة أخرى، نريد إضافة "قابلية التكرار" إلى الكائن.
 
-That can be implemented using a special method with the name `Symbol.iterator`:
+يمكن تنفيذ ذلك باستخدام طريقة خاصة بالاسم `Symbol.iterator`:
 
-- This method is called in by the `for..of` construct when the loop is started, and it should return an object with the `next` method.
-- For each iteration, the `next()` method is invoked for the next value.
-- The `next()` should return a value in the form `{done: true/false, value:<loop value>}`, where `done:true` means the end of the loop.
+- يتم استدعاء هذه الطريقة من قبل بناء `for..of` عند بدء الحلقة، ويجب أن تعيد كائنًا يحتوي على الطريقة `next`.
+- في كل تكرار، ييتم استدعاء طريقة `next()` للحصول على القيمة التالية.
+- يجب أن ترجع الطريقة `next()` قيمة في الشكل `{done: true/false, value:<loop value>}`، حيث يعني `done:true` نهاية الحلقة.
 
-Here's an implementation for the iterable `range`:
+هنا تنفيذ للمتكرر `range`:
 
 ```js run
 let range = {
@@ -37,14 +38,14 @@ let range = {
   to: 5,
 
 *!*
-  [Symbol.iterator]() { // called once, in the beginning of for..of
+  [Symbol.iterator]() { // يستدعى مرة واحدة، في بداية for..of
 */!*
     return {
       current: this.from,
       last: this.to,
 
 *!*
-      next() { // called every iteration, to get the next value
+      next() { // يستدعى في كل تكرار، للحصول على القيمة التالية
 */!*
         if (this.current <= this.last) {
           return { done: false, value: this.current++ };
@@ -57,29 +58,28 @@ let range = {
 };
 
 for(let value of range) {
-  alert(value); // 1 then 2, then 3, then 4, then 5
+  alert(value); // 1 ثم 2، ثم 3، ثم 4،ثم 5
 }
 ```
 
-If anything is unclear, please visit the chapter [](info:iterable), it gives all the details about regular iterables.
+إذا كانت هناك أي عدم وضوح، يرجى زيارة الفصل [](info:iterable)، حيث يوفر كافة التفاصيل حول المتكررات العادية.
 
-## Async iterables
+## المتكررات الأسنكرونية
 
-Asynchronous iteration is needed when values come asynchronously: after `setTimeout` or another kind of delay.
+التكرار الأسنكروني يُحتاج عندما تأتي القيم بشكل أسنكروني: بعد `setTimeout` أو نوع آخر من التأخير.
 
-The most common case is that the object needs to make a network request to deliver the next value, we'll see a real-life example of it a bit later.
+الحالة الأكثر شيوعًا هي أن الكائن يحتاج إلى إجراء طلب شبكة لتسليم القيمة التالية، وسنرى مثالًا حيًا عليه لاحقًا.
 
-To make an object iterable asynchronously:
+لجعل كائن قابلًا للتكرار بشكل أسنكروني:
 
-1. Use `Symbol.asyncIterator` instead of `Symbol.iterator`.
-2. The `next()` method should return a promise (to be fulfilled with the next value).
-   - The `async` keyword handles it, we can simply make `async next()`.
-3. To iterate over such an object, we should use a `for await (let item of iterable)` loop.
-   - Note the `await` word.
+1. استخدم `Symbol.asyncIterator` بدلاً من `Symbol.iterator`.
+2. يجب أن ترجع التابع `next()` وعدًا (ليتم الوفاء به بالقيمة التالية).
+   - يتعامل الكلمة `async` مع ذلك، لذلك يمكننا ببساطة جعل `next()` مُشار إليها بـ `async`.
+3. لتكرار مثل هذا الكائن، يجب علينا استخدام حلقة `for await (let item of iterable)`، حيث يتم استخدام كلمة `await`.
+   
+لنبدأ بمثال لجعل كائن `range` قابلًا للتكرار بشكل أسنكروني، وشبيه بالذي سبق، ولكنه الآن سيعيد القيم بشكل أسنكروني، واحدة في الثانية.
 
-As a starting example, let's make an iterable `range` object, similar like the one before, but now it will return values asynchronously, one per second.
-
-All we need to do is to perform a few replacements in the code above:
+كل ما نحتاج إلى فعله هو إجراء بعض الاستبدالات في الشفرة أعلاه:
 
 ```js run
 let range = {
@@ -98,7 +98,7 @@ let range = {
 */!*
 
 *!*
-        // note: we can use "await" inside the async next:
+        // ملاحظة: يمكننا استخدام "await" داخل next ويتم التعامل معها باستخدام async:
         await new Promise(resolve => setTimeout(resolve, 1000)); // (3)
 */!*
 
@@ -130,7 +130,7 @@ let range = {
 3. لا يجب أن تكون الدالة `next()` عباره عن `async` ويمكن أن تكون دالة عادية تُرجع promise ولكن الكلمة `async` تمكننا من استخدام الكلمة `await` وهذا مناسب. وهنا يمكننا التأخير ثانية `(3)`.
 4. للقيام بالتكرار نستخدم التكرار `for await(let value of range)` `(4)` ونضع الكلمة "await" بعد "for". وهي تستدعي الدالة `range[Symbol.asyncIterator]()` مرة واحدة وثم الدالة `next()` من أجل القيم.
 
-Here's a small table with the differences:
+هذا جدول صغير يوضح الفروقات:
 
 |                              | Iterators         | Async iterators        |
 | ---------------------------- | ----------------- | ---------------------- |
@@ -144,24 +144,24 @@ Here's a small table with the differences:
 على سبيل المثال، لا تعمل الـspread syntax:
 
 ```js
-alert([...range]); // Error, no Symbol.iterator
+alert([...range]); // خطأ، لا يوجد Symbol.iterator
 ```
 
-That's natural, as it expects to find `Symbol.iterator`, not `Symbol.asyncIterator`.
+هذا طبيعي، حيث يتوقع العثور على `Symbol.iterator` وليس `Symbol.asyncIterator`.
 
-It's also the case for `for..of`: the syntax without `await` needs `Symbol.iterator`.
+هذا أيضًا الحال بالنسبة لـ `for..of`: الصيغة بدون `await` تحتاج إلى `Symbol.iterator`.
 
 `````
 
-## Recall generators
+## إستدعاء المولدات
 
-Now let's recall generators, as they allow to make iteration code much shorter. Most of the time, when we'd like to make an iterable, we'll use generators.
+دعونا نستدعي المولدات، حيث تسمح بجعل كود التكرار أقصر بكثير. في معظم الأحيان، عندما نريد جعل شيء مكرر، سنستخدم المولدات.
 
-For sheer simplicity, omitting some important stuff, they are "functions that generate (yield) values". They are explained in detail in the chapter [](info:generators).
+للبساطة، بدون بعض الأشياء المهمة، فإنها "دوال تنتج (تصدر) قيمًا". لقد تم شرحها بالتفصيل في الفصل [](info:generators).
 
-Generators are labelled with `function*` (note the star) and use `yield` to generate a value, then we can use `for..of` to loop over them.
+تتم وسم المولدات باستخدام `function*` (لاحظ النجمة) واستخدام `yield` لإصدار قيمة، ثم يمكننا استخدام `for..of` للحلقة عليها.
 
-This example generates a sequence of values from `start` to `end`:
+يقوم هذا المثال بتوليد سلسلة من القيم من `start` إلى `end`:
 
 ```js run
 function* generateSequence(start, end) {
@@ -171,11 +171,11 @@ function* generateSequence(start, end) {
 }
 
 for(let value of generateSequence(1, 5)) {
-  alert(value); // 1, then 2, then 3, then 4, then 5
+  alert(value); // 1، ثم 2، ثم 3، ثم 4، ثم 5
 }
 ```
 
-As we already know, to make an object iterable, we should add `Symbol.iterator` to it.
+كما نعلم بالفعل، لجعل كائن مكرر، يجب أن نضيف `Symbol.iterator` إليه.
 
 ```js
 let range = {
@@ -189,14 +189,14 @@ let range = {
 }
 ```
 
-A common practice for `Symbol.iterator` is to return a generator, it makes the code shorter, as you can see:
+الممارسة الشائعة لـ `Symbol.iterator` هي إرجاع مولد، حيث يجعل الكود أقصر، كما يمكنك ملاحظته:
 
 ```js run
 let range = {
   from: 1,
   to: 5,
 
-  *[Symbol.iterator]() { // a shorthand for [Symbol.iterator]: function*()
+  *[Symbol.iterator]() { // اختصار لـ [Symbol.iterator]: function*()
     for(let value = this.from; value <= this.to; value++) {
       yield value;
     }
@@ -204,25 +204,25 @@ let range = {
 };
 
 for(let value of range) {
-  alert(value); // 1, then 2, then 3, then 4, then 5
+  alert(value); // 1، ثم 2، ثم 3، ثم 4، ثم 5
 }
 ```
 
-Please see the chapter [](info:generators) if you'd like more details.
+يرجى الرجوع إلى الفصل [](info:generators) إذا كنت ترغب في المزيد من التفاصيل.
 
-In regular generators we can't use `await`. All values must come synchronously, as required by the `for..of` construct.
+في المولدات العادية، لا يمكننا استخدام `await`. يجب أن تأتي كافة القيم بنفس المزامنة كما هو مطلوب من بناء الحلقة `for..of`.
 
-What if we'd like to generate values asynchronously? From network requests, for instance.
+ماذا لو كنا نريد إنشاء قيم بشكل غير متزامن؟ من طلبات الشبكة، على سبيل المثال.
 
-Let's switch to asynchronous generators to make it possible.
+دعونا ننتقل إلى المولدات الغير متزامنة لجعل ذلك ممكناً.
 
-## Async generators (finally)
+## المولدات الغير متزامنة (أخيراً)
 
-For most practical applications, when we'd like to make an object that asynchronously generates a sequence of values, we can use an asynchronous generator.
+لمعظم التطبيقات العملية، عندمانريد جعل كائن يولد سلسلة من القيم بشكل غير متزامن، يمكننا استخدام مولد غير متزامن.
 
-The syntax is simple: prepend `function*` with `async`. That makes the generator asynchronous.
+الصيغة بسيطة: نقوم بإضافة `async` قبل `function*` وذلك يجعل المولد غير متزامن.
 
-And then use `for await (...)` to iterate over it, like this:
+ثم نستخدم `for await (...)` للتكرار عليه، كما يلي:
 
 ```js run
 *!*async*/!* function* generateSequence(start, end) {
@@ -230,7 +230,7 @@ And then use `for await (...)` to iterate over it, like this:
   for (let i = start; i <= end; i++) {
 
 *!*
-    // Wow, can use await!
+    // مذهل، يمكن الاستفادة من await!
     await new Promise(resolve => setTimeout(resolve, 1000));
 */!*
 
@@ -243,20 +243,20 @@ And then use `for await (...)` to iterate over it, like this:
 
   let generator = generateSequence(1, 5);
   for *!*await*/!* (let value of generator) {
-    alert(value); // 1, then 2, then 3, then 4, then 5 (with delay between)
+    alert(value); // 1، ثم 2، ثم 3، ثم 4، ثم 5 (مع تأخير بينها)
   }
 
 })();
 ```
 
-As the generator is asynchronous, we can use `await` inside it, rely on promises, perform network requests and so on.
+ونظراً لأن المولد هو غير متزامن، يمكننا استخدام `await` داخله، والاعتماد على الوعود، والقيام بطلبات الشبكة وهكذا.
 
-````smart header="Under-the-hood difference"
-Technically, if you're an advanced reader who remembers the details about generators, there's an internal difference.
+````smart header="الفروقات تحت الغطاء"
+في الجوانب التقنية، إذا كنت قارئًا متقدمًا يتذكر تفاصيل المولدات، فهناك فرقًا داخليًا.
 
-For async generators, the `generator.next()` method is asynchronous, it returns promises.
+بالنسبة للمولدات الغير متزامنة، فإن طريقة `generator.next()` هي غير متزامنة، حيث تعيد الوعود.
 
-فى أى generator عادي يمكن أن نستخدم `result = generator.next()` للحصول على القيم. وفى الـasync generator يجب أن نستخدم `await` كالآتى:
+في المولدات العادية يمكننا استخدام `result = generator.next()` للحصول على القيم. وفي المولدات الغير متزامنة، يجب أن نستخدم `await` كما يلي:
 
 ```js
 result = await generator.next(); // result = {value: ..., done: true/false}
@@ -266,11 +266,11 @@ That's why async generators work with `for await...of`.
 
 ### Async iterable range
 
-Regular generators can be used as `Symbol.iterator` to make the iteration code shorter.
+يمكن استخدام المولدات العادية كـ `Symbol.iterator` لجعل رمز التكرار أقصر.
 
-Similar to that, async generators can be used as `Symbol.asyncIterator` to implement the asynchronous iteration.
+بالمثل، يمكن استخدام المولدات الغير متزامنة كـ `Symbol.asyncIterator` لتنفيذ التكرار الغير متزامن.
 
-For instance, we can make the `range` object generate values asynchronously, once per second, by replacing synchronous `Symbol.iterator` with asynchronous `Symbol.asyncIterator`:
+على سبيل المثال، يمكننا جعل كائن `range` يولد القيم بشكل غير متزامن، مرة كل ثانية، عن طريق استبدال `Symbol.iterator` الغير متزامن بـ `Symbol.asyncIterator` الغير متزامن:
 
 ```js run
 let range = {
@@ -300,33 +300,33 @@ let range = {
 })();
 ```
 
-والآن تأتى القيم بتأخير ثانية بين كل قيمة.
+وبهذا، تأتي القيم بتأخير ثانية بين كل قيمة.
 
 ```smart
-Technically, we can add both `Symbol.iterator` and `Symbol.asyncIterator` to the object, so it's both synchronously (`for..of`) and asynchronously (`for await..of`) iterable.
+من الناحية التقنية، يمكننا إضافة كل من `Symbol.iterator` و `Symbol.asyncIterator` إلى الكائن، لذلك يمكن تكراره بشكل متزامن (`for..of`) وغير متزامن (`for await..of`).
 
-In practice though, that would be a weird thing to do.
+على الرغم من ذلك، في الممارسة العملية، سيكون ذلك أمرًا غريبًا.
 ```
 
-## Real-life example: paginated data
+## مثال حي: بيانات متجزئة
 
-So far we've seen basic examples, to gain understanding. Now let's review a real-life use case.
+حتى الآن رأينا أمثلة أساسية، لتحقيق الفهم. الآن دعونا نستعرض حالة استخدام حقيقية.
 
-توجد الكثير من الخدمات التي تقدم بيانات متجزئة. على سبيل المثال عندما نريد قائمة من المستخدمين فإن الطلب يقوم بإرجاع رقم مُعطي سابقًا (مثلا 100 مستخدم) - فى الصفحة الواحدة وتعطي رابط للصفحة التالية.
+توجد العديد من الخدمات التي توفر البيانات بشكل متجزئ. على سبيل المثال، عندما نريد الحصول على قائمة مستخدمين، يتم إرجاع عدد محدد مسبقًا من المستخدمين (مثلاً 100 مستخدم) في كل صفحة، ويتم توفير رابط للصفحة التالية.
 
-This pattern is very common. It's not about users, but just about anything.
+هذا النمط شائع جداً، وليس مقتصراً على الأمور المتعلقة بالمستخدمين فقط، بل يمكن استخدامه في أي شيء آخر.
 
-For instance, GitHub allows us to retrieve commits in the same, paginated fashion:
+على سبيل المثال، يسمح GitHub لنا بالحصول على Commits بنفس النمط المقسم:
 
-- We should make a request to `fetch` in the form `https://api.github.com/repos/<repo>/commits`.
-- It responds with a JSON of 30 commits, and also provides a link to the next page in the `Link` header.
-- Then we can use that link for the next request, to get more commits, and so on.
+- يجب علينا إجراء طلب `fetch` باستخدام الرابط `https://api.github.com/repos/<repo>/commits`.
+- يتم الرد علينا بـ JSON يحتوي على 30 Commit، ويتم توفير رابط للصفحة التالية في رأس `Link`.
+- يمكننا استخدام هذا الرابط في الطلب التالي للحصول على المزيد من Commits وهكذا.
 
-For our code, we'd like to have a simpler way to get commits.
+بالنسبة لشفرتنا، نود أن يكون لدينا طريقة أبسط للحصول على التزامات.
 
-Let's make a function `fetchCommits(repo)` that gets commits for us, making requests whenever needed. And let it care about all pagination stuff. For us it'll be a simple async iteration `for await..of`.
+للحصول على Commits بطريقة أبسط، سنقوم بإنشاء دالة `fetchCommits(repo)` التي تحصل على Commits بالنسبة لنا، وتقوم بإجراء الطلبات كلما دعت الحاجة، وتهتم بجميع أمور التجزئة. بالنسبة لنا، سيكون ذلك تكرارًا غير متزامن وبسيط باستخدام `for await..of`.
 
-So the usage will be like this:
+لذلك، سيكون الاستخدام على النحو التالي:
 
 ```js
 for await (let commit of fetchCommits('username/repository')) {
@@ -334,7 +334,7 @@ for await (let commit of fetchCommits('username/repository')) {
 }
 ```
 
-Here's such function, implemented as async generator:
+هذه هي الدالة، التي تم تنفيذها كمولد غير متزامن:
 
 ```js
 async function* fetchCommits(repo) {
@@ -362,17 +362,17 @@ async function* fetchCommits(repo) {
 }
 ```
 
-More explanations about how it works:
+مزيد من التفسيرات حول كيفية عملها:
 
-1. We use the browser [fetch](info:fetch) method to download the commits.
+1. نستخدم طريقة [fetch](info:fetch) للمتصفح لتنزيل التزامات.
 
-   - The initial URL is `https://api.github.com/repos/<repo>/commits`, and the next page will be in the `Link` header of the response.
-   - The `fetch` method allows us to supply authorization and other headers if needed -- here GitHub requires `User-Agent`.
+ - العنوان الأولي هو `https://api.github.com/repos/<repo>/commits`، وستكون الصفحة التالية في رأس `Link` للرد.
+ - تسمح لنا طريقة `fetch` بتوفير التفويض ورؤوس أخرى إذا لزم الأمر - هنا يتطلب GitHub `User-Agent`.
 
-2. The commits are returned in JSON format.
-3. We should get the next page URL from the `Link` header of the response. It has a special format, so we use a regular expression for that (we will learn this feature in [Regular expressions](info:regular-expressions)).
-   - The next page URL may look like `https://api.github.com/repositories/93253246/commits?page=2`. It's generated by GitHub itself.
-4. Then we yield the received commits one by one, and when they finish, the next `while(url)` iteration will trigger, making one more request.
+2. يتم إرجاع التزامات بتنسيق JSON.
+3. يجب علينا الحصول على عنوان URL للصفحة التالية من رأس `Link` للرد. لديه تنسيق خاص، لذلك نستخدم تعبيرًا عاديًا لذلك (سنتعلم هذه الميزة في [Regular expressions](info:regular-expressions)).
+ - قد يبدو عنوان URL للصفحة التالية مثل `https://api.github.com/repositories/93253246/commits?page=2`. يتم إنشاؤه بواسطة GitHub نفسه.
+4. ثم نُظهِر التزامات المستلمة واحدًا تلو الآخر، وعندما تنتهي، ستُطلِق تكرار `while(url)` التالي، مما يجعل طلبًا آخر.
 
 ومثال على الإستخدام:
 
@@ -391,9 +391,9 @@ More explanations about how it works:
 })();
 ```
 
-That's just what we wanted.
+هذا ما نريده.
 
-The internal mechanics of paginated requests is invisible from the outside. For us it's just an async generator that returns commits.
+آليات الطلبات المتجزئة الداخلية غير مرئية من الخارج. بالنسبة لأجلنا هو مجرد مولد غير متزامن يعيد التزامات.
 
 ## الملخص
 

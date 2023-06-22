@@ -1,3 +1,3 @@
 # Browser: Document, Events, Interfaces 
 
-Learning how to manage the browser page: add elements, manipulate their size and position, dynamically create interfaces and interact with the visitor.
+تعلم كيفية ادارة الصفحه: اضافة عنصر، التلاعب بحجم العنصر وموقعه، انشاء واجهة وتفاعل مع الزائرين

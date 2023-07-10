@@ -45,7 +45,11 @@ document.addEventListener('DOMContentLoaded', ready);
 <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0" />
 ```
 
+<<<<<<< HEAD
 علي سبيل المثال `DOMContentLoaded` يتم تشغيل المعالج عند تحميل المستند، حتى يتمكن من رؤية كافة العناصر, متضمنا `<img>` ادناه.
+=======
+In the example, the `DOMContentLoaded` handler runs when the document is loaded, so it can see all the elements, including `<img>` below.
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 ولكن لا ينتظر حتى يتم تحميل الصورة. لذالك `alert` يظهر حجم الصفر.
 
@@ -89,7 +93,7 @@ document.addEventListener('DOMContentLoaded', ready);
 ```html run
 <link type="text/css" rel="stylesheet" href="style.css" />
 <script>
-  // the script doesn't not execute until the stylesheet is loaded
+  // the script doesn't execute until the stylesheet is loaded
   alert(getComputedStyle(document.body).marginTop);
 </script>
 ```
@@ -114,8 +118,12 @@ Firefox, Chrome , Opera تم تشغيل نماذج الملء التلقائي `
 
 ```html run height=200 refresh
 <script>
+<<<<<<< HEAD
   window.onload = function () {
     // same as window.addEventListener('load', (event) => {
+=======
+  window.onload = function() { // can also use window.addEventListener('load', (event) => {
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
     alert('Page loaded');
 
     // image is loaded at this time
@@ -189,6 +197,26 @@ window.onbeforeunload = function () {
 
 تم تغيير السلوك لأن بعض مشرفي المواقع أساءوا استخدام معالج الحدث هذا من خلال عرض رسائل مضللة ومزعجة. لذلك قد لا تزال المتصفحات القديمة تعرضها كرسالة في الوقت الحالي ، ولكن بصرف النظر عن ذلك - لا توجد طريقة لتخصيص الرسالة المعروضة للمستخدم.
 
+````warn header="The `event.preventDefault()` doesn't work from a `beforeunload` handler"
+That may sound weird, but most browsers ignore `event.preventDefault()`.
+
+Which means, following code may not work:
+```js run
+window.addEventListener("beforeunload", (event) => {
+  // doesn't work, so this event handler doesn't do anything
+	event.preventDefault();
+});
+```
+
+Instead, in such handlers one should set `event.returnValue` to a string to get the result similar to the code above:
+```js run
+window.addEventListener("beforeunload", (event) => {
+  // works, same as returning from window.onbeforeunload
+	event.returnValue = "There are unsaved changes. Leave now?";
+});
+```
+````
+
 ## readyState
 
 ماذا يحدث إذا قمنا بتعيين معالج `DOMContentLoaded` بعد تحميل المستند؟
@@ -251,7 +279,11 @@ document.addEventListener('readystatechange', () => console.log(document.readySt
 
 <iframe src="iframe.html" onload="log('iframe onload')"></iframe>
 
+<<<<<<< HEAD
 <img src="http://en.js.cx/clipart/train.gif" id="img" />
+=======
+<img src="https://en.js.cx/clipart/train.gif" id="img">
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 <script>
   img.onload = () => log('img onload');
 </script>

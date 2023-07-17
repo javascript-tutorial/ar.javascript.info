@@ -122,27 +122,46 @@
 
 هناك مرحلة أخرى من معالجة الأحداث تسمى "الإلتقاط". ونادرًا ما يتم استخدامها في الكود, ولكن قد يكون مفيداً في بعض الأحيان.
 
+<<<<<<< HEAD
 معيار[DOM Events](http://www.w3.org/TR/DOM-Level-3-Events/) يصف ثلاث مراحل من نشر الحدث:
+=======
+The standard [DOM Events](https://www.w3.org/TR/DOM-Level-3-Events/) describes 3 phases of event propagation:
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 1. مرحلة الالتقاط-- ينتقل الحدث إلى اسفل ليصل الي العنصر.
 2. مرحلة الهدف -- يصل الحدث إلى العنصر المستهدف.
 3. مرحلة التدفق -- يتدفق الحدث لأعلي من العنصر.
 
+<<<<<<< HEAD
 إليك صورة النقر فوق `<td>` داخل جدول، مأخوذ من المواصفات:
+=======
+Here's the picture, taken from the specification, of the capturing `(1)`, target `(2)` and bubbling `(3)` phases for a click event on a `<td>` inside a table:
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 ![](eventflow.svg)
 
 وهذا هو: بالنقر فوق `<td>` يمر الحدث أولاً عبر سلسلة الأجداد نزولاً إلى العنصر (مرحلة الالتقاط), ثم تصل إلى الهدف وتتسبب في تشغيل ذلك الهدف (مرحلة الهدف), ثم يرتفع لأعلي (مرحلة التدفق), مناديا للمعالجين في طريقه.
 
+<<<<<<< HEAD
 **قبل أن نتحدث عن التدفق فقط، لأن مرحلة الالتقاط نادراً ما تستخدم. عادة ما تكون غير مرئية بالنسبة لنا.**
 
 تمت إضافة معالجات باستخدام خاصية `on<event>`-او باستخدام خواص HTML او باستخدام two-argument `addEventListener(event, handler)` لا تعرف أي شيء عن الالتقاط, وهي تعمل فقط على المرحلتين الثانية والثالثة.
+=======
+Until now, we only talked about bubbling, because the capturing phase is rarely used.
+
+In fact, the capturing phase was invisible for us, because handlers added using `on<event>`-property or using HTML attributes or using two-argument `addEventListener(event, handler)` don't know anything about capturing, they only run on the 2nd and 3rd phases.
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 لالتقاط حدث في مرحلة الالتقاط, يجب أن نضبط اختيار المعالج `capture` الي `true`:
 
 ```js
 elem.addEventListener(..., {capture: true})
+<<<<<<< HEAD
 //  {capture: true} هو اسم مستعار لـ "true" أو فقط
+=======
+
+// or, just "true" is an alias to {capture: true}
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 elem.addEventListener(..., true)
 ```
 
@@ -183,24 +202,42 @@ elem.addEventListener(..., true)
 
 إذا نقرت على `<p>`, ثم يكون التسلسل:
 
+<<<<<<< HEAD
 1. `HTML` -> `BODY` -> `FORM` -> `DIV` (مرحلة الالتقاط, المستمع الأول):
 2. `P` (مرحلة الهدف, يتم تشغيلها مرتين, كما وضعنا مستمعين: الالتقاط والتدفق)
 3. `DIV` -> `FORM` -> `BODY` -> `HTML` (مرحلة التدفق, المستمع الثاني).
+=======
+1. `HTML` -> `BODY` -> `FORM` -> `DIV -> P` (capturing phase, the first listener):
+2. `P` -> `DIV` -> `FORM` -> `BODY` -> `HTML` (bubbling phase, the second listener).
+
+Please note, the `P` shows up twice, because we've set two listeners: capturing and bubbling. The target triggers at the end of the first and at the beginning of the second phase.
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 توجد خاصية`event.eventPhase` وهي تخبرنا بعدد المرحلة التي يتم فيها وقوع الحدث. ولكنها نادرًا ما يتم استخدامها، لأننا نعرفه عادةً في المعالج.
 
 ```smart header="لإزالة المعالج, `removeEventListener`يحتاج إلى المرحلة نفسها" اذا وضعنا`addEventListener(..., true)`, يتعين علينا أن نذكر نفس المرحلة في `removeEventListener(..., true)` لإزالة المعالج بشكل صحيح.
 
+<<<<<<< HEAD
 `````
 
 ````smart header="المستمعون على نفس العنصر ونفس المرحلة يتم تشغيلهم بالنسبة لترتيبهم"
 إذا كان لدينا العديد من معالجات الأحداث في نفس المرحلة, تم تعيينها للعنصر نفسه مع `addEventListener`, يتم تشغيلها بنفس الترتيب الذي تم إنشاؤها به:
+=======
+````smart header="Listeners on the same element and same phase run in their set order"
+If we have multiple event handlers on the same phase, assigned to the same element with `addEventListener`, they run in the same order as they are created:
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 ```js
 elem.addEventListener("click", e => alert(1)); // guaranteed to trigger first
 elem.addEventListener("click", e => alert(2));
 `````
 
+```
+
+```smart header="The `event.stopPropagation()` during the capturing also prevents the bubbling"
+The `event.stopPropagation()` method and its sibling `event.stopImmediatePropagation()` can also be called on the capturing phase. Then not only the futher capturing is stopped, but the bubbling as well.
+
+In other words, normally the event goes first down ("capturing") and then up ("bubbling"). But if `event.stopPropagation()` is called during the capturing phase, then the event travel stops, no bubbling will occur.
 ```
 
 
@@ -220,7 +257,11 @@ elem.addEventListener("click", e => alert(2));
 
 يمكن أن يوقف معالج الأحداث الحدث باستخدام `event.stopPropagation()`, ولكن هذا غير موصى به, لأننا لا نستطيع أن نتأكد من أننا لن نحتاج إليها أعلاه، ربما لأشياء مختلفة تماماً.
 
+<<<<<<< HEAD
 تُستخدم مرحلة الالتقاط نادرًا جدًا, وعادة ما نتعامل مع الأحداث الجارية في مرحلة التدفق. وهناك منطق وراء ذلك.
+=======
+The capturing phase is used very rarely, usually we handle events on bubbling. And there's a logical explanation for that.
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 في العالم الحقيقي، حين يقع حادث ما, فالسلطات المحلية ترد أولاً. فهم يعرفون المنطقة التي حدث فيا جيدا. ثم سلطات أعلى مستوى إذا لزم الأمر.
 

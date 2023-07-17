@@ -6,8 +6,13 @@
 
 هناك أيضاً حالات نحتاج إلى تصريح تحويل القيمة إلى النوع المطلوب.
 
+<<<<<<< HEAD
 ```smart header="لا نتحدث عن objects بعد"
 في هذا الفصل، لن نغطي الكائنات. الآن سوف نتحدث عن الأنواع الأساسية.
+=======
+```smart header="Not talking about objects yet"
+In this chapter, we won't cover objects. For now, we'll just be talking about primitives.
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 فيما بعد، بعد أن نتعلم عن الكائنات، في هذا الفصل <info:object-toprimitive> سنرى كيف تتلائم الكائنات فيه.
 ```
@@ -34,7 +39,11 @@ alert(typeof value); // string
 
 ## التحويل الرقمي
 
+<<<<<<< HEAD
 التحويل إلى رقم يتم أوتوماتيكياً في المعاملات والتعبيرات الرياضية.
+=======
+Numeric conversion in mathematical functions and expressions happens automatically.
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 على سبيل المثال، في حالة القسمة `/` عندما يتم تطبيقها على نوع غير رقمي:
 
@@ -70,7 +79,11 @@ alert(age); // NaN، التحويل فشل
 |`undefined`|`NaN`|
 |`null`|`0`|
 |<code>true&nbsp;and&nbsp;false</code> | `1` and `0` |
+<<<<<<< HEAD
 | `string` | المساحات البيضاء في البداية والنهاية يتم إزالتها. لو باقي النص فارغ، النتيجة هي `0`. غير ذلك، الرقم "يتم قرائته" من النص. أي خطأ يعطي`NaN`. |
+=======
+| `string` | Whitespaces (includes spaces, tabs `\t`, newlines `\n` etc.) from the start and end are removed. If the remaining string is empty, the result is `0`. Otherwise, the number is "read" from the string. An error gives `NaN`. |
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 أمثلة:
 
@@ -130,7 +143,11 @@ alert( Boolean(" ") ); // المسافات، أيضاً true (أي نص غير �
 |`undefined`|`NaN`|
 |`null`|`0`|
 |<code>true&nbsp;/&nbsp;false</code> | `1 / 0` |
+<<<<<<< HEAD
 | `string` | يتم قراءة النص "كما هو"،المسافات البيضاء من الجانبين يتم تجاهلها. النص الفارغ يصبح `0`. الخطأ `NaN`. |
+=======
+| `string` | The string is read "as is", whitespaces (includes spaces, tabs `\t`, newlines `\n` etc.) from both sides are ignored. An empty string becomes `0`. An error gives `NaN`. |
+>>>>>>> 733ff697c6c1101c130e2996f7eca860b2aa7ab9
 
 **`التحويلات المنطقية`** -- يحدث في المعاملات المنطقية. يتم تنفيذه عن طريق `Boolean(value)`.
 

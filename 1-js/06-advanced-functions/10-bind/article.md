@@ -170,8 +170,13 @@ let user = {
 
 let say = user.say.bind(user);
 
+<<<<<<< HEAD
 say("Hello"); // ‫Hello, John!‎ (مُرّر المُعامل "Hello" إلى say)
 say("Bye"); // ‫Bye, John!‎ (مُرّر المعامل "Bye" إلى say)
+=======
+say("Hello"); // Hello, John! ("Hello" argument is passed to say)
+say("Bye"); // Bye, John! ("Bye" is passed to say)
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 ```
 
 **تابِع مفيد: `‎bindAll‎`**
@@ -185,8 +190,12 @@ for (let key in user) {
 }
 ```
 
+<<<<<<< HEAD
 JavaScript libraries also provide functions for convenient mass binding , e.g. [\_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll) in lodash.
 
+=======
+JavaScript libraries also provide functions for convenient mass binding , e.g. [_.bindAll(object, methodNames)](https://lodash.com/docs#bindAll) in lodash.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 ````
 
 ## الدوال الجزئية

@@ -7,7 +7,11 @@
 
 ولكن ماذا يحدث إذا تغيرت المتغيرات الخارجية بعد إنشاء الدالة؟ هل ستحصل الدالة على القيم الأحدث أم القيم القديمة؟
 
+<<<<<<< HEAD
 وماذا إذا تم تمرير دالة كمعلمة واستدعاؤها من مكان آخر في الكود؟ هل ستحصل الدالة على وصول إلى المتغيرات الخارجية في المكان الجديد؟
+=======
+And what if a function is passed along as an argument and called from another place of code, will it get access to outer variables at the new place?
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 دعنا نوسع معرفتنا لفهم هذه السيناريوهات والسيناريوهات الأكثر تعقيدًا.
 
@@ -157,7 +161,11 @@ alert(counter()); // 2
 
 فهم هذه الأشياء يعد عظيماً للمعلومات الشاملة لجافا سكريبت ومفيد جداً في حالة السيناريوهات المعقدة. لذلك هيا نتعمق أكثر في أمور أكثر صعوبة وتحتاج إلي تركيز.
 
+<<<<<<< HEAD
 ## البيئات المعجمية
+=======
+Understanding such things is great for the overall knowledge of JavaScript and beneficial for more complex scenarios. So let's go a bit in-depth.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ```warn header="هنا يجب أن تكون شديد التركيز!"
 

@@ -124,7 +124,11 @@ alert(undefined || null || 0); // 0 (الكل falsy, ترجع آخر قيمة)
 
     ويعني أن `||` ينفذ العمليات الممررة له حتى أول قيمة truthy وبعد ذلك يتم إرجاع القيمة مباشرة بدون لمس باقي العمليات.
 
+<<<<<<< HEAD
     أهمية هذه الميزة تصبح ملحوظة إذا كانت القيمة الممررة عبارة عن عملية لها آثار جانبية مثل تخصيص قيمة متغير أو استدعاء دالة
+=======
+    The importance of this feature becomes obvious if an operand isn't just a value, but an expression with a side effect, such as a variable assignment or a function call.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
     في هذا المثال سيتم طباعة الرسالة الأولى ولن يتم طباعة الثانية:
 

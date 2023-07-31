@@ -4,16 +4,27 @@
 
 تعتبر الخاصية `__proto__` قديمة وغير مدعومة (فى عمل جافا سكريبت فى المتصفحات فقط).
 
+<<<<<<< HEAD
 الدوال الحديثة هي:
+=======
+Setting or reading the prototype with `obj.__proto__` is considered outdated and somewhat deprecated (moved to the so-called "Annex B" of the JavaScript standard, meant for browsers only).
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
-The modern methods are:
+The modern methods to get/set a prototype are:
 
-- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with given `proto` as `[[Prototype]]` and optional property descriptors.
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj`.
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- تقوم بإرجاع الخاصية `[[Prototype]]` من الكائن `obj`.
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- تجعل الخاصية `[[Prototype]]` من الكائن `obj` تشير إلى `proto`.
 
+<<<<<<< HEAD
 وهذه الدوال يجب استخدامها بلًا من `__proto__`.
+=======
+The only usage of `__proto__`, that's not frowned upon, is as a property when creating a new object: `{ __proto__: ... }`.
+
+Although, there's a special method for this too:
+
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with given `proto` as `[[Prototype]]` and optional property descriptors.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 عل ىسبيل المثال:
 
@@ -24,7 +35,7 @@ let animal = {
 
 // تقوم بإنشاء كان جديد حيث أن الكائن animal نموذج له
 *!*
-let rabbit = Object.create(animal);
+let rabbit = Object.create(animal); // same as {__proto__: animal}
 */!*
 
 alert(rabbit.eats); // true
@@ -38,7 +49,13 @@ Object.setPrototypeOf(rabbit, {}); // تغيير نموذج الكائن rabbit 
 */!*
 ```
 
+<<<<<<< HEAD
 تستقبل الدالة `Object.create` متغيرًا إضافيًا بشكل اختيارى وهو واصف الخاصية (property descriptors) حيث يمكننا إضافة خصائص إضافية للكائن الجديد كالآتى:
+=======
+The `Object.create` method is a bit more powerful, as it has an optional second argument: property descriptors.
+
+We can provide additional properties to the new object there, like this:
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ```js run
 let animal = {
@@ -59,20 +76,34 @@ alert(rabbit.jumps); // true
 يمكننا استخدام `Object.create` للقيام بنسخ كائن بشكل أفضل من نسخ الخصائص باستخدام التكرار `for..in`:
 
 ```js
+<<<<<<< HEAD
 // كائن جديد مماثل تمامًا
 let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+=======
+let clone = Object.create(
+  Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj)
+);
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 ```
 
 هذا الإستدعاء يقوم بإنشاء نسخه طبق الأصل من الكائن `obj` بما فيه من خصائص سواءًا كانت معدودة (enumerable) أم لا وكذلك الجالبات والمغيرات (getters & setters) -- كل شيئ وبالخاصية `[[Prototype]]` الصحيحة.
 
+<<<<<<< HEAD
 ## نبذة من التاريخ
 
 إذا عددنا كل الطرق للتحكم فى `[[Prototype]]`، فهناك الكثير! توجد الكثير من الطرق للقيام بنفس الشيئ!
 
 لماذا؟
+=======
+
+## Brief history
+
+There're so many ways to manage `[[Prototype]]`. How did that happen? Why?
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 هذا لأسباب تاريخية متأصّلة.
 
+<<<<<<< HEAD
 - خاصية ال`"prototype"` لدالة بانية (constructor function) موجودة من زمان بعيد.
 - لاحقًا فى عام 2012 ظهرت الدالة `Object.create`. حيث تمكِّن من إنشاء كائنات بنموذج مُعطي ولكن لا تعطي الإمكانية لجلب أو تعديل الخصائص، ولذلك قامت المتصفحات بإضافة الخاصية `__proto__` الغير موثقة فى المصدر والتى تسمح للمستخدم أن يجلب أو يعدل النموذج فى أى وقت.
 - لاحقًا فى عام 2015 ظهرت الدالتين `Object.setPrototypeOf` و `Object.getPrototypeOf` للقيام بنفس وظيفة الخاصية `__proto__` وحيث أن الخاصية `__proto__` موجودة فى كل مكان تقريبًا فقد أصبحت قديمة وأصبحت فى طريقها إلى (Annex B) من المصدر وبالتالى أصبحت اختيارية لبيئة جافا سكريبت غير المتصفحات.
@@ -80,6 +111,22 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 والآن أصبح فى تصرفنا كل هذه الطرق.
 
 لماذا تم استبدال الخاصية `__proto__` بالدوال `getPrototypeOf/setPrototypeOf`؟ هذا سؤال مهم ويستدعينا أن نفهم لماذا تعد الخاصية `__proto__` سيئة. أكمل القراءة لتحصل على الإجابة.
+=======
+The prototypal inheritance was in the language since its dawn, but the ways to manage it evolved over time.
+
+- The `prototype` property of a constructor function has worked since very ancient times. It's the oldest way to create objects with a given prototype.
+- Later, in the year 2012, `Object.create` appeared in the standard. It gave the ability to create objects with a given prototype, but did not provide the ability to get/set it. Some browsers implemented the non-standard `__proto__` accessor that allowed the user to get/set a prototype at any time, to give more flexibility to developers.
+- Later, in the year 2015, `Object.setPrototypeOf` and `Object.getPrototypeOf` were added to the standard, to perform the same functionality as `__proto__`. As `__proto__` was de-facto implemented everywhere, it was kind-of deprecated and made its way to the Annex B of the standard, that is: optional for non-browser environments.
+- Later, in the year 2022, it was officially allowed to use `__proto__` in object literals `{...}` (moved out of Annex B), but not as a getter/setter `obj.__proto__` (still in Annex B).
+
+Why was `__proto__` replaced by the functions `getPrototypeOf/setPrototypeOf`?
+
+Why was `__proto__` partially rehabilitated and its usage allowed in `{...}`, but not as a getter/setter?
+
+That's an interesting question, requiring us to understand why `__proto__` is bad.
+
+And soon we'll get the answer.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ```warn header="لا تغير الخاصية `[[Prototype]]`فى كائن موجود إذا كانت السرعة تهمك" عمليًا يمكننا أن نجلب أو نعدّل الخاصية`[[Prototype]]`فى أى وقت، ولكن عادة ما نضع ليها قيمة فقط عند إنشاء الكائن ولا نعدلها بعد ذلك: يرث الكائن`rabbit`من الكائن`animal` وهذا لن يتغير.
 
@@ -104,25 +151,58 @@ obj[key] = "some value";
 alert(obj[key]); // [object Object], وليست "some value"!
 ````
 
+<<<<<<< HEAD
 هنا إذا قام المستخدم بكتابة `__proto__`، فإن ماكتبه سيتم تجاهله!
 
 هذا لا يجب أن يفاجئنا، فالخاصية `__proto__` لها تعامل خاص: لأنها يجب أن تكون كائنًا أو `null`، ولا يمكن أن يكون النص نموذجًا.
+=======
+Here, if the user types in `__proto__`, the assignment in line 4 is ignored!
+
+That could surely be surprising for a non-developer, but pretty understandable for us. The `__proto__` property is special: it must be either an object or `null`. A string can not become a prototype. That's why an assignment a string to `__proto__` is ignored.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ولكننا لم نقصد أن نفعل ذلك، أليس كذلك؟ نريد أن نخزن خاصية بقيمتها واسم الخاصية `"__proto__"` لم يتم حفظه. فهذا إذن خلل!
 
+<<<<<<< HEAD
 الآثار هنا ليست كارثية، ولكن فى حالات أخرى يمكن أن نضع خاصية بقيمتها ثم يتغير النموذج بالفعل. ونتيجة لذلك سيعطى التنفيذ نتائج غير صحيحة وغير متوقعة.
+=======
+Here the consequences are not terrible. But in other cases we may be storing objects instead of strings in `obj`, and then the prototype will indeed be changed. As a result, the execution will go wrong in totally unexpected ways.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 وأسوأ من ذلك -- لا يفكر المطورون عادة عن إمكانية كهذه أبدًا. وهذا يجعل الخطأ صعب الملاحظة ويمكن أن يتحول إلى ثغرة خصوصًا إذا كان البرنامج يعمل على السيرفر.
 
+<<<<<<< HEAD
 ويمكن أن تحدث أيضًا أشياء غير متوقعة عند وضع قيمة للدالة `toString` والتى هي دالة بطبيعتها وكذلك لدوال أخرى.
+=======
+Unexpected things also may happen when assigning to `obj.toString`, as it's a built-in object method.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 كيف يمكننا تجنب هذه المشكلة؟
 
+<<<<<<< HEAD
 أولًا، يمكننا أن نتحوّل لاستخدام الـ`Map` للتخزين بدلًا من الكائنات العادية وسيكون كل شيئ بخير.
 
 ولكن يمكن للـ `Object` أن يخدمنا بشكل جيد هنا، لأن صنّاع اللغة أعطو اهتمامًا لهذه المشكلة من وقت طويل.
 
 إن الخاصية `__proto__` ليست بخاصية عادية وإنما موصّل للخاصية `Object.prototype`:
+=======
+First, we can just switch to using `Map` for storage instead of plain objects, then everything's fine:
+
+```js run
+let map = new Map();
+
+let key = prompt("What's the key?", "__proto__");
+map.set(key, "some value");
+
+alert(map.get(key)); // "some value" (as intended)
+```
+
+...But `Object` syntax is often more appealing, as it's more concise.
+
+Fortunately, we *can* use objects, because language creators gave thought to that problem long ago.
+
+As we know, `__proto__` is not a property of an object, but an accessor property of `Object.prototype`:
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ![](object-prototype-2.svg)
 
@@ -135,6 +215,7 @@ alert(obj[key]); // [object Object], وليست "some value"!
 ```js run
 *!*
 let obj = Object.create(null);
+// or: obj = { __proto__: null }
 */!*
 
 let key = prompt("What's the key?", "__proto__");
@@ -175,6 +256,7 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 
 ## الملخص
 
+<<<<<<< HEAD
 الدوال الحديثة لإنشاء نموذج و الوصول إليه هي:
 
 - [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with a given `proto` as `[[Prototype]]` (can be `null`) and optional property descriptors.
@@ -186,11 +268,22 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 لذا يمكننا استخدام `Object.create(null)` لإنشاء كائن عادى جدًا "very plain" بدون `__proto__` أو استخدام الـ `Map` لهذا.
 
 وأيضًا، تعطي الدالة `Object.create` طريقة سهل لنسخ الكائن بكل الواصفات (descriptors):
+=======
+- To create an object with the given prototype, use:
 
-```js
-let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
-```
+    - literal syntax: `{ __proto__: ... }`, allows to specify multiple properties
+    - or [Object.create(proto, [descriptors])](mdn:js/Object/create), allows to specify property descriptors.
 
+    The `Object.create` provides an easy way to shallow-copy an object with all descriptors:
+
+    ```js
+    let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+    ```
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
+
+- Modern methods to get/set the prototype are:
+
+<<<<<<< HEAD
 وقد أوضحنا أيضًا أن `__proto__` هو جالب أو معدّل للخاصية `[[Prototype]]` ويوجد فى `Object.prototype` مثل غيره من الدوال.
 
 ويمكننا أن ننشئ كائنًا من غير نموذج باستخدام `Object.create(null)`، وهذه الكائنات تستخدم ككائنات عادية "pure dictionaries" حيث لا توجد لديها أى مشاكل إذا قام المستخدم بإدخال `"__proto__"` كإسم للخاصية.
@@ -205,3 +298,15 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 - [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty): تقوم بإرجاع `true` إذا احتوي الكائن وليس نموذجه على خاصية تسمى `key`.
 
 كل الدوال التى تقوم بإرجاع خصائص الكائن (مثل `Object.keys` وغيرها) -- تقوم بإرجاع الخصائص الموجودة فى الكائن فقط وليست الموجودة فى نموذجه (its prototype). فإذا كنا نريد إرجاع الموجودة فى النموذج أيضًا فيمكننا استخدام التكرار `for..in`.
+=======
+    - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj` (same as `__proto__` getter).
+    - [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- sets the `[[Prototype]]` of `obj` to `proto` (same as `__proto__` setter).
+
+- Getting/setting the prototype using the built-in `__proto__` getter/setter isn't recommended, it's now in the Annex B of the specification.
+
+- We also covered prototype-less objects, created with `Object.create(null)` or `{__proto__: null}`.
+
+    These objects are used as dictionaries, to store any (possibly user-generated) keys.
+
+    Normally, objects inherit built-in methods and `__proto__` getter/setter from `Object.prototype`, making corresponding keys "occupied" and potentially causing side effects. With `null` prototype, objects are truly empty.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10

@@ -47,9 +47,13 @@ let guestList = "Guests: // Error: Unexpected token ILLEGAL
   * John";
 ```
 
+<<<<<<< HEAD
 أتى استخدام علامات الاقتباس الفردية والثنائية في أوقات مبكرة من إنشاء اللغة، عندما لم يُؤخَذ بالحسبان الحاجة إلى نص متعدد الأسطر. ظهرت الفاصلة العلوية المائلة مؤخرًا ولذا فإنها متعددة الاستعمالات.
+=======
+Single and double quotes come from ancient times of language creation, when the need for multiline strings was not taken into account. Backticks appeared much later and thus are more versatile.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
-Backticks also allow us to specify a "template function" before the first backtick. The syntax is: <code>func&#96;string&#96;</code>. The function `func` is called automatically, receives the string and embedded expressions and can process them. This is called "tagged templates". This feature makes it easier to implement custom templating, but is rarely used in practice. You can read more about it in the [manual](mdn:/JavaScript/Reference/Template_literals#Tagged_templates).
+Backticks also allow us to specify a "template function" before the first backtick. The syntax is: <code>func&#96;string&#96;</code>. The function `func` is called automatically, receives the string and embedded expressions and can process them. This feature is called "tagged templates", it's rarely seen, but you can read about it in the MDN: [Template literals](mdn:/JavaScript/Reference/Template_literals#Tagged_templates).
 
 ## الرموز الخاصة
 ما زال بالإمكان كتابة نصوص متعددة الأسطر باستخدام علامات الاقتباس الأحادية والثنائية باستخدام ما يسمى ب "رمز السطر الجديد"، والذي يُكتَب `‎\n`، ويرمز لسطر جديد:
@@ -58,10 +62,17 @@ Backticks also allow us to specify a "template function" before the first backti
 ```js run
 let guestList = "Guests:\n * John\n * Pete\n * Mary";
 
+<<<<<<< HEAD
 alert(guestList);  // قائمة متعددة الأسطر بالضيوف
 ```
 
 مثلًا، السطرين التاليين متماثلان، لكنهما مكتوبين بطريقة مختلفة:
+=======
+alert(guestList); // a multiline list of guests, same as above
+```
+
+As a simpler example, these two lines are equal, just written differently:
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ```js run
 let str1 = "Hello\nWorld"; // سطران باستخدام "رمز السطر الجديد"
@@ -73,6 +84,7 @@ World`;
 alert(str1 == str2); // true
 ```
 
+<<<<<<< HEAD
 يوجد رموز خاصة أخرى أقل انتشارًا.
 
 هذه القائمة كاملة:
@@ -88,32 +100,36 @@ alert(str1 == str2); // true
 | `‎\xXX`           | صيغة رمز يونيكود مع عدد ست عشري مُعطى `XX`، مثال: `'‎ \x7A'` هي نفسها `'z'`. |
 | `‎\uXXXX`         | صيغة رمز يونيكود مع عدد ست عشرية `XXXX` في تشفير UTF-16، مثلًا، `‎\u00A9` – هو اليونيكود لرمز حقوق النسخ `©`. يجب أن يكون مكون من 6 خانات ست عشرية. |
 | ‎`\u{X…XXXXXX}‎`   | (1 إلى 6 أحرف ست عشرية) رمز يونيكود مع تشفير UTF-32 المعطى. تُشَفَّر بعض الرموز الخاصة برمزي يونيكود، فتأخذ 4 بايت. هكذا يمكننا إدخال شيفرات طويلة. |
+=======
+There are other, less common special characters:
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 | Character | Description |
 |-----------|-------------|
 |`\n`|New line|
-|`\r`|Carriage return: not used alone. Windows text files use a combination of two characters `\r\n` to represent a line break. |
-|`\'`, `\"`|Quotes|
+|`\r`|In Windows text files a combination of two characters `\r\n` represents a new break, while on non-Windows OS it's just `\n`. That's for historical reasons, most Windows software also understands `\n`. |
+|`\'`,&nbsp;`\"`,&nbsp;<code>\\`</code>|Quotes|
 |`\\`|Backslash|
 |`\t`|Tab|
-|`\b`, `\f`, `\v`| Backspace, Form Feed, Vertical Tab -- kept for compatibility, not used nowadays. |
-|`\xXX`|Unicode character with the given hexadecimal Unicode `XX`, e.g. `'\x7A'` is the same as `'z'`.|
-|`\uXXXX`|A Unicode symbol with the hex code `XXXX` in UTF-16 encoding, for instance `\u00A9` -- is a Unicode for the copyright symbol `©`. It must be exactly 4 hex digits. |
-|`\u{X…XXXXXX}` (1 to 6 hex characters)|A Unicode symbol with the given UTF-32 encoding. Some rare characters are encoded with two Unicode symbols, taking 4 bytes. This way we can insert long codes. |
+|`\b`, `\f`, `\v`| Backspace, Form Feed, Vertical Tab -- mentioned for completeness, coming from old times, not used nowadays (you can forget them right now). |
 
-Examples with Unicode:
+As you can see, all special characters start with a backslash character `\`. It is also called an "escape character".
+
+Because it's so special, if we need to show an actual backslash `\` within the string, we need to double it:
 
 ```js run
-alert( "\u00A9" ); // ©
-alert( "\u{20331}" ); // 佫, a rare Chinese hieroglyph (long Unicode)
-alert( "\u{1F60D}" ); // 😍, a smiling face symbol (another long Unicode)
+alert( `The backslash: \\` ); // The backslash: \
 ```
 
+<<<<<<< HEAD
 // (رمز نادر من الهيروغليفية الصينية (يونيكود طويل
 alert( "\u{20331}" ); // 佫
 
 // (رمز وجه مبتسم (يونيكود طويل آخر
 alert( "\u{1F60D}" ); // 😍
+=======
+So-called "escaped" quotes `\'`, `\"`, <code>\\`</code> are used to insert a quote into the same-quoted string.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ```
 
@@ -128,14 +144,18 @@ alert( 'I*!*\'*/!*m the Walrus!' ); // *!*I'm*/!* the Walrus!
 Of course, only the quotes that are the same as the enclosing ones need to be escaped. So, as a more elegant solution, we could switch to double quotes or backticks instead:
 
 ```js run
-alert( `I'm the Walrus!` ); // I'm the Walrus!
+alert( "I'm the Walrus!" ); // I'm the Walrus!
 ```
 
+<<<<<<< HEAD
 لكن ماذا إن أردنا عرض شرطة مائلة خلفية ضمن النص؟ يمكن ذلك، لكننا نحتاج إلى تكرارها هكذا `\\`:
 
 ```js run
 alert( `The backslash: \\` ); // The backslash: \
 ```
+=======
+Besides these special characters, there's also a special notation for Unicode codes `\u…`, it's rarely used and is covered in the optional chapter about [Unicode](info:unicode).
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ## طول النص
 تحمل الخاصية `length` طول النص:
@@ -147,32 +167,54 @@ alert( `My\n`.length ); // 3
 
 لاحظ أن `n\` هو رمز خاص، لذا يكون طول السلسلة الفعلي هو `3`.
 
+<<<<<<< HEAD
 ```warn header="**`length` هي خاصية**"
 يُخطِئ بعض الأشخاص ذوي الخلفيات بلغات برمجية أخرى و يستدعون `str.length()‎ ` بدلًا من استدعاء `str.length` فقط. لذا لا يعمل هذا التابع لعدم وجوده. فلاحظ أن `str.length` هي خاصية عددية، وليس تابعًا ولا حاجة لوضع قوسين بعدها.
+=======
+Please note that `str.length` is a numeric property, not a function. There is no need to add parenthesis after it. Not `.length()`, but `.length`.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 ```
 
 ## الوصول إلى محارف سلسلة
 
+<<<<<<< HEAD
 للحصول على حرف في مكان معين من السلسلة النصية `pos`، استخدم الأقواس المعقوفة `[pos]` أو استدعِ التابع [str.charAt(pos)](mdn:js/String/charAt). يبدأ أول حرف في الموضع رقم صفر:
+=======
+To get a character at position `pos`, use square brackets `[pos]` or call the method [str.at(pos)](mdn:js/String/at). The first character starts from the zero position:
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ```js run
 let str = `Hello`;
 
 // the first character
 alert( str[0] ); // H
-alert( str.charAt(0) ); // H
+alert( str.at(0) ); // H
 
 // the last character
 alert( str[str.length - 1] ); // o
+alert( str.at(-1) );
 ```
 
+<<<<<<< HEAD
 الأقواس المعقوفة هي طريقة جديدة للحصول على حرف، بينما التابع `charAt` موجود لأسباب تاريخية. الاختلاف الوحيد بينهما هو إن لم تجد الأقواس المربعة `[]` الحرف تُرجِع القيمة `undefined` بينما يُرجِع `charAt` نصًا فارغًا:
+=======
+As you can see, the `.at(pos)` method has a benefit of allowing negative position. If `pos` is negative, then it's counted from the end of the string.
+
+So `.at(-1)` means the last character, and `.at(-2)` is the one before it, etc.
+
+The square brackets always return `undefined` for negative indexes, for instance:
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ```js run
 let str = `Hello`;
 
+<<<<<<< HEAD
 alert( str[1000] ); // undefined
 alert( str.charAt(1000) ); // '' (سلسلة نصية فارغ)
+=======
+alert( str[-2] ); // undefined
+alert( str.at(-2) ); // l
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 ```
 
 يمكننا أيضا التنقل خلال جميع محارف سلسلة باستخدام `for..of`:
@@ -222,7 +264,7 @@ alert( 'Interface'.toLowerCase() ); // interface
 أو إن أردنا بتغيير حالة حرف واحد فقط:
 
 
-```js
+```js run
 alert( 'Interface'[0].toLowerCase() ); // 'i'
 ```
 
@@ -312,6 +354,7 @@ if (str.indexOf("Widget") != -1) {
 }
 ```
 
+<<<<<<< HEAD
 #### The bitwise NOT trick
 
 One of the old tricks used here is the [bitwise NOT](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_NOT) `~` operator. It converts the number to a 32-bit integer (removes the decimal part if exists) and then reverses all bits in its binary representation.
@@ -350,6 +393,8 @@ To be precise though, as big numbers are truncated to 32 bits by `~` operator, t
 
 لا نجد هذه الخدعة حاليًا سوى في الشيفرات القديمة، وذلك لأن JavaScript وفرت التابع `‎.includes` (ستجدها في الأسفل).
 
+=======
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 ### includes, startsWith, endsWith
 
 يُرجِع التابع الأحدث  [str.includes(substr, pos)](mdn:js/String/includes) القيمة المنطقية `true` أو `false` وفقًا لما إن كانت السلسلة النصية `str` تحتوي على السلسلة النصية الفرعية `substr`. هذه هي الطريقة الصحيحة في حال أردنا التأكد من وجود تطابق جزء من سلسلة ضمن سلسلة أخرى، ولا يهمنا موضعه:
@@ -370,8 +415,8 @@ alert( "Widget".includes("id", 3) ); // false, from position 3 there is no "id"
 يعمل التابعان  [str.startsWith](mdn:js/String/startsWith) و [str.endsWith](mdn:js/String/endsWith) بما هو واضح من مسمياتهما، "سلسلة نصية تبدأ بـ"، و "سلسلة نصية تنتهي بـ" على التوالي:
 
 ```js run
-alert( "Widget".startsWith("Wid") ); // true, "Widget" starts with "Wid"
-alert( "Widget".endsWith("get") ); // true, "Widget" ends with "get"
+alert( "*!*Wid*/!*get".startsWith("Wid") ); // true, "Widget" starts with "Wid"
+alert( "Wid*!*get*/!*".endsWith("get") ); // true, "Widget" ends with "get"
 ```
 
 ## جلب جزء من نص
@@ -405,10 +450,17 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
     alert( str.slice(-4, -1) ); // 'gif'
     ```
 
+<<<<<<< HEAD
 ### **`str.substring(start [, end])‎`**
 يُرجِع هذا التابع جزءًا من النص الواقع بين الموضع `start` والموضع `end`. 
 
     `. يشبه هذا التابع تقريبًا التابع `slice`، لكنه يسمح بكون المعامل `start` أكبر من `end`.
+=======
+`str.substring(start [, end])`
+: Returns the part of the string *between* `start` and `end` (not including `end`).
+
+    This is almost the same as `slice`, but it allows `start` to be greater than `end` (in this case it simply swaps `start` and `end` values).
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
     مثلًا:
 
@@ -450,6 +502,7 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
     alert( str.substr(-4, 2) ); // حرفين ابتداءًا من الموضع الرابع
     ```
 
+<<<<<<< HEAD
 لِنُلَخِّص هذه التوابع لتجنب الخلط بينها:
 
 | التابع                  | يقتطع ...                                               | المواضع السالبة        |
@@ -457,12 +510,29 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
 | `slice(start, end)‎`     | من الموضع `start` إلى الموضع `end` (بما لا يتضمن `end`) | مسموحة لكلا المعاملين  |
 | `substring(start, end)‎` | ما بين الموضع `start` والموضع `end`                     | غير مسموحة وتصبح `0`   |
 | `substr(start, length)‎` | أرجع الأحرف بطول `length` بدءًا من `start`               | مسموحة للمعامل `start` |
+=======
+    This method resides in the [Annex B](https://tc39.es/ecma262/#sec-string.prototype.substr) of the language specification. It means that only browser-hosted Javascript engines should support it, and it's not recommended to use it. In practice, it's supported everywhere.
+
+Let's recap these methods to avoid any confusion:
+
+| method | selects... | negatives |
+|--------|-----------|-----------|
+| `slice(start, end)` | from `start` to `end` (not including `end`) | allows negatives |
+| `substring(start, end)` | between `start` and `end` (not including `end`)| negative values mean `0` |
+| `substr(start, length)` | from `start` get `length` characters | allows negative `start` |
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 
+<<<<<<< HEAD
 ```smart header="**أيهما تختار؟**"
 يمكن لجميع التوابع تنفيذ الغرض المطلوب. لدى التابع `substr` قصور بسيط رسميًا: فهو غير ذكورة في توثيق JavaScript الرسمي، بل في Annex B والذي يغطي ميزات مدعومة في المتصفحات فقط لأسباب تاريخية، لذا فإن أي بيئة لا تعمل على المتصفح ستفشل في دعم هذا التابع، لكنه يعمل عمليًا في كل مكان.
 
 ما بين الخيارين الآخرين، `slice` هو أكثر مرونة، فهو يسمح بتمرير مُعامِلات سالبة كما أنه أقصر في الكتابة. لذا، من الكافِ تذكر `slice` فقط من هذه التوابع الثلاث.
+=======
+Of the other two variants, `slice` is a little bit more flexible, it allows negative arguments and shorter to write.
+
+So, for practical use it's enough to remember only `slice`.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 ```
 
 ## موازنة النصوص
@@ -485,6 +555,7 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
 
 قد يقود ذلك إلى نتائج غريبة إن رتبنا مثلًا بين أسماء بلدان، فيتوقع الناس دائمًا أن `Zealand` تأتي بعد `Österreich` في القائمة وأن تونس تأتي قبل سوريا وهكذا. لفهم ما يحدث، لنراجع تمثيل النصوص الداخلي في JavaScript.
 
+<<<<<<< HEAD
 جميع النصوص مشفرة باستخدام  [UTF-16](https://en.wikipedia.org/wiki/UTF-16). يعني أن: لكل حرف رمز عددي مقابل له. يوجد دوال خاصة تسمح بالحصول على الحرف من رمزه والعكس.
 
 ### **`str.codePointAt(pos)‎`**
@@ -494,7 +565,20 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
     ```js run
     // لدى الأحرف المختلفة في الحالة رموز مختلفة
     alert( "z".codePointAt(0) ); // 122
+=======
+To understand what happens, we should be aware that strings in Javascript are encoded using [UTF-16](https://en.wikipedia.org/wiki/UTF-16). That is: each character has a corresponding numeric code.
+
+There are special methods that allow to get the character for the code and back:
+
+`str.codePointAt(pos)`
+: Returns a decimal number representing the code for the character at position `pos`:
+
+    ```js run
+    // different case letters have different codes
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
     alert( "Z".codePointAt(0) ); // 90
+    alert( "z".codePointAt(0) ); // 122
+    alert( "z".codePointAt(0).toString(16) ); // 7a (if we need a hexadecimal value)
     ```
 
 ### **`String.fromCodePoint(code)‎`**
@@ -503,6 +587,7 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
 
     ```js run
     alert( String.fromCodePoint(90) ); // Z
+<<<<<<< HEAD
     ```
 
     We can also add Unicode characters by their codes using `\u` followed by the hex code:
@@ -510,6 +595,9 @@ There are 3 methods in JavaScript to get a substring: `substring`, `substr` and 
     ```js run
     // يُمثَّل العدد العشري 90 بالعدد 5a في النظام الست عشري.
     alert( '\u005a' ); // Z
+=======
+    alert( String.fromCodePoint(0x5a) ); // Z (we can also use a hex value as an argument)
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
     ```
 
 لنرَ الآن الأحرف ذات الرموز `65..220` (الأحرف اللاتينية وأشياء إضافية) عبر إنشاء نصوص منها:
@@ -521,6 +609,7 @@ for (let i = 65; i <= 220; i++) {
   str += String.fromCodePoint(i);
 }
 alert( str );
+// Output:
 // ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 // ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜ
 ```
@@ -532,14 +621,23 @@ alert( str );
 - تأتي الأحرف الصغيرة بعد الأحرف الكبيرة دائمًا لأن رموزها العددية دائمًا أكبر.
 - تكون بعض الأحرف مثل `Ö` بعيدة عن الأحرف الهجائية. هنا، قيمة الحرف هذا أكبر من أي حرف بين `a` و `z`.
 
+<<<<<<< HEAD
 ### موازنات صحيحة
+=======
+- All lowercase letters go after uppercase letters because their codes are greater.
+- Some letters like `Ö` stand apart from the main alphabet. Here, its code is greater than anything from `a` to `z`.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 ### Correct comparisons [#correct-comparisons]
 
 لحسن الحظ، تدعم جميع المتصفحات الحديثة المعيار العالمي [ECMA 402](http://www.ecma-international.org/ecma-402/1.0/ECMA-402.pdf)(IE10- الذي يتطلب المكتبة الاضافية [Intl.JS](https://github.com/andyearnshaw/Intl.js/))، إذ يوفر تابعًا خاصًا لموازنة النصوص بلغات متعددة، وفقًا لقواعدها.
 
 
+<<<<<<< HEAD
 يُرجِع استدعاء التابع [`str.localeCompare(str2)‎`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare) عددًا يحدد ما إن كان النص `str` أصغر، أو يساوي، أو أكبر من النص `str2` وفقًا لقواعد اللغة المحلية:
+=======
+Luckily, modern browsers support the internationalization standard [ECMA-402](https://www.ecma-international.org/publications-and-standards/standards/ecma-402/).
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 - يُرجِع قيمة سالبة إن كان `str` أصغر من `str2`.
 - يُرجِع قيمة موجبة إن كان `str` أكبر من `str2`.
@@ -553,6 +651,7 @@ alert( 'Österreich'.localeCompare('Zealand') ); // -1
 ```
 mdn:js/String/localeCompare
 
+<<<<<<< HEAD
 في الحقيقة، لهذه الدالة مُعامِلين إضافيين كما في [توثيقها على MDN](mdn:js/String/localeCompare)، إذ يسمح هذان المُعاملان بتحديد اللغة (تؤخذ من بيئة العمل تلقائيًا، ويعتمد ترتيب الأحرف على اللغة) بالإضافة إلى إعداد قواعد أخرى مثل الحساسية تجاه حالة الأحرف، أو ما إن كان يجب معاملة `"a"` و `"á"` بالطريقة نفسها ...الخ.
 
 ## ما خلف الستار، يونيكود
@@ -667,11 +766,15 @@ alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 إن أردت تعلم المزيد عن قواعد التوحيد واختلافاتها - فستجدها في ملحق معايير اليونيكود: [نماذج توحيد ترميز اليونيكود](http://www.unicode.org/reports/tr15/),  لكن للأغراض العملية المتعارفة فالمعلومات السابقة تفي بالغرض.
 
 ## المُلخص
+=======
+This method actually has two additional arguments specified in [the documentation](mdn:js/String/localeCompare), which allows it to specify the language (by default taken from the environment, letter order depends on the language) and setup additional rules like case sensitivity or should `"a"` and `"á"` be treated as the same etc.
+
+## Summary
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10
 
 - There are 3 types of quotes. Backticks allow a string to span multiple lines and embed expressions `${…}`.
-- Strings in JavaScript are encoded using UTF-16.
-- We can use special characters like `\n` and insert letters by their Unicode using `\u...`.
-- To get a character, use: `[]`.
+- We can use special characters, such as a line break `\n`.
+- To get a character, use: `[]` or `at` method.
 - To get a substring, use: `slice` or `substring`.
 - To lowercase/uppercase a string, use: `toLowerCase/toUpperCase`.
 - To look for a substring, use: `indexOf`, or `includes/startsWith/endsWith` for simple checks.
@@ -683,4 +786,10 @@ alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 - `str.repeat(n)‎ ` تُكرِّر النص `n` مرة.
 - والمزيد، يمكن الاطلاع عليها في  [manual](mdn:js/String).
 
+<<<<<<< HEAD
 هنالك توابع أخرى للنصوص أيضًا تعمل على البحث/الاستبدال مع التعابير النمطية (regular expressions). لكن ذلك موضوع كبير، لذا فقد شُرِحَ في فصل مستقل، <info:regular-expressions>.
+=======
+Strings also have methods for doing search/replace with regular expressions. But that's big topic, so it's explained in a separate tutorial section <info:regular-expressions>.
+
+Also, as of now it's important to know that strings are based on Unicode encoding, and hence there're issues with comparisons. There's more about Unicode in the chapter <info:unicode>.
+>>>>>>> d694e895efe89922a109702085b6ca1efeffea10

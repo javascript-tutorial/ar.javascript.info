@@ -28,4 +28,8 @@ alert(dictionary); // "apple,__proto__"
 
 عند إنشاء خاصية بواصف فإن مُعرِّفاتها تكون قيمها `false`. ولذلك فى الكود أعلاه فإن `dictionary.toString` هي غير معدودة (non-enumerable).
 
+<<<<<<< HEAD
 أنظر فصل [](info:property-descriptors) للمراجعة.
+=======
+See the chapter [](info:property-descriptors) for review.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c

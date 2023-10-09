@@ -214,7 +214,11 @@ alert(document.body.previousSibling); // HTMLHeadElement
 
 ## التنقل الخاص بالعناصر فقط
 
+<<<<<<< HEAD
 تشير خصائص التنقل المذكورة أعلاه إلى _جميع_ العقد. على سبيل المثال، في `childNodes` يمكننا رؤية كل من عقد النصوص وعقد العناصر وحتى عقد التعليقات إذا كانت موجودة.
+=======
+Navigation properties listed above refer to *all* nodes. For instance, in `childNodes` we can see both text nodes, element nodes, and even comment nodes if they exist.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 ولكن للعديد من المهام لا نريد عقد النصوص أو التعليقات. نريد التلاعب بعقد العناصر التي تمثل العلامات وتشكل هيكل الصفحة.
 

@@ -2,10 +2,16 @@
 
 يوجد نوعان من الأعداد في JavaScript:
 
+<<<<<<< HEAD
 1. أعداد عادية تخزَّن بصيغة 64-بت [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision)، تُعرف أيضًا ب "الأعداد العشرية مضاعفة الدقة" (double precision floating point numbers). هذا النوع هو ما سنستعلمه أغلب الوقت وسنسلط عليه الضوء في هذا الفصل.
 2. أعداد صحيحة كبيرة (BigInt numbers) تمثِّل عددًا صحيحًا متغير الحجم، إذ قد نلجأ إليها أحيانًا لأن النوع السابق لا يمكن أن يتجاوز القيمة 2^53 أو أن تقل عن -2^53، وسنخصص لهذا النوع فصلًا خاصًا به نظرًا للحاجة إليه في حالات خاصة.
 
 حاليًا، لِنتوسع عن ما نعرفه عنها، وننتقل إلى الحديث عن النوع الأول، الأعداد العادية.
+=======
+1. Regular numbers in JavaScript are stored in 64-bit format [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754), also known as "double precision floating point numbers". These are numbers that we're using most of the time, and we'll talk about them in this chapter.
+
+2. BigInt numbers represent integers of arbitrary length. They are sometimes needed because a regular integer number can't safely exceed <code>(2<sup>53</sup>-1)</code> or be less than <code>-(2<sup>53</sup>-1)</code>, as we mentioned earlier in the chapter <info:types>. As bigints are used in few special areas, we devote them a special chapter <info:bigint>.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 ## طرق أخرى لكتابة عدد
 
@@ -21,7 +27,7 @@ We also can use underscore `_` as the separator:
 let billion = 1_000_000_000;
 ```
 
-Here the underscore `_` plays the role of the "syntactic sugar", it makes the number more readable. The JavaScript engine simply ignores `_` between digits, so it's exactly the same one billion as above.
+Here the underscore `_` plays the role of the "[syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar)", it makes the number more readable. The JavaScript engine simply ignores `_` between digits, so it's exactly the same one billion as above.
 
 In real life though, we try to avoid writing long sequences of zeroes. We're too lazy for that. We'll try to write something like `"1bn"` for a billion or `"7.3bn"` for 7 billion 300 million. The same is true for most large numbers.
 
@@ -35,12 +41,19 @@ let billion = 1e9;  // بليون، حرفيًا: 1 وجانبه 9 أصفار
 In other words, `e` multiplies the number by `1` with the given zeroes count.
 
 ```js
+<<<<<<< HEAD
 1e3 = 1 * 1000 // e3 means *1000
 1.23e6 = 1.23 * 1000000 // e6 means *1000000
 ````
+=======
+1e3 === 1 * 1000; // e3 means *1000
+1.23e6 === 1.23 * 1000000; // e6 means *1000000
+```
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 لنكتب الآن شيئَا صغيرًا جدًا. مثلًا، جزء من المليون من الثانية:
 
+<<<<<<< HEAD
 ```
 let ms = 0.000001;
 ```
@@ -52,15 +65,40 @@ let ms = 1e-6; // ستة أصفار على يسار 1
 ```
 
 إن قمنا بعد الأصفار في `0.000001`، سنجد عددها 6. لذا يكون الرقم `1e-6`.
+=======
+```js
+let mсs = 0.000001;
+```
+
+Just like before, using `"e"` can help. If we'd like to avoid writing the zeroes explicitly, we could write the same as:
+
+```js
+let mcs = 1e-6; // five zeroes to the left from 1
+```
+
+If we count the zeroes in `0.000001`, there are 6 of them. So naturally it's `1e-6`.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 بمعنى آخر، وجود رقم سالب بعد `"e"` يعني القسمة على 1 متبوعًا بِعدد الأصفار المعطى:
 
+<<<<<<< HEAD
 ```
 // -3 بالقسمة على 1 متبوعًا ب 3 أصفار
 1e-3 = 1 / 1000 (=0.001)
 
 // -6 بالقسمة على 1 متبوعًا ب 6 أصفار
 1.23e-6 = 1.23 / 1000000 (=0.00000123)
+=======
+```js
+// -3 divides by 1 with 3 zeroes
+1e-3 === 1 / 1000; // 0.001
+
+// -6 divides by 1 with 6 zeroes
+1.23e-6 === 1.23 / 1000000; // 0.00000123
+
+// an example with a bigger number
+1234e-2 === 1234 / 100; // 12.34, decimal point moves 2 times
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 ```
 
 ### الأعداد الست عشرية، والثنائية والثمانية
@@ -102,8 +140,22 @@ alert( num.toString(2) );   // 11111111
 - `base=2`: يستخدم بكثرة في تصحيح العمليات الدقيقة، يمكن أن يحوي الرقمين `0` أو `1`.
 - `base=36`: هو الحد الأعلى، يمكن أن يحوي الأرقام `0..9` أو الأحرُف `A..Z`. يمكن استخدام جميع الأحرف اللاتينية لتمثيل عدد. قد يبدو أمرًا ممتعًا لكن يكون مفيدًا في حال احتجنا لتحويل معرف عددي طويل إلى عدد أقصر، مثلًا، لتقصير رابط url. يمكن تمثيله بالنظام العددي ذي الأساس `36`:
 
+<<<<<<< HEAD
 ```
 alert( 123456..toString(36) ); // 2n9c
+=======
+    ```js run
+    alert( 123456..toString(36) ); // 2n9c
+    ```
+
+```warn header="Two dots to call a method"
+Please note that two dots in `123456..toString(36)` is not a typo. If we want to call a method directly on a number, like `toString` in the example above, then we need to place two dots `..` after it.
+
+If we placed a single dot: `123456.toString(36)`, then there would be an error, because JavaScript syntax implies the decimal part after the first dot. And if we place one more dot, then JavaScript knows that the decimal part is empty and now goes the method.
+
+Also could write `(123456).toString(36)`.
+
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 ```
 
 ## Rounding
@@ -141,10 +193,16 @@ For instance, we have `1.2345` and want to round it to 2 digits, getting only `1
 
 يمكن كتابتها بهذه الطريقة أيضًا `‎(123456).toString(36)‎`.
 
+<<<<<<< HEAD
 ````
 
 ## التقريب (Rounding)
 أحد الخصائص الأكثر استخدامًا عند التعامل مع الأعداد هي التقريب. يوجد العديد من الدوال المدمجة للتقريب:
+=======
+    For example, to round the number to the 2nd digit after the decimal, we can multiply the number by `100`, call the rounding function and then divide it back.
+    ```js run
+    let num = 1.23456;
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
     alert( Math.round(num * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
     ```
@@ -162,19 +220,33 @@ For instance, we have `1.2345` and want to round it to 2 digits, getting only `1
 
 مثلًا، لدينا العدد `1.2345` ونريد تقريب إلى خانتين لنحصل على `1.23` فقط. يوجد طريقتين للقيام بذلك:
 
+<<<<<<< HEAD
 1- الضرب والقسمة:
+=======
+    Please note that the result of `toFixed` is a string. If the decimal part is shorter than required, zeroes are appended to the end:
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 مثلًا، لتقريب الرقم إلى الخانة الثانية بعد الفاصلة العشرية، يمكننا ضرب العدد في `100`، ثم نستدعي تابع التقريب ثم نقسم على نفس العدد.
 
+<<<<<<< HEAD
 ````
+=======
+    We can convert it to a number using the unary plus or a `Number()` call, e.g write `+num.toFixed(5)`.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 let num = 1.23456;
 
+<<<<<<< HEAD
 alert( Math.floor(num \* 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
 
 ```
 
 2- يقرب التابع [`toFixed(n)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) العدد المستدعى معه إلى الخانة `n` بعد الفاصلة العشرية ويُرجِع تمثيلًا نصيًا للنتيجة.
+=======
+Internally, a number is represented in 64-bit format [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754), so there are exactly 64 bits to store a number: 52 of them are used to store the digits, 11 of them store the position of the decimal point, and 1 bit is for the sign.
+
+If a number is really huge, it may overflow the 64-bit storage and become a special numeric value `Infinity`:
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 ```
 
@@ -183,7 +255,11 @@ alert( num.toFixed(1) ); // "12.3"
 
 ```
 
+<<<<<<< HEAD
 يعمل التابع على تقريب العدد للأكبر أو الأصغر وفقًا إلى أقرب قيمة، مثل التابع `Math.round`:
+=======
+Consider this (falsy!) equality test:
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 ```
 
@@ -196,8 +272,12 @@ alert( num.toFixed(1) ); // "12.4"
 
 ```
 
+<<<<<<< HEAD
 let num = 12.34;
 alert( num.toFixed(5) ); // "12.34000", أصفار مضافة لجعل عدد الخانات 5
+=======
+Ouch! Imagine you're making an e-shopping site and the visitor puts `$0.10` and `$0.20` goods into their cart. The order total will be `$0.30000000000000004`. That would surprise anyone.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 ```
 
@@ -205,7 +285,11 @@ alert( num.toFixed(5) ); // "12.34000", أصفار مضافة لجعل عدد ا
 ## حسابات غير دقيقة
 يُمَثَّل العدد داخليًا بصيغة 64-بِت [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision)، لذا يوجد 64 بِت لتخزين العدد: تستخدم 52 منها لتخزين أرقام العدد، و 11  منها لتخزين مكان الفاصلة العشرية (تكون أصفارًا للاعداد الصحيحة)، و 1 بِت لإشارة العدد.
 
+<<<<<<< HEAD
 إن كان العدد كبيرًا جدًا، فَسيزداد عن مساحة التخزين 64-بِت، معطيًا ما لا نهاية:
+=======
+What is `0.1`? It is one divided by ten `1/10`, one-tenth. In decimal numeral system such numbers are easily representable. Compare it to one-third: `1/3`. It becomes an endless fraction `0.33333(3)`.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 ```
 
@@ -261,7 +345,11 @@ alert( 0.1.toFixed(20) ); // 0.10000000000000000555
 
 ```js run
 let sum = 0.1 + 0.2;
+<<<<<<< HEAD
 alert(sum.toFixed(2)); // 0.30
+=======
+alert( sum.toFixed(2) ); // "0.30"
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 ```
 
 يرجى ملاحظة أن `toFixed` تُرجِع نصًا دائمًا. وتتأكد من وجود خانتين فقط بعد العلامة العشرية. هذا يجعل الأمر مريحًا إن كان لدينا موقع تسوق إلكتروني وأردنا عرض `$0.30`. يمكننا استخدام الجمع الأحادي في الحالات الأخرى لتحويله إلى عدد:
@@ -314,10 +402,21 @@ alert( 9999999999999999 ); // يظهر 10000000000000000
 
 - `isNaN(value)‎` يُحوِّل المُعامل إلى عدد ثم يفحص ما إن كان `NaN`:
 
+<<<<<<< HEAD
 ```
 alert( isNaN(NaN) ); // true
 alert( isNaN("str") ); // true
 ```
+=======
+- `isNaN(value)` converts its argument to a number and then tests it for being `NaN`:
+
+    ```js run
+    alert( isNaN(NaN) ); // true
+    alert( isNaN("str") ); // true
+    ```
+
+    But do we need this function? Can't we just use the comparison `=== NaN`? Unfortunately not. The value `NaN` is unique in that it does not equal anything, including itself:
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 لكن هل نحتاج لهذا التابع؟ أليس من الممكن استخدام الموازنة فقط `=== NaN`? الإجابة للأسف هي لا. القيمة `NaN` هي فريدة ولا يمكن أن تساوي أي شيء، حتى نفسها:
 
@@ -342,16 +441,60 @@ let num = +prompt("Enter a number", '');
 alert( isFinite(num) );
 ```
 
+<<<<<<< HEAD
 يرجى ملاحظة أن الفراغ أو المسافة الواحدة تُعامل معاملة الصفر `0` في جميع التوابع العددية بما فيها `isFinite`.
 
 ```smart header="المقارنة باستخدام `Object.is`"
 
 يوجد تابع خاص مدمج في اللغة يدعى [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) يوزان القيم كما `===` لكنه أكثر موثوقية لسببين:
+=======
+Please note that an empty or a space-only string is treated as `0` in all numeric functions including `isFinite`.
+
+````smart header="`Number.isNaN` and `Number.isFinite`"
+[Number.isNaN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN) and [Number.isFinite](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite) methods are the more "strict" versions of `isNaN` and `isFinite` functions. They do not autoconvert their argument into a number, but check if it belongs to the `number` type instead.
+
+- `Number.isNaN(value)` returns `true` if the argument belongs to the `number` type and it is `NaN`. In any other case it returns `false`.
+
+    ```js run
+    alert( Number.isNaN(NaN) ); // true
+    alert( Number.isNaN("str" / 2) ); // true
+
+    // Note the difference:
+    alert( Number.isNaN("str") ); // false, because "str" belongs to the string type, not the number type
+    alert( isNaN("str") ); // true, because isNaN converts string "str" into a number and gets NaN as a result of this conversion
+    ```
+
+- `Number.isFinite(value)` returns `true` if the argument belongs to the `number` type and it is not `NaN/Infinity/-Infinity`. In any other case it returns `false`.
+
+    ```js run
+    alert( Number.isFinite(123) ); // true
+    alert( Number.isFinite(Infinity) ); // false
+    alert( Number.isFinite(2 / 0) ); // false
+
+    // Note the difference:
+    alert( Number.isFinite("123") ); // false, because "123" belongs to the string type, not the number type
+    alert( isFinite("123") ); // true, because isFinite converts string "123" into a number 123
+    ```
+
+In a way, `Number.isNaN` and `Number.isFinite` are simpler and more straightforward than `isNaN` and `isFinite` functions. In practice though, `isNaN` and `isFinite` are mostly used, as they're shorter to write.
+````
+
+```smart header="Comparison with `Object.is`"
+There is a special built-in method `Object.is` that compares values like `===`, but is more reliable for two edge cases:
+
+1. It works with `NaN`: `Object.is(NaN, NaN) === true`, that's a good thing.
+2. Values `0` and `-0` are different: `Object.is(0, -0) === false`, technically that's correct, because internally the number has a sign bit that may be different even if all other bits are zeroes.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 1. أنه يعمل مع `NaN`: أي `Object.is(NaN, NaN) === true` وهذا أمر جيد.
 2. القيمتان `0` و `-0` مختلفتان: `Object.is(0, -0) === false`، الأمر صحيح تقنيًا، لأن العدد لديه إشارة داخليًا مما يجعل القيم مختلفة حتى لو كانت باقي الخانات أصفارًا.
 
+<<<<<<< HEAD
 يكون التابع `Object.is(a, b)‎` نفس `a === b` في باقي الحالات.
+=======
+We mention `Object.is` here, because it's often used in JavaScript specification. When an internal algorithm needs to compare two values for being exactly the same, it uses `Object.is` (internally called [SameValue](https://tc39.github.io/ecma262/#sec-samevalue)).
+```
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 تُستخدم طريقة الموازنة هذه غالبًا في توصيف JavaScript. عندما تحتاج خوارزمية لموازنة كون قيمتين متطابقتان تمامًا فإنها تستخدم `Object.is` (تُسَمَّى داخليًا القيمة ذاتها "[SameValue](https://tc39.github.io/ecma262/#sec-samevalue)").
 
@@ -404,8 +547,13 @@ alert(parseInt('2n9c', 36)); // 123456
     alert( Math.random() ); // ... (أي رقم عشوائي)
     ```
 
+<<<<<<< HEAD
 `Math.max(a, b, c...)` / `Math.min(a, b, c...)`
 : تُرجِع القيمة الأكبر أو الأصغر من المُعامِلات
+=======
+`Math.max(a, b, c...)` and `Math.min(a, b, c...)`
+: Returns the greatest and smallest from the arbitrary number of arguments.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
     ```js run
     alert( Math.max(3, 5, -10, 0, 1) ); // 5
@@ -434,7 +582,18 @@ For different numeral systems:
 - `parseInt(str, base)` parses the string `str` into an integer in numeral system with given `base`, `2 ≤ base ≤ 36`.
 - `num.toString(base)` converts a number to a string in the numeral system with the given `base`.
 
+<<<<<<< HEAD
 ## الملخص
+=======
+For regular number tests:
+
+- `isNaN(value)` converts its argument to a number and then tests it for being `NaN`
+- `Number.isNaN(value)` checks whether its argument belongs to the `number` type, and if so, tests it for being `NaN`
+- `isFinite(value)` converts its argument to a number and then tests it for not being `NaN/Infinity/-Infinity`
+- `Number.isFinite(value)` checks whether its argument belongs to the `number` type, and if so, tests it for not being `NaN/Infinity/-Infinity`
+
+For converting values like `12pt` and `100px` to a number:
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 لكتابة أعداد كبيرة:
 - أضِف `"e"` مع عدد الأصفار الخاصة بالعدد المطلوب، مثل: `123e6` هو `123` مع 6 أصفار.

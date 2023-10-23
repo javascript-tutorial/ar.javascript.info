@@ -15,6 +15,7 @@
 ```
 let json = `{ "name": "John", "age": 30 }`;
 ```
+<<<<<<< HEAD
 سنستعمل في الشيفرة التابِع `JSON.parse`، وإن استلم كائن `json` معطوب رمى خطأ `SyntaxError`. ولكن، حتّى لو
 كان الكائن صحيحًا صياغيًا، فلا يعني هذا أنّ المستخدم صالحًا أيضًا، أم لا؟ لربّما لا يحتوي بعض البيانات مثل خاصيتي الاسم
 `json` والعمر `name` الضروريتين للمستخدمين.
@@ -26,6 +27,19 @@ let json = `{ "name": "John", "age": 30 }`;
 لنعرف ما نحاول توسعته:
 ```
 // شيفرة مبسّطة لصنف الخطأ ‫Error المضمّن في لغة جافا سكريبت نفسها
+=======
+
+Internally, we'll use `JSON.parse`. If it receives malformed `json`, then it throws `SyntaxError`. But even if `json` is syntactically correct, that doesn't mean that it's a valid user, right? It may miss the necessary data. For instance, it may not have `name` and `age` properties that are essential for our users.
+
+Our function `readUser(json)` will not only read JSON, but check ("validate") the data. If there are no required fields, or the format is wrong, then that's an error. And that's not a `SyntaxError`, because the data is syntactically correct, but another kind of error. We'll call it `ValidationError` and create a class for it. An error of that kind should also carry the information about the offending field.
+
+Our `ValidationError` class should inherit from the `Error` class.
+
+The `Error` class is built-in, but here's its approximate code so we can understand what we're extending:
+
+```js
+// The "pseudocode" for the built-in Error class defined by JavaScript itself
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 class Error {
 constructor(message) {
 this.message = message;
@@ -35,8 +49,15 @@ this.stack = <call stack>; // ليست قياسية، إلّا أنّ أغلب �
 }
 ```
 
+<<<<<<< HEAD
 الآن صار وقت أن يرث الصنف `ValidationError` منها:
 ```
+=======
+Now let's inherit `ValidationError` from it and try it in action:
+
+```js run
+*!*
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 class ValidationError extends Error {
 constructor(message) {
 super(message); // (1)
@@ -100,6 +121,7 @@ throw err; // خطأ لا نعرفه، علينا إعادة رميه (**)
 } else if (err.name == "SyntaxError") { // (*)
 // ...
 ```
+<<<<<<< HEAD
 ولكنّ استعمال `instanceof` أفضل بكثير إذ يحدث ونوسّع مستقبلًا الصنف `ValidationError` بأصناف فرعية منه مثل
 `PropertyRequiredError`، والفحص عبر `instanceof` سيظلّ يعمل للأصناف الموروثة منه،
 كما من المهمّ أن تُعيد كتلة `catch` رمي الأخطاء التي لا تفهمها، كما في السطر `(**)`. ليس على هذه الكتلة إلّا التعامل مع
@@ -110,6 +132,18 @@ throw err; // خطأ لا نعرفه، علينا إعادة رميه (**)
 موجودة أو كان نسقها خطأ (مثل تقديم سلسلة نصية قيمةً للعمر `age`). لنصنع الصنف .... `PropertyRequiredError`
 ونستعمله فقط للخاصيات غير الموجودة، وسيحتوي على أيّة معلومات إضافية عن الخاصية الناقصة.
 ```
+=======
+
+The `instanceof` version is much better, because in the future we are going to extend `ValidationError`, make subtypes of it, like `PropertyRequiredError`. And `instanceof` check will continue to work for new inheriting classes. So that's future-proof.
+
+Also it's important that if `catch` meets an unknown error, then it rethrows it in the line `(**)`. The `catch` block only knows how to handle validation and syntax errors, other kinds (caused by a typo in the code or other unknown reasons) should fall through.
+
+## Further inheritance
+
+The `ValidationError` class is very generic. Many things may go wrong. The property may be absent or it may be in a wrong format (like a string value for `age` instead of a number). Let's make a more concrete class `PropertyRequiredError`, exactly for absent properties. It will carry additional information about the property that's missing.
+
+```js run
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 class ValidationError extends Error {
 
 constructor(message) {

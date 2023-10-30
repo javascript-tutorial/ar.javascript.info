@@ -3,7 +3,14 @@
 ```warn header="خصائص متقدمه فى اللغه"
 هذه المقالة تقوم بتغطية موضوع متقدم, لفهم بعض الحالات بشكل أفضل.
 
+<<<<<<< HEAD
 إنها ليست مهمة. يعيش العديد من المطورين ذوي الخبرة بشكل جيد دون معرفة ذلك. تابع القراءة إذا كنت تريد معرفة كيفية عمل الأشياء خلف الكواليس.
+=======
+```warn header="In-depth language feature"
+This article covers an advanced topic, to understand certain edge-cases better.
+
+It's not important. Many experienced developers live fine without knowing it. Read on if you want to know how things work under the hood.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 ```
 
 قد تفقد استدعاء تابع تم تقييمه بشكل ديناميكي `this`.
@@ -60,7 +67,7 @@ user.hi();
 let user = {
   name: "John",
   hi() { alert(this.name); }
-}
+};
 
 *!*
 // تقسيم الحصول على واستدعاء التابع في سطرين
@@ -88,7 +95,11 @@ hi(); // خطأ, لأن this غير معرفة
 user, 'hi', true;
 ```
 
+<<<<<<< HEAD
 حيث الأقواس `()` تسمى النوع المرجعي, يتلقون المعلومات الكاملة حول الكائن و توابعه, و يمكن وضع القيمه الصحيحة لـ `this` (`=user` في هذه الحالة).
+=======
+When parentheses `()` are called on the Reference Type, they receive the full information about the object and its method, and can set the right `this` (`user` in this case).
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 النوع المرجعي هو نوع داخلي خاص "وسيط", بغرض تمرير المعلومات من النقطة `.` الي طلب الأقواس `()`.
 

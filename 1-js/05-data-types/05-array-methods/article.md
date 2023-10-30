@@ -231,11 +231,22 @@ arr.forEach(function(item, index, array) {
 
 للتوابِع arr.indexOf و arr.lastIndexOf و arr.includes نفس الصياغة ووظيفتها هي ذات وظيفة تلك بنسخة النصوص النصية، الفرق أنها هنا تتعامل مع العناصر بدل المحارف:
 
+<<<<<<< HEAD
 - `arr.indexOf(item, from)` -- يبحث عن العنصر item بدءًا من الفهرس from، ويُعيد فهرسه حيث وجده. ولو لم يجده، يُعيد -1.
 - `arr.lastIndexOf(item, from)` -- نفسه، ولكن البحث يبدأ من اليمين وينتهي في اليسار..
 - `arr.includes(item, from)` -- يبحث عن العنصر item بدءًا من الفهرس from، ويُعيد true إن وجدته.
 
 مثال:
+=======
+The methods [arr.indexOf](mdn:js/Array/indexOf) and [arr.includes](mdn:js/Array/includes) have the similar syntax and do essentially the same as their string counterparts, but operate on items instead of characters:
+
+- `arr.indexOf(item, from)` -- looks for `item` starting from index `from`, and returns the index where it was found, otherwise `-1`.
+- `arr.includes(item, from)` -- looks for `item` starting from index `from`, returns `true` if found.
+
+Usually these methods are used with only one argument: the `item` to search. By default, the search is from the beginning.
+
+For instance:
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 ```js run
 let arr = [1, 0, false];
@@ -247,6 +258,7 @@ alert(arr.indexOf(null)); // -1
 alert(arr.includes(1)); // true
 ```
 
+<<<<<<< HEAD
 لاحظ أنّ التوابِع تستعمل الموازنة بِـ ===. لذا لو كنّا نبحث عن false، فستبحث هي عن false نفسها وليس الصفر.
 
 لو أردت معرفة فيما كانت تحتوي المصفوفة على عنصر معيّن، ولا تريد معرفة فهرسه، فدالة arr.includes مناسبة لك.
@@ -257,9 +269,37 @@ alert(arr.includes(1)); // true
 const arr = [NaN];
 alert(arr.indexOf(NaN)); // ‫يُعيد ‎-1 (الصحيح هو 0 إلّا أنّ الموازنة === لا تعمل مع NaN)
 alert(arr.includes(NaN)); // true (الآن صحيح)
+=======
+Please note that `indexOf` uses the strict equality `===` for comparison. So, if we look for `false`, it finds exactly `false` and not the zero.
+
+If we want to check if `item` exists in the array, and don't need the index, then `arr.includes` is preferred.
+
+The method [arr.lastIndexOf](mdn:js/Array/lastIndexOf) is the same as `indexOf`, but looks for from right to left.
+
+```js run
+let fruits = ['Apple', 'Orange', 'Apple']
+
+alert( fruits.indexOf('Apple') ); // 0 (first Apple)
+alert( fruits.lastIndexOf('Apple') ); // 2 (last Apple)
 ```
 
+````smart header="The `includes` method handles `NaN` correctly"
+A minor, but noteworthy feature of `includes` is that it correctly handles `NaN`, unlike `indexOf`:
+
+```js run
+const arr = [NaN];
+alert( arr.indexOf(NaN) ); // -1 (wrong, should be 0)
+alert( arr.includes(NaN) );// true (correct)
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
+```
+That's because `includes` was added to JavaScript much later and uses the more up to date comparison algorithm internally.
+````
+
+<<<<<<< HEAD
 ### البحث عبر find و findIndex
+=======
+### find and findIndex/findLastIndex
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 لنقل أنّ لدينا مصفوفة من الكائنات، كيف نجد الكائن حسب شرط معيّن؟
 
@@ -300,7 +340,30 @@ alert(user.name); // John
 
 يمكنك ملاحظة بأنّا في المثال مرّرنا للتابِع find الدالة item => item.id == 1 وفيها وسيط واحد. هذا طبيعي فنادرًا ما نستعمل الوُسطاء البقية في هذه الدالة
 
+<<<<<<< HEAD
 يتشابه التابِع [arr.findIndex](mdn:js/Array/findIndex) كثيرًا مع هذا، عدا على أنّه يُعيد فهرس العنصر الذي وجده بدل العنصر نفسه، ويُعيد ‎-1 لو لم يجد شيئًا.
+=======
+The [arr.findIndex](mdn:js/Array/findIndex) method has the same syntax, but returns the index where the element was found instead of the element itself. The value of `-1` is returned if nothing is found.
+
+The [arr.findLastIndex](mdn:js/Array/findLastIndex) method is like `findIndex`, but searches from right to left, similar to `lastIndexOf`.
+
+Here's an example:
+
+```js run
+let users = [
+  {id: 1, name: "John"},
+  {id: 2, name: "Pete"},
+  {id: 3, name: "Mary"},
+  {id: 4, name: "John"}
+];
+
+// Find the index of the first John
+alert(users.findIndex(user => user.name == 'John')); // 0
+
+// Find the index of the last John
+alert(users.findLastIndex(user => user.name == 'John')); // 3
+```
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 ### الترشيح filter
 
@@ -380,6 +443,11 @@ alert(arr); // *!*1, 15, 2*/!*
 
 على الدالة موازنة قيمتين اثنتين (أيًا كانتا) وإعادة الناتج:
 
+<<<<<<< HEAD
+=======
+The function should compare two arbitrary values and return:
+
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 ```js
 function compare(a, b) {
   if (a > b) return 1; // if the first value is greater than the second
@@ -614,15 +682,18 @@ arr.reduce((sum, current) => sum + current);
 
 الشيفرة السابقة ستطلق خطأ، إذ لا يمكن استدعاء reduce مع مصفوفة فارغة دون قيمة أولية، وتحل المشكلة بتوفير قيمة أولية، وستعاد آنذاك. لذا خُذ هذه النصيحة وحدّد قيمة أولية دومًا.
 
+<<<<<<< HEAD
 لا يختلف التابِع [arr.reduceRight](mdn:js/Array/reduceRight)عن هذا أعلاه إلا بأنّه يبدأ من اليمين وينتهي على اليسار.
 
+=======
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 ## Array.isArray
 
 المصفوفات ليست نوعًا منفصلًا في اللغة، بل هي مبنيّة على الكائنات. لذا typeof لن تفيدك في التفريق بين الكائن العادي والمصفوفة:
 
 ```js run
 alert(typeof {}); // object
-alert(typeof []); // same
+alert(typeof []); // object (same)
 ```
 
 …ولكن، المصفوفات تستعمل كثيرًا جدًا لدرجة تقديم تابِع خاص لهذا الغرض: Array.isArray(value)‎. يُعيد هذا التابِع true لو كانت value مصفوفة حقًا، وfalse لو لم تكن.
@@ -715,11 +786,16 @@ A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(
   - `split/join` -- convert a string to array and back.
   - `reduce/reduceRight(func, initial)` -- calculate a single value over the array by calling `func` for each element and passing an intermediate result between the calls.
 
+<<<<<<< HEAD
   - `map(func)` -- أنشِئ مصفوفة جديدة من نتائج استدعاء func لكلّ من عناصر المصفوفة.
   - `sort(func)` -- افرز المصفوفة كما هي وأعِد ناتج الفرز.
   - `reverse()` -- اعكس عناصر المصفوفة كما هي وأعِد ناتج العكس.
   - `split/join` -- حوّل المصفوفة إلى سلسلة نصية، والعكس أيضًا.
   - `reduce(func, initial)`-- احسب قيمة من المصفوفة باستدعاء func على كلّ عنصر فيها وتمرير الناتج بين كلّ استدعاء وآخر.
+=======
+- Additionally:
+  - `Array.isArray(value)` checks `value` for being an array, if so returns `true`, otherwise `false`.
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 * Additionally:
   - `Array.isArray(arr)` ‎ يفحص لو كانت `arr` مصفوفة أم لا.
@@ -734,6 +810,7 @@ A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(
   These methods behave sort of like `||` and `&&` operators: if `fn` returns a truthy value, `arr.some()` immediately returns `true` and stops iterating over the rest of items; if `fn` returns a falsy value, `arr.every()` immediately returns `false` and stops iterating over the rest of items as well.
 
   We can use `every` to compare arrays:
+
   ```js run
   function arraysEqual(arr1, arr2) {
     return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);

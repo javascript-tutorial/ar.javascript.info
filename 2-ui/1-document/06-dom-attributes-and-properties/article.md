@@ -165,7 +165,11 @@ document.body.sayHi(); // Hello, I'm BODY
 </script>
 ```
 
+<<<<<<< HEAD
 ولكن هناك استثناءات ، على سبيل المثال ، تتم مزامنة `input.value` فقط من السمة -> إلى الخاصية ، ولكن ليس مرة أخرى:
+=======
+But there are exclusions, for instance `input.value` synchronizes only from attribute -> property, but not back:
+>>>>>>> 285083fc71ee3a7cf55fd8acac9c91ac6f62105c
 
 ```html run
 <input />

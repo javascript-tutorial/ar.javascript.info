@@ -308,7 +308,7 @@ alert( obj["0"] ); // test
 alert( obj[0] ); // test (same property)
 ```
 
-There's a minor gotcha with a special property named `__proto__`. لا يمكننا استخدام الاسم على أنَّه قيمة لغير كائن:
+هناك حيلة صغيرة مع خاصية مميزة تسمى `__proto__`. لا يمكننا استخدام الاسم على أنَّه قيمة لغير كائن:
 
 ```js run
 let obj = {};

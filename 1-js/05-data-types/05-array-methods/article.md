@@ -36,7 +36,7 @@ alert(arr.length); // 3
 
 لهذا السبب علينا استعمال توابِع خاصّة لذلك.
 
-The [arr.splice](mdn:js/Array/splice) method is a swiss army knife for arrays. It can do everything: insert, remove and replace elements.
+طريقة [arr.splice](mdn:js/Array/splice) هي سكين سويسري للمصفوفات. يمكنها القيام بكل شيء: إدراج، إزالة، واستبدال العناصر.
 
 هذه صياغته:
 
@@ -44,7 +44,7 @@ The [arr.splice](mdn:js/Array/splice) method is a swiss army knife for arrays. I
 arr.splice(start[, deleteCount, elem1, ..., elemN])
 ```
 
-It modifies `arr` starting from the index `start`: removes `deleteCount` elements and then inserts `elem1, ..., elemN` at their place. Returns the array of removed elements.
+تعديل `arr` يبدأ من الفهرس `start`: يزيل `deleteCount` عناصر ثم يقوم بإدراج `elem1, ..., elemN` مكانها. يعيد مصفوفة العناصر المحذوفة.
 
 فهم هذا التابِع بالأمثلة أبسط.
 
@@ -411,6 +411,7 @@ alert(arr);  // *!*1, 2, 15*/!*
 لنتوقف لحظة ونفكّر فيما يحدث تمامًا. أنتّفق بأنّ المصفوفة arr يمكن أن تحتوي أيّ شيء؟ أيّ شيء من الأعداد أو السلاسل النصية أو الكائنات أو غيرها. كلّ ما لدينا هو مجموعة من العناصر. لترتيبها نحتاج دالة ترتيب تعرف طرقة مقارنة عناصر المصفوفة. مبدئيًا، الترتيب يكون بالسلاسل النصية.
 
 The `arr.sort(fn)` method implements a generic sorting algorithm. We don't need to care how it internally works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) or [Timsort](https://en.wikipedia.org/wiki/Timsort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
+تقوم طريقة `arr.sort(fn)` بتنفيذ خوارزمية ترتيب عامة. لا نحتاج إلى الاهتمام بكيفية عملها داخليًا (فمعظم الوقت يتم استخدام [ترتيب سريع](https://en.wikipedia.org/wiki/Quicksort) محسّن  أو [تيمسورت](https://en.wikipedia.org/wiki/Timsort)). ستمر عبر المصفوفة، تقارن عناصرها باستخدام الدالة المقدمة، وتعيد ترتيبها. كل ما نحتاجه هو توفير الدالة `fn` التي تقوم بالمقارنة.
 
 بالمناسبة، لو أردت معرفة العناصر التي تُوازنها الدالة حاليًا، فلا بأس. لن يقتلك أحد لو عرضتها:
 

@@ -10,7 +10,7 @@ _الوراثة النموذجية_ (تدعى أيضًا الوراثة عبر �
 
 لكائنات جافا سكريبت خاصية مخفية أخرى باسم `[[Prototype]]` (هذا اسمها في المواصفات القياسية للغة جافا سكريبت)، وهي إمّا أن تكون `null` أو أن تشير إلى كائن آخر. نسمّي هذا الكائن بِـ”prototype“ (نموذج أولي).
 
-When we read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, such thing is called "prototypal inheritance". And soon we'll study many examples of such inheritance, as well as cooler language features built upon it.
+عند قراءة خاصية من `كائن` وتعذر وجودها، تقوم جافا سكريبت تلقائيًا بأخذها من النموذج الأصلي. في البرمجة، يُطلق على مثل هذا الأمر "الوراثة النمطية" ("Prototypal inheritance"). وقريبًا سندرس العديد من الأمثلة على هذه الوراثة، بالإضافة إلى ميزات لغوية أكثر إثارة تستند عليها.
 
 إن كائن النموذج الأولي ”سحريٌ“ إن صحّ القول، فحين نريد قراءة خاصية من كائن `object` ولا يجدها محرّك جافا سكريبت، يأخذها تلقائيًا من كائن النموذج الأولي لذاك الكائن. يُسمّى هذا في علم البرمجة ”بالوراثة النموذجية“ (‏Prototypal inheritance)، وهناك العديد من المزايا الرائعة في اللغة وفي التقنيات البرمجية مبنية عليها.
 
@@ -31,8 +31,7 @@ rabbit.__proto__ = animal; // sets rabbit.[[Prototype]] = animal
 */!*
 ```
 
-Now if we read a property from `rabbit`, and it's missing, JavaScript will automatically take it from `animal`.
-
+الآن إذا قرأنا خاصية من `rabbit`، ولم تكن موجودة، ستقوم جافاسكريبت تلقائيًا بأخذها من `animal`.
 ```js
 let animal = {
   eats: true
@@ -120,9 +119,9 @@ alert(longEar.jumps); // true (from rabbit)
 
 ![](proto-animal-rabbit-chain.svg)
 
-Now if we read something from `longEar`, and it's missing, JavaScript will look for it in `rabbit`, and then in `animal`.
+الآن إذا قرأنا شيئًا من `longEar`، ولم يتم العثور عليه، ستبحث جافاسكريبت عنه أولاً في `rabbit`، ثم في `animal`.
 
-There are only two limitations:
+هناك فقط حدْان:
 
 ومن الواضح جليًا أيضًا أي كائن سيرث كائن `[[Prototype]]` واحد وواحد فقط، لا يمكن للكائن وراثة كائنين.
 

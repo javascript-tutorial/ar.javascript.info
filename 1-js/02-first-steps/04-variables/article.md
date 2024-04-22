@@ -135,18 +135,18 @@ alert(hello); // Hello world!
 alert(message); // Hello world!
 ```
 
-````warn header="Declaring twice triggers an error"
-A variable should be declared only once.
+````warn header="يؤدي التعريف مرتين الى حدوث خطأ"
+يجب تعريف المتغير مره واحدة فقط.
 
-A repeated declaration of the same variable is an error:
+التعريف المتكرر لنفس المتغير خطأ:
 
 ```js run
 let message = "This";
 
-// repeated 'let' leads to an error
+// تكرار 'let' يؤدي الى خطأ
 let message = "That"; // SyntaxError: 'message' has already been declared
 ```
-So, we should declare a variable once and then refer to it without `let`.
+اذا يجب علينا تعريف المتغير مرة واحدة ثم نشير اليه بدون استخدام `let`.
 ````
 
 ```smart header="Functional languages"
@@ -226,7 +226,7 @@ let return = 5; // وأيضا لا تستطيع تسميته "return", خطأ!
 بشكل طبيعي, نحن نحتاج تعريف المتغير قبل أستخدامه. ولكن في الماضي ، كان من الممكن من الناحية الفنية إنشاء متغير بمجرد تخصيص القيمة بدون استخدام `let`. وهذه الطريقة مازالت تعمل حتي الان أذا لم نكتب `use strict` في الملفات ولكن للحصول علي توافق مع الكتابة القديمة.
 
 ```js run no-strict
-// note: no "use strict" in this example
+// لاحظ: لم نستخدم "use strict" في هذا المثال
 
 num = 5; // المتغير "num" أنشئ ولم يكن موجود
 

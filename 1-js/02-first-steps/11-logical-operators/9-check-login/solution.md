@@ -1,24 +1,24 @@
 
 
 ```js run demo
-let userName = prompt("Who's there?", '');
+let userName = prompt("من هناك؟", '');
 
 if (userName === 'Admin') {
 
-  let pass = prompt('Password?', '');
+  let pass = prompt('كلمة المرور؟', '');
 
   if (pass === 'TheMaster') {
-    alert( 'Welcome!' );
+    alert( 'مرحبا!' );
   } else if (pass === '' || pass === null) {
-    alert( 'Canceled' );
+    alert( 'الغيت' );
   } else {
-    alert( 'Wrong password' );
+    alert( 'كلمة مرور خاطئة' );
   }
 
 } else if (userName === '' || userName === null) {
-  alert( 'Canceled' );
+  alert( 'الغيت' );
 } else {
-  alert( "I don't know you" );
+  alert( "لا أعرفك" );
 }
 ```
 

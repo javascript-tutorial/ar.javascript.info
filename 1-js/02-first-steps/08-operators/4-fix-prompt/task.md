@@ -11,8 +11,8 @@
 لماذا ا؟ اصلحه. يجب أن تكون النتيجة `3`.
 
 ```js run
-let a = prompt("First number?", 1);
-let b = prompt("Second number?", 2);
+let a = prompt("العدد الأول ؟", 1);
+let b = prompt("العدد الثاني ؟", 2);
 
 alert(a + b); // 12
 ```

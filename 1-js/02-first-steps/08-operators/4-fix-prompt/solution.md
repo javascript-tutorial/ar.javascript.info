@@ -2,8 +2,8 @@
 
 حتى المتغيرات لها قيم "1" و "2" على التوالي.
 ```js run
-let a = "1"; // prompt("First number?", 1);
-let b = "2"; // prompt("Second number?", 2);
+let a = "1"; // prompt("العدد الأول؟", 1);
+let b = "2"; // prompt("العدد الثاني؟", 2);
 
 alert(a + b); // 12
 ```
@@ -13,8 +13,8 @@ alert(a + b); // 12
 على سبيل المثال ، قبل "prompt" مباشرةً:
 
 ```js run
-let a = +prompt("First number?", 1);
-let b = +prompt("Second number?", 2);
+let a = +prompt("العدد الأول؟", 1);
+let b = +prompt("العدد الثاني؟", 2);
 
 alert(a + b); // 3
 ```
@@ -22,8 +22,8 @@ alert(a + b); // 3
 أو في  `alert`:
 
 ```js run
-let a = prompt("First number?", 1);
-let b = prompt("Second number?", 2);
+let a = prompt("العدد الأول؟", 1);
+let b = prompt("العدد الثاني؟", 2);
 
 alert(+a + +b); // 3
 ```

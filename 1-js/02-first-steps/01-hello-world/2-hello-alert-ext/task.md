@@ -2,8 +2,8 @@ importance: 5
 
 ---
 
-# Show an alert with an external script
+# أظهر تحذير باستخدام سكريبت خارجي
 
-Take the solution of the previous task <info:task/hello-alert>. Modify it by extracting the script content into an external file `alert.js`, residing in the same folder.
+قم باخذ الحل السابق <info:task/hello-alert>. عدل عليه باستخراج محتوى السكريبت الى ملف خارجي `alert.js` , مع وضعه في نفس المجلد.
 
-Open the page, ensure that the alert works.
+أفتح الصفحة وتأكد من انه يعمل.

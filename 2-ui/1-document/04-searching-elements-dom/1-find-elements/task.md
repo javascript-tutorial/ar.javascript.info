@@ -2,17 +2,17 @@ importance: 4
 
 ---
 
-# Search for elements
+# البحث عن العناصر
 
-Here's the document with the table and form.
+إليك مستند يحتوي على جدول table ونموذج form.
 
-How to find?...
+كيف يمكننا إيجاد؟...
 
-1. The table with `id="age-table"`.
-2. All `label` elements inside that table (there should be 3 of them).
-3. The first `td` in that table (with the word "Age").
-4. The `form` with `name="search"`.
-5. The first `input` in that form.
-6. The last `input` in that form.
+1. الجدول الذي يحتوي على "id="age-table"..
+2. جميع عناصر ال `label` داخل هذا الجدول (يجب أن يكون هناك 3 منها).
+3. أول `td` في هذا الجدول (مع كلمة "العمر").
+4. ال form ذو السمة `name="search"`.
+5. أول `input` في تلك ال form.
+6. أخر `input`في تلك ال form.
 
-Open the page [table.html](table.html) in a separate window and make use of browser tools for that.
+افتح الصفحة [table.html](table.html) في نافذة منفصلة واستخدم أدوات المتصفح لذلك.

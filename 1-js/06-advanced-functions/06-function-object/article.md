@@ -334,7 +334,7 @@ welcome(); // Hello, Guest (nested call works)
 
 ```smart header="لا يوجد هذا الشيء في تعريف الدالة العادية"
 
-The outer code still has its variable `sayHi` or `welcome`. And `func` is an "internal function name", how the function can call itself internally.
+The outer code still has its variable `sayHi` or `welcome`. And `func` is an "internal function name", the way for the function to can call itself reliably.
 
 في بعض الأحيان عندما نحتاج إلى اسم داخلي يكون هذا السبب لتحويل تعريف الدالة إلى NFE أو تعبير الدالة المُسمى.
 

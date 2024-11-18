@@ -6,9 +6,15 @@
 
 أنشئ كائنًا باسم `calculator` يحوي الدوال الثلاث التالية:
 
+<<<<<<< HEAD
 - `read()‎` تطلب قيمتين وتحفظها كخصائص الكائن.
 - `sum()‎` تُرجِع مجموع القيم المحفوظة.
 - `mul()‎` تضرب القيم المحفوظة وتُرجِع النتيجة.
+=======
+- `read()` prompts for two values and saves them as object properties with names `a` and `b` respectively.
+- `sum()` returns the sum of saved values.
+- `mul()` multiplies saved values and returns the result.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ```js
 let calculator = {
@@ -21,4 +27,3 @@ alert( calculator.mul() );
 ```
 
 [demo]
-

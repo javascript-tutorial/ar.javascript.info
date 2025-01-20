@@ -9,10 +9,15 @@ Till now, we've learned about the following complex data structures:
 
 ## الخارطة `Map`
 
+<<<<<<< HEAD
 تُعدّ [الخارطة](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) تجميعة ذات مفاتيح من عناصر البيانات، تمامًا مثل الكائنات `Object`، مع فرق بسيط، هو أنّ الخارطة `Map` تتيح استعمال المفاتيح مهمًا كان نوعها.
+=======
+[Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) is a collection of keyed data items, just like an `Object`. But the main difference is that `Map` allows keys of any type.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 هذه توابِعها وخاصياتها:
 
+<<<<<<< HEAD
 - `new Map()‎` -- يُنشِئ خارطة.
 - `map.set(key, value)‎` -- يضبط القيمة حسب مفتاحها.
 - `map.get(key)‎` -- يجلب القيمة حسب مفتاحها، و`undefined` لو لم يوجد `key` في الخارطة.
@@ -20,6 +25,15 @@ Till now, we've learned about the following complex data structures:
 - `map.delete(key)‎` -- يُزيل القيمة حسب مفتاحها.
 - `map.clear()‎` -- يُزيل كل شيء من الخارطة.
 - `map.size` -- يُعيد عدد العناصر الحالي.
+=======
+- [`new Map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/Map) -- creates the map.
+- [`map.set(key, value)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/set) -- stores the value by the key.
+- [`map.get(key)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/get) -- returns the value by the key, `undefined` if `key` doesn't exist in map.
+- [`map.has(key)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has) -- returns `true` if the `key` exists, `false` otherwise.
+- [`map.delete(key)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/delete) -- removes the element (the key/value pair) by the key.
+- [`map.clear()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear) -- removes everything from the map.
+- [`map.size`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size) -- returns the current element count.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 إليك المثال الآتي:
 
@@ -101,16 +115,26 @@ map.set('1', 'str1')
 
 ```
 
+<<<<<<< HEAD
 ## المرور على خارطة
 هناك ثلاث طرائق للمرور على عناصر `Map` وتطبيق عملية عليها:
 
 - `map.keys()‎` -- يُعيد مُتعدَّدًا للمفاتيح،
 - `map.values()‎` -- يُعيد مُتعدَّدًا للقيم،
 - `map.entries()‎` -- يُعيد مُتعدَّدًا للمدخلات `[key, value]`، وهي التي تستعملها `for..of` مبدئيًا.
+=======
+## Iteration over Map
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 مثال:
 
+<<<<<<< HEAD
 ```
+=======
+- [`map.keys()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys) -- returns an iterable for keys,
+- [`map.values()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values) -- returns an iterable for values,
+- [`map.entries()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/entries) -- returns an iterable for entries `[key, value]`, it's used by default in `for..of`.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 let recipeMap = new Map([
 ['cucumber', 500],
@@ -166,7 +190,11 @@ alert( map.get('1') ); // str1
 
 ```
 
+<<<<<<< HEAD
 لو كان أمامنا كائنًا عاديًا ونريد صناعة `Map` منه، فيمكننا استعمال التابِع المضمّن في اللغة [Object.entries(obj)](https://wiki.hsoub.com/JavaScript/Object/entries) إذ يُعيد مصفوفة مكوّنة من أزواج ”مفاتيح/قيم“ للكائن، بنفس الصيغة التي يطلبها ذاك التابِع.
+=======
+If we have a plain object, and we'd like to create a `Map` from it, then we can use built-in method [Object.entries(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries) that returns an array of key/value pairs for an object exactly in that format.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ولهذا يمكن أن نصنع خارطة من كائن بهذه الطريقة:
 
@@ -232,10 +260,23 @@ let obj = Object.fromEntries(map); // ب‫دون ‎.entries()‎
 
 ```
 
+<<<<<<< HEAD
 النتيجة نفسها إذ أنّ التابِع `Object.fromEntries` يتوقّع كائنًا مُتعدَّدًا وسيطًا له، وليس مصفوفة بالضرورة. كما والتعداد القياسي للخارطة يتوقّع ذات أزواج ”مفاتيح/قيم“ التي يتوقّعها `map.entries()‎`، وهكذا نجد في يدنا كائنًا عاديًا له نفس ”مفاتيح/قيم“ الخارطة `map`.
+=======
+A [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) is a special type collection - "set of values" (without keys), where each value may occur only once.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ## الطقم `Set`
 
+<<<<<<< HEAD
+=======
+- [`new Set([iterable])`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/Set) -- creates the set, and if an `iterable` object is provided (usually an array), copies values from it into the set.
+- [`set.add(value)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/add) -- adds a value, returns the set itself.
+- [`set.delete(value)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/delete) -- removes the value, returns `true` if `value` existed at the moment of the call, otherwise `false`.
+- [`set.has(value)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has) -- returns `true` if the value exists in the set, otherwise `false`.
+- [`set.clear()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/clear) -- removes everything from the set.
+- [`set.size`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/size) -- is the elements count.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 الأطقم (`Set`) هي نوع خاصّ من التجميعات ليس له مفاتيح ولا يمكن أن يحوي أكثر من قيمة متطابقة. يمكن عدّها كأطقم المجوهرات والأسنان، حيث لا تتكرّر أي قطعة مرتين.
 
@@ -278,7 +319,11 @@ alert(user.name); // ‫John (ثمّ Pete وMary)
 
 ```
 
+<<<<<<< HEAD
 يمكن عوض الأطقم استعمال مصفوفة من المستخدمين، مع نصّ يتحقّق من البيانات عند إدخالها لألّا تحدث تكرارات (باستعمال [arr.find](https://wiki.hsoub.com/JavaScript/Array/find)). هذا ممكن نعم، لكن الأداء سيكون أشنع بكثير فتابِع البحث `arr.find` يمرّ على _كامل المصفوفة_ فيفحص كلّ عنصر فيها. الطقم `Set` أفضل بمراحل فأداؤه في فحص تفرّد العناصر مُحسَّن داخل بنية اللغة.
+=======
+The alternative to `Set` could be an array of users, and the code to check for duplicates on every insertion using [arr.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find). But the performance would be much worse, because this method walks through the whole array checking every element. `Set` is much better optimized internally for uniqueness checks.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ## المرور على طقم
 
@@ -299,16 +344,30 @@ alert(value);
 
 ولكن لاحظ هنا طرافة التابِع: لدالة ردّ النداء المُمرّرة إلى `forEach` ثلاث وُسطاء: قيمة `value`، و*ذات القيمة الأولى* `valueAgain`، والكائن الهدف. لاحظتَ كيف تكرّرت ذات القيمة في الوُسطاء مرّتين؟
 
+<<<<<<< HEAD
 يعزو هذا إلى توافق `Set` مع `Map` إذ لدالة ردّ التابع المُمرّرة إلى `forEach` الخارطة ثلاث وُسطاء أيضًا. معك حق، أمرها غريب، ولكنّها تفيد فتُسهّل حياتنا لو أردنا استبدال الخارطة بالطقم في حالات حرجة، كما العكس أيضًا.
+=======
+That's for compatibility with `Map` where the callback passed `forEach` has three arguments. Looks a bit strange, for sure. But this may help to replace `Map` with `Set` in certain cases with ease, and vice versa.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 كما تدعم الأطقم نفس التوابِع التي تدعمها الخارطة للتعامل مع المُتعدَّدات:
 
+<<<<<<< HEAD
 - `set.keys()‎` -- يُعيد كائنًا مُتعدَّدًا من القيم،
 - `set.values()‎` -- تمامًا مثل `set.keys()‎` (موجود للتوافق مع `Map`)،
 - `set.entries()‎` -- يُعيد كائنًا مُتعدَّدًا من المُدخلات `[value, value]` (موجود للتوافق مع `Map`).
+=======
+- [`set.keys()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/keys) -- returns an iterable object for values,
+- [`set.values()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/values) -- same as `set.keys()`, for compatibility with `Map`,
+- [`set.entries()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/entries) -- returns an iterable object for entries `[value, value]`, exists for compatibility with `Map`.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ## ملخص
 
+<<<<<<< HEAD
+=======
+[`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) -- is a collection of keyed values.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 الخارطة `Map` هي تجميعة ذات مفاتيح.
 
@@ -467,27 +526,40 @@ map.set(sorted, word);
 
 ```
 
-- `new Map([iterable])` -- creates the map, with optional `iterable` (e.g. array) of `[key,value]` pairs for initialization.
-- `map.set(key, value)` -- stores the value by the key, returns the map itself.
-- `map.get(key)` -- returns the value by the key, `undefined` if `key` doesn't exist in map.
-- `map.has(key)` -- returns `true` if the `key` exists, `false` otherwise.
-- `map.delete(key)` -- removes the value by the key, returns `true` if `key` existed at the moment of the call, otherwise `false`.
-- `map.clear()` -- removes everything from the map.
-- `map.size` -- returns the current element count.
+- [`new Map([iterable])`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/Map) -- creates the map, with optional `iterable` (e.g. array) of `[key,value]` pairs for initialization.
+- [`map.set(key, value)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/set) -- stores the value by the key, returns the map itself.
+- [`map.get(key)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/get) -- returns the value by the key, `undefined` if `key` doesn't exist in map.
+- [`map.has(key)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has) -- returns `true` if the `key` exists, `false` otherwise.
+- [`map.delete(key)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/delete) -- removes the element by the key, returns `true` if `key` existed at the moment of the call, otherwise `false`.
+- [`map.clear()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear) -- removes everything from the map.
+- [`map.size`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size) -- returns the current element count.
 
 وفي النهاية يأخذ `Array.from(map.values())‎` متُعدَّدا يمرّ على قيم الخارطة (لا نريد مفاتيحها في ناتج الدالة) فيُعيد المصفوفة نفسها.
 
 يمكننا (في هذه المسألة) استعمال كائن عادي بدل الخارطة، إذ أنّ المفاتيح سلاسل نصية. هكذا سيبدو الحلّ لو اتبعنا هذا النهج:
 
+<<<<<<< HEAD
 ```
+=======
+[`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) -- is a collection of unique values.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 function aclean(arr) {
 let obj = {};
 
+<<<<<<< HEAD
 for (let i = 0; i < arr.length; i++) {
 let sorted = arr[i].toLowerCase().split("").sort().join("");
 obj[sorted] = arr[i];
 }
+=======
+- [`new Set([iterable])`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/Set) -- creates the set, with optional `iterable` (e.g. array) of values for initialization.
+- [`set.add(value)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/add) -- adds a value (does nothing if `value` exists), returns the set itself.
+- [`set.delete(value)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/delete) -- removes the value, returns `true` if `value` existed at the moment of the call, otherwise `false`.
+- [`set.has(value)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has) -- returns `true` if the value exists in the set, otherwise `false`.
+- [`set.clear()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/clear) -- removes everything from the set.
+- [`set.size`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/size) -- is the elements count.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 return Object.values(obj);
 }

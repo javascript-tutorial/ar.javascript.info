@@ -103,7 +103,11 @@ new User("Dude").sayHi(); // مرحباً Dude!
 
 هذا بسبب الدالة `sayHi` و `sayBye` الذي تم إنشاؤهما فى `sayHiMixin`. لذا علي الرغم من انه تم نسخهم, `[[HomeObject]]` الخاص بهم هو مرجع الخاصية الداخلية `sayHiMixin`, كما هو موضح فى الصورة اعلاه.
 
+<<<<<<< HEAD
 كما أن `super` يبحث عن الدالة الأب في `[[HomeObject]].[[Prototype]]`, هذا يعني انه يبحث في `sayHiMixin.[[Prototype]]`, و ليس `User.[[Prototype]]`.
+=======
+As `super` looks for parent methods in `[[HomeObject]].[[Prototype]]`, that means it searches `sayHiMixin.[[Prototype]]`.
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
 ## EventMixin
 

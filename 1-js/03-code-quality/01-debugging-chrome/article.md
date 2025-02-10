@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # تصحيح الأخطاء في كروم
+=======
+# Debugging in the browser
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
 قبل كتابة أي كود معقد , فلنتحدث قليلا عن تصحيح الأخطاء.
 
@@ -40,7 +44,11 @@ The Sources panel has 3 parts:
 
 بعد ان يتم تنفيذ الأمر, الناتج يظهر اسفله.
 
+<<<<<<< HEAD
 كمثال, هنا  `1+2` ينتج عنها  `3` و `hello("debugger")` لا ينتج عنها شئ, لذا فالناتج يكون `undefined`.
+=======
+For example, here `1+2` results in `3`, while the function call `hello("debugger")` returns nothing, so the result is `undefined`:
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
 ![](chrome-sources-console.svg)
 
@@ -64,13 +72,22 @@ The Sources panel has 3 parts:
 - قم بإزالة نقطة التوقف بالنقر بزر الماوس الأيمن واختيار إزالة.
 - ...و هكذا.
 
+<<<<<<< HEAD
 ```smart header="نقاط التوقف المشروطة"
  *النقر بزر الماوس الأيمن* على رقم السطر يسمح بإنشاء نقطة توقف *مشروطة*. يتم تشغيلها فقط عندما يكون الشرط المعطى محقق.
+=======
+```smart header="Conditional breakpoints"
+*Right click* on the line number allows to create a *conditional* breakpoint. It only triggers when the given expression, that you should provide when you create it, is truthy.
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
 يكون هذا مفيدا عند الحاجة للتوقف فقط تبعا لمتغير معين أو معاملات دالة معينة.
 ```
 
+<<<<<<< HEAD
 ## أمر مصحح الخطأ(Debugger)
+=======
+## The command "debugger"
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
 يمكننا أيضًا إيقاف الكود مؤقتًا باستخدام الأمر `debugger` الموجود فيه ، كالتالي:
 
@@ -87,9 +104,13 @@ function hello(name) {
 ```
 هذا الأمر مريح للغاية عندما نكون في محرر أكواد ولا نريد التبديل إلى المتصفح والبحث عن النص في أدوات المطور لتعيين نقطة التوقف.
 
+<<<<<<< HEAD
 ## انتظر قليلا وانظر حولك
 
 في مثالنا ، `hello()` يتم النداء عليها عند تحميل الصفحة, لذا اسهل طريقة لتفعيل مصحح الأخطاء (بعد وضع نقطة التوقف) هي اعادة تحميل الصفحة. لذا نضغط `key:F5` (Windows, Linux) أو `key:Cmd+R` (Mac).
+=======
+Such command works only when the development tools are open, otherwise the browser ignores it.
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
 عند تعيين نقطة التوقف ، يتوقف التنفيذ مؤقتًا عند السطر الرابع:
 
@@ -99,7 +120,11 @@ function hello(name) {
 
 1. **`Watch` -- يعرض القيم الحالية لأي تعبيرات.**
 
+<<<<<<< HEAD
     يمكننا النقر فوق علامة زائد `+` وإدخال تعبير. سيظهر مصحح الأخطاء قيمته في أي لحظة ، ويعيد حسابه تلقائيًا في عملية التنفيذ.
+=======
+    You can click the plus `+` and input an expression. The debugger will show its value, automatically recalculating it in the process of execution.
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
 2. **`Call Stack` -- يعرض سلسلة من الاستدعاءات المترابطة.**
 
@@ -135,11 +160,20 @@ function hello(name) {
 
     سيؤدي النقر عليه مرة أخرى تلو الأخرى إلى استعراض كافة عبارات النص واحدًا تلو الآخر.
 
+<<<<<<< HEAD
 <span class="devtools" style="background-position:-62px -192px"></span> -- "خطوة للأمام":  تقوم بتشغيل الأمر التالي, لكن *لا تدخل بداخل الدالة*, زره السريع `key:F10`.
 
 : يشبه الأمر "خطوة" السابق ، ولكنه يتصرف بشكل مختلف إذا كانت العبارة التالية هي استدعاء دالة. اذا لم تكن دالة مدمجة ، مثل `alert`، ولكنها دالة من انشاءنا.
 
     ينتقل الأمر "خطوة" إليه ويوقف التنفيذ عند السطر الأول مؤقتًا ، بينما يقوم "خطوة للأمام" باستدعاء الدالة المتداخلة بشكل غير مرئي ، مع تخطي الدوال الداخلية.
+=======
+<span class="devtools" style="background-position:-62px -192px"></span> -- "Step over": run the next command, but *don't go into a function*, hotkey `key:F10`.
+: Similar to the previous "Step" command, but behaves differently if the next statement is a function call (not a built-in, like `alert`, but a function of our own).
+
+    If we compare them, the "Step" command goes into a nested function call and pauses the execution at its first line, while "Step over" executes the nested function call invisibly to us, skipping the function internals.
+
+    The execution is then paused immediately after that function call.
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
     يتم إيقاف التنفيذ بعد ذلك مباشرة بعد هذه الدالة.
 
@@ -151,7 +185,12 @@ function hello(name) {
 
 للمعرفة مستقبلا ، لاحظ فقط أن الأمر "خطوة" يتجاهل الإجراءات غير المتزامنة ، مثل `setTimeout` (نداء الدوال المجدولة) ، التي يتم تنفيذها لاحقًا. تدخل "الخطوة للداخل" في الكود الخاص بهم ،و تنتظرهم إذا لزم الأمر.
 
+<<<<<<< HEAD
 لمزيد من التفاصيل , اتطلع علي  [DevTools manual](https://developers.google.com/web/updates/2018/01/devtools#async).
+=======
+<span class="devtools" style="background-position:-90px -146px"></span> -- enable/disable automatic pause in case of an error.
+: When enabled, if the developer tools is open, an error during the script execution automatically pauses it. Then we can analyze variables in the debugger to see what went wrong. So if our script dies with an error, we can open debugger, enable this option and reload the page to see where it dies and what's the context at that moment.
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
 <span class="devtools" style="background-position:-32px -194px"></span> -- "خطوة للخارج": تابع التنفيذ حتى نهاية الدالة الحالية ، زره السريع `key:Shift+F11`.
 : يستمر في التنفيذ ويوقفه في السطر الأخير من الدالة الحالية. يكون هذا مفيدا عند الدخول الي نداءات متداخلة عن طريق الخطأ  <span class="devtools" style="background-position:-200px -190px"></span>,لكنها لا تهمنا ، ونريد أن نستمر حتى نهايتها في أقرب وقت ممكن.
@@ -195,7 +234,11 @@ for (let i = 0; i < 5; i++) {
 2. عبارة أمر مصحح الخطأ `debugger`.
 3. خطأ (اذا كانت ادوات المطور مفتوحة و زر  <span class="devtools" style="background-position:-90px -146px"></span> مفعل اي قيمته "on").
 
+<<<<<<< HEAD
 عند الإيقاف المؤقت ، يمكننا تصحيح الأخطاء - فحص المتغيرات وتتبع الكود لمعرفة المكان الذي يذهب فيه التنفيذ بشكل خاطئ.
+=======
+When paused, we can debug: examine variables and trace the code to see where the execution goes wrong.
+>>>>>>> 6236eb8c3cdde729dab761a1d0967a88a1a6197e
 
 هناك العديد من الخيارات في أدوات المطورين أكثر من تلك المغطاة هنا. الدليل الكامل في <https://developers.google.com/web/tools/chrome-devtools>.
 

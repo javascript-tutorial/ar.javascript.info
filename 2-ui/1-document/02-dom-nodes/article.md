@@ -52,7 +52,7 @@ setTimeout(() => (document.body.style.background = ''), 3000); // لإزالة �
 <div class="domtree"></div>
 
 <script>
-let node1 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  "},{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"About elk"}]},{"name":"#text","nodeType":3,"content":"\n"}]},{"name":"#text","nodeType":3,"content":"\n"},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elk.\n\n\n"}]}]}
+let node1 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  "},{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"About elk"}]},{"name":"#text","nodeType":3,"content":"\n"}]},{"name":"#text","nodeType":3,"content":"\n"},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elk.\n"}]}]}
 
 drawHtmlTree(node1, 'div.domtree', 690, 320);
 </script>
@@ -227,7 +227,11 @@ Even the `<!DOCTYPE...>` directive at the very beginning of HTML is also a DOM n
 
 ## انظر بنفسك
 
+<<<<<<< HEAD
 لمشاهدة بنية نموذج كائن المستند مباشرة، جرب استخدام  [Live DOM Viewer](http://software.hixie.ch/utilities/js/live-dom-viewer/). ما عليك سوى الكتابة في المستند، وسيظهر كنموذج كائن مستند في الحال.
+=======
+To see the DOM structure in real-time, try [Live DOM Viewer](https://software.hixie.ch/utilities/js/live-dom-viewer/). Just type in the document, and it will show up as a DOM at an instant.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 هناك طريقة أخرى لاستكشاف نموذج كائن المستند وهي استخدام أدوات مطور المتصفح. وهذا ما نستخدمه في الواقع أثناء التطوير.
 

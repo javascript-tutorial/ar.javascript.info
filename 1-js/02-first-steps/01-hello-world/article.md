@@ -73,7 +73,11 @@
 <script src="/path/to/script.js"></script>
 ```
 
+<<<<<<< HEAD
 هنا، `/path/to/script.js` هو مسار منفرد للنص البرمجي من جذر الموقع. يمكن أيضاً توفير مسار نسبي من خلال الصفحة الحالية. على سبيل المثال، `src="script.js"` تعني أن الملف `"script.js"` في نفس المجلد.
+=======
+Here, `/path/to/script.js` is an absolute path to the script from the site root. One can also provide a relative path from the current page. For instance, `src="script.js"`, just like `src="./script.js"`, would mean a file `"script.js"` in the current folder.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 يمكن أن نعطي المسار الكامل أيضاً. على سبيل المثال :
 

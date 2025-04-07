@@ -1,6 +1,10 @@
 # توابع المصفوفات (Array methods)
 
+<<<<<<< HEAD
 تقدّم المصفوفات توابِع عديدة تُسهِّل التعامل معها. ولتبسيطها سنقسّمها إلى مجموعات بحسب الوظيفة في هذا الفصل ونشرح كل منها على حدة.
+=======
+Arrays provide a lot of methods. To make things easier, in this chapter, they are split into groups.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ## إضافة العناصر وإزالتها
 
@@ -32,11 +36,15 @@ alert(arr.length); // 3
 
 أُزيل العنصر صحيح، ولكنّ ما زال في المصفوفة ثلاثة عناصر، كما نرى في arr.length == 3.
 
+<<<<<<< HEAD
 هذا طبيعي، إذ يُزيل delete obj.key القيمة بمفتاحها key… وهذا فقط. ينفع للكائنات ربّما، لكنّا نريدها للمصفوفات أن تنتقل كل العناصر على اليمين وتأخذ الفراغ الجديد. أي أننا نتوقع أن تصغر المصفوفة الآن.
+=======
+That's natural, because `delete obj.key` removes a value by the `key`. It's all it does. Fine for objects. But for arrays we usually want the rest of the elements to shift and occupy the freed place. We expect to have a shorter array now.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 لهذا السبب علينا استعمال توابِع خاصّة لذلك.
 
-The [arr.splice](mdn:js/Array/splice) method is a swiss army knife for arrays. It can do everything: insert, remove and replace elements.
+The [arr.splice](mdn:js/Array/splice) method is a Swiss army knife for arrays. It can do everything: insert, remove and replace elements.
 
 هذه صياغته:
 
@@ -62,7 +70,11 @@ alert( arr ); // ["I", "JavaScript"]
 
 رأيت؟ سهلة. نبدأ من العنصر ذي الفهرس 1 ونُزيل عنصرًا واحدًا (1).
 
+<<<<<<< HEAD
 الآن، نُزيل ثلاثة عناصر ونستبدلها بعنصرين آخرين:
+=======
+In the next example, we remove 3 elements and replace them with the other two:
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ```js run
 let arr = [*!*"I", "study", "JavaScript",*/!* "right", "now"];
@@ -84,7 +96,11 @@ let removed = arr.splice(0, 2);
 alert( removed ); // "I", "study" <-- قائمة بالعناصر المُزالة
 ```
 
+<<<<<<< HEAD
 يمكن أن يُدرج تابِع splice العناصر دون إزالة أيّ شيء أيضًا. كيف؟ نضع deleteCount يساوي الصفر 0:
+=======
+The `splice` method is also able to insert the elements without any removals. For that, we need to set `deleteCount` to `0`:
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ```js run
 let arr = ["I", "study", "JavaScript"];
@@ -115,7 +131,11 @@ alert( arr ); // 1,2,3,4,5
 
 ### القطع slice
 
+<<<<<<< HEAD
 التابِع arr.slice أبسط بكثير من شبيهه arr.splice.
+=======
+The method [arr.slice](mdn:js/Array/slice) is much simpler than the similar-looking `arr.splice`.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 صياغته هي:
 
@@ -125,7 +145,11 @@ arr.slice([start], [end]);
 
 وهو يُعيد مصفوفة جديدةً بنسخ العناصر من الفهرس `start` إلى `end` (باستثناء `end`). يمكن أن تكون `start` وحتّى `end` سالبتان، بهذا يُعدّ المحرّك القيمتان أماكن بدءًا من نهاية المصفوفة.
 
+<<<<<<< HEAD
 هذا التابِع يشبه تابِع السلاسل النصية `str.slice`، ولكن بدل السلاسل النصية الفرعية، يُعيد المصفوفات الفرعية. إليك المثال الآتي:
+=======
+It's similar to a string method `str.slice`, but instead of substrings, it makes subarrays.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 For instance:
 
@@ -202,7 +226,11 @@ alert( arr.concat(arrayLike) ); // 1,2,something,else
 
 ```js
 arr.forEach(function(item, index, array) {
+<<<<<<< HEAD
   // ... استعملهما فيما تريد
+=======
+  // ... do something with an item
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 });
 ```
 
@@ -231,11 +259,22 @@ arr.forEach(function(item, index, array) {
 
 للتوابِع arr.indexOf و arr.lastIndexOf و arr.includes نفس الصياغة ووظيفتها هي ذات وظيفة تلك بنسخة النصوص النصية، الفرق أنها هنا تتعامل مع العناصر بدل المحارف:
 
+<<<<<<< HEAD
 - `arr.indexOf(item, from)` -- يبحث عن العنصر item بدءًا من الفهرس from، ويُعيد فهرسه حيث وجده. ولو لم يجده، يُعيد -1.
 - `arr.lastIndexOf(item, from)` -- نفسه، ولكن البحث يبدأ من اليمين وينتهي في اليسار..
 - `arr.includes(item, from)` -- يبحث عن العنصر item بدءًا من الفهرس from، ويُعيد true إن وجدته.
 
 مثال:
+=======
+The methods [arr.indexOf](mdn:js/Array/indexOf) and [arr.includes](mdn:js/Array/includes) have the similar syntax and do essentially the same as their string counterparts, but operate on items instead of characters:
+
+- `arr.indexOf(item, from)` -- looks for `item` starting from index `from`, and returns the index where it was found, otherwise `-1`.
+- `arr.includes(item, from)` -- looks for `item` starting from index `from`, returns `true` if found.
+
+Usually, these methods are used with only one argument: the `item` to search. By default, the search is from the beginning.
+
+For instance:
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ```js run
 let arr = [1, 0, false];
@@ -247,6 +286,7 @@ alert(arr.indexOf(null)); // -1
 alert(arr.includes(1)); // true
 ```
 
+<<<<<<< HEAD
 لاحظ أنّ التوابِع تستعمل الموازنة بِـ ===. لذا لو كنّا نبحث عن false، فستبحث هي عن false نفسها وليس الصفر.
 
 لو أردت معرفة فيما كانت تحتوي المصفوفة على عنصر معيّن، ولا تريد معرفة فهرسه، فدالة arr.includes مناسبة لك.
@@ -257,11 +297,41 @@ alert(arr.includes(1)); // true
 const arr = [NaN];
 alert(arr.indexOf(NaN)); // ‫يُعيد ‎-1 (الصحيح هو 0 إلّا أنّ الموازنة === لا تعمل مع NaN)
 alert(arr.includes(NaN)); // true (الآن صحيح)
+=======
+Please note that `indexOf` uses the strict equality `===` for comparison. So, if we look for `false`, it finds exactly `false` and not the zero.
+
+If we want to check if `item` exists in the array and don't need the index, then `arr.includes` is preferred.
+
+The method [arr.lastIndexOf](mdn:js/Array/lastIndexOf) is the same as `indexOf`, but looks for from right to left.
+
+```js run
+let fruits = ['Apple', 'Orange', 'Apple']
+
+alert( fruits.indexOf('Apple') ); // 0 (first Apple)
+alert( fruits.lastIndexOf('Apple') ); // 2 (last Apple)
 ```
 
+````smart header="The `includes` method handles `NaN` correctly"
+A minor, but noteworthy feature of `includes` is that it correctly handles `NaN`, unlike `indexOf`:
+
+```js run
+const arr = [NaN];
+alert( arr.indexOf(NaN) ); // -1 (wrong, should be 0)
+alert( arr.includes(NaN) );// true (correct)
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
+```
+That's because `includes` was added to JavaScript much later and uses the more up-to-date comparison algorithm internally.
+````
+
+<<<<<<< HEAD
 ### البحث عبر find و findIndex
 
 لنقل أنّ لدينا مصفوفة من الكائنات، كيف نجد الكائن حسب شرط معيّن؟
+=======
+### find and findIndex/findLastIndex
+
+Imagine we have an array of objects. How do we find an object with a specific condition?
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 هنا يمكننا استغلال التابِع arr.find(fn).
 
@@ -280,7 +350,11 @@ let result = arr.find(function(item, index, array) {
 - `index` : الفهرس.
 - `array` : المصفوفة نفسها.
 
+<<<<<<< HEAD
 لو أعادت true، يتوقّف البحث ويُعاد العنصر item. إن لم يوجد شيء فيُعاد undefined.
+=======
+If it returns `true`, the search is stopped, the `item` is returned. If nothing is found, `undefined` is returned.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 نرى في هذا المثال مصفوفة من المستخدمين، لكلّ مستخدم حقلان id وname. نريد الذي يتوافق مع الشرط id == 1:
 
@@ -296,11 +370,38 @@ let user = users.find(item => item.id == 1);
 alert(user.name); // John
 ```
 
+<<<<<<< HEAD
 في الحياة العملية، يكثُر استعمال الكائنات في المصفوفات، ولهذا فالتابِع find مفيد جدًا لنا.
+=======
+In real life, arrays of objects are a common thing, so the `find` method is very useful.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 يمكنك ملاحظة بأنّا في المثال مرّرنا للتابِع find الدالة item => item.id == 1 وفيها وسيط واحد. هذا طبيعي فنادرًا ما نستعمل الوُسطاء البقية في هذه الدالة
 
+<<<<<<< HEAD
 يتشابه التابِع [arr.findIndex](mdn:js/Array/findIndex) كثيرًا مع هذا، عدا على أنّه يُعيد فهرس العنصر الذي وجده بدل العنصر نفسه، ويُعيد ‎-1 لو لم يجد شيئًا.
+=======
+The [arr.findIndex](mdn:js/Array/findIndex) method has the same syntax but returns the index where the element was found instead of the element itself. The value of `-1` is returned if nothing is found.
+
+The [arr.findLastIndex](mdn:js/Array/findLastIndex) method is like `findIndex`, but searches from right to left, similar to `lastIndexOf`.
+
+Here's an example:
+
+```js run
+let users = [
+  {id: 1, name: "John"},
+  {id: 2, name: "Pete"},
+  {id: 3, name: "Mary"},
+  {id: 4, name: "John"}
+];
+
+// Find the index of the first John
+alert(users.findIndex(user => user.name == 'John')); // 0
+
+// Find the index of the last John
+alert(users.findLastIndex(user => user.name == 'John')); // 3
+```
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ### الترشيح filter
 
@@ -380,6 +481,11 @@ alert(arr); // *!*1, 15, 2*/!*
 
 على الدالة موازنة قيمتين اثنتين (أيًا كانتا) وإعادة الناتج:
 
+<<<<<<< HEAD
+=======
+The function should compare two arbitrary values and return:
+
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 ```js
 function compare(a, b) {
   if (a > b) return 1; // if the first value is greater than the second
@@ -408,11 +514,19 @@ alert(arr);  // *!*1, 2, 15*/!*
 
 الآن صارت تعمل كما نريد.
 
+<<<<<<< HEAD
 لنتوقف لحظة ونفكّر فيما يحدث تمامًا. أنتّفق بأنّ المصفوفة arr يمكن أن تحتوي أيّ شيء؟ أيّ شيء من الأعداد أو السلاسل النصية أو الكائنات أو غيرها. كلّ ما لدينا هو مجموعة من العناصر. لترتيبها نحتاج دالة ترتيب تعرف طرقة مقارنة عناصر المصفوفة. مبدئيًا، الترتيب يكون بالسلاسل النصية.
 
 The `arr.sort(fn)` method implements a generic sorting algorithm. We don't need to care how it internally works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) or [Timsort](https://en.wikipedia.org/wiki/Timsort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
 
 بالمناسبة، لو أردت معرفة العناصر التي تُوازنها الدالة حاليًا، فلا بأس. لن يقتلك أحد لو عرضتها:
+=======
+Let's step aside and think about what's happening. The `arr` can be an array of anything, right? It may contain numbers or strings or objects or whatever. We have a set of *some items*. To sort it, we need an *ordering function* that knows how to compare its elements. The default is a string order.
+
+The `arr.sort(fn)` method implements a generic sorting algorithm. We don't need to care how it internally works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) or [Timsort](https://en.wikipedia.org/wiki/Timsort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
+
+By the way, if we ever want to know which elements are compared -- nothing prevents us from alerting them:
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ```js run
 [1, -2, 15, 2, 0, 8].sort(function(a, b) {
@@ -485,7 +599,11 @@ alert(arr); // 5,4,3,2,1
 
 هذا ما يفعله التابِع [str.split(delim)](mdn:js/String/split‎. يأخذ السلسلة النصية ويقسمها إلى مصفوفة حسب محرف القاسِم delim المقدّم.
 
+<<<<<<< HEAD
 في المثال أعلاه نقسم حسب «فاصلة بعدها مسافة»:
+=======
+In the example below, we split by a comma followed by a space:
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ```js run
 let names = "Bilbo, Gandalf, Nazgul";
@@ -551,9 +669,21 @@ let value = arr.reduce(
 - `index` -- مكان العنصر.
 - `array` -- المصفوفة نفسه.
 
+<<<<<<< HEAD
 حين تُطبّق الدالة، تُمرّر إليها نتيجة النداء السابق في أوّل وسيط. أجل، معقّد قليلًا، لكن ليس كما تتخيّل لو قلنا أنّ الوسيط الأول بمثابة «ذاكرة» تخزّن النتيجة النهائية من إجراءات التنفيذ التي سبقتها. وفي آخر نداء تصير نتيجة التابِع reduce.
 
 ربّما نقدّم مثالًا لتسهيل المسألة. هنا نعرف مجموعة عناصر المصفوفة في سطر برمجي واحد:
+=======
+As the function is applied, the result of the previous function call is passed to the next one as the first argument.
+
+So, the first argument is essentially the accumulator that stores the combined result of all previous executions. And at the end, it becomes the result of `reduce`.
+
+Sounds complicated?
+
+The easiest way to grasp that is by example.
+
+Here we get a sum of an array in one line:
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ```js run
 let arr = [1, 2, 3, 4, 5];
@@ -612,9 +742,15 @@ let arr = [];
 arr.reduce((sum, current) => sum + current);
 ```
 
+<<<<<<< HEAD
 الشيفرة السابقة ستطلق خطأ، إذ لا يمكن استدعاء reduce مع مصفوفة فارغة دون قيمة أولية، وتحل المشكلة بتوفير قيمة أولية، وستعاد آنذاك. لذا خُذ هذه النصيحة وحدّد قيمة أولية دومًا.
 
 لا يختلف التابِع [arr.reduceRight](mdn:js/Array/reduceRight)عن هذا أعلاه إلا بأنّه يبدأ من اليمين وينتهي على اليسار.
+=======
+So it's advised to always specify the initial value.
+
+The method [arr.reduceRight](mdn:js/Array/reduceRight) does the same but goes from right to left.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ## Array.isArray
 
@@ -622,7 +758,7 @@ arr.reduce((sum, current) => sum + current);
 
 ```js run
 alert(typeof {}); // object
-alert(typeof []); // same
+alert(typeof []); // object (same)
 ```
 
 …ولكن، المصفوفات تستعمل كثيرًا جدًا لدرجة تقديم تابِع خاص لهذا الغرض: Array.isArray(value)‎. يُعيد هذا التابِع true لو كانت value مصفوفة حقًا، وfalse لو لم تكن.
@@ -637,7 +773,11 @@ alert(Array.isArray([])); // true
 
 تقبل أغلب توابِع المصفوفات تقريبًا، التوابع التي تستدعي دوالًا (مثل find وfilter وmap، عدا sort) - تقبل المُعامل الاختياري thisArg.
 
+<<<<<<< HEAD
 لم نشرح هذا المُعامل في الأقسام أعلاه إذ أنّه نادرًا ما يُستعمل. ولكن علينا الحديث عنه لألا يكون الشرح ناقصًا.
+=======
+That parameter is not explained in the sections above, because it's rarely used. But for completeness, we have to cover it.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 هذه الصياغة الكاملة لهذه التوابِع:
 
@@ -704,7 +844,15 @@ A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(
   - `slice(start, end)` -- creates a new array, copies elements from index `start` till `end` (not inclusive) into it.
   - `concat(...items)` -- returns a new array: copies all members of the current one and adds `items` to it. If any of `items` is an array, then its elements are taken.
 
+<<<<<<< HEAD
 * للمرور على عناصر المصفوفة:
+=======
+- To search among elements:
+  - `indexOf/lastIndexOf(item, pos)` -- look for `item` starting from position `pos`, and return the index or `-1` if not found.
+  - `includes(value)` -- returns `true` if the array has `value`, otherwise `false`.
+  - `find/filter(func)` -- filter elements through the function, return first/all values that make it return `true`.
+  - `findIndex` is like `find`, but returns the index instead of a value.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 - `forEach(func)` -- يستدعي `func` لكلّ عنصر ولا يُعيد أيّ شيء.
 
@@ -715,11 +863,16 @@ A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(
   - `split/join` -- convert a string to array and back.
   - `reduce/reduceRight(func, initial)` -- calculate a single value over the array by calling `func` for each element and passing an intermediate result between the calls.
 
+<<<<<<< HEAD
   - `map(func)` -- أنشِئ مصفوفة جديدة من نتائج استدعاء func لكلّ من عناصر المصفوفة.
   - `sort(func)` -- افرز المصفوفة كما هي وأعِد ناتج الفرز.
   - `reverse()` -- اعكس عناصر المصفوفة كما هي وأعِد ناتج العكس.
   - `split/join` -- حوّل المصفوفة إلى سلسلة نصية، والعكس أيضًا.
   - `reduce(func, initial)`-- احسب قيمة من المصفوفة باستدعاء func على كلّ عنصر فيها وتمرير الناتج بين كلّ استدعاء وآخر.
+=======
+- Additionally:
+  - `Array.isArray(value)` checks `value` for being an array, if so returns `true`, otherwise `false`.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 * Additionally:
   - `Array.isArray(arr)` ‎ يفحص لو كانت `arr` مصفوفة أم لا.
@@ -734,6 +887,7 @@ A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(
   These methods behave sort of like `||` and `&&` operators: if `fn` returns a truthy value, `arr.some()` immediately returns `true` and stops iterating over the rest of items; if `fn` returns a falsy value, `arr.every()` immediately returns `false` and stops iterating over the rest of items as well.
 
   We can use `every` to compare arrays:
+
   ```js run
   function arraysEqual(arr1, arr2) {
     return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
@@ -750,7 +904,11 @@ A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(
 
 For the full list, see the [manual](mdn:js/Array).
 
+<<<<<<< HEAD
 قد يبدو من النظرة الأولى أن هناك العديد من الطرق ، يصعب تذكرها. ولكن في الواقع هذا أسهل بكثير.
+=======
+At first sight, it may seem that there are so many methods, quite difficult to remember. But actually, that's much easier.
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 انظر من خلال ورقة الغش فقط لتكون على دراية بها. ثم حل مهام هذا الفصل للممارسة ، بحيث يكون لديك خبرة في أساليب الصفيف.
 

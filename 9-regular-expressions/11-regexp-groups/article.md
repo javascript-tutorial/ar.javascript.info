@@ -209,9 +209,15 @@ alert(results[0]); // <h1>,h1 (1st tag)
 alert(results[1]); // <h2>,h2 (2nd tag)
 ```
 
+<<<<<<< HEAD
 كما نرى ، فإن الفرق الأول مهم للغاية ، كما هو موضح في السطر `(*)`. لا يمكننا الحصول على المطابقة كـ "النتائج [0]` ، لأن هذا الكائن ليس كاذبًا. يمكننا تحويلها إلى `Array` حقيقي باستخدام` Array.from`. هناك المزيد من التفاصيل حول المصفوفات الكاذبة والقابلة للتكرار في المقالة <info: iterable>.
 
 ليست هناك حاجة في `Array.from` إذا كنا نراجع النتائج:
+=======
+As we can see, the first difference is very important, as demonstrated in the line `(*)`. We can't get the match as `results[0]`, because that object is a pseudoarray. We can turn it into a real `Array` using `Array.from`. There are more details about pseudoarrays and iterables in the article <info:iterable>.
+
+There's no need for `Array.from` if we're looping over results:
+>>>>>>> 035c5267ba80fa7b55878f7213cbde449b4092d9
 
 ```js run
 let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
@@ -335,7 +341,7 @@ alert( str.replace(regexp, '$<day>.$<month>.$<year>') );
 let str = "Gogogo John!";
 
 *!*
-// ?: exludes 'go' from capturing
+// ?: excludes 'go' from capturing
 let regexp = /(?:go)+ (\w+)/i;
 */!*
 

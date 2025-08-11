@@ -124,7 +124,12 @@ For more exotic callback formats, like those without `err` at all: `callback(res
 
 هناك أيضًا وحدات ذات وظائف واعدة أكثر مرونة قليلاً ، على سبيل المثال [es6-promisify] (https://github.com/digitaldesignlabs/es6-promisify). في Node.js ، توجد وظيفة `` use.promisify` مضمنة لذلك.
 
+<<<<<<< HEAD
 ``ذكي يعد Promisification نهجًا رائعًا ، خاصة عند استخدام`async / await` (انظر الفصل التالي) ، ولكن ليس بديلاً كليًا لعمليات الاسترجاعات.
+=======
+```smart
+Promisification is a great approach, especially when you use `async/await` (covered later in the chapter <info:async-await>), but not a total replacement for callbacks.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 تذكر أن الوعد قد يكون له نتيجة واحدة فقط ، ولكن قد يتم استدعاء الاستدعاء من الناحية الفنية عدة مرات.
 

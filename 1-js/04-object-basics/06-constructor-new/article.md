@@ -1,8 +1,12 @@
 # الباني والعامل "new"
 
+<<<<<<< HEAD
 نُنشِئ الكائنات باستخدام الصيغة الاعتيادية المختصرة `{...}`. لكننا نحتاج لإنشاء العديد من الكائنات المتشابهة غالبًا، مثل العديد من
 المستخدمين، أو عناصر لقائمة وهكذا. يمكن القيام بذلك باستخدام الدوال البانية (constructor functions) لكائن والمُعامِل
 `"new"`.
+=======
+The regular `{...}` syntax allows us to create one object. But often we need to create many similar objects, like multiple users or menu items and so on.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 ## الدالة البانية
 
@@ -57,6 +61,7 @@ isAdmin: false
 
 ### `**new function() { … }‎**`
 
+<<<<<<< HEAD
 إن كان لدينا العديد من الأسطر البرمجية، وجميعها عن إنشاء كائن واحد مُعَقَّد، فبإمكاننا تضمينها في دالة بانية، هكذا:
 
 ```
@@ -77,6 +82,26 @@ this.isAdmin = false;
 يمكننا فحص ما إن كانت الدالة قد استدعيت باستخدام `new` أو دونه من داخل الدالة، وذلك باستخدام الخاصية الخاصة `new.target`.
 تكون الخاصية فارغة في الاستدعاءات العادية، وتساوي الدالة البانية إذا استُدعِيَت باستخدام `new`:
 
+=======
+Let's note once again -- technically, any function (except arrow functions, as they don't have `this`) can be used as a constructor. It can be run with `new`, and it will execute the algorithm above. The "capital letter first" is a common agreement, to make it clear that a function is to be run with `new`.
+
+````smart header="new function() { ... }"
+If we have many lines of code all about creation of a single complex object, we can wrap them in an immediately called constructor function, like this:
+
+```js
+// create a function and immediately call it with new
+let user = new function() { 
+  this.name = "John";
+  this.isAdmin = false;
+
+  // ...other code for user creation
+  // maybe complex logic and statements
+  // local variables etc
+};
+```
+
+This constructor can't be called again, because it is not saved anywhere, just created and called. So this trick aims to encapsulate the code that constructs the single object, without future reuse.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 ````
 
 Inside a function, we can check whether it was called with `new` or without it, using a special `new.target` property.
@@ -139,7 +164,12 @@ alert( new SmallUser().name ); // John
 
 لا تحتوي الدوال البانية غالبًا على تعليمة الإعادة `return`. نذكر هنا هذا التصرف الخاص عند إرجاع الكائنات بغرض شمول جميع النواحي.
 
+<<<<<<< HEAD
 ### **حذف الأقواس**
+=======
+````smart header="Omitting parentheses"
+By the way, we can omit parentheses after `new`:
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 بالمناسبة، يمكننا حذف أقواس `new` في حال غياب المعاملات مُعامِلات:
 

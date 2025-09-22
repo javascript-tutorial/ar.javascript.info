@@ -630,7 +630,11 @@ window.onerror = function (message, url, line, col, error) {
 
 دور المعالج الشامل `window.onerror` ادة لا يكون استرداد تنفيذ البرنامج النصي - ربما يكون ذلك مستحيلًا في حالة وجود أخطاء في البرمجة ، ولكن لإرسال رسالة الخطأ إلى المطورين.
 
+<<<<<<< HEAD
 هناك أيضًا خدمات الويب التي توفر تسجيل الأخطاء لمثل هذه الحالات ، مثل <https://errorception.com> أو <http://www.muscula.com>.
+=======
+There are also web-services that provide error-logging for such cases, like <https://muscula.com> or <https://www.sentry.io>.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 يعملون على هذا النحو:
 

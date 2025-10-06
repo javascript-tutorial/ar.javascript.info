@@ -55,6 +55,7 @@ alert(arr instanceof Object); // نعم
 
    مثال:
 
+<<<<<<< HEAD
    ```js run
    // ‫ضبط instanceOf للتحقق من الافتراض القائل
    // ‫بأن كل شيء يملك الخاصية canEat هو حيوان
@@ -63,13 +64,27 @@ alert(arr instanceof Object); // نعم
        if (obj.canEat) return true;
      }
    }
+=======
+    ```js run
+    // set up instanceof check that assumes that
+    // anything with canEat property is an animal
+    class Animal {
+      static [Symbol.hasInstance](obj) {
+        if (obj.canEat) return true;
+      }
+    }
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
    let obj = { canEat: true };
 
    alert(obj instanceof Animal); // true: Animal[Symbol.hasInstance](obj) is called
    ```
 
+<<<<<<< HEAD
 2. ليس لأغلب الأصناف التابِع `Symbol.hasInstance`. في هذه الحالة تستعمل المنطق العادي: يفحص `obj instanceOf Class` لو كان كائن `Class.prototype` مساويًا لأحد كائنات prototype في سلسلة كائنات prototype للكائن `obj`.
+=======
+2. Most classes do not have `Symbol.hasInstance`. In that case, the standard logic is used: `obj instanceof Class` checks whether `Class.prototype` is equal to one of the prototypes in the `obj` prototype chain.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
    وبعبارة أخرى ، وازن بينهم واحدًا تلو الآخر:
 
@@ -87,9 +102,17 @@ alert(arr instanceof Object); // نعم
 
    أمّا لو كنّا في حالة وراثة، فستتوقّف عملية المطابقة عند الخطوة الثانية:
 
+<<<<<<< HEAD
    ```js run
    class Animal {}
    class Rabbit extends Animal {}
+=======
+    // rabbit.__proto__ === Animal.prototype (no match)
+    *!*
+    // rabbit.__proto__.__proto__ === Animal.prototype (match!)
+    */!*
+    ```
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
    let rabbit = new Rabbit();
    *!*

@@ -28,11 +28,19 @@ return result * 2;
 الفكرة وما فيها هي تمرير الناتج في سلسلة توابِع `‎.then` تابعًا تابعًا.
 هكذا تكون:
 
+<<<<<<< HEAD
 1. يبدأ الوعد الأوّل ويُنجز خلال ثانية واحدة (\*).
 2. بعدها يُستدعى معالج `‎.then` `(**)`.
 3. النتيجة التي ستعود ستمرر إلى معالج `‎.then` التالي `(***)`.
 4. وهكذا… .
    نظرًا لتمرير النتيجة على طول سلسلة المعالجات، يمكننا رؤية سلسلة من استدعاءات `alert` هكذا: 1 ← 2 ← 4.
+=======
+Here the flow is:
+1. The initial promise resolves in 1 second `(*)`,
+2. Then the `.then` handler is called `(**)`, which in turn creates a new promise (resolved with `2` value).
+3. The next `then` `(***)` gets the result of the previous one, processes it (doubles) and passes it to the next handler.
+4. ...and so on.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 [promise-then-chain.png]
 ويعود سبب هذا كلّه إلى أنّ استدعاء `promise.then` يُعيد وعدًا هو الآخر، بذلك يمكننا استدعاء التابِع `‎.then` التالي على
@@ -41,7 +49,20 @@ return result * 2;
 **خطأ شائع بين المبتدئين: تقنيًا يمكننا إضافة أكثر من تابِع `‎.then` إلى وعد واحد. لا يُعدّ هذا سَلسلة وعود**.
 مثلًا:
 
+<<<<<<< HEAD
 ```
+=======
+![](promise-then-chain.svg)
+
+The whole thing works, because every call to a `.then` returns a new promise, so that we can call the next `.then` on it.
+
+When a handler returns a value, it becomes the result of that promise, so the next `.then` is called with it.
+
+**A classic newbie error: technically we can also add many `.then` to a single promise. This is not chaining.**
+
+For example:
+```js run
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 let promise = new Promise(function(resolve, reject) {
 setTimeout(() => resolve(1), 1000);
 });
@@ -59,11 +80,15 @@ return result * 2;
 });
 ```
 
+<<<<<<< HEAD
 هنا كتبنا أكثر من دالة مُعاملة لوعد واحد، وهذه التوابِع لا تمرّر القيمة إلى بعضها البعض، بل كلّ تعالجها على حدة.
 إليك الصورة (ووازِن بينها وبين السلسلة أعلاه):
 [promise-then-many.png]
 تتلقّى كلّ توابِع `‎.then` في نفس الوعد ذات الناتج (أي ناتج الوعد) بذلك تعرض الشيفرة أعلاه نتائج `alert` متطابقة: `1`.
 أمّا عمليًا فنادرًا ما نستعمل أكثر من دالة مُعاملة واحدة لكلّ وعد، على عكس السَلسلة التي يشيع استعمالها.
+=======
+What we did here is just adding several handlers to one promise. They don't pass the result to each other; instead they process it independently.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 ## إعادة الوعود
 
@@ -90,12 +115,16 @@ alert(result); // 4
 });
 ```
 
+<<<<<<< HEAD
 هنا يعرض أوّل تابِع `.then` القيمة `1` ويُعيد `new Promise(…)‎` في السطر `(*)`. بعد ثانية واحدة، ... الوعد ويُمرّر
 ناتجه (أي وسيط التابِع `resolve`، في حالتنا هو `result * 2`) إلى دالة المُعاملة التالية في تابِع `.then` التالي. نرى كيف أنّ
 الدالة في السطر `(**)` تعرض `2` وتؤدّي ما أدّته دالة المُعاملة السابقة.
 بذلك نحصل على ما حصلنا عليه في المثال السابق: 1 ثمّ 2 ثمّ 4، الفرق هو التأخير لمدّة ثانية بين كلّ استدعاء من استدعاءات
 `alert`.
 بإعادة الوعود يمكننا بناء سلسلة من الإجراءات غير المتزامنة.
+=======
+Here the first `.then` shows `1` and returns `new Promise(…)` in the line `(*)`. After one second it resolves, and the result (the argument of `resolve`, here it's `result * 2`) is passed on to the handler of the second `.then`. That handler is in the line `(**)`, it shows `2` and does the same thing.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 ## مثال: loadScript
 
@@ -195,7 +224,17 @@ return new Thenable(result); // (*)
 سنستعمل التابِع []() لتحميل بعض المعلومات التي تخصّ المستخدم من الخادوم البعيد. لهذا التابِع معاملات كثيرة اختيارية كتبنا عنا
 في فصول مختلفة، إلّا أنّ صياغته الأساسية بسيطة إلى حدّ ما:
 
+<<<<<<< HEAD
 ```
+=======
+## Bigger example: fetch
+
+In frontend programming, promises are often used for network requests. So let's see an extended example of that.
+
+We'll use the [fetch](info:fetch) method to load the information about the user from the remote server. It has a lot of optional parameters covered in [separate chapters](info:fetch), but the basic syntax is quite simple:
+
+```js
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 let promise = fetch(url);
 ```
 
@@ -297,8 +336,12 @@ return fetch(url)
 .then(response => response.json());
 }
 function loadGithubUser(name) {
+<<<<<<< HEAD
 return fetch(`https://api.github.com/users/${name}`)
 .then(response => response.json());
+=======
+  return loadJson(`https://api.github.com/users/${name}`);
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 }
 function showAvatar(githubUser) {
 return new Promise(function(resolve, reject) {

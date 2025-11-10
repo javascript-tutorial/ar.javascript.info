@@ -34,7 +34,11 @@ printReverseList(list);
 
 # حل الحلقة
 
+<<<<<<< HEAD
 حل الحلقة هو الاخر يعتبر معقد قليلاً بالنسبة إلي الطباعة المباشرة.
+=======
+The loop variant is also a little bit more complicated than the direct output.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 نحن لا نمتلك طرييقة للحصول علي القيمة الأخيرة في القائمة ولا نستطيع العودة للخلف.
 

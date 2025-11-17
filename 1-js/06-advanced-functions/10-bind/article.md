@@ -113,7 +113,11 @@ let funcUser = func.bind(user);
 funcUser(); // John
 ```
 
+<<<<<<< HEAD
 رأينا «النسخة الرابطة» من `‎func‎`، ‏`‎func.bind(user)‎` بعد ضبط `‎this=user‎`.
+=======
+Here `func.bind(user)` is a "bound variant" of `func`, with fixed `this=user`.
+>>>>>>> 5e893cffce8e2346d4e50926d5148c70af172533
 
 كما أنّ المُعاملات كلّها تُمرّر إلى دالة `‎func‎` الأًصلية «كما هي». مثال:
 
@@ -170,8 +174,13 @@ let user = {
 
 let say = user.say.bind(user);
 
+<<<<<<< HEAD
 say("Hello"); // ‫Hello, John!‎ (مُرّر المُعامل "Hello" إلى say)
 say("Bye"); // ‫Bye, John!‎ (مُرّر المعامل "Bye" إلى say)
+=======
+say("Hello"); // Hello, John! ("Hello" argument is passed to say)
+say("Bye"); // Bye, John! ("Bye" is passed to say)
+>>>>>>> 5e893cffce8e2346d4e50926d5148c70af172533
 ```
 
 **تابِع مفيد: `‎bindAll‎`**
@@ -185,8 +194,12 @@ for (let key in user) {
 }
 ```
 
+<<<<<<< HEAD
 JavaScript libraries also provide functions for convenient mass binding , e.g. [\_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll) in lodash.
 
+=======
+JavaScript libraries also provide functions for convenient mass binding , e.g. [_.bindAll(object, methodNames)](https://lodash.com/docs#bindAll) in lodash.
+>>>>>>> 5e893cffce8e2346d4e50926d5148c70af172533
 ````
 
 ## الدوال الجزئية

@@ -8,7 +8,11 @@
 
 يفضل معظم المطورون العمل على متصفِّحي Chrome أو FireFox لاحتوائهما على أفضل أدوات المطوّر. توفر المتصفِّحات الأخرى أيضًا مجموعة أدوات للمطوّر والتي من الممكن أن تحتوي على مزايا خاصة. لكن عادةً ما تحاول اللحاق بمتصفِّحي Chrome و FireFox الأفضل من هذه الناحية. يفضل المطوّرون بشكل عام العمل على متصفِّح واحد وينتقلون إلى متصفِّح آخر عندما تكون المشكلة التي يعملون عليها محدَّدة بهذا المتصفِّح.
 
+<<<<<<< HEAD
 بناءً على ذلك، نجد أنَّ أدوات المطور مهمة للغاية لما تمتلكه من مزايا تساعدك أثناء مسيرتك في تطوير الويب عبر JavaScript. سنتعلم في البداية طريقة فتحها، واستخدامها لاستكشاف الأخطاء، وتشغيل تعليمات JavaScript ضمنها.
+=======
+Developer tools are potent; they have many features. To start, we'll learn how to open them, look at errors, and run JavaScript commands.
+>>>>>>> 5e893cffce8e2346d4e50926d5148c70af172533
 
 أدوات المطور قوية, لديها العديد من الميزات. للبدء, سنتعلم كيفية فتحها ، والنظر في الأخطاء ، وتشغيل أوامر جافا سكريبت.
 
@@ -25,8 +29,12 @@
 
 الآن أصبح بإمكانك استكشاف الأخطاء، وهذا يكفي بداية وسنعود لاحقًا إلى أدوات المطوَر لندرس استكشاف الأخطاء وإصلاحها أو ما يعرف debugging في فصل تنقيح الأخطاء في المتصفِّح Chrome. 
 
+<<<<<<< HEAD
 ## أدوات المطور في متصفحي FireFox و Safari وغيرهما
 تَستخدِم معظم المتصفِّحات الاختصار F12 لفتح أدوات المطوَر. بشكل عام تتشابه هذه الأدوات في الشكل والمضمون. وبمجرد تعلمك العمل على إحدى هذه الأدوات (بإمكانك البدء مع Chrome)، يمكنك بسهولة الانتقال للعمل على الأدوات الأخرى.
+=======
+![chrome](chrome.webp)
+>>>>>>> 5e893cffce8e2346d4e50926d5148c70af172533
 
 ### أدوات المطور في متصفح Safari
 يختلف المتصفِّح Safari (متصفِّح خاص بنظام التشغيل «ماك» وغير مدعوم من قبل «ويندوز» أو «لينكس») في طريقة فتح أدوات المطور. نحتاج في البداية لتفعيل «قائمة المطوّر» (Develop menu). لفعل ذلك، افتح «التفضيلات» (Preferences) ثم اختر قائمة «متقدم» (Advanced). يوجد في الأسفل مربع اختيار لإظهار قائمة المطوَر في شريط القائمة. حدده لتفعيل القائمة:
@@ -44,3 +52,28 @@
 
 ترجمة -وبتصرف- للفصل [Developer Console](https://javascript.info/devtools) من كتاب [The JavaScript Language](https://javascript.info/js)
 
+<<<<<<< HEAD
+=======
+## Firefox, Edge, and others
+
+Most other browsers use `key:F12` to open developer tools.
+
+The look & feel of them is quite similar. Once you know how to use one of these tools (you can start with Chrome), you can easily switch to another.
+
+## Safari
+
+Safari (Mac browser, not supported by Windows/Linux) is a little bit special here. We need to enable the "Develop menu" first.
+
+Open Settings and go to the "Advanced" pane. There's a checkbox at the bottom:
+
+![safari](safari.png)
+
+Now `key:Cmd+Opt+C` can toggle the console. Also, note that the new top menu item named "Develop" has appeared. It has many commands and options.
+
+## Summary
+
+- Developer tools allow us to see errors, run commands, examine variables, and much more.
+- They can be opened with `key:F12` for most browsers on Windows. Chrome for Mac needs `key:Cmd+Opt+J`, Safari: `key:Cmd+Opt+C` (need to enable first).
+
+Now we have the environment ready. In the next section, we'll get down to JavaScript.
+>>>>>>> 5e893cffce8e2346d4e50926d5148c70af172533

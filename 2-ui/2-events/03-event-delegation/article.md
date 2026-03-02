@@ -1,7 +1,11 @@
 
 # تفويض الحدث
 
+<<<<<<< HEAD
 يسمح لنا التقاط والتدفق بتنفيذ أحد أنماط معالجة الأحداث الأكثر قوة المسمى *تفويض الحدث*.
+=======
+Capturing and bubbling allow us to implement one of the most powerful event handling patterns called *event delegation*.
+>>>>>>> ff804bc19351b72bc5df7766f4b9eb8249a3cb11
 
 الفكرة هي أنه إذا كان لدينا الكثير من العناصر المعالجة بطريقة مماثلة ، فبدلاً من تعيين معالج لكل منها - نضع معالجًا واحدًا على سلفهم المشترك.
 

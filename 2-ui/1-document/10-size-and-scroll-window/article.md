@@ -77,7 +77,17 @@ alert('Current scroll from the left: ' + window.pageXOffset);
 
 هذه الخصائص للقراءة فقط.
 
+<<<<<<< HEAD
 ## التمرير: التمرير إلى التمرير التمرير التمرير العرضي [# window-تمرير]
+=======
+```smart header="Also available as `window` properties `scrollX` and `scrollY`"
+For historical reasons, both properties exist, but they are the same:
+- `window.pageXOffset` is an alias of `window.scrollX`.
+- `window.pageYOffset` is an alias of `window.scrollY`.
+```
+
+## Scrolling: scrollTo, scrollBy, scrollIntoView [#window-scroll]
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 ```warn
 To scroll the page with JavaScript, its DOM must be fully built.

@@ -2,6 +2,7 @@
 لاحظ التالي:
 
 ```js no-beautify
+<<<<<<< HEAD
 function pow(x,n)  // <- لا مسافات بين المعطيات
 {  // <- القوس المعقوف في سطر جديد وحده
   let result=1;   // <- لا مسافة قبل او بعد = 
@@ -15,6 +16,21 @@ let x=prompt("x?",''), n=prompt("n?",'') // <-- ممكن تقنيا,
 if (n <= 0)  // <- لا مسافات داخل (n <= 0), و يجب ان يكون هنالك سطر فوقه
 {   // <- القوس المعقوف في سطر جديد وحده
   // أدناه - يمكن تقسيم الخطوط الطويلة إلى خطوط متعددة لتحسين القراءة
+=======
+function pow(x,n)  // <- no space between arguments
+{  // <- curly brace on a separate line
+  let result=1;   // <- no spaces before or after =
+  for(let i=0;i<n;i++) {result*=x;}   // <- no spaces
+  // the contents of { ... } should be on a new line
+  return result;
+}
+
+let x=prompt("x?",''), n=prompt("n?",'') // <-- technically possible,
+// but better make it 2 lines, also there's no spaces and missing ;
+if (n<=0)  // <- no spaces inside (n <= 0), and should be extra line above it
+{   // <- curly brace on a separate line
+  // below - long lines can be split into multiple lines for improved readability
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
   alert(`Power ${n} is not supported, please enter an integer number greater than zero`);
 }
 else // <- يمكن أن يكتب على سطر واحد مثل "} else {"

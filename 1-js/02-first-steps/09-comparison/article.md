@@ -4,10 +4,17 @@
 
 : وفي لغة الجافسكريبت تكتب كما يلي 
 
+<<<<<<< HEAD
 - أكبر/أصغر من: <code>a &gt; b</code>, <code>a &lt; b</code>.
 - أكبر/أصغر من او يساوي: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
 - يساوي: `a == b` ، يرجى ملاحظة أن علامة المساواة المزدوجة` = `تعني اختبار المساواة ، في حين أن كلمة واحدة` a = b` تعني  تعيين أو مساواة .
 - لا تساوي. في الرياضيات يكون الترميز <code>&ne;</code> ،لكن في JavaScript تكتب هكذا <code>a != b</code>.
+=======
+- Greater/less than: <code>a &gt; b</code>, <code>a &lt; b</code>.
+- Greater/less than or equals: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
+- Equals: `a == b`, please note the double equality sign `==` means the equality test, while a single one `a = b` means an assignment.
+- Not equals: In maths the notation is <code>&ne;</code>, but in JavaScript it's written as <code>a != b</code>.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 في هذه المقالة سنتعلم المزيد عن الأنواع المختلفة من المقارنات ، وكيف تجعلها JavaScript، بما في ذلك الخصائص المهمة.
 
@@ -210,8 +217,16 @@ alert( undefined == 0 ); // false (3)
 
 ## ملخص
 
+<<<<<<< HEAD
 - ترجع عوامل المقارنة قيمة منطقية.
 - تتم مقارنة السلاسل حرفًا بحرف في ترتيب "القاموس".
 - عند مقارنة القيم من أنواع مختلفة ، يتم تحويلها إلى أرقام (باستثناء التحقق من المساواة الصارم).
 - القيمتان "null" و "undefined" تساوي `==` بعضها البعض ولا تساوي أي قيمة أخرى.
 - كن حذرًا عند استخدام مقارنات مثل `>` أو `<` مع المتغيرات التي يمكن أن تكون أحيانًا `خالية / غير محددة '. يُعد التحقق من "null / undefined" بشكل منفصل فكرة جيدة.
+=======
+- Comparison operators return a boolean value.
+- Strings are compared letter-by-letter in the "dictionary" order.
+- When values of different types are compared, they get converted to numbers (with the exclusion of a strict equality check).
+- The values `null` and `undefined` are equal `==` to themselves and each other, but do not equal any other value.
+- Be careful when using comparisons like `>` or `<` with variables that can occasionally be `null/undefined`. Checking for `null/undefined` separately is a good idea.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e

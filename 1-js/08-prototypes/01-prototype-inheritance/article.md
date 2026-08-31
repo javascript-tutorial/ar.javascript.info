@@ -10,7 +10,7 @@ _الوراثة النموذجية_ (تدعى أيضًا الوراثة عبر �
 
 لكائنات جافا سكريبت خاصية مخفية أخرى باسم `[[Prototype]]` (هذا اسمها في المواصفات القياسية للغة جافا سكريبت)، وهي إمّا أن تكون `null` أو أن تشير إلى كائن آخر. نسمّي هذا الكائن بِـ”prototype“ (نموذج أولي).
 
-When we read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, such thing is called "prototypal inheritance". And soon we'll study many examples of such inheritance, as well as cooler language features built upon it.
+When we read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, this is called "prototypal inheritance". And soon we'll study many examples of such inheritance, as well as cooler language features built upon it.
 
 إن كائن النموذج الأولي ”سحريٌ“ إن صحّ القول، فحين نريد قراءة خاصية من كائن `object` ولا يجدها محرّك جافا سكريبت، يأخذها تلقائيًا من كائن النموذج الأولي لذاك الكائن. يُسمّى هذا في علم البرمجة ”بالوراثة النموذجية“ (‏Prototypal inheritance)، وهناك العديد من المزايا الرائعة في اللغة وفي التقنيات البرمجية مبنية عليها.
 
@@ -52,7 +52,11 @@ alert( rabbit.eats ); // true (**)
 alert( rabbit.jumps ); // true
 ```
 
+<<<<<<< HEAD
 هنا نضبط (في السطر `(*)`) كائن `animal` ليكون النموذج الأولي (Prototype) للكائن `rabbit`.
+=======
+Here the line `(*)` sets `animal` to be the prototype of `rabbit`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 بعدها متى ما حاولت التعليمة `alert` قراءة الخاصية `rabbit.eats` (انظر `(**)`)، ولم يجدها في كائن `rabbit` ستتبع لغة جافا سكريبت الخاصية `[[Prototype]]` لمعرفة ما هو كائن النموذج الأولي لكائن `rabbit`، وسيجده كائن `animal` (البحث من أسفل إلى أعلى):
 
@@ -126,7 +130,13 @@ There are only two limitations:
 
 ومن الواضح جليًا أيضًا أي كائن سيرث كائن `[[Prototype]]` واحد وواحد فقط، لا يمكن للكائن وراثة كائنين.
 
+<<<<<<< HEAD
 ```smart header="`**proto**`is a historical getter/setter for`[[Prototype]]`"
+=======
+Also it may be obvious, but still: there can be only one `[[Prototype]]`. An object may not inherit from two others.
+
+```smart header="`__proto__` is a historical getter/setter for `[[Prototype]]`"
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 It's a common mistake of novice developers not to know the difference between these two.
 
 Please note that `__proto__` is _not the same_ as the internal `[[Prototype]]` property. It's a getter/setter for `[[Prototype]]`. Later we'll see situations where it matters, for now let's just keep it in mind, as we build our understanding of JavaScript language.
@@ -281,7 +291,11 @@ for(let prop in rabbit) alert(prop); // jumps, then eats
 */!*
 ```
 
+<<<<<<< HEAD
 لو لم تكن هذه النتيجة ما نريد (أي نريد استثناء الخاصيات الموروثة)، فيمكن استعمال التابِع [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty) المضمّن في اللغة: إذ يُعيد `true` لو كان للكائن `obj` نفسه (وليس للموروث منه) خاصية بالاسم `key`.
+=======
+If that's not what we want, and we'd like to exclude inherited properties, there's a built-in method [obj.hasOwnProperty(key)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty): it returns `true` if `obj` has its own (not inherited) property named `key`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 بهذا يمكننا ترشيح الخاصيات الموروثة (ونتعامل معها على حدة):
 

@@ -24,7 +24,7 @@ var gVar = 5;
 alert(window.gVar); // ‫5 (تصير خاصية من خاصيات الكائن العمومي)
 ```
 
-The same effect have function declarations (statements with `function` keyword in the main code flow, not function expressions).
+Function declarations have the same effect (statements with `function` keyword in the main code flow, not function expressions).
 
 Please don't rely on that! This behavior exists for compatibility reasons. Modern scripts use [JavaScript modules](info:modules) where such a thing doesn't happen.
 

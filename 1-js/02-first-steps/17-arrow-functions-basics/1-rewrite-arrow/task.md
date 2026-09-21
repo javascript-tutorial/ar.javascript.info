@@ -4,8 +4,13 @@
 
 ```js run
 function ask(question, yes, no) {
+<<<<<<< HEAD
     if (confirm(question)) yes();
     else no();
+=======
+  if (confirm(question)) yes();
+  else no();
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 }
 
 ask(

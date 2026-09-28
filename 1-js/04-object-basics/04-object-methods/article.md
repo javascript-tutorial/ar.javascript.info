@@ -50,7 +50,7 @@ let user = {
 //  أولا، نعرف دالة
 function sayHi() {
   alert("Hello!");
-};
+}
 
 // أضِف الدالة للخاصية لإنشاء تابع
 user.sayHi = sayHi;
@@ -80,7 +80,7 @@ user = {
 // يبدو شكل الدالة المختصر أفضل، أليس كذلك؟
 user = {
 *!*
-  sayHi() { // same as "sayHi: function()"
+  sayHi() { // same as "sayHi: function(){...}"
 */!*
     alert("Hello");
   }
@@ -89,7 +89,11 @@ user = {
 
 يمكننا حذف الكلمة  `"function"` وكتابة `sayHi()‎ ` كما هو موضح. حقيقةً، التعبيرين ليسا متطابقين تمامًا، يوجد اختلافات خفية متعلقة بالوراثة في الكائنات (سيتم شرحها لاحقًا)، لكن لا يوجد مشكلة الآن. يفضل استخدام الصياغة الأقصر في كل الحالات تقريبًا.
 
+<<<<<<< HEAD
 ## الكلمة "this" في الدوال
+=======
+To tell the truth, the notations are not fully identical. There are subtle differences related to object inheritance (to be covered later), but for now they do not matter. In almost all cases, the shorter syntax is preferred.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 من المتعارف أن الدوال تحتاج للوصول إلى المعلومات المخزنة في الكائن لِتنفذ عملها. مثلًا، قد تحتاج الشيفرة التي بداخل `user.sayHi()‎` لِاسم المستخدم `user`. هنا،
 

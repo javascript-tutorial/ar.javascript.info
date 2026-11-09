@@ -49,8 +49,15 @@ _`new Date(datestring)‎`_
 
 نجد في هذا المثال أن الوقت غير محدد لذا يكون بتوقيت GMT منتصف الليل، ويحدد وفقًا للمنطقة الزمنية التي تنفذ الشيفرة ضمنها، فالنتيجة يمكن أن تكون Thu Jan 26 2017 11:00:00 للبلدان ذات المنطقة الزمنية GMT+1100 أو يمكن أن تكون Wed Jan 25 2017 16:00:00 للبلدان الواقعة في المنطقة الزمنية GMT-0800.
 
+<<<<<<< HEAD
 _`new Date(year, month, date, hours, minutes, seconds, ms)‎`_
 يُنشئ تاريخًا بالمكوّنات الممرّرة حسب المنطقة الزمنية المحلية. أوّل وسيطين إلزاميين أما البقية اختيارية.
+=======
+    - The `year` should have 4 digits. For compatibility, 2 digits are also accepted and considered `19xx`, e.g. `98` is the same as `1998` here, but always using 4 digits is strongly encouraged.
+    - The `month` count starts with `0` (Jan), up to `11` (Dec).
+    - The `date` parameter is actually the day of month, if absent then `1` is assumed.
+    - If `hours/minutes/seconds/ms` is absent, they are assumed to be equal `0`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 يجب أن يكون العام `year` بأربع خانات: `2013` صح، `98` خطأ.
 يبدأ الشهر `month` بالرقم `0` (يناير) وينتهي بالعدد `11` (ديسمبر).
@@ -318,7 +325,12 @@ function bench(f) {
 let time1 = 0;
 let time2 = 0;
 
+<<<<<<< HEAD
 // ‫نشغّل bench(upperSlice)‎ وbench(upperLoop)‎ عشر مرات مرّة بمرّة
+=======
+*!*
+// run bench(diffSubtract) and bench(diffGetTime) each 10 times alternating
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 for (let i = 0; i < 10; i++) {
   time1 += bench(diffSubtract);
   time2 += bench(diffGetTime);
@@ -344,7 +356,12 @@ for (let i = 0; i < 10; i++) {
 
 **الزم الحذر متى ما أجريت قياسات أداء على المستوى الذرّي**.
 
+<<<<<<< HEAD
 تُنفّذ محرّكات جافا سكريبت الحديثة عددًا كبيرًا من التحسينات، وقد تُغيّر نتائج ”الاختبارات الصناعية“ موازنةً ”بالاستعمال الطبيعي لها“، خصوصًا حين نقيس أداء ما هو صغير للغاية مثل طريقة عمل مُعامل رياضي، أو دالة مضمّنة في اللغة نفسها. لهذا، لو كنت تريد حقًا فهم الأداء كما يجب، فمن فضلك تعلّم طريقة عمل محرّك جافا سكريبت. حينها ربّما لن تحتاج هذه القياسات على المستوى الذرّي، أبدًا.
+=======
+The great pack of articles about V8 can be found at <https://mrale.ph>.
+```
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 يمكنك أن تقرأ بعض المقالات الرائعة حول V8 هنا [http://mrale.ph](mrale.ph).
 

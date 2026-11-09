@@ -29,7 +29,13 @@ Asynchronous tasks need proper management. For that, the ECMA standard specifies
 - قائمة الانتظار هي أول ما يخرج أولاً: يتم تنفيذ المهام المحددة أولاً.
 - يبدأ تنفيذ المهمة فقط في حالة عدم تشغيل أي شيء آخر.
 
+<<<<<<< HEAD
 أو ، ببساطة ، عندما يكون الوعد جاهزًا ، يتم وضع معالجات "then / catch / وأخيرا" في قائمة الانتظار ؛ لم يتم إعدامهم بعد. عندما يصبح محرك JavaScript خاليًا من التعليمات البرمجية الحالية ، فإنه يأخذ مهمة من قائمة الانتظار وينفذها.
+=======
+Or, to put it more simply, when a promise is ready, its `.then/catch/finally` handlers are put into the queue; they are not executed yet. When the JavaScript engine becomes free from the current code, it takes a task from the queue and executes it.
+
+That's why "code finished" in the example above shows first.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 هذا هو السبب في أن "الرمز انتهى" في المثال أعلاه يظهر أولاً.
 ![](promiseQueue.svg)
@@ -38,7 +44,11 @@ Asynchronous tasks need proper management. For that, the ECMA standard specifies
 
 إذا كانت هناك سلسلة تحتوي على عدة ".then / catch / أخيرا" ، فسيتم تنفيذ كل واحد منها بشكل غير متزامن. أي أنه يتم وضعه في قائمة الانتظار أولاً ، ثم يتم تنفيذه عند اكتمال الرمز الحالي والانتهاء من معالجات قائمة الانتظار السابقة.
 
+<<<<<<< HEAD
 ** ماذا لو كان الأمر يهمنا؟ كيف يمكننا أن نجعل "الشفرة منتهية" تعمل بعد "الوعد"؟ **
+=======
+**What if the order matters for us? How can we make `code finished` appear after `promise done`?**
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 سهل ، ما عليك سوى وضعها في قائمة الانتظار باستخدام ".then`:
 
